@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Button, Radio, message, Divider, Typography, Input } from 'antd';
-import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined } from '@ant-design/icons';
-import CryptoJS from 'crypto-js';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Space } from 'antd';
+import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
+import { calculateKCV, isValidHex, cleanHexInput } from '../utils/crypto';
 
 const { Title, Text } = Typography;
 
@@ -10,49 +10,37 @@ const KCVCalculator: React.FC = () => {
   const { t } = useLanguage();
   const [keyInput, setKeyInput] = useState('');
   const [algorithm, setAlgorithm] = useState<'DES' | 'AES'>('AES');
+  const [adjustParity, setAdjustParity] = useState(false);
   const [kcvResult, setKcvResult] = useState('');
   const [error, setError] = useState('');
 
-  const calculateKCV = () => {
+  const performCalculation = () => {
     setError('');
     setKcvResult('');
 
-    const cleanKey = keyInput.replace(/\s/g, '').toUpperCase();
+    const cleanKey = cleanHexInput(keyInput);
 
-    if (!/^[0-9A-F]+$/i.test(cleanKey)) {
+    if (!isValidHex(cleanKey)) {
       setError(t.kcvCalculator.errorInvalidHex);
       return;
     }
 
+    const keyBytes = cleanKey.length / 2;
+    
+    if (algorithm === 'DES' && ![8, 16, 24].includes(keyBytes)) {
+      setError(t.kcvCalculator.errorDesLength);
+      return;
+    }
+    if (algorithm === 'AES' && ![16, 24, 32].includes(keyBytes)) {
+      setError(t.kcvCalculator.errorAesLength);
+      return;
+    }
+
     try {
-      const keyBytes = cleanKey.length / 2;
-      
-      if (algorithm === 'DES' && ![8, 16, 24].includes(keyBytes)) {
-        setError(t.kcvCalculator.errorDesLength);
-        return;
-      }
-      if (algorithm === 'AES' && ![16, 24, 32].includes(keyBytes)) {
-        setError(t.kcvCalculator.errorAesLength);
-        return;
-      }
-
-      const key = CryptoJS.enc.Hex.parse(cleanKey);
-      const zero = CryptoJS.enc.Hex.parse('0000000000000000');
-
-      let encrypted;
-      if (algorithm === 'AES') {
-        encrypted = CryptoJS.AES.encrypt(zero, key, {
-          mode: CryptoJS.mode.ECB,
-          padding: CryptoJS.pad.NoPadding
-        });
-      } else {
-        encrypted = CryptoJS.TripleDES.encrypt(zero, key, {
-          mode: CryptoJS.mode.ECB,
-          padding: CryptoJS.pad.NoPadding
-        });
-      }
-
-      const kcv = encrypted.ciphertext.toString().toUpperCase().substring(0, 6);
+      const kcv = calculateKCV(cleanKey, { 
+        algorithm, 
+        adjustParity: algorithm === 'DES' ? adjustParity : false 
+      });
       setKcvResult(kcv);
     } catch (err) {
       setError(t.kcvCalculator.errorCalculation);
@@ -77,18 +65,21 @@ const KCVCalculator: React.FC = () => {
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.kcvCalculator.algorithm}:
               </Text>
-              <Radio.Group 
-                value={algorithm} 
-                onChange={e => setAlgorithm(e.target.value)}
-                buttonStyle="solid"
-              >
-                <Radio.Button value="AES">AES</Radio.Button>
-                <Radio.Button value="DES">DES/3DES</Radio.Button>
-              </Radio.Group>
+              <Segmented
+                value={algorithm}
+                onChange={(value) => setAlgorithm(value as 'DES' | 'AES')}
+                options={[
+                  { label: 'AES', value: 'AES' },
+                  { label: 'DES/3DES', value: 'DES' }
+                ]}
+                block
+                size="large"
+              />
             </div>
 
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
+                <NumberOutlined style={{ marginRight: 8, color: '#1677ff' }} />
                 {t.kcvCalculator.keyInput}:
               </Text>
               <Input.TextArea
@@ -96,14 +87,35 @@ const KCVCalculator: React.FC = () => {
                 onChange={e => setKeyInput(e.target.value)}
                 placeholder={t.kcvCalculator.keyPlaceholder}
                 autoSize={{ minRows: 2, maxRows: 4 }}
-                style={{ fontFamily: 'monospace' }}
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
               />
             </div>
+
+            {algorithm === 'DES' && (
+              <div>
+                <Checkbox 
+                  checked={adjustParity}
+                  onChange={e => setAdjustParity(e.target.checked)}
+                >
+                  <Space>
+                    <Text>自动修正奇偶校验位</Text>
+                    <Text type="secondary" style={{ fontSize: '12px' }}>
+                      (Parity Adjustment)
+                    </Text>
+                  </Space>
+                </Checkbox>
+                <div style={{ marginTop: 4, marginLeft: 24 }}>
+                  <Text type="secondary" style={{ fontSize: '11px' }}>
+                    某些密钥可能未设置正确的奇偶校验位，勾选此项可自动修正
+                  </Text>
+                </div>
+              </div>
+            )}
 
             <Button 
               type="primary" 
               icon={<CalculatorOutlined />}
-              onClick={calculateKCV}
+              onClick={performCalculation}
               size="large"
               block
             >
@@ -142,7 +154,7 @@ const KCVCalculator: React.FC = () => {
                 {t.kcvCalculator.keyCheckValue}
               </Text>
               <div style={{
-                fontFamily: 'monospace',
+                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: 'clamp(20px, 5vw, 28px)',
                 letterSpacing: '3px',
                 color: '#52c41a',

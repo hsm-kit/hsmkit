@@ -10,7 +10,7 @@ const LanguageSwitcher: React.FC = () => {
     <Select
       value={language}
       onChange={(value) => setLanguage(value)}
-      style={{ width: 110, minWidth: 100 }}
+      style={{ width: 95 }}
       bordered={false}
       suffixIcon={<GlobalOutlined />}
       options={[
@@ -21,7 +21,9 @@ const LanguageSwitcher: React.FC = () => {
         { value: 'de', label: 'Deutsch' },
         { value: 'fr', label: 'Français' },
       ]}
-      dropdownStyle={{ minWidth: 140 }}
+      popupMatchSelectWidth={false}
+      dropdownStyle={{ minWidth: 110 }}
+      className="language-switcher"
     />
   );
 };

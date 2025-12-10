@@ -37,6 +37,50 @@ export default {
     generatedKey: 'GENERATED KEY (HEX)',
     kcv: 'KCV',
     length: 'Length',
+    
+    // Tabs
+    tabKeyGen: 'Key Generator',
+    tabCombination: 'Key Combination',
+    tabParity: 'Parity Enforcement',
+    tabValidation: 'Key Validation',
+    
+    // Key Combination
+    combinationTitle: 'Key Component Combination',
+    combinationDesc: 'XOR multiple key components to form a complete key',
+    component: 'Component',
+    components: 'components',
+    combinedKey: 'Combined Key',
+    addComponent: 'Add Component',
+    removeComponent: 'Remove Component',
+    combineKeys: 'Combine Keys',
+    errorInvalidComponent: 'Component {index} is invalid',
+    errorComponentLength: 'All components must have the same length',
+    errorComponentLength2: 'Length must be',
+    errorMinComponents: 'At least 2 components required',
+    errorMaxComponents: 'Maximum 9 components allowed',
+    clearAll: 'Clear All',
+    
+    // Parity Enforcement
+    parityTitle: 'Key Parity Adjustment',
+    parityDesc: 'Adjust parity bits for DES/3DES keys',
+    keyInput: 'Key Input',
+    keyInputPlaceholder: 'Enter hexadecimal key',
+    parityType: 'Parity Type',
+    odd: 'Odd',
+    even: 'Even',
+    adjustParity: 'Adjust Parity',
+    adjustedKey: 'Adjusted Key',
+    
+    // Key Validation
+    validationTitle: 'Key Validity Check',
+    validationDesc: 'Check key format, length and parity',
+    validateKey: 'Validate Key',
+    validKey: 'Valid Key',
+    invalidKey: 'Invalid Key',
+    keyType: 'Key Type',
+    parityStatus: 'Parity Status',
+    parityValid: 'Valid',
+    parityInvalid: 'Invalid',
   },
   
   kcvCalculator: {

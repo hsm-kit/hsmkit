@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Card, Button, Divider, Tag, Typography, Input } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Button, Divider, Tag, Typography, Input, Alert } from 'antd';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
+import { parseTR31KeyBlock, validateTR31Header } from '../utils/crypto';
 
 const { Title, Text } = Typography;
 
@@ -10,68 +11,47 @@ const TR31Analyzer: React.FC = () => {
   const [keyBlock, setKeyBlock] = useState('');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
+  const [validationError, setValidationError] = useState('');
+  const [inputStatus, setInputStatus] = useState<'' | 'error' | 'warning'>('');
 
-  const parseKeyBlock = () => {
-    setError('');
-    setResult(null);
-
-    const clean = keyBlock.replace(/\s/g, '').toUpperCase();
-
-    if (clean.length < 16) {
-      setError(t.tr31.errorTooShort);
+  // 即时校验
+  useEffect(() => {
+    if (!keyBlock) {
+      setValidationError('');
+      setInputStatus('');
       return;
     }
 
+    const validation = validateTR31Header(keyBlock);
+    if (!validation.valid) {
+      setValidationError(validation.error || '');
+      setInputStatus('error');
+    } else {
+      setValidationError('');
+      setInputStatus('');
+    }
+  }, [keyBlock]);
+
+  const performParsing = () => {
+    setError('');
+    setResult(null);
+
     try {
-      const version = clean[0];
-      const length = parseInt(clean.substring(1, 5), 10);
-      const keyUsage = clean.substring(5, 7);
-      const algorithm = clean[7];
-      const mode = clean[8];
-      const keyVersion = clean.substring(9, 11);
-      const exportability = clean[11];
-
-      const keyUsageMap: Record<string, string> = {
-        'B0': 'BDK - Base Derivation Key',
-        'D0': 'Data Encryption',
-        'D1': 'Asymmetric Data',
-        'K0': 'KEK - Key Encryption',
-        'K1': 'TR-31 KBPK',
-        'M0': 'MAC Generation',
-        'M1': 'ISO 16609 MAC',
-        'P0': 'PIN Encryption',
-        'V0': 'PIN Verification (KPV)',
-        'V1': 'CVV/CSC Verification',
-        'S0': 'Signature Key'
-      };
-
-      const algorithmMap: Record<string, string> = {
-        'D': 'DES',
-        'T': '3DES',
-        'A': 'AES',
-        'R': 'RSA',
-        'E': 'ECC'
-      };
-
+      const parsed = parseTR31KeyBlock(keyBlock);
+      
+      // 添加 exportability 的翻译映射
       const exportMap: Record<string, string> = {
         'E': t.tr31.exportable,
         'N': t.tr31.nonExportable,
         'S': t.tr31.sensitive
       };
-
+      
       setResult({
-        version: version === 'B' ? 'Version B (Baseline)' : version === 'C' ? 'Version C' : version === 'D' ? 'Version D' : 'Unknown',
-        length,
-        keyUsage: keyUsageMap[keyUsage] || keyUsage,
-        algorithm: algorithmMap[algorithm] || algorithm,
-        mode: mode === 'B' ? 'CBC' : mode === 'E' ? 'ECB' : mode,
-        keyVersion,
-        exportability: exportMap[exportability] || exportability,
-        header: clean.substring(0, 16),
-        raw: clean
+        ...parsed,
+        exportability: exportMap[parsed.exportability] || parsed.exportability
       });
     } catch (err) {
-      setError(t.tr31.errorParsing);
+      setError(err instanceof Error ? err.message : t.tr31.errorParsing);
     }
   };
 
@@ -98,16 +78,32 @@ const TR31Analyzer: React.FC = () => {
                 onChange={e => setKeyBlock(e.target.value)}
                 placeholder={t.tr31.keyBlockPlaceholder}
                 autoSize={{ minRows: 3, maxRows: 6 }}
-                style={{ fontFamily: 'monospace', fontSize: '14px' }}
+                status={inputStatus}
+                style={{ 
+                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
+                  fontSize: '14px' 
+                }}
               />
+              {validationError && (
+                <Alert
+                  message={validationError}
+                  type="error"
+                  showIcon
+                  style={{ marginTop: 8, fontSize: '12px' }}
+                />
+              )}
+              <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
+                TR-31 Key Block 格式（如：B0112P0TE00N...），系统会自动校验格式
+              </Text>
             </div>
 
             <Button 
               type="primary"
               icon={<SafetyCertificateOutlined />}
-              onClick={parseKeyBlock}
+              onClick={performParsing}
               size="large"
               block
+              disabled={!!validationError}
             >
               {t.tr31.parseKeyBlock}
             </Button>
@@ -132,7 +128,7 @@ const TR31Analyzer: React.FC = () => {
                   {t.tr31.header}
                 </Text>
                 <div style={{
-                  fontFamily: 'monospace',
+                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                   fontSize: '16px',
                   color: '#1677ff',
                   background: '#f5f7fa',

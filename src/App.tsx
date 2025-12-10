@@ -18,9 +18,10 @@ const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
 
 const contentStyle: React.CSSProperties = {
-  maxWidth: '1000px',
+  maxWidth: '1200px',
   margin: '0 auto',
-  padding: '16px',
+  padding: '24px',
+  width: '100%',
 };
 
 const App: React.FC = () => {

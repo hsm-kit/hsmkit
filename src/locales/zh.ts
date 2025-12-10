@@ -37,6 +37,50 @@ export default {
     generatedKey: '生成的密钥（十六进制）',
     kcv: 'KCV',
     length: '长度',
+    
+    // 标签页
+    tabKeyGen: '密钥生成',
+    tabCombination: '密钥合成',
+    tabParity: '奇偶校验',
+    tabValidation: '密钥校验',
+    
+    // 密钥合成
+    combinationTitle: '密钥分量合成',
+    combinationDesc: '将多个密钥分量 XOR 合成为完整密钥',
+    component: '分量',
+    components: '个分量',
+    combinedKey: '合成密钥',
+    addComponent: '添加分量',
+    removeComponent: '移除分量',
+    combineKeys: '合成密钥',
+    errorInvalidComponent: '分量 {index} 格式无效',
+    errorComponentLength: '所有分量长度必须相同',
+    errorComponentLength2: '长度必须是',
+    errorMinComponents: '至少需要 2 个分量',
+    errorMaxComponents: '最多支持 9 个分量',
+    clearAll: '清空',
+    
+    // 奇偶校验
+    parityTitle: '密钥奇偶校验调整',
+    parityDesc: '调整 DES/3DES 密钥的奇偶校验位',
+    keyInput: '密钥输入',
+    keyInputPlaceholder: '输入十六进制密钥',
+    parityType: '校验类型',
+    odd: '奇校验',
+    even: '偶校验',
+    adjustParity: '调整奇偶位',
+    adjustedKey: '调整后的密钥',
+    
+    // 密钥校验
+    validationTitle: '密钥有效性校验',
+    validationDesc: '检查密钥的格式、长度和奇偶校验',
+    validateKey: '校验密钥',
+    validKey: '密钥有效',
+    invalidKey: '密钥无效',
+    keyType: '密钥类型',
+    parityStatus: '奇偶校验状态',
+    parityValid: '有效',
+    parityInvalid: '无效',
   },
   
   kcvCalculator: {

@@ -140,3 +140,16 @@ button, a {
     padding: 16px;
   }
 }
+
+/* 9. Segmented 控件文字居中 */
+.ant-segmented .ant-segmented-item-label {
+  text-align: center;
+}
+
+/* 10. 语言选择器间距优化 */
+.language-switcher .ant-select-selector {
+  padding-right: 24px !important;
+}
+.language-switcher .ant-select-arrow {
+  right: 4px;
+}

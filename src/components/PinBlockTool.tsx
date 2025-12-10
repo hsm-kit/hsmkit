@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Radio, message, Divider, Tag, Typography, Input } from 'antd';
-import { KeyOutlined, CopyOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
+import { KeyOutlined, CopyOutlined, AppstoreOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
+import { generatePinBlock } from '../utils/crypto';
+import { sanitizeDigits, formatHexDisplay } from '../utils/format';
 
 const { Title, Text } = Typography;
 
@@ -13,7 +15,7 @@ const PinBlockTool: React.FC = () => {
   const [pinBlock, setPinBlock] = useState('');
   const [error, setError] = useState('');
 
-  const generatePinBlock = () => {
+  const performGeneration = () => {
     setError('');
     setPinBlock('');
 
@@ -29,24 +31,10 @@ const PinBlockTool: React.FC = () => {
     }
 
     try {
-      if (format === 'ISO0') {
-        const pinLength = pin.length.toString(16).toUpperCase();
-        const pinPart = (pinLength + pin).padEnd(16, 'F');
-        const panPart = ('0000' + cleanPan.slice(-13, -1)).slice(-16);
-        
-        let result = '';
-        for (let i = 0; i < 16; i++) {
-          const a = parseInt(pinPart[i], 16);
-          const b = parseInt(panPart[i], 16);
-          result += (a ^ b).toString(16).toUpperCase();
-        }
-        
-        setPinBlock(result);
-      } else {
-        setError(t.pinBlock.errorFormat1);
-      }
+      const result = generatePinBlock({ format, pin, pan: cleanPan });
+      setPinBlock(result);
     } catch (err) {
-      setError(t.pinBlock.errorGeneration);
+      setError(err instanceof Error ? err.message : t.pinBlock.errorGeneration);
     }
   };
 
@@ -68,14 +56,16 @@ const PinBlockTool: React.FC = () => {
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.pinBlock.format}:
               </Text>
-              <Radio.Group 
+              <Segmented
                 value={format}
-                onChange={e => setFormat(e.target.value)}
-                buttonStyle="solid"
-              >
-                <Radio.Button value="ISO0">ISO Format 0</Radio.Button>
-                <Radio.Button value="ISO1" disabled>ISO Format 1</Radio.Button>
-              </Radio.Group>
+                onChange={(value) => setFormat(value as 'ISO0' | 'ISO1')}
+                options={[
+                  { label: 'ISO Format 0', value: 'ISO0' },
+                  { label: 'ISO Format 1', value: 'ISO1', disabled: true }
+                ]}
+                block
+                size="large"
+              />
             </div>
 
             <div>
@@ -84,11 +74,16 @@ const PinBlockTool: React.FC = () => {
               </Text>
               <Input
                 value={pin}
-                onChange={e => setPin(e.target.value.replace(/\D/g, ''))}
+                onChange={e => setPin(sanitizeDigits(e.target.value))}
                 placeholder={t.pinBlock.pinPlaceholder}
                 maxLength={12}
-                style={{ fontFamily: 'monospace', fontSize: '16px' }}
+                prefix={<NumberOutlined style={{ color: '#bfbfbf' }} />}
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                size="large"
               />
+              <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
+                支持 4-12 位 PIN 码
+              </Text>
             </div>
 
             <div>
@@ -97,17 +92,22 @@ const PinBlockTool: React.FC = () => {
               </Text>
               <Input
                 value={pan}
-                onChange={e => setPan(e.target.value.replace(/\D/g, ''))}
+                onChange={e => setPan(sanitizeDigits(e.target.value))}
                 placeholder={t.pinBlock.panPlaceholder}
                 maxLength={19}
-                style={{ fontFamily: 'monospace' }}
+                prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                size="large"
               />
+              <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
+                请输入完整卡号（13-19 位），系统会自动提取最右 12 位（不含校验位）
+              </Text>
             </div>
 
             <Button 
               type="primary"
               icon={<AppstoreOutlined />}
-              onClick={generatePinBlock}
+              onClick={performGeneration}
               size="large"
               block
             >
@@ -146,7 +146,7 @@ const PinBlockTool: React.FC = () => {
                 {t.pinBlock.pinBlockHex}
               </Text>
               <div style={{
-                fontFamily: 'monospace',
+                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: 'clamp(18px, 4vw, 24px)',
                 letterSpacing: '2px',
                 color: '#1677ff',
@@ -154,7 +154,7 @@ const PinBlockTool: React.FC = () => {
                 wordBreak: 'break-all',
                 lineHeight: '1.6'
               }}>
-                {pinBlock.match(/.{1,4}/g)?.join(' ')}
+                {formatHexDisplay(pinBlock)}
               </div>
               
               <Divider style={{ margin: '12px 0' }} />
