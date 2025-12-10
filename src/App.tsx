@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Layout, Menu, Typography, Card, Button, 
-  Radio, Space, Input, message, Divider, Tag 
+  Radio, Space, message, Divider, Tag 
 } from 'antd';
 import { 
   KeyOutlined, 
@@ -15,7 +15,6 @@ import CryptoJS from 'crypto-js';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Text } = Typography;
-const { TextArea } = Input;
 
 // --- 样式配置 ---
 const contentStyle: React.CSSProperties = {
