@@ -1,0 +1,99 @@
+// Korean translations
+export default {
+  common: {
+    copy: '복사',
+    generate: '생성',
+    calculate: '계산',
+    parse: '구문 분석',
+    copied: '클립보드에 복사되었습니다!',
+    error: '오류',
+    result: '결과',
+    loading: '로딩 중...',
+  },
+  
+  header: {
+    title: 'HSM Kit',
+    github: 'GitHub',
+  },
+  
+  menu: {
+    keyGenerator: '키 생성',
+    tr31: 'TR-31',
+    kcv: 'KCV 계산',
+    pinBlock: 'PIN 블록',
+  },
+  
+  footer: {
+    copyright: 'HSMKit.com ©2025 | 안전한 클라이언트 측 계산',
+  },
+  
+  keyGenerator: {
+    title: '랜덤 키 생성기',
+    description: 'DES, 3DES 또는 AES용 암호학적으로 강력한 랜덤 키를 생성합니다.',
+    keyLength: '키 길이',
+    bytes: '바이트',
+    bits: '비트',
+    generateNow: '지금 생성',
+    generatedKey: '생성된 키 (16진수)',
+    kcv: 'KCV',
+    length: '길이',
+  },
+  
+  kcvCalculator: {
+    title: 'KCV 계산기',
+    description: '키 확인 값을 계산하여 키의 정확성을 검증합니다.',
+    algorithm: '알고리즘',
+    keyInput: '키 (16진수)',
+    keyPlaceholder: '예: 0123456789ABCDEFFEDCBA9876543210',
+    calculateKCV: 'KCV 계산',
+    keyCheckValue: '키 확인 값',
+    errorInvalidHex: '키는 유효한 16진수 문자여야 합니다',
+    errorDesLength: 'DES/3DES 키 길이는 8, 16 또는 24바이트여야 합니다',
+    errorAesLength: 'AES 키 길이는 16, 24 또는 32바이트여야 합니다',
+    errorCalculation: '계산에 실패했습니다. 키 형식을 확인하세요',
+    format: '형식',
+  },
+  
+  pinBlock: {
+    title: 'PIN 블록 생성기',
+    description: '결제 거래용 ISO 형식 PIN 블록을 생성합니다.',
+    format: 'PIN 블록 형식',
+    pinLabel: 'PIN (4-12자리)',
+    pinPlaceholder: '예: 1234',
+    panLabel: 'PAN (기본 계좌 번호)',
+    panPlaceholder: '예: 4111111111111111',
+    generatePinBlock: 'PIN 블록 생성',
+    pinBlockHex: 'PIN 블록 (16진수)',
+    errorInvalidPin: 'PIN은 4-12자리 숫자여야 합니다',
+    errorInvalidPan: 'PAN은 13-19자리 숫자여야 합니다',
+    errorGeneration: '생성에 실패했습니다. 입력을 확인하세요',
+    errorFormat1: 'ISO Format 1은 곧 출시됩니다...',
+  },
+  
+  tr31: {
+    title: 'TR-31 키 블록 분석기',
+    description: 'TR-31 형식 키 블록을 구문 분석하고 분석합니다 (ANSI X9.143 표준).',
+    keyBlock: 'TR-31 키 블록',
+    keyBlockPlaceholder: '예: B0112P0TE00N0000...',
+    parseKeyBlock: '키 블록 구문 분석',
+    header: '키 블록 헤더',
+    version: '버전',
+    keyLength: '길이',
+    keyUsage: '키 용도',
+    mode: '모드',
+    keyVersion: '키 버전',
+    exportability: '내보내기 가능성',
+    characters: '문자',
+    errorTooShort: 'TR-31 키 블록 길이가 부족합니다',
+    errorParsing: '구문 분석에 실패했습니다. TR-31 형식을 확인하세요',
+    exportable: '내보내기 가능',
+    nonExportable: '내보내기 불가',
+    sensitive: '민감함',
+  },
+  
+  placeholder: {
+    title: '출시 예정',
+    description: '이 도구는 개발 중입니다. 기대해 주세요!',
+  },
+};
+

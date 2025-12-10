@@ -1,0 +1,99 @@
+// Japanese translations
+export default {
+  common: {
+    copy: 'コピー',
+    generate: '生成',
+    calculate: '計算',
+    parse: '解析',
+    copied: 'クリップボードにコピーしました！',
+    error: 'エラー',
+    result: '結果',
+    loading: '読み込み中...',
+  },
+  
+  header: {
+    title: 'HSM Kit',
+    github: 'GitHub',
+  },
+  
+  menu: {
+    keyGenerator: 'キー生成',
+    tr31: 'TR-31',
+    kcv: 'KCV計算',
+    pinBlock: 'PINブロック',
+  },
+  
+  footer: {
+    copyright: 'HSMKit.com ©2025 | セキュアなクライアント側計算',
+  },
+  
+  keyGenerator: {
+    title: 'ランダムキージェネレーター',
+    description: 'DES、3DES、またはAESの暗号学的に強力なランダムキーを生成します。',
+    keyLength: 'キーの長さ',
+    bytes: 'バイト',
+    bits: 'ビット',
+    generateNow: '今すぐ生成',
+    generatedKey: '生成されたキー（16進数）',
+    kcv: 'KCV',
+    length: '長さ',
+  },
+  
+  kcvCalculator: {
+    title: 'KCV計算機',
+    description: 'キーチェック値を計算してキーの正確性を検証します。',
+    algorithm: 'アルゴリズム',
+    keyInput: 'キー（16進数）',
+    keyPlaceholder: '例: 0123456789ABCDEFFEDCBA9876543210',
+    calculateKCV: 'KCVを計算',
+    keyCheckValue: 'キーチェック値',
+    errorInvalidHex: 'キーは有効な16進数文字である必要があります',
+    errorDesLength: 'DES/3DESキーの長さは8、16、または24バイトである必要があります',
+    errorAesLength: 'AESキーの長さは16、24、または32バイトである必要があります',
+    errorCalculation: '計算に失敗しました。キー形式を確認してください',
+    format: 'フォーマット',
+  },
+  
+  pinBlock: {
+    title: 'PINブロックジェネレーター',
+    description: '決済トランザクション用のISO形式PINブロックを生成します。',
+    format: 'PINブロック形式',
+    pinLabel: 'PIN（4〜12桁）',
+    pinPlaceholder: '例: 1234',
+    panLabel: 'PAN（主口座番号）',
+    panPlaceholder: '例: 4111111111111111',
+    generatePinBlock: 'PINブロックを生成',
+    pinBlockHex: 'PINブロック（16進数）',
+    errorInvalidPin: 'PINは4〜12桁である必要があります',
+    errorInvalidPan: 'PANは13〜19桁である必要があります',
+    errorGeneration: '生成に失敗しました。入力を確認してください',
+    errorFormat1: 'ISO Format 1は近日公開予定...',
+  },
+  
+  tr31: {
+    title: 'TR-31キーブロックアナライザー',
+    description: 'TR-31形式のキーブロックを解析および分析します（ANSI X9.143標準）。',
+    keyBlock: 'TR-31キーブロック',
+    keyBlockPlaceholder: '例: B0112P0TE00N0000...',
+    parseKeyBlock: 'キーブロックを解析',
+    header: 'キーブロックヘッダー',
+    version: 'バージョン',
+    keyLength: '長さ',
+    keyUsage: 'キーの用途',
+    mode: 'モード',
+    keyVersion: 'キーバージョン',
+    exportability: 'エクスポート可能性',
+    characters: '文字',
+    errorTooShort: 'TR-31キーブロックの長さが不足しています',
+    errorParsing: '解析に失敗しました。TR-31形式を確認してください',
+    exportable: 'エクスポート可能',
+    nonExportable: 'エクスポート不可',
+    sensitive: '機密',
+  },
+  
+  placeholder: {
+    title: '近日公開',
+    description: 'このツールは開発中です。お楽しみに！',
+  },
+};
+

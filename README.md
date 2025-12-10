@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# HSM Kit - 专业加密工具套件
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔐 在线HSM工具，全面对标BP-Tools，完全本地计算，安全可靠
 
-Currently, two official plugins are available:
+## ✨ 特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🌐 **跨平台支持** - Mac/Windows/Linux/移动端都能用
+- 🔒 **完全本地计算** - 所有密钥和数据只在浏览器本地处理，不上传服务器
+- 📱 **响应式设计** - 完美适配桌面端和移动端
+- ⚡ **无需安装** - 打开浏览器即可使用
+- 🎨 **现代化UI** - 基于Ant Design的美观界面
+- 🔄 **PWA支持** - 可添加到主屏幕，像原生应用一样使用
 
-## React Compiler
+## 🛠️ 功能模块
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✅ 已实现
+- **密钥生成器** - 生成8/16/24/32字节的随机密钥，支持自动KCV计算
+- **KCV计算器** - 支持DES/3DES和AES算法的密钥校验值计算
+- **PIN Block工具** - ISO Format 0 PIN Block生成工具
+- **TR-31分析器** - 解析TR-31标准密钥块（ANSI X9.143）
 
-## Expanding the ESLint configuration
+### 🚧 规划中
+- **MAC计算器** - 消息认证码生成和验证
+- **密钥组件拆分/合成** - 密钥分量管理工具
+- **CVV/CVC生成器** - 银行卡验证值计算
+- **加密/解密工具** - 支持多种算法的数据加解密
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 快速开始
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# 安装依赖
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 启动开发服务器
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 构建生产版本
+npm run build
+
+# 预览生产构建
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 📱 生成网站图标
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. 在浏览器中打开 `scripts/generate-icons.html`
+2. 点击"一键下载全部"按钮
+3. 将下载的图标文件放到 `public/` 目录下
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+图标会自动生成以下尺寸：
+- `favicon.png` (32x32) - 标准网站图标
+- `apple-touch-icon.png` (180x180) - iOS 设备图标
+- `favicon-192.png` (192x192) - Android 图标
+- `favicon-512.png` (512x512) - PWA 高清图标
+
+## 📱 移动端优化
+
+本项目已针对移动端进行全面优化：
+- 响应式布局，自动适配不同屏幕尺寸
+- 移动端抽屉式菜单
+- 触摸友好的按钮和交互
+- 优化的字体大小和间距
+- 防止双击缩放，提升用户体验
+
+## 🔐 安全性
+
+- **客户端加密** - 使用`crypto-js`库在浏览器本地进行所有加密操作
+- **零数据传输** - 密钥和敏感数据永远不会离开您的设备
+- **开源透明** - 所有代码公开可审计
+- **符合合规** - 满足金融行业对密钥安全的严格要求
+
+## 🏗️ 技术栈
+
+- **React 19** - 最新的React框架
+- **TypeScript** - 类型安全
+- **Vite** - 极速构建工具
+- **Ant Design** - 企业级UI组件库
+- **CryptoJS** - 客户端加密库
+
+## 📦 最近更新
+
+### v1.0.0 (2025-12-10) 🎉
+- ✅ **完整的移动端响应式支持** - 手机、平板完美适配
+- ✅ **自定义品牌** - 专属Logo和Favicon
+- ✅ **PWA支持** - 可离线使用，可添加到主屏幕
+- ✅ **四大核心工具**:
+  - 密钥生成器（支持DES/3DES/AES）
+  - KCV计算器（DES/AES算法）
+  - PIN Block工具（ISO Format 0）
+  - TR-31密钥块分析器
+- ✅ **中文界面** - 完全本地化
+- ✅ **SEO优化** - 完善的元数据和Open Graph标签
+- ✅ **移动端菜单** - 抽屉式导航，触摸友好
+
+### v0.1.0 (2025-12)
+- ✅ 基础密钥生成功能
+- ✅ KCV计算
+- ✅ 现代化UI界面
+
+## 🤝 贡献
+
+欢迎提交Issue和Pull Request！
+
+## 📄 许可证
+
+MIT License
+
+## 🔗 相关链接
+
+- [GitHub仓库](https://github.com/hsm-kit/hsmkit)
+- [在线演示](https://hsmkit.com)
+
+---
+
+**注意**: 本工具适用于测试和开发环境。在生产环境使用前，请确保遵守相关安全规范。

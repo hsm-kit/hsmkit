@@ -87,3 +87,56 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* 4. 移动端优化 */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  /* 确保Ant Design组件在移动端不会溢出 */
+  .ant-menu-horizontal {
+    line-height: 56px !important;
+  }
+  
+  /* 移动端按钮优化 */
+  .ant-btn {
+    touch-action: manipulation;
+  }
+}
+
+/* 5. 添加淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 6. 防止移动端双击缩放 */
+button, a {
+  touch-action: manipulation;
+}
+
+/* 7. 优化代码字体在移动端的显示 */
+@media (max-width: 768px) {
+  code, pre, .ant-typography code {
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+}
+
+/* 8. 确保卡片在小屏幕上有适当的间距 */
+@media (max-width: 768px) {
+  .ant-card {
+    border-radius: 8px;
+  }
+  
+  .ant-card-body {
+    padding: 16px;
+  }
+}
