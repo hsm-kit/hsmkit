@@ -82,7 +82,7 @@ const PinBlockTool: React.FC = () => {
                 size="large"
               />
               <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
-                支持 4-12 位 PIN 码
+                {t.pinBlock.pinLengthHint}
               </Text>
             </div>
 
@@ -100,7 +100,7 @@ const PinBlockTool: React.FC = () => {
                 size="large"
               />
               <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
-                请输入完整卡号（13-19 位），系统会自动提取最右 12 位（不含校验位）
+                {t.pinBlock.panHint}
               </Text>
             </div>
 

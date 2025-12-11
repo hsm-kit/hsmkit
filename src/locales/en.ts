@@ -96,6 +96,8 @@ export default {
     errorAesLength: 'AES key length must be 16, 24 or 32 bytes',
     errorCalculation: 'Calculation failed, please check key format',
     format: 'Format',
+    autoAdjustParity: 'Auto-adjust Parity Bits',
+    parityAdjustmentHint: 'Some keys may not have correct parity bits set, check this option to auto-correct',
   },
   
   pinBlock: {
@@ -112,6 +114,8 @@ export default {
     errorInvalidPan: 'PAN must be 13-19 digits',
     errorGeneration: 'Generation failed, please check input',
     errorFormat1: 'ISO Format 1 coming soon...',
+    pinLengthHint: 'Supports 4-12 digit PIN',
+    panHint: 'Enter complete card number (13-19 digits), system will automatically extract rightmost 12 digits (excluding check digit)',
   },
   
   tr31: {
@@ -133,6 +137,7 @@ export default {
     exportable: 'Exportable',
     nonExportable: 'Non-exportable',
     sensitive: 'Sensitive',
+    keyBlockFormatHint: 'TR-31 Key Block format (e.g., B0112P0TE00N...), system will auto-validate format',
   },
   
   placeholder: {

@@ -97,16 +97,11 @@ const KCVCalculator: React.FC = () => {
                   checked={adjustParity}
                   onChange={e => setAdjustParity(e.target.checked)}
                 >
-                  <Space>
-                    <Text>自动修正奇偶校验位</Text>
-                    <Text type="secondary" style={{ fontSize: '12px' }}>
-                      (Parity Adjustment)
-                    </Text>
-                  </Space>
+                  {t.kcvCalculator.autoAdjustParity}
                 </Checkbox>
                 <div style={{ marginTop: 4, marginLeft: 24 }}>
                   <Text type="secondary" style={{ fontSize: '11px' }}>
-                    某些密钥可能未设置正确的奇偶校验位，勾选此项可自动修正
+                    {t.kcvCalculator.parityAdjustmentHint}
                   </Text>
                 </div>
               </div>

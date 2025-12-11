@@ -88,6 +88,8 @@ export default {
     errorAesLength: 'AES 키 길이는 16, 24 또는 32바이트여야 합니다',
     errorCalculation: '계산에 실패했습니다. 키 형식을 확인하세요',
     format: '형식',
+    autoAdjustParity: '패리티 비트 자동 조정',
+    parityAdjustmentHint: '일부 키에는 올바른 패리티 비트가 설정되어 있지 않을 수 있습니다. 이 옵션을 선택하면 자동으로 수정됩니다',
   },
   
   pinBlock: {
@@ -104,6 +106,8 @@ export default {
     errorInvalidPan: 'PAN은 13-19자리 숫자여야 합니다',
     errorGeneration: '생성에 실패했습니다. 입력을 확인하세요',
     errorFormat1: 'ISO Format 1은 곧 출시됩니다...',
+    pinLengthHint: '4-12자리 PIN 지원',
+    panHint: '전체 카드 번호를 입력하세요 (13-19자리), 시스템이 자동으로 오른쪽 12자리를 추출합니다 (체크 디지트 제외)',
   },
   
   tr31: {
@@ -125,6 +129,7 @@ export default {
     exportable: '내보내기 가능',
     nonExportable: '내보내기 불가',
     sensitive: '민감함',
+    keyBlockFormatHint: 'TR-31 키 블록 형식 (예: B0112P0TE00N...), 시스템이 자동으로 형식을 검증합니다',
   },
   
   placeholder: {

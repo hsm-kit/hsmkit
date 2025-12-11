@@ -88,6 +88,8 @@ export default {
     errorAesLength: 'AESキーの長さは16、24、または32バイトである必要があります',
     errorCalculation: '計算に失敗しました。キー形式を確認してください',
     format: 'フォーマット',
+    autoAdjustParity: 'パリティビットを自動調整',
+    parityAdjustmentHint: '一部のキーには正しいパリティビットが設定されていない場合があります。このオプションをチェックすると自動修正されます',
   },
   
   pinBlock: {
@@ -104,6 +106,8 @@ export default {
     errorInvalidPan: 'PANは13〜19桁である必要があります',
     errorGeneration: '生成に失敗しました。入力を確認してください',
     errorFormat1: 'ISO Format 1は近日公開予定...',
+    pinLengthHint: '4〜12桁のPINをサポート',
+    panHint: '完全なカード番号を入力してください（13〜19桁）、システムは自動的に右端の12桁を抽出します（チェックディジットを除く）',
   },
   
   tr31: {
@@ -125,6 +129,7 @@ export default {
     exportable: 'エクスポート可能',
     nonExportable: 'エクスポート不可',
     sensitive: '機密',
+    keyBlockFormatHint: 'TR-31キーブロック形式（例：B0112P0TE00N...）、システムが自動的に形式を検証します',
   },
   
   placeholder: {

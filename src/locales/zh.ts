@@ -96,6 +96,8 @@ export default {
     errorAesLength: 'AES 密钥长度必须是 16、24 或 32 字节',
     errorCalculation: '计算失败，请检查输入的密钥格式',
     format: '格式',
+    autoAdjustParity: '自动修正奇偶校验位',
+    parityAdjustmentHint: '某些密钥可能未设置正确的奇偶校验位，勾选此项可自动修正',
   },
   
   pinBlock: {
@@ -112,6 +114,8 @@ export default {
     errorInvalidPan: 'PAN（卡号）必须是 13-19 位数字',
     errorGeneration: '生成失败，请检查输入',
     errorFormat1: 'ISO Format 1 功能开发中...',
+    pinLengthHint: '支持 4-12 位 PIN 码',
+    panHint: '请输入完整卡号（13-19 位），系统会自动提取最右 12 位（不含校验位）',
   },
   
   tr31: {
@@ -133,6 +137,7 @@ export default {
     exportable: '可导出',
     nonExportable: '不可导出',
     sensitive: '敏感',
+    keyBlockFormatHint: 'TR-31 Key Block 格式（如：B0112P0TE00N...），系统会自动校验格式',
   },
   
   placeholder: {

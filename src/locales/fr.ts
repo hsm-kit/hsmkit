@@ -88,6 +88,8 @@ export default {
     errorAesLength: 'La longueur de clé AES doit être de 16, 24 ou 32 octets',
     errorCalculation: 'Échec du calcul, veuillez vérifier le format de la clé',
     format: 'Format',
+    autoAdjustParity: 'Ajuster automatiquement les bits de parité',
+    parityAdjustmentHint: 'Certaines clés peuvent ne pas avoir de bits de parité corrects, cochez cette option pour corriger automatiquement',
   },
   
   pinBlock: {
@@ -104,6 +106,8 @@ export default {
     errorInvalidPan: 'Le PAN doit comporter 13 à 19 chiffres',
     errorGeneration: 'Échec de la génération, veuillez vérifier la saisie',
     errorFormat1: 'ISO Format 1 à venir...',
+    pinLengthHint: 'Prend en charge les PIN de 4 à 12 chiffres',
+    panHint: 'Entrez le numéro de carte complet (13-19 chiffres), le système extraira automatiquement les 12 chiffres les plus à droite (hors chiffre de contrôle)',
   },
   
   tr31: {
@@ -125,6 +129,7 @@ export default {
     exportable: 'Exportable',
     nonExportable: 'Non exportable',
     sensitive: 'Sensible',
+    keyBlockFormatHint: 'Format de bloc de clé TR-31 (ex : B0112P0TE00N...), le système validera automatiquement le format',
   },
   
   placeholder: {

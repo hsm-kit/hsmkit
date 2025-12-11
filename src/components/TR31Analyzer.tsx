@@ -93,7 +93,7 @@ const TR31Analyzer: React.FC = () => {
                 />
               )}
               <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
-                TR-31 Key Block 格式（如：B0112P0TE00N...），系统会自动校验格式
+                {t.tr31.keyBlockFormatHint}
               </Text>
             </div>
 
