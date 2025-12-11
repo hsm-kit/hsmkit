@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Space, Alert } from 'antd';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Alert } from 'antd';
 import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
 import { calculateKCV, isValidHex, cleanHexInput } from '../utils/crypto';
