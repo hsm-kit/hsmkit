@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Space } from 'antd';
-import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Space, Alert } from 'antd';
+import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
 import { calculateKCV, isValidHex, cleanHexInput } from '../utils/crypto';
 
@@ -76,6 +76,20 @@ const KCVCalculator: React.FC = () => {
                 size="large"
               />
             </div>
+
+            <Alert
+              message={t.kcvCalculator.kcvCalcTitle}
+              description={
+                <div style={{ marginTop: 8 }}>
+                  <Text style={{ fontSize: '13px', lineHeight: '1.6' }}>
+                    {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
+                  </Text>
+                </div>
+              }
+              type="info"
+              icon={<InfoCircleOutlined />}
+              showIcon
+            />
 
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>

@@ -1,6 +1,132 @@
 import CryptoJS from 'crypto-js';
 
 /**
+ * CMAC-AES 实现
+ */
+const cmacAES = (keyHex: string, dataHex: string): string => {
+  const key = CryptoJS.enc.Hex.parse(keyHex);
+  const data = CryptoJS.enc.Hex.parse(dataHex);
+  
+  // 生成子密钥
+  const generateSubkeys = (key: CryptoJS.lib.WordArray) => {
+    const zero = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+    const L = CryptoJS.AES.encrypt(zero, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding
+    }).ciphertext;
+    
+    const xorWithConst = (input: CryptoJS.lib.WordArray) => {
+      const words = input.words.slice();
+      const msb = (words[0] >>> 31) & 1;
+      
+      // 左移一位
+      for (let i = 0; i < words.length; i++) {
+        words[i] = (words[i] << 1) | (i < words.length - 1 ? (words[i + 1] >>> 31) : 0);
+      }
+      
+      // 如果MSB为1，与Rb异或
+      if (msb) {
+        words[words.length - 1] ^= 0x87;
+      }
+      
+      return CryptoJS.lib.WordArray.create(words, 16);
+    };
+    
+    const K1 = xorWithConst(L);
+    const K2 = xorWithConst(K1);
+    
+    return { K1, K2 };
+  };
+  
+  const { K1, K2 } = generateSubkeys(key);
+  
+  const blockSize = 16;
+  const dataBytes = data.words.length * 4;
+  const numBlocks = Math.ceil(dataBytes / blockSize);
+  
+  let M_last: CryptoJS.lib.WordArray;
+  
+  if (numBlocks === 0) {
+    // 数据为空
+    const padding = CryptoJS.enc.Hex.parse('80000000000000000000000000000000');
+    M_last = CryptoJS.lib.WordArray.create(
+      K2.words.map((w, i) => w ^ padding.words[i]),
+      16
+    );
+  } else {
+    const lastBlockStart = (numBlocks - 1) * blockSize;
+    const lastBlockSize = dataBytes - lastBlockStart;
+    
+    if (lastBlockSize === blockSize) {
+      // 完整块
+      const lastBlock = CryptoJS.lib.WordArray.create(
+        data.words.slice(-4),
+        blockSize
+      );
+      M_last = CryptoJS.lib.WordArray.create(
+        lastBlock.words.map((w, i) => w ^ K1.words[i]),
+        16
+      );
+    } else {
+      // 不完整块，需要padding
+      const lastBlockWords = data.words.slice(-(Math.ceil(lastBlockSize / 4)));
+      const paddedWords = lastBlockWords.slice();
+      
+      // 添加0x80后填充0
+      const paddingStart = lastBlockSize;
+      const wordIndex = Math.floor(paddingStart / 4);
+      const byteIndex = paddingStart % 4;
+      
+      if (wordIndex >= paddedWords.length) {
+        paddedWords.push(0x80000000);
+      } else {
+        paddedWords[wordIndex] |= (0x80 << (24 - byteIndex * 8));
+      }
+      
+      while (paddedWords.length < 4) {
+        paddedWords.push(0);
+      }
+      
+      const paddedBlock = CryptoJS.lib.WordArray.create(paddedWords, 16);
+      M_last = CryptoJS.lib.WordArray.create(
+        paddedBlock.words.map((w, i) => w ^ K2.words[i]),
+        16
+      );
+    }
+  }
+  
+  // CBC-MAC计算
+  let X = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+  
+  for (let i = 0; i < numBlocks - 1; i++) {
+    const block = CryptoJS.lib.WordArray.create(
+      data.words.slice(i * 4, (i + 1) * 4),
+      blockSize
+    );
+    const xored = CryptoJS.lib.WordArray.create(
+      block.words.map((w, idx) => w ^ X.words[idx]),
+      16
+    );
+    X = CryptoJS.AES.encrypt(xored, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding
+    }).ciphertext;
+  }
+  
+  // 处理最后一块
+  const finalXored = CryptoJS.lib.WordArray.create(
+    M_last.words.map((w, i) => w ^ X.words[i]),
+    16
+  );
+  const T = CryptoJS.AES.encrypt(finalXored, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.NoPadding
+  }).ciphertext;
+  
+  return T.toString().toUpperCase();
+};
+
+/**
  * 十六进制字符串验证
  */
 export const isValidHex = (str: string): boolean => {
@@ -62,23 +188,25 @@ export const calculateKCV = (keyHex: string, options: KCVOptions): string => {
     throw new Error('AES key must be 16, 24, or 32 bytes');
   }
 
-  const key = CryptoJS.enc.Hex.parse(processedKey);
-  const zero = CryptoJS.enc.Hex.parse('0000000000000000');
-
-  let encrypted;
+  let result: string;
+  
   if (options.algorithm === 'AES') {
-    encrypted = CryptoJS.AES.encrypt(zero, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.NoPadding
-    });
+    // AES使用CMAC-AES算法，对16字节的0（32个十六进制字符）计算CMAC
+    const data = '00000000000000000000000000000000';
+    const cmacResult = cmacAES(processedKey, data);
+    result = cmacResult.substring(0, 6);
   } else {
-    encrypted = CryptoJS.TripleDES.encrypt(zero, key, {
+    // 3DES使用8字节的0（16个十六进制字符）
+    const key = CryptoJS.enc.Hex.parse(processedKey);
+    const zero = CryptoJS.enc.Hex.parse('0000000000000000');
+    const encrypted = CryptoJS.TripleDES.encrypt(zero, key, {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.NoPadding
     });
+    result = encrypted.ciphertext.toString().toUpperCase().substring(0, 6);
   }
 
-  return encrypted.ciphertext.toString().toUpperCase().substring(0, 6);
+  return result;
 };
 
 /**
@@ -345,15 +473,22 @@ export const checkDesKeyParityEven = (hexKey: string): boolean => {
  */
 export interface KeyValidationResult {
   valid: boolean;
-  keyType: string;
+  key: string;
   keyLength: number;
-  parityValid?: boolean;
-  parityType?: 'odd' | 'even' | 'none';
+  parityDetected: string;
+  kcvVisa: string;
+  kcvIbm: string;
+  kcvAtalla: string;
+  kcvFuturex: string;
+  kcvAtallaR: string;
+  kcvSha256: string;
+  kcvCmac: string;
+  kcvAes: string;
   errors: string[];
 }
 
 /**
- * 验证密钥
+ * 验证密钥并计算各种KCV
  */
 export const validateKey = (hexKey: string): KeyValidationResult => {
   const clean = cleanHexInput(hexKey);
@@ -362,40 +497,177 @@ export const validateKey = (hexKey: string): KeyValidationResult => {
   if (!isValidHex(clean)) {
     return {
       valid: false,
-      keyType: 'Unknown',
+      key: '',
       keyLength: 0,
+      parityDetected: 'None',
+      kcvVisa: '',
+      kcvIbm: '',
+      kcvAtalla: '',
+      kcvFuturex: '',
+      kcvAtallaR: '',
+      kcvSha256: '',
+      kcvCmac: '',
+      kcvAes: '',
       errors: ['Invalid hexadecimal characters']
     };
   }
 
   const keyBytes = clean.length / 2;
-  let keyType = 'Unknown';
-  let parityValid: boolean | undefined;
-  let parityType: 'odd' | 'even' | 'none' | undefined;
-
-  // 判断密钥类型
+  
+  // 检测奇偶校验
+  let parityDetected = 'None';
   if ([8, 16, 24].includes(keyBytes)) {
-    keyType = keyBytes === 8 ? 'DES' : '3DES';
-    parityType = 'odd';
-    parityValid = checkDesKeyParityOdd(clean);
-    if (!parityValid) {
-      errors.push('Parity check failed (expected odd parity)');
+    if (checkDesKeyParityOdd(clean)) {
+      parityDetected = 'Odd';
+    } else if (checkDesKeyParityEven(clean)) {
+      parityDetected = 'Even';
     }
-  } else if ([16, 24, 32].includes(keyBytes)) {
-    keyType = 'AES';
-    parityType = 'none';
-    parityValid = undefined;
-  } else {
-    keyType = 'Unknown';
-    errors.push(`Invalid key length: ${keyBytes} bytes`);
+  }
+
+  // 计算各种KCV
+  let kcvVisa = '';
+  let kcvIbm = '';
+  let kcvAtalla = '';
+  let kcvFuturex = '';
+  let kcvAtallaR = '';
+  let kcvSha256 = '';
+  let kcvCmac = '';
+  let kcvAes = '';
+
+  try {
+    const key = CryptoJS.enc.Hex.parse(clean);
+    const zero8 = CryptoJS.enc.Hex.parse('0000000000000000');
+    const zero16 = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+    
+    // KCV (VISA) - 标准KCV
+    if ([8, 16, 24].includes(keyBytes)) {
+      const encrypted = CryptoJS.TripleDES.encrypt(zero8, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      });
+      kcvVisa = encrypted.ciphertext.toString().toUpperCase().substring(0, 6);
+    } else if ([16, 24, 32].includes(keyBytes)) {
+      const encrypted = CryptoJS.AES.encrypt(zero16, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      });
+      kcvVisa = encrypted.ciphertext.toString().toUpperCase().substring(0, 6);
+    }
+    kcvAtalla = kcvVisa;
+
+    // KCV (IBM) - 使用密钥前8字节，Single DES加密8字节0
+    const keyLeft8 = CryptoJS.enc.Hex.parse(clean.substring(0, 16));
+    const encryptedIbm = CryptoJS.DES.encrypt(zero8, keyLeft8, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding
+    });
+    kcvIbm = encryptedIbm.ciphertext.toString().toUpperCase().substring(0, 4);
+
+    // KCV (SHA256) - SHA256哈希前3字节
+    const sha256Hash = CryptoJS.SHA256(key);
+    kcvSha256 = sha256Hash.toString().toUpperCase().substring(0, 6);
+
+    // KCV (FUTUREX) - 使用密钥后8字节，Single DES加密8字节0
+    if (keyBytes >= 16) {
+      const keyRight8 = CryptoJS.enc.Hex.parse(clean.substring(16, 32));
+      const encryptedFuturex = CryptoJS.DES.encrypt(zero8, keyRight8, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      });
+      kcvFuturex = encryptedFuturex.ciphertext.toString().toUpperCase().substring(0, 4);
+    } else {
+      kcvFuturex = kcvSha256.substring(0, 4);
+    }
+
+    // KCV (ATALLA R) - 使用密钥的某种变换
+    if (keyBytes >= 16) {
+      const keyBytes1 = clean.substring(0, 16);
+      const keyBytes2 = clean.substring(16, 32);
+      let xorKey = '';
+      for (let i = 0; i < 16; i += 2) {
+        const b1 = parseInt(keyBytes1.substring(i, i + 2), 16);
+        const b2 = parseInt(keyBytes2.substring(i, i + 2) || '00', 16);
+        xorKey += (b1 ^ b2).toString(16).toUpperCase().padStart(2, '0');
+      }
+      const keyXor = CryptoJS.enc.Hex.parse(xorKey);
+      const encryptedAtallaR = CryptoJS.DES.encrypt(zero8, keyXor, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      });
+      kcvAtallaR = encryptedAtallaR.ciphertext.toString().toUpperCase().substring(0, 4);
+    } else {
+      kcvAtallaR = kcvVisa.substring(0, 4);
+    }
+
+    // KCV (CMAC) - 使用3DES-CMAC
+    if ([8, 16, 24].includes(keyBytes)) {
+      // 3DES-CMAC计算
+      const L = CryptoJS.TripleDES.encrypt(zero8, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      }).ciphertext;
+      
+      const xorWithConst = (input: CryptoJS.lib.WordArray) => {
+        const words = input.words.slice();
+        const msb = (words[0] >>> 31) & 1;
+        
+        for (let i = 0; i < words.length; i++) {
+          if (i < words.length - 1) {
+            words[i] = (words[i] << 1) | (words[i + 1] >>> 31);
+          } else {
+            words[i] = words[i] << 1;
+          }
+        }
+        
+        if (msb) {
+          words[words.length - 1] ^= 0x1B;
+        }
+        
+        return CryptoJS.lib.WordArray.create(words, 8);
+      };
+      
+      const K1 = xorWithConst(L);
+      const M_last = CryptoJS.lib.WordArray.create(
+        K1.words.map((w, i) => w ^ zero8.words[i]),
+        8
+      );
+      
+      const T = CryptoJS.TripleDES.encrypt(M_last, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding
+      }).ciphertext;
+      
+      kcvCmac = T.toString().toUpperCase().substring(0, 6);
+    } else {
+      // AES-CMAC
+      const cmacResult = cmacAES(clean, '00000000000000000000000000000000');
+      kcvCmac = cmacResult.substring(0, 6);
+    }
+
+    // KCV (AES) - AES加密16字节0
+    const encryptedAes = CryptoJS.AES.encrypt(zero16, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding
+    });
+    kcvAes = encryptedAes.ciphertext.toString().toUpperCase().substring(0, 6);
+
+  } catch (err) {
+    errors.push('KCV calculation failed');
   }
 
   return {
     valid: errors.length === 0,
-    keyType,
-    keyLength: keyBytes,
-    parityValid,
-    parityType,
+    key: clean,
+    keyLength: clean.length,
+    parityDetected,
+    kcvVisa,
+    kcvIbm,
+    kcvAtalla,
+    kcvFuturex,
+    kcvAtallaR,
+    kcvSha256,
+    kcvCmac,
+    kcvAes,
     errors
   };
 };

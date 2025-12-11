@@ -90,6 +90,9 @@ export default {
     format: '형식',
     autoAdjustParity: '패리티 비트 자동 조정',
     parityAdjustmentHint: '일부 키에는 올바른 패리티 비트가 설정되어 있지 않을 수 있습니다. 이 옵션을 선택하면 자동으로 수정됩니다',
+    kcvCalcTitle: '키 확인 값 계산',
+    desCalcDesc: '키의 평문을 사용하여 16자 길이의 \'0\'을 3DES-ECB 알고리즘으로 암호화한 다음 암호화된 값의 처음 6자를 키 확인 값으로 사용합니다',
+    aesCalcDesc: '키의 평문을 사용하여 32자 길이의 \'0\'을 CMAC-AES 알고리즘으로 암호화한 다음 암호화된 값의 처음 6자를 키 확인 값으로 사용합니다',
   },
   
   pinBlock: {

@@ -90,6 +90,9 @@ export default {
     format: 'Format',
     autoAdjustParity: 'Ajuster automatiquement les bits de parité',
     parityAdjustmentHint: 'Certaines clés peuvent ne pas avoir de bits de parité corrects, cochez cette option pour corriger automatiquement',
+    kcvCalcTitle: 'Calcul de la Valeur de Vérification de Clé',
+    desCalcDesc: 'Utilisez le texte clair de la clé pour chiffrer 16 caractères longs \'0\' avec l\'algorithme 3DES-ECB, puis interceptez les six premiers caractères de la valeur chiffrée comme valeur de vérification de clé',
+    aesCalcDesc: 'Utilisez le texte clair de la clé pour chiffrer 32 caractères longs \'0\' avec l\'algorithme CMAC-AES, puis interceptez les six premiers caractères de la valeur chiffrée comme valeur de vérification de clé',
   },
   
   pinBlock: {

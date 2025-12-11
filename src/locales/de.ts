@@ -90,6 +90,9 @@ export default {
     format: 'Format',
     autoAdjustParity: 'Paritätsbits automatisch anpassen',
     parityAdjustmentHint: 'Einige Schlüssel haben möglicherweise keine korrekten Paritätsbits, aktivieren Sie diese Option zur automatischen Korrektur',
+    kcvCalcTitle: 'Berechnung des Schlüsselprüfwerts',
+    desCalcDesc: 'Verwenden Sie den Klartext des Schlüssels, um 16 Zeichen lange \'0\' mit dem 3DES-ECB-Algorithmus zu verschlüsseln, und extrahieren Sie dann die ersten sechs Zeichen des verschlüsselten Werts als Schlüsselprüfwert',
+    aesCalcDesc: 'Verwenden Sie den Klartext des Schlüssels, um 32 Zeichen lange \'0\' mit dem CMAC-AES-Algorithmus zu verschlüsseln, und extrahieren Sie dann die ersten sechs Zeichen des verschlüsselten Werts als Schlüsselprüfwert',
   },
   
   pinBlock: {

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Alert, Segmented } from 'antd';
-import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../hooks/useLanguage';
 import { 
   calculateKCV, 
   combineKeyComponents, 
-  adjustDesKeyParity, 
-  adjustDesKeyParityEven,
   validateKey,
   cleanHexInput 
 } from '../utils/crypto';
@@ -22,21 +20,24 @@ const KeyGenerator: React.FC = () => {
   // Tab 1: 密钥生成
   const [length, setLength] = useState(16);
   const [generatedKey, setGeneratedKey] = useState('');
-  const [checkValue, setCheckValue] = useState('');
+  const [checkValue, setCheckValue] = useState<{des?: string; aes?: string}>({});
 
   // Tab 2: 密钥合成
   const [components, setComponents] = useState(['', '']);
   const [combinedKey, setCombinedKey] = useState('');
   const [combineError, setCombineError] = useState('');
+  const [componentKCVs, setComponentKCVs] = useState<Array<{des?: string; aes?: string}>>([]);
+  const [combinedKCV, setCombinedKCV] = useState<{des?: string; aes?: string}>({});
 
-  // Tab 3: 奇偶校验
-  const [parityInput, setParityInput] = useState('');
-  const [parityType, setParityType] = useState<'odd' | 'even'>('odd');
-  const [adjustedKey, setAdjustedKey] = useState('');
-
-  // Tab 4: 密钥校验
+  // Tab 3: 密钥校验
   const [validationInput, setValidationInput] = useState('');
   const [validationResult, setValidationResult] = useState<any>(null);
+
+  // 当密钥长度改变时清空结果
+  useEffect(() => {
+    setGeneratedKey('');
+    setCheckValue({});
+  }, [length]);
 
   // 密钥生成
   const handleGenerate = () => {
@@ -44,12 +45,31 @@ const KeyGenerator: React.FC = () => {
     const keyHex = randomWord.toString().toUpperCase();
     setGeneratedKey(keyHex);
 
-    try {
-      const kcv = calculateKCV(keyHex, { algorithm: 'AES' });
-      setCheckValue(kcv);
-    } catch(e) {
-      setCheckValue("ERROR");
+    const kcvResult: {des?: string; aes?: string} = {};
+    
+    // 16或24字节：同时计算DES和AES
+    if (length === 16 || length === 24) {
+      try {
+        kcvResult.des = calculateKCV(keyHex, { algorithm: 'DES' });
+      } catch {
+        kcvResult.des = 'ERROR';
+      }
+      try {
+        kcvResult.aes = calculateKCV(keyHex, { algorithm: 'AES' });
+      } catch {
+        kcvResult.aes = 'ERROR';
+      }
+    } 
+    // 32字节：只计算AES
+    else if (length === 32) {
+      try {
+        kcvResult.aes = calculateKCV(keyHex, { algorithm: 'AES' });
+      } catch {
+        kcvResult.aes = 'ERROR';
+      }
     }
+    
+    setCheckValue(kcvResult);
   };
 
   const copyToClipboard = (text: string) => {
@@ -62,6 +82,8 @@ const KeyGenerator: React.FC = () => {
   const handleCombine = () => {
     setCombineError('');
     setCombinedKey('');
+    setComponentKCVs([]);
+    setCombinedKCV({});
     
     const filledComponents = components.filter(c => c.trim() !== '');
     
@@ -81,8 +103,66 @@ const KeyGenerator: React.FC = () => {
     }
 
     try {
+      // 计算每个分量的KCV (16和24字节同时计算DES和AES，32字节只计算AES)
+      const kcvs = filledComponents.map(comp => {
+        const cleaned = cleanHexInput(comp);
+        const keyBytes = cleaned.length / 2;
+        const kcvResult: {des?: string; aes?: string} = {};
+        
+        // 16或24字节：同时计算DES和AES
+        if (keyBytes === 16 || keyBytes === 24) {
+          try {
+            kcvResult.des = calculateKCV(cleaned, { algorithm: 'DES' });
+          } catch {
+            kcvResult.des = 'ERROR';
+          }
+          try {
+            kcvResult.aes = calculateKCV(cleaned, { algorithm: 'AES' });
+          } catch {
+            kcvResult.aes = 'ERROR';
+          }
+        } 
+        // 32字节：只计算AES
+        else if (keyBytes === 32) {
+          try {
+            kcvResult.aes = calculateKCV(cleaned, { algorithm: 'AES' });
+          } catch {
+            kcvResult.aes = 'ERROR';
+          }
+        }
+        
+        return kcvResult;
+      });
+      setComponentKCVs(kcvs);
+
+      // 合成密钥
       const result = combineKeyComponents(filledComponents);
       setCombinedKey(result);
+
+      // 计算合成密钥的KCV
+      const resultBytes = result.length / 2;
+      const combinedKcvResult: {des?: string; aes?: string} = {};
+      
+      if (resultBytes === 16 || resultBytes === 24) {
+        try {
+          combinedKcvResult.des = calculateKCV(result, { algorithm: 'DES' });
+        } catch {
+          combinedKcvResult.des = 'ERROR';
+        }
+        try {
+          combinedKcvResult.aes = calculateKCV(result, { algorithm: 'AES' });
+        } catch {
+          combinedKcvResult.aes = 'ERROR';
+        }
+      } else if (resultBytes === 32) {
+        try {
+          combinedKcvResult.aes = calculateKCV(result, { algorithm: 'AES' });
+        } catch {
+          combinedKcvResult.aes = 'ERROR';
+        }
+      }
+      
+      setCombinedKCV(combinedKcvResult);
     } catch (err) {
       setCombineError(err instanceof Error ? err.message : 'Combination failed');
     }
@@ -108,33 +188,25 @@ const KeyGenerator: React.FC = () => {
     setComponents(newComponents);
   };
 
-  // 检查分量长度是否有效
-  const isComponentLengthValid = (value: string): boolean => {
-    if (!value.trim()) return true; // 空值不显示错误
-    const clean = cleanHexInput(value);
-    const validLengths = [16, 32, 48, 64];
-    return validLengths.includes(clean.length);
-  };
-
   const clearAllComponents = () => {
     setComponents(['', '']);
     setCombinedKey('');
     setCombineError('');
+    setComponentKCVs([]);
+    setCombinedKCV({});
   };
 
-  // 奇偶校验调整
-  const handleAdjustParity = () => {
-    setAdjustedKey('');
-    
-    try {
-      const clean = cleanHexInput(parityInput);
-      const result = parityType === 'odd' 
-        ? adjustDesKeyParity(clean)
-        : adjustDesKeyParityEven(clean);
-      setAdjustedKey(result);
-    } catch (err) {
-      message.error('Parity adjustment failed');
-    }
+  // 获取分量长度和状态
+  const getComponentLengthInfo = (value: string) => {
+    if (!value.trim()) return { length: 0, valid: false, show: false };
+    const clean = cleanHexInput(value);
+    const hexLength = clean.length;
+    const validLengths = [16, 32, 48, 64];
+    return {
+      length: hexLength,
+      valid: validLengths.includes(hexLength),
+      show: true
+    };
   };
 
   // 密钥校验
@@ -226,9 +298,14 @@ const KeyGenerator: React.FC = () => {
               <Divider style={{ margin: '12px 0' }} />
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
-                <Tag color="green">{t.keyGenerator.kcv}: {checkValue}</Tag>
-                <Tag color="blue">{t.keyGenerator.length}: {length} {t.keyGenerator.bytes}</Tag>
-                <Tag color="purple">{t.keyGenerator.bits}: {length * 8}</Tag>
+                {checkValue.des && (
+                  <Tag color="green">3DES KCV: {checkValue.des}</Tag>
+                )}
+                {checkValue.aes && (
+                  <Tag color="blue">AES KCV: {checkValue.aes}</Tag>
+                )}
+                <Tag color="purple">{t.keyGenerator.length}: {length} {t.keyGenerator.bytes}</Tag>
+                <Tag color="cyan">{t.keyGenerator.bits}: {length * 8}</Tag>
                 <Button 
                   type="text" 
                   size="small"
@@ -255,36 +332,57 @@ const KeyGenerator: React.FC = () => {
           </div>
 
           <Space direction="vertical" style={{ width: '100%' }} size="middle">
-            {components.map((comp, index) => (
-              <div key={index}>
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
-                  <Text strong style={{ minWidth: 80 }}>
-                    {t.keyGenerator.component} {index + 1}:
-                  </Text>
-                  {components.length > 2 && (
-                    <Button 
-                      type="text" 
-                      danger
-                      size="small"
-                      icon={<DeleteOutlined />}
-                      onClick={() => removeComponent(index)}
+            {components.map((comp, index) => {
+              const lengthInfo = getComponentLengthInfo(comp);
+              return (
+                <div key={index}>
+                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
+                    <Text strong style={{ minWidth: 80 }}>
+                      {t.keyGenerator.component} {index + 1}:
+                    </Text>
+                    {components.length > 2 && (
+                      <Button 
+                        type="text" 
+                        danger
+                        size="small"
+                        icon={<DeleteOutlined />}
+                        onClick={() => removeComponent(index)}
+                      />
+                    )}
+                  </div>
+                  <div style={{ position: 'relative' }}>
+                    <Input
+                      value={comp}
+                      onChange={e => updateComponent(index, e.target.value)}
+                      placeholder="0123456789ABCDEF..."
+                      status={comp.trim() && !lengthInfo.valid ? 'error' : ''}
+                      style={{ 
+                        fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+                        paddingRight: lengthInfo.show ? 50 : undefined
+                      }}
                     />
+                    {lengthInfo.show && (
+                      <div style={{ 
+                        position: 'absolute', 
+                        right: 12, 
+                        top: '50%', 
+                        transform: 'translateY(-50%)',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: lengthInfo.valid ? '#52c41a' : '#ff4d4f'
+                      }}>
+                        {lengthInfo.length}
+                      </div>
+                    )}
+                  </div>
+                  {comp.trim() && !lengthInfo.valid && (
+                    <Text type="danger" style={{ fontSize: '11px', marginTop: 2, display: 'block' }}>
+                      {t.keyGenerator.errorComponentLength2} 16/32/48/64
+                    </Text>
                   )}
                 </div>
-                <Input
-                  value={comp}
-                  onChange={e => updateComponent(index, e.target.value)}
-                  placeholder="0123456789ABCDEF..."
-                  status={comp.trim() && !isComponentLengthValid(comp) ? 'error' : ''}
-                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
-                />
-                {comp.trim() && !isComponentLengthValid(comp) && (
-                  <Text type="danger" style={{ fontSize: '11px', marginTop: 2, display: 'block' }}>
-                    {t.keyGenerator.errorComponentLength2} 16/32/48/64 {t.keyGenerator.bytes.toLowerCase()}
-                  </Text>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </Space>
 
           <Space>
@@ -321,33 +419,84 @@ const KeyGenerator: React.FC = () => {
 
           {combinedKey && (
             <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
-                {t.keyGenerator.combinedKey}
-              </Text>
-              <div style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
-                fontSize: 'clamp(16px, 4vw, 22px)',
-                letterSpacing: '1px', 
-                color: '#1677ff',
-                wordBreak: 'break-all',
-                marginTop: '8px',
-                lineHeight: '1.6'
-              }}>
-                {formatHexDisplay(combinedKey)}
+              <div style={{ marginBottom: 16 }}>
+                {components.filter(c => c.trim() !== '').map((comp, index) => (
+                  <div key={index} style={{ 
+                    marginBottom: 12, 
+                    paddingBottom: 12,
+                    borderBottom: index < components.filter(c => c.trim() !== '').length - 1 ? '1px solid #e5e7eb' : 'none'
+                  }}>
+                    <Text type="secondary" style={{ fontSize: '11px', display: 'block', marginBottom: 4 }}>
+                      {t.keyGenerator.component} #{index + 1}
+                    </Text>
+                    <div style={{ 
+                      fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
+                      fontSize: 'clamp(16px, 4vw, 22px)',
+                      letterSpacing: '1px',
+                      color: '#1677ff',
+                      wordBreak: 'break-all',
+                      marginBottom: 8,
+                      lineHeight: '1.6'
+                    }}>
+                      {formatHexDisplay(cleanHexInput(comp))}
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {componentKCVs[index]?.des && (
+                        <Tag color="green" style={{ fontSize: '11px' }}>
+                          3DES KCV: {componentKCVs[index].des}
+                        </Tag>
+                      )}
+                      {componentKCVs[index]?.aes && (
+                        <Tag color="blue" style={{ fontSize: '11px' }}>
+                          AES KCV: {componentKCVs[index].aes}
+                        </Tag>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
-              
-              <Divider style={{ margin: '12px 0' }} />
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Tag color="blue">{t.keyGenerator.length}: {combinedKey.length / 2} {t.keyGenerator.bytes}</Tag>
-                <Button 
-                  type="text" 
-                  size="small"
-                  icon={<CopyOutlined />}
-                  onClick={() => copyToClipboard(combinedKey)}
-                >
-                  {t.common.copy}
-                </Button>
+
+              <Divider style={{ margin: '16px 0', borderColor: '#1677ff', borderWidth: 2 }} />
+
+              <div>
+                <Text strong style={{ fontSize: '13px', color: '#1677ff' }}>
+                  {t.keyGenerator.combinedKey}
+                </Text>
+                <div style={{ 
+                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
+                  fontSize: 'clamp(16px, 4vw, 22px)',
+                  letterSpacing: '1px', 
+                  color: '#1677ff',
+                  wordBreak: 'break-all',
+                  marginTop: '8px',
+                  marginBottom: '12px',
+                  lineHeight: '1.6',
+                  fontWeight: 600
+                }}>
+                  {formatHexDisplay(combinedKey)}
+                </div>
+                
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+                  {combinedKCV.des && (
+                    <Tag color="green" style={{ fontSize: '12px' }}>
+                      3DES KCV: {combinedKCV.des}
+                    </Tag>
+                  )}
+                  {combinedKCV.aes && (
+                    <Tag color="blue" style={{ fontSize: '12px' }}>
+                      AES KCV: {combinedKCV.aes}
+                    </Tag>
+                  )}
+                  <Tag color="purple">{t.keyGenerator.length}: {combinedKey.length / 2} {t.keyGenerator.bytes}</Tag>
+                  <Button 
+                    type="text" 
+                    size="small"
+                    icon={<CopyOutlined />}
+                    onClick={() => copyToClipboard(combinedKey)}
+                  >
+                    {t.common.copy}
+                  </Button>
+                </div>
               </div>
             </div>
           )}
@@ -356,91 +505,6 @@ const KeyGenerator: React.FC = () => {
     },
     {
       key: '3',
-      label: t.keyGenerator.tabParity,
-      children: (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <Text type="secondary" style={{ fontSize: '13px' }}>
-              {t.keyGenerator.parityDesc}
-            </Text>
-          </div>
-
-          <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.keyGenerator.keyInput}:
-            </Text>
-            <TextArea
-              value={parityInput}
-              onChange={e => setParityInput(e.target.value)}
-              placeholder={t.keyGenerator.keyInputPlaceholder}
-              autoSize={{ minRows: 2, maxRows: 4 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
-            />
-          </div>
-
-          <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.keyGenerator.parityType}:
-            </Text>
-            <Segmented
-              value={parityType}
-              onChange={(value) => setParityType(value as 'odd' | 'even')}
-              options={[
-                { label: t.keyGenerator.odd, value: 'odd' },
-                { label: t.keyGenerator.even, value: 'even' }
-              ]}
-              block
-              size="large"
-            />
-          </div>
-
-          <Button 
-            type="primary"
-            icon={<CheckCircleOutlined />}
-            onClick={handleAdjustParity}
-            size="large"
-            block
-          >
-            {t.keyGenerator.adjustParity}
-          </Button>
-
-          {adjustedKey && (
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
-                {t.keyGenerator.adjustedKey}
-              </Text>
-              <div style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
-                fontSize: 'clamp(16px, 4vw, 22px)',
-                letterSpacing: '1px', 
-                color: '#52c41a',
-                wordBreak: 'break-all',
-                marginTop: '8px',
-                lineHeight: '1.6'
-              }}>
-                {formatHexDisplay(adjustedKey)}
-              </div>
-              
-              <Divider style={{ margin: '12px 0' }} />
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Tag color="blue">{t.keyGenerator.length}: {adjustedKey.length / 2} {t.keyGenerator.bytes}</Tag>
-                <Button 
-                  type="text" 
-                  size="small"
-                  icon={<CopyOutlined />}
-                  onClick={() => copyToClipboard(adjustedKey)}
-                >
-                  {t.common.copy}
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: '4',
       label: t.keyGenerator.tabValidation,
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -474,56 +538,78 @@ const KeyGenerator: React.FC = () => {
           </Button>
 
           {validationResult && (
-            <Alert
-              message={validationResult.valid ? t.keyGenerator.validKey : t.keyGenerator.invalidKey}
-              type={validationResult.valid ? 'success' : 'error'}
-              icon={validationResult.valid ? <CheckCircleOutlined /> : <CloseCircleOutlined />}
-              description={
-                <div style={{ marginTop: 12 }}>
-                  <Space direction="vertical" style={{ width: '100%' }}>
-                    <div>
-                      <Text type="secondary" style={{ fontSize: '12px' }}>
-                        {t.keyGenerator.keyType}:
-                      </Text>
-                      <Tag color="blue" style={{ marginLeft: 8 }}>
-                        {validationResult.keyType}
-                      </Tag>
-                    </div>
-                    <div>
-                      <Text type="secondary" style={{ fontSize: '12px' }}>
-                        {t.keyGenerator.length}:
-                      </Text>
-                      <Tag color="purple" style={{ marginLeft: 8 }}>
-                        {validationResult.keyLength} {t.keyGenerator.bytes}
-                      </Tag>
-                    </div>
-                    {validationResult.parityType !== 'none' && (
+            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
+              <div>
+                <div style={{ marginBottom: 12 }}>
+                  <Text type="secondary" style={{ fontSize: '12px' }}>
+                    Key
+                  </Text>
+                  <div style={{ 
+                    fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
+                    fontSize: 'clamp(16px, 4vw, 22px)',
+                    letterSpacing: '1px', 
+                    color: '#1677ff',
+                    wordBreak: 'break-all',
+                    marginTop: '4px',
+                    lineHeight: '1.6'
+                  }}>
+                    {formatHexDisplay(validationResult.key)}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+                  <Tag color="purple">Key length: {validationResult.keyLength}</Tag>
+                  <Tag color="blue">Parity detected: {validationResult.parityDetected}</Tag>
+                </div>
+
+                <Divider style={{ margin: '16px 0' }} />
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 8 }}>
+                  <div>
+                    <Tag color="green" style={{ width: '100%', marginBottom: 4 }}>KCV (VISA): {validationResult.kcvVisa}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="green" style={{ width: '100%', marginBottom: 4 }}>KCV (IBM): {validationResult.kcvIbm}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="green" style={{ width: '100%', marginBottom: 4 }}>KCV (ATALLA): {validationResult.kcvAtalla}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="green" style={{ width: '100%', marginBottom: 4 }}>KCV (FUTUREX): {validationResult.kcvFuturex}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="green" style={{ width: '100%', marginBottom: 4 }}>KCV (ATALLA R): {validationResult.kcvAtallaR}</Tag>
+                  </div>
+                </div>
+
+                <Divider style={{ margin: '16px 0' }} />
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 8 }}>
+                  <div>
+                    <Tag color="blue" style={{ width: '100%', marginBottom: 4 }}>KCV (SHA256): {validationResult.kcvSha256}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="blue" style={{ width: '100%', marginBottom: 4 }}>KCV (CMAC): {validationResult.kcvCmac}</Tag>
+                  </div>
+                  <div>
+                    <Tag color="blue" style={{ width: '100%', marginBottom: 4 }}>KCV (AES): {validationResult.kcvAes}</Tag>
+                  </div>
+                </div>
+
+                {validationResult.errors.length > 0 && (
+                  <>
+                    <Divider style={{ margin: '16px 0' }} />
+                    <Alert type="error" message={
                       <div>
-                        <Text type="secondary" style={{ fontSize: '12px' }}>
-                          {t.keyGenerator.parityStatus}:
-                        </Text>
-                        <Tag 
-                          color={validationResult.parityValid ? 'green' : 'red'} 
-                          style={{ marginLeft: 8 }}
-                        >
-                          {validationResult.parityValid ? t.keyGenerator.parityValid : t.keyGenerator.parityInvalid}
-                        </Tag>
-                      </div>
-                    )}
-                    {validationResult.errors.length > 0 && (
-                      <div style={{ marginTop: 8 }}>
                         {validationResult.errors.map((err: string, idx: number) => (
-                          <div key={idx} style={{ color: '#ff4d4f', fontSize: '12px' }}>
-                            • {err}
-                          </div>
+                          <div key={idx}>• {err}</div>
                         ))}
                       </div>
-                    )}
-                  </Space>
-                </div>
-              }
-              showIcon
-            />
+                    } />
+                  </>
+                )}
+              </div>
+            </div>
         )}
       </div>
       ),

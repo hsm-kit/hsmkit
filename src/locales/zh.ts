@@ -98,6 +98,9 @@ export default {
     format: '格式',
     autoAdjustParity: '自动修正奇偶校验位',
     parityAdjustmentHint: '某些密钥可能未设置正确的奇偶校验位，勾选此项可自动修正',
+    kcvCalcTitle: '密钥校验值计算方法',
+    desCalcDesc: '使用密钥明文对 16 个字符长度的 \'0\' 进行 3DES-ECB 算法加密，然后截取加密值的前六个字符作为密钥校验值',
+    aesCalcDesc: '使用密钥明文对 32 个字符长度的 \'0\' 进行 CMAC-AES 算法加密，然后截取加密值的前六个字符作为密钥校验值',
   },
   
   pinBlock: {

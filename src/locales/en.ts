@@ -98,6 +98,9 @@ export default {
     format: 'Format',
     autoAdjustParity: 'Auto-adjust Parity Bits',
     parityAdjustmentHint: 'Some keys may not have correct parity bits set, check this option to auto-correct',
+    kcvCalcTitle: 'Key Check Value Calculation',
+    desCalcDesc: 'Use the plaintext of the key to encrypt 16 characters long \'0\' with the 3DES-ECB algorithm, then intercept the first six characters of the encrypted value as the key check value',
+    aesCalcDesc: 'Use the plaintext of the key to encrypt 32 characters long \'0\' with the CMAC-AES algorithm, then intercept the first six characters of the encrypted value as the key check value',
   },
   
   pinBlock: {
