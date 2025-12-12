@@ -5,7 +5,8 @@ import {
   SafetyCertificateOutlined, 
   CalculatorOutlined, 
   AppstoreOutlined, 
-  MenuOutlined 
+  MenuOutlined,
+  FileSearchOutlined
 } from '@ant-design/icons';
 import { useLanguage } from './hooks/useLanguage';
 import LanguageSwitcher from './components/LanguageSwitcher';
@@ -13,6 +14,7 @@ import KeyGenerator from './components/KeyGenerator';
 import KCVCalculator from './components/KCVCalculator';
 import PinBlockTool from './components/PinBlockTool';
 import TR31Analyzer from './components/TR31Analyzer';
+import ASN1Parser from './components/ASN1Parser';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -26,7 +28,7 @@ const contentStyle: React.CSSProperties = {
 
 const App: React.FC = () => {
   const { t } = useLanguage();
-  const [currentKey, setCurrentKey] = useState('gen');
+  const [currentKey, setCurrentKey] = useState('asn1');
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -42,6 +44,7 @@ const App: React.FC = () => {
   
   // 菜单定义
   const items = [
+    { label: t.menu.asn1, key: 'asn1', icon: <FileSearchOutlined /> },
     { label: t.menu.keyGenerator, key: 'gen', icon: <KeyOutlined /> },
     { label: t.menu.tr31, key: 'tr31', icon: <SafetyCertificateOutlined /> },
     { label: t.menu.kcv, key: 'kcv', icon: <CalculatorOutlined /> },
@@ -176,6 +179,7 @@ const App: React.FC = () => {
       {/* 2. 内容区域 */}
       <Content style={contentStyle}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
+          {currentKey === 'asn1' && <ASN1Parser />}
           {currentKey === 'gen' && <KeyGenerator />}
           {currentKey === 'tr31' && <TR31Analyzer />}
           {currentKey === 'kcv' && <KCVCalculator />}

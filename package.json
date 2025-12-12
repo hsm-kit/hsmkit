@@ -13,8 +13,10 @@
     "@ant-design/icons": "^6.1.0",
     "@types/crypto-js": "^4.2.2",
     "antd": "^6.1.0",
+    "asn1js": "^3.0.7",
     "crypto-js": "^4.2.0",
     "iconv-lite": "^0.7.0",
+    "pvutils": "^1.1.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
