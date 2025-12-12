@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, Button, message, Typography, Upload, Dropdown, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
-import { FileSearchOutlined, UploadOutlined, CopyOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { FileSearchOutlined, UploadOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../hooks/useLanguage';
-import * as asn1js from 'asn1js';
 import { fromBER } from 'asn1js';
 
 const { Title, Text } = Typography;
@@ -286,102 +285,103 @@ const ASN1Analyzer: React.FC = () => {
   };
 
   // 为每个定义创建结构检查函数
-  const createStructureChecker = (defValue: string): (node: ParsedNode, depth: number) => boolean => {
+  const createStructureChecker = (defValue: string): ((node: ParsedNode, depth: number) => boolean) => {
     switch (defValue) {
       case 'pkcs1-rsa':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length === 9 && node.children[0].type === 'INTEGER';
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length === 9 && node.children[0].type === 'INTEGER');
           }
           return true; // 子节点都算匹配
         };
       case 'pkcs8':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length >= 3 && 
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length >= 3 && 
                    node.children[0].type === 'INTEGER' && 
                    node.children[1].type === 'SEQUENCE' &&
-                   node.children[2].type === 'OCTET STRING';
+                   node.children[2].type === 'OCTET STRING');
           }
           return true;
         };
       case 'pkcs8-encrypted':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length >= 2 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length >= 2 &&
                    node.children[0].type === 'SEQUENCE' &&
-                   node.children[1].type === 'OCTET STRING';
+                   node.children[1].type === 'OCTET STRING');
           }
           return true;
         };
       case 'x509':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length === 3 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length === 3 &&
                    node.children[0].type === 'SEQUENCE' &&
                    node.children[1].type === 'SEQUENCE' &&
-                   node.children[2].type === 'BIT STRING';
+                   node.children[2].type === 'BIT STRING');
           }
           if (depth === 1 && node.fieldName === 'tbsCertificate') {
-            return node.children && node.children.length >= 6;
+            return !!(node.children && node.children.length >= 6);
           }
           return true;
         };
       case 'x509-crl':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
             // CRL 根节点：SEQUENCE with 3 children (tbsCertList, signatureAlgorithm, signatureValue)
-            return node.type === 'SEQUENCE' && node.children?.length === 3 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length === 3 &&
                    node.children[0].type === 'SEQUENCE' &&
                    node.children[1].type === 'SEQUENCE' &&
-                   node.children[2].type === 'BIT STRING';
+                   node.children[2].type === 'BIT STRING');
           }
           if (depth === 1) {
             // tbsCertList 应该有 signature, issuer, thisUpdate 等
             const tbs = node.children?.[0] || node;
             if (tbs.type === 'SEQUENCE' && tbs.children && tbs.children.length >= 3) {
               // 检查是否有 signature (SEQUENCE), issuer (SEQUENCE), thisUpdate (Time)
-              return tbs.children[0].type === 'SEQUENCE' && 
+              return !!(tbs.children[0].type === 'SEQUENCE' && 
                      tbs.children[1].type === 'SEQUENCE' &&
-                     (tbs.children[2].type === 'UTCTime' || tbs.children[2].type === 'GeneralizedTime');
+                     (tbs.children[2].type === 'UTCTime' || tbs.children[2].type === 'GeneralizedTime'));
             }
+            return false;
           }
           return true;
         };
       case 'x509-pubkey':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length === 2 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length === 2 &&
                    node.children[0].type === 'SEQUENCE' &&
-                   node.children[1].type === 'BIT STRING';
+                   node.children[1].type === 'BIT STRING');
           }
           return true;
         };
       case 'pkcs10':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length === 3 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length === 3 &&
                    node.children[0].type === 'SEQUENCE' &&
                    node.children[1].type === 'SEQUENCE' &&
-                   node.children[2].type === 'BIT STRING';
+                   node.children[2].type === 'BIT STRING');
           }
           return true;
         };
       case 'cms':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length >= 1 &&
-                   node.children[0].type === 'OBJECT IDENTIFIER';
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length >= 1 &&
+                   node.children[0].type === 'OBJECT IDENTIFIER');
           }
           return true;
         };
       case 'cmp':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
             // CMP 结构更复杂，需要更严格的检查
             // CMP PKI Message 通常是 SEQUENCE，第一个子节点是 SEQUENCE (header)，第二个也是 SEQUENCE (body)
             // 但 CRL 也有类似结构，所以需要更严格的检查
-            if (node.type === 'SEQUENCE' && node.children?.length >= 2 &&
+            if (node.type === 'SEQUENCE' && node.children && node.children.length >= 2 &&
                 node.children[0].type === 'SEQUENCE' &&
                 node.children[1].type === 'SEQUENCE') {
               // 检查第三个子节点，CRL 有 BIT STRING，CMP 通常没有或不同
@@ -401,20 +401,20 @@ const ASN1Analyzer: React.FC = () => {
           return false; // 默认不匹配，避免误识别
         };
       case 'ldap':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length >= 2 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length >= 2 &&
                    node.children[0].type === 'INTEGER' &&
-                   node.children[1].type === 'SEQUENCE';
+                   node.children[1].type === 'SEQUENCE');
           }
           return true;
         };
       case 'timestamp':
-        return (node, depth) => {
+        return (node, depth): boolean => {
           if (depth === 0) {
-            return node.type === 'SEQUENCE' && node.children?.length >= 2 &&
+            return !!(node.type === 'SEQUENCE' && node.children && node.children.length >= 2 &&
                    node.children[0].type === 'INTEGER' &&
-                   node.children[1].type === 'SEQUENCE';
+                   node.children[1].type === 'SEQUENCE');
           }
           return true;
         };
@@ -472,7 +472,7 @@ const ASN1Analyzer: React.FC = () => {
   // 辅助函数：统一解析ASN1对象
   const parseASN1Buffer = (bytes: Uint8Array): any => {
     try {
-      const asn1Result = fromBER(bytes.buffer);
+      const asn1Result = fromBER(bytes.buffer as ArrayBuffer);
       if (asn1Result.offset === -1) {
         throw new Error('Failed to parse ASN.1 structure');
       }
@@ -482,23 +482,6 @@ const ASN1Analyzer: React.FC = () => {
     }
   };
 
-  const parseASN1 = (data: Uint8Array): ParsedNode | null => {
-    try {
-      const asn1Obj = parseASN1Buffer(data);
-      if (!asn1Obj) {
-        throw new Error('ASN.1 result is null or undefined');
-      }
-      
-      const rootNode = convertToNode(asn1Obj, 0, data, 0);
-      
-      // 根据loadExample和definition添加字段名
-      applyDefinitionWithFormat(rootNode);
-      
-      return rootNode;
-    } catch (err) {
-      throw err;
-    }
-  };
 
   const applyDefinitionWithFormat = (node: ParsedNode, format?: string) => {
     const actualFormat = format || definition || loadExample;
@@ -597,13 +580,14 @@ const ASN1Analyzer: React.FC = () => {
             if (tbs[index] && tbs[index].type === 'SEQUENCE') {
               tbs[index].fieldName = 'signature';
               // 递归处理AlgorithmIdentifier
-              if (tbs[index].children && tbs[index].children.length >= 1) {
-                if (tbs[index].children[0].type === 'OBJECT IDENTIFIER') {
-                  tbs[index].children[0].fieldName = 'algorithm';
+              const children = tbs[index].children;
+              if (children && children.length >= 1) {
+                if (children[0].type === 'OBJECT IDENTIFIER') {
+                  children[0].fieldName = 'algorithm';
                 }
                 // 处理可选的 parameters
-                if (tbs[index].children.length > 1) {
-                  tbs[index].children[1].fieldName = 'parameters';
+                if (children.length > 1) {
+                  children[1].fieldName = 'parameters';
                 }
               }
               index++;
@@ -613,8 +597,9 @@ const ASN1Analyzer: React.FC = () => {
             if (tbs[index] && tbs[index].type === 'SEQUENCE') {
               tbs[index].fieldName = 'issuer';
               // 递归处理Name结构（rdnSequence）
-              if (tbs[index].children) {
-                tbs[index].children.forEach((rdn: ParsedNode, rdnIndex: number) => {
+              const issuerChildren = tbs[index].children;
+              if (issuerChildren) {
+                issuerChildren.forEach((rdn: ParsedNode, rdnIndex: number) => {
                   if (rdn.type === 'SET' && rdn.children) {
                     rdn.fieldName = `RelativeDistinguishedName[${rdnIndex}]`;
                     rdn.children.forEach((ava: ParsedNode, avaIndex: number) => {
@@ -650,8 +635,9 @@ const ASN1Analyzer: React.FC = () => {
             if (tbs[index] && tbs[index].type === 'SEQUENCE' && tbs[index].isConstructed) {
               tbs[index].fieldName = 'revokedCertificates';
               // 递归处理revokedCertificates中的每个RevokedCertificate
-              if (tbs[index].children) {
-                tbs[index].children.forEach((revokedCert: ParsedNode, certIndex: number) => {
+              const revokedChildren = tbs[index].children;
+              if (revokedChildren) {
+                revokedChildren.forEach((revokedCert: ParsedNode, certIndex: number) => {
                   if (revokedCert.type === 'SEQUENCE' && revokedCert.children) {
                     revokedCert.fieldName = `RevokedCertificate[${certIndex}]`;
                     if (revokedCert.children[0] && revokedCert.children[0].type === 'INTEGER') {
@@ -673,10 +659,12 @@ const ASN1Analyzer: React.FC = () => {
             if (tbs[index] && tbs[index].type === '[0]') {
               tbs[index].fieldName = 'crlExtensions';
               // 递归处理Extensions
-              if (tbs[index].children && tbs[index].children[0] && tbs[index].children[0].type === 'SEQUENCE') {
-                tbs[index].children[0].fieldName = 'Extensions';
-                if (tbs[index].children[0].children) {
-                  tbs[index].children[0].children.forEach((ext: ParsedNode, extIndex: number) => {
+              const crlExtChildren = tbs[index].children;
+              if (crlExtChildren && crlExtChildren[0] && crlExtChildren[0].type === 'SEQUENCE') {
+                crlExtChildren[0].fieldName = 'Extensions';
+                const extensionsChildren = crlExtChildren[0].children;
+                if (extensionsChildren) {
+                  extensionsChildren.forEach((ext: ParsedNode, extIndex: number) => {
                     if (ext.type === 'SEQUENCE' && ext.children && ext.children.length >= 2) {
                       ext.fieldName = `Extension[${extIndex}]`;
                       if (ext.children[0].type === 'OBJECT IDENTIFIER') {
@@ -835,8 +823,9 @@ const ASN1Analyzer: React.FC = () => {
           // revokedCertificates (可选)
           if (tbsChildren[index] && tbsChildren[index].type === 'SEQUENCE' && tbsChildren[index].isConstructed) {
             tbsChildren[index].fieldName = 'revokedCertificates';
-            if (tbsChildren[index].children) {
-              tbsChildren[index].children.forEach((revokedCert: ParsedNode, certIndex: number) => {
+            const revokedCerts = tbsChildren[index].children;
+            if (revokedCerts) {
+              revokedCerts.forEach((revokedCert: ParsedNode, certIndex: number) => {
                 if (revokedCert.type === 'SEQUENCE' && revokedCert.children) {
                   revokedCert.fieldName = `RevokedCertificate[${certIndex}]`;
                   if (revokedCert.children[0] && revokedCert.children[0].type === 'INTEGER') {
@@ -1604,87 +1593,88 @@ const ASN1Analyzer: React.FC = () => {
             }}
             trigger={['contextMenu']}
           >
-            {/* 头部：字段名和类型（参考asn1js的head部分） */}
-            <div 
-              className="asn1-node-head"
-              style={{ 
-                padding: '2px 8px',
-                background: isHovered ? '#e6f7ff' : 'transparent',
-                borderRadius: 4,
-                whiteSpace: 'nowrap', 
-                overflow: 'hidden', 
-                textOverflow: 'ellipsis' 
-              }}
-            >
-              {node.fieldName && (
-                <span style={{ color: '#000', fontWeight: 600, marginRight: 8 }}>
-                  {node.fieldName}
-                </span>
-              )}
-              <span style={{ color: '#1677ff', fontWeight: 600 }}>{node.type}</span>
-              {elementInfo && (
-                <span style={{ color: '#999', marginLeft: 8 }}>{elementInfo}</span>
-              )}
-              {/* 内容预览（参考asn1js的preview部分） */}
-              {previewValue && (
-                <span style={{ color: '#666', marginLeft: 8 }}>
-                  {previewValue.split('\n').map((line, i) => (
-                    i === 0 ? line : <span key={i} style={{ color: '#999' }}> | {line}</span>
-                  ))}
-                </span>
+            <div>
+              {/* 头部：字段名和类型（参考asn1js的head部分） */}
+              <div 
+                className="asn1-node-head"
+                style={{ 
+                  padding: '2px 8px',
+                  background: isHovered ? '#e6f7ff' : 'transparent',
+                  borderRadius: 4,
+                  whiteSpace: 'nowrap', 
+                  overflow: 'hidden', 
+                  textOverflow: 'ellipsis' 
+                }}
+              >
+                {node.fieldName && (
+                  <span style={{ color: '#000', fontWeight: 600, marginRight: 8 }}>
+                    {node.fieldName}
+                  </span>
+                )}
+                <span style={{ color: '#1677ff', fontWeight: 600 }}>{node.type}</span>
+                {elementInfo && (
+                  <span style={{ color: '#999', marginLeft: 8 }}>{elementInfo}</span>
+                )}
+                {/* 内容预览（参考asn1js的preview部分） */}
+                {previewValue && (
+                  <span style={{ color: '#666', marginLeft: 8 }}>
+                    {previewValue.split('\n').map((line, i) => (
+                      i === 0 ? line : <span key={i} style={{ color: '#999' }}> | {line}</span>
+                    ))}
+                  </span>
+                )}
+              </div>
+              
+              {/* 详细信息（参考asn1js的value div部分）- 默认隐藏，鼠标悬停时显示 */}
+              {isHovered && (
+                <div 
+                  className="asn1-node-value"
+                  style={{ 
+                    position: 'absolute',
+                    zIndex: 10,
+                    top: '1.2em',
+                    left: '30px',
+                    background: '#fff',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: 4,
+                    padding: '8px 12px',
+                    fontSize: '12px', 
+                    color: '#666',
+                    lineHeight: '1.5',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                    minWidth: '200px',
+                    maxWidth: '600px',
+                    pointerEvents: 'none'
+                  }}
+                >
+                  <div><strong>{t.asn1.offset}:</strong> {node.offset}</div>
+                  <div><strong>{t.asn1.length}:</strong> {headerLen}+{node.length}</div>
+                  {node.isConstructed && (
+                    <div style={{ fontStyle: 'italic', color: '#999' }}>({t.asn1.constructed})</div>
+                  )}
+                  {node.value && (
+                    <div style={{ marginTop: 8 }}>
+                      <div style={{ fontWeight: 600, color: '#333', marginBottom: 4 }}>{t.asn1.value}:</div>
+                      <div style={{ 
+                        padding: '6px 8px', 
+                        background: '#f5f5f5', 
+                        borderRadius: 4,
+                        wordBreak: 'break-all',
+                        maxHeight: '300px',
+                        overflowY: 'auto',
+                        whiteSpace: 'pre-wrap',
+                        fontFamily: 'monospace',
+                        fontSize: '11px'
+                      }}>
+                        {displayValue}
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </Dropdown>
-          
-          {/* 详细信息（参考asn1js的value div部分）- 默认隐藏，鼠标悬停时显示 */}
-          {isHovered && (
-              <div 
-                className="asn1-node-value"
-                style={{ 
-                  position: 'absolute',
-                  zIndex: 10,
-                  top: '1.2em',
-                  left: '30px',
-                  background: '#fff',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: 4,
-                  padding: '8px 12px',
-                  fontSize: '12px', 
-                  color: '#666',
-                  lineHeight: '1.5',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                  minWidth: '200px',
-                  maxWidth: '600px',
-                  pointerEvents: 'none'
-                }}
-              >
-                <div><strong>{t.asn1.offset}:</strong> {node.offset}</div>
-                <div><strong>{t.asn1.length}:</strong> {headerLen}+{node.length}</div>
-                {node.isConstructed && (
-                  <div style={{ fontStyle: 'italic', color: '#999' }}>({t.asn1.constructed})</div>
-                )}
-                {node.value && (
-                  <div style={{ marginTop: 8 }}>
-                    <div style={{ fontWeight: 600, color: '#333', marginBottom: 4 }}>{t.asn1.value}:</div>
-                    <div style={{ 
-                      padding: '6px 8px', 
-                      background: '#f5f5f5', 
-                      borderRadius: 4,
-                      wordBreak: 'break-all',
-                      maxHeight: '300px',
-                      overflowY: 'auto',
-                      whiteSpace: 'pre-wrap',
-                      fontFamily: 'monospace',
-                      fontSize: '11px'
-                    }}>
-                      {displayValue}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </Dropdown>
+        </div>
         {node.children?.map(child => renderTree(child, level + 1))}
       </div>
     );

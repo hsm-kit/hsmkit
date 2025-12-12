@@ -7,18 +7,21 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 // 动态导入 asn1js 模块
-let ASN1, Stream, Hex, Base64, Defs;
+let ASN1: any, Hex: any, Base64: any, Defs: any;
 
 // 初始化 asn1js
 const initASN1 = async () => {
   try {
+    // @ts-ignore - 动态导入的 JS 模块
     const asn1Module = await import('../lib/asn1js/asn1.js');
+    // @ts-ignore - 动态导入的 JS 模块
     const hexModule = await import('../lib/asn1js/hex.js');
+    // @ts-ignore - 动态导入的 JS 模块
     const base64Module = await import('../lib/asn1js/base64.js');
+    // @ts-ignore - 动态导入的 JS 模块
     const defsModule = await import('../lib/asn1js/defs.js');
     
     ASN1 = asn1Module.ASN1;
-    Stream = asn1Module.Stream;
     Hex = hexModule.Hex;
     Base64 = base64Module.Base64;
     Defs = defsModule.Defs;
