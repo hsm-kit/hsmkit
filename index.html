@@ -11,26 +11,72 @@
     <!-- 视口设置 - 优化移动端显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     
-    <!-- SEO 元数据 -->
-    <meta name="description" content="HSM Kit - Powerful online encryption toolkit supporting key generation, TR-31 key blocks, KCV calculation, PIN Block and more. Secure client-side calculation." />
-    <meta name="keywords" content="HSM,Key Generation,Encryption Tools,TR-31,KCV,PIN Block,Payment Security,Cryptography Tools" />
+    <!-- SEO 元数据 - Enhanced for better search rankings -->
+    <meta name="description" content="Free online encryption toolkit - AES, DES, RSA, ECC encryption, TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 decoder. All calculations client-side for maximum security." />
+    <meta name="keywords" content="HSM Kit, encryption tools, AES encryption online, DES encryption, 3DES calculator, RSA encryption, ECC ECDSA, TR-31 key block parser, KCV calculator, key check value, PIN block generator, ISO 9564, ASN.1 parser, DER decoder, key generator, cryptography tools, payment security, ANSI X9.143, format preserving encryption, FPE" />
     <meta name="author" content="HSM Kit" />
+    <meta name="robots" content="index, follow" />
     
     <!-- Open Graph / 社交媒体分享 -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="HSM Kit - Online Encryption Toolkit" />
-    <meta property="og:description" content="Powerful online encryption tools supporting key generation, TR-31, KCV calculation and more" />
-    <meta property="og:image" content="/apple-touch-icon.png" />
+    <meta property="og:url" content="https://hsmkit.com/" />
+    <meta property="og:title" content="HSM Kit - Free Online Encryption & Key Management Tools" />
+    <meta property="og:description" content="Comprehensive suite of cryptographic tools: AES/DES/RSA encryption, TR-31 parser, KCV calculator, PIN block generator. 100% client-side, completely free." />
+    <meta property="og:image" content="https://hsmkit.com/apple-touch-icon.png" />
+    <meta property="og:site_name" content="HSM Kit" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HSM Kit - Free Online Encryption Tools" />
+    <meta name="twitter:description" content="AES, DES, RSA encryption, TR-31 parser, KCV calculator, and more. All free, all client-side." />
     
     <!-- 主题颜色 -->
     <meta name="theme-color" content="#1677ff" />
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hsmkit.com/" />
+    
+    <!-- Structured Data for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HSM Kit",
+      "url": "https://hsmkit.com",
+      "description": "Free online encryption toolkit with AES, DES, RSA, ECC encryption, TR-31 key block parser, KCV calculator, PIN block generator, and ASN.1 decoder.",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AES-128/192/256 Encryption",
+        "DES/3DES Encryption",
+        "RSA Encryption and Signing",
+        "ECC/ECDSA Digital Signatures",
+        "TR-31 Key Block Parser",
+        "KCV Calculator",
+        "PIN Block Generator",
+        "ASN.1 DER/BER Parser",
+        "Format-Preserving Encryption",
+        "Secure Key Generator"
+      ]
+    }
+    </script>
+    
     <!-- PWA Manifest -->
     <!-- <link rel="manifest" href="/manifest.json" /> -->
     
-    <title>HSM Kit - Online Encryption Toolkit</title>
+    <title>HSM Kit - Free Online Encryption & Key Management Tools</title>
   </head>
   <body>
+    <noscript>
+      <h1>HSM Kit - Online Encryption Toolkit</h1>
+      <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser.</p>
+      <p>Features include: AES encryption, DES/3DES encryption, RSA encryption, ECC/ECDSA, TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 parser, and secure key generation.</p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

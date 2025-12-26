@@ -7,15 +7,25 @@ import {
   AppstoreOutlined, 
   MenuOutlined,
   FileSearchOutlined,
-  LockOutlined
+  LockOutlined,
+  HomeOutlined
 } from '@ant-design/icons';
+import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
-// Components - organized by category
 import { LanguageSwitcher } from './components/common';
-import { CipherTool, DESTool, RSATool, ECCTool, FPETool } from './components/cipher';
-import { KeyGenerator, KCVCalculator, TR31Analyzer } from './components/keys';
-import { ASN1Parser } from './components/parser';
-import { PinBlockTool } from './components/payment';
+import {
+  HomePage,
+  ASN1Page,
+  AESPage,
+  DESPage,
+  RSAPage,
+  ECCPage,
+  FPEPage,
+  KeyGeneratorPage,
+  TR31Page,
+  KCVPage,
+  PinBlockPage,
+} from './pages';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -38,11 +48,45 @@ const contentStyle: React.CSSProperties = {
   width: '100%',
 };
 
+// Route to menu key mapping
+const routeToKey: Record<string, string> = {
+  '/': 'home',
+  '/asn1-parser': 'asn1',
+  '/aes-encryption': 'cipher-aes',
+  '/des-encryption': 'cipher-des',
+  '/rsa-encryption': 'cipher-rsa',
+  '/ecc-encryption': 'cipher-ecc',
+  '/fpe-encryption': 'cipher-fpe',
+  '/key-generator': 'gen',
+  '/tr31-calculator': 'tr31',
+  '/kcv-calculator': 'kcv',
+  '/pin-block-generator': 'pin',
+};
+
+// Menu key to route mapping
+const keyToRoute: Record<string, string> = {
+  'home': '/',
+  'asn1': '/asn1-parser',
+  'cipher-aes': '/aes-encryption',
+  'cipher-des': '/des-encryption',
+  'cipher-rsa': '/rsa-encryption',
+  'cipher-ecc': '/ecc-encryption',
+  'cipher-fpe': '/fpe-encryption',
+  'gen': '/key-generator',
+  'tr31': '/tr31-calculator',
+  'kcv': '/kcv-calculator',
+  'pin': '/pin-block-generator',
+};
+
 const App: React.FC = () => {
   const { t } = useLanguage();
-  const [currentKey, setCurrentKey] = useState('asn1');
+  const navigate = useNavigate();
+  const location = useLocation();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Get current menu key from route
+  const currentKey = routeToKey[location.pathname] || 'home';
 
   // 检测屏幕大小
   React.useEffect(() => {
@@ -86,7 +130,10 @@ const App: React.FC = () => {
   ];
 
   const handleMenuClick = (key: string) => {
-    setCurrentKey(key);
+    const route = keyToRoute[key];
+    if (route) {
+      navigate(route);
+    }
     setDrawerVisible(false);
   };
 
@@ -107,11 +154,12 @@ const App: React.FC = () => {
           height: isMobile ? '56px' : '64px'
         }}
       >
-        <div style={{ 
+        <Link to="/" style={{ 
           display: 'flex', 
           alignItems: 'center', 
           marginRight: isMobile ? 'auto' : 24,
-          flexShrink: 0  // 防止被压缩
+          flexShrink: 0,
+          textDecoration: 'none'
         }}>
           {/* Logo 区域 */}
           <div style={{ 
@@ -133,9 +181,9 @@ const App: React.FC = () => {
             fontWeight: 600, 
             color: '#333', 
             letterSpacing: '-0.5px',
-            whiteSpace: 'nowrap'  // 防止换行
+            whiteSpace: 'nowrap'
           }}>{t.header.title}</span>
-        </div>
+        </Link>
         
         {/* 桌面端菜单 */}
         {!isMobile && (
@@ -143,30 +191,22 @@ const App: React.FC = () => {
             <Menu 
               mode="horizontal" 
               selectedKeys={[currentKey]} 
-              onClick={e => setCurrentKey(e.key)}
+              onClick={e => handleMenuClick(e.key)}
               items={items}
               style={{ 
                 flex: 1, 
                 borderBottom: 'none', 
                 lineHeight: '64px',
-                minWidth: 0  // 允许收缩但保持可读
+                minWidth: 0
               }}
             />
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '8px',
-              flexShrink: 0,  // 右侧按钮不被压缩
+              flexShrink: 0,
               marginLeft: 16
             }}>
               <LanguageSwitcher />
-              <Button 
-                type="link" 
-                href="https://github.com/hsm-kit/hsmkit" 
-                target="_blank"
-              >
-                {t.header.github}
-              </Button>
             </div>
           </>
         )}
@@ -194,35 +234,35 @@ const App: React.FC = () => {
           mode="vertical"
           selectedKeys={[currentKey]}
           onClick={e => handleMenuClick(e.key)}
-          items={items}
+          items={[
+            { label: 'Home', key: 'home', icon: <HomeOutlined /> },
+            ...items
+          ]}
           style={{ borderRight: 'none', marginBottom: 20 }}
         />
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginTop: 16 }}>
           <LanguageSwitcher />
         </div>
-        <Button 
-          type="link" 
-          href="https://github.com/hsm-kit/hsmkit" 
-          target="_blank" 
-          block
-        >
-          {t.header.github}
-        </Button>
       </Drawer>
 
-      {/* 2. 内容区域 */}
+      {/* 2. 内容区域 - 使用路由 */}
       <Content style={contentStyle}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
-          {currentKey === 'asn1' && <ASN1Parser />}
-          {currentKey === 'cipher-aes' && <CipherTool />}
-          {currentKey === 'cipher-des' && <DESTool />}
-          {currentKey === 'cipher-rsa' && <RSATool />}
-          {currentKey === 'cipher-ecc' && <ECCTool />}
-          {currentKey === 'cipher-fpe' && <FPETool />}
-          {currentKey === 'gen' && <KeyGenerator />}
-          {currentKey === 'tr31' && <TR31Analyzer />}
-          {currentKey === 'kcv' && <KCVCalculator />}
-          {currentKey === 'pin' && <PinBlockTool />}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/asn1-parser" element={<ASN1Page />} />
+            <Route path="/aes-encryption" element={<AESPage />} />
+            <Route path="/des-encryption" element={<DESPage />} />
+            <Route path="/rsa-encryption" element={<RSAPage />} />
+            <Route path="/ecc-encryption" element={<ECCPage />} />
+            <Route path="/fpe-encryption" element={<FPEPage />} />
+            <Route path="/key-generator" element={<KeyGeneratorPage />} />
+            <Route path="/tr31-calculator" element={<TR31Page />} />
+            <Route path="/kcv-calculator" element={<KCVPage />} />
+            <Route path="/pin-block-generator" element={<PinBlockPage />} />
+            {/* Fallback to home for unknown routes */}
+            <Route path="*" element={<HomePage />} />
+          </Routes>
         </div>
       </Content>
 
