@@ -281,16 +281,25 @@ const KeyGenerator: React.FC = () => {
 
         {generatedKey && (
             <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
-                {t.keyGenerator.generatedKey}
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text type="secondary" style={{ fontSize: '12px' }}>
+                  {t.keyGenerator.generatedKey}
+                </Text>
+                <Button 
+                  type="text" 
+                  size="small"
+                  icon={<CopyOutlined />}
+                  onClick={() => copyToClipboard(generatedKey)}
+                >
+                  {t.common.copy}
+                </Button>
+              </div>
               <div style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                 fontSize: 'clamp(16px, 4vw, 22px)',
                 letterSpacing: '1px', 
                 color: '#1677ff',
                 wordBreak: 'break-all',
-                marginTop: '8px',
                 lineHeight: '1.6'
               }}>
                 {formatHexDisplay(generatedKey)}
@@ -307,14 +316,6 @@ const KeyGenerator: React.FC = () => {
                 )}
                 <Tag color="purple">{t.keyGenerator.length}: {length} {t.keyGenerator.bytes}</Tag>
                 <Tag color="cyan">{t.keyGenerator.bits}: {length * 8}</Tag>
-                <Button 
-                  type="text" 
-                  size="small"
-                  icon={<CopyOutlined />}
-                  onClick={() => copyToClipboard(generatedKey)}
-                >
-                  {t.common.copy}
-                </Button>
               </div>
             </div>
           )}
@@ -461,16 +462,25 @@ const KeyGenerator: React.FC = () => {
               <Divider style={{ margin: '16px 0', borderColor: '#1677ff', borderWidth: 2 }} />
 
               <div>
-                <Text strong style={{ fontSize: '13px', color: '#1677ff' }}>
-                  {t.keyGenerator.combinedKey}
-                </Text>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                  <Text strong style={{ fontSize: '13px', color: '#1677ff' }}>
+                    {t.keyGenerator.combinedKey}
+                  </Text>
+                  <Button 
+                    type="text" 
+                    size="small"
+                    icon={<CopyOutlined />}
+                    onClick={() => copyToClipboard(combinedKey)}
+                  >
+                    {t.common.copy}
+                  </Button>
+                </div>
                 <div style={{ 
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                   fontSize: 'clamp(16px, 4vw, 22px)',
                   letterSpacing: '1px', 
                   color: '#1677ff',
                   wordBreak: 'break-all',
-                  marginTop: '8px',
                   marginBottom: '12px',
                   lineHeight: '1.6',
                   fontWeight: 600
@@ -490,14 +500,6 @@ const KeyGenerator: React.FC = () => {
                     </Tag>
                   )}
                   <Tag color="purple">{t.keyGenerator.length}: {combinedKey.length / 2} {t.keyGenerator.bytes}</Tag>
-                  <Button 
-                    type="text" 
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(combinedKey)}
-                  >
-                    {t.common.copy}
-                  </Button>
                 </div>
               </div>
             </div>
