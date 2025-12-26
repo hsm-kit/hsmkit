@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Typography, Upload, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
-import { FileSearchOutlined, UploadOutlined, CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
+import { FileSearchOutlined, UploadOutlined, ClearOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -502,7 +502,7 @@ const ASN1Parser: React.FC = () => {
 
             {(parsedData || error) && (
               <Button
-                icon={<CloseCircleOutlined />}
+                icon={<ClearOutlined />}
                 onClick={() => {
                   setParsedData(null);
                   setHexData('');
@@ -520,6 +520,7 @@ const ASN1Parser: React.FC = () => {
                   }
                 }}
                 size="large"
+                danger
               >
                 {t.asn1.clear}
               </Button>
