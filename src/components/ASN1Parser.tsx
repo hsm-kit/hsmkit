@@ -6,32 +6,38 @@ import { useLanguage } from '../hooks/useLanguage';
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-// 动态导入 asn1js 模块
+// 预加载 asn1js 模块 - 立即开始加载，不阻塞渲染
 let ASN1: any, Hex: any, Base64: any, Defs: any;
+let asn1LoadPromise: Promise<boolean> | null = null;
 
-// 初始化 asn1js
-const initASN1 = async () => {
-  try {
-    // @ts-ignore - 动态导入的 JS 模块
-    const asn1Module = await import('../lib/asn1js/asn1.js');
-    // @ts-ignore - 动态导入的 JS 模块
-    const hexModule = await import('../lib/asn1js/hex.js');
-    // @ts-ignore - 动态导入的 JS 模块
-    const base64Module = await import('../lib/asn1js/base64.js');
-    // @ts-ignore - 动态导入的 JS 模块
-    const defsModule = await import('../lib/asn1js/defs.js');
-    
+const preloadASN1 = () => {
+  if (asn1LoadPromise) return asn1LoadPromise;
+  
+  asn1LoadPromise = Promise.all([
+    // @ts-ignore
+    import('../lib/asn1js/asn1.js'),
+    // @ts-ignore
+    import('../lib/asn1js/hex.js'),
+    // @ts-ignore
+    import('../lib/asn1js/base64.js'),
+    // @ts-ignore
+    import('../lib/asn1js/defs.js'),
+  ]).then(([asn1Module, hexModule, base64Module, defsModule]) => {
     ASN1 = asn1Module.ASN1;
     Hex = hexModule.Hex;
     Base64 = base64Module.Base64;
     Defs = defsModule.Defs;
-    
     return true;
-  } catch (err) {
+  }).catch(err => {
     console.error('Failed to load asn1js:', err);
     return false;
-  }
+  });
+  
+  return asn1LoadPromise;
 };
+
+// 立即开始预加载（模块加载时就开始）
+preloadASN1();
 
 interface ASN1Node {
   typeName: string;
@@ -61,19 +67,15 @@ const ASN1Parser: React.FC = () => {
   const [asn1Object, setAsn1Object] = useState<any>(null);
 
   useEffect(() => {
-    initASN1().then(loaded => {
+    // 等待预加载完成
+    preloadASN1().then(loaded => {
       setAsn1Loaded(loaded);
-      if (!loaded) {
-        setError('ASN.1 解析库加载失败');
-      } else {
-        // 初始化时就加载所有定义
-        if (Defs && Defs.commonTypes) {
-          const allDefs = Defs.commonTypes.map((type: any) => ({
-            label: type.description,
-            value: type.description
-          }));
-          setDefinitions([...allDefs, { label: 'no definition', value: 'none' }]);
-        }
+      if (loaded && Defs && Defs.commonTypes) {
+        const allDefs = Defs.commonTypes.map((type: any) => ({
+          label: type.description,
+          value: type.description
+        }));
+        setDefinitions([...allDefs, { label: 'no definition', value: 'none' }]);
       }
     });
   }, []);
@@ -272,8 +274,9 @@ const ASN1Parser: React.FC = () => {
     return (
       <div style={{ 
         fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
-        fontSize: '13px', 
-        lineHeight: '1.8'
+        fontSize: '11px', 
+        lineHeight: '1.6',
+        letterSpacing: '-0.3px'
       }}>
         {lines.map((line, lineIndex) => {
           const lineStartIndex = lineIndex * 16;
@@ -288,9 +291,9 @@ const ASN1Parser: React.FC = () => {
                     key={index}
                     style={{
                       background: isInRange ? '#e6f7ff' : 'transparent',
-                      padding: '2px 1px',
+                      padding: '1px 0',
                       borderRadius: 2,
-                      color: isInRange ? '#1677ff' : '#000',
+                      color: isInRange ? '#1677ff' : '#666',
                       cursor: 'pointer'
                     }}
                   >
@@ -306,31 +309,23 @@ const ASN1Parser: React.FC = () => {
     );
   };
 
-  const renderNode = (node: ASN1Node, level: number = 0): React.ReactNode => {
+  const renderNode = (node: ASN1Node, level: number = 0, isLast: boolean = true, prefix: string = ''): React.ReactNode => {
     const isHovered = hoveredNode === node;
     const hasChildren = node.children && node.children.length > 0;
     
-    // 计算完整内容的长度
-    const fullContent = [
-      node.fieldName,
-      node.typeName,
-      hasChildren ? `(${node.children!.length} elem)` : '',
-      node.content
-    ].filter(Boolean).join(' ');
-    
-    // 判断是否需要省略
-    const maxLength = 120; // 最大显示字符数
-    const shouldTruncate = fullContent.length > maxLength && !isHovered;
+    // 树形连接线
+    const connector = level === 0 ? '' : (isLast ? '└─ ' : '├─ ');
+    const childPrefix = level === 0 ? '' : prefix + (isLast ? '   ' : '│  ');
 
     return (
-      <div key={`${node.offset}-${level}`} style={{ marginLeft: level * 20, marginBottom: 4 }}>
+      <div key={`${node.offset}-${level}`} style={{ marginBottom: 1 }}>
         <div
           style={{
             position: 'relative',
             cursor: 'pointer',
-            fontFamily: 'monospace',
-            fontSize: '13px',
-            lineHeight: '1.6'
+            fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+            fontSize: '12px',
+            lineHeight: '1.5'
           }}
           onMouseEnter={() => setHoveredNode(node)}
           onMouseLeave={() => setHoveredNode(null)}
@@ -338,26 +333,27 @@ const ASN1Parser: React.FC = () => {
           {/* 头部 */}
           <div 
             style={{ 
-              padding: '2px 8px',
+              padding: '1px 4px',
               background: isHovered ? '#e6f7ff' : 'transparent',
-              borderRadius: 4,
-              whiteSpace: shouldTruncate ? 'nowrap' : 'normal',
-              overflow: shouldTruncate ? 'hidden' : 'visible',
-              textOverflow: shouldTruncate ? 'ellipsis' : 'clip',
-              wordBreak: isHovered ? 'break-all' : 'normal'
+              borderRadius: 3,
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center'
             }}
           >
+            {/* 树形前缀 */}
+            <span style={{ color: '#ccc', whiteSpace: 'pre' }}>{prefix}{connector}</span>
             {node.fieldName && (
-              <span style={{ color: '#000', fontWeight: 600, marginRight: 8 }}>
+              <span style={{ color: '#000', fontWeight: 600, marginRight: 6 }}>
                 {node.fieldName}
               </span>
             )}
             <span style={{ color: '#1677ff', fontWeight: 600 }}>{node.typeName}</span>
             {hasChildren && (
-              <span style={{ color: '#999', marginLeft: 8 }}>({node.children!.length} elem)</span>
+              <span style={{ color: '#999', marginLeft: 6 }}>({node.children!.length} elem)</span>
             )}
             {node.content && (
-              <span style={{ color: '#666', marginLeft: 8 }}>
+              <span style={{ color: '#666', marginLeft: 6 }}>
                 {node.content}
               </span>
             )}
@@ -438,7 +434,9 @@ const ASN1Parser: React.FC = () => {
         </div>
         
         {/* 递归渲染子节点 */}
-        {hasChildren && node.children!.map(child => renderNode(child, level + 1))}
+        {hasChildren && node.children!.map((child, index) => 
+          renderNode(child, level + 1, index === node.children!.length - 1, childPrefix)
+        )}
       </div>
     );
   };
@@ -549,8 +547,8 @@ const ASN1Parser: React.FC = () => {
           <>
             <Divider style={{ margin: '16px 0' }} />
             
-            <div style={{ display: 'grid', gridTemplateColumns: withHexDump ? '60% 40%' : '100%', gap: 16 }}>
-              <div>
+            <div style={{ display: 'grid', gridTemplateColumns: withHexDump ? '1fr 320px' : '100%', gap: 12 }}>
+              <div style={{ minWidth: 0 }}>
                 <Text strong style={{ display: 'block', marginBottom: 12 }}>
                   {t.asn1.parsedResult}
                 </Text>
@@ -568,17 +566,18 @@ const ASN1Parser: React.FC = () => {
               </div>
 
               {withHexDump && hexData && (
-                <div>
+                <div style={{ minWidth: 0 }}>
                   <Text strong style={{ display: 'block', marginBottom: 12 }}>
                     {t.asn1.hexDump}
                   </Text>
                   <div style={{ 
                     background: '#fafafa', 
-                    padding: 16, 
+                    padding: 12, 
                     borderRadius: 8, 
                     border: '1px solid #e1e4e8',
                     maxHeight: 600,
-                    overflowY: 'auto'
+                    overflowY: 'auto',
+                    overflowX: 'auto'
                   }}>
                     {renderHexDump()}
                   </div>
