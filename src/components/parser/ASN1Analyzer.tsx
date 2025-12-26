@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, Button, message, Typography, Upload, Dropdown, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
 import { FileSearchOutlined, UploadOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { fromBER } from 'asn1js';
 
 const { Title, Text } = Typography;

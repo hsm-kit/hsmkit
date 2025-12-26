@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
 import { KeyOutlined, CopyOutlined, AppstoreOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
-import { generatePinBlock } from '../utils/crypto';
-import { sanitizeDigits, formatHexDisplay } from '../utils/format';
+import { useLanguage } from '../../hooks/useLanguage';
+import { generatePinBlock } from '../../utils/crypto';
+import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
 
 const { Title, Text } = Typography;
 
@@ -49,7 +49,7 @@ const PinBlockTool: React.FC = () => {
             {t.pinBlock.description}
           </Text>
 
-          <Divider style={{ margin: '12px 0' }} />
+          <Divider style={{ margin: '16px 0' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             <div>
@@ -104,15 +104,16 @@ const PinBlockTool: React.FC = () => {
               </Text>
             </div>
 
-            <Button 
-              type="primary"
-              icon={<AppstoreOutlined />}
-              onClick={performGeneration}
-              size="large"
-              block
-            >
-              {t.pinBlock.generatePinBlock}
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+              <Button 
+                type="primary"
+                icon={<AppstoreOutlined />}
+                onClick={performGeneration}
+                size="large"
+              >
+                {t.pinBlock.generatePinBlock}
+              </Button>
+            </div>
           </div>
         </Card>
 
@@ -157,7 +158,7 @@ const PinBlockTool: React.FC = () => {
                 {formatHexDisplay(pinBlock)}
               </div>
               
-              <Divider style={{ margin: '12px 0' }} />
+              <Divider style={{ margin: '16px 0' }} />
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 <Tag color="blue">{t.pinBlock.format}: {format}</Tag>

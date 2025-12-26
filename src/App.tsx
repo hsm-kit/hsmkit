@@ -6,18 +6,30 @@ import {
   CalculatorOutlined, 
   AppstoreOutlined, 
   MenuOutlined,
-  FileSearchOutlined
+  FileSearchOutlined,
+  LockOutlined
 } from '@ant-design/icons';
 import { useLanguage } from './hooks/useLanguage';
-import LanguageSwitcher from './components/LanguageSwitcher';
-import KeyGenerator from './components/KeyGenerator';
-import KCVCalculator from './components/KCVCalculator';
-import PinBlockTool from './components/PinBlockTool';
-import TR31Analyzer from './components/TR31Analyzer';
-import ASN1Parser from './components/ASN1Parser';
+// Components - organized by category
+import { LanguageSwitcher } from './components/common';
+import { CipherTool, DESTool, RSATool, ECCTool, FPETool } from './components/cipher';
+import { KeyGenerator, KCVCalculator, TR31Analyzer } from './components/keys';
+import { ASN1Parser } from './components/parser';
+import { PinBlockTool } from './components/payment';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
+
+// 全局样式：调整子菜单宽度
+const globalStyles = `
+  .ant-menu-submenu-popup .ant-menu-vertical {
+    min-width: 80px !important;
+  }
+  .ant-menu-submenu-popup .ant-menu-item {
+    padding-inline: 12px !important;
+    margin-inline: 4px !important;
+  }
+`;
 
 const contentStyle: React.CSSProperties = {
   maxWidth: '1200px',
@@ -41,10 +53,32 @@ const App: React.FC = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // 注入全局样式
+  React.useEffect(() => {
+    const styleEl = document.createElement('style');
+    styleEl.textContent = globalStyles;
+    document.head.appendChild(styleEl);
+    return () => {
+      document.head.removeChild(styleEl);
+    };
+  }, []);
   
   // 菜单定义
   const items = [
     { label: t.menu.asn1, key: 'asn1', icon: <FileSearchOutlined /> },
+    { 
+      label: t.menu.cipher || 'Cipher', 
+      key: 'cipher', 
+      icon: <LockOutlined />,
+      children: [
+        { label: 'AES', key: 'cipher-aes' },
+        { label: 'DES', key: 'cipher-des' },
+        { label: 'RSA', key: 'cipher-rsa' },
+        { label: 'ECC (ECDSA)', key: 'cipher-ecc' },
+        { label: 'FPE', key: 'cipher-fpe' },
+      ]
+    },
     { label: t.menu.keyGenerator, key: 'gen', icon: <KeyOutlined /> },
     { label: t.menu.tr31, key: 'tr31', icon: <SafetyCertificateOutlined /> },
     { label: t.menu.kcv, key: 'kcv', icon: <CalculatorOutlined /> },
@@ -180,6 +214,11 @@ const App: React.FC = () => {
       <Content style={contentStyle}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
           {currentKey === 'asn1' && <ASN1Parser />}
+          {currentKey === 'cipher-aes' && <CipherTool />}
+          {currentKey === 'cipher-des' && <DESTool />}
+          {currentKey === 'cipher-rsa' && <RSATool />}
+          {currentKey === 'cipher-ecc' && <ECCTool />}
+          {currentKey === 'cipher-fpe' && <FPETool />}
           {currentKey === 'gen' && <KeyGenerator />}
           {currentKey === 'tr31' && <TR31Analyzer />}
           {currentKey === 'kcv' && <KCVCalculator />}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Typography, Upload, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
 import { FileSearchOutlined, UploadOutlined, CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -15,13 +15,13 @@ const preloadASN1 = () => {
   
   asn1LoadPromise = Promise.all([
     // @ts-ignore
-    import('../lib/asn1js/asn1.js'),
+    import('../../lib/asn1js/asn1.js'),
     // @ts-ignore
-    import('../lib/asn1js/hex.js'),
+    import('../../lib/asn1js/hex.js'),
     // @ts-ignore
-    import('../lib/asn1js/base64.js'),
+    import('../../lib/asn1js/base64.js'),
     // @ts-ignore
-    import('../lib/asn1js/defs.js'),
+    import('../../lib/asn1js/defs.js'),
   ]).then(([asn1Module, hexModule, base64Module, defsModule]) => {
     ASN1 = asn1Module.ASN1;
     Hex = hexModule.Hex;
@@ -479,13 +479,13 @@ const ASN1Parser: React.FC = () => {
             </Checkbox>
           </Space>
 
-          <Space wrap>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', gap: 12, flexWrap: 'wrap', paddingLeft: 4 }}>
             <Upload
               beforeUpload={handleFileUpload}
               showUploadList={false}
               accept=".der,.cer,.crt,.pem,.p7b,.p7c,.key"
             >
-              <Button icon={<UploadOutlined />}>
+              <Button icon={<UploadOutlined />} size="large">
                 {t.asn1.uploadFile}
               </Button>
             </Upload>
@@ -495,6 +495,7 @@ const ASN1Parser: React.FC = () => {
               icon={<FileSearchOutlined />}
               onClick={handleParse}
               loading={!asn1Loaded}
+              size="large"
             >
               {t.asn1.parse}
             </Button>
@@ -518,11 +519,12 @@ const ASN1Parser: React.FC = () => {
                     setDefinitions([...allDefs, { label: 'no definition', value: 'none' }]);
                   }
                 }}
+                size="large"
               >
                 {t.asn1.clear}
               </Button>
             )}
-          </Space>
+          </div>
 
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>

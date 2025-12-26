@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Divider, Tag, Typography, Input, Alert } from 'antd';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
-import { parseTR31KeyBlock, validateTR31Header } from '../utils/crypto';
+import { useLanguage } from '../../hooks/useLanguage';
+import { parseTR31KeyBlock, validateTR31Header } from '../../utils/crypto';
 
 const { Title, Text } = Typography;
 
@@ -66,7 +66,7 @@ const TR31Analyzer: React.FC = () => {
             {t.tr31.description}
           </Text>
 
-          <Divider style={{ margin: '12px 0' }} />
+          <Divider style={{ margin: '16px 0' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             <div>
@@ -97,16 +97,17 @@ const TR31Analyzer: React.FC = () => {
               </Text>
             </div>
 
-            <Button 
-              type="primary"
-              icon={<SafetyCertificateOutlined />}
-              onClick={performParsing}
-              size="large"
-              block
-              disabled={!!validationError}
-            >
-              {t.tr31.parseKeyBlock}
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+              <Button 
+                type="primary"
+                icon={<SafetyCertificateOutlined />}
+                onClick={performParsing}
+                size="large"
+                disabled={!!validationError}
+              >
+                {t.tr31.parseKeyBlock}
+              </Button>
+            </div>
           </div>
         </Card>
 
@@ -141,7 +142,7 @@ const TR31Analyzer: React.FC = () => {
                 </div>
               </div>
 
-              <Divider style={{ margin: '8px 0' }} />
+              <Divider style={{ margin: '12px 0' }} />
 
               <div style={{ display: 'grid', gap: '12px' }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();

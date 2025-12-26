@@ -1,111 +1,63 @@
+/* HSMKit - 简洁明亮主题 */
+
+/* 1. 基础重置和全局设置 */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --primary-color: #1677ff;
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #ff4d4f;
+  --bg-color: #f5f7fa;
+  --card-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.05);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --mono-font: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 
+               'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 2. 链接样式 */
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #4096ff;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
+/* 3. 按钮优化 */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  touch-action: manipulation;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* 1. 确保 HTML, Body 和 React 根节点占满全屏 */
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* 防止横向滚动条 */
-}
-
-/* 2. 设置基础字体，让英文和数字更好看（支付工具很看重这个） */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  background-color: #f0f2f5; /* 与 App.tsx 里的背景色保持一致 */
-  -webkit-font-smoothing: antialiased; /* 让字体在 Mac 上更清晰 */
-}
-
-/* 3. 简单的样式重置 */
-* {
-  box-sizing: border-box;
-}
-
-/* 4. 移动端优化 */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  
-  /* 确保Ant Design组件在移动端不会溢出 */
-  .ant-menu-horizontal {
-    line-height: 56px !important;
-  }
-  
-  /* 移动端按钮优化 */
-  .ant-btn {
-    touch-action: manipulation;
-  }
-}
-
-/* 5. 添加淡入动画 */
+/* 4. 淡入动画 */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -117,39 +69,104 @@ body {
   }
 }
 
-/* 6. 防止移动端双击缩放 */
-button, a {
-  touch-action: manipulation;
+/* 5. 代码和等宽字体 */
+code, pre, .mono {
+  font-family: var(--mono-font);
 }
 
-/* 7. 优化代码字体在移动端的显示 */
+/* 6. Ant Design 组件优化 */
+.ant-card {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.ant-card-body {
+  padding: 20px !important;
+}
+
+.ant-segmented .ant-segmented-item-label {
+  text-align: center;
+}
+
+.ant-input, .ant-input-affix-wrapper, .ant-select-selector {
+  border-radius: var(--radius-sm) !important;
+}
+
+.ant-btn {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 500;
+}
+
+/* 7. 语言选择器 */
+.language-switcher .ant-select-selector {
+  padding-right: 24px !important;
+}
+
+.language-switcher .ant-select-arrow {
+  right: 4px;
+}
+
+/* 8. 移动端优化 */
 @media (max-width: 768px) {
-  code, pre, .ant-typography code {
+  body {
+    font-size: 14px;
+  }
+  
+  .ant-menu-horizontal {
+    line-height: 56px !important;
+  }
+  
+  .ant-card-body {
+    padding: 16px !important;
+  }
+  
+  code, pre {
     font-size: 0.85em;
     word-break: break-all;
   }
 }
 
-/* 8. 确保卡片在小屏幕上有适当的间距 */
-@media (max-width: 768px) {
-  .ant-card {
-    border-radius: 8px;
-  }
-  
-  .ant-card-body {
-    padding: 16px;
-  }
+/* 9. 滚动条美化 (webkit 浏览器) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* 9. Segmented 控件文字居中 */
-.ant-segmented .ant-segmented-item-label {
-  text-align: center;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
-/* 10. 语言选择器间距优化 */
-.language-switcher .ant-select-selector {
-  padding-right: 24px !important;
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
 }
-.language-switcher .ant-select-arrow {
-  right: 4px;
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 10. 结果展示区域统一样式 */
+.result-display {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.result-display .result-value {
+  font-family: var(--mono-font);
+  font-size: clamp(16px, 3vw, 20px);
+  letter-spacing: 1px;
+  color: var(--primary-color);
+  word-break: break-all;
+  line-height: 1.6;
+}
+
+/* 11. 表单标签统一样式 */
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
 }

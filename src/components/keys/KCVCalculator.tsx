@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Alert } from 'antd';
 import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { useLanguage } from '../hooks/useLanguage';
-import { calculateKCV, isValidHex, cleanHexInput } from '../utils/crypto';
+import { useLanguage } from '../../hooks/useLanguage';
+import { calculateKCV, isValidHex, cleanHexInput } from '../../utils/crypto';
 
 const { Title, Text } = Typography;
 
@@ -58,7 +58,7 @@ const KCVCalculator: React.FC = () => {
             {t.kcvCalculator.description}
           </Text>
 
-          <Divider style={{ margin: '12px 0' }} />
+          <Divider style={{ margin: '16px 0' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             <div>
@@ -121,15 +121,16 @@ const KCVCalculator: React.FC = () => {
               </div>
             )}
 
-            <Button 
-              type="primary" 
-              icon={<CalculatorOutlined />}
-              onClick={performCalculation}
-              size="large"
-              block
-            >
-              {t.kcvCalculator.calculateKCV}
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+              <Button 
+                type="primary" 
+                icon={<CalculatorOutlined />}
+                onClick={performCalculation}
+                size="large"
+              >
+                {t.kcvCalculator.calculateKCV}
+              </Button>
+            </div>
           </div>
         </Card>
 

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Alert, Segmented } from 'antd';
 import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { 
   calculateKCV, 
   combineKeyComponents, 
   validateKey,
   cleanHexInput 
-} from '../utils/crypto';
-import { formatHexDisplay } from '../utils/format';
+} from '../../utils/crypto';
+import { formatHexDisplay } from '../../utils/format';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -268,15 +268,16 @@ const KeyGenerator: React.FC = () => {
             />
                     </div>
           
-            <Button 
-              type="primary" 
-              icon={<ReloadOutlined />} 
-              onClick={handleGenerate} 
-              size="large"
-              block
-            >
-              {t.keyGenerator.generateNow}
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+              <Button 
+                type="primary" 
+                icon={<ReloadOutlined />} 
+                onClick={handleGenerate} 
+                size="large"
+              >
+                {t.keyGenerator.generateNow}
+              </Button>
+            </div>
 
         {generatedKey && (
             <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
@@ -295,7 +296,7 @@ const KeyGenerator: React.FC = () => {
                 {formatHexDisplay(generatedKey)}
               </div>
               
-              <Divider style={{ margin: '12px 0' }} />
+              <Divider style={{ margin: '16px 0' }} />
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
                 {checkValue.des && (
@@ -403,15 +404,16 @@ const KeyGenerator: React.FC = () => {
             </Text>
           </Space>
 
-          <Button 
-            type="primary"
-            icon={<KeyOutlined />}
-            onClick={handleCombine}
-            size="large"
-            block
-          >
-            {t.keyGenerator.combineKeys}
-          </Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+            <Button 
+              type="primary"
+              icon={<KeyOutlined />}
+              onClick={handleCombine}
+              size="large"
+            >
+              {t.keyGenerator.combineKeys}
+            </Button>
+          </div>
 
           {combineError && (
             <Alert message={combineError} type="error" showIcon />
@@ -527,15 +529,16 @@ const KeyGenerator: React.FC = () => {
             />
           </div>
 
-          <Button 
-            type="primary"
-            icon={<CheckCircleOutlined />}
-            onClick={handleValidate}
-            size="large"
-            block
-          >
-            {t.keyGenerator.validateKey}
-          </Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
+            <Button 
+              type="primary"
+              icon={<CheckCircleOutlined />}
+              onClick={handleValidate}
+              size="large"
+            >
+              {t.keyGenerator.validateKey}
+            </Button>
+          </div>
 
           {validationResult && (
             <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
