@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: '無料オンライン暗号化＆鍵管理ツール',
     heroDescription: 'セキュリティ専門家向けの包括的な暗号化ツールスイート。すべての計算はブラウザ内でクライアント側で実行され、データがデバイスから出ることはありません。',
+    searchPlaceholder: 'ツールを検索... (例: MD5, AES, PIN Block)',
     availableTools: '利用可能なツール',
     whyChoose: 'なぜ HSM Kit を選ぶのか？',
+    categories: {
+      all: 'すべて',
+      symmetric: '対称暗号',
+      asymmetric: '非対称暗号',
+      payment: '決済/金融',
+      encoding: 'エンコーディング',
+      hashing: 'ハッシュ',
+    },
     tools: {
       asn1: {
         title: 'ASN.1 パーサー',

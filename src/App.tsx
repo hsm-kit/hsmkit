@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Typography, Button, Drawer } from 'antd';
+import { Layout, Menu, Typography, Button, Drawer, Tooltip } from 'antd';
 import {
   KeyOutlined, 
   SafetyCertificateOutlined, 
@@ -9,10 +9,13 @@ import {
   FileSearchOutlined,
   LockOutlined,
   HomeOutlined,
-  ToolOutlined
+  ToolOutlined,
+  SunOutlined,
+  MoonOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
+import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
 import {
   HomePage,
@@ -114,6 +117,7 @@ const keyToRoute: Record<string, string> = {
 
 const App: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -196,7 +200,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
+    <Layout style={{ minHeight: '100vh', background: isDark ? '#141414' : '#f0f2f5' }}>
       {/* 1. 顶部导航栏 */}
       <Header 
         style={{ 
@@ -206,8 +210,9 @@ const App: React.FC = () => {
           width: '100%', 
           display: 'flex', 
           alignItems: 'center',
-          background: '#fff',
-          boxShadow: '0 2px 8px #f0f1f2',
+          background: isDark ? '#141414' : '#fff',
+          boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.5)' : '0 2px 8px #f0f1f2',
+          borderBottom: isDark ? '1px solid #303030' : 'none',
           padding: isMobile ? '0 12px' : '0 24px',
           height: isMobile ? '56px' : '64px'
         }}
@@ -237,7 +242,7 @@ const App: React.FC = () => {
           <span style={{ 
             fontSize: isMobile ? '16px' : '18px', 
             fontWeight: 600, 
-            color: '#333', 
+            color: isDark ? '#e6e6e6' : '#333', 
             letterSpacing: '-0.5px',
             whiteSpace: 'nowrap'
           }}>{t.header.title}</span>
@@ -262,8 +267,20 @@ const App: React.FC = () => {
               display: 'flex', 
               alignItems: 'center', 
               flexShrink: 0,
-              marginLeft: 16
+              marginLeft: 16,
+              gap: 8
             }}>
+              <Tooltip title={isDark ? 'Light Mode' : 'Dark Mode'}>
+                <Button
+                  type="text"
+                  icon={isDark ? <SunOutlined /> : <MoonOutlined />}
+                  onClick={toggleTheme}
+                  style={{ 
+                    fontSize: 18,
+                    color: isDark ? '#fadb14' : '#595959'
+                  }}
+                />
+              </Tooltip>
               <LanguageSwitcher />
             </div>
           </>
@@ -298,7 +315,14 @@ const App: React.FC = () => {
           ]}
           style={{ borderRight: 'none', marginBottom: 20 }}
         />
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Button
+            type={isDark ? 'primary' : 'default'}
+            icon={isDark ? <SunOutlined /> : <MoonOutlined />}
+            onClick={toggleTheme}
+          >
+            {isDark ? 'Light' : 'Dark'}
+          </Button>
           <LanguageSwitcher />
         </div>
       </Drawer>

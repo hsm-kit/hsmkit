@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Tabs } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -180,20 +181,11 @@ const Base64Tool: React.FC = () => {
         />
       </div>
 
-      {/* Info Alert */}
-      <Alert
-        message={t.base64?.info || 'Base64 Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.base64?.encodeInfo1 || 'Base64 encodes binary data into ASCII characters'}</div>
-            <div>• {t.base64?.encodeInfo2 || 'Output is ~33% larger than input'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.base64?.info || 'Base64 Information'}>
+        <div>• {t.base64?.encodeInfo1 || 'Base64 encodes binary data into ASCII characters'}</div>
+        <div>• {t.base64?.encodeInfo2 || 'Output is ~33% larger than input'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
@@ -316,20 +308,11 @@ const Base64Tool: React.FC = () => {
         />
       </div>
 
-      {/* Info Alert */}
-      <Alert
-        message={t.base64?.info || 'Base64 Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.base64?.decodeInfo1 || 'Decodes Base64 back to original data'}</div>
-            <div>• {t.base64?.decodeInfo2 || 'Choose output format: ASCII text or Hexadecimal'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.base64?.info || 'Base64 Information'}>
+        <div>• {t.base64?.decodeInfo1 || 'Decodes Base64 back to original data'}</div>
+        <div>• {t.base64?.decodeInfo2 || 'Choose output format: ASCII text or Hexadecimal'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>

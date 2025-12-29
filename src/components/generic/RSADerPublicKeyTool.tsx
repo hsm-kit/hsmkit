@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Tabs, message, Divider, Typography, Input, Alert, Select, Checkbox } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Alert } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -430,19 +431,10 @@ const RSADerPublicKeyTool: React.FC = () => {
   // Encode content
   const encodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      <Alert
-        message={t.rsaDer?.encodeInfo || 'RSA Public Key Encoding'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.rsaDer?.encodeInfo1 || 'Encode RSA modulus and exponent to DER/PEM format'}</div>
-            <div>• {t.rsaDer?.encodeInfo2 || 'Supports both signed and unsigned integer encoding'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      <CollapsibleInfo title={t.rsaDer?.encodeInfo || 'RSA Public Key Encoding'}>
+        <div>• {t.rsaDer?.encodeInfo1 || 'Encode RSA modulus and exponent to DER/PEM format'}</div>
+        <div>• {t.rsaDer?.encodeInfo2 || 'Supports both signed and unsigned integer encoding'}</div>
+      </CollapsibleInfo>
 
       {/* Modulus */}
       <div>
@@ -585,19 +577,10 @@ const RSADerPublicKeyTool: React.FC = () => {
   // Decode content
   const decodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      <Alert
-        message={t.rsaDer?.decodeInfo || 'RSA Public Key Decoding'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.rsaDer?.decodeInfo1 || 'Decode DER/PEM format to extract modulus and exponent'}</div>
-            <div>• {t.rsaDer?.decodeInfo2 || 'Supports hex, base64, and PEM input formats'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      <CollapsibleInfo title={t.rsaDer?.decodeInfo || 'RSA Public Key Decoding'}>
+        <div>• {t.rsaDer?.decodeInfo1 || 'Decode DER/PEM format to extract modulus and exponent'}</div>
+        <div>• {t.rsaDer?.decodeInfo2 || 'Supports hex, base64, and PEM input formats'}</div>
+      </CollapsibleInfo>
 
       {/* DER Input */}
       <div>

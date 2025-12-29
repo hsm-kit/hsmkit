@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: '免费在线加密与密钥管理工具',
     heroDescription: '为安全专业人员设计的综合密码学工具套件。所有计算均在浏览器中本地执行——您的数据永远不会离开您的设备。',
+    searchPlaceholder: '搜索工具... (例如: MD5, AES, PIN Block)',
     availableTools: '可用工具',
     whyChoose: '为什么选择 HSM Kit？',
+    categories: {
+      all: '全部',
+      symmetric: '对称加密',
+      asymmetric: '非对称加密',
+      payment: '支付/金融',
+      encoding: '编码转换',
+      hashing: '哈希',
+    },
     // Tool cards
     tools: {
       asn1: {

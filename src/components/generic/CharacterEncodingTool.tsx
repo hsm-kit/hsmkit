@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, message, Divider, Typography, Input, Select, Alert } from 'antd';
-import { SwapOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, message, Divider, Typography, Input, Select } from 'antd';
+import { SwapOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -334,24 +335,15 @@ const CharacterEncodingTool: React.FC = () => {
             </div>
 
             {/* Info Alert */}
-            <Alert
-              message={t.encoding?.conversionInfo || 'Conversion Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {getEncodingInfo()}</div>
-                  {encodingType.includes('ebcdic') && (
-                    <div>• {t.encoding?.ebcdicInfo || 'EBCDIC is used by IBM mainframes'}</div>
-                  )}
-                  {encodingType.includes('atm') && (
-                    <div>• {t.encoding?.atmInfo || 'ATM format uses space-separated decimal values (0-255)'}</div>
-                  )}
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            <CollapsibleInfo title={t.encoding?.conversionInfo || 'Conversion Information'}>
+              <div>• {getEncodingInfo()}</div>
+              {encodingType.includes('ebcdic') && (
+                <div>• {t.encoding?.ebcdicInfo || 'EBCDIC is used by IBM mainframes'}</div>
+              )}
+              {encodingType.includes('atm') && (
+                <div>• {t.encoding?.atmInfo || 'ATM format uses space-separated decimal values (0-255)'}</div>
+              )}
+            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>

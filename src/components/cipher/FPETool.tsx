@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Select, Radio, Checkbox } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Select, Radio, Checkbox } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import CryptoJS from 'crypto-js';
 
@@ -727,22 +728,13 @@ const FPETool: React.FC = () => {
               </Radio.Group>
             </div>
 
-            {/* 提示信息 */}
-            <Alert
-              message={t.fpe?.fpeInfo || 'FPE Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {t.fpe?.formatPreserving || 'Format-Preserving: Output has the same format and length as input'}</div>
-                  <div>• {t.fpe?.radixInfo || `Current radix: ${radix} (valid characters: 0-${radix <= 10 ? radix - 1 : '9, A-' + String.fromCharCode(54 + radix)})`}</div>
-                  <div>• {t.fpe?.tweakInfo || (algorithm === 'FF1' ? 'FF1: Tweak can be any length' : 'FF3/FF3-1: Tweak must be 8 bytes (56-bit effective)')}</div>
-                  <div>• {t.fpe?.minLength || 'Minimum data length: 2 characters'}</div>
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            {/* 提示信息 - Collapsible */}
+            <CollapsibleInfo title={t.fpe?.fpeInfo || 'FPE Information'}>
+              <div>• {t.fpe?.formatPreserving || 'Format-Preserving: Output has the same format and length as input'}</div>
+              <div>• {t.fpe?.radixInfo || `Current radix: ${radix} (valid characters: 0-${radix <= 10 ? radix - 1 : '9, A-' + String.fromCharCode(54 + radix)})`}</div>
+              <div>• {t.fpe?.tweakInfo || (algorithm === 'FF1' ? 'FF1: Tweak can be any length' : 'FF3/FF3-1: Tweak must be 8 bytes (56-bit effective)')}</div>
+              <div>• {t.fpe?.minLength || 'Minimum data length: 2 characters'}</div>
+            </CollapsibleInfo>
 
             {/* Key 输入 */}
             <div>

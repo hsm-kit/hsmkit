@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: 'Outils de Cryptage et Gestion de Clés en Ligne Gratuits',
     heroDescription: 'Une suite complète d\'outils cryptographiques pour les professionnels de la sécurité. Tous les calculs sont effectués côté client dans votre navigateur — vos données ne quittent jamais votre appareil.',
+    searchPlaceholder: 'Rechercher des outils... (ex: MD5, AES, PIN Block)',
     availableTools: 'Outils Disponibles',
     whyChoose: 'Pourquoi Choisir HSM Kit ?',
+    categories: {
+      all: 'Tous',
+      symmetric: 'Symétrique',
+      asymmetric: 'Asymétrique',
+      payment: 'Paiement/Finance',
+      encoding: 'Encodage',
+      hashing: 'Hachage',
+    },
     tools: {
       asn1: {
         title: 'Analyseur ASN.1',

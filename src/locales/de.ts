@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: 'Kostenlose Online-Verschlüsselung & Schlüsselverwaltung',
     heroDescription: 'Eine umfassende Suite von Kryptografie-Tools für Sicherheitsexperten. Alle Berechnungen werden clientseitig in Ihrem Browser durchgeführt — Ihre Daten verlassen niemals Ihr Gerät.',
+    searchPlaceholder: 'Tools suchen... (z.B. MD5, AES, PIN Block)',
     availableTools: 'Verfügbare Tools',
     whyChoose: 'Warum HSM Kit wählen?',
+    categories: {
+      all: 'Alle',
+      symmetric: 'Symmetrisch',
+      asymmetric: 'Asymmetrisch',
+      payment: 'Zahlung/Finanzen',
+      encoding: 'Codierung',
+      hashing: 'Hashing',
+    },
     tools: {
       asn1: {
         title: 'ASN.1 Parser',

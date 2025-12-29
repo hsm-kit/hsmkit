@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Table } from 'antd';
-import { SearchOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Table, Alert } from 'antd';
+import { SearchOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -490,20 +491,11 @@ const MessageParserTool: React.FC = () => {
             />
           </div>
 
-          {/* Info Alert */}
-          <Alert
-            message={t.messageParser?.info || 'Parse Mode Information'}
-            description={
-              <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                <div>• {getModeDescription(parseMode)}</div>
-                <div>• {t.messageParser?.hexInputInfo || 'Input must be valid hexadecimal data'}</div>
-              </div>
-            }
-            type="info"
-            icon={<InfoCircleOutlined />}
-            showIcon
-            style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-          />
+          {/* Info - Collapsible */}
+          <CollapsibleInfo title={t.messageParser?.info || 'Parse Mode Information'}>
+            <div>• {getModeDescription(parseMode)}</div>
+            <div>• {t.messageParser?.hexInputInfo || 'Input must be valid hexadecimal data'}</div>
+          </CollapsibleInfo>
 
           {/* Hex Data Input */}
           <div>

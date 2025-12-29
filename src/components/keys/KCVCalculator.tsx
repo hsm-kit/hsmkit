@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox, Alert } from 'antd';
-import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox } from 'antd';
+import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { calculateKCV, isValidHex, cleanHexInput } from '../../utils/crypto';
 
@@ -77,20 +78,9 @@ const KCVCalculator: React.FC = () => {
               />
             </div>
 
-            <Alert
-              message={t.kcvCalculator.kcvCalcTitle}
-              description={
-                <div style={{ marginTop: 8 }}>
-                  <Text style={{ fontSize: '13px', lineHeight: '1.6' }}>
-                    {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
-                  </Text>
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            <CollapsibleInfo title={t.kcvCalculator.kcvCalcTitle}>
+              {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
+            </CollapsibleInfo>
 
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>

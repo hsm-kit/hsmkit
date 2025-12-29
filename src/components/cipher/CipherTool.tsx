@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import CryptoJS from 'crypto-js';
 
@@ -490,27 +491,18 @@ const CipherTool: React.FC = () => {
               />
             </div>
 
-            {/* 提示信息 */}
-            <Alert
-              message={t.cipher?.aesInfo || 'AES Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {t.cipher?.keyLengthInfo || `${algorithm} requires a ${getExpectedKeyLength()}-byte (${getExpectedKeyLength() * 8}-bit) key`}</div>
-                  {needsIv && (
-                    <div>• {t.cipher?.ivInfo || 'IV (Initialization Vector) must be 16 bytes'}</div>
-                  )}
-                  {mode === 'KCV' ? (
-                    <div>• {t.cipher?.kcvInfo || 'KCV: Encrypt zeros and take first 6 hex characters'}</div>
-                  ) : (
-                    <div>• {t.cipher?.noPaddingInfo || 'No padding - data length must be multiple of 16 bytes'}</div>
-                  )}
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            {/* 提示信息 - Collapsible */}
+            <CollapsibleInfo title={t.cipher?.aesInfo || 'AES Information'}>
+              <div>• {t.cipher?.keyLengthInfo || `${algorithm} requires a ${getExpectedKeyLength()}-byte (${getExpectedKeyLength() * 8}-bit) key`}</div>
+              {needsIv && (
+                <div>• {t.cipher?.ivInfo || 'IV (Initialization Vector) must be 16 bytes'}</div>
+              )}
+              {mode === 'KCV' ? (
+                <div>• {t.cipher?.kcvInfo || 'KCV: Encrypt zeros and take first 6 hex characters'}</div>
+              ) : (
+                <div>• {t.cipher?.noPaddingInfo || 'No padding - data length must be multiple of 16 bytes'}</div>
+              )}
+            </CollapsibleInfo>
 
             {/* Key 输入 */}
             <div>

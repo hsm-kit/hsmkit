@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Select, Alert } from 'antd';
-import { CheckCircleOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
+import { CheckCircleOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -221,24 +222,15 @@ const CheckDigitsTool: React.FC = () => {
               />
             </div>
 
-            {/* Info Alert */}
-            <Alert
-              message={t.checkDigits?.info || 'Algorithm Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {getAlgorithmInfo()}</div>
-                  {operation === 'check' ? (
-                    <div>• {t.checkDigits?.checkInfo || 'Enter the complete number including the check digit'}</div>
-                  ) : (
-                    <div>• {t.checkDigits?.generateInfo || 'Enter the number without the check digit'}</div>
-                  )}
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            {/* Info - Collapsible */}
+            <CollapsibleInfo title={t.checkDigits?.info || 'Algorithm Information'}>
+              <div>• {getAlgorithmInfo()}</div>
+              {operation === 'check' ? (
+                <div>• {t.checkDigits?.checkInfo || 'Enter the complete number including the check digit'}</div>
+              ) : (
+                <div>• {t.checkDigits?.generateInfo || 'Enter the number without the check digit'}</div>
+              )}
+            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Select, Alert } from 'antd';
-import { CopyOutlined, CalculatorOutlined, InfoCircleOutlined, ClearOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
+import { CopyOutlined, CalculatorOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import CryptoJS from 'crypto-js';
 import * as hashWasm from 'hash-wasm';
@@ -302,20 +303,11 @@ const HashCalculator: React.FC = () => {
               />
             </div>
 
-            {/* Algorithm Info */}
-            <Alert
-              message={t.hash?.algorithmInfo || 'Algorithm Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {getHashInfo()?.label} - {t.hash?.outputLength || 'Output'}: {getHashInfo()?.bits} bits ({(getHashInfo()?.bits || 0) / 4} hex chars)</div>
-                  <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            {/* Algorithm Info - Collapsible */}
+            <CollapsibleInfo title={t.hash?.algorithmInfo || 'Algorithm Information'}>
+              <div>• {getHashInfo()?.label} - {t.hash?.outputLength || 'Output'}: {getHashInfo()?.bits} bits ({(getHashInfo()?.bits || 0) / 4} hex chars)</div>
+              <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
+            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>

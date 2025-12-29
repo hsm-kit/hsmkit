@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: 'Free Online Encryption & Key Management Tools',
     heroDescription: 'A comprehensive suite of cryptographic tools for security professionals. All calculations are performed client-side in your browser — your data never leaves your device.',
+    searchPlaceholder: 'Search tools... (e.g., MD5, AES, PIN Block)',
     availableTools: 'Available Tools',
     whyChoose: 'Why Choose HSM Kit?',
+    categories: {
+      all: 'All',
+      symmetric: 'Symmetric',
+      asymmetric: 'Asymmetric',
+      payment: 'Payment',
+      encoding: 'Encoding',
+      hashing: 'Hashing',
+    },
     // Tool cards
     tools: {
       asn1: {

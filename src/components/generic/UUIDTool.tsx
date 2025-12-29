@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, message, Divider, Typography, InputNumber, Alert, Select, Checkbox } from 'antd';
-import { ThunderboltOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, message, Divider, Typography, InputNumber, Select, Checkbox, Alert } from 'antd';
+import { ThunderboltOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const MAX_UUID_COUNT = 100;
@@ -176,20 +177,11 @@ const UUIDTool: React.FC = () => {
         <Divider style={{ margin: '16px 0' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-          {/* Info Alert */}
-          <Alert
-            message={t.uuid?.info || 'UUID Information'}
-            description={
-              <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                <div>• {getVariantDescription(variant)}</div>
-                <div>• {t.uuid?.infoFormat || 'Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (36 characters)'}</div>
-              </div>
-            }
-            type="info"
-            icon={<InfoCircleOutlined />}
-            showIcon
-            style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-          />
+          {/* Info - Collapsible */}
+          <CollapsibleInfo title={t.uuid?.info || 'UUID Information'}>
+            <div>• {getVariantDescription(variant)}</div>
+            <div>• {t.uuid?.infoFormat || 'Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (36 characters)'}</div>
+          </CollapsibleInfo>
 
           {/* Variant Selection */}
           <div>

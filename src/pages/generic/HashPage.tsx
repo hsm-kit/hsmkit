@@ -25,7 +25,7 @@ const HashPage: React.FC = () => {
           {seo.usage.map((text, index) => (
             <Paragraph key={index} style={{ marginBottom: index === seo.usage.length - 1 ? 0 : 8 }}>
               • {text}
-            </Paragraph>
+          </Paragraph>
           ))}
         </div>
       }

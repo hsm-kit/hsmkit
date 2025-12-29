@@ -43,8 +43,17 @@ export default {
   home: {
     heroTitle: '무료 온라인 암호화 및 키 관리 도구',
     heroDescription: '보안 전문가를 위한 종합 암호화 도구 모음입니다. 모든 계산은 브라우저에서 클라이언트 측에서 수행되며, 데이터가 기기를 떠나지 않습니다.',
+    searchPlaceholder: '도구 검색... (예: MD5, AES, PIN Block)',
     availableTools: '사용 가능한 도구',
     whyChoose: '왜 HSM Kit를 선택해야 할까요?',
+    categories: {
+      all: '전체',
+      symmetric: '대칭 암호화',
+      asymmetric: '비대칭 암호화',
+      payment: '결제/금융',
+      encoding: '인코딩',
+      hashing: '해시',
+    },
     tools: {
       asn1: {
         title: 'ASN.1 파서',

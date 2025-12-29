@@ -2,6 +2,7 @@ import React, { useEffect, useId } from 'react';
 import { Card, Typography, Collapse } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SEO } from './SEO';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -56,6 +57,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   aggregateRating = { ratingValue: 4.8, ratingCount: 127 }, // Default rating for all tools
 }) => {
   const schemaId = useId();
+  const { isDark } = useTheme();
 
   // Generate WebApplication Schema
   const webAppSchema = {
@@ -214,14 +216,16 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
           bordered={false} 
           style={{ 
             marginTop: 24, 
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
+            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
+            background: isDark 
+              ? 'linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 100%)'
+              : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
           }}
         >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: '#1e293b' }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#52c41a' : '#1e293b' }}>
             📖 {usageTitle}
           </Title>
-          <div style={{ color: '#475569', lineHeight: 1.8 }}>
+          <div style={{ color: isDark ? '#a3d9a3' : '#475569', lineHeight: 1.8 }}>
             {usageContent}
           </div>
         </Card>
@@ -233,11 +237,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
           bordered={false} 
           style={{ 
             marginTop: 24, 
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            background: 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)'
+            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
+            background: isDark 
+              ? 'linear-gradient(135deg, #2a2a1a 0%, #3a3a1a 100%)'
+              : 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)'
           }}
         >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: '#854d0e' }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#faad14' : '#854d0e' }}>
             <QuestionCircleOutlined style={{ marginRight: 8 }} />
             {faqTitle}
           </Title>
@@ -245,8 +251,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             ghost
             items={faqs.map((faq, index) => ({
               key: index,
-              label: <Text strong style={{ color: '#78350f' }}>{faq.question}</Text>,
-              children: <Paragraph style={{ color: '#92400e', marginBottom: 0 }}>{faq.answer}</Paragraph>
+              label: <Text strong style={{ color: isDark ? '#ffc53d' : '#78350f' }}>{faq.question}</Text>,
+              children: <Paragraph style={{ color: isDark ? '#d9a200' : '#92400e', marginBottom: 0 }}>{faq.answer}</Paragraph>
             }))}
             style={{ background: 'transparent' }}
           />

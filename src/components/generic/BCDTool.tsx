@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Tabs } from 'antd';
-import { SwapOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
+import { SwapOutlined, CopyOutlined, ClearOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -176,20 +177,11 @@ const BCDTool: React.FC = () => {
   // Encode Tab Content
   const encodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      {/* Info Alert */}
-      <Alert
-        message={t.bcd?.info || 'BCD Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.bcd?.encodeInfo1 || 'Each decimal digit (0-9) is encoded as 4 bits'}</div>
-            <div>• {t.bcd?.encodeInfo2 || 'Example: 25 → 0010 0101 (binary) / 25 (hex)'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.bcd?.info || 'BCD Information'}>
+        <div>• {t.bcd?.encodeInfo1 || 'Each decimal digit (0-9) is encoded as 4 bits'}</div>
+        <div>• {t.bcd?.encodeInfo2 || 'Example: 25 → 0010 0101 (binary) / 25 (hex)'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
@@ -309,20 +301,11 @@ const BCDTool: React.FC = () => {
         />
       </div>
 
-      {/* Info Alert */}
-      <Alert
-        message={t.bcd?.info || 'BCD Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.bcd?.decodeInfo1 || 'Each 4-bit nibble must be 0-9 (not A-F)'}</div>
-            <div>• {t.bcd?.decodeInfo2 || 'Example: 0010 0101 → 25'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.bcd?.info || 'BCD Information'}>
+        <div>• {t.bcd?.decodeInfo1 || 'Each 4-bit nibble must be 0-9 (not A-F)'}</div>
+        <div>• {t.bcd?.decodeInfo2 || 'Example: 0010 0101 → 25'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Select } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import CryptoJS from 'crypto-js';
 
@@ -452,26 +453,17 @@ const DESTool: React.FC = () => {
               </Text>
             </div>
 
-            {/* 提示信息 */}
-            <Alert
-              message={t.des?.desInfo || 'DES/3DES Information'}
-              description={
-                <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-                  <div>• {algorithm === 'DES' 
-                    ? (t.des?.keyLengthInfoDes || 'DES requires an 8-byte (64-bit) key')
-                    : (t.des?.keyLengthInfo3Des || '3DES requires a 16 or 24-byte key')
-                  }</div>
-                  {needsIv && (
-                    <div>• {t.des?.ivInfo || 'IV (Initialization Vector) must be 8 bytes'}</div>
-                  )}
-                  <div>• {t.des?.blockSizeInfo || 'Block size is 8 bytes'}</div>
-                </div>
-              }
-              type="info"
-              icon={<InfoCircleOutlined />}
-              showIcon
-              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-            />
+            {/* 提示信息 - Collapsible */}
+            <CollapsibleInfo title={t.des?.desInfo || 'DES/3DES Information'}>
+              <div>• {algorithm === 'DES' 
+                ? (t.des?.keyLengthInfoDes || 'DES requires an 8-byte (64-bit) key')
+                : (t.des?.keyLengthInfo3Des || '3DES requires a 16 or 24-byte key')
+              }</div>
+              {needsIv && (
+                <div>• {t.des?.ivInfo || 'IV (Initialization Vector) must be 8 bytes'}</div>
+              )}
+              <div>• {t.des?.blockSizeInfo || 'Block size is 8 bytes'}</div>
+            </CollapsibleInfo>
 
             {/* Key 输入 */}
             <div>

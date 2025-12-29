@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, message, Divider, Typography, Input, Alert, Select, Radio } from 'antd';
-import { KeyOutlined, LockOutlined, UnlockOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, InfoCircleOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio, Alert } from 'antd';
+import { KeyOutlined, LockOutlined, UnlockOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import * as forge from 'node-forge';
 
@@ -1705,21 +1706,12 @@ const RSATool: React.FC = () => {
       ),
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <Alert
-            message="OAEP (Optimal Asymmetric Encryption Padding)"
-            description={
-              <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.8' }}>
-                <div>• OAEP is a padding scheme used with RSA encryption</div>
-                <div>• More secure than PKCS#1 v1.5 padding</div>
-                <div>• Prevents chosen-ciphertext attacks</div>
-                <div>• Recommended for new applications</div>
-              </div>
-            }
-            type="info"
-            showIcon
-            icon={<InfoCircleOutlined />}
-            style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-          />
+          <CollapsibleInfo title="OAEP (Optimal Asymmetric Encryption Padding)">
+            <div>• OAEP is a padding scheme used with RSA encryption</div>
+            <div>• More secure than PKCS#1 v1.5 padding</div>
+            <div>• Prevents chosen-ciphertext attacks</div>
+            <div>• Recommended for new applications</div>
+          </CollapsibleInfo>
 
           {/* Data 输入 */}
           <div>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Tabs } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
+import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const { Title, Text } = Typography;
@@ -243,20 +244,11 @@ const Base94Tool: React.FC = () => {
         />
       </div>
 
-      {/* Info Alert */}
-      <Alert
-        message={t.base94?.info || 'Base94 Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.base94?.encodeInfo1 || 'Uses 94 printable ASCII characters (! to ~)'}</div>
-            <div>• {t.base94?.encodeInfo2 || 'BaseX encoding algorithm (similar to Base58)'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.base94?.info || 'Base94 Information'}>
+        <div>• {t.base94?.encodeInfo1 || 'Uses ASCII printable characters (0x20 space to 0x7E tilde)'}</div>
+        <div>• {t.base94?.encodeInfo2 || '5:4 ratio - 4 bytes encode to 5 characters (25% overhead)'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
@@ -379,20 +371,11 @@ const Base94Tool: React.FC = () => {
         />
       </div>
 
-      {/* Info Alert */}
-      <Alert
-        message={t.base94?.info || 'Base94 Information'}
-        description={
-          <div style={{ marginTop: 8, fontSize: '13px', lineHeight: '1.6' }}>
-            <div>• {t.base94?.decodeInfo1 || 'Decodes Base94 back to original data'}</div>
-            <div>• {t.base94?.decodeInfo2 || 'Valid characters: ! to ~ (ASCII 33-126)'}</div>
-          </div>
-        }
-        type="info"
-        icon={<InfoCircleOutlined />}
-        showIcon
-        style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
-      />
+      {/* Info - Collapsible */}
+      <CollapsibleInfo title={t.base94?.info || 'Base94 Information'}>
+        <div>• {t.base94?.decodeInfo1 || 'Decodes Base94 back to original data'}</div>
+        <div>• {t.base94?.decodeInfo2 || 'Valid characters: ! to ~ (ASCII 33-126)'}</div>
+      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
