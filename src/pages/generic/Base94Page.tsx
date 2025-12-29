@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { DESTool } from '../components/cipher';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { Base94Tool } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const DESPage: React.FC = () => {
+const Base94Page: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.des || seoContent.en.des;
+  const seo = seoContent[language]?.base94 || seoContent.en.base94;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/des-encryption"
+      canonical="https://hsmkit.com/base94"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const DESPage: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="DES/3DES Encryption Tool"
-      toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.7, ratingCount: 189 }}
+      toolName="Base94 Encoder/Decoder"
+      toolCategory="DeveloperApplication"
     >
-      <DESTool />
+      <Base94Tool />
     </PageLayout>
   );
 };
 
-export default DESPage;
+export default Base94Page;

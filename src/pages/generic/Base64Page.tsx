@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { TR31Analyzer } from '../components/keys';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { Base64Tool } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const TR31Page: React.FC = () => {
+const Base64Page: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.tr31 || seoContent.en.tr31;
+  const seo = seoContent[language]?.base64 || seoContent.en.base64;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/tr31-calculator"
+      canonical="https://hsmkit.com/base64"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const TR31Page: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="TR-31 Key Block Parser & Analyzer"
-      toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 312 }}
+      toolName="Base64 Encoder/Decoder"
+      toolCategory="DeveloperApplication"
     >
-      <TR31Analyzer />
+      <Base64Tool />
     </PageLayout>
   );
 };
 
-export default TR31Page;
+export default Base64Page;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, message, Divider, Typography, Input, Alert, Select, Radio, Checkbox } from 'antd';
+import { Card, Button, Segmented, message, Divider, Typography, Input, Alert, Select, Radio, Checkbox } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import CryptoJS from 'crypto-js';
@@ -640,21 +640,6 @@ const FPETool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // Tab 内容
-  const tabItems = [
-    {
-      key: 'FF1',
-      label: 'FPE - FF1',
-    },
-    {
-      key: 'FF3',
-      label: 'FPE - FF3',
-    },
-    {
-      key: 'FF3-1',
-      label: 'FPE - FF3-1',
-    },
-  ];
 
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
@@ -670,13 +655,22 @@ const FPETool: React.FC = () => {
           <Divider style={{ margin: '16px 0' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-            {/* 算法选择标签页 */}
-            <Tabs
-              activeKey={algorithm}
-              onChange={(key) => setAlgorithm(key as FPEAlgorithm)}
-              items={tabItems}
-              type="card"
-            />
+            {/* 算法选择 */}
+            <div>
+              <Text strong style={{ display: 'block', marginBottom: 8 }}>
+                {t.fpe?.algorithm || 'Algorithm'}:
+              </Text>
+              <Segmented
+                value={algorithm}
+                onChange={(value) => setAlgorithm(value as FPEAlgorithm)}
+                options={[
+                  { label: 'FPE - FF1', value: 'FF1' },
+                  { label: 'FPE - FF3', value: 'FF3' },
+                  { label: 'FPE - FF3-1', value: 'FF3-1' },
+                ]}
+                block
+              />
+            </div>
 
             {/* Radix 选择 */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -747,6 +741,7 @@ const FPETool: React.FC = () => {
               type="info"
               icon={<InfoCircleOutlined />}
               showIcon
+              style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
             />
 
             {/* Key 输入 */}

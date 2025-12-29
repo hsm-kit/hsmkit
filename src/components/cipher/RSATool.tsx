@@ -1718,6 +1718,7 @@ const RSATool: React.FC = () => {
             type="info"
             showIcon
             icon={<InfoCircleOutlined />}
+            style={{ background: 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)', border: '1px solid #91caff' }}
           />
 
           {/* Data 输入 */}

@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { ECCTool } from '../components/cipher';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { BCDTool } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const ECCPage: React.FC = () => {
+const BCDPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.ecc || seoContent.en.ecc;
+  const seo = seoContent[language]?.bcd || seoContent.en.bcd;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/ecc-encryption"
+      canonical="https://hsmkit.com/bcd"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const ECCPage: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="ECC/ECDSA Digital Signature Tool"
-      toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.7, ratingCount: 134 }}
+      toolName="BCD Encoder/Decoder"
+      toolCategory="DeveloperApplication"
     >
-      <ECCTool />
+      <BCDTool />
     </PageLayout>
   );
 };
 
-export default ECCPage;
+export default BCDPage;

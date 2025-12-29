@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { FPETool } from '../components/cipher';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { HashCalculator } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const FPEPage: React.FC = () => {
+const HashPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.fpe || seoContent.en.fpe;
+  const seo = seoContent[language]?.hash || seoContent.en.hash;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/fpe-encryption"
+      canonical="https://hsmkit.com/hashes"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const FPEPage: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="Format-Preserving Encryption (FF1/FF3-1)"
-      toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.6, ratingCount: 98 }}
+      toolName="Hash Calculator"
+      toolCategory="DeveloperApplication"
     >
-      <FPETool />
+      <HashCalculator />
     </PageLayout>
   );
 };
 
-export default FPEPage;
+export default HashPage;

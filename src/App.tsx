@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Typography, Button, Drawer } from 'antd';
-import { 
+import {
   KeyOutlined, 
   SafetyCertificateOutlined, 
   CalculatorOutlined, 
@@ -8,7 +8,8 @@ import {
   MenuOutlined,
   FileSearchOutlined,
   LockOutlined,
-  HomeOutlined
+  HomeOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
@@ -25,19 +26,34 @@ import {
   TR31Page,
   KCVPage,
   PinBlockPage,
+  HashPage,
+  CharacterEncodingPage,
+  BCDPage,
+  CheckDigitsPage,
+  Base64Page,
+  Base94Page,
+  MessageParserPage,
+  RSADerPublicKeyPage,
+  UUIDPage,
 } from './pages';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
 
-// 全局样式：调整子菜单宽度
+// 全局样式：调整子菜单宽度和字体
 const globalStyles = `
   .ant-menu-submenu-popup .ant-menu-vertical {
     min-width: 80px !important;
   }
   .ant-menu-submenu-popup .ant-menu-item {
-    padding-inline: 12px !important;
+    padding-inline: 10px !important;
     margin-inline: 4px !important;
+    font-size: 13px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+  }
+  .ant-menu-submenu-popup .ant-menu {
+    padding: 4px 0 !important;
   }
 `;
 
@@ -57,6 +73,15 @@ const routeToKey: Record<string, string> = {
   '/rsa-encryption': 'cipher-rsa',
   '/ecc-encryption': 'cipher-ecc',
   '/fpe-encryption': 'cipher-fpe',
+  '/hashes': 'generic-hashes',
+  '/character-encoding': 'generic-encoding',
+  '/bcd': 'generic-bcd',
+  '/check-digits': 'generic-checkdigits',
+  '/base64': 'generic-base64',
+  '/base94': 'generic-base94',
+  '/message-parser': 'generic-message',
+  '/rsa-der-public-key': 'generic-rsader',
+  '/uuid': 'generic-uuid',
   '/key-generator': 'gen',
   '/tr31-calculator': 'tr31',
   '/kcv-calculator': 'kcv',
@@ -72,6 +97,15 @@ const keyToRoute: Record<string, string> = {
   'cipher-rsa': '/rsa-encryption',
   'cipher-ecc': '/ecc-encryption',
   'cipher-fpe': '/fpe-encryption',
+  'generic-hashes': '/hashes',
+  'generic-encoding': '/character-encoding',
+  'generic-bcd': '/bcd',
+  'generic-checkdigits': '/check-digits',
+  'generic-base64': '/base64',
+  'generic-base94': '/base94',
+  'generic-message': '/message-parser',
+  'generic-rsader': '/rsa-der-public-key',
+  'generic-uuid': '/uuid',
   'gen': '/key-generator',
   'tr31': '/tr31-calculator',
   'kcv': '/kcv-calculator',
@@ -119,6 +153,22 @@ const App: React.FC = () => {
   // 菜单定义
   const items = [
     { label: t.menu.asn1, key: 'asn1', icon: <FileSearchOutlined /> },
+    { 
+      label: t.menu.generic || 'Generic', 
+      key: 'generic', 
+      icon: <ToolOutlined />,
+      children: [
+        { label: t.menu.hashes || 'Hashes', key: 'generic-hashes' },
+        { label: t.menu.characterEncoding || 'Character Encoding', key: 'generic-encoding' },
+        { label: t.menu.bcd || 'BCD', key: 'generic-bcd' },
+        { label: t.menu.checkDigits || 'Check Digits', key: 'generic-checkdigits' },
+        { label: t.menu.base64 || 'Base64', key: 'generic-base64' },
+        { label: t.menu.base94 || 'Base94', key: 'generic-base94' },
+        { label: t.menu.messageParser || 'Message Parser', key: 'generic-message' },
+        { label: t.menu.rsaDerPublicKey || 'RSA DER Public Key', key: 'generic-rsader' },
+        { label: t.menu.uuid || 'UUID', key: 'generic-uuid' },
+      ]
+    },
     { 
       label: t.menu.cipher || 'Cipher', 
       key: 'cipher', 
@@ -259,6 +309,17 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/asn1-parser" element={<ASN1Page />} />
+            {/* Generic Tools */}
+            <Route path="/hashes" element={<HashPage />} />
+            <Route path="/character-encoding" element={<CharacterEncodingPage />} />
+            <Route path="/bcd" element={<BCDPage />} />
+            <Route path="/check-digits" element={<CheckDigitsPage />} />
+            <Route path="/base64" element={<Base64Page />} />
+            <Route path="/base94" element={<Base94Page />} />
+            <Route path="/message-parser" element={<MessageParserPage />} />
+            <Route path="/rsa-der-public-key" element={<RSADerPublicKeyPage />} />
+            <Route path="/uuid" element={<UUIDPage />} />
+            {/* Cipher Tools */}
             <Route path="/aes-encryption" element={<AESPage />} />
             <Route path="/des-encryption" element={<DESPage />} />
             <Route path="/rsa-encryption" element={<RSAPage />} />

@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { PinBlockTool } from '../components/payment';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { ECCTool } from '../../components/cipher';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const PinBlockPage: React.FC = () => {
+const ECCPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.pinBlock || seoContent.en.pinBlock;
+  const seo = seoContent[language]?.ecc || seoContent.en.ecc;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/pin-block-generator"
+      canonical="https://hsmkit.com/ecc-encryption"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -30,13 +30,13 @@ const PinBlockPage: React.FC = () => {
         </div>
       }
       // Schema.org properties for rich snippets
-      toolName="PIN Block Generator (ISO 9564)"
-      toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 195 }}
+      toolName="ECC/ECDSA Digital Signature Tool"
+      toolCategory="SecurityApplication"
+      aggregateRating={{ ratingValue: 4.7, ratingCount: 134 }}
     >
-      <PinBlockTool />
+      <ECCTool />
     </PageLayout>
   );
 };
 
-export default PinBlockPage;
+export default ECCPage;

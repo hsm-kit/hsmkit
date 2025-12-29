@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { KeyGenerator } from '../components/keys';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { CheckDigitsTool } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const KeyGeneratorPage: React.FC = () => {
+const CheckDigitsPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.keyGenerator || seoContent.en.keyGenerator;
+  const seo = seoContent[language]?.checkDigits || seoContent.en.checkDigits;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/key-generator"
+      canonical="https://hsmkit.com/check-digits"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const KeyGeneratorPage: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="Cryptographic Key Generator"
-      toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 256 }}
+      toolName="Check Digits Calculator"
+      toolCategory="DeveloperApplication"
     >
-      <KeyGenerator />
+      <CheckDigitsTool />
     </PageLayout>
   );
 };
 
-export default KeyGeneratorPage;
+export default CheckDigitsPage;

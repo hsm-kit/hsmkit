@@ -9,10 +9,19 @@ import {
   CalculatorOutlined,
   AppstoreOutlined,
   SecurityScanOutlined,
+  NumberOutlined,
+  SwapOutlined,
+  FieldBinaryOutlined,
+  CheckCircleOutlined,
+  FileTextOutlined,
+  CodeOutlined,
+  ReadOutlined,
+  SafetyOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
-import { PageLayout } from '../components/common/PageLayout';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -134,6 +143,70 @@ const HomePage: React.FC = () => {
       description: home.tools.pinBlock.description,
       path: '/pin-block-generator',
       color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+    },
+    // Generic Tools
+    {
+      icon: <NumberOutlined />,
+      title: home.tools.hash.title,
+      description: home.tools.hash.description,
+      path: '/hashes',
+      color: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+    },
+    {
+      icon: <SwapOutlined />,
+      title: home.tools.encoding.title,
+      description: home.tools.encoding.description,
+      path: '/character-encoding',
+      color: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+    },
+    {
+      icon: <FieldBinaryOutlined />,
+      title: home.tools.bcd.title,
+      description: home.tools.bcd.description,
+      path: '/bcd',
+      color: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+    },
+    {
+      icon: <CheckCircleOutlined />,
+      title: home.tools.checkDigits.title,
+      description: home.tools.checkDigits.description,
+      path: '/check-digits',
+      color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+    },
+    {
+      icon: <FileTextOutlined />,
+      title: home.tools.base64.title,
+      description: home.tools.base64.description,
+      path: '/base64',
+      color: 'linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)',
+    },
+    {
+      icon: <CodeOutlined />,
+      title: home.tools.base94.title,
+      description: home.tools.base94.description,
+      path: '/base94',
+      color: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
+    },
+    {
+      icon: <ReadOutlined />,
+      title: home.tools.messageParser.title,
+      description: home.tools.messageParser.description,
+      path: '/message-parser',
+      color: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    },
+    {
+      icon: <SafetyOutlined />,
+      title: home.tools.rsaDer.title,
+      description: home.tools.rsaDer.description,
+      path: '/rsa-der-public-key',
+      color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)',
+    },
+    {
+      icon: <ThunderboltOutlined />,
+      title: home.tools.uuid.title,
+      description: home.tools.uuid.description,
+      path: '/uuid',
+      color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
     },
   ];
 

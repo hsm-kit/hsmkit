@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { RSATool } from '../components/cipher';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { CipherTool } from '../../components/cipher';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const RSAPage: React.FC = () => {
+const AESPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.rsa || seoContent.en.rsa;
+  const seo = seoContent[language]?.aes || seoContent.en.aes;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/rsa-encryption"
+      canonical="https://hsmkit.com/aes-encryption"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -30,13 +30,13 @@ const RSAPage: React.FC = () => {
         </div>
       }
       // Schema.org properties for rich snippets
-      toolName="RSA Encryption & Key Generator"
+      toolName="AES Encryption/Decryption Tool"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 156 }}
+      aggregateRating={{ ratingValue: 4.9, ratingCount: 234 }}
     >
-      <RSATool />
+      <CipherTool />
     </PageLayout>
   );
 };
 
-export default RSAPage;
+export default AESPage;

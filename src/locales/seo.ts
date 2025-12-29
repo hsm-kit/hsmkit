@@ -28,6 +28,16 @@ export interface PageSEO {
   tr31: SEOContent;
   kcv: SEOContent;
   pinBlock: SEOContent;
+  // Generic tools
+  hash: SEOContent;
+  encoding: SEOContent;
+  bcd: SEOContent;
+  checkDigits: SEOContent;
+  base64: SEOContent;
+  base94: SEOContent;
+  messageParser: SEOContent;
+  rsaDer: SEOContent;
+  uuid: SEOContent;
 }
 
 // Import SEO content from language files

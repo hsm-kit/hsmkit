@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { KCVCalculator } from '../components/keys';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { RSATool } from '../../components/cipher';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const KCVPage: React.FC = () => {
+const RSAPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.kcv || seoContent.en.kcv;
+  const seo = seoContent[language]?.rsa || seoContent.en.rsa;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/kcv-calculator"
+      canonical="https://hsmkit.com/rsa-encryption"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -30,13 +30,13 @@ const KCVPage: React.FC = () => {
         </div>
       }
       // Schema.org properties for rich snippets
-      toolName="KCV (Key Check Value) Calculator"
-      toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 278 }}
+      toolName="RSA Encryption & Key Generator"
+      toolCategory="SecurityApplication"
+      aggregateRating={{ ratingValue: 4.8, ratingCount: 156 }}
     >
-      <KCVCalculator />
+      <RSATool />
     </PageLayout>
   );
 };
 
-export default KCVPage;
+export default RSAPage;

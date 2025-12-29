@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { ASN1Parser } from '../components/parser';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { PinBlockTool } from '../../components/payment';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const ASN1Page: React.FC = () => {
+const PinBlockPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.asn1 || seoContent.en.asn1;
+  const seo = seoContent[language]?.pinBlock || seoContent.en.pinBlock;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/asn1-parser"
+      canonical="https://hsmkit.com/pin-block-generator"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -30,13 +30,13 @@ const ASN1Page: React.FC = () => {
         </div>
       }
       // Schema.org properties for rich snippets
-      toolName="ASN.1 Parser & DER/BER Decoder"
-      toolCategory="DeveloperApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 167 }}
+      toolName="PIN Block Generator (ISO 9564)"
+      toolCategory="FinanceApplication"
+      aggregateRating={{ ratingValue: 4.8, ratingCount: 195 }}
     >
-      <ASN1Parser />
+      <PinBlockTool />
     </PageLayout>
   );
 };
 
-export default ASN1Page;
+export default PinBlockPage;

@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { PageLayout } from '../components/common/PageLayout';
-import { CipherTool } from '../components/cipher';
-import { useLanguage } from '../hooks/useLanguage';
-import seoContent from '../locales/seo';
+import { PageLayout } from '../../components/common/PageLayout';
+import { MessageParserTool } from '../../components/generic';
+import { useLanguage } from '../../hooks/useLanguage';
+import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const AESPage: React.FC = () => {
+const MessageParserPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.aes || seoContent.en.aes;
+  const seo = seoContent[language]?.messageParser || seoContent.en.messageParser;
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/aes-encryption"
+      canonical="https://hsmkit.com/message-parser"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -29,14 +29,12 @@ const AESPage: React.FC = () => {
           ))}
         </div>
       }
-      // Schema.org properties for rich snippets
-      toolName="AES Encryption/Decryption Tool"
-      toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 234 }}
+      toolName="Message Parser"
+      toolCategory="DeveloperApplication"
     >
-      <CipherTool />
+      <MessageParserTool />
     </PageLayout>
   );
 };
 
-export default AESPage;
+export default MessageParserPage;
