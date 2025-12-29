@@ -88,6 +88,14 @@ const App: React.FC = () => {
   // Get current menu key from route
   const currentKey = routeToKey[location.pathname] || 'home';
 
+  // 路由切换时滚动到顶部
+  React.useLayoutEffect(() => {
+    // 多种方式确保滚动到顶部
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.pathname]);
+
   // 检测屏幕大小
   React.useEffect(() => {
     const checkMobile = () => {
@@ -246,7 +254,7 @@ const App: React.FC = () => {
       </Drawer>
 
       {/* 2. 内容区域 - 使用路由 */}
-      <Content style={contentStyle}>
+      <Content key={location.pathname} style={contentStyle}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />

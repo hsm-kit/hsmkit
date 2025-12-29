@@ -28,6 +28,71 @@ export default {
   footer: {
     copyright: 'HSMKit.com ©2025 | Secure Client-side Calculation',
   },
+
+  home: {
+    heroTitle: 'Free Online Encryption & Key Management Tools',
+    heroDescription: 'A comprehensive suite of cryptographic tools for security professionals. All calculations are performed client-side in your browser — your data never leaves your device.',
+    availableTools: 'Available Tools',
+    whyChoose: 'Why Choose HSM Kit?',
+    // Tool cards
+    tools: {
+      asn1: {
+        title: 'ASN.1 Parser',
+        description: 'Parse and analyze ASN.1 DER/BER structures, decode X.509 certificates and PKCS formats.',
+      },
+      aes: {
+        title: 'AES Encryption',
+        description: 'Encrypt and decrypt data using AES-128/192/256 with ECB, CBC, CFB, OFB, CTR modes.',
+      },
+      des: {
+        title: 'DES/3DES Encryption',
+        description: 'DES and Triple DES encryption with multiple padding options for legacy systems.',
+      },
+      rsa: {
+        title: 'RSA Encryption',
+        description: 'RSA asymmetric encryption, decryption, digital signing and verification.',
+      },
+      ecc: {
+        title: 'ECC/ECDSA',
+        description: 'Elliptic Curve Cryptography for compact keys and efficient digital signatures.',
+      },
+      fpe: {
+        title: 'Format-Preserving Encryption',
+        description: 'FPE (FF1/FF3-1) for encrypting data while preserving format and length.',
+      },
+      keyGenerator: {
+        title: 'Key Generator',
+        description: 'Generate secure random keys for AES, DES, 3DES. Key combination and parity tools.',
+      },
+      tr31: {
+        title: 'TR-31 Key Block',
+        description: 'Parse and analyze TR-31/ANSI X9.143 key blocks used in payment industry.',
+      },
+      kcv: {
+        title: 'KCV Calculator',
+        description: 'Calculate Key Check Value (KCV) for AES and DES/3DES keys verification.',
+      },
+      pinBlock: {
+        title: 'PIN Block Generator',
+        description: 'Generate ISO 9564 PIN Blocks (Format 0, 1, 3, 4) for payment transactions.',
+      },
+    },
+    // Features
+    features: {
+      clientSide: {
+        title: '100% Client-Side',
+        description: 'All cryptographic operations run entirely in your browser. No data is ever transmitted to any server.',
+      },
+      free: {
+        title: 'Completely Free',
+        description: 'All tools are free to use without registration, login, or payment. No hidden costs.',
+      },
+      paymentReady: {
+        title: 'Payment Industry Ready',
+        description: 'Specialized tools for TR-31, KCV, PIN Block and other payment security operations.',
+      },
+    },
+  },
   
   asn1: {
     title: 'ASN.1 Parser',
@@ -380,6 +445,223 @@ export default {
     errorEncryption: 'Encryption failed',
     errorDecryption: 'Decryption failed',
     algorithmNotImplemented: 'This algorithm is not fully implemented yet',
+  },
+
+  // SEO Content
+  seo: {
+    home: {
+      title: 'HSM Kit - Free Online Encryption & Key Management Tools',
+      description: 'Free online cryptographic tools for HSM key management. Calculate KCV, parse TR-31 key blocks, generate secure keys, encrypt with AES/DES/RSA, and more. All calculations performed client-side for maximum security.',
+      keywords: 'HSM tools, encryption toolkit, key management, KCV calculator, TR-31 parser, AES encryption, DES encryption, RSA encryption, PIN block, key generator, cryptography tools, payment security',
+      faqTitle: 'Frequently Asked Questions',
+      usageTitle: 'About HSM Kit',
+      faqs: [
+        { question: 'Is HSM Kit free to use?', answer: 'Yes, HSM Kit is completely free. All tools are available without registration or payment.' },
+        { question: 'Is my data secure?', answer: 'Absolutely. All cryptographic operations are performed entirely in your browser (client-side). No data is ever sent to our servers.' },
+        { question: 'What encryption algorithms are supported?', answer: 'HSM Kit supports AES (128/192/256-bit), DES, 3DES, RSA, ECC (ECDSA), and Format-Preserving Encryption (FPE).' },
+        { question: 'Can I use HSM Kit for payment security?', answer: 'Yes, HSM Kit includes tools specifically designed for payment security, including PIN Block generation, TR-31 key block parsing, and KCV calculation.' },
+      ],
+      usage: [
+        'HSM Kit is a comprehensive suite of cryptographic tools designed for security professionals, developers, and anyone working with encryption.',
+        'All tools work entirely in your browser - no server communication means your sensitive data never leaves your device.',
+        'Perfect for testing, development, and educational purposes in the field of cryptography and payment security.',
+      ],
+    },
+    asn1: {
+      title: 'ASN.1 Parser Online - Free DER/BER Structure Decoder | HSM Kit',
+      description: 'Free online ASN.1 parser and decoder. Parse ASN.1 DER/BER structures, decode X.509 certificates, analyze PKCS formats. Supports hex, Base64, and PEM input with RFC definition matching.',
+      keywords: 'ASN.1 parser, DER decoder, BER decoder, X.509 certificate parser, PKCS decoder, ASN1 online tool, certificate analyzer, PEM parser, Base64 decoder',
+      faqTitle: 'ASN.1 Parser FAQ',
+      usageTitle: 'How to Use ASN.1 Parser',
+      faqs: [
+        { question: 'What is ASN.1?', answer: 'ASN.1 (Abstract Syntax Notation One) is a standard interface description language for defining data structures that can be serialized and deserialized. It\'s widely used in cryptography, telecommunications, and network protocols.' },
+        { question: 'What formats does this parser support?', answer: 'This parser supports DER (Distinguished Encoding Rules) and BER (Basic Encoding Rules) encoded ASN.1 structures. You can input data in hexadecimal, Base64, or PEM format.' },
+        { question: 'Can I parse X.509 certificates?', answer: 'Yes, this tool can parse X.509 certificates, CSRs, PKCS#7/8/12 structures, and other certificate formats that use ASN.1 encoding.' },
+        { question: 'What is the hex dump feature?', answer: 'The hex dump feature shows the raw bytes of the ASN.1 structure alongside the parsed tree view, making it easier to understand the binary encoding.' },
+      ],
+      usage: [
+        'Paste your ASN.1 encoded data in hexadecimal, Base64, or PEM format into the input field.',
+        'Click "Parse" to decode the structure and view the hierarchical tree representation.',
+        'Enable "with hex dump" to see the raw bytes alongside the parsed structure.',
+        'Use "with definitions" to match the structure against known RFC definitions like X.509, PKCS, etc.',
+      ],
+    },
+    aes: {
+      title: 'AES Encryption/Decryption Online - Free AES Calculator | HSM Kit',
+      description: 'Free online AES encryption and decryption tool. Supports AES-128, AES-192, AES-256 with ECB, CBC, CFB, OFB, CTR modes. Calculate KCV, encrypt/decrypt hex or text data securely in your browser.',
+      keywords: 'AES encryption, AES decryption, AES-128, AES-192, AES-256, AES calculator, AES online tool, AES ECB, AES CBC, AES CFB, AES OFB, AES CTR, AES KCV',
+      faqTitle: 'AES Encryption FAQ',
+      usageTitle: 'How to Use AES Encryption Tool',
+      faqs: [
+        { question: 'What is AES encryption?', answer: 'AES (Advanced Encryption Standard) is a symmetric block cipher that has become the global standard for encryption. It encrypts data in 128-bit blocks using keys of 128, 192, or 256 bits.' },
+        { question: 'Which AES mode should I use?', answer: 'CBC mode is commonly recommended for most applications. ECB mode should be avoided for encrypting data larger than one block as it reveals patterns. CTR mode is good for streaming data.' },
+        { question: 'What key sizes does AES support?', answer: 'AES supports three key sizes: AES-128 (16 bytes), AES-192 (24 bytes), and AES-256 (32 bytes). Longer keys provide stronger security.' },
+        { question: 'What is IV in AES encryption?', answer: 'IV (Initialization Vector) is a random value used with modes like CBC, CFB, OFB, and CTR to ensure that identical plaintexts produce different ciphertexts. IV should be unique but doesn\'t need to be secret.' },
+      ],
+      usage: [
+        'Select the AES key size (128, 192, or 256 bits) and encryption mode (ECB, CBC, etc.).',
+        'Enter your encryption key in hexadecimal format.',
+        'For modes other than ECB, provide an IV (16 bytes in hex).',
+        'Enter your data to encrypt or decrypt and click the corresponding button.',
+      ],
+    },
+    des: {
+      title: 'DES/3DES Encryption Online - Free Triple DES Calculator | HSM Kit',
+      description: 'Free online DES and Triple DES (3DES) encryption and decryption tool. Supports DES, 2-key 3DES, 3-key 3DES with ECB/CBC modes. Multiple padding options including PKCS5, ISO 7816, and more.',
+      keywords: 'DES encryption, 3DES encryption, Triple DES, DES decryption, DES calculator, 3DES online tool, TDES, DES ECB, DES CBC, PKCS5 padding',
+      faqTitle: 'DES/3DES Encryption FAQ',
+      usageTitle: 'How to Use DES/3DES Tool',
+      faqs: [
+        { question: 'What is the difference between DES and 3DES?', answer: 'DES uses a single 56-bit key (8 bytes with parity) while 3DES applies the DES algorithm three times with two or three different keys (16 or 24 bytes), providing much stronger security.' },
+        { question: 'Is DES still secure?', answer: 'Single DES is considered insecure and deprecated. 3DES is still used in legacy systems, especially in the payment industry, but AES is recommended for new applications.' },
+        { question: 'What are parity bits in DES keys?', answer: 'In DES, each byte of the key has one parity bit (the least significant bit), making effective key length 56 bits from 64 bits. This tool can auto-adjust parity bits for you.' },
+        { question: 'Which padding should I use?', answer: 'PKCS5/PKCS7 is the most common choice. ISO 9797 is often used in banking applications. The choice should match what your counterparty expects.' },
+      ],
+      usage: [
+        'Select DES (8 bytes key) or 3DES (16 or 24 bytes key).',
+        'Choose the encryption mode (ECB or CBC) and padding method.',
+        'Enter your key in hexadecimal format.',
+        'For CBC mode, provide an IV (8 bytes in hex).',
+        'Enter data and click Encrypt or Decrypt.',
+      ],
+    },
+    rsa: {
+      title: 'RSA Encryption Online - Free RSA Calculator & Key Generator | HSM Kit',
+      description: 'Free online RSA encryption, decryption, signing, and verification tool. Generate RSA key pairs (1024-4096 bit), encrypt with public key, sign with private key. Supports PKCS#1 and OAEP padding.',
+      keywords: 'RSA encryption, RSA decryption, RSA key generator, RSA calculator, RSA online tool, RSA signing, RSA verification, public key encryption, PKCS1, OAEP',
+      faqTitle: 'RSA Encryption FAQ',
+      usageTitle: 'How to Use RSA Tool',
+      faqs: [
+        { question: 'What is RSA encryption?', answer: 'RSA is an asymmetric encryption algorithm that uses a pair of keys - a public key for encryption and a private key for decryption. It\'s widely used for secure data transmission and digital signatures.' },
+        { question: 'What key size should I use?', answer: 'For current security standards, 2048-bit keys are considered minimum. 4096-bit keys are recommended for long-term security. 1024-bit keys are deprecated.' },
+        { question: 'What is the difference between PKCS#1 and OAEP?', answer: 'PKCS#1 v1.5 is an older padding scheme. OAEP (Optimal Asymmetric Encryption Padding) is more secure and recommended for new applications as it prevents certain attacks.' },
+        { question: 'What is the maximum data size for RSA encryption?', answer: 'RSA can only encrypt data smaller than the key size minus padding overhead. For 2048-bit key with OAEP-SHA256, maximum is about 190 bytes. Use hybrid encryption for larger data.' },
+      ],
+      usage: [
+        'Generate a new RSA key pair or import existing keys.',
+        'For encryption: enter plaintext and click Encrypt (uses public key).',
+        'For decryption: enter ciphertext and click Decrypt (requires private key).',
+        'For signing: enter data hash and click Sign (requires private key).',
+        'For verification: enter data, signature, and click Verify (uses public key).',
+      ],
+    },
+    ecc: {
+      title: 'ECC/ECDSA Online Tool - Elliptic Curve Cryptography | HSM Kit',
+      description: 'Free online ECC (Elliptic Curve Cryptography) tool. Generate ECDSA key pairs, sign and verify data with secp256k1, P-256, P-384 curves. Compact keys with strong security for modern applications.',
+      keywords: 'ECC encryption, ECDSA, elliptic curve, secp256k1, P-256, P-384, ECC key generator, ECDSA signing, ECDSA verification, Bitcoin cryptography',
+      faqTitle: 'ECC/ECDSA FAQ',
+      usageTitle: 'How to Use ECC/ECDSA Tool',
+      faqs: [
+        { question: 'What is ECC?', answer: 'Elliptic Curve Cryptography (ECC) is an approach to public-key cryptography based on the algebraic structure of elliptic curves. It provides equivalent security to RSA with much smaller key sizes.' },
+        { question: 'What is secp256k1?', answer: 'secp256k1 is the elliptic curve used by Bitcoin and Ethereum for their digital signatures. It offers a good balance of security and performance.' },
+        { question: 'Why use ECC over RSA?', answer: 'ECC provides the same security level as RSA with much smaller keys (256-bit ECC ≈ 3072-bit RSA), resulting in faster operations and less storage/bandwidth requirements.' },
+        { question: 'What is ECDSA?', answer: 'ECDSA (Elliptic Curve Digital Signature Algorithm) is the signature algorithm based on ECC. It\'s used to create digital signatures that can verify data authenticity.' },
+      ],
+      usage: [
+        'Select the elliptic curve (secp256k1, P-256, or P-384).',
+        'Generate a new key pair or import existing keys.',
+        'For signing: enter data (or its hash) and click Sign.',
+        'For verification: enter original data, signature, and click Verify.',
+      ],
+    },
+    fpe: {
+      title: 'Format-Preserving Encryption (FPE) Online - FF1/FF3-1 Tool | HSM Kit',
+      description: 'Free online Format-Preserving Encryption tool implementing NIST SP 800-38G. Encrypt data while preserving format and length. Ideal for tokenizing credit card numbers, SSNs, and other structured data.',
+      keywords: 'FPE, format preserving encryption, FF1, FF3, FF3-1, NIST 800-38G, tokenization, credit card encryption, data masking, PCI DSS',
+      faqTitle: 'Format-Preserving Encryption FAQ',
+      usageTitle: 'How to Use FPE Tool',
+      faqs: [
+        { question: 'What is Format-Preserving Encryption?', answer: 'FPE is an encryption method that produces ciphertext in the same format and length as the plaintext. For example, a 16-digit credit card number encrypts to another 16-digit number.' },
+        { question: 'What is the difference between FF1 and FF3-1?', answer: 'Both are NIST-approved FPE algorithms. FF1 supports variable-length tweaks while FF3-1 uses a fixed 56-bit tweak. FF3-1 is generally faster but has more constraints.' },
+        { question: 'What is tokenization?', answer: 'Tokenization replaces sensitive data with non-sensitive placeholders (tokens). FPE is often used for tokenization because the tokens maintain the original data format.' },
+        { question: 'Is FPE compliant with PCI DSS?', answer: 'Yes, FPE using NIST SP 800-38G approved algorithms (FF1, FF3-1) is accepted for PCI DSS compliance when implemented correctly.' },
+      ],
+      usage: [
+        'Select the FPE algorithm (FF1 or FF3-1) and radix (number base).',
+        'Enter your AES key (16, 24, or 32 bytes in hex).',
+        'Optionally provide a tweak value for additional security.',
+        'Enter plaintext data and click Encrypt to generate format-preserved ciphertext.',
+      ],
+    },
+    keyGenerator: {
+      title: 'Secure Key Generator Online - Random AES/DES Key Generator | HSM Kit',
+      description: 'Free online cryptographic key generator. Generate secure random keys for AES, DES, 3DES encryption. Key combination (XOR), parity adjustment, and key validation tools included.',
+      keywords: 'key generator, random key, AES key generator, DES key generator, 3DES key generator, cryptographic key, secure random, key combination, XOR keys, parity bits',
+      faqTitle: 'Key Generator FAQ',
+      usageTitle: 'How to Use Key Generator',
+      faqs: [
+        { question: 'How are the random keys generated?', answer: 'Keys are generated using the Web Crypto API (crypto.getRandomValues), which provides cryptographically secure random numbers suitable for encryption keys.' },
+        { question: 'What is key combination (XOR)?', answer: 'Key combination allows you to XOR multiple key components together to form a complete key. This is commonly used in ceremonies where multiple custodians each hold a component.' },
+        { question: 'What are parity bits?', answer: 'In DES/3DES keys, each byte has a parity bit for error detection. This tool can automatically adjust parity bits to odd parity as required by the DES standard.' },
+        { question: 'What key lengths are supported?', answer: 'The generator supports DES (8 bytes/64 bits), 2-key 3DES (16 bytes/128 bits), 3-key 3DES (24 bytes/192 bits), and AES-128/192/256.' },
+      ],
+      usage: [
+        'Select the desired key length from the dropdown.',
+        'Click "Generate" to create a new random key.',
+        'Use the Key Combination tab to XOR multiple components together.',
+        'Use the Parity tab to adjust DES/3DES key parity bits.',
+        'Use Validation tab to check if a key has correct format and parity.',
+      ],
+    },
+    tr31: {
+      title: 'TR-31 Key Block Parser Online - ANSI X9.143 Decoder | HSM Kit',
+      description: 'Free online TR-31 key block parser and analyzer. Decode ANSI X9.143 (TR-31) key blocks, view version, key usage, algorithm, exportability, and optional blocks. Essential tool for payment HSM operations.',
+      keywords: 'TR-31, key block, ANSI X9.143, TR31 parser, key block decoder, payment HSM, key usage, key exportability, DUKPT, key management',
+      faqTitle: 'TR-31 Key Block FAQ',
+      usageTitle: 'How to Use TR-31 Parser',
+      faqs: [
+        { question: 'What is TR-31?', answer: 'TR-31 (now ANSI X9.143) is a standard format for secure key exchange in the payment industry. It wraps encryption keys with metadata including key usage, algorithm, and exportability rules.' },
+        { question: 'What are the TR-31 versions?', answer: 'Version A/B use TDES key wrapping, Version C uses TDES with variant binding, Version D uses AES key wrapping (most secure), and Version E uses AES with variant binding.' },
+        { question: 'What is key usage in TR-31?', answer: 'Key usage (2 characters like P0, B0, D0) defines how the wrapped key can be used - P0 for PIN encryption, B0 for BDK (Base Derivation Key), D0 for data encryption, etc.' },
+        { question: 'What is exportability?', answer: 'Exportability flag indicates whether the key can be exported: E=Exportable, N=Non-exportable, S=Sensitive (exportable under certain conditions).' },
+      ],
+      usage: [
+        'Paste your TR-31 key block string into the input field.',
+        'Click "Parse Key Block" to decode the structure.',
+        'View the header information including version, length, and key usage.',
+        'Examine algorithm, mode, key version, and exportability settings.',
+      ],
+    },
+    kcv: {
+      title: 'KCV Calculator Online - Key Check Value Generator | HSM Kit',
+      description: 'Free online KCV (Key Check Value) calculator for AES and DES/3DES keys. Verify encryption key correctness by calculating the check value. Supports auto parity adjustment for DES keys.',
+      keywords: 'KCV calculator, key check value, KCV generator, AES KCV, DES KCV, 3DES KCV, CMAC, key verification, payment keys',
+      faqTitle: 'KCV Calculator FAQ',
+      usageTitle: 'How to Use KCV Calculator',
+      faqs: [
+        { question: 'What is KCV (Key Check Value)?', answer: 'KCV is a checksum used to verify that a cryptographic key has been correctly entered or transmitted. It\'s calculated by encrypting a block of zeros and taking the first 3 bytes of the result.' },
+        { question: 'How is KCV calculated for DES/3DES?', answer: 'For DES/3DES: Encrypt 8 bytes of zeros (0x0000000000000000) using ECB mode, then take the first 6 hex characters (3 bytes) of the ciphertext.' },
+        { question: 'How is KCV calculated for AES?', answer: 'For AES: Calculate CMAC over 16 bytes of zeros using the key, then take the first 6 hex characters (3 bytes) of the MAC value.' },
+        { question: 'What is auto parity adjustment?', answer: 'DES keys require odd parity on each byte. If your key doesn\'t have correct parity, enable auto-adjust to fix it before KCV calculation.' },
+      ],
+      usage: [
+        'Select the algorithm (AES or DES/3DES).',
+        'Enter your encryption key in hexadecimal format.',
+        'For DES keys, optionally enable auto parity adjustment.',
+        'Click "Calculate KCV" to generate the key check value.',
+        'Compare the KCV with the expected value to verify key correctness.',
+      ],
+    },
+    pinBlock: {
+      title: 'PIN Block Generator Online - ISO 9564 Format 0/1/3/4 | HSM Kit',
+      description: 'Free online PIN Block generator supporting ISO 9564 formats (Format 0, 1, 3, 4). Generate PIN blocks for payment transactions, ATM, and POS systems. Essential tool for payment security testing.',
+      keywords: 'PIN block, ISO 9564, PIN block format 0, PIN block format 4, payment security, ATM PIN, POS PIN, PIN encryption, card PIN',
+      faqTitle: 'PIN Block FAQ',
+      usageTitle: 'How to Use PIN Block Generator',
+      faqs: [
+        { question: 'What is a PIN Block?', answer: 'A PIN Block is a standardized format for encoding a PIN (Personal Identification Number) before encryption. It combines the PIN with a fill pattern or PAN data to create a fixed-length block for encryption.' },
+        { question: 'What is Format 0 (ISO 9564-1)?', answer: 'Format 0 XORs the PIN block with the rightmost 12 digits of the PAN (excluding check digit). It\'s the most widely used format in payment systems.' },
+        { question: 'What is Format 4 (ISO 9564-1:2017)?', answer: 'Format 4 is the newest format designed for AES encryption. It includes random padding and provides better security than older formats.' },
+        { question: 'Why is PAN needed for PIN Block?', answer: 'In Format 0 and some others, the PAN is XORed with the PIN data, binding the PIN to a specific card and preventing certain attacks.' },
+      ],
+      usage: [
+        'Select the PIN Block format (0, 1, 3, or 4).',
+        'Enter the PIN (4-12 digits).',
+        'For formats that require PAN, enter the card number.',
+        'Click "Generate" to create the PIN Block.',
+        'Use the generated hex string as input for your encryption process.',
+      ],
+    },
   },
 };
 

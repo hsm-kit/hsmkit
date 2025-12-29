@@ -28,6 +28,69 @@ export default {
   footer: {
     copyright: 'HSMKit.com ©2025 | Calcul sécurisé côté client',
   },
+
+  home: {
+    heroTitle: 'Outils de Cryptage et Gestion de Clés en Ligne Gratuits',
+    heroDescription: 'Une suite complète d\'outils cryptographiques pour les professionnels de la sécurité. Tous les calculs sont effectués côté client dans votre navigateur — vos données ne quittent jamais votre appareil.',
+    availableTools: 'Outils Disponibles',
+    whyChoose: 'Pourquoi Choisir HSM Kit ?',
+    tools: {
+      asn1: {
+        title: 'Analyseur ASN.1',
+        description: 'Analyser les structures ASN.1 DER/BER, décoder les certificats X.509 et formats PKCS.',
+      },
+      aes: {
+        title: 'Cryptage AES',
+        description: 'Chiffrer et déchiffrer avec AES-128/192/256. Modes ECB, CBC, CFB, OFB, CTR.',
+      },
+      des: {
+        title: 'Cryptage DES/3DES',
+        description: 'Cryptage DES et Triple DES avec plusieurs options de remplissage pour les systèmes legacy.',
+      },
+      rsa: {
+        title: 'Cryptage RSA',
+        description: 'Cryptage asymétrique RSA, décryptage, signature numérique et vérification.',
+      },
+      ecc: {
+        title: 'ECC/ECDSA',
+        description: 'Cryptographie à courbes elliptiques pour des clés compactes et des signatures numériques efficaces.',
+      },
+      fpe: {
+        title: 'Cryptage Préservant le Format',
+        description: 'FPE (FF1/FF3-1) pour chiffrer les données en préservant le format et la longueur.',
+      },
+      keyGenerator: {
+        title: 'Générateur de Clés',
+        description: 'Générer des clés aléatoires sécurisées pour AES, DES, 3DES. Outils de combinaison et parité.',
+      },
+      tr31: {
+        title: 'Bloc de Clés TR-31',
+        description: 'Analyser les blocs de clés TR-31/ANSI X9.143 utilisés dans l\'industrie des paiements.',
+      },
+      kcv: {
+        title: 'Calculateur KCV',
+        description: 'Calculer la valeur de contrôle de clé (KCV) pour les clés AES et DES/3DES.',
+      },
+      pinBlock: {
+        title: 'Générateur de Bloc PIN',
+        description: 'Générer des blocs PIN ISO 9564 (Format 0, 1, 3, 4) pour les transactions de paiement.',
+      },
+    },
+    features: {
+      clientSide: {
+        title: '100% Côté Client',
+        description: 'Toutes les opérations cryptographiques s\'exécutent entièrement dans votre navigateur. Aucune donnée n\'est transmise aux serveurs.',
+      },
+      free: {
+        title: 'Entièrement Gratuit',
+        description: 'Tous les outils sont gratuits sans inscription, connexion ni paiement. Aucun coût caché.',
+      },
+      paymentReady: {
+        title: 'Prêt pour l\'Industrie des Paiements',
+        description: 'Outils spécialisés pour TR-31, KCV, bloc PIN et autres opérations de sécurité des paiements.',
+      },
+    },
+  },
   
   asn1: {
     title: 'Analyseur ASN.1',
@@ -372,6 +435,223 @@ export default {
     errorEncryption: 'Échec du chiffrement',
     errorDecryption: 'Échec du déchiffrement',
     algorithmNotImplemented: 'Cet algorithme n\'est pas encore entièrement implémenté',
+  },
+
+  // SEO Content
+  seo: {
+    home: {
+      title: 'HSM Kit - Outils de Cryptage et Gestion de Clés en Ligne Gratuits',
+      description: 'Outils cryptographiques en ligne gratuits pour la gestion des clés HSM. Calculer KCV, analyser les blocs de clés TR-31, générer des clés sécurisées, chiffrer avec AES/DES/RSA, et plus. Tous les calculs sont effectués côté client pour une sécurité maximale.',
+      keywords: 'outils HSM, boîte à outils de cryptage, gestion des clés, calculateur KCV, analyseur TR-31, cryptage AES, cryptage DES, cryptage RSA, bloc PIN, générateur de clés, outils cryptographiques, sécurité des paiements',
+      faqTitle: 'Questions Fréquentes',
+      usageTitle: 'À propos de HSM Kit',
+      faqs: [
+        { question: 'HSM Kit est-il gratuit ?', answer: 'Oui, HSM Kit est entièrement gratuit. Tous les outils sont disponibles sans inscription ni paiement.' },
+        { question: 'Mes données sont-elles sécurisées ?', answer: 'Absolument. Toutes les opérations cryptographiques sont effectuées entièrement dans votre navigateur (côté client). Aucune donnée n\'est jamais envoyée à nos serveurs.' },
+        { question: 'Quels algorithmes de cryptage sont supportés ?', answer: 'HSM Kit supporte AES (128/192/256 bits), DES, 3DES, RSA, ECC (ECDSA), et le Cryptage Préservant le Format (FPE).' },
+        { question: 'Puis-je utiliser HSM Kit pour la sécurité des paiements ?', answer: 'Oui, HSM Kit inclut des outils spécialement conçus pour la sécurité des paiements, y compris la génération de blocs PIN, l\'analyse des blocs de clés TR-31, et le calcul KCV.' },
+      ],
+      usage: [
+        'HSM Kit est une suite complète d\'outils cryptographiques conçue pour les professionnels de la sécurité, les développeurs et tous ceux qui travaillent avec le cryptage.',
+        'Tous les outils fonctionnent entièrement dans votre navigateur - aucune communication serveur signifie que vos données sensibles ne quittent jamais votre appareil.',
+        'Parfait pour les tests, le développement et l\'éducation dans le domaine de la cryptographie et de la sécurité des paiements.',
+      ],
+    },
+    asn1: {
+      title: 'Analyseur ASN.1 en Ligne - Décodeur DER/BER Gratuit | HSM Kit',
+      description: 'Analyseur et décodeur ASN.1 en ligne gratuit. Analyser les structures ASN.1 DER/BER, décoder les certificats X.509, analyser les formats PKCS. Supporte les entrées hex, Base64 et PEM avec correspondance de définition RFC.',
+      keywords: 'analyseur ASN.1, décodeur DER, décodeur BER, analyseur certificat X.509, décodeur PKCS, outil ASN1 en ligne, analyseur de certificats, analyseur PEM',
+      faqTitle: 'FAQ Analyseur ASN.1',
+      usageTitle: 'Comment utiliser l\'analyseur ASN.1',
+      faqs: [
+        { question: 'Qu\'est-ce que ASN.1 ?', answer: 'ASN.1 (Abstract Syntax Notation One) est un langage standard de description d\'interface pour définir des structures de données qui peuvent être sérialisées et désérialisées. Il est largement utilisé en cryptographie, télécommunications et protocoles réseau.' },
+        { question: 'Quels formats cet analyseur supporte-t-il ?', answer: 'Cet analyseur supporte les structures ASN.1 encodées en DER (Distinguished Encoding Rules) et BER (Basic Encoding Rules). Vous pouvez entrer des données en format hexadécimal, Base64 ou PEM.' },
+        { question: 'Puis-je analyser des certificats X.509 ?', answer: 'Oui, cet outil peut analyser les certificats X.509, CSR, structures PKCS#7/8/12, et autres formats de certificats utilisant l\'encodage ASN.1.' },
+        { question: 'Qu\'est-ce que la fonction de vidage hex ?', answer: 'La fonction de vidage hex montre les octets bruts de la structure ASN.1 à côté de la vue arborescente analysée, facilitant la compréhension de l\'encodage binaire.' },
+      ],
+      usage: [
+        'Collez vos données encodées ASN.1 en format hexadécimal, Base64 ou PEM dans le champ de saisie.',
+        'Cliquez sur "Analyser" pour décoder la structure et afficher la représentation arborescente hiérarchique.',
+        'Activez "avec vidage hex" pour voir les octets bruts à côté de la structure analysée.',
+        'Utilisez "avec définitions" pour faire correspondre la structure avec les définitions RFC connues comme X.509, PKCS, etc.',
+      ],
+    },
+    aes: {
+      title: 'Cryptage/Décryptage AES en Ligne - Calculateur AES Gratuit | HSM Kit',
+      description: 'Outil de cryptage et décryptage AES en ligne gratuit. Supporte AES-128, AES-192, AES-256 avec les modes ECB, CBC, CFB, OFB, CTR. Calculer KCV, chiffrer/déchiffrer des données hex ou texte en toute sécurité dans votre navigateur.',
+      keywords: 'cryptage AES, décryptage AES, AES-128, AES-192, AES-256, calculateur AES, outil AES en ligne, AES ECB, AES CBC, AES KCV',
+      faqTitle: 'FAQ Cryptage AES',
+      usageTitle: 'Comment utiliser l\'outil de cryptage AES',
+      faqs: [
+        { question: 'Qu\'est-ce que le cryptage AES ?', answer: 'AES (Advanced Encryption Standard) est un chiffrement par bloc symétrique devenu la norme mondiale de cryptage. Il chiffre les données en blocs de 128 bits utilisant des clés de 128, 192 ou 256 bits.' },
+        { question: 'Quel mode AES devrais-je utiliser ?', answer: 'Le mode CBC est généralement recommandé pour la plupart des applications. Le mode ECB devrait être évité pour chiffrer des données plus grandes qu\'un bloc car il révèle des motifs. Le mode CTR est bon pour les données en streaming.' },
+        { question: 'Quelles tailles de clé AES supporte-t-il ?', answer: 'AES supporte trois tailles de clé : AES-128 (16 octets), AES-192 (24 octets), et AES-256 (32 octets). Les clés plus longues offrent une sécurité plus forte.' },
+        { question: 'Qu\'est-ce que l\'IV dans le cryptage AES ?', answer: 'IV (Vecteur d\'Initialisation) est une valeur aléatoire utilisée avec des modes comme CBC, CFB, OFB et CTR pour s\'assurer que des textes clairs identiques produisent des textes chiffrés différents. L\'IV doit être unique mais n\'a pas besoin d\'être secret.' },
+      ],
+      usage: [
+        'Sélectionnez la taille de clé AES (128, 192 ou 256 bits) et le mode de cryptage (ECB, CBC, etc.).',
+        'Entrez votre clé de cryptage en format hexadécimal.',
+        'Pour les modes autres qu\'ECB, fournissez un IV (16 octets en hex).',
+        'Entrez vos données à chiffrer ou déchiffrer et cliquez sur le bouton correspondant.',
+      ],
+    },
+    des: {
+      title: 'Cryptage DES/3DES en Ligne - Calculateur Triple DES Gratuit | HSM Kit',
+      description: 'Outil de cryptage et décryptage DES et Triple DES (3DES) en ligne gratuit. Supporte DES, 3DES 2 clés, 3DES 3 clés avec les modes ECB/CBC. Options de remplissage multiples incluant PKCS5, ISO 7816, et plus.',
+      keywords: 'cryptage DES, cryptage 3DES, Triple DES, décryptage DES, calculateur DES, outil 3DES en ligne, TDES, DES ECB, DES CBC',
+      faqTitle: 'FAQ Cryptage DES/3DES',
+      usageTitle: 'Comment utiliser l\'outil DES/3DES',
+      faqs: [
+        { question: 'Quelle est la différence entre DES et 3DES ?', answer: 'DES utilise une seule clé de 56 bits (8 octets avec parité) tandis que 3DES applique l\'algorithme DES trois fois avec deux ou trois clés différentes (16 ou 24 octets), offrant une sécurité beaucoup plus forte.' },
+        { question: 'DES est-il encore sécurisé ?', answer: 'Le DES simple est considéré comme non sécurisé et obsolète. 3DES est encore utilisé dans les systèmes existants, particulièrement dans l\'industrie des paiements, mais AES est recommandé pour les nouvelles applications.' },
+        { question: 'Que sont les bits de parité dans les clés DES ?', answer: 'Dans DES, chaque octet de la clé a un bit de parité (le bit de poids faible), ce qui réduit la longueur effective de la clé de 64 bits à 56 bits. Cet outil peut ajuster automatiquement les bits de parité.' },
+        { question: 'Quel remplissage devrais-je utiliser ?', answer: 'PKCS5/PKCS7 est le choix le plus courant. ISO 9797 est souvent utilisé dans les applications bancaires. Le choix doit correspondre à ce que votre contrepartie attend.' },
+      ],
+      usage: [
+        'Sélectionnez DES (clé de 8 octets) ou 3DES (clé de 16 ou 24 octets).',
+        'Choisissez le mode de cryptage (ECB ou CBC) et la méthode de remplissage.',
+        'Entrez votre clé en format hexadécimal.',
+        'Pour le mode CBC, fournissez un IV (8 octets en hex).',
+        'Entrez les données et cliquez sur Chiffrer ou Déchiffrer.',
+      ],
+    },
+    rsa: {
+      title: 'Cryptage RSA en Ligne - Calculateur RSA & Générateur de Clés Gratuit | HSM Kit',
+      description: 'Outil de cryptage, décryptage, signature et vérification RSA en ligne gratuit. Générez des paires de clés RSA (1024-4096 bits), chiffrez avec la clé publique, signez avec la clé privée. Supporte les remplissages PKCS#1 et OAEP.',
+      keywords: 'cryptage RSA, décryptage RSA, générateur de clés RSA, calculateur RSA, outil RSA en ligne, signature RSA, vérification RSA, cryptage à clé publique, PKCS1, OAEP',
+      faqTitle: 'FAQ Cryptage RSA',
+      usageTitle: 'Comment utiliser l\'outil RSA',
+      faqs: [
+        { question: 'Qu\'est-ce que le cryptage RSA ?', answer: 'RSA est un algorithme de cryptage asymétrique utilisant une paire de clés - une clé publique pour le cryptage et une clé privée pour le décryptage. Il est largement utilisé pour la transmission sécurisée de données et les signatures numériques.' },
+        { question: 'Quelle taille de clé devrais-je utiliser ?', answer: 'Pour les normes de sécurité actuelles, les clés de 2048 bits sont considérées comme le minimum. Les clés de 4096 bits sont recommandées pour la sécurité à long terme. Les clés de 1024 bits sont obsolètes.' },
+        { question: 'Quelle est la différence entre PKCS#1 et OAEP ?', answer: 'PKCS#1 v1.5 est un ancien schéma de remplissage. OAEP (Optimal Asymmetric Encryption Padding) est plus sécurisé et recommandé pour les nouvelles applications car il prévient certaines attaques.' },
+        { question: 'Quelle est la taille maximale de données pour le cryptage RSA ?', answer: 'RSA ne peut chiffrer que des données plus petites que la taille de la clé moins la surcharge de remplissage. Pour une clé de 2048 bits avec OAEP-SHA256, le maximum est d\'environ 190 octets. Utilisez le cryptage hybride pour des données plus grandes.' },
+      ],
+      usage: [
+        'Générez une nouvelle paire de clés RSA ou importez des clés existantes.',
+        'Pour le cryptage : entrez le texte clair et cliquez sur Chiffrer (utilise la clé publique).',
+        'Pour le décryptage : entrez le texte chiffré et cliquez sur Déchiffrer (nécessite la clé privée).',
+        'Pour la signature : entrez le hash des données et cliquez sur Signer (nécessite la clé privée).',
+        'Pour la vérification : entrez les données, la signature et cliquez sur Vérifier (utilise la clé publique).',
+      ],
+    },
+    ecc: {
+      title: 'Outil ECC/ECDSA en Ligne - Cryptographie à Courbes Elliptiques | HSM Kit',
+      description: 'Outil ECC (Cryptographie à Courbes Elliptiques) en ligne gratuit. Générez des paires de clés ECDSA, signez et vérifiez des données avec les courbes secp256k1, P-256, P-384. Clés compactes avec une forte sécurité.',
+      keywords: 'cryptage ECC, ECDSA, courbe elliptique, secp256k1, P-256, P-384, générateur de clés ECC, signature ECDSA, vérification ECDSA, cryptographie Bitcoin',
+      faqTitle: 'FAQ ECC/ECDSA',
+      usageTitle: 'Comment utiliser l\'outil ECC/ECDSA',
+      faqs: [
+        { question: 'Qu\'est-ce que ECC ?', answer: 'La Cryptographie à Courbes Elliptiques (ECC) est une approche de cryptographie à clé publique basée sur la structure algébrique des courbes elliptiques. Elle offre une sécurité équivalente à RSA avec des tailles de clé beaucoup plus petites.' },
+        { question: 'Qu\'est-ce que secp256k1 ?', answer: 'secp256k1 est la courbe elliptique utilisée par Bitcoin et Ethereum pour leurs signatures numériques. Elle offre un bon équilibre entre sécurité et performance.' },
+        { question: 'Pourquoi utiliser ECC plutôt que RSA ?', answer: 'ECC offre le même niveau de sécurité que RSA avec des clés beaucoup plus petites (ECC 256 bits ≈ RSA 3072 bits), résultant en des opérations plus rapides et moins de besoins en stockage/bande passante.' },
+        { question: 'Qu\'est-ce que ECDSA ?', answer: 'ECDSA (Elliptic Curve Digital Signature Algorithm) est l\'algorithme de signature basé sur ECC. Il est utilisé pour créer des signatures numériques qui peuvent vérifier l\'authenticité des données.' },
+      ],
+      usage: [
+        'Sélectionnez la courbe elliptique (secp256k1, P-256 ou P-384).',
+        'Générez une nouvelle paire de clés ou importez des clés existantes.',
+        'Pour la signature : entrez les données (ou leur hash) et cliquez sur Signer.',
+        'Pour la vérification : entrez les données originales, la signature et cliquez sur Vérifier.',
+      ],
+    },
+    fpe: {
+      title: 'Cryptage Préservant le Format (FPE) en Ligne - Outil FF1/FF3-1 | HSM Kit',
+      description: 'Outil de Cryptage Préservant le Format en ligne gratuit implémentant NIST SP 800-38G. Chiffrez des données tout en préservant le format et la longueur. Idéal pour la tokenisation des numéros de carte de crédit, SSN et autres données structurées.',
+      keywords: 'FPE, cryptage préservant le format, FF1, FF3, FF3-1, NIST 800-38G, tokenisation, cryptage carte de crédit, masquage de données, PCI DSS',
+      faqTitle: 'FAQ Cryptage Préservant le Format',
+      usageTitle: 'Comment utiliser l\'outil FPE',
+      faqs: [
+        { question: 'Qu\'est-ce que le Cryptage Préservant le Format ?', answer: 'FPE est une méthode de cryptage qui produit un texte chiffré dans le même format et avec la même longueur que le texte clair. Par exemple, un numéro de carte de crédit à 16 chiffres se chiffre en un autre nombre à 16 chiffres.' },
+        { question: 'Quelle est la différence entre FF1 et FF3-1 ?', answer: 'Les deux sont des algorithmes FPE approuvés par le NIST. FF1 supporte des tweaks de longueur variable tandis que FF3-1 utilise un tweak fixe de 56 bits. FF3-1 est généralement plus rapide mais a plus de contraintes.' },
+        { question: 'Qu\'est-ce que la tokenisation ?', answer: 'La tokenisation remplace les données sensibles par des substituts non sensibles (jetons). FPE est souvent utilisé pour la tokenisation car les jetons maintiennent le format original des données.' },
+        { question: 'FPE est-il conforme PCI DSS ?', answer: 'Oui, FPE utilisant les algorithmes approuvés NIST SP 800-38G (FF1, FF3-1) est accepté pour la conformité PCI DSS lorsqu\'il est correctement implémenté.' },
+      ],
+      usage: [
+        'Sélectionnez l\'algorithme FPE (FF1 ou FF3-1) et le radix (base numérique).',
+        'Entrez votre clé AES (16, 24 ou 32 octets en hex).',
+        'Fournissez optionnellement une valeur de tweak pour une sécurité supplémentaire.',
+        'Entrez les données en clair et cliquez sur Chiffrer pour générer un texte chiffré préservant le format.',
+      ],
+    },
+    keyGenerator: {
+      title: 'Générateur de Clés Sécurisé en Ligne - Générateur de Clés AES/DES Aléatoires | HSM Kit',
+      description: 'Générateur de clés cryptographiques en ligne gratuit. Générez des clés aléatoires sécurisées pour le cryptage AES, DES, 3DES. Outils de combinaison de clés (XOR), ajustement de parité et validation de clés inclus.',
+      keywords: 'générateur de clés, clé aléatoire, générateur de clés AES, générateur de clés DES, générateur de clés 3DES, clé cryptographique, aléatoire sécurisé, combinaison de clés, clés XOR',
+      faqTitle: 'FAQ Générateur de Clés',
+      usageTitle: 'Comment utiliser le générateur de clés',
+      faqs: [
+        { question: 'Comment les clés aléatoires sont-elles générées ?', answer: 'Les clés sont générées en utilisant l\'API Web Crypto (crypto.getRandomValues), qui fournit des nombres aléatoires cryptographiquement sécurisés adaptés aux clés de cryptage.' },
+        { question: 'Qu\'est-ce que la combinaison de clés (XOR) ?', answer: 'La combinaison de clés vous permet de XOR plusieurs composants de clé ensemble pour former une clé complète. Ceci est couramment utilisé dans les cérémonies où plusieurs gardiens détiennent chacun un composant.' },
+        { question: 'Que sont les bits de parité ?', answer: 'Dans les clés DES/3DES, chaque octet a un bit de parité pour la détection d\'erreurs. Cet outil peut automatiquement ajuster les bits de parité à la parité impaire comme requis par la norme DES.' },
+        { question: 'Quelles longueurs de clé sont supportées ?', answer: 'Le générateur supporte DES (8 octets/64 bits), 3DES 2 clés (16 octets/128 bits), 3DES 3 clés (24 octets/192 bits), et AES-128/192/256.' },
+      ],
+      usage: [
+        'Sélectionnez la longueur de clé souhaitée dans le menu déroulant.',
+        'Cliquez sur "Générer" pour créer une nouvelle clé aléatoire.',
+        'Utilisez l\'onglet Combinaison de Clés pour XOR plusieurs composants ensemble.',
+        'Utilisez l\'onglet Parité pour ajuster les bits de parité des clés DES/3DES.',
+        'Utilisez l\'onglet Validation pour vérifier si une clé a le format et la parité corrects.',
+      ],
+    },
+    tr31: {
+      title: 'Analyseur de Bloc de Clés TR-31 en Ligne - Décodeur ANSI X9.143 | HSM Kit',
+      description: 'Analyseur et analyseur de bloc de clés TR-31 en ligne gratuit. Décodez les blocs de clés ANSI X9.143 (TR-31), visualisez la version, l\'utilisation de la clé, l\'algorithme, l\'exportabilité et les blocs optionnels. Outil essentiel pour les opérations HSM de paiement.',
+      keywords: 'TR-31, bloc de clés, ANSI X9.143, analyseur TR31, décodeur bloc de clés, HSM paiement, utilisation de clé, exportabilité de clé, DUKPT, gestion de clés',
+      faqTitle: 'FAQ Bloc de Clés TR-31',
+      usageTitle: 'Comment utiliser l\'analyseur TR-31',
+      faqs: [
+        { question: 'Qu\'est-ce que TR-31 ?', answer: 'TR-31 (maintenant ANSI X9.143) est un format standard pour l\'échange sécurisé de clés dans l\'industrie des paiements. Il enveloppe les clés de cryptage avec des métadonnées incluant l\'utilisation de la clé, l\'algorithme et les règles d\'exportabilité.' },
+        { question: 'Quelles sont les versions TR-31 ?', answer: 'Les versions A/B utilisent l\'enveloppement de clé TDES, la version C utilise TDES avec liaison de variante, la version D utilise l\'enveloppement de clé AES (plus sécurisé), et la version E utilise AES avec liaison de variante.' },
+        { question: 'Qu\'est-ce que l\'utilisation de clé dans TR-31 ?', answer: 'L\'utilisation de clé (2 caractères comme P0, B0, D0) définit comment la clé enveloppée peut être utilisée - P0 pour le cryptage PIN, B0 pour BDK (Base Derivation Key), D0 pour le cryptage de données, etc.' },
+        { question: 'Qu\'est-ce que l\'exportabilité ?', answer: 'Le drapeau d\'exportabilité indique si la clé peut être exportée : E=Exportable, N=Non exportable, S=Sensible (exportable sous certaines conditions).' },
+      ],
+      usage: [
+        'Collez votre chaîne de bloc de clés TR-31 dans le champ de saisie.',
+        'Cliquez sur "Analyser le Bloc de Clés" pour décoder la structure.',
+        'Visualisez les informations d\'en-tête incluant version, longueur et utilisation de clé.',
+        'Examinez l\'algorithme, le mode, la version de clé et les paramètres d\'exportabilité.',
+      ],
+    },
+    kcv: {
+      title: 'Calculateur KCV en Ligne - Générateur de Valeur de Contrôle de Clé | HSM Kit',
+      description: 'Calculateur KCV (Key Check Value) en ligne gratuit pour clés AES et DES/3DES. Vérifiez l\'exactitude des clés de cryptage en calculant la valeur de contrôle. Supporte l\'ajustement automatique de parité pour les clés DES.',
+      keywords: 'calculateur KCV, valeur de contrôle de clé, générateur KCV, AES KCV, DES KCV, 3DES KCV, CMAC, vérification de clé, clés de paiement',
+      faqTitle: 'FAQ Calculateur KCV',
+      usageTitle: 'Comment utiliser le calculateur KCV',
+      faqs: [
+        { question: 'Qu\'est-ce que KCV (Key Check Value) ?', answer: 'KCV est une somme de contrôle utilisée pour vérifier qu\'une clé cryptographique a été correctement entrée ou transmise. Elle est calculée en chiffrant un bloc de zéros et en prenant les 3 premiers octets du résultat.' },
+        { question: 'Comment le KCV est-il calculé pour DES/3DES ?', answer: 'Pour DES/3DES : Chiffrez 8 octets de zéros (0x0000000000000000) en mode ECB, puis prenez les 6 premiers caractères hex (3 octets) du texte chiffré.' },
+        { question: 'Comment le KCV est-il calculé pour AES ?', answer: 'Pour AES : Calculez le CMAC sur 16 octets de zéros en utilisant la clé, puis prenez les 6 premiers caractères hex (3 octets) de la valeur MAC.' },
+        { question: 'Qu\'est-ce que l\'ajustement automatique de parité ?', answer: 'Les clés DES nécessitent une parité impaire sur chaque octet. Si votre clé n\'a pas la parité correcte, activez l\'ajustement automatique pour la corriger avant le calcul KCV.' },
+      ],
+      usage: [
+        'Sélectionnez l\'algorithme (AES ou DES/3DES).',
+        'Entrez votre clé de cryptage en format hexadécimal.',
+        'Pour les clés DES, activez optionnellement l\'ajustement automatique de parité.',
+        'Cliquez sur "Calculer KCV" pour générer la valeur de contrôle de clé.',
+        'Comparez le KCV avec la valeur attendue pour vérifier l\'exactitude de la clé.',
+      ],
+    },
+    pinBlock: {
+      title: 'Générateur de Bloc PIN en Ligne - ISO 9564 Format 0/1/3/4 | HSM Kit',
+      description: 'Générateur de bloc PIN en ligne gratuit supportant les formats ISO 9564 (Format 0, 1, 3, 4). Générez des blocs PIN pour les transactions de paiement, ATM et systèmes POS. Outil essentiel pour les tests de sécurité des paiements.',
+      keywords: 'bloc PIN, ISO 9564, bloc PIN format 0, bloc PIN format 4, sécurité des paiements, PIN ATM, PIN POS, cryptage PIN, PIN carte',
+      faqTitle: 'FAQ Bloc PIN',
+      usageTitle: 'Comment utiliser le générateur de bloc PIN',
+      faqs: [
+        { question: 'Qu\'est-ce qu\'un bloc PIN ?', answer: 'Un bloc PIN est un format standardisé pour encoder un PIN (Personal Identification Number) avant le cryptage. Il combine le PIN avec un motif de remplissage ou des données PAN pour créer un bloc de longueur fixe pour le cryptage.' },
+        { question: 'Qu\'est-ce que le Format 0 (ISO 9564-1) ?', answer: 'Le Format 0 XOR le bloc PIN avec les 12 chiffres les plus à droite du PAN (excluant le chiffre de contrôle). C\'est le format le plus largement utilisé dans les systèmes de paiement.' },
+        { question: 'Qu\'est-ce que le Format 4 (ISO 9564-1:2017) ?', answer: 'Le Format 4 est le format le plus récent conçu pour le cryptage AES. Il inclut un remplissage aléatoire et offre une meilleure sécurité que les anciens formats.' },
+        { question: 'Pourquoi le PAN est-il nécessaire pour le bloc PIN ?', answer: 'Dans le Format 0 et certains autres, le PAN est XORé avec les données PIN, liant le PIN à une carte spécifique et empêchant certaines attaques.' },
+      ],
+      usage: [
+        'Sélectionnez le format de bloc PIN (0, 1, 3 ou 4).',
+        'Entrez le PIN (4-12 chiffres).',
+        'Pour les formats nécessitant le PAN, entrez le numéro de carte.',
+        'Cliquez sur "Générer" pour créer le bloc PIN.',
+        'Utilisez la chaîne hex générée comme entrée pour votre processus de cryptage.',
+      ],
+    },
   },
 };
 

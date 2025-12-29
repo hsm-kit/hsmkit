@@ -60,77 +60,78 @@ const ToolCard: React.FC<ToolCardProps> = ({ icon, title, description, path, col
 );
 
 const HomePage: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const seo = seoContent[language]?.home || seoContent.en.home;
+  const home = t.home;
 
   const tools = [
     {
       icon: <FileSearchOutlined />,
-      title: 'ASN.1 Parser',
-      description: 'Parse and analyze ASN.1 DER/BER structures, decode X.509 certificates and PKCS formats.',
+      title: home.tools.asn1.title,
+      description: home.tools.asn1.description,
       path: '/asn1-parser',
       color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     },
     {
       icon: <LockOutlined />,
-      title: 'AES Encryption',
-      description: 'Encrypt and decrypt data using AES-128/192/256 with ECB, CBC, CFB, OFB, CTR modes.',
+      title: home.tools.aes.title,
+      description: home.tools.aes.description,
       path: '/aes-encryption',
       color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     },
     {
       icon: <LockOutlined />,
-      title: 'DES/3DES Encryption',
-      description: 'DES and Triple DES encryption with multiple padding options for legacy systems.',
+      title: home.tools.des.title,
+      description: home.tools.des.description,
       path: '/des-encryption',
       color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     },
     {
       icon: <SecurityScanOutlined />,
-      title: 'RSA Encryption',
-      description: 'RSA asymmetric encryption, decryption, digital signing and verification.',
+      title: home.tools.rsa.title,
+      description: home.tools.rsa.description,
       path: '/rsa-encryption',
       color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
     },
     {
       icon: <SecurityScanOutlined />,
-      title: 'ECC/ECDSA',
-      description: 'Elliptic Curve Cryptography for compact keys and efficient digital signatures.',
+      title: home.tools.ecc.title,
+      description: home.tools.ecc.description,
       path: '/ecc-encryption',
       color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
     },
     {
       icon: <LockOutlined />,
-      title: 'Format-Preserving Encryption',
-      description: 'FPE (FF1/FF3-1) for encrypting data while preserving format and length.',
+      title: home.tools.fpe.title,
+      description: home.tools.fpe.description,
       path: '/fpe-encryption',
       color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
     },
     {
       icon: <KeyOutlined />,
-      title: 'Key Generator',
-      description: 'Generate secure random keys for AES, DES, 3DES. Key combination and parity tools.',
+      title: home.tools.keyGenerator.title,
+      description: home.tools.keyGenerator.description,
       path: '/key-generator',
       color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
     },
     {
       icon: <SafetyCertificateOutlined />,
-      title: 'TR-31 Key Block',
-      description: 'Parse and analyze TR-31/ANSI X9.143 key blocks used in payment industry.',
+      title: home.tools.tr31.title,
+      description: home.tools.tr31.description,
       path: '/tr31-calculator',
       color: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
     },
     {
       icon: <CalculatorOutlined />,
-      title: 'KCV Calculator',
-      description: 'Calculate Key Check Value (KCV) for AES and DES/3DES keys verification.',
+      title: home.tools.kcv.title,
+      description: home.tools.kcv.description,
       path: '/kcv-calculator',
       color: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
     },
     {
       icon: <AppstoreOutlined />,
-      title: 'PIN Block Generator',
-      description: 'Generate ISO 9564 PIN Blocks (Format 0, 1, 3, 4) for payment transactions.',
+      title: home.tools.pinBlock.title,
+      description: home.tools.pinBlock.description,
       path: '/pin-block-generator',
       color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
     },
@@ -168,7 +169,7 @@ const HomePage: React.FC = () => {
           HSM Kit
         </Title>
         <Title level={3} style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 400, marginBottom: 24 }}>
-          Free Online Encryption & Key Management Tools
+          {home.heroTitle}
         </Title>
         <Paragraph style={{ 
           color: 'rgba(255,255,255,0.85)', 
@@ -177,14 +178,13 @@ const HomePage: React.FC = () => {
           margin: '0 auto',
           lineHeight: 1.8
         }}>
-          A comprehensive suite of cryptographic tools for security professionals. 
-          All calculations are performed client-side in your browser — your data never leaves your device.
+          {home.heroDescription}
         </Paragraph>
       </div>
 
       {/* Tools Grid */}
       <Title level={3} style={{ marginBottom: 24, color: '#1e293b' }}>
-        🔧 Available Tools
+        🔧 {home.availableTools}
       </Title>
       <Row gutter={[24, 24]}>
         {tools.map((tool, index) => (
@@ -197,30 +197,30 @@ const HomePage: React.FC = () => {
       {/* Features Section */}
       <div style={{ marginTop: 48 }}>
         <Title level={3} style={{ marginBottom: 24, color: '#1e293b' }}>
-          ✨ Why Choose HSM Kit?
+          ✨ {home.whyChoose}
         </Title>
         <Row gutter={[24, 24]}>
           <Col xs={24} md={8}>
             <Card bordered={false} style={{ height: '100%', background: '#f0fdf4' }}>
-              <Title level={5} style={{ color: '#166534' }}>🔒 100% Client-Side</Title>
+              <Title level={5} style={{ color: '#166534' }}>🔒 {home.features.clientSide.title}</Title>
               <Text style={{ color: '#166534' }}>
-                All cryptographic operations run entirely in your browser. No data is ever transmitted to any server.
+                {home.features.clientSide.description}
               </Text>
             </Card>
           </Col>
           <Col xs={24} md={8}>
             <Card bordered={false} style={{ height: '100%', background: '#eff6ff' }}>
-              <Title level={5} style={{ color: '#1e40af' }}>🆓 Completely Free</Title>
+              <Title level={5} style={{ color: '#1e40af' }}>🆓 {home.features.free.title}</Title>
               <Text style={{ color: '#1e40af' }}>
-                All tools are free to use without registration, login, or payment. No hidden costs.
+                {home.features.free.description}
               </Text>
             </Card>
           </Col>
           <Col xs={24} md={8}>
             <Card bordered={false} style={{ height: '100%', background: '#fef3c7' }}>
-              <Title level={5} style={{ color: '#92400e' }}>💼 Payment Industry Ready</Title>
+              <Title level={5} style={{ color: '#92400e' }}>💼 {home.features.paymentReady.title}</Title>
               <Text style={{ color: '#92400e' }}>
-                Specialized tools for TR-31, KCV, PIN Block and other payment security operations.
+                {home.features.paymentReady.description}
               </Text>
             </Card>
           </Col>

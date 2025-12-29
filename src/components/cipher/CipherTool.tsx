@@ -598,7 +598,7 @@ const CipherTool: React.FC = () => {
             </div>
 
             {/* 操作按钮 */}
-            <div style={{ display: 'flex', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
               <Button 
                 type="primary" 
                 icon={<LockOutlined />}
