@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Select } 
 import { CheckCircleOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 
@@ -79,6 +80,7 @@ const HASH_TYPES = [
 
 const CheckDigitsTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [operation, setOperation] = useState<Operation>('check');
   const [hashType, setHashType] = useState<HashType>('luhn');
   const [inputData, setInputData] = useState<string>('');
@@ -171,9 +173,19 @@ const CheckDigitsTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.checkDigits?.title || 'Check Digits'}
-          </Title>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.checkDigits?.title || 'Check Digits'}
+            </Title>
+            <CollapsibleInfo title={t.checkDigits?.info || 'Algorithm Information'}>
+              <div>• {getAlgorithmInfo()}</div>
+              {operation === 'check' ? (
+                <div>• {t.checkDigits?.checkInfo || 'Enter the complete number including the check digit'}</div>
+              ) : (
+                <div>• {t.checkDigits?.generateInfo || 'Enter the number without the check digit'}</div>
+              )}
+            </CollapsibleInfo>
+          </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
             {t.checkDigits?.description || 'Verify or generate check digits using various algorithms'}
           </Text>
@@ -221,16 +233,6 @@ const CheckDigitsTool: React.FC = () => {
                 options={HASH_TYPES}
               />
             </div>
-
-            {/* Info - Collapsible */}
-            <CollapsibleInfo title={t.checkDigits?.info || 'Algorithm Information'}>
-              <div>• {getAlgorithmInfo()}</div>
-              {operation === 'check' ? (
-                <div>• {t.checkDigits?.checkInfo || 'Enter the complete number including the check digit'}</div>
-              ) : (
-                <div>• {t.checkDigits?.generateInfo || 'Enter the number without the check digit'}</div>
-              )}
-            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>
@@ -288,24 +290,43 @@ const CheckDigitsTool: React.FC = () => {
         {result && (
           <Card 
             title={
-              <>
+              <span style={{ color: isValid ? (isDark ? '#52c41a' : '#389e0d') : '#ff4d4f', fontWeight: 600 }}>
                 <CheckCircleOutlined />
                 {' '}
                 {operation === 'check' 
                   ? (t.checkDigits?.checkResult || 'Verification Result')
                   : (t.checkDigits?.generateResult || 'Generated Check Digit')
                 }
-              </>
+              </span>
             }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isValid 
+                ? (isDark 
+                    ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                    : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)')
+                : (isDark 
+                    ? 'linear-gradient(135deg, #2a1215 0%, #3a1a1a 100%)'
+                    : 'linear-gradient(135deg, #fff2f0 0%, #ffccc7 100%)'),
+              border: isValid 
+                ? (isDark ? '1px solid #274916' : '2px solid #95de64')
+                : (isDark ? '1px solid #58181c' : '2px solid #ff7875'),
+              boxShadow: isValid 
+                ? (isDark ? '0 4px 16px rgba(82, 196, 26, 0.15)' : '0 4px 16px rgba(82, 196, 26, 0.2)')
+                : (isDark ? '0 4px 16px rgba(255, 77, 79, 0.15)' : '0 4px 16px rgba(255, 77, 79, 0.2)'),
+            }}
             extra={
               operation === 'generate' && (
                 <Button 
-                  type="text" 
+                  type={isDark ? 'primary' : 'default'}
                   icon={<CopyOutlined />}
                   onClick={copyResult}
                   size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
                 >
                   {t.common.copy}
                 </Button>
@@ -314,16 +335,18 @@ const CheckDigitsTool: React.FC = () => {
           >
             <div style={{ 
               background: isValid 
-                ? 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)' 
-                : 'linear-gradient(135deg, #fff2f0 0%, #fff 100%)', 
+                ? (isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)')
+                : (isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)'),
               padding: '16px', 
               borderRadius: '8px', 
-              border: isValid ? '1px solid #b7eb8f' : '1px solid #ffccc7',
+              border: isValid 
+                ? (isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f')
+                : (isDark ? '1px solid #58181c' : '1px solid #ffccc7'),
               wordBreak: 'break-all',
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: operation === 'generate' ? '24px' : '14px',
               lineHeight: '1.8',
-              color: isValid ? '#52c41a' : '#ff4d4f',
+              color: isValid ? (isDark ? '#95de64' : '#237804') : (isDark ? '#ff7875' : '#cf1322'),
               fontWeight: 600,
               letterSpacing: '0.5px',
               textAlign: operation === 'generate' ? 'center' : 'left'

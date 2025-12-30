@@ -522,6 +522,7 @@ export default {
   rsaDer: {
     title: 'RSA DER Öffentlicher Schlüssel',
     description: 'RSA öffentlichen Schlüssel im DER ASN.1 Format kodieren/dekodieren',
+    info: 'RSA DER Information',
     encode: 'Kodieren',
     decode: 'Dekodieren',
     modulus: 'Modulus',
@@ -685,6 +686,10 @@ export default {
   rsa: {
     title: 'RSA Verschlüsselung/Entschlüsselung',
     description: 'RSA asymmetrische Verschlüsselung, Entschlüsselung, Signierung und Verifizierung',
+    rsaInfo: 'RSA Information',
+    rsaInfo1: 'RSA ist ein asymmetrischer Verschlüsselungsalgorithmus',
+    rsaInfo2: 'Schlüsselgrößen: 1024, 2048, 4096 Bit (2048+ empfohlen)',
+    rsaInfo3: 'PKCS#1 v1.5 und OAEP Padding unterstützt',
     tabKeys: 'Schlüssel',
     tabEncrypt: 'Verschlüsseln',
     tabDecrypt: 'Entschlüsseln',

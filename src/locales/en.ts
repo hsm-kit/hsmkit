@@ -533,6 +533,7 @@ export default {
   rsaDer: {
     title: 'RSA DER Public Key',
     description: 'Encode/Decode RSA public key in DER ASN.1 format',
+    info: 'RSA DER Information',
     encode: 'Encode',
     decode: 'Decode',
     modulus: 'Modulus',
@@ -696,6 +697,10 @@ export default {
   rsa: {
     title: 'RSA Encryption/Decryption',
     description: 'RSA asymmetric encryption, decryption, signing and verification',
+    rsaInfo: 'RSA Information',
+    rsaInfo1: 'RSA is an asymmetric cryptographic algorithm',
+    rsaInfo2: 'Key sizes: 1024, 2048, 4096 bits (2048+ recommended)',
+    rsaInfo3: 'PKCS#1 v1.5 and OAEP padding supported',
     tabKeys: 'Keys',
     tabEncrypt: 'Encrypt',
     tabDecrypt: 'Decrypt',

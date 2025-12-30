@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Table, Al
 import { SearchOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -323,6 +324,7 @@ const parseISO8583 = (hexData: string): ParsedField[] => {
 
 const MessageParserTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [parseMode, setParseMode] = useState<ParseMode>('ATM_NDC');
   const [hexData, setHexData] = useState<string>('');
   const [parsedFields, setParsedFields] = useState<ParsedField[]>([]);
@@ -459,9 +461,15 @@ const MessageParserTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.messageParser?.title || 'Message Parser'}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.messageParser?.title || 'Message Parser'}
+          </Title>
+          <CollapsibleInfo title={t.messageParser?.info || 'Parse Mode Information'}>
+            <div>• {getModeDescription(parseMode)}</div>
+            <div>• {t.messageParser?.hexInputInfo || 'Input must be valid hexadecimal data'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.messageParser?.description || 'Parse ATM and financial transaction messages'}
         </Text>
@@ -490,12 +498,6 @@ const MessageParserTool: React.FC = () => {
               size="large"
             />
           </div>
-
-          {/* Info - Collapsible */}
-          <CollapsibleInfo title={t.messageParser?.info || 'Parse Mode Information'}>
-            <div>• {getModeDescription(parseMode)}</div>
-            <div>• {t.messageParser?.hexInputInfo || 'Input must be valid hexadecimal data'}</div>
-          </CollapsibleInfo>
 
           {/* Hex Data Input */}
           <div>
@@ -549,15 +551,15 @@ const MessageParserTool: React.FC = () => {
           {parsedFields.length > 0 && (
             <Card 
               title={
-                <span style={{ color: '#1677ff', fontWeight: 600 }}>
+                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                   <SearchOutlined style={{ marginRight: 8 }} />
                   {t.messageParser?.parsedResult || 'Parsed Result'}
                   <span style={{ 
                     marginLeft: 8, 
                     fontSize: '12px', 
                     fontWeight: 400, 
-                    color: '#52c41a',
-                    background: '#f6ffed',
+                    color: isDark ? '#95de64' : '#52c41a',
+                    background: isDark ? 'rgba(82, 196, 26, 0.2)' : '#f6ffed',
                     padding: '2px 8px',
                     borderRadius: '10px'
                   }}>
@@ -567,21 +569,30 @@ const MessageParserTool: React.FC = () => {
               }
               bordered={false}
               style={{ 
-                background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                background: isDark 
+                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+                border: isDark ? '1px solid #274916' : '2px solid #95de64',
+                boxShadow: isDark 
+                  ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                  : '0 4px 16px rgba(82, 196, 26, 0.2)',
                 borderRadius: '8px'
               }}
               headStyle={{
-                borderBottom: '1px solid #f0f0f0',
+                borderBottom: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
                 background: 'transparent'
               }}
               extra={
                 <Button 
-                  type="primary"
-                  ghost
+                  type={isDark ? 'primary' : 'default'}
                   icon={<CopyOutlined />}
                   onClick={copyResult}
                   size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
                 >
                   {t.common.copy}
                 </Button>
@@ -600,13 +611,16 @@ const MessageParserTool: React.FC = () => {
                 }}
               />
               <style>{`
-                .table-row-light { background: #ffffff; }
-                .table-row-dark { background: #fafafa; }
+                .table-row-light { background: ${isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)'}; }
+                .table-row-dark { background: ${isDark ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.5)'}; }
                 .ant-table-thead > tr > th {
-                  background: linear-gradient(135deg, #f0f5ff 0%, #fff 100%) !important;
-                  color: #1677ff !important;
+                  background: ${isDark 
+                    ? 'linear-gradient(135deg, #1a2e1a 0%, #162312 100%)' 
+                    : 'linear-gradient(135deg, #d9f7be 0%, #f6ffed 100%)'} !important;
+                  color: ${isDark ? '#95de64' : '#237804'} !important;
                   font-weight: 600 !important;
                 }
+                .ant-table-cell { color: ${isDark ? '#b0b0b0' : '#333'} !important; }
               `}</style>
             </Card>
           )}

@@ -3,12 +3,14 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox 
 import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import { calculateKCV, isValidHex, cleanHexInput } from '../../utils/crypto';
 
 const { Title, Text } = Typography;
 
 const KCVCalculator: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [keyInput, setKeyInput] = useState('');
   const [algorithm, setAlgorithm] = useState<'DES' | 'AES'>('AES');
   const [adjustParity, setAdjustParity] = useState(false);
@@ -52,9 +54,14 @@ const KCVCalculator: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.kcvCalculator.title}
-          </Title>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.kcvCalculator.title}
+            </Title>
+            <CollapsibleInfo title={t.kcvCalculator.kcvCalcTitle}>
+              {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
+            </CollapsibleInfo>
+          </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
             {t.kcvCalculator.description}
           </Text>
@@ -77,10 +84,6 @@ const KCVCalculator: React.FC = () => {
                 size="large"
               />
             </div>
-
-            <CollapsibleInfo title={t.kcvCalculator.kcvCalcTitle}>
-              {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
-            </CollapsibleInfo>
 
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
@@ -133,32 +136,54 @@ const KCVCalculator: React.FC = () => {
 
         {kcvResult && (
           <Card 
-            title={<><SafetyCertificateOutlined /> {t.common.result}</>}
+            title={
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+                <SafetyCertificateOutlined /> {t.common.result}
+              </span>
+            }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
             extra={
               <Button 
-                type="text" 
+                type={isDark ? 'primary' : 'default'}
                 icon={<CopyOutlined />}
                 onClick={() => {
                   navigator.clipboard.writeText(kcvResult);
                   message.success(t.common.copied);
                 }}
                 size="small"
+                style={{
+                  background: isDark ? '#52c41a' : undefined,
+                  borderColor: '#52c41a',
+                  color: isDark ? '#fff' : '#52c41a',
+                }}
               >
                 {t.common.copy}
               </Button>
             }
           >
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
+            <div style={{ 
+              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
+              padding: '16px', 
+              borderRadius: '8px', 
+              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f' 
+            }}>
+              <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
                 {t.kcvCalculator.keyCheckValue}
               </Text>
               <div style={{
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: 'clamp(20px, 5vw, 28px)',
                 letterSpacing: '3px',
-                color: '#52c41a',
+                color: isDark ? '#95de64' : '#237804',
                 marginTop: '8px',
                 fontWeight: 'bold'
               }}>

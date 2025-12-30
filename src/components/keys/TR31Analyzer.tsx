@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Divider, Tag, Typography, Input, Alert } from 'antd';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import { parseTR31KeyBlock, validateTR31Header } from '../../utils/crypto';
 
 const { Title, Text } = Typography;
 
 const TR31Analyzer: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [keyBlock, setKeyBlock] = useState('');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
@@ -119,41 +121,54 @@ const TR31Analyzer: React.FC = () => {
 
         {result && (
           <Card 
-            title={<><SafetyCertificateOutlined /> {t.common.result}</>}
+            title={
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+                <SafetyCertificateOutlined /> {t.common.result}
+              </span>
+            }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
               <div>
-                <Text type="secondary" style={{ fontSize: '12px' }}>
+                <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
                   {t.tr31.header}
                 </Text>
                 <div style={{
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                   fontSize: '16px',
-                  color: '#1677ff',
-                  background: '#f5f7fa',
+                  color: isDark ? '#69b1ff' : '#1677ff',
+                  background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
                   padding: '8px',
                   borderRadius: '4px',
                   marginTop: '4px',
-                  wordBreak: 'break-all'
+                  wordBreak: 'break-all',
+                  border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
                 }}>
                   {result.header}
                 </div>
               </div>
 
-              <Divider style={{ margin: '12px 0' }} />
+              <Divider style={{ margin: '12px 0', borderColor: isDark ? '#3c5a24' : undefined }} />
 
               <div style={{ display: 'grid', gap: '12px' }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.version}
                     </Text>
                     <Tag color="blue" style={{ marginTop: 4 }}>{result.version}</Tag>
                   </div>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.keyLength}
                     </Text>
                     <Tag color="purple" style={{ marginTop: 4 }}>
@@ -164,13 +179,13 @@ const TR31Analyzer: React.FC = () => {
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.keyUsage}
                     </Text>
                     <Tag color="green" style={{ marginTop: 4 }}>{result.keyUsage}</Tag>
                   </div>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.kcvCalculator.algorithm}
                     </Text>
                     <Tag color="orange" style={{ marginTop: 4 }}>{result.algorithm}</Tag>
@@ -179,19 +194,19 @@ const TR31Analyzer: React.FC = () => {
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.mode}
                     </Text>
                     <Tag color="cyan" style={{ marginTop: 4 }}>{result.mode}</Tag>
                   </div>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.keyVersion}
                     </Text>
                     <Tag style={{ marginTop: 4 }}>{result.keyVersion}</Tag>
                   </div>
                   <div>
-                    <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>
+                    <Text type="secondary" style={{ fontSize: '12px', display: 'block', color: isDark ? '#a6a6a6' : undefined }}>
                       {t.tr31.exportability}
                     </Text>
                     <Tag color="red" style={{ marginTop: 4 }}>{result.exportability}</Tag>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, Tooltip } from 'antd';
-import { InfoCircleOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Popover } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
 
 interface CollapsibleInfoProps {
@@ -10,75 +10,69 @@ interface CollapsibleInfoProps {
 }
 
 /**
- * CollapsibleInfo - A compact info component that can be expanded/collapsed
- * Helps reduce vertical space for experienced users while keeping info accessible
+ * CollapsibleInfo - A compact info icon with hover/click popover
+ * Shows a small ? icon that reveals info on hover
  */
 export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
   title,
   children,
-  defaultExpanded = false,
 }) => {
-  const [expanded, setExpanded] = useState(defaultExpanded);
   const { isDark } = useTheme();
 
-  return (
-    <div>
-      {/* Compact header with toggle button */}
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: 8,
-        marginBottom: expanded ? 8 : 0 
-      }}>
-        <Tooltip title={expanded ? 'Hide info' : 'Show info'}>
-          <Button
-            type="text"
-            size="small"
-            icon={<InfoCircleOutlined />}
-            onClick={() => setExpanded(!expanded)}
-            style={{
-              color: isDark ? '#69b1ff' : '#1677ff',
-              padding: '4px 8px',
-              height: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              fontSize: 13,
-              background: isDark 
-                ? 'rgba(22, 119, 255, 0.1)' 
-                : 'rgba(22, 119, 255, 0.06)',
-              border: isDark ? '1px solid #15395b' : '1px solid #91caff',
-              borderRadius: 6,
-            }}
-          >
-            <span>{title}</span>
-            {expanded ? <UpOutlined style={{ fontSize: 10 }} /> : <DownOutlined style={{ fontSize: 10 }} />}
-          </Button>
-        </Tooltip>
-      </div>
-
-      {/* Expandable content */}
-      {expanded && (
-        <div
-          style={{
-            background: isDark 
-              ? 'linear-gradient(135deg, #111d2c 0%, #1a2c3d 100%)' 
-              : 'linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%)',
-            border: isDark ? '1px solid #15395b' : '1px solid #91caff',
-            borderRadius: 8,
-            padding: '12px 16px',
-            color: isDark ? '#69b1ff' : '#1677ff',
-            fontSize: 13,
-            lineHeight: 1.6,
-            animation: 'fadeIn 0.2s ease-in-out',
-          }}
-        >
-          {children}
-        </div>
-      )}
+  const content = (
+    <div
+      style={{
+        maxWidth: 320,
+        fontSize: 13,
+        lineHeight: 1.7,
+        color: isDark ? '#b0b0b0' : '#595959',
+      }}
+    >
+      {children}
     </div>
+  );
+
+  return (
+    <Popover
+      content={content}
+      title={
+        <span style={{ 
+          color: isDark ? '#69b1ff' : '#1677ff', 
+          fontWeight: 500,
+          fontSize: 13,
+        }}>
+          {title}
+        </span>
+      }
+      trigger={['hover', 'click']}
+      placement="bottomLeft"
+      overlayStyle={{ maxWidth: 360 }}
+      overlayInnerStyle={{
+        background: isDark 
+          ? 'linear-gradient(135deg, #1a1a1a 0%, #262626 100%)' 
+          : 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
+        border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
+        boxShadow: isDark 
+          ? '0 4px 12px rgba(0,0,0,0.4)' 
+          : '0 4px 12px rgba(0,0,0,0.1)',
+      }}
+    >
+      <QuestionCircleOutlined
+        style={{
+          fontSize: 14,
+          color: isDark ? '#595959' : '#bfbfbf',
+          cursor: 'pointer',
+          transition: 'color 0.2s',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = '#1677ff';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = isDark ? '#595959' : '#bfbfbf';
+        }}
+      />
+    </Popover>
   );
 };
 
 export default CollapsibleInfo;
-

@@ -533,6 +533,7 @@ export default {
   rsaDer: {
     title: 'RSA DER 公钥',
     description: '以 DER ASN.1 格式编码/解码 RSA 公钥',
+    info: 'RSA DER 信息',
     encode: '编码',
     decode: '解码',
     modulus: '模数',
@@ -696,6 +697,10 @@ export default {
   rsa: {
     title: 'RSA 加密/解密',
     description: 'RSA 非对称加密、解密、签名和验证',
+    rsaInfo: 'RSA 信息',
+    rsaInfo1: 'RSA 是一种非对称加密算法',
+    rsaInfo2: '密钥长度：1024、2048、4096 位（建议 2048 位以上）',
+    rsaInfo3: '支持 PKCS#1 v1.5 和 OAEP 填充',
     tabKeys: '密钥',
     tabEncrypt: '加密',
     tabDecrypt: '解密',

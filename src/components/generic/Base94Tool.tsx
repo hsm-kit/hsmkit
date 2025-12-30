@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } fr
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -80,6 +81,7 @@ const decodeBase94 = (str: string): Uint8Array => {
 
 const Base94Tool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   
   // Encode state
   const [encodeInputEncoding, setEncodeInputEncoding] = useState<InputEncoding>('ASCII');
@@ -244,12 +246,6 @@ const Base94Tool: React.FC = () => {
         />
       </div>
 
-      {/* Info - Collapsible */}
-      <CollapsibleInfo title={t.base94?.info || 'Base94 Information'}>
-        <div>• {t.base94?.encodeInfo1 || 'Uses ASCII printable characters (0x20 space to 0x7E tilde)'}</div>
-        <div>• {t.base94?.encodeInfo2 || '5:4 ratio - 4 bytes encode to 5 characters (25% overhead)'}</div>
-      </CollapsibleInfo>
-
       {/* Input Data */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -307,35 +303,48 @@ const Base94Tool: React.FC = () => {
       {encodeResult && (
         <Card 
           title={
-            <>
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
               <LockOutlined />
               {' '}
               {t.base94?.encodeResult || 'Base94 Encoded Result'}
-            </>
+            </span>
           }
           bordered={false}
-          style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
           extra={
             <Button 
-              type="text" 
+              type={isDark ? 'primary' : 'default'}
               icon={<CopyOutlined />}
               onClick={() => copyResult(encodeResult)}
               size="small"
+              style={{
+                background: isDark ? '#52c41a' : undefined,
+                borderColor: '#52c41a',
+                color: isDark ? '#fff' : '#52c41a',
+              }}
             >
               {t.common.copy}
             </Button>
           }
         >
           <div style={{ 
-            background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+            background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
             padding: '16px', 
             borderRadius: '8px', 
-            border: '1px solid #b7eb8f',
+            border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
             wordBreak: 'break-all',
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
             lineHeight: '1.8',
-            color: '#52c41a',
+            color: isDark ? '#95de64' : '#237804',
             fontWeight: 600,
             letterSpacing: '0.5px',
             whiteSpace: 'pre-wrap'
@@ -370,12 +379,6 @@ const Base94Tool: React.FC = () => {
           size="large"
         />
       </div>
-
-      {/* Info - Collapsible */}
-      <CollapsibleInfo title={t.base94?.info || 'Base94 Information'}>
-        <div>• {t.base94?.decodeInfo1 || 'Decodes Base94 back to original data'}</div>
-        <div>• {t.base94?.decodeInfo2 || 'Valid characters: ! to ~ (ASCII 33-126)'}</div>
-      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
@@ -431,35 +434,48 @@ const Base94Tool: React.FC = () => {
       {decodeResult && (
         <Card 
           title={
-            <>
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
               <UnlockOutlined />
               {' '}
               {t.base94?.decodeResult || 'Decoded Result'}
-            </>
+            </span>
           }
           bordered={false}
-          style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
           extra={
             <Button 
-              type="text" 
+              type={isDark ? 'primary' : 'default'}
               icon={<CopyOutlined />}
               onClick={() => copyResult(decodeResult)}
               size="small"
+              style={{
+                background: isDark ? '#52c41a' : undefined,
+                borderColor: '#52c41a',
+                color: isDark ? '#fff' : '#52c41a',
+              }}
             >
               {t.common.copy}
             </Button>
           }
         >
           <div style={{ 
-            background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+            background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
             padding: '16px', 
             borderRadius: '8px', 
-            border: '1px solid #b7eb8f',
+            border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
             wordBreak: 'break-all',
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
             lineHeight: '1.8',
-            color: '#52c41a',
+            color: isDark ? '#95de64' : '#237804',
             fontWeight: 600,
             letterSpacing: '0.5px',
             whiteSpace: 'pre-wrap'
@@ -499,9 +515,15 @@ const Base94Tool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.base94?.title || 'Base94'}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.base94?.title || 'Base94'}
+          </Title>
+          <CollapsibleInfo title={t.base94?.info || 'Base94 Information'}>
+            <div>• {t.base94?.encodeInfo1 || 'Uses ASCII printable characters (0x20 space to 0x7E tilde)'}</div>
+            <div>• {t.base94?.encodeInfo2 || '5:4 ratio - 4 bytes encode to 5 characters (25% overhead)'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.base94?.description || 'Encode data to Base94 or decode Base94 back to original format'}
         </Text>

@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } fr
 import { SwapOutlined, CopyOutlined, ClearOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -11,6 +12,7 @@ type InputFormat = 'binary' | 'hex';
 
 const BCDTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [inputFormat, setInputFormat] = useState<InputFormat>('binary');
   
   // Encode state
@@ -177,12 +179,6 @@ const BCDTool: React.FC = () => {
   // Encode Tab Content
   const encodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      {/* Info - Collapsible */}
-      <CollapsibleInfo title={t.bcd?.info || 'BCD Information'}>
-        <div>• {t.bcd?.encodeInfo1 || 'Each decimal digit (0-9) is encoded as 4 bits'}</div>
-        <div>• {t.bcd?.encodeInfo2 || 'Example: 25 → 0010 0101 (binary) / 25 (hex)'}</div>
-      </CollapsibleInfo>
-
       {/* Input Data */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -237,35 +233,48 @@ const BCDTool: React.FC = () => {
       {encodeResult && (
         <Card 
           title={
-            <>
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
               <SwapOutlined />
               {' '}
               {t.bcd?.encodeResult || 'BCD Encoded Result'}
-            </>
+            </span>
           }
           bordered={false}
-          style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
           extra={
             <Button 
-              type="text" 
+              type={isDark ? 'primary' : 'default'}
               icon={<CopyOutlined />}
               onClick={() => copyResult(encodeResult)}
               size="small"
+              style={{
+                background: isDark ? '#52c41a' : undefined,
+                borderColor: '#52c41a',
+                color: isDark ? '#fff' : '#52c41a',
+              }}
             >
               {t.common.copy}
             </Button>
           }
         >
           <div style={{ 
-            background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+            background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
             padding: '16px', 
             borderRadius: '8px', 
-            border: '1px solid #b7eb8f',
+            border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
             wordBreak: 'break-all',
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
             lineHeight: '1.8',
-            color: '#52c41a',
+            color: isDark ? '#95de64' : '#237804',
             fontWeight: 600,
             letterSpacing: '0.5px',
             whiteSpace: 'pre-line'
@@ -300,12 +309,6 @@ const BCDTool: React.FC = () => {
           size="large"
         />
       </div>
-
-      {/* Info - Collapsible */}
-      <CollapsibleInfo title={t.bcd?.info || 'BCD Information'}>
-        <div>• {t.bcd?.decodeInfo1 || 'Each 4-bit nibble must be 0-9 (not A-F)'}</div>
-        <div>• {t.bcd?.decodeInfo2 || 'Example: 0010 0101 → 25'}</div>
-      </CollapsibleInfo>
 
       {/* Input Data */}
       <div>
@@ -364,35 +367,48 @@ const BCDTool: React.FC = () => {
       {decodeResult && (
         <Card 
           title={
-            <>
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
               <SwapOutlined />
               {' '}
               {t.bcd?.decodeResult || 'Decoded Decimal'}
-            </>
+            </span>
           }
           bordered={false}
-          style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
           extra={
             <Button 
-              type="text" 
+              type={isDark ? 'primary' : 'default'}
               icon={<CopyOutlined />}
               onClick={() => copyResult(decodeResult)}
               size="small"
+              style={{
+                background: isDark ? '#52c41a' : undefined,
+                borderColor: '#52c41a',
+                color: isDark ? '#fff' : '#52c41a',
+              }}
             >
               {t.common.copy}
             </Button>
           }
         >
           <div style={{ 
-            background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+            background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
             padding: '16px', 
             borderRadius: '8px', 
-            border: '1px solid #b7eb8f',
+            border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
             wordBreak: 'break-all',
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
             lineHeight: '1.8',
-            color: '#52c41a',
+            color: isDark ? '#95de64' : '#237804',
             fontWeight: 600,
             letterSpacing: '0.5px',
             whiteSpace: 'pre-line'
@@ -432,9 +448,15 @@ const BCDTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.bcd?.title || 'Binary Coded Decimal (BCD)'}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.bcd?.title || 'Binary Coded Decimal (BCD)'}
+          </Title>
+          <CollapsibleInfo title={t.bcd?.info || 'BCD Information'}>
+            <div>• {t.bcd?.encodeInfo1 || 'Each decimal digit (0-9) is encoded as 4 bits'}</div>
+            <div>• {t.bcd?.encodeInfo2 || 'Example: 25 → 0010 0101 (binary) / 25 (hex)'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.bcd?.description || 'Encode decimal numbers to BCD or decode BCD back to decimal'}
         </Text>

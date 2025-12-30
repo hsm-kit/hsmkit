@@ -522,6 +522,7 @@ export default {
   rsaDer: {
     title: 'RSA DER 공개키',
     description: 'DER ASN.1 형식으로 RSA 공개키 인코딩/디코딩',
+    info: 'RSA DER 정보',
     encode: '인코딩',
     decode: '디코딩',
     modulus: '모듈러스',
@@ -685,6 +686,10 @@ export default {
   rsa: {
     title: 'RSA 암호화/복호화',
     description: 'RSA 비대칭 암호화, 복호화, 서명 및 검증',
+    rsaInfo: 'RSA 정보',
+    rsaInfo1: 'RSA는 비대칭 암호화 알고리즘입니다',
+    rsaInfo2: '키 크기: 1024, 2048, 4096비트 (2048 이상 권장)',
+    rsaInfo3: 'PKCS#1 v1.5 및 OAEP 패딩 지원',
     tabKeys: '키',
     tabEncrypt: '암호화',
     tabDecrypt: '복호화',

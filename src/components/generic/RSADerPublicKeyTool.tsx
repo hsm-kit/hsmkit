@@ -3,6 +3,7 @@ import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkb
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -317,6 +318,7 @@ const fromPEM = (pem: string): Uint8Array => {
 
 const RSADerPublicKeyTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [mode, setMode] = useState<Mode>('encode');
   
   // Encode state
@@ -431,11 +433,6 @@ const RSADerPublicKeyTool: React.FC = () => {
   // Encode content
   const encodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      <CollapsibleInfo title={t.rsaDer?.encodeInfo || 'RSA Public Key Encoding'}>
-        <div>• {t.rsaDer?.encodeInfo1 || 'Encode RSA modulus and exponent to DER/PEM format'}</div>
-        <div>• {t.rsaDer?.encodeInfo2 || 'Supports both signed and unsigned integer encoding'}</div>
-      </CollapsibleInfo>
-
       {/* Modulus */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -549,21 +546,47 @@ const RSADerPublicKeyTool: React.FC = () => {
       {/* Encode Result */}
       {result && mode === 'encode' && (
         <Card
-          title={<><LockOutlined /> {t.rsaDer?.encodeResult || 'Encoded Result'}</>}
+          title={
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+              <LockOutlined /> {t.rsaDer?.encodeResult || 'Encoded Result'}
+            </span>
+          }
           bordered={false}
-          style={{ background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
-          extra={<Button type="primary" ghost icon={<CopyOutlined />} onClick={() => copyResult(result)} size="small">{t.common.copy}</Button>}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
+          extra={
+            <Button 
+              type={isDark ? 'primary' : 'default'} 
+              icon={<CopyOutlined />} 
+              onClick={() => copyResult(result)} 
+              size="small"
+              style={{
+                background: isDark ? '#52c41a' : undefined,
+                borderColor: '#52c41a',
+                color: isDark ? '#fff' : '#52c41a',
+              }}
+            >
+              {t.common.copy}
+            </Button>
+          }
         >
           <div style={{
-            background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)',
+            background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
             padding: '16px',
             borderRadius: '8px',
-            border: '1px solid #b7eb8f',
+            border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
             wordBreak: 'break-all',
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
             lineHeight: '1.8',
-            color: '#52c41a',
+            color: isDark ? '#95de64' : '#237804',
             fontWeight: 600,
             whiteSpace: 'pre-wrap'
           }}>
@@ -577,11 +600,6 @@ const RSADerPublicKeyTool: React.FC = () => {
   // Decode content
   const decodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-      <CollapsibleInfo title={t.rsaDer?.decodeInfo || 'RSA Public Key Decoding'}>
-        <div>• {t.rsaDer?.decodeInfo1 || 'Decode DER/PEM format to extract modulus and exponent'}</div>
-        <div>• {t.rsaDer?.decodeInfo2 || 'Supports hex, base64, and PEM input formats'}</div>
-      </CollapsibleInfo>
-
       {/* DER Input */}
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsaDer?.derInput || 'DER/PEM Input'}:</Text>
@@ -645,27 +663,51 @@ const RSADerPublicKeyTool: React.FC = () => {
       {/* Decode Result */}
       {result === 'success' && decodedModulus && (
         <Card
-          title={<><UnlockOutlined /> {t.rsaDer?.decodeResult || 'Decoded Result'}</>}
+          title={
+            <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+              <UnlockOutlined /> {t.rsaDer?.decodeResult || 'Decoded Result'}
+            </span>
+          }
           bordered={false}
-          style={{ background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+          style={{ 
+            background: isDark 
+              ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+              : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+            border: isDark ? '1px solid #274916' : '2px solid #95de64',
+            boxShadow: isDark 
+              ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+              : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* Modulus */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: '#1677ff' }}>{t.rsaDer?.modulus || 'Modulus'} ({decodedModulus.length / 2} bytes):</Text>
-                <Button type="text" icon={<CopyOutlined />} onClick={() => copyResult(decodedModulus)} size="small">{t.common.copy}</Button>
+                <Text strong style={{ color: isDark ? '#95de64' : '#237804' }}>{t.rsaDer?.modulus || 'Modulus'} ({decodedModulus.length / 2} bytes):</Text>
+                <Button 
+                  type={isDark ? 'primary' : 'default'} 
+                  icon={<CopyOutlined />} 
+                  onClick={() => copyResult(decodedModulus)} 
+                  size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
+                  {t.common.copy}
+                </Button>
               </div>
               <div style={{
-                background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)',
+                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
                 padding: '12px',
                 borderRadius: '8px',
-                border: '1px solid #b7eb8f',
+                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
                 wordBreak: 'break-all',
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '13px',
                 lineHeight: '1.6',
-                color: '#52c41a',
+                color: isDark ? '#95de64' : '#237804',
                 fontWeight: 600
               }}>
                 {decodedModulus}
@@ -675,19 +717,31 @@ const RSADerPublicKeyTool: React.FC = () => {
             {/* Exponent */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: '#1677ff' }}>{t.rsaDer?.exponent || 'Exponent'} ({decodedExponent.length / 2} bytes):</Text>
-                <Button type="text" icon={<CopyOutlined />} onClick={() => copyResult(decodedExponent)} size="small">{t.common.copy}</Button>
+                <Text strong style={{ color: isDark ? '#69b1ff' : '#1677ff' }}>{t.rsaDer?.exponent || 'Exponent'} ({decodedExponent.length / 2} bytes):</Text>
+                <Button 
+                  type={isDark ? 'primary' : 'default'} 
+                  icon={<CopyOutlined />} 
+                  onClick={() => copyResult(decodedExponent)} 
+                  size="small"
+                  style={{
+                    background: isDark ? '#1677ff' : undefined,
+                    borderColor: '#1677ff',
+                    color: isDark ? '#fff' : '#1677ff',
+                  }}
+                >
+                  {t.common.copy}
+                </Button>
               </div>
               <div style={{
-                background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)',
+                background: isDark ? 'rgba(0, 0, 0, 0.25)' : 'rgba(255, 255, 255, 0.8)',
                 padding: '12px',
                 borderRadius: '8px',
-                border: '1px solid #adc6ff',
+                border: isDark ? '1px solid #15395b' : '1px solid #adc6ff',
                 wordBreak: 'break-all',
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px',
                 lineHeight: '1.6',
-                color: '#1677ff',
+                color: isDark ? '#69b1ff' : '#1677ff',
                 fontWeight: 600
               }}>
                 {decodedExponent}
@@ -715,9 +769,15 @@ const RSADerPublicKeyTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.rsaDer?.title || 'RSA DER Public Key'}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.rsaDer?.title || 'RSA DER Public Key'}
+          </Title>
+          <CollapsibleInfo title={t.rsaDer?.info || 'RSA DER Information'}>
+            <div>• {t.rsaDer?.encodeInfo1 || 'Encode RSA modulus and exponent to DER/PEM format'}</div>
+            <div>• {t.rsaDer?.encodeInfo2 || 'Supports both signed and unsigned integer encoding'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.rsaDer?.description || 'Encode/Decode RSA public key in DER ASN.1 format'}
         </Text>

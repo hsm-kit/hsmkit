@@ -3,6 +3,7 @@ import { Card, Button, message, Divider, Typography, Input, Select } from 'antd'
 import { SwapOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -49,6 +50,7 @@ ASCII_TO_EBCDIC.forEach((ebcdic, ascii) => {
 
 const CharacterEncodingTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [encodingType, setEncodingType] = useState<string>('hex2bin');
   const [inputData, setInputData] = useState<string>('');
   const [result, setResult] = useState('');
@@ -307,9 +309,20 @@ const CharacterEncodingTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.encoding?.title || 'Character Encoding'}
-          </Title>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.encoding?.title || 'Character Encoding'}
+            </Title>
+            <CollapsibleInfo title={t.encoding?.conversionInfo || 'Conversion Information'}>
+              <div>• {getEncodingInfo()}</div>
+              {encodingType.includes('ebcdic') && (
+                <div>• {t.encoding?.ebcdicInfo || 'EBCDIC is used by IBM mainframes'}</div>
+              )}
+              {encodingType.includes('atm') && (
+                <div>• {t.encoding?.atmInfo || 'ATM format uses space-separated decimal values (0-255)'}</div>
+              )}
+            </CollapsibleInfo>
+          </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
             {t.encoding?.description || 'Convert between different character encodings and formats'}
           </Text>
@@ -333,17 +346,6 @@ const CharacterEncodingTool: React.FC = () => {
                 }))}
               />
             </div>
-
-            {/* Info Alert */}
-            <CollapsibleInfo title={t.encoding?.conversionInfo || 'Conversion Information'}>
-              <div>• {getEncodingInfo()}</div>
-              {encodingType.includes('ebcdic') && (
-                <div>• {t.encoding?.ebcdicInfo || 'EBCDIC is used by IBM mainframes'}</div>
-              )}
-              {encodingType.includes('atm') && (
-                <div>• {t.encoding?.atmInfo || 'ATM format uses space-separated decimal values (0-255)'}</div>
-              )}
-            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>
@@ -401,35 +403,48 @@ const CharacterEncodingTool: React.FC = () => {
         {result && (
           <Card 
             title={
-              <>
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                 <SwapOutlined />
                 {' '}
                 {t.encoding?.result || 'Conversion Result'}
-              </>
+              </span>
             }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
             extra={
               <Button 
-                type="text" 
+                type={isDark ? 'primary' : 'default'}
                 icon={<CopyOutlined />}
                 onClick={copyResult}
                 size="small"
+                style={{
+                  background: isDark ? '#52c41a' : undefined,
+                  borderColor: '#52c41a',
+                  color: isDark ? '#fff' : '#52c41a',
+                }}
               >
                 {t.common.copy}
               </Button>
             }
           >
             <div style={{ 
-              background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
               padding: '16px', 
               borderRadius: '8px', 
-              border: '1px solid #b7eb8f',
+              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
               wordBreak: 'break-all',
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
               lineHeight: '1.8',
-              color: '#52c41a',
+              color: isDark ? '#95de64' : '#237804',
               fontWeight: 600,
               letterSpacing: '0.5px'
             }}>

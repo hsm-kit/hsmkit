@@ -522,6 +522,7 @@ export default {
   rsaDer: {
     title: 'RSA DER 公開鍵',
     description: 'DER ASN.1形式でRSA公開鍵をエンコード/デコード',
+    info: 'RSA DER 情報',
     encode: 'エンコード',
     decode: 'デコード',
     modulus: 'モジュラス',
@@ -685,6 +686,10 @@ export default {
   rsa: {
     title: 'RSA 暗号化/復号化',
     description: 'RSA 非対称暗号化、復号化、署名、検証',
+    rsaInfo: 'RSA 情報',
+    rsaInfo1: 'RSAは非対称暗号化アルゴリズムです',
+    rsaInfo2: '鍵長: 1024、2048、4096ビット（2048以上を推奨）',
+    rsaInfo3: 'PKCS#1 v1.5とOAEPパディングをサポート',
     tabKeys: '鍵',
     tabEncrypt: '暗号化',
     tabDecrypt: '復号化',

@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input, Select } 
 import { CopyOutlined, CalculatorOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import * as hashWasm from 'hash-wasm';
 
@@ -37,6 +38,7 @@ type InputType = 'ASCII' | 'Hex';
 
 const HashCalculator: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [inputType, setInputType] = useState<InputType>('ASCII');
   const [hashType, setHashType] = useState<string>('sha256');
   const [inputData, setInputData] = useState<string>('');
@@ -258,9 +260,15 @@ const HashCalculator: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.hash?.title || 'Hash Calculator'}
-          </Title>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.hash?.title || 'Hash Calculator'}
+            </Title>
+            <CollapsibleInfo title={t.hash?.algorithmInfo || 'Algorithm Information'}>
+              <div>• {getHashInfo()?.label} - {t.hash?.outputLength || 'Output'}: {getHashInfo()?.bits} bits ({(getHashInfo()?.bits || 0) / 4} hex chars)</div>
+              <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
+            </CollapsibleInfo>
+          </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
             {t.hash?.description || 'Calculate hash values using various algorithms'}
           </Text>
@@ -302,12 +310,6 @@ const HashCalculator: React.FC = () => {
                 block
               />
             </div>
-
-            {/* Algorithm Info - Collapsible */}
-            <CollapsibleInfo title={t.hash?.algorithmInfo || 'Algorithm Information'}>
-              <div>• {getHashInfo()?.label} - {t.hash?.outputLength || 'Output'}: {getHashInfo()?.bits} bits ({(getHashInfo()?.bits || 0) / 4} hex chars)</div>
-              <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
-            </CollapsibleInfo>
 
             {/* Input Data */}
             <div>
@@ -369,45 +371,58 @@ const HashCalculator: React.FC = () => {
         {hashResult && (
           <Card 
             title={
-              <>
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                 <CalculatorOutlined />
                 {' '}
                 {t.hash?.hashResult || 'Hash Result'} ({getHashInfo()?.label})
-              </>
+              </span>
             }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
             extra={
               <Button 
-                type="text" 
+                type={isDark ? 'primary' : 'default'}
                 icon={<CopyOutlined />}
                 onClick={copyResult}
                 size="small"
+                style={{
+                  background: isDark ? '#52c41a' : undefined,
+                  borderColor: '#52c41a',
+                  color: isDark ? '#fff' : '#52c41a',
+                }}
               >
                 {t.common.copy}
               </Button>
             }
           >
             <div style={{ 
-              background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
               padding: '16px', 
               borderRadius: '8px', 
-              border: '1px solid #b7eb8f',
+              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
               wordBreak: 'break-all',
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
               lineHeight: '1.8',
-              color: '#52c41a',
+              color: isDark ? '#95de64' : '#237804',
               fontWeight: 600,
               letterSpacing: '0.5px'
             }}>
               {hashResult}
             </div>
             <div style={{ marginTop: 12, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
+              <Text style={{ fontSize: '12px', color: isDark ? '#8c8c8c' : '#666' }}>
                 {t.hash?.outputLength || 'Length'}: {hashResult.length / 2} bytes ({hashResult.length} hex)
               </Text>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
+              <Text style={{ fontSize: '12px', color: isDark ? '#8c8c8c' : '#666' }}>
                 {t.hash?.inputLength || 'Input'}: {getByteLength()} bytes
               </Text>
             </div>

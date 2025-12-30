@@ -3,6 +3,7 @@ import { Card, Button, Segmented, message, Divider, Typography, Input } from 'an
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -150,6 +151,7 @@ const cmacAES = (keyHex: string, dataHex: string): string => {
 
 const CipherTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [algorithm, setAlgorithm] = useState<AESAlgorithm>('AES-128');
   const [mode, setMode] = useState<AESMode>('ECB');
   const [inputType, setInputType] = useState<InputType>('Hex');
@@ -428,9 +430,22 @@ const CipherTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
             {t.cipher?.title || 'AES Encryption/Decryption'}
           </Title>
+            <CollapsibleInfo title={t.cipher?.aesInfo || 'AES Information'}>
+              <div>• {t.cipher?.keyLengthInfo || `${algorithm} requires a ${getExpectedKeyLength()}-byte (${getExpectedKeyLength() * 8}-bit) key`}</div>
+              {needsIv && (
+                <div>• {t.cipher?.ivInfo || 'IV (Initialization Vector) must be 16 bytes'}</div>
+              )}
+              {mode === 'KCV' ? (
+                <div>• {t.cipher?.kcvInfo || 'KCV: Encrypt zeros and take first 6 hex characters'}</div>
+              ) : (
+                <div>• {t.cipher?.noPaddingInfo || 'No padding - data length must be multiple of 16 bytes'}</div>
+              )}
+            </CollapsibleInfo>
+          </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
             {t.cipher?.description || 'Encrypt and decrypt data using AES algorithm with various modes'}
           </Text>
@@ -490,19 +505,6 @@ const CipherTool: React.FC = () => {
                 disabled={isKcvMode}
               />
             </div>
-
-            {/* 提示信息 - Collapsible */}
-            <CollapsibleInfo title={t.cipher?.aesInfo || 'AES Information'}>
-              <div>• {t.cipher?.keyLengthInfo || `${algorithm} requires a ${getExpectedKeyLength()}-byte (${getExpectedKeyLength() * 8}-bit) key`}</div>
-              {needsIv && (
-                <div>• {t.cipher?.ivInfo || 'IV (Initialization Vector) must be 16 bytes'}</div>
-              )}
-              {mode === 'KCV' ? (
-                <div>• {t.cipher?.kcvInfo || 'KCV: Encrypt zeros and take first 6 hex characters'}</div>
-              ) : (
-                <div>• {t.cipher?.noPaddingInfo || 'No padding - data length must be multiple of 16 bytes'}</div>
-              )}
-            </CollapsibleInfo>
 
             {/* Key 输入 */}
             <div>
@@ -624,14 +626,22 @@ const CipherTool: React.FC = () => {
         {kcvResult && lastOperation === 'kcv' && (
           <Card 
             title={
-              <>
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                 <LockOutlined />
                 {' '}
                 {t.cipher?.kcvResult || 'KCV Result'}
-              </>
+              </span>
             }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
           >
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <div style={{ 
@@ -701,37 +711,50 @@ const CipherTool: React.FC = () => {
         {result && lastOperation !== 'kcv' && (
           <Card 
             title={
-              <>
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                 {lastOperation === 'encrypt' ? <LockOutlined /> : <UnlockOutlined />}
                 {' '}
                 {lastOperation === 'encrypt' 
                   ? (t.cipher?.encryptResult || 'Encrypted Result')
                   : (t.cipher?.decryptResult || 'Decrypted Result')}
-              </>
+              </span>
             }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
             extra={
               <Button 
-                type="text" 
+                type={isDark ? 'primary' : 'default'}
                 icon={<CopyOutlined />}
                 onClick={copyResult}
                 size="small"
+                style={{
+                  background: isDark ? '#52c41a' : undefined,
+                  borderColor: '#52c41a',
+                  color: isDark ? '#fff' : '#52c41a',
+                }}
               >
                 {t.common.copy}
               </Button>
             }
           >
             <div style={{ 
-              background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
               padding: '16px', 
               borderRadius: '8px', 
-              border: '1px solid #b7eb8f',
+              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
               wordBreak: 'break-all',
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
               lineHeight: '1.6',
-              color: '#52c41a',
+              color: isDark ? '#95de64' : '#237804',
               fontWeight: 600
             }}>
               {result}

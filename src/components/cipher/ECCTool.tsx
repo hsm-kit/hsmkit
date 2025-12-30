@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Alert, Radio } from 'antd';
 import { KeyOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -18,6 +19,7 @@ type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512';
 
 const ECCTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   
   // Keys Tab 状态
   const [curve, setCurve] = useState<ECCCurve>('P-256');
@@ -637,15 +639,29 @@ const ECCTool: React.FC = () => {
           {/* 签名结果 */}
           {signature && signDetails && (
             <div style={{ 
-              background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)', 
               padding: 16, 
               borderRadius: 8, 
-              border: '1px solid #b7eb8f',
-              boxShadow: '0 2px 8px rgba(82, 196, 26, 0.1)'
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <Text strong style={{ color: '#389e0d' }}>✓ ECDSA Signature Result</Text>
-                <Button type="text" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(signatureDER)}>
+                <Text strong style={{ color: isDark ? '#95de64' : '#389e0d' }}>✓ ECDSA Signature Result</Text>
+                <Button 
+                  type={isDark ? 'primary' : 'default'} 
+                  size="small" 
+                  icon={<CopyOutlined />} 
+                  onClick={() => copyToClipboard(signatureDER)}
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
                   Copy DER
                 </Button>
               </div>
@@ -654,77 +670,77 @@ const ECCTool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', width: '160px' }}>Data:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{signDetails.dataHex}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Data:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.dataHex}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Data size:</td>
-                    <td style={{ padding: '4px 0' }}>{signDetails.dataSize}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Data size:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.dataSize}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Hash algorithm:</td>
-                    <td style={{ padding: '4px 0' }}>{signHash}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Hash algorithm:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signHash}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>EC Name:</td>
-                    <td style={{ padding: '4px 0' }}>{ECC_CURVES.find(c => c.value === curve)?.label}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>EC Name:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{ECC_CURVES.find(c => c.value === curve)?.label}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Public Key:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{publicKey}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public Key:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{publicKey}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Key Conversion Form:</td>
-                    <td style={{ padding: '4px 0' }}>{publicKeyForm}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Key Conversion Form:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{publicKeyForm}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Private Key:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{privateKey}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Private Key:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{privateKey}</td>
                   </tr>
                 </tbody>
               </table>
               
               {/* 分隔线 */}
-              <div style={{ borderTop: '1px dashed #b7eb8f', margin: '12px 0' }} />
+              <div style={{ borderTop: isDark ? '1px dashed #3c5a24' : '1px dashed #b7eb8f', margin: '12px 0' }} />
               
               {/* 消息摘要 */}
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', width: '160px' }}>Message digest:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{messageDigest}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Message digest:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{messageDigest}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Message digest size:</td>
-                    <td style={{ padding: '4px 0' }}>{messageDigest.length / 2}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest size:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{messageDigest.length / 2}</td>
                   </tr>
                 </tbody>
               </table>
               
               {/* 分隔线 */}
-              <div style={{ borderTop: '1px dashed #b7eb8f', margin: '12px 0' }} />
+              <div style={{ borderTop: isDark ? '1px dashed #3c5a24' : '1px dashed #b7eb8f', margin: '12px 0' }} />
               
               {/* 签名值 */}
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', width: '160px' }}>Signature-&gt;r:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{signatureR}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Signature-&gt;r:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signatureR}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Signature-&gt;s:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{signatureS}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Signature-&gt;s:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signatureS}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Signature (DER):</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Signature (DER):</td>
                     <td style={{ 
                       padding: '8px 12px',
                       wordBreak: 'break-all',
-                      background: '#fff',
-                      color: '#52c41a',
+                      background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                      color: isDark ? '#95de64' : '#237804',
                       fontWeight: 600,
                       borderRadius: '4px',
-                      border: '1px solid #d9f7be'
+                      border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
                     }}>
                       {signatureDER}
                     </td>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
 import { KeyOutlined, CopyOutlined, AppstoreOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import { generatePinBlock } from '../../utils/crypto';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
 
@@ -9,6 +10,7 @@ const { Title, Text } = Typography;
 
 const PinBlockTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [pin, setPin] = useState('');
   const [pan, setPan] = useState('');
   const [format, setFormat] = useState<'ISO0' | 'ISO1'>('ISO0');
@@ -125,40 +127,63 @@ const PinBlockTool: React.FC = () => {
 
         {pinBlock && (
           <Card 
-            title={<><KeyOutlined /> {t.common.result}</>}
+            title={
+              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+                <KeyOutlined /> {t.common.result}
+              </span>
+            }
             bordered={false}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+            style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}
             extra={
               <Button 
-                type="text"
+                type={isDark ? 'primary' : 'default'}
                 icon={<CopyOutlined />}
                 onClick={() => {
                   navigator.clipboard.writeText(pinBlock);
                   message.success(t.common.copied);
                 }}
                 size="small"
+                style={{
+                  background: isDark ? '#52c41a' : undefined,
+                  borderColor: '#52c41a',
+                  color: isDark ? '#fff' : '#52c41a',
+                }}
               >
                 {t.common.copy}
               </Button>
             }
           >
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <Text type="secondary" style={{ fontSize: '12px' }}>
+            <div style={{ 
+              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
+              padding: '16px', 
+              borderRadius: '8px', 
+              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f' 
+            }}>
+              <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
                 {t.pinBlock.pinBlockHex}
               </Text>
               <div style={{
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: 'clamp(18px, 4vw, 24px)',
                 letterSpacing: '2px',
-                color: '#1677ff',
+                color: isDark ? '#95de64' : '#237804',
                 marginTop: '8px',
                 wordBreak: 'break-all',
-                lineHeight: '1.6'
+                lineHeight: '1.6',
+                fontWeight: 600
               }}>
                 {formatHexDisplay(pinBlock)}
               </div>
               
-              <Divider style={{ margin: '16px 0' }} />
+              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#3c5a24' : undefined }} />
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 <Tag color="blue">{t.pinBlock.format}: {format}</Tag>

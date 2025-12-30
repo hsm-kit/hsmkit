@@ -3,6 +3,7 @@ import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio,
 import { KeyOutlined, LockOutlined, UnlockOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import * as forge from 'node-forge';
 
 const { Title, Text } = Typography;
@@ -55,6 +56,7 @@ const base64UrlDecode = (str: string): ArrayBuffer => {
 
 const RSATool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   
   // Keys Tab 状态
   const [modulus, setModulus] = useState('');
@@ -1300,7 +1302,17 @@ const RSATool: React.FC = () => {
           </div>
 
           {decryptResult && decryptDetails && (
-            <div style={{ background: 'linear-gradient(135deg, #fafcff 0%, #fff 100%)', padding: 20, borderRadius: 8, border: '1px solid #e6f0ff', boxShadow: '0 2px 8px rgba(22, 119, 255, 0.05)' }}>
+            <div style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)', 
+              padding: 20, 
+              borderRadius: 8, 
+              border: isDark ? '1px solid #274916' : '2px solid #95de64', 
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)' 
+            }}>
               {/* 标题 */}
               <div style={{ 
                 display: 'flex', 
@@ -1308,11 +1320,11 @@ const RSATool: React.FC = () => {
                 justifyContent: 'space-between',
                 marginBottom: 16,
                 paddingBottom: 12,
-                borderBottom: '2px solid #52c41a'
+                borderBottom: isDark ? '2px solid #3c5a24' : '2px solid #52c41a'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <UnlockOutlined style={{ color: '#52c41a', fontSize: 18 }} />
-                  <Text strong style={{ fontSize: 15, color: '#52c41a' }}>
+                  <UnlockOutlined style={{ color: isDark ? '#95de64' : '#52c41a', fontSize: 18 }} />
+                  <Text strong style={{ fontSize: 15, color: isDark ? '#95de64' : '#52c41a' }}>
                     RSA: {t.rsa?.decryptionFinished || 'Data decryption operation finished'}
                   </Text>
                 </div>
@@ -1325,37 +1337,38 @@ const RSATool: React.FC = () => {
               <div style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                 fontSize: '12px',
+                color: isDark ? '#b0b0b0' : undefined,
               }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{decryptDetails.keyLength}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.keyLength}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decryption method:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{decryptDetails.method}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decryption method:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.method}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{decryptDetails.padding}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.padding}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Cipher data:</td>
-                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6' }}>{decryptDetails.cipherData}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Cipher data:</td>
+                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.cipherData}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
-                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6' }}>{decryptDetails.modulus}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
+                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.modulus}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{decryptDetails.publicExp}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.publicExp}</td>
                     </tr>
                     {decryptDetails.privateExp && (
                       <tr>
-                        <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
-                        <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6' }}>{decryptDetails.privateExp}</td>
+                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
+                        <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.privateExp}</td>
                       </tr>
                     )}
                   </tbody>
@@ -1364,7 +1377,7 @@ const RSATool: React.FC = () => {
                 {/* 分隔线 */}
                 <div style={{ 
                   margin: '16px 0', 
-                  borderTop: '1px dashed #d9d9d9',
+                  borderTop: isDark ? '1px dashed #434343' : '1px dashed #d9d9d9',
                   position: 'relative'
                 }}>
                   <span style={{ 
@@ -1372,9 +1385,9 @@ const RSATool: React.FC = () => {
                     top: '-10px', 
                     left: '50%', 
                     transform: 'translateX(-50%)',
-                    background: '#fff',
+                    background: isDark ? '#1a2e1a' : '#fff',
                     padding: '0 12px',
-                    color: '#1677ff',
+                    color: isDark ? '#69b1ff' : '#1677ff',
                     fontSize: '11px'
                   }}>
                     {t.rsa?.result || 'RESULT'}
@@ -1385,22 +1398,23 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Decoded data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Decoded data:</td>
                       <td style={{ 
                         wordBreak: 'break-all', 
                         lineHeight: '1.6',
-                        color: '#52c41a', 
+                        color: isDark ? '#95de64' : '#237804', 
                         fontWeight: 600,
-                        background: '#f6ffed',
+                        background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
                         padding: '8px 12px',
-                        borderRadius: '4px'
+                        borderRadius: '4px',
+                        border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
                       }}>
                         {decryptResult}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decoded data length:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{decryptDetails.resultLength} bytes</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decoded data length:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.resultLength} bytes</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1475,7 +1489,17 @@ const RSATool: React.FC = () => {
           </div>
 
           {signature && signDetails && (
-            <div style={{ background: 'linear-gradient(135deg, #fafcff 0%, #fff 100%)', padding: 16, borderRadius: 8, border: '1px solid #e6f0ff', boxShadow: '0 2px 8px rgba(22, 119, 255, 0.05)' }}>
+            <div style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)', 
+              padding: 16, 
+              borderRadius: 8, 
+              border: isDark ? '1px solid #274916' : '2px solid #95de64', 
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)' 
+            }}>
               {/* 标题行 */}
               <div style={{ 
                 display: 'flex', 
@@ -1483,12 +1507,22 @@ const RSATool: React.FC = () => {
                 alignItems: 'center', 
                 marginBottom: 12,
                 paddingBottom: 8,
-                borderBottom: '1px solid #e1e4e8'
+                borderBottom: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
               }}>
-                <Text strong style={{ color: '#52c41a' }}>
+                <Text strong style={{ color: isDark ? '#95de64' : '#52c41a' }}>
                   RSA: Data signing operation finished
                 </Text>
-                <Button type="text" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(signature)}>
+                <Button 
+                  type={isDark ? 'primary' : 'default'} 
+                  size="small" 
+                  icon={<CopyOutlined />} 
+                  onClick={() => copyToClipboard(signature)}
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
                   {t.common.copy}
                 </Button>
               </div>
@@ -1497,50 +1531,50 @@ const RSATool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', width: '180px' }}>Key length:</td>
-                    <td style={{ padding: '4px 0' }}>{signDetails.keyLength}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>Key length:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.keyLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>String to sign:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{signDetails.stringToSign}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>String to sign:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.stringToSign}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>String to sign length:</td>
-                    <td style={{ padding: '4px 0' }}>{signDetails.stringLength}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>String to sign length:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.stringLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Message digest type:</td>
-                    <td style={{ padding: '4px 0' }}>{signDetails.digestType}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest type:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.digestType}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Message digest length:</td>
-                    <td style={{ padding: '4px 0' }}>{signDetails.digestLength}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest length:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.digestLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Public modulus [n]:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{cleanHex(modulus).toUpperCase()}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public modulus [n]:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(modulus).toUpperCase()}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Public exponent [e]:</td>
-                    <td style={{ padding: '4px 0' }}>{cleanHex(publicExponent).toUpperCase()}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public exponent [e]:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(publicExponent).toUpperCase()}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Private exponent [d]:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{cleanHex(privateExponent).toUpperCase()}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Private exponent [d]:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(privateExponent).toUpperCase()}</td>
                   </tr>
                 </tbody>
               </table>
               
               {/* 分隔线 */}
-              <div style={{ borderTop: '1px dashed #d9d9d9', margin: '12px 0', position: 'relative' }}>
+              <div style={{ borderTop: isDark ? '1px dashed #434343' : '1px dashed #d9d9d9', margin: '12px 0', position: 'relative' }}>
                 <span style={{ 
                   position: 'absolute', 
                   top: '-10px', 
                   left: '50%', 
                   transform: 'translateX(-50%)',
-                  background: '#fff',
+                  background: isDark ? '#1a2e1a' : '#fff',
                   padding: '0 12px',
-                  color: '#1677ff',
+                  color: isDark ? '#69b1ff' : '#1677ff',
                   fontSize: '11px'
                 }}>
                   {t.rsa?.result || 'RESULT'}
@@ -1551,25 +1585,26 @@ const RSATool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', width: '180px' }}>String to {signDetails.digestType} hash:</td>
-                    <td style={{ padding: '4px 0', wordBreak: 'break-all' }}>{signDetails.hashValue}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>String to {signDetails.digestType} hash:</td>
+                    <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.hashValue}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Message Signature:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Message Signature:</td>
                     <td style={{ 
                       padding: '8px 12px',
                       wordBreak: 'break-all',
-                      background: '#f6ffed',
-                      color: '#52c41a',
+                      background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                      color: isDark ? '#95de64' : '#237804',
                       fontWeight: 600,
-                      borderRadius: '4px'
+                      borderRadius: '4px',
+                      border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
                     }}>
                       {signature}
                     </td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: '#666', whiteSpace: 'nowrap' }}>Msg. Signature length:</td>
-                    <td style={{ padding: '4px 0' }}>{signature.length / 2}</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Msg. Signature length:</td>
+                    <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signature.length / 2}</td>
                   </tr>
                 </tbody>
               </table>
@@ -1706,13 +1741,6 @@ const RSATool: React.FC = () => {
       ),
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <CollapsibleInfo title="OAEP (Optimal Asymmetric Encryption Padding)">
-            <div>• OAEP is a padding scheme used with RSA encryption</div>
-            <div>• More secure than PKCS#1 v1.5 padding</div>
-            <div>• Prevents chosen-ciphertext attacks</div>
-            <div>• Recommended for new applications</div>
-          </CollapsibleInfo>
-
           {/* Data 输入 */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -1796,17 +1824,31 @@ const RSATool: React.FC = () => {
           {/* 结果显示 */}
           {oaepResult && (
             <div style={{ 
-              background: 'linear-gradient(135deg, #f6ffed 0%, #fff 100%)', 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)', 
               padding: 16, 
               borderRadius: 8, 
-              border: '1px solid #b7eb8f',
-              boxShadow: '0 2px 8px rgba(82, 196, 26, 0.1)'
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: '#389e0d' }}>
+                <Text strong style={{ color: isDark ? '#95de64' : '#389e0d' }}>
                   {oaepMethod === 'Encode' ? '✓ Encoded Message (EM):' : '✓ Decoded Message:'}
                 </Text>
-                <Button type="text" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(oaepResult)}>
+                <Button 
+                  type={isDark ? 'primary' : 'default'} 
+                  size="small" 
+                  icon={<CopyOutlined />} 
+                  onClick={() => copyToClipboard(oaepResult)}
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
                   {t.common.copy}
                 </Button>
               </div>
@@ -1814,17 +1856,17 @@ const RSATool: React.FC = () => {
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                 fontSize: '13px',
                 wordBreak: 'break-all',
-                background: '#fff',
+                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
                 padding: '12px',
                 borderRadius: '4px',
-                color: '#52c41a',
+                color: isDark ? '#95de64' : '#237804',
                 fontWeight: 600,
-                border: '1px solid #d9f7be'
+                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
               }}>
                 {oaepResult}
               </div>
               <div style={{ marginTop: 8 }}>
-                <Text type="secondary" style={{ fontSize: '12px' }}>
+                <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
                   Length: {oaepResult.length / 2} bytes ({oaepResult.length * 4} bits)
                 </Text>
               </div>
@@ -1892,9 +1934,16 @@ const RSATool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
           {t.rsa?.title || 'RSA Encryption/Decryption'}
         </Title>
+          <CollapsibleInfo title={t.rsa?.rsaInfo || 'RSA Information'}>
+            <div>• {t.rsa?.rsaInfo1 || 'RSA is an asymmetric cryptographic algorithm'}</div>
+            <div>• {t.rsa?.rsaInfo2 || 'Key sizes: 1024, 2048, 4096 bits (2048+ recommended)'}</div>
+            <div>• {t.rsa?.rsaInfo3 || 'PKCS#1 v1.5 and OAEP padding supported'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.rsa?.description || 'RSA asymmetric encryption, decryption, signing and verification'}
         </Text>

@@ -3,6 +3,7 @@ import { Card, Button, message, Divider, Typography, InputNumber, Select, Checkb
 import { ThunderboltOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 
 const MAX_UUID_COUNT = 100;
 
@@ -82,6 +83,7 @@ const generateUUIDv5 = async (): Promise<string> => {
 
 const UUIDTool: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [variant, setVariant] = useState<UUIDVariant>('VERSION_4_RANDOM');
   const [count, setCount] = useState<number>(1);
   const [results, setResults] = useState<string[]>([]);
@@ -167,9 +169,15 @@ const UUIDTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.uuid?.title || 'UUID Generator'}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.uuid?.title || 'UUID Generator'}
+          </Title>
+          <CollapsibleInfo title={t.uuid?.info || 'UUID Information'}>
+            <div>• {getVariantDescription(variant)}</div>
+            <div>• {t.uuid?.infoFormat || 'Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (36 characters)'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.uuid?.description || 'Generate Universally Unique Identifiers (UUID)'}
         </Text>
@@ -177,12 +185,6 @@ const UUIDTool: React.FC = () => {
         <Divider style={{ margin: '16px 0' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-          {/* Info - Collapsible */}
-          <CollapsibleInfo title={t.uuid?.info || 'UUID Information'}>
-            <div>• {getVariantDescription(variant)}</div>
-            <div>• {t.uuid?.infoFormat || 'Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (36 characters)'}</div>
-          </CollapsibleInfo>
-
           {/* Variant Selection */}
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
@@ -265,15 +267,15 @@ const UUIDTool: React.FC = () => {
           {results.length > 0 && (
             <Card
               title={
-                <span style={{ color: '#1677ff', fontWeight: 600 }}>
+                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                   <ThunderboltOutlined style={{ marginRight: 8 }} />
                   {t.uuid?.generatedUUIDs || 'Generated UUIDs'}
                   <span style={{ 
                     marginLeft: 8, 
                     fontSize: '12px', 
                     fontWeight: 400, 
-                    color: '#52c41a',
-                    background: '#f6ffed',
+                    color: isDark ? '#95de64' : '#52c41a',
+                    background: isDark ? 'rgba(82, 196, 26, 0.2)' : '#f6ffed',
                     padding: '2px 8px',
                     borderRadius: '10px'
                   }}>
@@ -283,17 +285,26 @@ const UUIDTool: React.FC = () => {
               }
               bordered={false}
               style={{ 
-                background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                background: isDark 
+                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+                border: isDark ? '1px solid #274916' : '2px solid #95de64',
+                boxShadow: isDark 
+                  ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                  : '0 4px 16px rgba(82, 196, 26, 0.2)',
                 borderRadius: '8px'
               }}
               extra={
                 <Button 
-                  type="primary"
-                  ghost
+                  type={isDark ? 'primary' : 'default'}
                   icon={<CopyOutlined />}
                   onClick={copyAll}
                   size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
                 >
                   {t.uuid?.copyAll || 'Copy All'}
                 </Button>
@@ -307,16 +318,18 @@ const UUIDTool: React.FC = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      background: index % 2 === 0 ? '#f6ffed' : '#fff',
+                      background: isDark 
+                        ? (index % 2 === 0 ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.15)')
+                        : (index % 2 === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.5)'),
                       padding: '10px 16px',
                       borderRadius: '6px',
-                      border: '1px solid #b7eb8f',
+                      border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
                     }}
                   >
                     <span style={{
                       fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                       fontSize: '14px',
-                      color: '#52c41a',
+                      color: isDark ? '#95de64' : '#237804',
                       fontWeight: 600,
                       letterSpacing: '0.5px'
                     }}>
@@ -327,7 +340,7 @@ const UUIDTool: React.FC = () => {
                       icon={<CopyOutlined />}
                       onClick={() => copyResult(uuid)}
                       size="small"
-                      style={{ color: '#1677ff' }}
+                      style={{ color: isDark ? '#52c41a' : '#52c41a' }}
                     />
                   </div>
                 ))}

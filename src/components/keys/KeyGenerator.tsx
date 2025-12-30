@@ -3,6 +3,7 @@ import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Al
 import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTheme } from '../../hooks/useTheme';
 import { 
   calculateKCV, 
   combineKeyComponents, 
@@ -16,6 +17,7 @@ const { TextArea } = Input;
 
 const KeyGenerator: React.FC = () => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   
   // Tab 1: 密钥生成
   const [length, setLength] = useState(16);
@@ -280,32 +282,52 @@ const KeyGenerator: React.FC = () => {
             </div>
 
         {generatedKey && (
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text type="secondary" style={{ fontSize: '12px' }}>
+            <div style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              padding: '20px', 
+              borderRadius: '12px', 
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <Text style={{ fontSize: '13px', color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                   {t.keyGenerator.generatedKey}
                 </Text>
                 <Button 
-                  type="text" 
+                  type={isDark ? 'primary' : 'default'}
                   size="small"
                   icon={<CopyOutlined />}
                   onClick={() => copyToClipboard(generatedKey)}
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
                 >
                   {t.common.copy}
                 </Button>
               </div>
               <div style={{ 
+                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                padding: '16px',
+                borderRadius: '8px',
+                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                 fontSize: 'clamp(16px, 4vw, 22px)',
                 letterSpacing: '1px', 
-                color: '#1677ff',
+                color: isDark ? '#95de64' : '#237804',
                 wordBreak: 'break-all',
-                lineHeight: '1.6'
+                lineHeight: '1.6',
+                fontWeight: 600,
               }}>
                 {formatHexDisplay(generatedKey)}
               </div>
               
-              <Divider style={{ margin: '16px 0' }} />
+              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#3c5a24' : '#b7eb8f' }} />
               
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
                 {checkValue.des && (
@@ -421,22 +443,34 @@ const KeyGenerator: React.FC = () => {
           )}
 
           {combinedKey && (
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
+            <div style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+              padding: '20px', 
+              borderRadius: '12px', 
+              border: isDark ? '1px solid #274916' : '2px solid #95de64',
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+            }}>
               <div style={{ marginBottom: 16 }}>
                 {components.filter(c => c.trim() !== '').map((comp, index) => (
                   <div key={index} style={{ 
                     marginBottom: 12, 
                     paddingBottom: 12,
-                    borderBottom: index < components.filter(c => c.trim() !== '').length - 1 ? '1px solid #e5e7eb' : 'none'
+                    borderBottom: index < components.filter(c => c.trim() !== '').length - 1 
+                      ? `1px solid ${isDark ? '#3c5a24' : '#b7eb8f'}` 
+                      : 'none'
                   }}>
-                    <Text type="secondary" style={{ fontSize: '11px', display: 'block', marginBottom: 4 }}>
+                    <Text style={{ fontSize: '11px', display: 'block', marginBottom: 4, color: isDark ? '#8c8c8c' : '#666' }}>
                       {t.keyGenerator.component} #{index + 1}
                     </Text>
                     <div style={{ 
                       fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
-                      fontSize: 'clamp(16px, 4vw, 22px)',
+                      fontSize: 'clamp(14px, 3vw, 18px)',
                       letterSpacing: '1px',
-                      color: '#1677ff',
+                      color: isDark ? '#69b1ff' : '#1677ff',
                       wordBreak: 'break-all',
                       marginBottom: 8,
                       lineHeight: '1.6'
@@ -459,27 +493,36 @@ const KeyGenerator: React.FC = () => {
                 ))}
               </div>
 
-              <Divider style={{ margin: '16px 0', borderColor: '#1677ff', borderWidth: 2 }} />
+              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#52c41a' : '#52c41a', borderWidth: 2 }} />
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ fontSize: '13px', color: '#1677ff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                  <Text strong style={{ fontSize: '13px', color: isDark ? '#52c41a' : '#389e0d' }}>
                     {t.keyGenerator.combinedKey}
                   </Text>
                   <Button 
-                    type="text" 
+                    type={isDark ? 'primary' : 'default'}
                     size="small"
                     icon={<CopyOutlined />}
                     onClick={() => copyToClipboard(combinedKey)}
+                    style={{
+                      background: isDark ? '#52c41a' : undefined,
+                      borderColor: '#52c41a',
+                      color: isDark ? '#fff' : '#52c41a',
+                    }}
                   >
                     {t.common.copy}
                   </Button>
                 </div>
                 <div style={{ 
+                  background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                   fontSize: 'clamp(16px, 4vw, 22px)',
                   letterSpacing: '1px', 
-                  color: '#1677ff',
+                  color: isDark ? '#95de64' : '#237804',
                   wordBreak: 'break-all',
                   marginBottom: '12px',
                   lineHeight: '1.6',

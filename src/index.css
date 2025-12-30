@@ -92,6 +92,63 @@ code, pre, .mono {
   text-align: center;
 }
 
+/* 强制所有输入框、文本区域使用等宽字体 - 密码学工具必备 */
+/* 防止 l/1, 0/O 等字符混淆 */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-affix-wrapper .ant-input,
+textarea.ant-input,
+.ant-input-textarea textarea {
+  font-family: var(--mono-font) !important;
+  font-size: 14px !important;
+  letter-spacing: 0.5px;
+}
+
+/* Select 选择器也使用等宽字体 */
+.ant-select-selector,
+.ant-select-selection-item,
+.ant-select-item-option-content {
+  font-family: var(--mono-font) !important;
+}
+
+/* Radio 和 Checkbox 标签保持正常字体，但值显示用等宽 */
+.ant-radio-wrapper .value,
+.ant-checkbox-wrapper .value {
+  font-family: var(--mono-font) !important;
+}
+
+/* Segmented 选项卡内容 */
+.ant-segmented-item-label {
+  font-family: var(--mono-font) !important;
+}
+
+/* 输入框占位符也使用等宽字体 */
+.ant-input::placeholder,
+.ant-input-textarea textarea::placeholder {
+  font-family: var(--mono-font) !important;
+  opacity: 0.6;
+}
+
+/* Tag 标签中的值 */
+.ant-tag {
+  font-family: var(--mono-font) !important;
+}
+
+/* Table 表格内容 */
+.ant-table-cell {
+  font-family: var(--mono-font) !important;
+}
+
+/* Tooltip 提示框 */
+.ant-tooltip-inner {
+  font-family: var(--mono-font) !important;
+}
+
+/* InputNumber 数字输入框 */
+.ant-input-number-input {
+  font-family: var(--mono-font) !important;
+}
+
 .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
   border-radius: var(--radius-sm) !important;
 }
@@ -173,4 +230,49 @@ code, pre, .mono {
   margin-bottom: 8px;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+/* 12. 暗黑模式支持 */
+body.dark-mode {
+  --bg-color: #141414;
+  --card-bg: #1f1f1f;
+  --text-primary: #e6e6e6;
+  --text-secondary: #a6a6a6;
+  --border-color: #303030;
+}
+
+body.dark-mode .ant-input,
+body.dark-mode .ant-input-affix-wrapper,
+body.dark-mode .ant-select-selector,
+body.dark-mode textarea.ant-input {
+  background-color: #1f1f1f !important;
+  border-color: #434343 !important;
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #666 !important;
+}
+
+body.dark-mode .ant-input:hover,
+body.dark-mode .ant-input-affix-wrapper:hover,
+body.dark-mode .ant-select-selector:hover {
+  border-color: #4096ff !important;
+}
+
+body.dark-mode .ant-input:focus,
+body.dark-mode .ant-input-affix-wrapper-focused {
+  border-color: #1677ff !important;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2) !important;
+}
+
+/* 13. 等宽字体特性优化 - 启用编程连字 */
+.ant-input,
+.ant-input-textarea textarea,
+.ant-select-selector,
+code, pre, .mono {
+  font-variant-ligatures: none; /* 禁用连字，确保每个字符独立显示 */
+  -webkit-font-feature-settings: "liga" 0, "calt" 0;
+  font-feature-settings: "liga" 0, "calt" 0;
 }
