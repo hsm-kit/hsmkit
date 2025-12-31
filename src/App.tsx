@@ -224,21 +224,17 @@ const App: React.FC = () => {
           flexShrink: 0,
           textDecoration: 'none'
         }}>
-          {/* Logo 区域 */}
-          <div style={{ 
-            width: isMobile ? 28 : 32, 
-            height: isMobile ? 28 : 32, 
-            background: '#1677ff', 
-            borderRadius: 6, 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            color: '#fff', 
-            fontWeight: 'bold', 
-            marginRight: 10,
-            fontSize: isMobile ? '14px' : '16px',
-            flexShrink: 0
-          }}>H</div>
+          {/* Logo 区域 - 紫蓝渐变 */}
+          <img 
+            src="/favicon.svg" 
+            alt="HSM Kit"
+            style={{ 
+              width: isMobile ? 28 : 32, 
+              height: isMobile ? 28 : 32, 
+              marginRight: 10,
+              flexShrink: 0
+            }}
+          />
           <span style={{ 
             fontSize: isMobile ? '16px' : '18px', 
             fontWeight: 600, 

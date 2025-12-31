@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <!-- 圆角背景 -->
+  <rect width="180" height="180" rx="36" fill="url(#grad)"/>
+  <!-- 盾牌轮廓 -->
+  <path d="M90 28 L140 45 L140 85 Q140 125 90 152 Q40 125 40 85 L40 45 Z" 
+        fill="none" stroke="white" stroke-width="6" stroke-linejoin="round" opacity="0.9"/>
+  <!-- 钥匙 -->
+  <circle cx="90" cy="68" r="16" fill="none" stroke="white" stroke-width="6"/>
+  <line x1="90" y1="84" x2="90" y2="130" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="90" y1="105" x2="108" y2="105" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="90" y1="122" x2="102" y2="122" stroke="white" stroke-width="6" stroke-linecap="round"/>
+</svg>
+

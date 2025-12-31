@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- 主渐变：紫色到蓝色 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
+    </linearGradient>
+    <!-- 图标渐变（浅色） -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#e0e7ff"/>
+    </linearGradient>
+    <!-- 发光效果 -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆角方形 -->
+  <rect x="20" y="20" width="472" height="472" rx="80" ry="80" fill="url(#bgGradient)"/>
+  
+  <!-- 盾牌外轮廓 -->
+  <path d="M256 80 
+           L400 130 
+           L400 260 
+           Q400 360 256 440 
+           Q112 360 112 260 
+           L112 130 Z" 
+        fill="none" 
+        stroke="url(#iconGradient)" 
+        stroke-width="16" 
+        stroke-linejoin="round"
+        filter="url(#glow)"
+        opacity="0.9"/>
+  
+  <!-- 钥匙图案 - 现代线性设计 -->
+  <g fill="none" stroke="url(#iconGradient)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <!-- 钥匙头部（圆环） -->
+    <circle cx="256" cy="200" r="45" opacity="0.95"/>
+    <!-- 钥匙杆 -->
+    <line x1="256" y1="245" x2="256" y2="360" opacity="0.95"/>
+    <!-- 钥匙齿 -->
+    <line x1="256" y1="300" x2="290" y2="300" opacity="0.95"/>
+    <line x1="256" y1="330" x2="280" y2="330" opacity="0.95"/>
+    <line x1="256" y1="360" x2="295" y2="360" opacity="0.95"/>
+  </g>
+  
+  <!-- 电路装饰线条 -->
+  <g fill="none" stroke="url(#iconGradient)" stroke-width="4" opacity="0.5">
+    <!-- 左侧电路 -->
+    <path d="M140 180 L140 220 L165 220"/>
+    <circle cx="140" cy="180" r="6" fill="url(#iconGradient)"/>
+    <path d="M140 300 L140 340 L165 340"/>
+    <circle cx="140" cy="340" r="6" fill="url(#iconGradient)"/>
+    
+    <!-- 右侧电路 -->
+    <path d="M372 180 L372 220 L347 220"/>
+    <circle cx="372" cy="180" r="6" fill="url(#iconGradient)"/>
+    <path d="M372 300 L372 340 L347 340"/>
+    <circle cx="372" cy="340" r="6" fill="url(#iconGradient)"/>
+  </g>
+</svg>
+
