@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Typography, Button, Drawer, Tooltip } from 'antd';
+import React, { useState, Suspense, lazy } from 'react';
+import { Layout, Menu, Typography, Button, Drawer, Tooltip, Spin } from 'antd';
 import { 
   KeyOutlined, 
   SafetyCertificateOutlined, 
@@ -11,37 +11,59 @@ import {
   HomeOutlined,
   ToolOutlined,
   SunOutlined,
-  MoonOutlined
+  MoonOutlined,
+  LoadingOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
-import {
-  HomePage,
-  ASN1Page,
-  AESPage,
-  DESPage,
-  RSAPage,
-  ECCPage,
-  FPEPage,
-  KeyGeneratorPage,
-  TR31Page,
-  KCVPage,
-  PinBlockPage,
-  HashPage,
-  CharacterEncodingPage,
-  BCDPage,
-  CheckDigitsPage,
-  Base64Page,
-  Base94Page,
-  MessageParserPage,
-  RSADerPublicKeyPage,
-  UUIDPage,
-} from './pages';
+
+// 🚀 路由懒加载 - 只有访问时才加载对应页面
+const HomePage = lazy(() => import('./pages/home/HomePage'));
+const ASN1Page = lazy(() => import('./pages/parser/ASN1Page'));
+
+// Cipher Tools
+const AESPage = lazy(() => import('./pages/cipher/AESPage'));
+const DESPage = lazy(() => import('./pages/cipher/DESPage'));
+const RSAPage = lazy(() => import('./pages/cipher/RSAPage'));
+const ECCPage = lazy(() => import('./pages/cipher/ECCPage'));
+const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
+
+// Key Management
+const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
+const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
+const KCVPage = lazy(() => import('./pages/keys/KCVPage'));
+
+// Payment
+const PinBlockPage = lazy(() => import('./pages/payment/PinBlockPage'));
+
+// Generic Tools
+const HashPage = lazy(() => import('./pages/generic/HashPage'));
+const CharacterEncodingPage = lazy(() => import('./pages/generic/CharacterEncodingPage'));
+const BCDPage = lazy(() => import('./pages/generic/BCDPage'));
+const CheckDigitsPage = lazy(() => import('./pages/generic/CheckDigitsPage'));
+const Base64Page = lazy(() => import('./pages/generic/Base64Page'));
+const Base94Page = lazy(() => import('./pages/generic/Base94Page'));
+const MessageParserPage = lazy(() => import('./pages/generic/MessageParserPage'));
+const RSADerPublicKeyPage = lazy(() => import('./pages/generic/RSADerPublicKeyPage'));
+const UUIDPage = lazy(() => import('./pages/generic/UUIDPage'));
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
+
+// 加载中组件
+const PageLoader: React.FC = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    minHeight: 300,
+    padding: 40 
+  }}>
+    <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} spin />} />
+  </div>
+);
 
 // 全局样式：调整子菜单宽度和字体
 const globalStyles = `
@@ -323,35 +345,37 @@ const App: React.FC = () => {
         </div>
       </Drawer>
 
-      {/* 2. 内容区域 - 使用路由 */}
+      {/* 2. 内容区域 - 使用路由懒加载 */}
       <Content key={location.pathname} style={contentStyle}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/asn1-parser" element={<ASN1Page />} />
-            {/* Generic Tools */}
-            <Route path="/hashes" element={<HashPage />} />
-            <Route path="/character-encoding" element={<CharacterEncodingPage />} />
-            <Route path="/bcd" element={<BCDPage />} />
-            <Route path="/check-digits" element={<CheckDigitsPage />} />
-            <Route path="/base64" element={<Base64Page />} />
-            <Route path="/base94" element={<Base94Page />} />
-            <Route path="/message-parser" element={<MessageParserPage />} />
-            <Route path="/rsa-der-public-key" element={<RSADerPublicKeyPage />} />
-            <Route path="/uuid" element={<UUIDPage />} />
-            {/* Cipher Tools */}
-            <Route path="/aes-encryption" element={<AESPage />} />
-            <Route path="/des-encryption" element={<DESPage />} />
-            <Route path="/rsa-encryption" element={<RSAPage />} />
-            <Route path="/ecc-encryption" element={<ECCPage />} />
-            <Route path="/fpe-encryption" element={<FPEPage />} />
-            <Route path="/key-generator" element={<KeyGeneratorPage />} />
-            <Route path="/tr31-calculator" element={<TR31Page />} />
-            <Route path="/kcv-calculator" element={<KCVPage />} />
-            <Route path="/pin-block-generator" element={<PinBlockPage />} />
-            {/* Fallback to home for unknown routes */}
-            <Route path="*" element={<HomePage />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/asn1-parser" element={<ASN1Page />} />
+              {/* Generic Tools */}
+              <Route path="/hashes" element={<HashPage />} />
+              <Route path="/character-encoding" element={<CharacterEncodingPage />} />
+              <Route path="/bcd" element={<BCDPage />} />
+              <Route path="/check-digits" element={<CheckDigitsPage />} />
+              <Route path="/base64" element={<Base64Page />} />
+              <Route path="/base94" element={<Base94Page />} />
+              <Route path="/message-parser" element={<MessageParserPage />} />
+              <Route path="/rsa-der-public-key" element={<RSADerPublicKeyPage />} />
+              <Route path="/uuid" element={<UUIDPage />} />
+              {/* Cipher Tools */}
+              <Route path="/aes-encryption" element={<AESPage />} />
+              <Route path="/des-encryption" element={<DESPage />} />
+              <Route path="/rsa-encryption" element={<RSAPage />} />
+              <Route path="/ecc-encryption" element={<ECCPage />} />
+              <Route path="/fpe-encryption" element={<FPEPage />} />
+              <Route path="/key-generator" element={<KeyGeneratorPage />} />
+              <Route path="/tr31-calculator" element={<TR31Page />} />
+              <Route path="/kcv-calculator" element={<KCVPage />} />
+              <Route path="/pin-block-generator" element={<PinBlockPage />} />
+              {/* Fallback to home for unknown routes */}
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+          </Suspense>
         </div>
       </Content>
 
