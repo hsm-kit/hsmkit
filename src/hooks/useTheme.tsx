@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useLayoutEffect, type ReactNode } from 'react';
 import { ConfigProvider, theme } from 'antd';
 
 type ThemeMode = 'light' | 'dark';
@@ -15,27 +15,49 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
+// 在 React 加载前就应用主题，避免闪烁
+const getInitialTheme = (): ThemeMode => {
+  if (typeof window === 'undefined') return 'light';
+  const saved = localStorage.getItem('hsmkit-theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  // 检测系统偏好
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+};
+
+// 立即应用主题（在 DOM 渲染前）
+const applyThemeToDOM = (isDark: boolean) => {
+  if (isDark) {
+    document.body.classList.add('dark-mode');
+    document.body.style.backgroundColor = '#141414';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.body.style.backgroundColor = '#f0f2f5';
+  }
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+};
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem('hsmkit-theme');
-    if (saved === 'dark' || saved === 'light') return saved;
-    // 检测系统偏好
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  });
+  const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialTheme);
+  const [isReady, setIsReady] = useState(false);
+
+  // 使用 useLayoutEffect 确保在渲染前同步应用主题
+  useLayoutEffect(() => {
+    applyThemeToDOM(themeMode === 'dark');
+    // 短暂延迟后标记为就绪，避免过渡动画在初始加载时触发
+    requestAnimationFrame(() => {
+      setIsReady(true);
+    });
+  }, []);
 
   useEffect(() => {
+    if (!isReady) return;
+    
     localStorage.setItem('hsmkit-theme', themeMode);
-    // 更新 document 的类，用于全局 CSS
-    document.documentElement.setAttribute('data-theme', themeMode);
-    if (themeMode === 'dark') {
-      document.body.style.backgroundColor = '#141414';
-    } else {
-      document.body.style.backgroundColor = '#f0f2f5';
-    }
-  }, [themeMode]);
+    applyThemeToDOM(themeMode === 'dark');
+  }, [themeMode, isReady]);
 
   const toggleTheme = () => {
     setThemeMode(prev => prev === 'light' ? 'dark' : 'light');

@@ -56,8 +56,8 @@ const KCVCalculator: React.FC = () => {
         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-              {t.kcvCalculator.title}
-            </Title>
+            {t.kcvCalculator.title}
+          </Title>
             <CollapsibleInfo title={t.kcvCalculator.kcvCalcTitle}>
               {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
             </CollapsibleInfo>

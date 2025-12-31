@@ -1093,7 +1093,7 @@ const RSATool: React.FC = () => {
           {/* 选项区域 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             {/* Encoding method */}
-            <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+            <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.rsa?.encodingMethod || 'Encoding method'}:
               </Text>
@@ -1106,7 +1106,7 @@ const RSATool: React.FC = () => {
             </div>
 
             {/* Input data format */}
-            <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+            <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.rsa?.inputDataFormat || 'Input data format'}:
               </Text>
@@ -1120,7 +1120,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Padding method */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.paddingMethod || 'Padding method'}:
             </Text>
@@ -1138,7 +1138,17 @@ const RSATool: React.FC = () => {
           </div>
 
           {encryptResult && encryptDetails && (
-            <div style={{ background: 'linear-gradient(135deg, #fafcff 0%, #fff 100%)', padding: 20, borderRadius: 8, border: '1px solid #e6f0ff', boxShadow: '0 2px 8px rgba(22, 119, 255, 0.05)' }}>
+            <div style={{ 
+              background: isDark 
+                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)', 
+              padding: 20, 
+              borderRadius: 8, 
+              border: isDark ? '1px solid #274916' : '2px solid #95de64', 
+              boxShadow: isDark 
+                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+                : '0 4px 16px rgba(82, 196, 26, 0.2)' 
+            }}>
               {/* 标题 */}
               <div style={{ 
                 display: 'flex', 
@@ -1146,15 +1156,15 @@ const RSATool: React.FC = () => {
                 justifyContent: 'space-between',
                 marginBottom: 16,
                 paddingBottom: 12,
-                borderBottom: '2px solid #1677ff'
+                borderBottom: isDark ? '2px solid #3c5a24' : '2px solid #52c41a'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <LockOutlined style={{ color: '#1677ff', fontSize: 18 }} />
-                  <Text strong style={{ fontSize: 15, color: '#1677ff' }}>
+                  <LockOutlined style={{ color: isDark ? '#95de64' : '#52c41a', fontSize: 18 }} />
+                  <Text strong style={{ fontSize: 15, color: isDark ? '#95de64' : '#52c41a' }}>
                     RSA: {t.rsa?.encryptionFinished || 'Data encryption operation finished'}
                   </Text>
                 </div>
-                <Button type="primary" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(encryptResult)}>
+                <Button type="primary" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(encryptResult)} style={{ background: '#52c41a', borderColor: '#52c41a' }}>
                   {t.rsa?.copyResult || 'Copy Result'}
                 </Button>
               </div>
@@ -1163,37 +1173,38 @@ const RSATool: React.FC = () => {
               <div style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                 fontSize: '12px',
+                color: isDark ? '#b0b0b0' : undefined,
               }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{encryptDetails.keyLength}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.keyLength}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encryption method:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{encryptDetails.method}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encryption method:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.method}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{encryptDetails.padding}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.padding}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Original data:</td>
-                      <td style={{ padding: '6px 0', wordBreak: 'break-all' }}>{encryptDetails.originalData}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Original data:</td>
+                      <td style={{ padding: '6px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.originalData}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
-                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6' }}>{encryptDetails.modulus}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
+                      <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.modulus}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{encryptDetails.publicExp}</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.publicExp}</td>
                     </tr>
                     {encryptDetails.privateExp && (
                       <tr>
-                        <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
-                        <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6' }}>{encryptDetails.privateExp}</td>
+                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
+                        <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.privateExp}</td>
                       </tr>
                     )}
                   </tbody>
@@ -1202,7 +1213,7 @@ const RSATool: React.FC = () => {
                 {/* 分隔线 */}
                 <div style={{ 
                   margin: '16px 0', 
-                  borderTop: '1px dashed #d9d9d9',
+                  borderTop: isDark ? '1px dashed #434343' : '1px dashed #d9d9d9',
                   position: 'relative'
                 }}>
                   <span style={{ 
@@ -1210,9 +1221,9 @@ const RSATool: React.FC = () => {
                     top: '-10px', 
                     left: '50%', 
                     transform: 'translateX(-50%)',
-                    background: '#fff',
+                    background: isDark ? '#1a2e1a' : '#fff',
                     padding: '0 12px',
-                    color: '#1677ff',
+                    color: isDark ? '#69b1ff' : '#1677ff',
                     fontSize: '11px'
                   }}>
                     {t.rsa?.result || 'RESULT'}
@@ -1223,22 +1234,23 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Encoded data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Encoded data:</td>
                       <td style={{ 
                         wordBreak: 'break-all', 
                         lineHeight: '1.6',
-                        color: '#1677ff', 
+                        color: isDark ? '#95de64' : '#237804', 
                         fontWeight: 600,
-                        background: '#e6f4ff',
+                        background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
                         padding: '8px 12px',
-                        borderRadius: '4px'
+                        borderRadius: '4px',
+                        border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
                       }}>
                         {encryptResult}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encoded data length:</td>
-                      <td style={{ padding: '6px 0', fontWeight: 500 }}>{encryptDetails.resultLength} bytes</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encoded data length:</td>
+                      <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.resultLength} bytes</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1273,7 +1285,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Decoding method */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.decodingMethod || 'Decoding method'}:
             </Text>
@@ -1284,7 +1296,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Padding method */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.paddingMethod || 'Padding method'}:
             </Text>
@@ -1451,7 +1463,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Input data format */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.inputDataFormat || 'Input data format'}:
             </Text>
@@ -1464,7 +1476,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Hash Algorithm */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.hashAlgorithm || 'Hash Algorithm'}:
             </Text>
@@ -1621,7 +1633,7 @@ const RSATool: React.FC = () => {
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Input type 选择 */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               Input type:
             </Text>
@@ -1660,7 +1672,7 @@ const RSATool: React.FC = () => {
 
           {/* Input data format - 仅在 Data 模式下显示 */}
           {verifyInputType === 'Data' && (
-            <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+            <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.rsa?.inputDataFormat || 'Input data format'}:
               </Text>
@@ -1674,7 +1686,7 @@ const RSATool: React.FC = () => {
           )}
 
           {/* Hash Algorithm */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.rsa?.hashAlgorithm || 'Hash Algorithm'}:
             </Text>
@@ -1772,7 +1784,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Method */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Method:</Text>
             <Radio.Group value={oaepMethod} onChange={e => setOaepMethod(e.target.value)}>
               <Radio value="Encode">Encode</Radio>
@@ -1798,7 +1810,7 @@ const RSATool: React.FC = () => {
           </div>
 
           {/* Hash Function */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Function:</Text>
             <Radio.Group value={oaepHash} onChange={e => setOaepHash(e.target.value)}>
               <Radio value="SHA-1">SHA-1</Radio>

@@ -424,10 +424,10 @@ const MessageParserTool: React.FC = () => {
       width: 80,
       render: (text: number) => (
         <span style={{ 
-          background: '#f0f5ff', 
+          background: isDark ? '#1a1a2e' : '#f0f5ff', 
           padding: '2px 8px', 
           borderRadius: '4px',
-          color: '#597ef7',
+          color: isDark ? '#85a5ff' : '#597ef7',
           fontWeight: 500
         }}>{text}</span>
       ),

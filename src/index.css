@@ -267,6 +267,30 @@ body.dark-mode .ant-input-affix-wrapper-focused {
   box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2) !important;
 }
 
+/* Radio 和 Checkbox 在暗黑模式下的文字颜色 */
+body.dark-mode .ant-radio-wrapper,
+body.dark-mode .ant-checkbox-wrapper {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-radio-wrapper span,
+body.dark-mode .ant-checkbox-wrapper span {
+  color: #e6e6e6 !important;
+}
+
+/* Text 组件在暗黑模式下 */
+body.dark-mode .ant-typography {
+  color: #e6e6e6 !important;
+}
+
+body.dark-mode .ant-typography.ant-typography-secondary {
+  color: #a6a6a6 !important;
+}
+
+body.dark-mode .ant-typography strong {
+  color: #fff !important;
+}
+
 /* 13. 等宽字体特性优化 - 启用编程连字 */
 .ant-input,
 .ant-input-textarea textarea,

@@ -605,7 +605,7 @@ const ECCTool: React.FC = () => {
           </div>
 
           {/* Input data format */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Input data format:</Text>
             <Radio.Group value={signInputFormat} onChange={e => setSignInputFormat(e.target.value)}>
               <Radio value="ASCII">ASCII</Radio>
@@ -614,7 +614,7 @@ const ECCTool: React.FC = () => {
           </div>
 
           {/* Hash Algorithm */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Algorithm:</Text>
             <Select
               value={signHash}
@@ -777,7 +777,7 @@ const ECCTool: React.FC = () => {
           </div>
 
           {/* Input data format */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Input data format:</Text>
             <Radio.Group value={verifyInputFormat} onChange={e => setVerifyInputFormat(e.target.value)}>
               <Radio value="ASCII">ASCII</Radio>
@@ -786,7 +786,7 @@ const ECCTool: React.FC = () => {
           </div>
 
           {/* Hash Algorithm */}
-          <div style={{ background: 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: '1px solid #e6f0ff' }}>
+          <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Algorithm:</Text>
             <Select
               value={verifyHash}
