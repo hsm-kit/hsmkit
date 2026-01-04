@@ -1,22 +1,30 @@
 import React from 'react';
 import { Typography } from 'antd';
 import PageLayout from '../../components/common/PageLayout';
-import TR31KeyBlockTool from '../../components/keys/TR31KeyBlockTool';
+import ThalesKeyBlockTool from '../../components/keys/ThalesKeyBlockTool';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const TR31Page: React.FC = () => {
+const ThalesKeyBlockPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.tr31 || seoContent.en.tr31;
+  const seo = seoContent[language]?.thalesKeyBlock || seoContent.en?.thalesKeyBlock || {
+    title: 'Thales Key Block Tool',
+    description: 'Encode and decode Thales proprietary key blocks',
+    keywords: ['Thales', 'Key Block', 'KBPK', 'HSM', 'Key Encryption'],
+    faqTitle: 'FAQ',
+    usageTitle: 'How to Use',
+    faqs: [],
+    usage: [],
+  };
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/tr31-key-block"
+      canonical="https://hsmkit.com/thales-key-block"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -31,13 +39,14 @@ const TR31Page: React.FC = () => {
           </div>
         ) : undefined
       }
-      toolName="TR-31 Key Block Encoder/Decoder"
-      toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 312 }}
+      toolName="Thales Key Block Tool"
+      toolCategory="SecurityApplication"
+      aggregateRating={{ ratingValue: 4.7, ratingCount: 78 }}
     >
-      <TR31KeyBlockTool />
+      <ThalesKeyBlockTool />
     </PageLayout>
   );
 };
 
-export default TR31Page;
+export default ThalesKeyBlockPage;
+

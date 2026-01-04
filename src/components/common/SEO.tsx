@@ -22,8 +22,10 @@ export const SEO: React.FC<SEOProps> = ({
   ogDescription,
 }) => {
   useEffect(() => {
-    // Update document title
-    document.title = title;
+    // Update document title - ensure title is valid
+    if (title) {
+      document.title = title;
+    }
 
     // Helper function to update or create meta tag
     const updateMeta = (name: string, content: string, isProperty = false) => {

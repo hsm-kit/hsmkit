@@ -336,12 +336,18 @@ const UUIDTool: React.FC = () => {
                       {uuid}
                     </span>
                     <Button
-                      type="text"
+                      type={isDark ? 'primary' : 'default'}
                       icon={<CopyOutlined />}
                       onClick={() => copyResult(uuid)}
                       size="small"
-                      style={{ color: isDark ? '#52c41a' : '#52c41a' }}
-                    />
+                      style={{
+                        background: isDark ? '#52c41a' : undefined,
+                        borderColor: '#52c41a',
+                        color: isDark ? '#fff' : '#52c41a',
+                      }}
+                    >
+                      {t.common.copy}
+                    </Button>
                   </div>
                 ))}
               </div>

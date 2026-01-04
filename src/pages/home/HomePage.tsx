@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
-import { Card, Typography, Row, Col, Input, Tag } from 'antd';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Card, Typography, Row, Col, Input, Tag, Button, Tooltip, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FileSearchOutlined,
   LockOutlined,
+  UnlockOutlined,
   KeyOutlined,
-  SafetyCertificateOutlined,
   CalculatorOutlined,
   AppstoreOutlined,
   SecurityScanOutlined,
@@ -19,6 +19,17 @@ import {
   SafetyOutlined,
   ThunderboltOutlined,
   SearchOutlined,
+  BlockOutlined,
+  SplitCellsOutlined,
+  CloudOutlined,
+  DatabaseOutlined,
+  InsuranceOutlined,
+  ContainerOutlined,
+  PartitionOutlined,
+  ApiOutlined,
+  InteractionOutlined,
+  BarsOutlined,
+  AppstoreAddOutlined,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -28,6 +39,7 @@ import seoContent from '../../locales/seo';
 const { Title, Text, Paragraph } = Typography;
 
 type Category = 'all' | 'symmetric' | 'asymmetric' | 'payment' | 'encoding' | 'hashing';
+type ViewMode = 'grid' | 'list';
 
 interface ToolInfo {
   icon: React.ReactNode;
@@ -46,9 +58,11 @@ interface ToolCardProps {
   path: string;
   color: string;
   isDark: boolean;
+  viewMode: ViewMode;
 }
 
-const ToolCard: React.FC<ToolCardProps> = ({ icon, title, description, path, color, isDark }) => (
+// 网格视图卡片
+const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, description, path, color, isDark }) => (
   <Link to={path} style={{ textDecoration: 'none' }}>
     <Card
       hoverable
@@ -84,6 +98,67 @@ const ToolCard: React.FC<ToolCardProps> = ({ icon, title, description, path, col
   </Link>
 );
 
+// 列表视图卡片 - 更紧凑
+const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark }) => (
+  <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
+    <Tooltip title={title} placement="top">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '12px 16px',
+          borderRadius: 10,
+          background: isDark ? '#1f1f1f' : '#fff',
+          boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)',
+          transition: 'all 0.2s ease',
+          cursor: 'pointer',
+          border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.boxShadow = isDark ? '0 4px 12px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.1)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)';
+        }}
+      >
+        <div style={{ 
+          width: 36, 
+          height: 36, 
+          borderRadius: 8, 
+          background: color,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 16,
+          color: '#fff',
+          flexShrink: 0,
+        }}>
+          {icon}
+        </div>
+        <Text strong style={{ 
+          color: isDark ? '#e6e6e6' : '#1e293b',
+          fontSize: 14,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}>
+          {title}
+        </Text>
+      </div>
+    </Tooltip>
+  </Link>
+);
+
+const ToolCard: React.FC<ToolCardProps> = (props) => {
+  if (props.viewMode === 'list') {
+    return <ListCard {...props} />;
+  }
+  return <GridCard {...props} />;
+};
+
 const HomePage: React.FC = () => {
   const { language, t } = useLanguage();
   const { isDark } = useTheme();
@@ -93,6 +168,7 @@ const HomePage: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const tools: ToolInfo[] = [
     // Symmetric Encryption
@@ -106,7 +182,7 @@ const HomePage: React.FC = () => {
       keywords: ['aes', 'encryption', 'symmetric', 'block cipher', '128', '192', '256', 'cbc', 'ecb', 'ctr'],
     },
     {
-      icon: <LockOutlined />,
+      icon: <UnlockOutlined />,
       title: home.tools.des.title,
       description: home.tools.des.description,
       path: '/des-encryption',
@@ -115,7 +191,7 @@ const HomePage: React.FC = () => {
       keywords: ['des', '3des', 'triple des', 'encryption', 'symmetric', 'block cipher'],
     },
     {
-      icon: <LockOutlined />,
+      icon: <InteractionOutlined />,
       title: home.tools.fpe.title,
       description: home.tools.fpe.description,
       path: '/fpe-encryption',
@@ -134,7 +210,7 @@ const HomePage: React.FC = () => {
       keywords: ['rsa', 'public key', 'private key', 'asymmetric', 'pkcs', 'oaep'],
     },
     {
-      icon: <SecurityScanOutlined />,
+      icon: <ApiOutlined />,
       title: home.tools.ecc.title,
       description: home.tools.ecc.description,
       path: '/ecc-encryption',
@@ -153,10 +229,10 @@ const HomePage: React.FC = () => {
     },
     // Payment/Finance Tools
     {
-      icon: <SafetyCertificateOutlined />,
+      icon: <BlockOutlined />,
       title: home.tools.tr31.title,
       description: home.tools.tr31.description,
-      path: '/tr31-calculator',
+      path: '/tr31-key-block',
       color: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
       category: 'payment',
       keywords: ['tr31', 'key block', 'ansi', 'key management', 'hsm', 'payment'],
@@ -183,10 +259,64 @@ const HomePage: React.FC = () => {
       icon: <KeyOutlined />,
       title: home.tools.keyGenerator.title,
       description: home.tools.keyGenerator.description,
-      path: '/key-generator',
+      path: '/keys-dea',
       color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
       category: 'payment',
-      keywords: ['key generator', 'random', 'des', 'aes', 'key component', 'xor'],
+      keywords: ['key generator', 'random', 'des', 'aes', 'key component', 'xor', 'keys dea'],
+    },
+    {
+      icon: <SplitCellsOutlined />,
+      title: home.tools.keyshareGenerator?.title || 'Keyshare Generator',
+      description: home.tools.keyshareGenerator?.description || 'Generate key shares for secure key splitting and component management.',
+      path: '/keyshare-generator',
+      color: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)',
+      category: 'payment',
+      keywords: ['keyshare', 'key share', 'key component', 'split', 'kcv', 'pin'],
+    },
+    {
+      icon: <CloudOutlined />,
+      title: home.tools.futurexKeys?.title || 'Futurex Keys',
+      description: home.tools.futurexKeys?.description || 'Futurex HSM key encryption, decryption and lookup with multiple variants.',
+      path: '/futurex-keys',
+      color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      category: 'payment',
+      keywords: ['futurex', 'hsm', 'key encryption', 'mfk', 'variant', 'key lookup'],
+    },
+    {
+      icon: <DatabaseOutlined />,
+      title: home.tools.atallaKeys?.title || 'Atalla Keys (AKB)',
+      description: home.tools.atallaKeys?.description || 'Atalla AKB format key encryption and decryption with MFK.',
+      path: '/atalla-keys',
+      color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      category: 'payment',
+      keywords: ['atalla', 'akb', 'hsm', 'key block', 'mfk', 'mac'],
+    },
+    {
+      icon: <InsuranceOutlined />,
+      title: home.tools.safeNetKeys?.title || 'SafeNet Keys',
+      description: home.tools.safeNetKeys?.description || 'SafeNet HSM key encryption, decryption and lookup with variants.',
+      path: '/safenet-keys',
+      color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      category: 'payment',
+      keywords: ['safenet', 'hsm', 'key encryption', 'km key', 'variant', 'key lookup'],
+    },
+    {
+      icon: <ContainerOutlined />,
+      title: home.tools.thalesKeys?.title || 'Thales Keys',
+      description: home.tools.thalesKeys?.description || 'Thales HSM LMK key encryption, decryption and lookup.',
+      path: '/thales-keys',
+      color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+      category: 'payment',
+      keywords: ['thales', 'hsm', 'lmk', 'key encryption', 'variant', 'key lookup'],
+    },
+    {
+      icon: <PartitionOutlined />,
+      title: home.tools.thalesKeyBlock?.title || 'Thales Key Block',
+      description: home.tools.thalesKeyBlock?.description || 'Encode and decode Thales proprietary key blocks with KBPK.',
+      path: '/thales-key-block',
+      color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      category: 'payment',
+      keywords: ['thales', 'key block', 'kbpk', 'encode', 'decode'],
     },
     {
       icon: <ReadOutlined />,
@@ -273,6 +403,43 @@ const HomePage: React.FC = () => {
     },
   ];
 
+  // 基于搜索词过滤的工具列表（用于计算分类计数）
+  const searchFilteredTools = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return tools;
+    }
+    const search = searchTerm.toLowerCase();
+    return tools.filter(tool => {
+      const matchTitle = tool.title.toLowerCase().includes(search);
+      const matchDesc = tool.description.toLowerCase().includes(search);
+      const matchKeywords = tool.keywords.some(kw => kw.includes(search));
+      return matchTitle || matchDesc || matchKeywords;
+    });
+  }, [tools, searchTerm]);
+
+  // 计算每个分类的工具数量（基于搜索结果）
+  const categoryCounts = useMemo(() => {
+    const counts: Record<Category, number> = {
+      all: searchFilteredTools.length,
+      symmetric: 0,
+      asymmetric: 0,
+      payment: 0,
+      encoding: 0,
+      hashing: 0,
+    };
+    searchFilteredTools.forEach(tool => {
+      counts[tool.category]++;
+    });
+    return counts;
+  }, [searchFilteredTools]);
+
+  // 当搜索导致当前分类计数为 0 时，自动切换回 All
+  useEffect(() => {
+    if (activeCategory !== 'all' && categoryCounts[activeCategory] === 0) {
+      setActiveCategory('all');
+    }
+  }, [categoryCounts, activeCategory]);
+
   // 分类定义
   const categories: { key: Category; label: string; color: string }[] = [
     { key: 'all', label: home.categories?.all || 'All', color: '#722ed1' },
@@ -283,24 +450,16 @@ const HomePage: React.FC = () => {
     { key: 'hashing', label: home.categories?.hashing || 'Hashing', color: '#52c41a' },
   ];
 
-  // 过滤工具
+  // 过滤工具（分类 + 搜索）
   const filteredTools = useMemo(() => {
-    return tools.filter(tool => {
+    return searchFilteredTools.filter(tool => {
       // 分类过滤
       if (activeCategory !== 'all' && tool.category !== activeCategory) {
         return false;
       }
-      // 搜索过滤
-      if (searchTerm.trim()) {
-        const search = searchTerm.toLowerCase();
-        const matchTitle = tool.title.toLowerCase().includes(search);
-        const matchDesc = tool.description.toLowerCase().includes(search);
-        const matchKeywords = tool.keywords.some(kw => kw.includes(search));
-        return matchTitle || matchDesc || matchKeywords;
-      }
       return true;
     });
-  }, [tools, activeCategory, searchTerm]);
+  }, [searchFilteredTools, activeCategory]);
 
   // 搜索并跳转
   const handleSearch = (value: string) => {
@@ -381,37 +540,91 @@ const HomePage: React.FC = () => {
 
       {/* Category Filters */}
       <div style={{ marginBottom: 24, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
-        {categories.map(cat => (
-          <Tag
-            key={cat.key}
-            onClick={() => setActiveCategory(cat.key)}
-            style={{
-              cursor: 'pointer',
-              padding: '6px 16px',
-              fontSize: 14,
-              borderRadius: 20,
-              border: activeCategory === cat.key ? 'none' : '1px solid #d9d9d9',
-              background: activeCategory === cat.key ? cat.color : (isDark ? '#2a2a2a' : '#fff'),
-              color: activeCategory === cat.key ? '#fff' : (isDark ? '#e6e6e6' : '#595959'),
-              transition: 'all 0.2s',
-            }}
-          >
-            {cat.label}
-          </Tag>
-        ))}
+        {categories.map(cat => {
+          const count = categoryCounts[cat.key];
+          const isDisabled = count === 0 && cat.key !== 'all';
+          const isActive = activeCategory === cat.key;
+          
+          return (
+            <Tag
+              key={cat.key}
+              onClick={() => !isDisabled && setActiveCategory(cat.key)}
+              style={{
+                cursor: isDisabled ? 'not-allowed' : 'pointer',
+                padding: '6px 16px',
+                fontSize: 14,
+                borderRadius: 20,
+                border: isActive ? 'none' : '1px solid #d9d9d9',
+                background: isDisabled 
+                  ? (isDark ? '#1a1a1a' : '#f5f5f5')
+                  : isActive 
+                    ? cat.color 
+                    : (isDark ? '#2a2a2a' : '#fff'),
+                color: isDisabled 
+                  ? (isDark ? '#595959' : '#bfbfbf')
+                  : isActive 
+                    ? '#fff' 
+                    : (isDark ? '#e6e6e6' : '#595959'),
+                opacity: isDisabled ? 0.6 : 1,
+                transition: 'all 0.2s',
+              }}
+            >
+              {cat.label} ({count})
+            </Tag>
+          );
+        })}
       </div>
 
       {/* Tools Grid */}
-      <Title level={3} style={{ marginBottom: 24, color: isDark ? '#e6e6e6' : '#1e293b' }}>
-        🔧 {home.availableTools} {filteredTools.length < tools.length && `(${filteredTools.length})`}
-      </Title>
-      <Row gutter={[24, 24]}>
-        {filteredTools.map((tool, index) => (
-          <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-            <ToolCard {...tool} isDark={isDark} />
-          </Col>
-        ))}
-      </Row>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <Title level={3} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>
+          🔧 {home.availableTools}
+          {activeCategory !== 'all' && (
+            <span style={{ 
+              fontSize: '0.7em', 
+              fontWeight: 400, 
+              marginLeft: 8,
+              color: isDark ? '#8c8c8c' : '#8c8c8c'
+            }}>
+              — {categories.find(c => c.key === activeCategory)?.label}
+            </span>
+          )}
+        </Title>
+        <Space.Compact>
+          <Tooltip title={home.gridView || 'Grid View'}>
+            <Button
+              type={viewMode === 'grid' ? 'primary' : 'default'}
+              icon={<AppstoreAddOutlined />}
+              onClick={() => setViewMode('grid')}
+            />
+          </Tooltip>
+          <Tooltip title={home.listView || 'List View'}>
+            <Button
+              type={viewMode === 'list' ? 'primary' : 'default'}
+              icon={<BarsOutlined />}
+              onClick={() => setViewMode('list')}
+            />
+          </Tooltip>
+        </Space.Compact>
+      </div>
+      
+      {viewMode === 'grid' ? (
+        <Row gutter={[24, 24]}>
+          {filteredTools.map((tool, index) => (
+            <Col xs={24} sm={12} lg={8} xl={6} key={index}>
+              <ToolCard {...tool} isDark={isDark} viewMode={viewMode} />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <Row gutter={[16, 12]}>
+          {filteredTools.map((tool, index) => (
+            <Col xs={12} sm={8} md={6} lg={4} xl={4} key={index}>
+              <ToolCard {...tool} isDark={isDark} viewMode={viewMode} />
+            </Col>
+          ))}
+        </Row>
+      )}
 
       {/* No Results */}
       {filteredTools.length === 0 && (

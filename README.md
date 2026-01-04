@@ -39,16 +39,26 @@
 | **ECC/ECDSA** | 椭圆曲线加密，支持 secp256k1/P-256/P-384 | `/ecc-encryption` |
 | **FPE 格式保留加密** | FF1/FF3-1 算法，NIST SP 800-38G 标准 | `/fpe-encryption` |
 
-### 🔑 密钥管理工具
+### 🔑 密钥管理工具 (Keys 菜单)
+
+| 子菜单 | 工具 | 描述 | URL |
+|--------|------|------|-----|
+| **Keys DEA** | 密钥生成器 | 生成 AES/DES/3DES 安全随机密钥，密钥组合、奇偶校验、验证 | `/keys-dea` |
+| **Keyshare Generator** | 密钥分量生成器 | 生成密钥分量用于安全分割保管，支持 KCV 计算 | `/keyshare-generator` |
+| **Keys HSM** | Futurex 密钥 | Futurex HSM 密钥加密/解密/查找，支持多种变体 | `/futurex-keys` |
+| **Keys HSM** | Atalla 密钥 (AKB) | Atalla AKB 格式密钥加密/解密，MFK 和 MAC 验证 | `/atalla-keys` |
+| **Keys HSM** | SafeNet 密钥 | SafeNet HSM 密钥加密/解密/查找，KM 密钥变体 | `/safenet-keys` |
+| **Keys HSM** | Thales 密钥 | Thales HSM LMK 密钥加密/解密/查找 | `/thales-keys` |
+| **Key Blocks** | Thales 密钥块 | Thales 专有密钥块编码/解码，KBPK 保护 | `/thales-key-block` |
+| **Key Blocks** | TR-31 密钥块 | ANSI X9.143 密钥块编码/解码，TDES/AES 支持 | `/tr31-key-block` |
+| **KCV** | KCV 计算器 | AES/DES/3DES 密钥校验值计算 | `/kcv-calculator` |
+
+### 🔐 PKI 工具
 
 | 工具 | 描述 | URL |
 |------|------|-----|
-| **密钥生成器** | 生成 AES/DES/3DES 安全随机密钥 | `/key-generator` |
-| **密钥组件合成** | XOR 多个密钥分量形成完整密钥 | `/key-generator` |
-| **奇偶校验调整** | DES/3DES 密钥奇偶校验位调整 | `/key-generator` |
-| **密钥验证** | 检查密钥格式和奇偶校验 | `/key-generator` |
-| **KCV 计算器** | AES/DES/3DES 密钥校验值计算 | `/kcv-calculator` |
-| **TR-31 解析器** | ANSI X9.143 密钥块解析分析 | `/tr31-calculator` |
+| **ASN.1 解码器** | DER/BER 结构解码，X.509 证书解析，PKCS 格式分析 | `/asn1-parser` |
+| **SSL 证书** | SSL/TLS 证书管理 | 即将推出 |
 
 ### 💳 支付安全工具
 
@@ -57,11 +67,10 @@
 | **PIN Block 生成器** | ISO 9564 Format 0/1/3/4 | `/pin-block-generator` |
 | **Message Parser** | ISO 8583、ATM NDC/Wincor 报文解析 | `/message-parser` |
 
-### 🔍 解析工具
+### 🔍 通用解析工具
 
 | 工具 | 描述 | URL |
 |------|------|-----|
-| **ASN.1 解析器** | DER/BER 结构解码，X.509 证书解析，PKCS 格式分析 | `/asn1-parser` |
 | **RSA DER 公钥** | RSA 公钥 DER/PEM 编码解码，Modulus/Exponent 提取 | `/rsa-der-public-key` |
 
 ### 🧰 通用工具
@@ -75,6 +84,14 @@
 | **Base64 编解码** | 标准 Base64 编码解码 | `/base64` |
 | **Base94 编解码** | Base94 编码解码 | `/base94` |
 | **UUID 生成器** | UUID v1/v3/v4/v5 生成，支持批量 | `/uuid` |
+
+### 📜 法律信息
+
+| 页面 | 描述 | URL |
+|------|------|-----|
+| **隐私政策** | 数据处理、客户端计算、隐私保护说明 | `/privacy-policy` |
+| **服务条款** | 使用条款、许可协议、限制说明 | `/terms-of-service` |
+| **免责声明** | 法律免责声明、安全警告、合规说明 | `/disclaimer` |
 
 ## 🚀 快速开始
 
@@ -148,7 +165,7 @@ HSM Kit 支持 6 种语言，自动根据用户浏览器语言切换：
 
 ## 📊 SEO 优化
 
-- ✅ 每个工具独立 URL（19 个页面）
+- ✅ 每个工具独立 URL（30 个页面）
 - ✅ 动态页面标题和描述
 - ✅ Schema.org 结构化数据 (WebApplication, SoftwareApplication, FAQPage)
 - ✅ Hreflang 多语言标签
@@ -158,7 +175,41 @@ HSM Kit 支持 6 种语言，自动根据用户浏览器语言切换：
 
 ## 📦 版本历史
 
-### v3.0.0 (2025-12-31) 🎉
+### v4.1.0 (2026-01-04) 🎉
+
+**新增功能：**
+- 📜 **法律信息页面**
+  - 隐私政策页面（Privacy Policy）
+  - 服务条款页面（Terms of Service）
+  - 免责声明页面（Disclaimer）
+- 🔝 **固定顶部导航栏** - 滚动时导航栏始终可见
+- 🏠 **首页优化**
+  - 列表视图工具名悬浮提示
+  - 动态分类计数器
+  - 网格/列表视图切换
+
+**优化：**
+- 🎨 **页脚重新设计** - 新增法律链接、联系方式
+- 🌐 **6 语言 SEO 优化** - 法律页面完整翻译
+
+### v4.0.0 (2026-01-04)
+
+**新增功能：**
+- 🔑 **HSM 密钥管理套件**
+  - Futurex 密钥加密/解密/查找
+  - Atalla AKB 密钥加密/解密
+  - SafeNet 密钥加密/解密/查找
+  - Thales LMK 密钥加密/解密/查找
+  - Thales 密钥块编码/解码
+  - 密钥分量生成器（Keyshare Generator）
+- 🔐 **PKI 工具菜单** - ASN.1 解码器移至 PKI 菜单
+- 📦 **TR-31 密钥块** - 完整的编码/解码功能
+
+**优化：**
+- 🎨 **ASN.1 解析器** - Hex Dump 高度与解析结果同步
+- 📊 **首页工具卡片** - 新增 7 个 HSM 相关工具
+
+### v3.0.0 (2025-12-31)
 
 **新增功能：**
 - 🧰 **通用工具套件** (Generic Tools)
@@ -180,12 +231,6 @@ HSM Kit 支持 6 种语言，自动根据用户浏览器语言切换：
 - 💾 **Service Worker** - 离线缓存支持
 - 📦 **Vendor 分包** - 依赖独立打包
 
-**UI/UX 优化：**
-- 🎨 **新 Logo** - 紫蓝渐变盾牌+钥匙设计
-- 📱 **等宽字体** - 防止字符混淆
-- 🎯 **结果区域** - 增强视觉权重
-- 💡 **信息提示** - 悬浮气泡优化
-
 ### v2.0.0 (2025-12-26)
 
 **新增功能：**
@@ -197,12 +242,6 @@ HSM Kit 支持 6 种语言，自动根据用户浏览器语言切换：
   - FPE 格式保留加密（FF1/FF3-1）
 - 🔍 **ASN.1 解析器** - 支持 DER/BER/PEM，RFC 定义匹配
 - 🔑 **密钥组件管理** - XOR 合成、奇偶校验、密钥验证
-
-**架构优化：**
-- 🌐 **多路由架构** - 每个工具独立 URL，SEO 友好
-- 📊 **Schema.org 结构化数据** - 支持评分星级和应用程序标签
-- 🌍 **6种语言 SEO 内容** - 英/中/日/韩/德/法
-- 📝 **FAQ 和使用说明** - 每个工具页面增加文字内容
 
 ### v1.0.0 (2025-12-10)
 - ✅ 密钥生成器（DES/3DES/AES）
@@ -229,6 +268,7 @@ hsmkit/
 │   │   ├── generic/          # 通用工具页面
 │   │   ├── home/             # 首页
 │   │   ├── keys/             # 密钥管理页面
+│   │   ├── legal/            # 法律信息页面
 │   │   ├── parser/           # 解析器页面
 │   │   └── payment/          # 支付工具页面
 │   ├── locales/              # 多语言文件
@@ -247,7 +287,7 @@ hsmkit/
 │   ├── favicon.svg           # 网站图标（SVG）
 │   ├── favicon-*.png         # 网站图标（PNG 多尺寸）
 │   ├── logo.svg              # 完整 Logo
-│   ├── sitemap.xml           # 网站地图（19 页）
+│   ├── sitemap.xml           # 网站地图（30 页）
 │   ├── robots.txt            # 爬虫指令
 │   ├── sw.js                 # Service Worker
 │   └── _redirects            # SPA 路由重定向

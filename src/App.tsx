@@ -2,17 +2,16 @@ import React, { useState, Suspense, lazy } from 'react';
 import { Layout, Menu, Typography, Button, Drawer, Tooltip, Spin } from 'antd';
 import { 
   KeyOutlined, 
-  SafetyCertificateOutlined, 
   CalculatorOutlined, 
   AppstoreOutlined, 
   MenuOutlined,
-  FileSearchOutlined,
   LockOutlined,
   HomeOutlined,
   ToolOutlined,
   SunOutlined,
   MoonOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  SafetyCertificateOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
@@ -34,6 +33,12 @@ const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
 const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
 const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
 const KCVPage = lazy(() => import('./pages/keys/KCVPage'));
+const KeysharePage = lazy(() => import('./pages/keys/KeysharePage'));
+const FuturexKeysPage = lazy(() => import('./pages/keys/FuturexKeysPage'));
+const AtallaKeysPage = lazy(() => import('./pages/keys/AtallaKeysPage'));
+const SafeNetKeysPage = lazy(() => import('./pages/keys/SafeNetKeysPage'));
+const ThalesKeysPage = lazy(() => import('./pages/keys/ThalesKeysPage'));
+const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'));
 
 // Payment
 const PinBlockPage = lazy(() => import('./pages/payment/PinBlockPage'));
@@ -48,6 +53,11 @@ const Base94Page = lazy(() => import('./pages/generic/Base94Page'));
 const MessageParserPage = lazy(() => import('./pages/generic/MessageParserPage'));
 const RSADerPublicKeyPage = lazy(() => import('./pages/generic/RSADerPublicKeyPage'));
 const UUIDPage = lazy(() => import('./pages/generic/UUIDPage'));
+
+// Legal Pages
+const PrivacyPolicyPage = lazy(() => import('./pages/legal/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('./pages/legal/TermsOfServicePage'));
+const DisclaimerPage = lazy(() => import('./pages/legal/DisclaimerPage'));
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -92,7 +102,7 @@ const contentStyle: React.CSSProperties = {
 // Route to menu key mapping
 const routeToKey: Record<string, string> = {
   '/': 'home',
-  '/asn1-parser': 'asn1',
+  '/asn1-parser': 'pki-asn1',
   '/aes-encryption': 'cipher-aes',
   '/des-encryption': 'cipher-des',
   '/rsa-encryption': 'cipher-rsa',
@@ -107,8 +117,15 @@ const routeToKey: Record<string, string> = {
   '/message-parser': 'generic-message',
   '/rsa-der-public-key': 'generic-rsader',
   '/uuid': 'generic-uuid',
-  '/key-generator': 'gen',
-  '/tr31-calculator': 'tr31',
+  // Keys 菜单
+  '/keys-dea': 'keys-dea',
+  '/keyshare-generator': 'keys-keyshare',
+  '/futurex-keys': 'keys-hsm-futurex',
+  '/atalla-keys': 'keys-hsm-atalla',
+  '/safenet-keys': 'keys-hsm-safenet',
+  '/thales-keys': 'keys-hsm-thales',
+  '/thales-key-block': 'keys-blocks-thales',
+  '/tr31-key-block': 'keys-blocks-tr31',
   '/kcv-calculator': 'kcv',
   '/pin-block-generator': 'pin',
 };
@@ -116,7 +133,7 @@ const routeToKey: Record<string, string> = {
 // Menu key to route mapping
 const keyToRoute: Record<string, string> = {
   'home': '/',
-  'asn1': '/asn1-parser',
+  'pki-asn1': '/asn1-parser',
   'cipher-aes': '/aes-encryption',
   'cipher-des': '/des-encryption',
   'cipher-rsa': '/rsa-encryption',
@@ -131,8 +148,15 @@ const keyToRoute: Record<string, string> = {
   'generic-message': '/message-parser',
   'generic-rsader': '/rsa-der-public-key',
   'generic-uuid': '/uuid',
-  'gen': '/key-generator',
-  'tr31': '/tr31-calculator',
+  // Keys 菜单
+  'keys-dea': '/keys-dea',
+  'keys-keyshare': '/keyshare-generator',
+  'keys-hsm-futurex': '/futurex-keys',
+  'keys-hsm-atalla': '/atalla-keys',
+  'keys-hsm-safenet': '/safenet-keys',
+  'keys-hsm-thales': '/thales-keys',
+  'keys-blocks-thales': '/thales-key-block',
+  'keys-blocks-tr31': '/tr31-key-block',
   'kcv': '/kcv-calculator',
   'pin': '/pin-block-generator',
 };
@@ -178,7 +202,15 @@ const App: React.FC = () => {
   
   // 菜单定义
   const items = [
-    { label: t.menu.asn1, key: 'asn1', icon: <FileSearchOutlined /> },
+    { 
+      label: t.menu.pki || 'PKI', 
+      key: 'pki', 
+      icon: <SafetyCertificateOutlined />,
+      children: [
+        { label: t.menu.asn1Decoder || 'ASN.1 Decoder', key: 'pki-asn1' },
+        { label: t.menu.sslCertificates || 'SSL Certificates', key: 'pki-ssl', disabled: true },
+      ]
+    },
     { 
       label: t.menu.generic || 'Generic', 
       key: 'generic', 
@@ -207,9 +239,34 @@ const App: React.FC = () => {
         { label: 'FPE', key: 'cipher-fpe' },
       ]
     },
-    { label: t.menu.keyGenerator, key: 'gen', icon: <KeyOutlined /> },
-    { label: t.menu.tr31, key: 'tr31', icon: <SafetyCertificateOutlined /> },
-    { label: t.menu.kcv, key: 'kcv', icon: <CalculatorOutlined /> },
+    { 
+      label: t.menu.keys || 'Keys', 
+      key: 'keys', 
+      icon: <KeyOutlined />,
+      children: [
+        { label: t.menu.keysDea || 'Keys DEA', key: 'keys-dea' },
+        { label: t.menu.keyshareGenerator || 'Keyshare Generator', key: 'keys-keyshare' },
+        { 
+          label: t.menu.keysHsm || 'Keys HSM', 
+          key: 'keys-hsm',
+          children: [
+            { label: t.menu.keysFuturex || 'Keys Futurex', key: 'keys-hsm-futurex' },
+            { label: t.menu.keysAtalla || 'Keys Atalla', key: 'keys-hsm-atalla' },
+            { label: t.menu.keysSafeNet || 'Keys SafeNet', key: 'keys-hsm-safenet' },
+            { label: t.menu.keysThales || 'Keys Thales', key: 'keys-hsm-thales' },
+          ]
+        },
+        { 
+          label: t.menu.keyBlocks || 'Key Blocks', 
+          key: 'keys-blocks',
+          children: [
+            { label: t.menu.thalesKeyBlock || 'Thales Key Block', key: 'keys-blocks-thales' },
+            { label: t.menu.tr31KeyBlock || 'TR-31 Key Block', key: 'keys-blocks-tr31' },
+          ]
+        },
+      ]
+    },
+    { label: t.menu.kcv || 'KCV', key: 'kcv', icon: <CalculatorOutlined /> },
     { label: t.menu.pinBlock, key: 'pin', icon: <AppstoreOutlined /> },
   ];
 
@@ -226,8 +283,10 @@ const App: React.FC = () => {
       {/* 1. 顶部导航栏 */}
       <Header 
         style={{ 
-          position: 'sticky', 
+          position: 'fixed', 
           top: 0, 
+          left: 0,
+          right: 0,
           zIndex: 999, 
           width: '100%', 
           display: 'flex', 
@@ -346,7 +405,7 @@ const App: React.FC = () => {
       </Drawer>
 
       {/* 2. 内容区域 - 使用路由懒加载 */}
-      <Content key={location.pathname} style={contentStyle}>
+      <Content key={location.pathname} style={{ ...contentStyle, paddingTop: isMobile ? 56 + 24 : 64 + 24 }}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
           <Suspense fallback={<PageLoader />}>
             <Routes>
@@ -368,10 +427,22 @@ const App: React.FC = () => {
               <Route path="/rsa-encryption" element={<RSAPage />} />
               <Route path="/ecc-encryption" element={<ECCPage />} />
               <Route path="/fpe-encryption" element={<FPEPage />} />
-              <Route path="/key-generator" element={<KeyGeneratorPage />} />
-              <Route path="/tr31-calculator" element={<TR31Page />} />
+              {/* Keys 菜单 */}
+              <Route path="/keys-dea" element={<KeyGeneratorPage />} />
+              <Route path="/key-generator" element={<KeyGeneratorPage />} /> {/* 旧URL重定向兼容 */}
+              <Route path="/tr31-key-block" element={<TR31Page />} />
               <Route path="/kcv-calculator" element={<KCVPage />} />
+              <Route path="/keyshare-generator" element={<KeysharePage />} />
+              <Route path="/futurex-keys" element={<FuturexKeysPage />} />
+              <Route path="/atalla-keys" element={<AtallaKeysPage />} />
+              <Route path="/safenet-keys" element={<SafeNetKeysPage />} />
+              <Route path="/thales-keys" element={<ThalesKeysPage />} />
+              <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
               <Route path="/pin-block-generator" element={<PinBlockPage />} />
+              {/* Legal Pages */}
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+              <Route path="/disclaimer" element={<DisclaimerPage />} />
               {/* Fallback to home for unknown routes */}
               <Route path="*" element={<HomePage />} />
             </Routes>
@@ -380,10 +451,59 @@ const App: React.FC = () => {
       </Content>
 
       {/* 3. 底部 */}
-      <Footer style={{ textAlign: 'center', background: 'transparent', padding: isMobile ? '12px' : '24px' }}>
-        <Text type="secondary" style={{ fontSize: isMobile ? 11 : 12 }}>
-          {t.footer.copyright}
-        </Text>
+      <Footer style={{ 
+        textAlign: 'center', 
+        background: isDark ? '#141414' : '#fff', 
+        padding: isMobile ? '24px 16px 32px' : '32px 24px 40px',
+        marginTop: 48,
+        borderTop: isDark ? '1px solid #303030' : '1px solid #f0f0f0',
+      }}>
+        <div style={{ marginBottom: 12 }}>
+          <Text style={{ 
+            fontSize: isMobile ? 13 : 14, 
+            color: isDark ? '#a6a6a6' : '#595959',
+            fontWeight: 500,
+          }}>
+            HSMKit.com © 2025 - {new Date().getFullYear()} | {t.footer.tagline}
+          </Text>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap', alignItems: 'center' }}>
+          <Link to="/privacy-policy" style={{ 
+            fontSize: isMobile ? 12 : 13, 
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}>
+            {t.footer.privacyPolicy}
+          </Link>
+          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
+          <Link to="/terms-of-service" style={{ 
+            fontSize: isMobile ? 12 : 13, 
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}>
+            {t.footer.termsOfService}
+          </Link>
+          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
+          <Link to="/disclaimer" style={{ 
+            fontSize: isMobile ? 12 : 13, 
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}>
+            {t.footer.disclaimer}
+          </Link>
+          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
+          <a href="mailto:contact@hsmkit.com" style={{ 
+            fontSize: isMobile ? 12 : 13, 
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}>
+            {t.footer.contact}
+          </a>
+        </div>
       </Footer>
     </Layout>
   );

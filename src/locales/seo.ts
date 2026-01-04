@@ -25,6 +25,12 @@ export interface PageSEO {
   ecc: SEOContent;
   fpe: SEOContent;
   keyGenerator: SEOContent;
+  keyshare: SEOContent;
+  futurexKeys: SEOContent;
+  atallaKeys: SEOContent;
+  safenetKeys: SEOContent;
+  thalesKeys: SEOContent;
+  thalesKeyBlock: SEOContent;
   tr31: SEOContent;
   kcv: SEOContent;
   pinBlock: SEOContent;

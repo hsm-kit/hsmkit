@@ -1,22 +1,30 @@
 import React from 'react';
 import { Typography } from 'antd';
 import PageLayout from '../../components/common/PageLayout';
-import TR31KeyBlockTool from '../../components/keys/TR31KeyBlockTool';
+import ThalesKeysTool from '../../components/keys/ThalesKeysTool';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const TR31Page: React.FC = () => {
+const ThalesKeysPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.tr31 || seoContent.en.tr31;
+  const seo = seoContent[language]?.thalesKeys || seoContent.en?.thalesKeys || {
+    title: 'Thales Keys Encryption/Decryption Tool',
+    description: 'Encrypt and decrypt keys using Thales HSM LMK methodology with various key schemes and variants',
+    keywords: ['Thales', 'HSM', 'LMK', 'Key Encryption', 'Key Decryption', 'Key Scheme', 'Variant'],
+    faqTitle: 'FAQ',
+    usageTitle: 'How to Use',
+    faqs: [],
+    usage: [],
+  };
 
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/tr31-key-block"
+      canonical="https://hsmkit.com/thales-keys"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -31,13 +39,14 @@ const TR31Page: React.FC = () => {
           </div>
         ) : undefined
       }
-      toolName="TR-31 Key Block Encoder/Decoder"
-      toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 312 }}
+      toolName="Thales Keys (LMK) Tool"
+      toolCategory="SecurityApplication"
+      aggregateRating={{ ratingValue: 4.8, ratingCount: 96 }}
     >
-      <TR31KeyBlockTool />
+      <ThalesKeysTool />
     </PageLayout>
   );
 };
 
-export default TR31Page;
+export default ThalesKeysPage;
+

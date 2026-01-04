@@ -1896,7 +1896,7 @@ const ASN1Analyzer: React.FC = () => {
                   padding: 16, 
                   borderRadius: 8, 
                   border: '1px solid #e1e4e8',
-                  maxHeight: 600,
+                  height: 600,
                   overflowX: 'auto',
                   overflowY: 'auto'
                 }}>
@@ -1914,7 +1914,7 @@ const ASN1Analyzer: React.FC = () => {
                     padding: 16, 
                     borderRadius: 8, 
                     border: '1px solid #e1e4e8',
-                    maxHeight: 600,
+                    height: 600,
                     overflow: 'auto'
                   }}>
                     {renderHexDump()}
