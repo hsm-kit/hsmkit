@@ -310,7 +310,15 @@ const UUIDTool: React.FC = () => {
                 </Button>
               }
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '8px',
+                maxHeight: '660px',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                paddingRight: '4px',
+              }}>
                 {results.map((uuid, index) => (
                   <div
                     key={index}
@@ -324,6 +332,7 @@ const UUIDTool: React.FC = () => {
                       padding: '10px 16px',
                       borderRadius: '6px',
                       border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
+                      flexShrink: 0,
                     }}
                   >
                     <span style={{

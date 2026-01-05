@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Alert, Segmented } from 'antd';
-import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClearOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -410,25 +410,23 @@ const KeyGenerator: React.FC = () => {
             })}
           </Space>
 
-          <Space>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, alignItems: 'center' }}>
             <Button 
               icon={<PlusOutlined />}
               onClick={addComponent}
               disabled={components.length >= 9}
+              size="large"
             >
               {t.keyGenerator.addComponent}
             </Button>
             <Button 
+              icon={<ClearOutlined />}
               onClick={clearAllComponents}
+              danger
+              size="large"
             >
-              {t.keyGenerator.clearAll}
+              {t.keyGenerator.clearAll || 'Clear All'}
             </Button>
-            <Text type="secondary" style={{ fontSize: '12px' }}>
-              ({components.length}/9 {t.keyGenerator.components})
-            </Text>
-          </Space>
-
-          <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
             <Button 
               type="primary"
               icon={<KeyOutlined />}
@@ -437,6 +435,9 @@ const KeyGenerator: React.FC = () => {
             >
               {t.keyGenerator.combineKeys}
             </Button>
+            <Text type="secondary" style={{ fontSize: '12px', marginLeft: 8 }}>
+              ({components.length}/9 {t.keyGenerator.components})
+            </Text>
           </div>
 
           {combineError && (
