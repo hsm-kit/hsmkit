@@ -40,12 +40,24 @@ export default defineConfig({
             return 'vendor-utils';
           }
         },
+        // 优化 chunk 文件命名
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
       },
     },
     // 生成 sourcemap 便于调试（生产环境可设为 false）
     sourcemap: false,
     // 设置警告阈值
     chunkSizeWarningLimit: 600,
+    // 启用压缩 - 使用默认压缩器（rolldown 内置）
+    minify: true,
+    // 启用 CSS 代码分割
+    cssCodeSplit: true,
+    // 优化构建输出
+    reportCompressedSize: false, // 禁用压缩大小报告以加快构建速度
+    // 启用 CSS 压缩
+    cssMinify: true,
   },
   
   // 优化依赖预构建
@@ -58,5 +70,7 @@ export default defineConfig({
       '@ant-design/icons',
       'crypto-js',
     ],
+    // 排除不需要预构建的依赖
+    exclude: [],
   },
 })

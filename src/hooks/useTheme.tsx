@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useLayoutEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useLayoutEffect, useMemo, useCallback, type ReactNode } from 'react';
 import { ConfigProvider, theme } from 'antd';
 
 type ThemeMode = 'light' | 'dark';
@@ -59,23 +59,30 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     applyThemeToDOM(themeMode === 'dark');
   }, [themeMode, isReady]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setThemeMode(prev => prev === 'light' ? 'dark' : 'light');
-  };
+  }, []);
 
   const isDark = themeMode === 'dark';
 
+  // 使用 useMemo 缓存主题配置，避免不必要的重渲染
+  const themeConfig = useMemo(() => ({
+    algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: '#1677ff',
+      borderRadius: 8,
+    },
+  }), [isDark]);
+
+  const contextValue = useMemo(() => ({
+    themeMode,
+    toggleTheme,
+    isDark,
+  }), [themeMode, toggleTheme, isDark]);
+
   return (
-    <ThemeContext.Provider value={{ themeMode, toggleTheme, isDark }}>
-      <ConfigProvider
-        theme={{
-          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          token: {
-            colorPrimary: '#1677ff',
-            borderRadius: 8,
-          },
-        }}
-      >
+    <ThemeContext.Provider value={contextValue}>
+      <ConfigProvider theme={themeConfig}>
         {children}
       </ConfigProvider>
     </ThemeContext.Provider>

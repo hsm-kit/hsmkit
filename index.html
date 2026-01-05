@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     
+    <!-- 预加载关键资源以提升首屏加载速度 -->
+    <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
+    <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" />
+    
     <!-- Favicon - 紫蓝渐变盾牌+钥匙设计 -->
     <!-- Google 搜索结果使用 PNG 格式 -->
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
@@ -19,8 +23,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     
     <!-- SEO 元数据 - Enhanced for better search rankings -->
-    <meta name="description" content="Free online encryption toolkit - AES, DES, RSA, ECC encryption, TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 decoder. All calculations client-side for maximum security." />
-    <meta name="keywords" content="HSM Kit, encryption tools, AES encryption online, DES encryption, 3DES calculator, RSA encryption, ECC ECDSA, TR-31 key block parser, KCV calculator, key check value, PIN block generator, ISO 9564, ASN.1 parser, DER decoder, key generator, cryptography tools, payment security, ANSI X9.143, format preserving encryption, FPE, MD5 hash generator, SHA256 calculator, Base64 encoder decoder, UUID generator online, ISO 8583 message parser, BCD converter, character encoding converter, Luhn check digit, EBCDIC ASCII converter" />
+    <meta name="description" content="Free online encryption toolkit - AES/DES/RSA/ECC encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, FPE encryption, hash calculator, and more. 100% client-side for maximum security." />
+    <meta name="keywords" content="HSM Kit, encryption tools, AES encryption online, DES encryption, 3DES calculator, RSA encryption, ECC ECDSA, TR-31 key block parser, KCV calculator, key check value, PIN block generator, ISO 9564, ASN.1 parser, DER decoder, key generator, cryptography tools, payment security, ANSI X9.143, format preserving encryption, FPE, MD5 hash generator, SHA256 calculator, Base64 encoder decoder, UUID generator online, ISO 8583 message parser, BCD converter, character encoding converter, Luhn check digit, EBCDIC ASCII converter, HSM key management, Futurex keys, Atalla AKB, SafeNet keys, Thales LMK, keyshare generator, SSL certificate parser, X509 certificate, RSA DER public key" />
     <meta name="author" content="HSM Kit" />
     <meta name="robots" content="index, follow" />
     
@@ -28,7 +32,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hsmkit.com/" />
     <meta property="og:title" content="HSM Kit - Free Online Encryption & Key Management Tools" />
-    <meta property="og:description" content="Comprehensive suite of cryptographic tools: AES/DES/RSA encryption, TR-31 parser, KCV calculator, PIN block generator. 100% client-side, completely free." />
+    <meta property="og:description" content="Comprehensive suite of cryptographic tools: AES/DES/RSA/ECC/FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, hash calculator, and 20+ tools. 100% client-side, completely free." />
     <meta property="og:image" content="https://hsmkit.com/favicon-512.png" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
@@ -37,7 +41,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="HSM Kit - Free Online Encryption Tools" />
-    <meta name="twitter:description" content="AES, DES, RSA encryption, TR-31 parser, KCV calculator, and more. All free, all client-side." />
+    <meta name="twitter:description" content="AES, DES, RSA, ECC, FPE encryption, HSM key management, TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, and 20+ cryptographic tools. All free, all client-side." />
     <meta name="twitter:image" content="https://hsmkit.com/favicon-512.png" />
     
     <!-- 主题颜色 - 紫蓝渐变主色 -->
@@ -62,7 +66,7 @@
       "@type": "WebApplication",
       "name": "HSM Kit",
       "url": "https://hsmkit.com",
-      "description": "Free online encryption toolkit with AES, DES, RSA, ECC encryption, TR-31 key block parser, KCV calculator, PIN block generator, and ASN.1 decoder.",
+      "description": "Free online encryption toolkit with AES, DES, RSA, ECC, FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificate parser, hash calculator, and 20+ cryptographic tools.",
       "applicationCategory": "SecurityApplication",
       "operatingSystem": "Web Browser",
       "offers": {
@@ -78,21 +82,28 @@
         "worstRating": "1"
       },
       "featureList": [
-        "AES-128/192/256 Encryption",
+        "AES-128/192/256 Encryption (ECB/CBC/CFB/OFB/CTR)",
         "DES/3DES Encryption",
         "RSA Encryption and Signing",
         "ECC/ECDSA Digital Signatures",
-        "TR-31 Key Block Parser",
+        "Format-Preserving Encryption (FF1/FF3-1)",
+        "TR-31 Key Block Parser (ANSI X9.143)",
+        "HSM Key Management (Futurex/Atalla/SafeNet/Thales)",
+        "Thales Key Block Encoder/Decoder",
+        "Keyshare Generator",
         "KCV Calculator",
-        "PIN Block Generator",
+        "PIN Block Generator (ISO 9564)",
         "ASN.1 DER/BER Parser",
-        "Format-Preserving Encryption",
-        "Secure Key Generator",
-        "Hash Calculator (MD5, SHA, etc.)",
-        "Character Encoding Converter",
-        "Base64/Base94 Encoder",
-        "UUID Generator",
-        "Message Parser (ISO8583, ATM)"
+        "SSL/TLS Certificate Parser (X.509)",
+        "RSA DER Public Key Decoder",
+        "Secure Key Generator (AES/DES/3DES)",
+        "Hash Calculator (20+ algorithms: MD5, SHA, SHA-3, BLAKE2, SM3, etc.)",
+        "Character Encoding Converter (ASCII/Hex/Binary/EBCDIC)",
+        "BCD Encoder/Decoder",
+        "Check Digits Calculator (Luhn, Amex SE)",
+        "Base64/Base94 Encoder/Decoder",
+        "UUID Generator (v1/v3/v4/v5)",
+        "Message Parser (ISO 8583, ATM NDC/Wincor)"
       ]
     }
     </script>
@@ -105,7 +116,7 @@
       "name": "HSM Kit",
       "url": "https://hsmkit.com",
       "logo": "https://hsmkit.com/favicon-512.png",
-      "description": "Professional cryptographic tools for developers and security engineers",
+      "description": "Professional cryptographic tools for developers and security engineers: encryption, HSM key management, payment security, PKI tools, and more. 100% client-side, completely free.",
       "sameAs": []
     }
     </script>
@@ -132,6 +143,12 @@
     <!-- <link rel="manifest" href="/manifest.json" /> -->
     
     <title>HSM Kit - Free Online Encryption & Key Management Tools</title>
+    
+    <!-- 性能优化：预加载关键字体和资源 -->
+    <link rel="preload" as="style" href="/src/index.css" />
+    
+    <!-- 性能优化：使用 fetchpriority 提示浏览器优先加载关键资源 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
   </head>
   <body>
     <!-- 主题初始化脚本 - 在 React 加载前执行，避免闪烁 -->
@@ -153,7 +170,7 @@
     <noscript>
       <h1>HSM Kit - Online Encryption Toolkit</h1>
       <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser.</p>
-      <p>Features include: AES encryption, DES/3DES encryption, RSA encryption, ECC/ECDSA, TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 parser, and secure key generation.</p>
+      <p>Features include: AES/DES/RSA/ECC/FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 parser, SSL certificate parser, hash calculator, keyshare generator, and 20+ cryptographic tools. All calculations are performed client-side for maximum security.</p>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

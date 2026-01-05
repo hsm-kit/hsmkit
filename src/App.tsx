@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react';
 import { Layout, Menu, Typography, Button, Drawer, Tooltip, Spin } from 'antd';
 import { 
   KeyOutlined, 
@@ -183,15 +183,16 @@ const App: React.FC = () => {
     document.body.scrollTop = 0;
   }, [location.pathname]);
 
-  // 检测屏幕大小
+  // 检测屏幕大小 - 使用 useCallback 优化
+  const checkMobile = useCallback(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [checkMobile]);
 
   // 注入全局样式
   React.useEffect(() => {
@@ -203,8 +204,8 @@ const App: React.FC = () => {
     };
   }, []);
   
-  // 菜单定义
-  const items = [
+  // 菜单定义 - 使用 useMemo 缓存，避免每次渲染都重新创建
+  const items = useMemo(() => [
     { 
       label: t.menu.pki || 'PKI', 
       key: 'pki', 
@@ -271,15 +272,15 @@ const App: React.FC = () => {
     },
     { label: t.menu.kcv || 'KCV', key: 'kcv', icon: <CalculatorOutlined /> },
     { label: t.menu.pinBlock, key: 'pin', icon: <AppstoreOutlined /> },
-  ];
+  ], [t]);
 
-  const handleMenuClick = (key: string) => {
+  const handleMenuClick = useCallback((key: string) => {
     const route = keyToRoute[key];
     if (route) {
       navigate(route);
     }
     setDrawerVisible(false);
-  };
+  }, [navigate]);
 
   return (
     <Layout style={{ minHeight: '100vh', background: isDark ? '#141414' : '#f0f2f5' }}>
@@ -312,6 +313,8 @@ const App: React.FC = () => {
           <img 
             src="/favicon.svg" 
             alt="HSM Kit"
+            loading="eager"
+            fetchPriority="high"
             style={{ 
               width: isMobile ? 28 : 32, 
               height: isMobile ? 28 : 32, 
