@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, InputNumber, Alert, Spin } from 'antd';
 import { KeyOutlined, FileTextOutlined, SafetyCertificateOutlined, CopyOutlined, ClearOutlined, LockOutlined, SearchOutlined, CheckOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, getResultContainerStyle, getResultTextStyle } from '../common';
+import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import * as forge from 'node-forge';
@@ -15,36 +15,26 @@ const getByteLength = (hex: string): number => {
   return clean.length / 2;
 };
 
-// 单个 Copy 按钮组件
-const CopyButton: React.FC<{
-  isDark: boolean;
-  t: Record<string, unknown>;
-  onCopy: () => void;
-}> = ({ isDark, t, onCopy }) => {
-  const [copied, setCopied] = React.useState(false);
-  
-  const handleCopy = () => {
-    onCopy();
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+// 样式函数
+const getResultContainerStyle = (isDark: boolean): React.CSSProperties => ({
+  background: isDark 
+    ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+    : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+  border: isDark ? '1px solid #274916' : '2px solid #95de64',
+  borderRadius: '8px',
+  padding: '16px',
+  boxShadow: isDark 
+    ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
+    : '0 4px 16px rgba(82, 196, 26, 0.2)',
+});
 
-  return (
-    <Button
-      type={isDark ? 'primary' : 'default'}
-      icon={copied ? <CheckOutlined /> : <CopyOutlined />}
-      onClick={handleCopy}
-      size="small"
-      style={{
-        background: isDark ? '#52c41a' : undefined,
-        borderColor: '#52c41a',
-        color: isDark ? '#fff' : '#52c41a',
-      }}
-    >
-      {copied ? ((t.common as Record<string, string>)?.copied || 'Copied!') : ((t.common as Record<string, string>)?.copy || 'Copy')}
-    </Button>
-  );
-};
+const getResultTextStyle = (isDark: boolean): React.CSSProperties => ({
+  background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+  borderRadius: '8px',
+  border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
+  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+  color: isDark ? '#95de64' : '#237804',
+});
 
 // Copy All 按钮组件
 const CopyAllButton: React.FC<{
@@ -355,13 +345,17 @@ const SSLCertificatesTool: React.FC = () => {
       // 提取主体信息
       const subject: Record<string, string> = {};
       const subjectParts: string[] = [];
-      csr.subject.attributes.forEach((attr: forge.pki.Attribute) => {
+      csr.subject.attributes.forEach((attr) => {
         const name = attr.shortName || attr.name || 'Unknown';
         subject[name] = attr.value as string;
         subjectParts.push(`${name}=${attr.value}`);
       });
       
       // 提取公钥信息
+      if (!csr.publicKey) {
+        setError(t.sslCert?.errorCSRParse || 'Failed to parse CSR: no public key');
+        return;
+      }
       const publicKeyPem = forge.pki.publicKeyToPem(csr.publicKey);
       const rsaPublicKey = csr.publicKey as forge.pki.rsa.PublicKey;
       
@@ -520,7 +514,7 @@ const SSLCertificatesTool: React.FC = () => {
       // 提取主体信息
       const subject: Record<string, string> = {};
       const subjectParts: string[] = [];
-      cert.subject.attributes.forEach((attr: forge.pki.Attribute) => {
+      cert.subject.attributes.forEach((attr) => {
         const name = attr.shortName || attr.name || 'Unknown';
         subject[name] = attr.value as string;
         subjectParts.push(`${name}=${attr.value}`);
@@ -529,13 +523,17 @@ const SSLCertificatesTool: React.FC = () => {
       // 提取颁发者信息
       const issuer: Record<string, string> = {};
       const issuerParts: string[] = [];
-      cert.issuer.attributes.forEach((attr: forge.pki.Attribute) => {
+      cert.issuer.attributes.forEach((attr) => {
         const name = attr.shortName || attr.name || 'Unknown';
         issuer[name] = attr.value as string;
         issuerParts.push(`${name}=${attr.value}`);
       });
       
       // 提取公钥信息
+      if (!cert.publicKey) {
+        setError(t.sslCert?.errorCertParse || 'Failed to parse certificate: no public key');
+        return;
+      }
       const publicKeyPem = forge.pki.publicKeyToPem(cert.publicKey);
       const rsaPublicKey = cert.publicKey as forge.pki.rsa.PublicKey;
       
@@ -1801,7 +1799,7 @@ const SSLCertificatesTool: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <CheckOutlined style={{ color: isDark ? '#52c41a' : '#389e0d', fontSize: 18 }} />
                   <Text strong style={{ color: isDark ? '#52c41a' : '#389e0d', fontSize: 16 }}>
-                    {t.sslCert?.certRead || 'Certificate Read'}
+                    {t.sslCert?.certParsed || 'Certificate Read'}
                   </Text>
                 </div>
                 <CopyAllButton 
@@ -1956,7 +1954,7 @@ const SSLCertificatesTool: React.FC = () => {
 
               {/* 公钥 PEM 单独显示 */}
               <KeyResultBlock
-                label={t.sslCert?.publicKeyPem || 'Public Key (PEM)'}
+                label={t.sslCert?.publicKey || 'Public Key (PEM)'}
                 value={parsedCertInfo.publicKey}
                 isDark={isDark}
                 t={t}
