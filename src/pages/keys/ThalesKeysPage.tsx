@@ -41,7 +41,6 @@ const ThalesKeysPage: React.FC = () => {
       }
       toolName="Thales Keys (LMK) Tool"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 96 }}
     >
       <ThalesKeysTool />
     </PageLayout>

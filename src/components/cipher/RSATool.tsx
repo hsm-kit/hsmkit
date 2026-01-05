@@ -979,7 +979,7 @@ const RSATool: React.FC = () => {
               onChange={e => setModulus(e.target.value)}
               placeholder={t.rsa?.modulusPlaceholder || 'RSA modulus in hexadecimal'}
               autoSize={{ minRows: 3, maxRows: 6 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 
@@ -1012,7 +1012,7 @@ const RSATool: React.FC = () => {
               onChange={e => setPrivateExponent(e.target.value)}
               placeholder={t.rsa?.privateExpPlaceholder || 'RSA private exponent in hexadecimal'}
               autoSize={{ minRows: 3, maxRows: 6 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 

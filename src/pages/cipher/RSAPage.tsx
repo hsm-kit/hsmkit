@@ -32,7 +32,6 @@ const RSAPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="RSA Encryption & Key Generator"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 156 }}
     >
       <RSATool />
     </PageLayout>

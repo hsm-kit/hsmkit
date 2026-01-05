@@ -32,7 +32,6 @@ const KeyGeneratorPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="Cryptographic Key Generator"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 256 }}
     >
       <KeyGenerator />
     </PageLayout>

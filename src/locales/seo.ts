@@ -44,6 +44,8 @@ export interface PageSEO {
   messageParser: SEOContent;
   rsaDer: SEOContent;
   uuid: SEOContent;
+  // PKI tools
+  sslCert: SEOContent;
 }
 
 // Import SEO content from language files

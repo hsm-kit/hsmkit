@@ -32,7 +32,6 @@ const ECCPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="ECC/ECDSA Digital Signature Tool"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.7, ratingCount: 134 }}
     >
       <ECCTool />
     </PageLayout>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from 'antd';
 import { PageLayout } from '../../components/common/PageLayout';
-import { ASN1Parser } from '../../components/parser';
+import { ASN1Parser } from '../../components/pki';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
 
@@ -32,7 +32,6 @@ const ASN1Page: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="ASN.1 Parser & DER/BER Decoder"
       toolCategory="DeveloperApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 167 }}
     >
       <ASN1Parser />
     </PageLayout>
@@ -40,3 +39,4 @@ const ASN1Page: React.FC = () => {
 };
 
 export default ASN1Page;
+

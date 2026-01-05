@@ -31,7 +31,6 @@ const KeysharePage: React.FC = () => {
       }
       toolName="Keyshare Generator"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 189 }}
     >
       <KeyshareGenerator />
     </PageLayout>

@@ -58,7 +58,7 @@
 | 工具 | 描述 | URL |
 |------|------|-----|
 | **ASN.1 解码器** | DER/BER 结构解码，X.509 证书解析，PKCS 格式分析 | `/asn1-parser` |
-| **SSL 证书** | SSL/TLS 证书管理 | 即将推出 |
+| **SSL 证书 (X509)** | SSL/TLS 证书解析、验证，支持 PEM/DER 格式 | `/ssl-certificates` |
 
 ### 💳 支付安全工具
 
@@ -175,7 +175,21 @@ HSM Kit 支持 6 种语言，自动根据用户浏览器语言切换：
 
 ## 📦 版本历史
 
-### v4.1.0 (2026-01-04) 🎉
+### v4.2.0 (2026-01-05) 🎉
+
+**优化：**
+- 🔒 **SEO 合规优化** - 移除写死的评价数据 (aggregateRating)，避免 Google 结构化数据惩罚
+- 🧹 **代码清理** - 移除未使用的组件、页面和函数
+- 📄 **Sitemap 更新** - 添加 SSL 证书页面，更新所有页面修改日期
+- 📝 **README 更新** - 完善文档和工具列表
+
+**移除的未使用代码：**
+- `ResultDisplay.tsx` 组件
+- `registerSW.ts` Service Worker 注册
+- 多个未使用的 barrel export 文件
+- `format.ts` 和 `crypto.ts` 中的未使用函数
+
+### v4.1.0 (2026-01-04)
 
 **新增功能：**
 - 📜 **法律信息页面**
@@ -258,19 +272,19 @@ hsmkit/
 ├── src/
 │   ├── components/           # 可复用组件
 │   │   ├── cipher/           # 加密工具组件
-│   │   ├── common/           # 通用组件（SEO、布局、结果展示）
+│   │   ├── common/           # 通用组件（SEO、布局）
 │   │   ├── generic/          # 通用工具组件
 │   │   ├── keys/             # 密钥管理组件
-│   │   ├── parser/           # 解析器组件
-│   │   └── payment/          # 支付工具组件
+│   │   ├── payment/          # 支付工具组件
+│   │   └── pki/              # PKI 工具组件
 │   ├── pages/                # 页面组件（带 SEO）
 │   │   ├── cipher/           # 加密工具页面
 │   │   ├── generic/          # 通用工具页面
 │   │   ├── home/             # 首页
 │   │   ├── keys/             # 密钥管理页面
 │   │   ├── legal/            # 法律信息页面
-│   │   ├── parser/           # 解析器页面
-│   │   └── payment/          # 支付工具页面
+│   │   ├── payment/          # 支付工具页面
+│   │   └── pki/              # PKI 工具页面
 │   ├── locales/              # 多语言文件
 │   │   ├── en.ts             # 英语
 │   │   ├── zh.ts             # 中文
@@ -282,14 +296,18 @@ hsmkit/
 │   ├── hooks/                # 自定义 Hooks
 │   │   ├── useLanguage.tsx   # 语言切换
 │   │   └── useTheme.tsx      # 主题切换
+│   ├── utils/                # 工具函数
+│   │   ├── crypto.ts         # 加密相关工具
+│   │   └── format.ts         # 格式化工具
+│   ├── lib/                  # 第三方库
+│   │   └── asn1js/           # ASN.1 解析库
 │   └── App.tsx               # 主应用（路由懒加载）
 ├── public/                   # 静态资源
 │   ├── favicon.svg           # 网站图标（SVG）
 │   ├── favicon-*.png         # 网站图标（PNG 多尺寸）
 │   ├── logo.svg              # 完整 Logo
-│   ├── sitemap.xml           # 网站地图（30 页）
+│   ├── sitemap.xml           # 网站地图
 │   ├── robots.txt            # 爬虫指令
-│   ├── sw.js                 # Service Worker
 │   └── _redirects            # SPA 路由重定向
 ├── scripts/                  # 构建脚本
 │   └── generate-favicon-png.js  # PNG 图标生成

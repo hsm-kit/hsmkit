@@ -31,7 +31,6 @@ const AtallaKeysPage: React.FC = () => {
       }
       toolName="Atalla Keys (AKB)"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 115 }}
     >
       <AtallaKeysTool />
     </PageLayout>

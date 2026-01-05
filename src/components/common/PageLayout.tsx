@@ -32,10 +32,6 @@ interface PageLayoutProps {
   // Schema.org props for rich snippets
   toolName?: string;           // e.g., "AES Encryption Tool"
   toolCategory?: string;       // e.g., "Encryption", "Key Management"
-  aggregateRating?: {
-    ratingValue: number;       // e.g., 4.8
-    ratingCount: number;       // e.g., 156
-  };
 }
 
 /**
@@ -54,7 +50,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   usageContent,
   toolName,
   toolCategory = 'SecurityApplication',
-  aggregateRating = { ratingValue: 4.8, ratingCount: 127 }, // Default rating for all tools
 }) => {
   const schemaId = useId();
   const { isDark } = useTheme();
@@ -78,14 +73,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       price: '0',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
-    },
-    // Aggregate rating for rich snippets (star ratings)
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: aggregateRating.ratingValue,
-      ratingCount: aggregateRating.ratingCount,
-      bestRating: 5,
-      worstRating: 1,
     },
     // Provider/Publisher info
     author: {
@@ -123,13 +110,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: aggregateRating.ratingValue,
-      ratingCount: aggregateRating.ratingCount,
-      bestRating: 5,
-      worstRating: 1,
     },
   };
 

@@ -33,7 +33,6 @@ const TR31Page: React.FC = () => {
       }
       toolName="TR-31 Key Block Encoder/Decoder"
       toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 312 }}
     >
       <TR31KeyBlockTool />
     </PageLayout>

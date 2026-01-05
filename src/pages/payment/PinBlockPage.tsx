@@ -32,7 +32,6 @@ const PinBlockPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="PIN Block Generator (ISO 9564)"
       toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 195 }}
     >
       <PinBlockTool />
     </PageLayout>

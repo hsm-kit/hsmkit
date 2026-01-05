@@ -1,22 +1,22 @@
 import React from 'react';
 import { Typography } from 'antd';
-import PageLayout from '../../components/common/PageLayout';
-import ThalesKeyBlockTool from '../../components/keys/ThalesKeyBlockTool';
+import { PageLayout } from '../../components/common/PageLayout';
+import { SSLCertificatesTool } from '../../components/pki';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
 
 const { Paragraph } = Typography;
 
-const ThalesKeyBlockPage: React.FC = () => {
+const SSLCertificatesPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.thalesKeyBlock || seoContent.en?.thalesKeyBlock || {
-    title: 'Thales Key Block Tool',
-    description: 'Encode and decode Thales proprietary key blocks',
-    keywords: ['Thales', 'Key Block', 'KBPK', 'HSM', 'Key Encryption'],
-    faqTitle: 'FAQ',
+  const seo = seoContent[language]?.sslCert || seoContent.en?.sslCert || {
+    title: 'SSL Certificates (X509) - Generate Keys, CSR, Self-signed Certs | HSM Kit',
+    description: 'Free online SSL certificate tool. Generate RSA key pairs, create Certificate Signing Requests (CSR), generate self-signed X.509 certificates, and parse certificates. All processing in browser.',
+    keywords: 'SSL certificate, X509, CSR generator, self-signed certificate, RSA key generator, certificate parser, PEM, PKI tools',
+    faqTitle: 'SSL Certificate FAQ',
     usageTitle: 'How to Use',
     faqs: [],
-    usage: [],
+    usage: []
   };
 
   return (
@@ -24,7 +24,7 @@ const ThalesKeyBlockPage: React.FC = () => {
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/thales-key-block"
+      canonical="https://hsmkit.com/ssl-certificates"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}
@@ -37,15 +37,15 @@ const ThalesKeyBlockPage: React.FC = () => {
               </Paragraph>
             ))}
           </div>
-        ) : undefined
+        ) : null
       }
-      toolName="Thales Key Block Tool"
+      toolName="SSL Certificates (X509)"
       toolCategory="SecurityApplication"
     >
-      <ThalesKeyBlockTool />
+      <SSLCertificatesTool />
     </PageLayout>
   );
 };
 
-export default ThalesKeyBlockPage;
+export default SSLCertificatesPage;
 

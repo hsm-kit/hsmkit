@@ -20,7 +20,8 @@ import { LanguageSwitcher } from './components/common';
 
 // 🚀 路由懒加载 - 只有访问时才加载对应页面
 const HomePage = lazy(() => import('./pages/home/HomePage'));
-const ASN1Page = lazy(() => import('./pages/parser/ASN1Page'));
+const ASN1Page = lazy(() => import('./pages/pki/ASN1Page'));
+const SSLCertificatesPage = lazy(() => import('./pages/pki/SSLCertificatesPage'));
 
 // Cipher Tools
 const AESPage = lazy(() => import('./pages/cipher/AESPage'));
@@ -103,6 +104,7 @@ const contentStyle: React.CSSProperties = {
 const routeToKey: Record<string, string> = {
   '/': 'home',
   '/asn1-parser': 'pki-asn1',
+  '/ssl-certificates': 'pki-ssl',
   '/aes-encryption': 'cipher-aes',
   '/des-encryption': 'cipher-des',
   '/rsa-encryption': 'cipher-rsa',
@@ -134,6 +136,7 @@ const routeToKey: Record<string, string> = {
 const keyToRoute: Record<string, string> = {
   'home': '/',
   'pki-asn1': '/asn1-parser',
+  'pki-ssl': '/ssl-certificates',
   'cipher-aes': '/aes-encryption',
   'cipher-des': '/des-encryption',
   'cipher-rsa': '/rsa-encryption',
@@ -208,7 +211,7 @@ const App: React.FC = () => {
       icon: <SafetyCertificateOutlined />,
       children: [
         { label: t.menu.asn1Decoder || 'ASN.1 Decoder', key: 'pki-asn1' },
-        { label: t.menu.sslCertificates || 'SSL Certificates', key: 'pki-ssl', disabled: true },
+        { label: t.menu.sslCertificates || 'SSL Certificates', key: 'pki-ssl' },
       ]
     },
     { 
@@ -411,6 +414,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/asn1-parser" element={<ASN1Page />} />
+              <Route path="/ssl-certificates" element={<SSLCertificatesPage />} />
               {/* Generic Tools */}
               <Route path="/hashes" element={<HashPage />} />
               <Route path="/character-encoding" element={<CharacterEncodingPage />} />

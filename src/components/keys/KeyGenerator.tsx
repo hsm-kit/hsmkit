@@ -4,6 +4,7 @@ import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { CollapsibleInfo } from '../common';
 import { 
   calculateKCV, 
   combineKeyComponents, 
@@ -667,9 +668,16 @@ const KeyGenerator: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.keyGenerator.title}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.keyGenerator.title}
+          </Title>
+          <CollapsibleInfo title={t.keyGenerator.infoTitle || 'About Key Generator'}>
+            <div>• {t.keyGenerator.infoContent1 || 'Generate cryptographically secure random keys using Web Crypto API'}</div>
+            <div>• {t.keyGenerator.infoContent2 || 'Supports DES (8 bytes), 3DES (16/24 bytes), and AES (16/24/32 bytes)'}</div>
+            <div>• {t.keyGenerator.infoContent3 || 'KCV (Key Check Value) is calculated for key verification'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.keyGenerator.description}
         </Text>

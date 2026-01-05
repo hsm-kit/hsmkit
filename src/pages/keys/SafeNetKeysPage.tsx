@@ -33,7 +33,6 @@ const SafeNetKeysPage: React.FC = () => {
       }
       toolName="SafeNet Keys Encryption/Decryption"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.7, ratingCount: 98 }}
     >
       <SafeNetKeysTool />
     </PageLayout>

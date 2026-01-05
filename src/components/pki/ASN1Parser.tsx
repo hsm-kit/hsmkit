@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Typography, Upload, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
 import { FileSearchOutlined, UploadOutlined, ClearOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
+import { CollapsibleInfo } from '../common';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -422,7 +423,7 @@ const ASN1Parser: React.FC = () => {
                     maxHeight: '300px',
                     overflowY: 'auto',
                     whiteSpace: 'pre-wrap',
-                    fontFamily: 'monospace',
+                    fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                     fontSize: '11px'
                   }}>
                     {node.content}
@@ -444,9 +445,16 @@ const ASN1Parser: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          {t.asn1.title}
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.asn1.title}
+          </Title>
+          <CollapsibleInfo title={t.asn1.infoTitle || 'About ASN.1 Parser'}>
+            <div>• {t.asn1.infoContent1 || 'Parse ASN.1 DER/BER encoded data structures'}</div>
+            <div>• {t.asn1.infoContent2 || 'Supports Hex, Base64, and PEM input formats'}</div>
+            <div>• {t.asn1.infoContent3 || 'Enable RFC definitions to match known structures like X.509, PKCS'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
           {t.asn1.description}
         </Text>
@@ -595,3 +603,4 @@ const ASN1Parser: React.FC = () => {
 };
 
 export default ASN1Parser;
+

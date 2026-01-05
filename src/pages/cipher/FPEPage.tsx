@@ -32,7 +32,6 @@ const FPEPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="Format-Preserving Encryption (FF1/FF3-1)"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.6, ratingCount: 98 }}
     >
       <FPETool />
     </PageLayout>

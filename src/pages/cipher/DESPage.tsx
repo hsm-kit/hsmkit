@@ -32,7 +32,6 @@ const DESPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="DES/3DES Encryption Tool"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.7, ratingCount: 189 }}
     >
       <DESTool />
     </PageLayout>

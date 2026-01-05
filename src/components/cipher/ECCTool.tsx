@@ -3,6 +3,7 @@ import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Alert,
 import { KeyOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { CollapsibleInfo } from '../common';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -516,7 +517,7 @@ const ECCTool: React.FC = () => {
               onChange={e => setPrivateKey(e.target.value)}
               placeholder="Private key (hexadecimal)"
               autoSize={{ minRows: 3, maxRows: 6 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 
@@ -533,7 +534,7 @@ const ECCTool: React.FC = () => {
               onChange={e => setPublicKey(e.target.value)}
               placeholder="Public key (hexadecimal, uncompressed format: 04 || X || Y)"
               autoSize={{ minRows: 4, maxRows: 8 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 
@@ -600,7 +601,7 @@ const ECCTool: React.FC = () => {
               onChange={e => setSignData(e.target.value)}
               placeholder={signInputFormat === 'ASCII' ? 'Enter text data' : 'Enter hexadecimal data'}
               autoSize={{ minRows: 4, maxRows: 8 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 
@@ -772,7 +773,7 @@ const ECCTool: React.FC = () => {
               onChange={e => setVerifyData(e.target.value)}
               placeholder={verifyInputFormat === 'ASCII' ? 'Enter text data' : 'Enter hexadecimal data'}
               autoSize={{ minRows: 4, maxRows: 8 }}
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}
+              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
           </div>
 
@@ -847,11 +848,18 @@ const ECCTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-        <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-          ECC (ECDSA)
-        </Title>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.ecc?.title || 'ECC (ECDSA)'}
+          </Title>
+          <CollapsibleInfo title={t.ecc?.infoTitle || 'About ECC/ECDSA'}>
+            <div>• {t.ecc?.infoContent1 || 'Elliptic Curve Cryptography provides strong security with smaller key sizes'}</div>
+            <div>• {t.ecc?.infoContent2 || 'Supports P-256, P-384, P-521 curves for digital signatures'}</div>
+            <div>• {t.ecc?.infoContent3 || 'ECDSA signatures can verify data authenticity and integrity'}</div>
+          </CollapsibleInfo>
+        </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          Elliptic Curve Cryptography - Digital Signature Algorithm
+          {t.ecc?.description || 'Elliptic Curve Cryptography - Digital Signature Algorithm'}
         </Text>
 
         <Divider style={{ margin: '16px 0' }} />

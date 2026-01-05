@@ -32,7 +32,6 @@ const AESPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="AES Encryption/Decryption Tool"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 234 }}
     >
       <CipherTool />
     </PageLayout>

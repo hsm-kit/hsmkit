@@ -221,7 +221,7 @@ export interface PinBlockOptions {
 /**
  * 处理 PAN：取最右侧 12 位（不包含最后一位校验位）
  */
-export const processPAN = (pan: string): string => {
+const processPAN = (pan: string): string => {
   const cleanPan = pan.replace(/\s/g, '');
   // 取最右侧 13 位，然后去掉最后一位（校验位），得到 12 位
   return cleanPan.slice(-13, -1);
@@ -253,128 +253,6 @@ export const generatePinBlock = (options: PinBlockOptions): string => {
   return result;
 };
 
-/**
- * TR-31 Key Block 解析器
- */
-export interface TR31ParseResult {
-  version: string;
-  length: number;
-  keyUsage: string;
-  algorithm: string;
-  mode: string;
-  keyVersion: string;
-  exportability: string;
-  header: string;
-  raw: string;
-  optionalBlocks?: string;
-}
-
-export const parseTR31KeyBlock = (keyBlock: string): TR31ParseResult => {
-  const clean = cleanHexInput(keyBlock);
-
-  if (clean.length < 16) {
-    throw new Error('TR-31 key block too short (minimum 16 characters)');
-  }
-
-  // 验证长度是否为偶数（十六进制字节对齐）
-  if (clean.length % 2 !== 0) {
-    throw new Error('TR-31 key block length must be even');
-  }
-
-  const version = clean[0];
-  const lengthStr = clean.substring(1, 5);
-  const length = parseInt(lengthStr, 10);
-  
-  // 验证长度字段是否为有效数字
-  if (isNaN(length)) {
-    throw new Error('Invalid length field in TR-31 header');
-  }
-
-  const keyUsage = clean.substring(5, 7);
-  const algorithm = clean[7];
-  const mode = clean[8];
-  const keyVersion = clean.substring(9, 11);
-  const exportability = clean[11];
-  
-  // 可选块从位置 12 开始到位置 16（不含）
-  const optionalBlocks = clean.substring(12, 16);
-
-  // 映射表
-  const keyUsageMap: Record<string, string> = {
-    'B0': 'BDK - Base Derivation Key',
-    'D0': 'Data Encryption',
-    'D1': 'Asymmetric Data',
-    'K0': 'KEK - Key Encryption',
-    'K1': 'TR-31 KBPK',
-    'M0': 'MAC Generation',
-    'M1': 'ISO 16609 MAC',
-    'P0': 'PIN Encryption',
-    'V0': 'PIN Verification (KPV)',
-    'V1': 'CVV/CSC Verification',
-    'S0': 'Signature Key'
-  };
-
-  const algorithmMap: Record<string, string> = {
-    'D': 'DES',
-    'T': '3DES',
-    'A': 'AES',
-    'R': 'RSA',
-    'E': 'ECC'
-  };
-
-  const versionMap: Record<string, string> = {
-    'A': 'Version A',
-    'B': 'Version B (Baseline)',
-    'C': 'Version C',
-    'D': 'Version D'
-  };
-
-  return {
-    version: versionMap[version] || `Unknown (${version})`,
-    length,
-    keyUsage: keyUsageMap[keyUsage] || keyUsage,
-    algorithm: algorithmMap[algorithm] || algorithm,
-    mode: mode === 'B' ? 'CBC' : mode === 'E' ? 'ECB' : mode,
-    keyVersion,
-    exportability,
-    header: clean.substring(0, 16),
-    raw: clean,
-    optionalBlocks
-  };
-};
-
-/**
- * TR-31 Header 验证
- */
-export const validateTR31Header = (keyBlock: string): { valid: boolean; error?: string } => {
-  const clean = keyBlock.replace(/\s/g, '').toUpperCase();
-  
-  if (clean.length === 0) {
-    return { valid: true }; // 空输入不显示错误
-  }
-  
-  if (clean.length < 16) {
-    return { valid: false, error: 'Minimum 16 characters required' };
-  }
-  
-  if (clean.length % 2 !== 0) {
-    return { valid: false, error: 'Length must be even' };
-  }
-  
-  // 验证版本字符
-  const version = clean[0];
-  if (!['A', 'B', 'C', 'D'].includes(version)) {
-    return { valid: false, error: 'Invalid version (must be A, B, C, or D)' };
-  }
-  
-  // 验证长度字段是否为数字
-  const lengthStr = clean.substring(1, 5);
-  if (!/^\d{4}$/.test(lengthStr)) {
-    return { valid: false, error: 'Invalid length field (positions 1-4 must be digits)' };
-  }
-  
-  return { valid: true };
-};
 
 /**
  * 密钥分量合成（XOR）
@@ -417,26 +295,6 @@ export const combineKeyComponents = (components: string[]): string => {
   return result;
 };
 
-/**
- * 调整密钥奇偶校验（偶校验）
- */
-export const adjustDesKeyParityEven = (hexKey: string): string => {
-  const bytes = hexKey.match(/.{2}/g) || [];
-  return bytes.map(byte => {
-    let b = parseInt(byte, 16);
-    let bits = 0;
-    for (let i = 1; i < 8; i++) {
-      if (b & (1 << i)) bits++;
-    }
-    // 设置最低位以保证偶数个1
-    if (bits % 2 === 1) {
-      b |= 1;
-    } else {
-      b &= 0xFE;
-    }
-    return b.toString(16).toUpperCase().padStart(2, '0');
-  }).join('');
-};
 
 /**
  * 检查密钥奇偶校验是否正确（奇校验）

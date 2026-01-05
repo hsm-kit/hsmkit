@@ -17,6 +17,7 @@ import {
   CodeOutlined,
   ReadOutlined,
   SafetyOutlined,
+  SafetyCertificateOutlined,
   ThunderboltOutlined,
   SearchOutlined,
   BlockOutlined,
@@ -226,6 +227,15 @@ const HomePage: React.FC = () => {
       color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)',
       category: 'asymmetric',
       keywords: ['rsa', 'der', 'asn1', 'public key', 'pem', 'modulus', 'exponent'],
+    },
+    {
+      icon: <SafetyCertificateOutlined />,
+      title: home.tools.sslCert?.title || 'SSL Certificates',
+      description: home.tools.sslCert?.description || 'Generate RSA keys, create CSRs, self-signed X.509 certificates, and parse certificates.',
+      path: '/ssl-certificates',
+      color: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
+      category: 'asymmetric',
+      keywords: ['ssl', 'certificate', 'x509', 'csr', 'pem', 'rsa', 'pki', 'self-signed', 'openssl'],
     },
     // Payment/Finance Tools
     {

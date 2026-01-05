@@ -31,7 +31,6 @@ const FuturexKeysPage: React.FC = () => {
       }
       toolName="Futurex Keys Encryption/Decryption"
       toolCategory="SecurityApplication"
-      aggregateRating={{ ratingValue: 4.8, ratingCount: 128 }}
     >
       <FuturexKeysTool />
     </PageLayout>

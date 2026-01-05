@@ -32,7 +32,6 @@ const KCVPage: React.FC = () => {
       // Schema.org properties for rich snippets
       toolName="KCV (Key Check Value) Calculator"
       toolCategory="FinanceApplication"
-      aggregateRating={{ ratingValue: 4.9, ratingCount: 278 }}
     >
       <KCVCalculator />
     </PageLayout>
