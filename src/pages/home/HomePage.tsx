@@ -230,8 +230,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <SafetyCertificateOutlined />,
-      title: home.tools.sslCert?.title || 'SSL Certificates',
-      description: home.tools.sslCert?.description || 'Generate RSA keys, create CSRs, self-signed X.509 certificates, and parse certificates.',
+      title: home.tools.sslCert.title,
+      description: home.tools.sslCert.description,
       path: '/ssl-certificates',
       color: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
       category: 'asymmetric',
@@ -276,8 +276,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <SplitCellsOutlined />,
-      title: home.tools.keyshareGenerator?.title || 'Keyshare Generator',
-      description: home.tools.keyshareGenerator?.description || 'Generate key shares for secure key splitting and component management.',
+      title: home.tools.keyshareGenerator.title,
+      description: home.tools.keyshareGenerator.description,
       path: '/keyshare-generator',
       color: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)',
       category: 'payment',
@@ -285,8 +285,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <CloudOutlined />,
-      title: home.tools.futurexKeys?.title || 'Futurex Keys',
-      description: home.tools.futurexKeys?.description || 'Futurex HSM key encryption, decryption and lookup with multiple variants.',
+      title: home.tools.futurexKeys.title,
+      description: home.tools.futurexKeys.description,
       path: '/futurex-keys',
       color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       category: 'payment',
@@ -294,8 +294,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <DatabaseOutlined />,
-      title: home.tools.atallaKeys?.title || 'Atalla Keys (AKB)',
-      description: home.tools.atallaKeys?.description || 'Atalla AKB format key encryption and decryption with MFK.',
+      title: home.tools.atallaKeys.title,
+      description: home.tools.atallaKeys.description,
       path: '/atalla-keys',
       color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
       category: 'payment',
@@ -303,8 +303,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <InsuranceOutlined />,
-      title: home.tools.safeNetKeys?.title || 'SafeNet Keys',
-      description: home.tools.safeNetKeys?.description || 'SafeNet HSM key encryption, decryption and lookup with variants.',
+      title: home.tools.safeNetKeys.title,
+      description: home.tools.safeNetKeys.description,
       path: '/safenet-keys',
       color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
       category: 'payment',
@@ -312,8 +312,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <ContainerOutlined />,
-      title: home.tools.thalesKeys?.title || 'Thales Keys',
-      description: home.tools.thalesKeys?.description || 'Thales HSM LMK key encryption, decryption and lookup.',
+      title: home.tools.thalesKeys.title,
+      description: home.tools.thalesKeys.description,
       path: '/thales-keys',
       color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
       category: 'payment',
@@ -321,8 +321,8 @@ const HomePage: React.FC = () => {
     },
     {
       icon: <PartitionOutlined />,
-      title: home.tools.thalesKeyBlock?.title || 'Thales Key Block',
-      description: home.tools.thalesKeyBlock?.description || 'Encode and decode Thales proprietary key blocks with KBPK.',
+      title: home.tools.thalesKeyBlock.title,
+      description: home.tools.thalesKeyBlock.description,
       path: '/thales-key-block',
       color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
       category: 'payment',
@@ -452,12 +452,12 @@ const HomePage: React.FC = () => {
 
   // 分类定义
   const categories: { key: Category; label: string; color: string }[] = [
-    { key: 'all', label: home.categories?.all || 'All', color: '#722ed1' },
-    { key: 'symmetric', label: home.categories?.symmetric || 'Symmetric', color: '#1677ff' },
-    { key: 'asymmetric', label: home.categories?.asymmetric || 'Asymmetric', color: '#722ed1' },
-    { key: 'payment', label: home.categories?.payment || 'Payment', color: '#faad14' },
-    { key: 'encoding', label: home.categories?.encoding || 'Encoding', color: '#13c2c2' },
-    { key: 'hashing', label: home.categories?.hashing || 'Hashing', color: '#52c41a' },
+    { key: 'all', label: home.categories.all, color: '#722ed1' },
+    { key: 'symmetric', label: home.categories.symmetric, color: '#1677ff' },
+    { key: 'asymmetric', label: home.categories.asymmetric, color: '#722ed1' },
+    { key: 'payment', label: home.categories.payment, color: '#faad14' },
+    { key: 'encoding', label: home.categories.encoding, color: '#13c2c2' },
+    { key: 'hashing', label: home.categories.hashing, color: '#52c41a' },
   ];
 
   // 过滤工具（分类 + 搜索）
@@ -534,7 +534,7 @@ const HomePage: React.FC = () => {
         {/* Search Bar */}
         <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 16px' }}>
           <Input.Search
-            placeholder={home.searchPlaceholder || 'Search tools...'}
+            placeholder={home.searchPlaceholder}
             size="large"
             enterButton={<SearchOutlined style={{ fontSize: 18 }} />}
             allowClear
@@ -601,14 +601,14 @@ const HomePage: React.FC = () => {
           )}
         </Title>
         <Space.Compact>
-          <Tooltip title={home.gridView || 'Grid View'}>
+          <Tooltip title={home.gridView}>
             <Button
               type={viewMode === 'grid' ? 'primary' : 'default'}
               icon={<AppstoreAddOutlined />}
               onClick={() => setViewMode('grid')}
             />
           </Tooltip>
-          <Tooltip title={home.listView || 'List View'}>
+          <Tooltip title={home.listView}>
             <Button
               type={viewMode === 'list' ? 'primary' : 'default'}
               icon={<BarsOutlined />}

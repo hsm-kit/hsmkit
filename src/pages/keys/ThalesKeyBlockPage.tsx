@@ -9,15 +9,7 @@ const { Paragraph } = Typography;
 
 const ThalesKeyBlockPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.thalesKeyBlock || seoContent.en?.thalesKeyBlock || {
-    title: 'Thales Key Block Tool',
-    description: 'Encode and decode Thales proprietary key blocks',
-    keywords: ['Thales', 'Key Block', 'KBPK', 'HSM', 'Key Encryption'],
-    faqTitle: 'FAQ',
-    usageTitle: 'How to Use',
-    faqs: [],
-    usage: [],
-  };
+  const seo = seoContent[language]?.thalesKeyBlock || seoContent.en.thalesKeyBlock;
 
   return (
     <PageLayout

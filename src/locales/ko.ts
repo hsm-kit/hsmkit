@@ -115,7 +115,7 @@ export default {
     lastUpdated: '최종 업데이트',
     lastUpdatedDate: '{year}년 1월',
     backToHome: '홈으로 돌아가기',
-    contactTitle: '질문이 있으신가요?',
+    contactTitle: '문의하기',
     contactContent: '본 이용약관에 대해 궁금한 점이 있으시면 다음 이메일로 문의해 주세요: ',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: '최종 업데이트',
     lastUpdatedDate: '{year}년 1월',
     backToHome: '홈으로 돌아가기',
-    contactTitle: '질문이 있으신가요?',
+    contactTitle: '문의하기',
     contactContent: '본 면책 조항에 대해 궁금한 점이 있으시면 다음 이메일로 문의해 주세요: ',
   },
 

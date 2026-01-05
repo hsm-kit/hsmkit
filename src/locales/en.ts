@@ -115,7 +115,7 @@ export default {
     lastUpdated: 'Last updated',
     lastUpdatedDate: 'January {year}',
     backToHome: 'Back to Home',
-    contactTitle: 'Questions?',
+    contactTitle: 'Contact Us',
     contactContent: 'If you have any questions about these Terms of Service, please contact us at ',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: 'Last updated',
     lastUpdatedDate: 'January {year}',
     backToHome: 'Back to Home',
-    contactTitle: 'Questions?',
+    contactTitle: 'Contact Us',
     contactContent: 'If you have any questions about this Disclaimer, please contact us at ',
   },
 

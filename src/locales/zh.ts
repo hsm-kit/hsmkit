@@ -115,7 +115,7 @@ export default {
     lastUpdated: '最后更新',
     lastUpdatedDate: '{year} 年 1 月',
     backToHome: '返回首页',
-    contactTitle: '有疑问？',
+    contactTitle: '联系我们',
     contactContent: '如果您对本服务条款有任何疑问，请通过以下邮箱联系我们：',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: '最后更新',
     lastUpdatedDate: '{year} 年 1 月',
     backToHome: '返回首页',
-    contactTitle: '有疑问？',
+    contactTitle: '联系我们',
     contactContent: '如果您对本免责声明有任何疑问，请通过以下邮箱联系我们：',
   },
 

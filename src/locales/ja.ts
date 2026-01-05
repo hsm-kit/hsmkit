@@ -115,7 +115,7 @@ export default {
     lastUpdated: '最終更新',
     lastUpdatedDate: '{year}年1月',
     backToHome: 'ホームに戻る',
-    contactTitle: 'ご質問は？',
+    contactTitle: 'お問い合わせ',
     contactContent: '本利用規約についてご質問がある場合は、以下のメールアドレスまでお問い合わせください：',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: '最終更新',
     lastUpdatedDate: '{year}年1月',
     backToHome: 'ホームに戻る',
-    contactTitle: 'ご質問は？',
+    contactTitle: 'お問い合わせ',
     contactContent: '本免責事項についてご質問がある場合は、以下のメールアドレスまでお問い合わせください：',
   },
 

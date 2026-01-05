@@ -13,9 +13,9 @@ const SafeNetKeysPage: React.FC = () => {
 
   return (
     <PageLayout
-      seoTitle={seo?.title || 'SafeNet Keys Encryption/Decryption'}
-      seoDescription={seo?.description || 'Encrypt and decrypt keys using SafeNet HSM key variant methodology'}
-      seoKeywords={seo?.keywords || 'SafeNet HSM, key encryption, key decryption'}
+      seoTitle={seo.title}
+      seoDescription={seo.description}
+      seoKeywords={seo.keywords}
       canonical="https://hsmkit.com/safenet-keys"
       faqTitle={seo?.faqTitle}
       faqs={seo?.faqs}

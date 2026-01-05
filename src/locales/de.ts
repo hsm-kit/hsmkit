@@ -115,7 +115,7 @@ export default {
     lastUpdated: 'Zuletzt aktualisiert',
     lastUpdatedDate: 'Januar {year}',
     backToHome: 'Zurück zur Startseite',
-    contactTitle: 'Fragen?',
+    contactTitle: 'Kontakt',
     contactContent: 'Wenn Sie Fragen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns bitte unter ',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: 'Zuletzt aktualisiert',
     lastUpdatedDate: 'Januar {year}',
     backToHome: 'Zurück zur Startseite',
-    contactTitle: 'Fragen?',
+    contactTitle: 'Kontakt',
     contactContent: 'Wenn Sie Fragen zu diesem Haftungsausschluss haben, kontaktieren Sie uns bitte unter ',
   },
 

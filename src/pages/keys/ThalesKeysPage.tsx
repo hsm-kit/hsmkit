@@ -9,15 +9,7 @@ const { Paragraph } = Typography;
 
 const ThalesKeysPage: React.FC = () => {
   const { language } = useLanguage();
-  const seo = seoContent[language]?.thalesKeys || seoContent.en?.thalesKeys || {
-    title: 'Thales Keys Encryption/Decryption Tool',
-    description: 'Encrypt and decrypt keys using Thales HSM LMK methodology with various key schemes and variants',
-    keywords: ['Thales', 'HSM', 'LMK', 'Key Encryption', 'Key Decryption', 'Key Scheme', 'Variant'],
-    faqTitle: 'FAQ',
-    usageTitle: 'How to Use',
-    faqs: [],
-    usage: [],
-  };
+  const seo = seoContent[language]?.thalesKeys || seoContent.en.thalesKeys;
 
   return (
     <PageLayout

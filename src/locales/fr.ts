@@ -115,7 +115,7 @@ export default {
     lastUpdated: 'Dernière mise à jour',
     lastUpdatedDate: 'Janvier {year}',
     backToHome: 'Retour à l\'accueil',
-    contactTitle: 'Des questions ?',
+    contactTitle: 'Nous contacter',
     contactContent: 'Si vous avez des questions concernant ces conditions d\'utilisation, veuillez nous contacter à ',
   },
 
@@ -137,7 +137,7 @@ export default {
     lastUpdated: 'Dernière mise à jour',
     lastUpdatedDate: 'Janvier {year}',
     backToHome: 'Retour à l\'accueil',
-    contactTitle: 'Des questions ?',
+    contactTitle: 'Nous contacter',
     contactContent: 'Si vous avez des questions concernant cet avertissement, veuillez nous contacter à ',
   },
 

@@ -17,9 +17,9 @@ const TermsOfServicePage: React.FC = () => {
 
   return (
     <PageLayout
-      seoTitle={content?.seoTitle || 'Terms of Service | HSM Kit'}
-      seoDescription={content?.seoDescription || 'Terms of Service for HSM Kit'}
-      seoKeywords={content?.seoKeywords || 'terms of service, HSM Kit'}
+      seoTitle={content?.seoTitle}
+      seoDescription={content?.seoDescription}
+      seoKeywords={content?.seoKeywords}
       canonical="https://hsmkit.com/terms-of-service"
     >
       <div style={{ maxWidth: 800, margin: '0 auto' }}>
@@ -50,7 +50,7 @@ const TermsOfServicePage: React.FC = () => {
             }}
           >
             <ArrowLeftOutlined />
-            {content.backToHome || 'Back to Home'}
+            {content.backToHome}
           </Link>
 
           {/* Title with icon - better alignment */}
@@ -122,9 +122,9 @@ const TermsOfServicePage: React.FC = () => {
 
           {/* Contact section */}
           <section>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.contactTitle || 'Questions?'}</Title>
+            <Title level={4} style={{ marginBottom: 12 }}>{content.contactTitle}</Title>
             <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>
-              {content.contactContent || 'If you have any questions about these Terms, please contact us at '}
+              {content.contactContent}
               <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea' }}>contact@hsmkit.com</a>
             </Paragraph>
           </section>

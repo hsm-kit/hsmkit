@@ -17,9 +17,9 @@ const PrivacyPolicyPage: React.FC = () => {
 
   return (
     <PageLayout
-      seoTitle={content?.seoTitle || 'Privacy Policy | HSM Kit'}
-      seoDescription={content?.seoDescription || 'Privacy Policy for HSM Kit'}
-      seoKeywords={content?.seoKeywords || 'privacy policy, HSM Kit'}
+      seoTitle={content?.seoTitle}
+      seoDescription={content?.seoDescription}
+      seoKeywords={content?.seoKeywords}
       canonical="https://hsmkit.com/privacy-policy"
     >
       <div style={{ maxWidth: 800, margin: '0 auto' }}>
@@ -50,7 +50,7 @@ const PrivacyPolicyPage: React.FC = () => {
             }}
           >
             <ArrowLeftOutlined />
-            {content.backToHome || 'Back to Home'}
+            {content.backToHome}
           </Link>
 
           {/* Title with icon - better alignment */}
@@ -112,9 +112,9 @@ const PrivacyPolicyPage: React.FC = () => {
 
           {/* Contact section */}
           <section>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.contactTitle || 'Contact Us'}</Title>
+            <Title level={4} style={{ marginBottom: 12 }}>{content.contactTitle}</Title>
             <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>
-              {content.contactContent || 'If you have any questions about this Privacy Policy, please contact us at '}
+              {content.contactContent}
               <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea' }}>contact@hsmkit.com</a>
             </Paragraph>
           </section>
