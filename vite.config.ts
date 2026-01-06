@@ -130,10 +130,7 @@ export default defineConfig({
     ],
     // 排除不需要预构建的依赖
     exclude: [],
-    // 使用 Rolldown 优化选项（rolldown-vite 使用）
-    rolldownOptions: {
-      target: 'es2020',
-    },
+    // rolldown-vite 会自动处理优化，不需要额外配置
   },
   
   // 确保 tree-shaking 正常工作（rolldown 自动处理）
