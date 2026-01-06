@@ -231,7 +231,7 @@ const Base64Tool: React.FC = () => {
 
       {/* Error Display */}
       {encodeError && (
-        <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+        <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
           <Text type="danger">{encodeError}</Text>
         </Card>
       )}
@@ -246,7 +246,7 @@ const Base64Tool: React.FC = () => {
               {t.base64?.encodeResult || 'Base64 Encoded Result'}
             </span>
           }
-          bordered={false}
+          
           style={{ 
             background: isDark 
               ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -362,7 +362,7 @@ const Base64Tool: React.FC = () => {
 
       {/* Error Display */}
       {decodeError && (
-        <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+        <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
           <Text type="danger">{decodeError}</Text>
         </Card>
       )}
@@ -377,7 +377,7 @@ const Base64Tool: React.FC = () => {
               {t.base64?.decodeResult || 'Decoded Result'}
             </span>
           }
-          bordered={false}
+          
           style={{ 
             background: isDark 
               ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -451,7 +451,7 @@ const Base64Tool: React.FC = () => {
 
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
-      <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+      <Card  style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
             {t.base64?.title || 'Base64'}

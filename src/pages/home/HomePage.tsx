@@ -102,7 +102,7 @@ const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, desc
 // 列表视图卡片 - 更紧凑
 const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark }) => (
   <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
-    <Tooltip title={title} placement="top">
+    <Tooltip title={title} placement="top" mouseLeaveDelay={0}>
       <div
         style={{
           display: 'flex',
@@ -601,14 +601,14 @@ const HomePage: React.FC = () => {
           )}
         </Title>
         <Space.Compact>
-          <Tooltip title={home.gridView}>
+          <Tooltip title={home.gridView} mouseLeaveDelay={0}>
             <Button
               type={viewMode === 'grid' ? 'primary' : 'default'}
               icon={<AppstoreAddOutlined />}
               onClick={() => setViewMode('grid')}
             />
           </Tooltip>
-          <Tooltip title={home.listView}>
+          <Tooltip title={home.listView} mouseLeaveDelay={0}>
             <Button
               type={viewMode === 'list' ? 'primary' : 'default'}
               icon={<BarsOutlined />}
@@ -657,7 +657,7 @@ const HomePage: React.FC = () => {
         </Title>
         <Row gutter={[24, 24]}>
           <Col xs={24} md={8}>
-            <Card bordered={false} style={{ height: '100%', background: isDark ? '#1a3a1a' : '#f0fdf4' }}>
+            <Card style={{ height: '100%', background: isDark ? '#1a3a1a' : '#f0fdf4', border: 'none' }}>
               <Title level={5} style={{ color: isDark ? '#52c41a' : '#166534' }}>🔒 {home.features.clientSide.title}</Title>
               <Text style={{ color: isDark ? '#73d13d' : '#166534' }}>
                 {home.features.clientSide.description}
@@ -665,7 +665,7 @@ const HomePage: React.FC = () => {
             </Card>
           </Col>
           <Col xs={24} md={8}>
-            <Card bordered={false} style={{ height: '100%', background: isDark ? '#111d3a' : '#eff6ff' }}>
+            <Card style={{ height: '100%', background: isDark ? '#111d3a' : '#eff6ff', border: 'none' }}>
               <Title level={5} style={{ color: isDark ? '#1890ff' : '#1e40af' }}>🆓 {home.features.free.title}</Title>
               <Text style={{ color: isDark ? '#40a9ff' : '#1e40af' }}>
                 {home.features.free.description}
@@ -673,7 +673,7 @@ const HomePage: React.FC = () => {
             </Card>
           </Col>
           <Col xs={24} md={8}>
-            <Card bordered={false} style={{ height: '100%', background: isDark ? '#3a2a11' : '#fef3c7' }}>
+            <Card style={{ height: '100%', background: isDark ? '#3a2a11' : '#fef3c7', border: 'none' }}>
               <Title level={5} style={{ color: isDark ? '#faad14' : '#92400e' }}>💼 {home.features.paymentReady.title}</Title>
               <Text style={{ color: isDark ? '#ffc53d' : '#92400e' }}>
                 {home.features.paymentReady.description}

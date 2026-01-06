@@ -76,7 +76,7 @@ const PageLoader: React.FC = () => (
   </div>
 );
 
-// 全局样式：调整子菜单宽度和字体
+// 全局样式：调整子菜单宽度和字体，优化三级菜单的鼠标移动体验
 const globalStyles = `
   .ant-menu-submenu-popup .ant-menu-vertical {
     min-width: 80px !important;
@@ -91,6 +91,29 @@ const globalStyles = `
   .ant-menu-submenu-popup .ant-menu {
     padding: 4px 0 !important;
   }
+  /* 优化三级菜单：减少菜单之间的间隙，让鼠标移动更顺畅 */
+  .ant-menu-submenu-popup {
+    margin: 0 !important;
+  }
+  /* 确保子菜单之间紧密连接，减少间隙 */
+  .ant-menu-submenu-popup .ant-menu-submenu-popup {
+    margin-left: -4px !important;
+    margin-top: -4px !important;
+  }
+  /* 增加菜单项的触发区域，减少误关闭 */
+  .ant-menu-submenu-popup .ant-menu-submenu-title {
+    padding-right: 24px !important;
+  }
+  /* 确保菜单容器之间有重叠，让鼠标移动时不会触发关闭 */
+  .ant-menu-submenu-popup::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    z-index: 1;
+  }
 `;
 
 const contentStyle: React.CSSProperties = {
@@ -100,69 +123,44 @@ const contentStyle: React.CSSProperties = {
   width: '100%',
 };
 
-// Route to menu key mapping
-const routeToKey: Record<string, string> = {
-  '/': 'home',
-  '/asn1-parser': 'pki-asn1',
-  '/ssl-certificates': 'pki-ssl',
-  '/aes-encryption': 'cipher-aes',
-  '/des-encryption': 'cipher-des',
-  '/rsa-encryption': 'cipher-rsa',
-  '/ecc-encryption': 'cipher-ecc',
-  '/fpe-encryption': 'cipher-fpe',
-  '/hashes': 'generic-hashes',
-  '/character-encoding': 'generic-encoding',
-  '/bcd': 'generic-bcd',
-  '/check-digits': 'generic-checkdigits',
-  '/base64': 'generic-base64',
-  '/base94': 'generic-base94',
-  '/message-parser': 'generic-message',
-  '/rsa-der-public-key': 'generic-rsader',
-  '/uuid': 'generic-uuid',
-  // Keys 菜单
-  '/keys-dea': 'keys-dea',
-  '/keyshare-generator': 'keys-keyshare',
-  '/futurex-keys': 'keys-hsm-futurex',
-  '/atalla-keys': 'keys-hsm-atalla',
-  '/safenet-keys': 'keys-hsm-safenet',
-  '/thales-keys': 'keys-hsm-thales',
-  '/thales-key-block': 'keys-blocks-thales',
-  '/tr31-key-block': 'keys-blocks-tr31',
-  '/kcv-calculator': 'kcv',
-  '/pin-block-generator': 'pin',
-};
+// Route configuration - single source of truth
+const routes = [
+  { key: 'home', path: '/' },
+  { key: 'pki-asn1', path: '/asn1-parser' },
+  { key: 'pki-ssl', path: '/ssl-certificates' },
+  { key: 'cipher-aes', path: '/aes-encryption' },
+  { key: 'cipher-des', path: '/des-encryption' },
+  { key: 'cipher-rsa', path: '/rsa-encryption' },
+  { key: 'cipher-ecc', path: '/ecc-encryption' },
+  { key: 'cipher-fpe', path: '/fpe-encryption' },
+  { key: 'generic-hashes', path: '/hashes' },
+  { key: 'generic-encoding', path: '/character-encoding' },
+  { key: 'generic-bcd', path: '/bcd' },
+  { key: 'generic-checkdigits', path: '/check-digits' },
+  { key: 'generic-base64', path: '/base64' },
+  { key: 'generic-base94', path: '/base94' },
+  { key: 'generic-message', path: '/message-parser' },
+  { key: 'generic-rsader', path: '/rsa-der-public-key' },
+  { key: 'generic-uuid', path: '/uuid' },
+  { key: 'keys-dea', path: '/keys-dea' },
+  { key: 'keys-keyshare', path: '/keyshare-generator' },
+  { key: 'keys-hsm-futurex', path: '/futurex-keys' },
+  { key: 'keys-hsm-atalla', path: '/atalla-keys' },
+  { key: 'keys-hsm-safenet', path: '/safenet-keys' },
+  { key: 'keys-hsm-thales', path: '/thales-keys' },
+  { key: 'keys-blocks-thales', path: '/thales-key-block' },
+  { key: 'keys-blocks-tr31', path: '/tr31-key-block' },
+  { key: 'kcv', path: '/kcv-calculator' },
+  { key: 'pin', path: '/pin-block-generator' },
+] as const;
 
-// Menu key to route mapping
-const keyToRoute: Record<string, string> = {
-  'home': '/',
-  'pki-asn1': '/asn1-parser',
-  'pki-ssl': '/ssl-certificates',
-  'cipher-aes': '/aes-encryption',
-  'cipher-des': '/des-encryption',
-  'cipher-rsa': '/rsa-encryption',
-  'cipher-ecc': '/ecc-encryption',
-  'cipher-fpe': '/fpe-encryption',
-  'generic-hashes': '/hashes',
-  'generic-encoding': '/character-encoding',
-  'generic-bcd': '/bcd',
-  'generic-checkdigits': '/check-digits',
-  'generic-base64': '/base64',
-  'generic-base94': '/base94',
-  'generic-message': '/message-parser',
-  'generic-rsader': '/rsa-der-public-key',
-  'generic-uuid': '/uuid',
-  // Keys 菜单
-  'keys-dea': '/keys-dea',
-  'keys-keyshare': '/keyshare-generator',
-  'keys-hsm-futurex': '/futurex-keys',
-  'keys-hsm-atalla': '/atalla-keys',
-  'keys-hsm-safenet': '/safenet-keys',
-  'keys-hsm-thales': '/thales-keys',
-  'keys-blocks-thales': '/thales-key-block',
-  'keys-blocks-tr31': '/tr31-key-block',
-  'kcv': '/kcv-calculator',
-  'pin': '/pin-block-generator',
-};
+// Generate bidirectional mappings from single source
+const routeToKey: Record<string, string> = Object.fromEntries(
+  routes.map(r => [r.path, r.key])
+);
+const keyToRoute: Record<string, string> = Object.fromEntries(
+  routes.map(r => [r.key, r.path])
+);
 
 const App: React.FC = () => {
   const { t } = useLanguage();
@@ -337,6 +335,8 @@ const App: React.FC = () => {
               selectedKeys={[currentKey]} 
               onClick={e => handleMenuClick(e.key)}
               items={items}
+              subMenuOpenDelay={0.1}
+              subMenuCloseDelay={0.05}
               style={{ 
                 flex: 1, 
                 borderBottom: 'none', 
@@ -384,7 +384,7 @@ const App: React.FC = () => {
         placement="right"
         onClose={() => setDrawerVisible(false)}
         open={drawerVisible}
-        width={250}
+        size={250}
       >
         <Menu
           mode="vertical"
@@ -394,6 +394,8 @@ const App: React.FC = () => {
             { label: 'Home', key: 'home', icon: <HomeOutlined /> },
             ...items
           ]}
+          subMenuOpenDelay={0.1}
+          subMenuCloseDelay={0.05}
           style={{ borderRight: 'none', marginBottom: 20 }}
         />
         <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12 }}>

@@ -444,7 +444,7 @@ const ASN1Parser: React.FC = () => {
 
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
-      <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+      <Card  style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
             {t.asn1.title}

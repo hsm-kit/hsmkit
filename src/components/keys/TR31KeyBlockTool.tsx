@@ -99,6 +99,17 @@ const TR31KeyBlockTool: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
   
+  // 检测移动端
+  const [isMobile, setIsMobile] = useState(false);
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   // KBPK state
   const [kbpk, setKbpk] = useState('');
   const [keyBlockVersion, setKeyBlockVersion] = useState<'ansi'>('ansi');
@@ -465,26 +476,48 @@ const TR31KeyBlockTool: React.FC = () => {
               {t.tr31KeyBlock?.header || 'Header'}:
             </Text>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingLeft: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingLeft: 0 }}>
               {/* Version ID */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.versionId || 'Version Id'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.versionId || 'Version Id'}:
+                </Text>
                 <Select
                   value={versionId}
                   onChange={setVersionId}
                   options={VERSION_OPTIONS}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, width: isMobile ? '100%' : 'auto' }}
                 />
               </div>
 
               {/* Key Usage */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.keyUsage || 'Key Usage'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.keyUsage || 'Key Usage'}:
+                </Text>
                 <Select
                   value={keyUsage}
                   onChange={setKeyUsage}
                   options={KEY_USAGE_OPTIONS}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, width: isMobile ? '100%' : 'auto' }}
                   showSearch
                   filterOption={(input, option) =>
                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -493,70 +526,146 @@ const TR31KeyBlockTool: React.FC = () => {
               </div>
 
               {/* Algorithm */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.algorithm || 'Algorithm'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.algorithm || 'Algorithm'}:
+                </Text>
                 <Select
                   value={algorithm}
                   onChange={setAlgorithm}
                   options={ALGORITHM_OPTIONS}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, width: isMobile ? '100%' : 'auto' }}
                 />
               </div>
 
               {/* Mode of Use */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.modeOfUse || 'Mode of Use'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.modeOfUse || 'Mode of Use'}:
+                </Text>
                 <Select
                   value={modeOfUse}
                   onChange={setModeOfUse}
                   options={MODE_OF_USE_OPTIONS}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, width: isMobile ? '100%' : 'auto' }}
                 />
               </div>
 
               {/* Key Version */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.keyVersionNum || 'Key version#'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.keyVersionNum || 'Key version#'}:
+                </Text>
                 <Input
                   value={keyVersion}
                   onChange={e => setKeyVersion(e.target.value.substring(0, 2))}
                   placeholder="00"
                   maxLength={2}
-                  style={{ width: 100, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                  style={{ 
+                    width: isMobile ? '100%' : 100, 
+                    fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
+                  }}
                 />
               </div>
 
               {/* Exportability */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.exportability || 'Exportability'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.exportability || 'Exportability'}:
+                </Text>
                 <Select
                   value={exportability}
                   onChange={setExportability}
                   options={EXPORTABILITY_OPTIONS}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, width: isMobile ? '100%' : 'auto' }}
                 />
               </div>
 
               {/* # Opt. KeyBlocks */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.optKeyBlocks || '# Opt. KeyBlocks'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.optKeyBlocks || '# Opt. KeyBlocks'}:
+                </Text>
                 <Input
                   value={optKeyBlocks}
                   onChange={e => setOptKeyBlocks(e.target.value)}
                   placeholder="11111111C14017E00000"
-                  style={{ flex: 1, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                  style={{ 
+                    flex: 1, 
+                    width: isMobile ? '100%' : 'auto',
+                    fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
+                  }}
                 />
               </div>
 
               {/* Reserved */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.reserved || 'Reserved'}:</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                gap: 12 
+              }}>
+                <Text style={{ 
+                  minWidth: isMobile ? 'auto' : 120,
+                  marginBottom: isMobile ? 4 : 0,
+                  fontSize: isMobile ? '13px' : '14px'
+                }}>
+                  {t.tr31KeyBlock?.reserved || 'Reserved'}:
+                </Text>
                 <Input
                   value={reserved}
                   onChange={e => setReserved(e.target.value.substring(0, 2))}
                   placeholder="00"
                   maxLength={2}
-                  style={{ width: 100, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                  style={{ 
+                    width: isMobile ? '100%' : 100, 
+                    fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
+                  }}
                 />
               </div>
             </div>
@@ -567,13 +676,29 @@ const TR31KeyBlockTool: React.FC = () => {
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.tr31KeyBlock?.optionalHeadersSection || 'Optional Headers'}:
             </Text>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingLeft: 16 }}>
-              <Text style={{ minWidth: 120 }}>{t.tr31KeyBlock?.optionalHeaders || 'Optional Headers'}:</Text>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'flex-start' : 'center', 
+              gap: 12,
+              paddingLeft: 0
+            }}>
+              <Text style={{ 
+                minWidth: isMobile ? 'auto' : 120,
+                marginBottom: isMobile ? 4 : 0,
+                fontSize: isMobile ? '13px' : '14px'
+              }}>
+                {t.tr31KeyBlock?.optionalHeaders || 'Optional Headers'}:
+              </Text>
               <Input
                 value={optionalHeaders}
                 onChange={e => setOptionalHeaders(e.target.value)}
                 placeholder="11111111C14017E00000"
-                style={{ flex: 1, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                style={{ 
+                  flex: 1, 
+                  width: isMobile ? '100%' : 'auto',
+                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
+                }}
               />
             </div>
           </div>
@@ -592,7 +717,7 @@ const TR31KeyBlockTool: React.FC = () => {
 
           {/* Error */}
           {encodeError && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card style={{ borderLeft: '4px solid #ff4d4f', border: 'none' }}>
               <Text type="danger">{encodeError}</Text>
             </Card>
           )}
@@ -605,7 +730,6 @@ const TR31KeyBlockTool: React.FC = () => {
                   <LockOutlined /> {t.tr31KeyBlock?.encodeResult || 'Encoded Key Block'}
                 </span>
               }
-              bordered={false}
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -685,7 +809,7 @@ const TR31KeyBlockTool: React.FC = () => {
 
           {/* Error */}
           {decodeError && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card style={{ borderLeft: '4px solid #ff4d4f', border: 'none' }}>
               <Text type="danger">{decodeError}</Text>
             </Card>
           )}
@@ -698,7 +822,6 @@ const TR31KeyBlockTool: React.FC = () => {
                   <UnlockOutlined /> {t.tr31KeyBlock?.decodeResult || 'Decoded Key Block'}
                 </span>
               }
-              bordered={false}
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -839,7 +962,7 @@ const TR31KeyBlockTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
-        <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+        <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)', border: 'none' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.tr31KeyBlock?.title || 'TR-31 Key Block'}
@@ -858,19 +981,36 @@ const TR31KeyBlockTool: React.FC = () => {
 
           {/* KBPK Input */}
           <div style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-              <Text strong style={{ minWidth: 60 }}>KBPK:</Text>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'flex-start' : 'center', 
+              gap: 12, 
+              marginBottom: 12 
+            }}>
+              <Text strong style={{ 
+                minWidth: isMobile ? 'auto' : 60,
+                marginBottom: isMobile ? 4 : 0,
+                fontSize: isMobile ? '13px' : '14px'
+              }}>
+                KBPK:
+              </Text>
               <Input
                 value={kbpk}
                 onChange={e => setKbpk(e.target.value)}
                 placeholder={t.tr31KeyBlock?.kbpkPlaceholder || 'Enter KBPK (Key Block Protection Key)'}
-                style={{ flex: 1, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                style={{ 
+                  flex: 1, 
+                  width: isMobile ? '100%' : 'auto',
+                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
+                }}
               />
               <Text style={{ 
                 fontSize: '12px', 
                 color: getLengthColor(getKeyLengthHex(kbpk)),
                 fontWeight: getKeyLengthHex(kbpk) > 0 ? 600 : 400,
-                minWidth: 40,
+                minWidth: isMobile ? 'auto' : 40,
+                alignSelf: isMobile ? 'flex-start' : 'center',
               }}>
                 [{getKeyLengthHex(kbpk) || 32}]
               </Text>

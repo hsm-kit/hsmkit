@@ -1338,8 +1338,8 @@ export default {
   seo: {
     home: {
       title: 'HSM Kit - Free Online Encryption & Key Management Tools',
-      description: 'Free online cryptographic tools for HSM key management. Support Thales, Futurex, Atalla, SafeNet HSMs. Calculate KCV, encode TR-31 key blocks, generate secure keys, encrypt with AES/DES/RSA. All calculations performed client-side.',
-      keywords: 'HSM tools, Thales HSM, Futurex HSM, Atalla AKB, SafeNet keys, encryption toolkit, key management, KCV calculator, TR-31 key block, AES encryption, DES encryption, RSA encryption, PIN block, key generator, cryptography tools, payment security, LMK encryption',
+      description: 'Free online cryptographic tools for HSM key management. Support Thales, Futurex, Atalla, SafeNet HSMs. Calculate KCV, encode TR-31 key blocks, generate secure keys, encrypt with AES/DES/RSA. All calculations performed client-side. 100% free, no registration required.',
+      keywords: 'HSM tools, Thales HSM, Futurex HSM, Atalla AKB, SafeNet keys, encryption toolkit, key management, KCV calculator, TR-31 key block, AES encryption, DES encryption, RSA encryption, PIN block, key generator, cryptography tools, payment security, LMK encryption, online encryption tools, free cryptography tools',
       faqTitle: 'Frequently Asked Questions',
       usageTitle: 'About HSM Kit',
       faqs: [
@@ -1359,8 +1359,8 @@ export default {
     },
     asn1: {
       title: 'ASN.1 Parser Online - Free DER/BER Structure Decoder | HSM Kit',
-      description: 'Free online ASN.1 parser and decoder. Parse ASN.1 DER/BER structures, decode X.509 certificates, analyze PKCS formats. Supports hex, Base64, and PEM input with RFC definition matching.',
-      keywords: 'ASN.1 parser, DER decoder, BER decoder, X.509 certificate parser, PKCS decoder, ASN1 online tool, certificate analyzer, PEM parser, Base64 decoder',
+      description: 'Free online ASN.1 parser and decoder. Parse ASN.1 DER/BER structures, decode X.509 certificates, analyze PKCS formats. Supports hex, Base64, and PEM input with RFC definition matching. 100% client-side processing.',
+      keywords: 'ASN.1 parser, DER decoder, BER decoder, X.509 certificate parser, PKCS decoder, ASN1 online tool, certificate analyzer, PEM parser, Base64 decoder, ASN.1 decoder, certificate parser, PKCS parser',
       faqTitle: 'ASN.1 Parser FAQ',
       usageTitle: 'How to Use ASN.1 Parser',
       faqs: [
@@ -1378,8 +1378,8 @@ export default {
     },
     aes: {
       title: 'AES Encryption/Decryption Online - Free AES Calculator | HSM Kit',
-      description: 'Free online AES encryption and decryption tool. Supports AES-128, AES-192, AES-256 with ECB, CBC, CFB, OFB, CTR modes. Calculate KCV, encrypt/decrypt hex or text data securely in your browser.',
-      keywords: 'AES encryption, AES decryption, AES-128, AES-192, AES-256, AES calculator, AES online tool, AES ECB, AES CBC, AES CFB, AES OFB, AES CTR, AES KCV',
+      description: 'Free online AES encryption and decryption tool. Supports AES-128, AES-192, AES-256 with ECB, CBC, CFB, OFB, CTR modes. Calculate KCV, encrypt/decrypt hex or text data securely in your browser. 100% client-side, no data sent to server.',
+      keywords: 'AES encryption, AES decryption, AES-128, AES-192, AES-256, AES calculator, AES online tool, AES ECB, AES CBC, AES CFB, AES OFB, AES CTR, AES KCV, Advanced Encryption Standard, symmetric encryption',
       faqTitle: 'AES Encryption FAQ',
       usageTitle: 'How to Use AES Encryption Tool',
       faqs: [
@@ -1397,8 +1397,8 @@ export default {
     },
     des: {
       title: 'DES/3DES Encryption Online - Free Triple DES Calculator | HSM Kit',
-      description: 'Free online DES and Triple DES (3DES) encryption and decryption tool. Supports DES, 2-key 3DES, 3-key 3DES with ECB/CBC modes. Multiple padding options including PKCS5, ISO 7816, and more.',
-      keywords: 'DES encryption, 3DES encryption, Triple DES, DES decryption, DES calculator, 3DES online tool, TDES, DES ECB, DES CBC, PKCS5 padding',
+      description: 'Free online DES and Triple DES (3DES) encryption and decryption tool. Supports DES, 2-key 3DES, 3-key 3DES with ECB/CBC modes. Multiple padding options including PKCS5, ISO 7816, and more. 100% client-side, secure processing.',
+      keywords: 'DES encryption, 3DES encryption, Triple DES, DES decryption, DES calculator, 3DES online tool, TDES, DES ECB, DES CBC, PKCS5 padding, Data Encryption Standard, payment encryption',
       faqTitle: 'DES/3DES Encryption FAQ',
       usageTitle: 'How to Use DES/3DES Tool',
       faqs: [
@@ -1417,8 +1417,8 @@ export default {
     },
     rsa: {
       title: 'RSA Encryption Online - Free RSA Calculator & Key Generator | HSM Kit',
-      description: 'Free online RSA encryption, decryption, signing, and verification tool. Generate RSA key pairs (1024-4096 bit), encrypt with public key, sign with private key. Supports PKCS#1 and OAEP padding.',
-      keywords: 'RSA encryption, RSA decryption, RSA key generator, RSA calculator, RSA online tool, RSA signing, RSA verification, public key encryption, PKCS1, OAEP',
+      description: 'Free online RSA encryption, decryption, signing, and verification tool. Generate RSA key pairs (1024-4096 bit), encrypt with public key, sign with private key. Supports PKCS#1 and OAEP padding. All operations client-side.',
+      keywords: 'RSA encryption, RSA decryption, RSA key generator, RSA calculator, RSA online tool, RSA signing, RSA verification, public key encryption, PKCS1, OAEP, asymmetric encryption, digital signature',
       faqTitle: 'RSA Encryption FAQ',
       usageTitle: 'How to Use RSA Tool',
       faqs: [
@@ -1437,8 +1437,8 @@ export default {
     },
     ecc: {
       title: 'ECC/ECDSA Online Tool - Elliptic Curve Cryptography | HSM Kit',
-      description: 'Free online ECC (Elliptic Curve Cryptography) tool. Generate ECDSA key pairs, sign and verify data with secp256k1, P-256, P-384 curves. Compact keys with strong security for modern applications.',
-      keywords: 'ECC encryption, ECDSA, elliptic curve, secp256k1, P-256, P-384, ECC key generator, ECDSA signing, ECDSA verification, Bitcoin cryptography',
+      description: 'Free online ECC (Elliptic Curve Cryptography) tool. Generate ECDSA key pairs, sign and verify data with secp256k1, P-256, P-384 curves. Compact keys with strong security for modern applications. 100% browser-based.',
+      keywords: 'ECC encryption, ECDSA, elliptic curve, secp256k1, P-256, P-384, ECC key generator, ECDSA signing, ECDSA verification, Bitcoin cryptography, Ethereum cryptography, digital signature',
       faqTitle: 'ECC/ECDSA FAQ',
       usageTitle: 'How to Use ECC/ECDSA Tool',
       faqs: [
@@ -1456,8 +1456,8 @@ export default {
     },
     fpe: {
       title: 'Format-Preserving Encryption (FPE) Online - FF1/FF3-1 Tool | HSM Kit',
-      description: 'Free online Format-Preserving Encryption tool implementing NIST SP 800-38G. Encrypt data while preserving format and length. Ideal for tokenizing credit card numbers, SSNs, and other structured data.',
-      keywords: 'FPE, format preserving encryption, FF1, FF3, FF3-1, NIST 800-38G, tokenization, credit card encryption, data masking, PCI DSS',
+      description: 'Free online Format-Preserving Encryption tool implementing NIST SP 800-38G. Encrypt data while preserving format and length. Ideal for tokenizing credit card numbers, SSNs, and other structured data. PCI DSS compliant.',
+      keywords: 'FPE, format preserving encryption, FF1, FF3, FF3-1, NIST 800-38G, tokenization, credit card encryption, data masking, PCI DSS, data tokenization, structured data encryption',
       faqTitle: 'Format-Preserving Encryption FAQ',
       usageTitle: 'How to Use FPE Tool',
       faqs: [
@@ -1475,8 +1475,8 @@ export default {
     },
     keyGenerator: {
       title: 'Secure Key Generator Online - Random AES/DES Key Generator | HSM Kit',
-      description: 'Free online cryptographic key generator. Generate secure random keys for AES, DES, 3DES encryption. Key combination (XOR), parity adjustment, and key validation tools included.',
-      keywords: 'key generator, random key, AES key generator, DES key generator, 3DES key generator, cryptographic key, secure random, key combination, XOR keys, parity bits',
+      description: 'Free online cryptographic key generator. Generate secure random keys for AES, DES, 3DES encryption. Key combination (XOR), parity adjustment, and key validation tools included. Cryptographically secure random generation.',
+      keywords: 'key generator, random key, AES key generator, DES key generator, 3DES key generator, cryptographic key, secure random, key combination, XOR keys, parity bits, secure key generation, random key generator',
       faqTitle: 'Key Generator FAQ',
       usageTitle: 'How to Use Key Generator',
       faqs: [
@@ -1495,8 +1495,8 @@ export default {
     },
     keyshare: {
       title: 'Keyshare Generator Online - Split Keys into Components | HSM Kit',
-      description: 'Free online keyshare generator for splitting cryptographic keys into multiple components. Enter a key to automatically generate 2-part or 3-part shares with KCV verification. Essential for key ceremonies and custodian distribution.',
-      keywords: 'keyshare generator, key split, key components, XOR keys, key ceremony, key custodian, KCV verification, DES key share, AES key share, payment security, key distribution',
+      description: 'Free online keyshare generator for splitting cryptographic keys into multiple components. Enter a key to automatically generate 2-part or 3-part shares with KCV verification. Essential for key ceremonies and custodian distribution. Secure mode with PIN protection.',
+      keywords: 'keyshare generator, key split, key components, XOR keys, key ceremony, key custodian, KCV verification, DES key share, AES key share, payment security, key distribution, key splitting, key custody',
       faqTitle: 'Keyshare Generator FAQ',
       usageTitle: 'How to Use Keyshare Generator',
       faqs: [
@@ -1516,8 +1516,8 @@ export default {
     },
     futurexKeys: {
       title: 'Futurex Keys Encryption/Decryption Online - HSM Key Variant Tool | HSM Kit',
-      description: 'Free online Futurex HSM key encryption and decryption tool. Encrypt and decrypt keys using MFK (Master File Key) with modifier variants (0-F, 1A-1F). Supports Futurex, IBM, Atalla, and VISA key variant methods. Key Lookup finds the correct modifier by KCV matching.',
-      keywords: 'Futurex HSM, key encryption, key decryption, MFK, master file key, key variant, modifier, HSM tools, payment security, key management, IBM HSM, Atalla HSM, VISA PVK, KCV check, 3DES encryption, key lookup',
+      description: 'Free online Futurex HSM key encryption and decryption tool. Encrypt and decrypt keys using MFK (Master File Key) with modifier variants (0-F, 1A-1F). Supports Futurex, IBM, Atalla, and VISA key variant methods. Key Lookup finds the correct modifier by KCV matching. 100% client-side.',
+      keywords: 'Futurex HSM, key encryption, key decryption, MFK, master file key, key variant, modifier, HSM tools, payment security, key management, IBM HSM, Atalla HSM, VISA PVK, KCV check, 3DES encryption, key lookup, HSM key management',
       faqTitle: 'Futurex Keys FAQ',
       usageTitle: 'How to Use Futurex Keys Tool',
       faqs: [
@@ -1539,8 +1539,8 @@ export default {
     },
     atallaKeys: {
       title: 'Atalla Keys (AKB) Online - HSM Key Encryption/Decryption Tool | HSM Kit',
-      description: 'Free online Atalla HSM key encryption and decryption tool. Encrypt and decrypt keys using AKB (Atalla Key Block) format with MFK and 8-character header. Supports KCV verification and parity checking.',
-      keywords: 'Atalla HSM, AKB, Atalla Key Block, key encryption, key decryption, MFK, master file key, HSM tools, payment security, key management, KCV verification, 3DES encryption, MAC verification',
+      description: 'Free online Atalla HSM key encryption and decryption tool. Encrypt and decrypt keys using AKB (Atalla Key Block) format with MFK and 8-character header. Supports KCV verification and parity checking. All processing in browser.',
+      keywords: 'Atalla HSM, AKB, Atalla Key Block, key encryption, key decryption, MFK, master file key, HSM tools, payment security, key management, KCV verification, 3DES encryption, MAC verification, Atalla key management',
       faqTitle: 'Atalla Keys (AKB) FAQ',
       usageTitle: 'How to Use Atalla Keys Tool',
       faqs: [
@@ -1562,8 +1562,8 @@ export default {
     },
     safenetKeys: {
       title: 'SafeNet Keys Encryption/Decryption Online - HSM Key Variant Tool | HSM Kit',
-      description: 'Free online SafeNet HSM key encryption and decryption tool. Encrypt and decrypt keys using KM Key with Key Format and Variant options. Supports DPK, PPK, MPK, KPK variants. Key Lookup finds the correct variant by KCV matching.',
-      keywords: 'SafeNet HSM, key encryption, key decryption, KM Key, key variant, DPK, PPK, MPK, KPK, HSM tools, payment security, key management, KCV verification, 3DES encryption, key lookup',
+      description: 'Free online SafeNet HSM key encryption and decryption tool. Encrypt and decrypt keys using KM Key with Key Format and Variant options. Supports DPK, PPK, MPK, KPK variants. Key Lookup finds the correct variant by KCV matching. Secure browser-based processing.',
+      keywords: 'SafeNet HSM, key encryption, key decryption, KM Key, key variant, DPK, PPK, MPK, KPK, HSM tools, payment security, key management, KCV verification, 3DES encryption, key lookup, SafeNet key management',
       faqTitle: 'SafeNet Keys FAQ',
       usageTitle: 'How to Use SafeNet Keys Tool',
       faqs: [
@@ -1584,8 +1584,8 @@ export default {
     },
     thalesKeys: {
       title: 'Thales Keys (LMK) Online - HSM Key Encryption/Decryption Tool | HSM Kit',
-      description: 'Free online Thales HSM key encryption and decryption tool. Encrypt and decrypt keys using LMK (Local Master Key) with Key Scheme and Variant options. Supports multiple LMK pairs and variant masks. Key Lookup finds matching decryptions.',
-      keywords: 'Thales HSM, LMK, Local Master Key, key encryption, key decryption, key scheme, key variant, LMK pair, HSM tools, payment security, key management, KCV verification, 3DES encryption, key lookup',
+      description: 'Free online Thales HSM key encryption and decryption tool. Encrypt and decrypt keys using LMK (Local Master Key) with Key Scheme and Variant options. Supports multiple LMK pairs and variant masks. Key Lookup finds matching decryptions. 100% client-side.',
+      keywords: 'Thales HSM, LMK, Local Master Key, key encryption, key decryption, key scheme, key variant, LMK pair, HSM tools, payment security, key management, KCV verification, 3DES encryption, key lookup, Thales key management',
       faqTitle: 'Thales Keys (LMK) FAQ',
       usageTitle: 'How to Use Thales Keys Tool',
       faqs: [
@@ -1607,8 +1607,8 @@ export default {
     },
     thalesKeyBlock: {
       title: 'Thales Key Block Online - Encode/Decode Proprietary Key Blocks | HSM Kit',
-      description: 'Free online Thales Key Block encoder and decoder. Encode and decode Thales proprietary key blocks using KBPK (Key Block Protection Key). Supports 3DES and AES KBPK, various key usages, algorithms, and exportability options.',
-      keywords: 'Thales Key Block, KBPK, Key Block Protection Key, key block encoder, key block decoder, HSM tools, payment security, key management, 3DES, AES, key usage, exportability',
+      description: 'Free online Thales Key Block encoder and decoder. Encode and decode Thales proprietary key blocks using KBPK (Key Block Protection Key). Supports 3DES and AES KBPK, various key usages, algorithms, and exportability options. All processing in browser.',
+      keywords: 'Thales Key Block, KBPK, Key Block Protection Key, key block encoder, key block decoder, HSM tools, payment security, key management, 3DES, AES, key usage, exportability, Thales key block format',
       faqTitle: 'Thales Key Block FAQ',
       usageTitle: 'How to Use Thales Key Block Tool',
       faqs: [
@@ -1628,8 +1628,8 @@ export default {
     },
     tr31: {
       title: 'TR-31 Key Block Encoder/Decoder Online - ANSI X9.143 | HSM Kit',
-      description: 'Free online TR-31 key block encoder and decoder. Wrap and unwrap cryptographic keys using ANSI X9.143 (TR-31) standard with KBPK protection. Supports Version A-E (TDES/AES), all key usages, algorithms, and exportability options.',
-      keywords: 'TR-31, key block, ANSI X9.143, TR31 encoder, TR31 decoder, key block wrapper, KBPK, payment HSM, key usage, key exportability, DUKPT, key management, TDES key wrap, AES key wrap',
+      description: 'Free online TR-31 key block encoder and decoder. Wrap and unwrap cryptographic keys using ANSI X9.143 (TR-31) standard with KBPK protection. Supports Version A-E (TDES/AES), all key usages, algorithms, and exportability options. Perfect for payment security.',
+      keywords: 'TR-31, key block, ANSI X9.143, TR31 encoder, TR31 decoder, key block wrapper, KBPK, payment HSM, key usage, key exportability, DUKPT, key management, TDES key wrap, AES key wrap, payment security, HSM key exchange',
       faqTitle: 'TR-31 Key Block FAQ',
       usageTitle: 'How to Use TR-31 Key Block Tool',
       faqs: [
@@ -1649,8 +1649,8 @@ export default {
     },
     kcv: {
       title: 'KCV Calculator Online - Key Check Value Generator | HSM Kit',
-      description: 'Free online KCV (Key Check Value) calculator for AES and DES/3DES keys. Verify encryption key correctness by calculating the check value. Supports auto parity adjustment for DES keys.',
-      keywords: 'KCV calculator, key check value, KCV generator, AES KCV, DES KCV, 3DES KCV, CMAC, key verification, payment keys',
+      description: 'Free online KCV (Key Check Value) calculator for AES and DES/3DES keys. Verify encryption key correctness by calculating the check value. Supports auto parity adjustment for DES keys. Essential for payment security and key verification.',
+      keywords: 'KCV calculator, key check value, KCV generator, AES KCV, DES KCV, 3DES KCV, CMAC, key verification, payment keys, key check value calculator, HSM key verification',
       faqTitle: 'KCV Calculator FAQ',
       usageTitle: 'How to Use KCV Calculator',
       faqs: [
@@ -1669,8 +1669,8 @@ export default {
     },
     pinBlock: {
       title: 'PIN Block Generator Online - ISO 9564 Format 0/1/3/4 | HSM Kit',
-      description: 'Free online PIN Block generator supporting ISO 9564 formats (Format 0, 1, 3, 4). Generate PIN blocks for payment transactions, ATM, and POS systems. Essential tool for payment security testing.',
-      keywords: 'PIN block, ISO 9564, PIN block format 0, PIN block format 4, payment security, ATM PIN, POS PIN, PIN encryption, card PIN',
+      description: 'Free online PIN Block generator supporting ISO 9564 formats (Format 0, 1, 3, 4). Generate PIN blocks for payment transactions, ATM, and POS systems. Essential tool for payment security testing. 100% client-side processing.',
+      keywords: 'PIN block, ISO 9564, PIN block format 0, PIN block format 4, payment security, ATM PIN, POS PIN, PIN encryption, card PIN, PIN block generator, payment card security',
       faqTitle: 'PIN Block FAQ',
       usageTitle: 'How to Use PIN Block Generator',
       faqs: [
@@ -1690,8 +1690,8 @@ export default {
     // Generic Tools SEO
     hash: {
       title: 'Hash Calculator Online - MD5, SHA-256, SHA-512, BLAKE2 | HSM Kit',
-      description: 'Free online hash calculator supporting MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 and more. Calculate hash values from text or hexadecimal input.',
-      keywords: 'hash calculator, MD5 hash, SHA-256 hash, SHA-512 hash, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, hash generator, checksum calculator',
+      description: 'Free online hash calculator supporting MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 and more. Calculate hash values from text or hexadecimal input. 20+ hash algorithms supported. All processing in browser.',
+      keywords: 'hash calculator, MD5 hash, SHA-256 hash, SHA-512 hash, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, hash generator, checksum calculator, message digest, cryptographic hash',
       faqTitle: 'Hash Calculator FAQ',
       usageTitle: 'How to Use Hash Calculator',
       faqs: [
@@ -1709,8 +1709,8 @@ export default {
     },
     encoding: {
       title: 'Character Encoding Converter Online - ASCII, EBCDIC, Hex | HSM Kit',
-      description: 'Free online character encoding converter. Convert between ASCII, EBCDIC, Hexadecimal, Binary, and ATM Decimal formats. Essential tool for payment system development and mainframe integration.',
-      keywords: 'character encoding, ASCII to EBCDIC, hex converter, binary converter, EBCDIC converter, ATM decimal, encoding converter, mainframe encoding',
+      description: 'Free online character encoding converter. Convert between ASCII, EBCDIC, Hexadecimal, Binary, and ATM Decimal formats. Essential tool for payment system development and mainframe integration. 100% client-side conversion.',
+      keywords: 'character encoding, ASCII to EBCDIC, hex converter, binary converter, EBCDIC converter, ATM decimal, encoding converter, mainframe encoding, payment system encoding, banking encoding',
       faqTitle: 'Character Encoding FAQ',
       usageTitle: 'How to Use Encoding Converter',
       faqs: [
@@ -1727,8 +1727,8 @@ export default {
     },
     bcd: {
       title: 'BCD Encoder/Decoder Online - Binary Coded Decimal | HSM Kit',
-      description: 'Free online BCD (Binary Coded Decimal) encoder and decoder. Convert decimal numbers to BCD format (binary or hex) and decode BCD back to decimal. Used in financial and embedded systems.',
-      keywords: 'BCD encoder, BCD decoder, binary coded decimal, decimal to BCD, BCD to decimal, BCD converter, packed BCD',
+      description: 'Free online BCD (Binary Coded Decimal) encoder and decoder. Convert decimal numbers to BCD format (binary or hex) and decode BCD back to decimal. Used in financial and embedded systems. Perfect for payment terminal integration.',
+      keywords: 'BCD encoder, BCD decoder, binary coded decimal, decimal to BCD, BCD to decimal, BCD converter, packed BCD, financial encoding, payment system encoding',
       faqTitle: 'BCD FAQ',
       usageTitle: 'How to Use BCD Tool',
       faqs: [
@@ -1745,8 +1745,8 @@ export default {
     },
     checkDigits: {
       title: 'Check Digit Calculator Online - Luhn MOD 10, MOD 9 | HSM Kit',
-      description: 'Free online check digit calculator and validator. Generate or verify check digits using Luhn algorithm (MOD 10) and Amex SE MOD 9. Validate credit card numbers, IMEI, and other identifiers.',
-      keywords: 'check digit calculator, Luhn algorithm, MOD 10, MOD 9, credit card validation, IMEI check, checksum calculator, Luhn check',
+      description: 'Free online check digit calculator and validator. Generate or verify check digits using Luhn algorithm (MOD 10) and Amex SE MOD 9. Validate credit card numbers, IMEI, and other identifiers. Essential for payment validation.',
+      keywords: 'check digit calculator, Luhn algorithm, MOD 10, MOD 9, credit card validation, IMEI check, checksum calculator, Luhn check, card number validation, identifier validation',
       faqTitle: 'Check Digits FAQ',
       usageTitle: 'How to Use Check Digit Calculator',
       faqs: [
@@ -1763,8 +1763,8 @@ export default {
     },
     base64: {
       title: 'Base64 Encoder/Decoder Online - Free Base64 Tool | HSM Kit',
-      description: 'Free online Base64 encoder and decoder. Encode text or binary data to Base64 format, or decode Base64 strings back to original format. Essential for data encoding in web applications.',
-      keywords: 'Base64 encoder, Base64 decoder, Base64 encode, Base64 decode, binary to text, text to Base64, data encoding',
+      description: 'Free online Base64 encoder and decoder. Encode text or binary data to Base64 format, or decode Base64 strings back to original format. Essential for data encoding in web applications. Fast and secure browser-based processing.',
+      keywords: 'Base64 encoder, Base64 decoder, Base64 encode, Base64 decode, binary to text, text to Base64, data encoding, Base64 converter, MIME encoding',
       faqTitle: 'Base64 FAQ',
       usageTitle: 'How to Use Base64 Tool',
       faqs: [
@@ -1781,8 +1781,8 @@ export default {
     },
     base94: {
       title: 'Base94 Encoder/Decoder Online - Compact Binary Encoding | HSM Kit',
-      description: 'Free online Base94 encoder and decoder. Encode data using all 94 printable ASCII characters for more compact encoding than Base64. Useful for efficient data storage and transmission.',
-      keywords: 'Base94 encoder, Base94 decoder, Base94 encode, Base94 decode, compact encoding, binary encoding, ASCII encoding',
+      description: 'Free online Base94 encoder and decoder. Encode data using all 94 printable ASCII characters for more compact encoding than Base64. Useful for efficient data storage and transmission. 20% more compact than Base64.',
+      keywords: 'Base94 encoder, Base94 decoder, Base94 encode, Base94 decode, compact encoding, binary encoding, ASCII encoding, efficient encoding, URL-safe encoding',
       faqTitle: 'Base94 FAQ',
       usageTitle: 'How to Use Base94 Tool',
       faqs: [
@@ -1799,8 +1799,8 @@ export default {
     },
     messageParser: {
       title: 'Message Parser Online - ATM NDC, Wincor, ISO 8583 | HSM Kit',
-      description: 'Free online message parser for ATM and financial transactions. Parse ATM NDC, Wincor/Nixdorf, and ISO 8583:1987 message formats. Essential tool for payment system development and debugging.',
-      keywords: 'message parser, ATM NDC, ATM Wincor, ISO 8583, financial message, transaction parser, hex parser, ATM message decoder',
+      description: 'Free online message parser for ATM and financial transactions. Parse ATM NDC, Wincor/Nixdorf, and ISO 8583:1987 message formats. Essential tool for payment system development and debugging. All parsing done client-side.',
+      keywords: 'message parser, ATM NDC, ATM Wincor, ISO 8583, financial message, transaction parser, hex parser, ATM message decoder, payment message parser, financial transaction parser',
       faqTitle: 'Message Parser FAQ',
       usageTitle: 'How to Use Message Parser',
       faqs: [
@@ -1817,8 +1817,8 @@ export default {
     },
     rsaDer: {
       title: 'RSA DER Public Key Encoder/Decoder Online | HSM Kit',
-      description: 'Free online RSA DER public key encoder and decoder. Convert between RSA modulus/exponent and DER ASN.1 format. Support for PEM output and various input encodings (ASCII Hex, Base64, EBCDIC).',
-      keywords: 'RSA DER, RSA public key, DER encoding, ASN.1, PEM format, modulus, exponent, RSA key converter, public key encoder',
+      description: 'Free online RSA DER public key encoder and decoder. Convert between RSA modulus/exponent and DER ASN.1 format. Support for PEM output and various input encodings (ASCII Hex, Base64, EBCDIC). 100% browser-based processing.',
+      keywords: 'RSA DER, RSA public key, DER encoding, ASN.1, PEM format, modulus, exponent, RSA key converter, public key encoder, RSA key parser, certificate key extractor',
       faqTitle: 'RSA DER Public Key FAQ',
       usageTitle: 'How to Use RSA DER Tool',
       faqs: [
@@ -1835,8 +1835,8 @@ export default {
     },
     uuid: {
       title: 'UUID Generator Online - Version 1, 3, 4, 5 | HSM Kit',
-      description: 'Free online UUID generator supporting Version 1 (time-based), Version 3 (MD5), Version 4 (random), and Version 5 (SHA-1). Generate single or batch UUIDs for your applications.',
-      keywords: 'UUID generator, GUID generator, UUID v4, UUID v1, random UUID, unique identifier, UUID online, batch UUID generator',
+      description: 'Free online UUID generator supporting Version 1 (time-based), Version 3 (MD5), Version 4 (random), and Version 5 (SHA-1). Generate single or batch UUIDs for your applications. Cryptographically secure random generation.',
+      keywords: 'UUID generator, GUID generator, UUID v4, UUID v1, random UUID, unique identifier, UUID online, batch UUID generator, unique ID generator, GUID generator online',
       faqTitle: 'UUID Generator FAQ',
       usageTitle: 'How to Use UUID Generator',
       faqs: [
@@ -1854,8 +1854,8 @@ export default {
     },
     sslCert: {
       title: 'SSL Certificates (X509) - Generate Keys, CSR, Self-signed Certs | HSM Kit',
-      description: 'Free online SSL certificate tool. Generate RSA key pairs with encrypted private keys, create Certificate Signing Requests (CSR), generate self-signed X.509 certificates, and parse/analyze certificates. All processing done client-side in your browser.',
-      keywords: 'SSL certificate, X509, CSR generator, self-signed certificate, RSA key generator, certificate parser, PEM, PKI tools, certificate signing request, X.509 certificate, SSL tools, certificate generator',
+      description: 'Free online SSL certificate tool. Generate RSA key pairs with encrypted private keys, create Certificate Signing Requests (CSR), generate self-signed X.509 certificates, and parse/analyze certificates. All processing done client-side in your browser. 100% secure.',
+      keywords: 'SSL certificate, X509, CSR generator, self-signed certificate, RSA key generator, certificate parser, PEM, PKI tools, certificate signing request, X.509 certificate, SSL tools, certificate generator, TLS certificate, HTTPS certificate',
       faqTitle: 'SSL Certificates FAQ',
       usageTitle: 'How to Use SSL Certificates Tool',
       faqs: [

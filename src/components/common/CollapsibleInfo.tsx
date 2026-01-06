@@ -46,15 +46,18 @@ export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
       }
       trigger={['hover', 'click']}
       placement="bottomLeft"
-      overlayStyle={{ maxWidth: 360 }}
-      overlayInnerStyle={{
-        background: isDark 
-          ? 'linear-gradient(135deg, #1a1a1a 0%, #262626 100%)' 
-          : 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
-        border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
-        boxShadow: isDark 
-          ? '0 4px 12px rgba(0,0,0,0.4)' 
-          : '0 4px 12px rgba(0,0,0,0.1)',
+      mouseLeaveDelay={0}
+      styles={{
+        content: {
+          maxWidth: 360,
+          background: isDark 
+            ? 'linear-gradient(135deg, #1a1a1a 0%, #262626 100%)' 
+            : 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
+          border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
+          boxShadow: isDark 
+            ? '0 4px 12px rgba(0,0,0,0.4)' 
+            : '0 4px 12px rgba(0,0,0,0.1)',
+        },
       }}
     >
       <QuestionCircleOutlined

@@ -168,7 +168,7 @@ const UUIDTool: React.FC = () => {
 
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
-      <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+      <Card  style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
             {t.uuid?.title || 'UUID Generator'}
@@ -283,7 +283,7 @@ const UUIDTool: React.FC = () => {
                   </span>
                 </span>
               }
-              bordered={false}
+              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'

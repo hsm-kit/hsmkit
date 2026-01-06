@@ -1318,8 +1318,8 @@ export default {
   seo: {
     home: {
       title: 'HSM Kit - Outils de Cryptage et Gestion de Clés en Ligne Gratuits',
-      description: 'Outils cryptographiques en ligne gratuits. Support des HSM Thales, Futurex, Atalla, SafeNet. Calculer KCV, encoder les blocs de clés TR-31, générer des clés sécurisées, chiffrer avec AES/DES/RSA. Tous les calculs s\'exécutent dans le navigateur.',
-      keywords: 'outils HSM, Thales HSM, Futurex HSM, Atalla AKB, SafeNet clés, boîte à outils de cryptage, gestion des clés, calculateur KCV, bloc de clés TR-31, cryptage AES, cryptage DES, cryptage RSA, bloc PIN, générateur de clés, outils cryptographiques, sécurité des paiements, cryptage LMK',
+      description: 'Outils cryptographiques en ligne gratuits. Support des HSM Thales, Futurex, Atalla, SafeNet. Calculer KCV, encoder les blocs de clés TR-31, générer des clés sécurisées, chiffrer avec AES/DES/RSA. Tous les calculs s\'exécutent dans le navigateur. 100% gratuit, aucune inscription requise.',
+      keywords: 'outils HSM, Thales HSM, Futurex HSM, Atalla AKB, SafeNet clés, boîte à outils de cryptage, gestion des clés, calculateur KCV, bloc de clés TR-31, cryptage AES, cryptage DES, cryptage RSA, bloc PIN, générateur de clés, outils cryptographiques, sécurité des paiements, cryptage LMK, outils de cryptage en ligne, outils cryptographiques gratuits',
       faqTitle: 'Questions Fréquentes',
       usageTitle: 'À propos de HSM Kit',
       faqs: [
@@ -1339,8 +1339,8 @@ export default {
     },
     asn1: {
       title: 'Analyseur ASN.1 en Ligne - Décodeur DER/BER Gratuit | HSM Kit',
-      description: 'Analyseur et décodeur ASN.1 en ligne gratuit. Analyser les structures ASN.1 DER/BER, décoder les certificats X.509, analyser les formats PKCS. Supporte les entrées hex, Base64 et PEM avec correspondance de définition RFC.',
-      keywords: 'analyseur ASN.1, décodeur DER, décodeur BER, analyseur certificat X.509, décodeur PKCS, outil ASN1 en ligne, analyseur de certificats, analyseur PEM',
+      description: 'Analyseur et décodeur ASN.1 en ligne gratuit. Analyser les structures ASN.1 DER/BER, décoder les certificats X.509, analyser les formats PKCS. Supporte les entrées hex, Base64 et PEM avec correspondance de définition RFC. 100% côté client.',
+      keywords: 'analyseur ASN.1, décodeur DER, décodeur BER, analyseur certificat X.509, décodeur PKCS, outil ASN1 en ligne, analyseur de certificats, analyseur PEM, décodeur ASN.1, analyseur de certificats, analyseur PKCS',
       faqTitle: 'FAQ Analyseur ASN.1',
       usageTitle: 'Comment utiliser l\'analyseur ASN.1',
       faqs: [
@@ -1358,8 +1358,8 @@ export default {
     },
     aes: {
       title: 'Cryptage/Décryptage AES en Ligne - Calculateur AES Gratuit | HSM Kit',
-      description: 'Outil de cryptage et décryptage AES en ligne gratuit. Supporte AES-128, AES-192, AES-256 avec les modes ECB, CBC, CFB, OFB, CTR. Calculer KCV, chiffrer/déchiffrer des données hex ou texte en toute sécurité dans votre navigateur.',
-      keywords: 'cryptage AES, décryptage AES, AES-128, AES-192, AES-256, calculateur AES, outil AES en ligne, AES ECB, AES CBC, AES KCV',
+      description: 'Outil de cryptage et décryptage AES en ligne gratuit. Supporte AES-128, AES-192, AES-256 avec les modes ECB, CBC, CFB, OFB, CTR. Calculer KCV, chiffrer/déchiffrer des données hex ou texte en toute sécurité dans votre navigateur. 100% côté client, aucune donnée envoyée au serveur.',
+      keywords: 'cryptage AES, décryptage AES, AES-128, AES-192, AES-256, calculateur AES, outil AES en ligne, AES ECB, AES CBC, AES KCV, Advanced Encryption Standard, cryptage symétrique',
       faqTitle: 'FAQ Cryptage AES',
       usageTitle: 'Comment utiliser l\'outil de cryptage AES',
       faqs: [
@@ -1377,8 +1377,8 @@ export default {
     },
     des: {
       title: 'Cryptage DES/3DES en Ligne - Calculateur Triple DES Gratuit | HSM Kit',
-      description: 'Outil de cryptage et décryptage DES et Triple DES (3DES) en ligne gratuit. Supporte DES, 3DES 2 clés, 3DES 3 clés avec les modes ECB/CBC. Options de remplissage multiples incluant PKCS5, ISO 7816, et plus.',
-      keywords: 'cryptage DES, cryptage 3DES, Triple DES, décryptage DES, calculateur DES, outil 3DES en ligne, TDES, DES ECB, DES CBC',
+      description: 'Outil de cryptage et décryptage DES et Triple DES (3DES) en ligne gratuit. Supporte DES, 3DES 2 clés, 3DES 3 clés avec les modes ECB/CBC. Options de remplissage multiples incluant PKCS5, ISO 7816, et plus. 100% côté client, cryptage sécurisé.',
+      keywords: 'cryptage DES, cryptage 3DES, Triple DES, décryptage DES, calculateur DES, outil 3DES en ligne, TDES, DES ECB, DES CBC, standard de cryptage de données, cryptage de paiement',
       faqTitle: 'FAQ Cryptage DES/3DES',
       usageTitle: 'Comment utiliser l\'outil DES/3DES',
       faqs: [
@@ -1397,8 +1397,8 @@ export default {
     },
     rsa: {
       title: 'Cryptage RSA en Ligne - Calculateur RSA & Générateur de Clés Gratuit | HSM Kit',
-      description: 'Outil de cryptage, décryptage, signature et vérification RSA en ligne gratuit. Générez des paires de clés RSA (1024-4096 bits), chiffrez avec la clé publique, signez avec la clé privée. Supporte les remplissages PKCS#1 et OAEP.',
-      keywords: 'cryptage RSA, décryptage RSA, générateur de clés RSA, calculateur RSA, outil RSA en ligne, signature RSA, vérification RSA, cryptage à clé publique, PKCS1, OAEP',
+      description: 'Outil de cryptage, décryptage, signature et vérification RSA en ligne gratuit. Générez des paires de clés RSA (1024-4096 bits), chiffrez avec la clé publique, signez avec la clé privée. Supporte les remplissages PKCS#1 et OAEP. Toutes les opérations sont effectuées côté client.',
+      keywords: 'cryptage RSA, décryptage RSA, générateur de clés RSA, calculateur RSA, outil RSA en ligne, signature RSA, vérification RSA, cryptage à clé publique, PKCS1, OAEP, cryptage asymétrique, signature numérique',
       faqTitle: 'FAQ Cryptage RSA',
       usageTitle: 'Comment utiliser l\'outil RSA',
       faqs: [
@@ -1417,8 +1417,8 @@ export default {
     },
     ecc: {
       title: 'Outil ECC/ECDSA en Ligne - Cryptographie à Courbes Elliptiques | HSM Kit',
-      description: 'Outil ECC (Cryptographie à Courbes Elliptiques) en ligne gratuit. Générez des paires de clés ECDSA, signez et vérifiez des données avec les courbes secp256k1, P-256, P-384. Clés compactes avec une forte sécurité.',
-      keywords: 'cryptage ECC, ECDSA, courbe elliptique, secp256k1, P-256, P-384, générateur de clés ECC, signature ECDSA, vérification ECDSA, cryptographie Bitcoin',
+      description: 'Outil ECC (Cryptographie à Courbes Elliptiques) en ligne gratuit. Générez des paires de clés ECDSA, signez et vérifiez des données avec les courbes secp256k1, P-256, P-384. Clés compactes avec une forte sécurité. 100% traitement dans le navigateur.',
+      keywords: 'cryptage ECC, ECDSA, courbe elliptique, secp256k1, P-256, P-384, générateur de clés ECC, signature ECDSA, vérification ECDSA, cryptographie Bitcoin, cryptographie Ethereum, signature numérique',
       faqTitle: 'FAQ ECC/ECDSA',
       usageTitle: 'Comment utiliser l\'outil ECC/ECDSA',
       faqs: [
@@ -1436,8 +1436,8 @@ export default {
     },
     fpe: {
       title: 'Cryptage Préservant le Format (FPE) en Ligne - Outil FF1/FF3-1 | HSM Kit',
-      description: 'Outil de Cryptage Préservant le Format en ligne gratuit implémentant NIST SP 800-38G. Chiffrez des données tout en préservant le format et la longueur. Idéal pour la tokenisation des numéros de carte de crédit, SSN et autres données structurées.',
-      keywords: 'FPE, cryptage préservant le format, FF1, FF3, FF3-1, NIST 800-38G, tokenisation, cryptage carte de crédit, masquage de données, PCI DSS',
+      description: 'Outil de Cryptage Préservant le Format en ligne gratuit implémentant NIST SP 800-38G. Chiffrez des données tout en préservant le format et la longueur. Idéal pour la tokenisation des numéros de carte de crédit, SSN et autres données structurées. Conforme PCI DSS.',
+      keywords: 'FPE, cryptage préservant le format, FF1, FF3, FF3-1, NIST 800-38G, tokenisation, cryptage carte de crédit, masquage de données, PCI DSS, tokenisation de données, cryptage de données structurées',
       faqTitle: 'FAQ Cryptage Préservant le Format',
       usageTitle: 'Comment utiliser l\'outil FPE',
       faqs: [
@@ -1455,8 +1455,8 @@ export default {
     },
     keyGenerator: {
       title: 'Générateur de Clés Sécurisé en Ligne - Générateur de Clés AES/DES Aléatoires | HSM Kit',
-      description: 'Générateur de clés cryptographiques en ligne gratuit. Générez des clés aléatoires sécurisées pour le cryptage AES, DES, 3DES. Outils de combinaison de clés (XOR), ajustement de parité et validation de clés inclus.',
-      keywords: 'générateur de clés, clé aléatoire, générateur de clés AES, générateur de clés DES, générateur de clés 3DES, clé cryptographique, aléatoire sécurisé, combinaison de clés, clés XOR',
+      description: 'Générateur de clés cryptographiques en ligne gratuit. Générez des clés aléatoires sécurisées pour le cryptage AES, DES, 3DES. Outils de combinaison de clés (XOR), ajustement de parité et validation de clés inclus. Génération de nombres aléatoires cryptographiquement sécurisés.',
+      keywords: 'générateur de clés, clé aléatoire, générateur de clés AES, générateur de clés DES, générateur de clés 3DES, clé cryptographique, aléatoire sécurisé, combinaison de clés, clés XOR, générateur de clés sécurisé, générateur de clés aléatoires',
       faqTitle: 'FAQ Générateur de Clés',
       usageTitle: 'Comment utiliser le générateur de clés',
       faqs: [
@@ -1475,8 +1475,8 @@ export default {
     },
     keyshare: {
       title: 'Générateur Keyshare en Ligne - Diviser les Clés en Composants | HSM Kit',
-      description: 'Générateur keyshare en ligne gratuit pour diviser des clés cryptographiques en plusieurs composants. Entrez une clé pour générer automatiquement des parts à 2 ou 3 parties avec vérification KCV. Essentiel pour les cérémonies de clés et la distribution aux gardiens.',
-      keywords: 'générateur keyshare, division de clé, composants de clé, clés XOR, cérémonie de clé, gardien de clé, vérification KCV, part de clé DES, part de clé AES, distribution de clé',
+      description: 'Générateur keyshare en ligne gratuit pour diviser des clés cryptographiques en plusieurs composants. Entrez une clé pour générer automatiquement des parts à 2 ou 3 parties avec vérification KCV. Essentiel pour les cérémonies de clés et la distribution aux gardiens. Mode sécurisé avec protection PIN supporté.',
+      keywords: 'générateur keyshare, division de clé, composants de clé, clés XOR, cérémonie de clé, gardien de clé, vérification KCV, part de clé DES, part de clé AES, distribution de clé, division de clé, garde de clé',
       faqTitle: 'FAQ Générateur Keyshare',
       usageTitle: 'Comment utiliser le générateur Keyshare',
       faqs: [
@@ -1496,8 +1496,8 @@ export default {
     },
     tr31: {
       title: 'Encodeur/Décodeur Bloc de Clés TR-31 en Ligne - ANSI X9.143 | HSM Kit',
-      description: 'Encodeur et décodeur de bloc de clés TR-31 en ligne gratuit. Enveloppez et déballez les clés cryptographiques selon la norme ANSI X9.143 (TR-31) avec protection KBPK. Supporte les versions A-E (TDES/AES), toutes les utilisations de clés, algorithmes et options d\'exportabilité.',
-      keywords: 'TR-31, bloc de clés, ANSI X9.143, encodeur TR31, décodeur TR31, enveloppe bloc de clés, KBPK, HSM paiement, utilisation de clé, exportabilité de clé, DUKPT, gestion de clés, enveloppement clé TDES, enveloppement clé AES',
+      description: 'Encodeur et décodeur de bloc de clés TR-31 en ligne gratuit. Enveloppez et déballez les clés cryptographiques selon la norme ANSI X9.143 (TR-31) avec protection KBPK. Supporte les versions A-E (TDES/AES), toutes les utilisations de clés, algorithmes et options d\'exportabilité. Idéal pour la sécurité des paiements.',
+      keywords: 'TR-31, bloc de clés, ANSI X9.143, encodeur TR31, décodeur TR31, enveloppe bloc de clés, KBPK, HSM paiement, utilisation de clé, exportabilité de clé, DUKPT, gestion de clés, enveloppement clé TDES, enveloppement clé AES, sécurité des paiements, échange de clés HSM',
       faqTitle: 'FAQ Bloc de Clés TR-31',
       usageTitle: 'Comment utiliser l\'outil TR-31 Bloc de Clés',
       faqs: [
@@ -1517,8 +1517,8 @@ export default {
     },
     kcv: {
       title: 'Calculateur KCV en Ligne - Générateur de Valeur de Contrôle de Clé | HSM Kit',
-      description: 'Calculateur KCV (Key Check Value) en ligne gratuit pour clés AES et DES/3DES. Vérifiez l\'exactitude des clés de cryptage en calculant la valeur de contrôle. Supporte l\'ajustement automatique de parité pour les clés DES.',
-      keywords: 'calculateur KCV, valeur de contrôle de clé, générateur KCV, AES KCV, DES KCV, 3DES KCV, CMAC, vérification de clé, clés de paiement',
+      description: 'Calculateur KCV (Key Check Value) en ligne gratuit pour clés AES et DES/3DES. Vérifiez l\'exactitude des clés de cryptage en calculant la valeur de contrôle. Supporte l\'ajustement automatique de parité pour les clés DES. Essentiel pour la sécurité des paiements et la vérification des clés.',
+      keywords: 'calculateur KCV, valeur de contrôle de clé, générateur KCV, AES KCV, DES KCV, 3DES KCV, CMAC, vérification de clé, clés de paiement, calculateur de valeur de contrôle de clé, vérification de clé HSM',
       faqTitle: 'FAQ Calculateur KCV',
       usageTitle: 'Comment utiliser le calculateur KCV',
       faqs: [
@@ -1537,8 +1537,8 @@ export default {
     },
     pinBlock: {
       title: 'Générateur de Bloc PIN en Ligne - ISO 9564 Format 0/1/3/4 | HSM Kit',
-      description: 'Générateur de bloc PIN en ligne gratuit supportant les formats ISO 9564 (Format 0, 1, 3, 4). Générez des blocs PIN pour les transactions de paiement, ATM et systèmes POS. Outil essentiel pour les tests de sécurité des paiements.',
-      keywords: 'bloc PIN, ISO 9564, bloc PIN format 0, bloc PIN format 4, sécurité des paiements, PIN ATM, PIN POS, cryptage PIN, PIN carte',
+      description: 'Générateur de bloc PIN en ligne gratuit supportant les formats ISO 9564 (Format 0, 1, 3, 4). Générez des blocs PIN pour les transactions de paiement, ATM et systèmes POS. Outil essentiel pour les tests de sécurité des paiements. 100% côté client.',
+      keywords: 'bloc PIN, ISO 9564, bloc PIN format 0, bloc PIN format 4, sécurité des paiements, PIN ATM, PIN POS, cryptage PIN, PIN carte, générateur de bloc PIN, sécurité des cartes de paiement',
       faqTitle: 'FAQ Bloc PIN',
       usageTitle: 'Comment utiliser le générateur de bloc PIN',
       faqs: [
@@ -1557,8 +1557,8 @@ export default {
     },
     hash: {
       title: 'Calculateur de Hash en Ligne - MD5, SHA-256, SHA-512, BLAKE2 | HSM Kit',
-      description: 'Calculateur de hash en ligne gratuit supportant MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 et plus. Calculer les valeurs de hachage à partir de texte ou d\'entrée hexadécimale.',
-      keywords: 'calculateur de hash, hash MD5, hash SHA-256, hash SHA-512, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, générateur de hash, calculateur de somme de contrôle',
+      description: 'Calculateur de hash en ligne gratuit supportant MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 et plus. Calculer les valeurs de hachage à partir de texte ou d\'entrée hexadécimale. Supporte plus de 20 algorithmes de hachage. Tous les calculs sont effectués dans le navigateur.',
+      keywords: 'calculateur de hash, hash MD5, hash SHA-256, hash SHA-512, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, générateur de hash, calculateur de somme de contrôle, digest de message, hash cryptographique',
       faqTitle: 'FAQ Calculateur de Hash',
       usageTitle: 'Comment utiliser le calculateur de hash',
       faqs: [
@@ -1571,8 +1571,8 @@ export default {
     },
     encoding: {
       title: 'Convertisseur d\'Encodage de Caractères en Ligne - ASCII, EBCDIC, Hex | HSM Kit',
-      description: 'Convertisseur d\'encodage de caractères en ligne gratuit. Conversion entre ASCII, EBCDIC, hexadécimal, binaire et ATM décimal.',
-      keywords: 'encodage de caractères, convertisseur ASCII EBCDIC, convertisseur hex, convertisseur binaire, convertisseur EBCDIC, ATM décimal',
+      description: 'Convertisseur d\'encodage de caractères en ligne gratuit. Conversion entre ASCII, EBCDIC, hexadécimal, binaire et ATM décimal. Essentiel pour le développement de systèmes de paiement et l\'intégration mainframe. 100% conversion côté client.',
+      keywords: 'encodage de caractères, convertisseur ASCII EBCDIC, convertisseur hex, convertisseur binaire, convertisseur EBCDIC, ATM décimal, conversion d\'encodage, encodage système de paiement, encodage bancaire',
       faqTitle: 'FAQ Encodage de Caractères',
       usageTitle: 'Comment utiliser le convertisseur d\'encodage',
       faqs: [
@@ -1585,8 +1585,8 @@ export default {
     },
     bcd: {
       title: 'Encodeur/Décodeur BCD en Ligne | HSM Kit',
-      description: 'Encodeur et décodeur BCD en ligne gratuit. Convertir les nombres décimaux en BCD ou BCD en décimal.',
-      keywords: 'encodeur BCD, décodeur BCD, décimal codé binaire, conversion décimal BCD',
+      description: 'Encodeur et décodeur BCD en ligne gratuit. Convertir les nombres décimaux en BCD ou BCD en décimal. Utilisé dans les systèmes financiers et embarqués. Idéal pour l\'intégration de terminaux de paiement.',
+      keywords: 'encodeur BCD, décodeur BCD, décimal codé binaire, conversion décimal BCD, encodage financier, encodage système de paiement',
       faqTitle: 'FAQ BCD',
       usageTitle: 'Comment utiliser l\'outil BCD',
       faqs: [
@@ -1599,8 +1599,8 @@ export default {
     },
     checkDigits: {
       title: 'Calculateur de Chiffres de Contrôle en Ligne - Luhn MOD 10, MOD 9 | HSM Kit',
-      description: 'Calculateur et validateur de chiffres de contrôle en ligne gratuit. Générer ou vérifier les chiffres de contrôle avec Luhn (MOD 10) et MOD 9.',
-      keywords: 'calculateur de chiffres de contrôle, algorithme Luhn, MOD 10, MOD 9, validation carte de crédit',
+      description: 'Calculateur et validateur de chiffres de contrôle en ligne gratuit. Générer ou vérifier les chiffres de contrôle avec Luhn (MOD 10) et MOD 9. Valide les numéros de carte de crédit, IMEI et autres identifiants. Essentiel pour la validation des paiements.',
+      keywords: 'calculateur de chiffres de contrôle, algorithme Luhn, MOD 10, MOD 9, validation carte de crédit, vérification IMEI, calculateur de somme de contrôle, vérification Luhn, validation numéro de carte, validation d\'identifiant',
       faqTitle: 'FAQ Chiffres de Contrôle',
       usageTitle: 'Comment utiliser le calculateur de chiffres de contrôle',
       faqs: [
@@ -1613,8 +1613,8 @@ export default {
     },
     base64: {
       title: 'Encodeur/Décodeur Base64 en Ligne | HSM Kit',
-      description: 'Encodeur et décodeur Base64 en ligne gratuit. Convertir du texte en Base64 ou Base64 en texte.',
-      keywords: 'encodeur Base64, décodeur Base64, conversion Base64, conversion binaire texte',
+      description: 'Encodeur et décodeur Base64 en ligne gratuit. Convertir du texte en Base64 ou Base64 en texte. Essentiel pour l\'encodage de données d\'applications Web. Traitement rapide et sécurisé dans le navigateur.',
+      keywords: 'encodeur Base64, décodeur Base64, conversion Base64, conversion binaire texte, convertisseur Base64, encodage MIME',
       faqTitle: 'FAQ Base64',
       usageTitle: 'Comment utiliser l\'outil Base64',
       faqs: [
@@ -1627,8 +1627,8 @@ export default {
     },
     base94: {
       title: 'Encodeur/Décodeur Base94 en Ligne | HSM Kit',
-      description: 'Encodeur et décodeur Base94 en ligne gratuit. Encodage compact utilisant les 94 caractères ASCII imprimables.',
-      keywords: 'encodeur Base94, décodeur Base94, encodage compact',
+      description: 'Encodeur et décodeur Base94 en ligne gratuit. Encodage compact utilisant les 94 caractères ASCII imprimables. Environ 20% plus compact que Base64. Utile pour le stockage et la transmission efficaces de données.',
+      keywords: 'encodeur Base94, décodeur Base94, encodage compact, encodage efficace, encodage sûr pour URL',
       faqTitle: 'FAQ Base94',
       usageTitle: 'Comment utiliser l\'outil Base94',
       faqs: [
@@ -1641,8 +1641,8 @@ export default {
     },
     messageParser: {
       title: 'Analyseur de Messages en Ligne - ATM NDC, Wincor, ISO 8583 | HSM Kit',
-      description: 'Analyseur de messages ATM et financiers en ligne gratuit. Analyser les formats de messages ATM NDC, Wincor, ISO 8583.',
-      keywords: 'analyseur de messages, ATM NDC, ATM Wincor, ISO 8583, message financier',
+      description: 'Analyseur de messages ATM et financiers en ligne gratuit. Analyser les formats de messages ATM NDC, Wincor, ISO 8583. Essentiel pour le développement et le débogage de systèmes de paiement. Toutes les analyses sont effectuées dans le navigateur.',
+      keywords: 'analyseur de messages, ATM NDC, ATM Wincor, ISO 8583, message financier, analyseur de transactions, analyseur hex, décodeur de messages ATM, analyseur de messages de paiement, analyseur de transactions financières',
       faqTitle: 'FAQ Analyseur de Messages',
       usageTitle: 'Comment utiliser l\'analyseur de messages',
       faqs: [
@@ -1655,8 +1655,8 @@ export default {
     },
     rsaDer: {
       title: 'Encodeur/Décodeur Clé Publique RSA DER en Ligne | HSM Kit',
-      description: 'Encodeur et décodeur de clé publique RSA DER en ligne gratuit. Convertir entre modulus/exposant et format DER ASN.1.',
-      keywords: 'RSA DER, clé publique RSA, encodage DER, ASN.1, format PEM',
+      description: 'Encodeur et décodeur de clé publique RSA DER en ligne gratuit. Convertir entre modulus/exposant et format DER ASN.1. Supporte la sortie PEM et divers encodages d\'entrée (ASCII Hex, Base64, EBCDIC). 100% traitement dans le navigateur.',
+      keywords: 'RSA DER, clé publique RSA, encodage DER, ASN.1, format PEM, modulus, exposant, convertisseur de clé RSA, encodeur de clé publique, analyseur de clé RSA, extracteur de clé de certificat',
       faqTitle: 'FAQ Clé Publique RSA DER',
       usageTitle: 'Comment utiliser l\'outil RSA DER',
       faqs: [
@@ -1669,8 +1669,8 @@ export default {
     },
     futurexKeys: {
       title: 'Chiffrement/Déchiffrement de Clés Futurex en Ligne - Outil de Variantes de Clés HSM | HSM Kit',
-      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Futurex HSM. Chiffrez et déchiffrez des clés avec MFK (Master File Key) et variantes de modificateur (0-F, 1A-1F). Supporte les méthodes de variantes de clés Futurex, IBM, Atalla et VISA. La recherche de clés trouve le bon modificateur par correspondance KCV.',
-      keywords: 'Futurex HSM, chiffrement de clé, déchiffrement de clé, MFK, master file key, variante de clé, modificateur, outils HSM, sécurité des paiements, gestion des clés, IBM HSM, Atalla HSM, VISA PVK, vérification KCV, chiffrement 3DES, recherche de clé',
+      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Futurex HSM. Chiffrez et déchiffrez des clés avec MFK (Master File Key) et variantes de modificateur (0-F, 1A-1F). Supporte les méthodes de variantes de clés Futurex, IBM, Atalla et VISA. La recherche de clés trouve le bon modificateur par correspondance KCV. 100% côté client.',
+      keywords: 'Futurex HSM, chiffrement de clé, déchiffrement de clé, MFK, master file key, variante de clé, modificateur, outils HSM, sécurité des paiements, gestion des clés, IBM HSM, Atalla HSM, VISA PVK, vérification KCV, chiffrement 3DES, recherche de clé, gestion de clés HSM',
       faqTitle: 'FAQ Clés Futurex',
       usageTitle: 'Comment utiliser l\'outil Clés Futurex',
       faqs: [
@@ -1692,8 +1692,8 @@ export default {
     },
     atallaKeys: {
       title: 'Clés Atalla (AKB) en Ligne - Outil de Chiffrement/Déchiffrement HSM | HSM Kit',
-      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Atalla HSM. Chiffrez et déchiffrez des clés au format AKB (Atalla Key Block). Gestion sécurisée des clés avec MFK et en-tête AKB. Vérification KCV et contrôle de parité supportés.',
-      keywords: 'Atalla HSM, AKB, Atalla Key Block, chiffrement de clé, déchiffrement de clé, MFK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES',
+      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Atalla HSM. Chiffrez et déchiffrez des clés au format AKB (Atalla Key Block). Gestion sécurisée des clés avec MFK et en-tête AKB. Vérification KCV et contrôle de parité supportés. Tous les traitements sont effectués dans le navigateur.',
+      keywords: 'Atalla HSM, AKB, Atalla Key Block, chiffrement de clé, déchiffrement de clé, MFK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES, gestion de clés Atalla',
       faqTitle: 'FAQ Clés Atalla',
       usageTitle: 'Comment utiliser l\'outil Clés Atalla',
       faqs: [
@@ -1713,8 +1713,8 @@ export default {
     },
     safenetKeys: {
       title: 'Chiffrement/Déchiffrement de Clés SafeNet en Ligne - Outil de Variantes de Clés HSM | HSM Kit',
-      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés SafeNet HSM. Chiffrez et déchiffrez des clés avec KM Key et options de format/variante. Supporte les variantes DPK, PPK, MPK, KPK. La recherche de clés trouve la bonne variante par correspondance KCV.',
-      keywords: 'SafeNet HSM, chiffrement de clé, déchiffrement de clé, KM Key, variante de clé, DPK, PPK, MPK, KPK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES, recherche de clé',
+      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés SafeNet HSM. Chiffrez et déchiffrez des clés avec KM Key et options de format/variante. Supporte les variantes DPK, PPK, MPK, KPK. La recherche de clés trouve la bonne variante par correspondance KCV. Traitement sécurisé dans le navigateur.',
+      keywords: 'SafeNet HSM, chiffrement de clé, déchiffrement de clé, KM Key, variante de clé, DPK, PPK, MPK, KPK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES, recherche de clé, gestion de clés SafeNet',
       faqTitle: 'FAQ Clés SafeNet',
       usageTitle: 'Comment utiliser l\'outil Clés SafeNet',
       faqs: [
@@ -1735,8 +1735,8 @@ export default {
     },
     thalesKeys: {
       title: 'Clés Thales (LMK) en Ligne - Outil de Chiffrement/Déchiffrement HSM | HSM Kit',
-      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Thales HSM. Chiffrez et déchiffrez des clés avec LMK (Local Master Key) et options de schéma/variante. Supporte plusieurs paires LMK et masques de variante. La recherche de clés trouve les déchiffrements correspondants.',
-      keywords: 'Thales HSM, LMK, Local Master Key, chiffrement de clé, déchiffrement de clé, schéma de clé, variante de clé, paire LMK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES, recherche de clé',
+      description: 'Outil gratuit en ligne de chiffrement/déchiffrement de clés Thales HSM. Chiffrez et déchiffrez des clés avec LMK (Local Master Key) et options de schéma/variante. Supporte plusieurs paires LMK et masques de variante. La recherche de clés trouve les déchiffrements correspondants. 100% côté client.',
+      keywords: 'Thales HSM, LMK, Local Master Key, chiffrement de clé, déchiffrement de clé, schéma de clé, variante de clé, paire LMK, outils HSM, sécurité des paiements, gestion des clés, vérification KCV, chiffrement 3DES, recherche de clé, gestion de clés Thales',
       faqTitle: 'FAQ Clés Thales (LMK)',
       usageTitle: 'Comment utiliser l\'outil Clés Thales',
       faqs: [
@@ -1758,8 +1758,8 @@ export default {
     },
     thalesKeyBlock: {
       title: 'Bloc de Clé Thales en Ligne - Encodage/Décodage de Blocs Propriétaires | HSM Kit',
-      description: 'Encodeur et décodeur de blocs de clé Thales gratuit en ligne. Encodez et décodez les blocs de clé propriétaires Thales avec KBPK (Key Block Protection Key). Supporte 3DES/AES KBPK, divers usages de clé, algorithmes et options d\'exportabilité.',
-      keywords: 'Bloc de clé Thales, KBPK, Key Block Protection Key, encodeur de bloc de clé, décodeur de bloc de clé, outils HSM, sécurité des paiements, gestion des clés, 3DES, AES, usage de clé, exportabilité',
+      description: 'Encodeur et décodeur de blocs de clé Thales gratuit en ligne. Encodez et décodez les blocs de clé propriétaires Thales avec KBPK (Key Block Protection Key). Supporte 3DES/AES KBPK, divers usages de clé, algorithmes et options d\'exportabilité. Tous les traitements sont effectués dans le navigateur.',
+      keywords: 'Bloc de clé Thales, KBPK, Key Block Protection Key, encodeur de bloc de clé, décodeur de bloc de clé, outils HSM, sécurité des paiements, gestion des clés, 3DES, AES, usage de clé, exportabilité, format de bloc de clé Thales',
       faqTitle: 'FAQ Bloc de Clé Thales',
       usageTitle: 'Comment utiliser l\'outil Bloc de Clé Thales',
       faqs: [
@@ -1779,8 +1779,8 @@ export default {
     },
     uuid: {
       title: 'Générateur UUID en Ligne - Version 1, 3, 4, 5 | HSM Kit',
-      description: 'Générateur UUID en ligne gratuit supportant Version 1 (temporel), 3 (MD5), 4 (aléatoire), 5 (SHA-1).',
-      keywords: 'générateur UUID, générateur GUID, UUID v4, UUID v1, UUID aléatoire',
+      description: 'Générateur UUID en ligne gratuit supportant Version 1 (temporel), 3 (MD5), 4 (aléatoire), 5 (SHA-1). Générez des UUID uniques ou en lot pour les applications. Génération de nombres aléatoires cryptographiquement sécurisés.',
+      keywords: 'générateur UUID, générateur GUID, UUID v4, UUID v1, UUID aléatoire, identifiant unique, UUID en ligne, générateur UUID en lot, générateur d\'ID unique, générateur GUID en ligne',
       faqTitle: 'FAQ Générateur UUID',
       usageTitle: 'Comment utiliser le générateur UUID',
       faqs: [
@@ -1793,8 +1793,8 @@ export default {
     },
     sslCert: {
       title: 'Certificats SSL (X509) - Génération de clés, CSR, Certificats auto-signés | HSM Kit',
-      description: 'Outil de certificat SSL en ligne gratuit. Générez des paires de clés RSA avec des clés privées chiffrées, créez des demandes de signature de certificat (CSR), générez des certificats X.509 auto-signés et analysez les certificats. Tout le traitement est effectué côté client dans votre navigateur.',
-      keywords: 'certificat SSL, X509, générateur CSR, certificat auto-signé, générateur de clé RSA, analyseur de certificat, PEM, outils PKI, demande de signature de certificat, certificat X.509, outils SSL',
+      description: 'Outil de certificat SSL en ligne gratuit. Générez des paires de clés RSA avec des clés privées chiffrées, créez des demandes de signature de certificat (CSR), générez des certificats X.509 auto-signés et analysez les certificats. Tout le traitement est effectué côté client dans votre navigateur. 100% sécurisé.',
+      keywords: 'certificat SSL, X509, générateur CSR, certificat auto-signé, générateur de clé RSA, analyseur de certificat, PEM, outils PKI, demande de signature de certificat, certificat X.509, outils SSL, générateur de certificat, certificat TLS, certificat HTTPS',
       faqTitle: 'FAQ Certificats SSL',
       usageTitle: 'Comment utiliser l\'outil Certificats SSL',
       faqs: [

@@ -540,7 +540,7 @@ const FuturexKeysTool: React.FC = () => {
 
           {/* Error Display */}
           {error && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
               <Text type="danger">{error}</Text>
             </Card>
           )}
@@ -557,7 +557,7 @@ const FuturexKeysTool: React.FC = () => {
                     : (t.futurexKeys?.decryptResult || 'Key Decryption Result')}
                 </span>
               }
-              bordered={false}
+              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -763,7 +763,7 @@ const FuturexKeysTool: React.FC = () => {
 
           {/* Lookup Error */}
           {lookupError && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
               <Text type="danger">{lookupError}</Text>
             </Card>
           )}
@@ -776,7 +776,7 @@ const FuturexKeysTool: React.FC = () => {
                   {t.futurexKeys?.lookupResults || 'Lookup Results'} ({lookupResults.length})
                 </span>
               }
-              bordered={false}
+              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -879,7 +879,7 @@ const FuturexKeysTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
-        <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+        <Card  style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.futurexKeys?.title || 'Futurex Keys Encryption/Decryption'}

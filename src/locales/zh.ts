@@ -1338,8 +1338,8 @@ export default {
   seo: {
     home: {
       title: 'HSM Kit - 免费在线加密与密钥管理工具',
-      description: '免费在线密码学工具套件，支持 Thales、Futurex、Atalla、SafeNet HSM 密钥操作。计算 KCV、编码 TR-31 密钥块、生成安全密钥、AES/DES/RSA 加密。所有计算在浏览器本地执行。',
-      keywords: 'HSM工具, Thales HSM, Futurex HSM, Atalla AKB, SafeNet密钥, 加密工具箱, 密钥管理, KCV计算器, TR-31密钥块, AES加密, DES加密, RSA加密, PIN Block, 密钥生成器, 密码学工具, 支付安全, LMK加密',
+      description: '免费在线密码学工具套件，支持 Thales、Futurex、Atalla、SafeNet HSM 密钥操作。计算 KCV、编码 TR-31 密钥块、生成安全密钥、AES/DES/RSA 加密。所有计算在浏览器本地执行。100% 免费，无需注册。',
+      keywords: 'HSM工具, Thales HSM, Futurex HSM, Atalla AKB, SafeNet密钥, 加密工具箱, 密钥管理, KCV计算器, TR-31密钥块, AES加密, DES加密, RSA加密, PIN Block, 密钥生成器, 密码学工具, 支付安全, LMK加密, 在线加密工具, 免费密码学工具',
       faqTitle: '常见问题',
       usageTitle: '关于 HSM Kit',
       faqs: [
@@ -1359,8 +1359,8 @@ export default {
     },
     asn1: {
       title: 'ASN.1 在线解析器 - 免费 DER/BER 结构解码器 | HSM Kit',
-      description: '免费在线 ASN.1 解析和解码工具。解析 ASN.1 DER/BER 结构，解码 X.509 证书，分析 PKCS 格式。支持十六进制、Base64 和 PEM 输入，带 RFC 定义匹配。',
-      keywords: 'ASN.1解析器, DER解码器, BER解码器, X.509证书解析, PKCS解码器, ASN1在线工具, 证书分析器, PEM解析器',
+      description: '免费在线 ASN.1 解析和解码工具。解析 ASN.1 DER/BER 结构，解码 X.509 证书，分析 PKCS 格式。支持十六进制、Base64 和 PEM 输入，带 RFC 定义匹配。100% 本地处理。',
+      keywords: 'ASN.1解析器, DER解码器, BER解码器, X.509证书解析, PKCS解码器, ASN1在线工具, 证书分析器, PEM解析器, ASN.1解码器, 证书解析器, PKCS解析器',
       faqTitle: 'ASN.1 解析器常见问题',
       usageTitle: '如何使用 ASN.1 解析器',
       faqs: [
@@ -1378,8 +1378,8 @@ export default {
     },
     aes: {
       title: 'AES 在线加密解密 - 免费 AES 计算器 | HSM Kit',
-      description: '免费在线 AES 加密解密工具。支持 AES-128、AES-192、AES-256，ECB、CBC、CFB、OFB、CTR 模式。计算 KCV，在浏览器中安全加密/解密十六进制或文本数据。',
-      keywords: 'AES加密, AES解密, AES-128, AES-192, AES-256, AES计算器, AES在线工具, AES ECB, AES CBC, AES KCV',
+      description: '免费在线 AES 加密解密工具。支持 AES-128、AES-192、AES-256，ECB、CBC、CFB、OFB、CTR 模式。计算 KCV，在浏览器中安全加密/解密十六进制或文本数据。100% 本地处理，数据不上传服务器。',
+      keywords: 'AES加密, AES解密, AES-128, AES-192, AES-256, AES计算器, AES在线工具, AES ECB, AES CBC, AES KCV, 高级加密标准, 对称加密',
       faqTitle: 'AES 加密常见问题',
       usageTitle: '如何使用 AES 加密工具',
       faqs: [
@@ -1397,8 +1397,8 @@ export default {
     },
     des: {
       title: 'DES/3DES 在线加密 - 免费三重 DES 计算器 | HSM Kit',
-      description: '免费在线 DES 和三重 DES（3DES）加密解密工具。支持 DES、双密钥 3DES、三密钥 3DES，ECB/CBC 模式。多种填充选项包括 PKCS5、ISO 7816 等。',
-      keywords: 'DES加密, 3DES加密, 三重DES, DES解密, DES计算器, 3DES在线工具, TDES, DES ECB, DES CBC',
+      description: '免费在线 DES 和三重 DES（3DES）加密解密工具。支持 DES、双密钥 3DES、三密钥 3DES，ECB/CBC 模式。多种填充选项包括 PKCS5、ISO 7816 等。100% 本地处理，安全加密。',
+      keywords: 'DES加密, 3DES加密, 三重DES, DES解密, DES计算器, 3DES在线工具, TDES, DES ECB, DES CBC, 数据加密标准, 支付加密',
       faqTitle: 'DES/3DES 加密常见问题',
       usageTitle: '如何使用 DES/3DES 工具',
       faqs: [
@@ -1417,8 +1417,8 @@ export default {
     },
     rsa: {
       title: 'RSA 在线加密 - 免费 RSA 计算器和密钥生成器 | HSM Kit',
-      description: '免费在线 RSA 加密、解密、签名和验证工具。生成 RSA 密钥对（1024-4096位），用公钥加密，用私钥签名。支持 PKCS#1 和 OAEP 填充。',
-      keywords: 'RSA加密, RSA解密, RSA密钥生成器, RSA计算器, RSA在线工具, RSA签名, RSA验证, 公钥加密, PKCS1, OAEP',
+      description: '免费在线 RSA 加密、解密、签名和验证工具。生成 RSA 密钥对（1024-4096位），用公钥加密，用私钥签名。支持 PKCS#1 和 OAEP 填充。所有操作本地处理。',
+      keywords: 'RSA加密, RSA解密, RSA密钥生成器, RSA计算器, RSA在线工具, RSA签名, RSA验证, 公钥加密, PKCS1, OAEP, 非对称加密, 数字签名',
       faqTitle: 'RSA 加密常见问题',
       usageTitle: '如何使用 RSA 工具',
       faqs: [
@@ -1437,8 +1437,8 @@ export default {
     },
     ecc: {
       title: 'ECC/ECDSA 在线工具 - 椭圆曲线密码学 | HSM Kit',
-      description: '免费在线 ECC（椭圆曲线密码学）工具。生成 ECDSA 密钥对，使用 secp256k1、P-256、P-384 曲线签名和验证数据。紧凑密钥，强安全性，适用于现代应用。',
-      keywords: 'ECC加密, ECDSA, 椭圆曲线, secp256k1, P-256, P-384, ECC密钥生成器, ECDSA签名, ECDSA验证, 比特币密码学',
+      description: '免费在线 ECC（椭圆曲线密码学）工具。生成 ECDSA 密钥对，使用 secp256k1、P-256、P-384 曲线签名和验证数据。紧凑密钥，强安全性，适用于现代应用。100% 浏览器处理。',
+      keywords: 'ECC加密, ECDSA, 椭圆曲线, secp256k1, P-256, P-384, ECC密钥生成器, ECDSA签名, ECDSA验证, 比特币密码学, 以太坊密码学, 数字签名',
       faqTitle: 'ECC/ECDSA 常见问题',
       usageTitle: '如何使用 ECC/ECDSA 工具',
       faqs: [
@@ -1456,8 +1456,8 @@ export default {
     },
     fpe: {
       title: '格式保留加密（FPE）在线工具 - FF1/FF3-1 | HSM Kit',
-      description: '免费在线格式保留加密工具，实现 NIST SP 800-38G 标准。加密数据同时保留格式和长度。非常适合标记化信用卡号、身份证号等结构化数据。',
-      keywords: 'FPE, 格式保留加密, FF1, FF3, FF3-1, NIST 800-38G, 标记化, 信用卡加密, 数据脱敏, PCI DSS',
+      description: '免费在线格式保留加密工具，实现 NIST SP 800-38G 标准。加密数据同时保留格式和长度。非常适合标记化信用卡号、身份证号等结构化数据。符合 PCI DSS 标准。',
+      keywords: 'FPE, 格式保留加密, FF1, FF3, FF3-1, NIST 800-38G, 标记化, 信用卡加密, 数据脱敏, PCI DSS, 数据标记化, 结构化数据加密',
       faqTitle: '格式保留加密常见问题',
       usageTitle: '如何使用 FPE 工具',
       faqs: [
@@ -1475,8 +1475,8 @@ export default {
     },
     keyGenerator: {
       title: '安全密钥生成器在线 - 随机 AES/DES 密钥生成器 | HSM Kit',
-      description: '免费在线密码学密钥生成器。为 AES、DES、3DES 加密生成安全随机密钥。包含密钥组合（XOR）、奇偶校验调整和密钥验证工具。',
-      keywords: '密钥生成器, 随机密钥, AES密钥生成器, DES密钥生成器, 3DES密钥生成器, 加密密钥, 安全随机, 密钥组合, XOR密钥',
+      description: '免费在线密码学密钥生成器。为 AES、DES、3DES 加密生成安全随机密钥。包含密钥组合（XOR）、奇偶校验调整和密钥验证工具。密码学安全随机生成。',
+      keywords: '密钥生成器, 随机密钥, AES密钥生成器, DES密钥生成器, 3DES密钥生成器, 加密密钥, 安全随机, 密钥组合, XOR密钥, 安全密钥生成, 随机密钥生成器',
       faqTitle: '密钥生成器常见问题',
       usageTitle: '如何使用密钥生成器',
       faqs: [
@@ -1495,8 +1495,8 @@ export default {
     },
     keyshare: {
       title: '密钥分量生成器在线 - 密钥拆分为多个分量 | HSM Kit',
-      description: '免费在线密钥分量生成器，将加密密钥拆分为多个分量。输入密钥自动生成二分量或三分量份额，支持 KCV 验证。密钥仪式和保管人分发的必备工具。',
-      keywords: '密钥分量生成器, 密钥拆分, 密钥分量, XOR密钥, 密钥仪式, 密钥保管人, KCV验证, DES密钥分量, AES密钥分量, 支付安全, 密钥分发',
+      description: '免费在线密钥分量生成器，将加密密钥拆分为多个分量。输入密钥自动生成二分量或三分量份额，支持 KCV 验证。密钥仪式和保管人分发的必备工具。安全模式支持 PIN 保护。',
+      keywords: '密钥分量生成器, 密钥拆分, 密钥分量, XOR密钥, 密钥仪式, 密钥保管人, KCV验证, DES密钥分量, AES密钥分量, 支付安全, 密钥分发, 密钥分割, 密钥保管',
       faqTitle: '密钥分量生成器常见问题',
       usageTitle: '如何使用密钥分量生成器',
       faqs: [
@@ -1516,8 +1516,8 @@ export default {
     },
     futurexKeys: {
       title: 'Futurex 密钥加密/解密在线工具 - HSM 密钥变体工具 | HSM Kit',
-      description: '免费在线 Futurex HSM 密钥加密和解密工具。使用 MFK（主文件密钥）和修饰符变体（0-F、1A-1F）进行密钥加密和解密。支持 Futurex、IBM、Atalla 和 VISA 密钥变体方法。密钥查找功能可通过 KCV 匹配找到正确的修饰符。',
-      keywords: 'Futurex HSM, 密钥加密, 密钥解密, MFK, 主文件密钥, 密钥变体, 修饰符, HSM工具, 支付安全, 密钥管理, IBM HSM, Atalla HSM, VISA PVK, KCV校验, 3DES加密, 密钥查找',
+      description: '免费在线 Futurex HSM 密钥加密和解密工具。使用 MFK（主文件密钥）和修饰符变体（0-F、1A-1F）进行密钥加密和解密。支持 Futurex、IBM、Atalla 和 VISA 密钥变体方法。密钥查找功能可通过 KCV 匹配找到正确的修饰符。100% 本地处理。',
+      keywords: 'Futurex HSM, 密钥加密, 密钥解密, MFK, 主文件密钥, 密钥变体, 修饰符, HSM工具, 支付安全, 密钥管理, IBM HSM, Atalla HSM, VISA PVK, KCV校验, 3DES加密, 密钥查找, HSM密钥管理',
       faqTitle: 'Futurex 密钥常见问题',
       usageTitle: '如何使用 Futurex 密钥工具',
       faqs: [
@@ -1539,8 +1539,8 @@ export default {
     },
     atallaKeys: {
       title: 'Atalla 密钥 (AKB) 在线 - HSM 密钥加密/解密工具 | HSM Kit',
-      description: '免费在线 Atalla HSM 密钥加密和解密工具。使用 AKB（Atalla 密钥块）格式加密和解密密钥，支持 MFK 和 8 字符头。支持 KCV 验证和奇偶校验。',
-      keywords: 'Atalla HSM, AKB, Atalla密钥块, 密钥加密, 密钥解密, MFK, 主文件密钥, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, MAC验证',
+      description: '免费在线 Atalla HSM 密钥加密和解密工具。使用 AKB（Atalla 密钥块）格式加密和解密密钥，支持 MFK 和 8 字符头。支持 KCV 验证和奇偶校验。所有处理在浏览器中完成。',
+      keywords: 'Atalla HSM, AKB, Atalla密钥块, 密钥加密, 密钥解密, MFK, 主文件密钥, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, MAC验证, Atalla密钥管理',
       faqTitle: 'Atalla 密钥 (AKB) 常见问题',
       usageTitle: '如何使用 Atalla 密钥工具',
       faqs: [
@@ -1562,8 +1562,8 @@ export default {
     },
     safenetKeys: {
       title: 'SafeNet 密钥加密/解密在线 - HSM 密钥变体工具 | HSM Kit',
-      description: '免费在线 SafeNet HSM 密钥加密和解密工具。使用 KM 密钥配合密钥格式和变体选项进行密钥加密和解密。支持 DPK、PPK、MPK、KPK 变体。密钥查找通过 KCV 匹配找到正确的变体。',
-      keywords: 'SafeNet HSM, 密钥加密, 密钥解密, KM密钥, 密钥变体, DPK, PPK, MPK, KPK, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, 密钥查找',
+      description: '免费在线 SafeNet HSM 密钥加密和解密工具。使用 KM 密钥配合密钥格式和变体选项进行密钥加密和解密。支持 DPK、PPK、MPK、KPK 变体。密钥查找通过 KCV 匹配找到正确的变体。安全的浏览器处理。',
+      keywords: 'SafeNet HSM, 密钥加密, 密钥解密, KM密钥, 密钥变体, DPK, PPK, MPK, KPK, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, 密钥查找, SafeNet密钥管理',
       faqTitle: 'SafeNet 密钥常见问题',
       usageTitle: '如何使用 SafeNet 密钥工具',
       faqs: [
@@ -1584,8 +1584,8 @@ export default {
     },
     thalesKeys: {
       title: 'Thales 密钥 (LMK) 在线 - HSM 密钥加密/解密工具 | HSM Kit',
-      description: '免费在线 Thales HSM 密钥加密和解密工具。使用 LMK（本地主密钥）配合密钥方案和变体选项进行密钥加密和解密。支持多种 LMK 对和变体掩码。密钥查找可找到匹配的解密结果。',
-      keywords: 'Thales HSM, LMK, 本地主密钥, 密钥加密, 密钥解密, 密钥方案, 密钥变体, LMK对, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, 密钥查找',
+      description: '免费在线 Thales HSM 密钥加密和解密工具。使用 LMK（本地主密钥）配合密钥方案和变体选项进行密钥加密和解密。支持多种 LMK 对和变体掩码。密钥查找可找到匹配的解密结果。100% 本地处理。',
+      keywords: 'Thales HSM, LMK, 本地主密钥, 密钥加密, 密钥解密, 密钥方案, 密钥变体, LMK对, HSM工具, 支付安全, 密钥管理, KCV验证, 3DES加密, 密钥查找, Thales密钥管理',
       faqTitle: 'Thales 密钥 (LMK) 常见问题',
       usageTitle: '如何使用 Thales 密钥工具',
       faqs: [
@@ -1607,8 +1607,8 @@ export default {
     },
     thalesKeyBlock: {
       title: 'Thales 密钥块在线 - 编码/解码专有密钥块 | HSM Kit',
-      description: '免费在线 Thales 密钥块编码器和解码器。使用 KBPK（密钥块保护密钥）编码和解码 Thales 专有密钥块。支持 3DES 和 AES KBPK、多种密钥用途、算法和可导出性选项。',
-      keywords: 'Thales密钥块, KBPK, 密钥块保护密钥, 密钥块编码器, 密钥块解码器, HSM工具, 支付安全, 密钥管理, 3DES, AES, 密钥用途, 可导出性',
+      description: '免费在线 Thales 密钥块编码器和解码器。使用 KBPK（密钥块保护密钥）编码和解码 Thales 专有密钥块。支持 3DES 和 AES KBPK、多种密钥用途、算法和可导出性选项。所有处理在浏览器中完成。',
+      keywords: 'Thales密钥块, KBPK, 密钥块保护密钥, 密钥块编码器, 密钥块解码器, HSM工具, 支付安全, 密钥管理, 3DES, AES, 密钥用途, 可导出性, Thales密钥块格式',
       faqTitle: 'Thales 密钥块常见问题',
       usageTitle: '如何使用 Thales 密钥块工具',
       faqs: [
@@ -1628,8 +1628,8 @@ export default {
     },
     tr31: {
       title: 'TR-31 密钥块编码器/解码器在线 - ANSI X9.143 | HSM Kit',
-      description: '免费在线 TR-31 密钥块编码器和解码器。使用 KBPK 保护按照 ANSI X9.143 (TR-31) 标准包装和解包加密密钥。支持版本 A-E（TDES/AES）、所有密钥用途、算法和可导出性选项。',
-      keywords: 'TR-31, 密钥块, ANSI X9.143, TR31编码器, TR31解码器, 密钥块包装器, KBPK, 支付HSM, 密钥用途, 密钥可导出性, DUKPT, 密钥管理, TDES密钥包装, AES密钥包装',
+      description: '免费在线 TR-31 密钥块编码器和解码器。使用 KBPK 保护按照 ANSI X9.143 (TR-31) 标准包装和解包加密密钥。支持版本 A-E（TDES/AES）、所有密钥用途、算法和可导出性选项。完美适用于支付安全。',
+      keywords: 'TR-31, 密钥块, ANSI X9.143, TR31编码器, TR31解码器, 密钥块包装器, KBPK, 支付HSM, 密钥用途, 密钥可导出性, DUKPT, 密钥管理, TDES密钥包装, AES密钥包装, 支付安全, HSM密钥交换',
       faqTitle: 'TR-31 密钥块常见问题',
       usageTitle: '如何使用 TR-31 密钥块工具',
       faqs: [
@@ -1649,8 +1649,8 @@ export default {
     },
     kcv: {
       title: 'KCV 计算器在线 - 密钥校验值生成器 | HSM Kit',
-      description: '免费在线 KCV（密钥校验值）计算器，支持 AES 和 DES/3DES 密钥。通过计算校验值验证加密密钥的正确性。支持 DES 密钥的自动奇偶校验调整。',
-      keywords: 'KCV计算器, 密钥校验值, KCV生成器, AES KCV, DES KCV, 3DES KCV, CMAC, 密钥验证, 支付密钥',
+      description: '免费在线 KCV（密钥校验值）计算器，支持 AES 和 DES/3DES 密钥。通过计算校验值验证加密密钥的正确性。支持 DES 密钥的自动奇偶校验调整。支付安全和密钥验证必备。',
+      keywords: 'KCV计算器, 密钥校验值, KCV生成器, AES KCV, DES KCV, 3DES KCV, CMAC, 密钥验证, 支付密钥, 密钥校验值计算器, HSM密钥验证',
       faqTitle: 'KCV 计算器常见问题',
       usageTitle: '如何使用 KCV 计算器',
       faqs: [
@@ -1669,8 +1669,8 @@ export default {
     },
     pinBlock: {
       title: 'PIN Block 生成器在线 - ISO 9564 格式 0/1/3/4 | HSM Kit',
-      description: '免费在线 PIN Block 生成器，支持 ISO 9564 格式（格式 0、1、3、4）。为支付交易、ATM 和 POS 系统生成 PIN Block。支付安全测试的必备工具。',
-      keywords: 'PIN Block, ISO 9564, PIN Block格式0, PIN Block格式4, 支付安全, ATM PIN, POS PIN, PIN加密, 银行卡PIN',
+      description: '免费在线 PIN Block 生成器，支持 ISO 9564 格式（格式 0、1、3、4）。为支付交易、ATM 和 POS 系统生成 PIN Block。支付安全测试的必备工具。100% 本地处理。',
+      keywords: 'PIN Block, ISO 9564, PIN Block格式0, PIN Block格式4, 支付安全, ATM PIN, POS PIN, PIN加密, 银行卡PIN, PIN Block生成器, 支付卡安全',
       faqTitle: 'PIN Block 常见问题',
       usageTitle: '如何使用 PIN Block 生成器',
       faqs: [
@@ -1690,8 +1690,8 @@ export default {
     // Generic Tools SEO
     hash: {
       title: '哈希计算器在线 - MD5, SHA-256, SHA-512, BLAKE2 | HSM Kit',
-      description: '免费在线哈希计算器，支持 MD5、SHA-1、SHA-256、SHA-512、RIPEMD-160、WHIRLPOOL、BLAKE2、CRC32 等算法。从文本或十六进制输入计算哈希值。',
-      keywords: '哈希计算器, MD5哈希, SHA-256哈希, SHA-512哈希, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, 哈希生成器, 校验和计算器',
+      description: '免费在线哈希计算器，支持 MD5、SHA-1、SHA-256、SHA-512、RIPEMD-160、WHIRLPOOL、BLAKE2、CRC32 等算法。从文本或十六进制输入计算哈希值。支持 20+ 种哈希算法。所有处理在浏览器中完成。',
+      keywords: '哈希计算器, MD5哈希, SHA-256哈希, SHA-512哈希, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, 哈希生成器, 校验和计算器, 消息摘要, 密码学哈希',
       faqTitle: '哈希计算器常见问题',
       usageTitle: '如何使用哈希计算器',
       faqs: [
@@ -1709,8 +1709,8 @@ export default {
     },
     encoding: {
       title: '字符编码转换器在线 - ASCII, EBCDIC, Hex | HSM Kit',
-      description: '免费在线字符编码转换器。在 ASCII、EBCDIC、十六进制、二进制和 ATM 十进制格式之间转换。支付系统开发和主机集成的必备工具。',
-      keywords: '字符编码, ASCII转EBCDIC, 十六进制转换器, 二进制转换器, EBCDIC转换器, ATM十进制, 编码转换器, 主机编码',
+      description: '免费在线字符编码转换器。在 ASCII、EBCDIC、十六进制、二进制和 ATM 十进制格式之间转换。支付系统开发和主机集成的必备工具。100% 本地转换。',
+      keywords: '字符编码, ASCII转EBCDIC, 十六进制转换器, 二进制转换器, EBCDIC转换器, ATM十进制, 编码转换器, 主机编码, 支付系统编码, 银行编码',
       faqTitle: '字符编码常见问题',
       usageTitle: '如何使用编码转换器',
       faqs: [
@@ -1727,8 +1727,8 @@ export default {
     },
     bcd: {
       title: 'BCD 编码/解码器在线 - 二进制编码十进制 | HSM Kit',
-      description: '免费在线 BCD（二进制编码十进制）编码器和解码器。将十进制数转换为 BCD 格式（二进制或十六进制），将 BCD 解码回十进制。用于金融和嵌入式系统。',
-      keywords: 'BCD编码器, BCD解码器, 二进制编码十进制, 十进制转BCD, BCD转十进制, BCD转换器, 压缩BCD',
+      description: '免费在线 BCD（二进制编码十进制）编码器和解码器。将十进制数转换为 BCD 格式（二进制或十六进制），将 BCD 解码回十进制。用于金融和嵌入式系统。完美适用于支付终端集成。',
+      keywords: 'BCD编码器, BCD解码器, 二进制编码十进制, 十进制转BCD, BCD转十进制, BCD转换器, 压缩BCD, 金融编码, 支付系统编码',
       faqTitle: 'BCD 常见问题',
       usageTitle: '如何使用 BCD 工具',
       faqs: [
@@ -1745,8 +1745,8 @@ export default {
     },
     checkDigits: {
       title: '校验位计算器在线 - Luhn MOD 10, MOD 9 | HSM Kit',
-      description: '免费在线校验位计算器和验证器。使用 Luhn 算法（MOD 10）和 Amex SE MOD 9 生成或验证校验位。验证信用卡号、IMEI 和其他标识符。',
-      keywords: '校验位计算器, Luhn算法, MOD 10, MOD 9, 信用卡验证, IMEI校验, 校验和计算器, Luhn校验',
+      description: '免费在线校验位计算器和验证器。使用 Luhn 算法（MOD 10）和 Amex SE MOD 9 生成或验证校验位。验证信用卡号、IMEI 和其他标识符。支付验证必备。',
+      keywords: '校验位计算器, Luhn算法, MOD 10, MOD 9, 信用卡验证, IMEI校验, 校验和计算器, Luhn校验, 卡号验证, 标识符验证',
       faqTitle: '校验位常见问题',
       usageTitle: '如何使用校验位计算器',
       faqs: [
@@ -1763,8 +1763,8 @@ export default {
     },
     base64: {
       title: 'Base64 编码/解码器在线 - 免费 Base64 工具 | HSM Kit',
-      description: '免费在线 Base64 编码器和解码器。将文本或二进制数据编码为 Base64 格式，或将 Base64 字符串解码回原始格式。Web 应用数据编码的必备工具。',
-      keywords: 'Base64编码器, Base64解码器, Base64编码, Base64解码, 二进制转文本, 文本转Base64, 数据编码',
+      description: '免费在线 Base64 编码器和解码器。将文本或二进制数据编码为 Base64 格式，或将 Base64 字符串解码回原始格式。Web 应用数据编码的必备工具。快速安全的浏览器处理。',
+      keywords: 'Base64编码器, Base64解码器, Base64编码, Base64解码, 二进制转文本, 文本转Base64, 数据编码, Base64转换器, MIME编码',
       faqTitle: 'Base64 常见问题',
       usageTitle: '如何使用 Base64 工具',
       faqs: [
@@ -1781,8 +1781,8 @@ export default {
     },
     base94: {
       title: 'Base94 编码/解码器在线 - 紧凑二进制编码 | HSM Kit',
-      description: '免费在线 Base94 编码器和解码器。使用全部 94 个可打印 ASCII 字符进行编码，比 Base64 更紧凑。适用于高效数据存储和传输。',
-      keywords: 'Base94编码器, Base94解码器, Base94编码, Base94解码, 紧凑编码, 二进制编码, ASCII编码',
+      description: '免费在线 Base94 编码器和解码器。使用全部 94 个可打印 ASCII 字符进行编码，比 Base64 更紧凑。适用于高效数据存储和传输。比 Base64 紧凑约 20%。',
+      keywords: 'Base94编码器, Base94解码器, Base94编码, Base94解码, 紧凑编码, 二进制编码, ASCII编码, 高效编码, URL安全编码',
       faqTitle: 'Base94 常见问题',
       usageTitle: '如何使用 Base94 工具',
       faqs: [
@@ -1799,8 +1799,8 @@ export default {
     },
     messageParser: {
       title: '报文解析器在线 - ATM NDC, Wincor, ISO 8583 | HSM Kit',
-      description: '免费在线 ATM 和金融交易报文解析器。解析 ATM NDC、Wincor/Nixdorf 和 ISO 8583:1987 报文格式。支付系统开发和调试的必备工具。',
-      keywords: '报文解析器, ATM NDC, ATM Wincor, ISO 8583, 金融报文, 交易解析器, 十六进制解析器, ATM报文解码器',
+      description: '免费在线 ATM 和金融交易报文解析器。解析 ATM NDC、Wincor/Nixdorf 和 ISO 8583:1987 报文格式。支付系统开发和调试的必备工具。所有解析在浏览器中完成。',
+      keywords: '报文解析器, ATM NDC, ATM Wincor, ISO 8583, 金融报文, 交易解析器, 十六进制解析器, ATM报文解码器, 支付消息解析器, 金融交易解析器',
       faqTitle: '报文解析器常见问题',
       usageTitle: '如何使用报文解析器',
       faqs: [
@@ -1817,8 +1817,8 @@ export default {
     },
     rsaDer: {
       title: 'RSA DER 公钥编码/解码器在线 | HSM Kit',
-      description: '免费在线 RSA DER 公钥编码器和解码器。在 RSA 模数/指数和 DER ASN.1 格式之间转换。支持 PEM 输出和各种输入编码（ASCII Hex、Base64、EBCDIC）。',
-      keywords: 'RSA DER, RSA公钥, DER编码, ASN.1, PEM格式, 模数, 指数, RSA密钥转换器, 公钥编码器',
+      description: '免费在线 RSA DER 公钥编码器和解码器。在 RSA 模数/指数和 DER ASN.1 格式之间转换。支持 PEM 输出和各种输入编码（ASCII Hex、Base64、EBCDIC）。100% 浏览器处理。',
+      keywords: 'RSA DER, RSA公钥, DER编码, ASN.1, PEM格式, 模数, 指数, RSA密钥转换器, 公钥编码器, RSA密钥解析器, 证书密钥提取器',
       faqTitle: 'RSA DER 公钥常见问题',
       usageTitle: '如何使用 RSA DER 工具',
       faqs: [
@@ -1835,8 +1835,8 @@ export default {
     },
     uuid: {
       title: 'UUID 生成器在线 - 版本 1, 3, 4, 5 | HSM Kit',
-      description: '免费在线 UUID 生成器，支持版本 1（基于时间）、版本 3（MD5）、版本 4（随机）和版本 5（SHA-1）。为您的应用生成单个或批量 UUID。',
-      keywords: 'UUID生成器, GUID生成器, UUID v4, UUID v1, 随机UUID, 唯一标识符, UUID在线, 批量UUID生成器',
+      description: '免费在线 UUID 生成器，支持版本 1（基于时间）、版本 3（MD5）、版本 4（随机）和版本 5（SHA-1）。为您的应用生成单个或批量 UUID。密码学安全随机生成。',
+      keywords: 'UUID生成器, GUID生成器, UUID v4, UUID v1, 随机UUID, 唯一标识符, UUID在线, 批量UUID生成器, 唯一ID生成器, GUID生成器在线',
       faqTitle: 'UUID 生成器常见问题',
       usageTitle: '如何使用 UUID 生成器',
       faqs: [
@@ -1854,8 +1854,8 @@ export default {
     },
     sslCert: {
       title: 'SSL 证书 (X509) 在线 - 生成密钥、CSR、自签名证书 | HSM Kit',
-      description: '免费在线 SSL 证书工具。生成加密私钥的 RSA 密钥对、创建证书签名请求 (CSR)、生成自签名 X.509 证书，以及解析分析证书。所有处理在浏览器本地完成。',
-      keywords: 'SSL证书, X509, CSR生成器, 自签名证书, RSA密钥生成器, 证书解析器, PEM, PKI工具, 证书签名请求, X.509证书, SSL工具, 证书生成器',
+      description: '免费在线 SSL 证书工具。生成加密私钥的 RSA 密钥对、创建证书签名请求 (CSR)、生成自签名 X.509 证书，以及解析分析证书。所有处理在浏览器本地完成。100% 安全。',
+      keywords: 'SSL证书, X509, CSR生成器, 自签名证书, RSA密钥生成器, 证书解析器, PEM, PKI工具, 证书签名请求, X.509证书, SSL工具, 证书生成器, TLS证书, HTTPS证书',
       faqTitle: 'SSL 证书常见问题',
       usageTitle: '如何使用 SSL 证书工具',
       faqs: [

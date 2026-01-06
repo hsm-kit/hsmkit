@@ -1318,8 +1318,8 @@ export default {
   seo: {
     home: {
       title: 'HSM Kit - Kostenlose Online-Verschlüsselung & Schlüsselverwaltung',
-      description: 'Kostenlose Online-Kryptografie-Tools. Unterstützung für Thales, Futurex, Atalla, SafeNet HSM-Schlüsseloperationen. KCV berechnen, TR-31 Schlüsselblöcke kodieren, sichere Schlüssel generieren, AES/DES/RSA-Verschlüsselung. Alle Berechnungen im Browser.',
-      keywords: 'HSM Tools, Thales HSM, Futurex HSM, Atalla AKB, SafeNet Schlüssel, Verschlüsselungs-Toolkit, Schlüsselverwaltung, KCV Rechner, TR-31 Schlüsselblock, AES Verschlüsselung, DES Verschlüsselung, RSA Verschlüsselung, PIN Block, Schlüsselgenerator, Kryptografie-Tools, Zahlungssicherheit, LMK Verschlüsselung',
+      description: 'Kostenlose Online-Kryptografie-Tools. Unterstützung für Thales, Futurex, Atalla, SafeNet HSM-Schlüsseloperationen. KCV berechnen, TR-31 Schlüsselblöcke kodieren, sichere Schlüssel generieren, AES/DES/RSA-Verschlüsselung. Alle Berechnungen im Browser. 100% kostenlos, keine Registrierung erforderlich.',
+      keywords: 'HSM Tools, Thales HSM, Futurex HSM, Atalla AKB, SafeNet Schlüssel, Verschlüsselungs-Toolkit, Schlüsselverwaltung, KCV Rechner, TR-31 Schlüsselblock, AES Verschlüsselung, DES Verschlüsselung, RSA Verschlüsselung, PIN Block, Schlüsselgenerator, Kryptografie-Tools, Zahlungssicherheit, LMK Verschlüsselung, Online Verschlüsselung Tools, kostenlose Kryptografie Tools',
       faqTitle: 'Häufig gestellte Fragen',
       usageTitle: 'Über HSM Kit',
       faqs: [
@@ -1339,8 +1339,8 @@ export default {
     },
     asn1: {
       title: 'ASN.1 Parser Online - Kostenloser DER/BER Struktur-Decoder | HSM Kit',
-      description: 'Kostenloser Online ASN.1 Parser und Decoder. ASN.1 DER/BER Strukturen parsen, X.509 Zertifikate decodieren, PKCS Formate analysieren. Unterstützt Hex, Base64 und PEM Eingabe mit RFC-Definition-Matching.',
-      keywords: 'ASN.1 Parser, DER Decoder, BER Decoder, X.509 Zertifikat Parser, PKCS Decoder, ASN1 Online Tool, Zertifikat Analyzer, PEM Parser',
+      description: 'Kostenloser Online ASN.1 Parser und Decoder. ASN.1 DER/BER Strukturen parsen, X.509 Zertifikate decodieren, PKCS Formate analysieren. Unterstützt Hex, Base64 und PEM Eingabe mit RFC-Definition-Matching. 100% clientseitig.',
+      keywords: 'ASN.1 Parser, DER Decoder, BER Decoder, X.509 Zertifikat Parser, PKCS Decoder, ASN1 Online Tool, Zertifikat Analyzer, PEM Parser, ASN.1 Decoder, Zertifikat Parser, PKCS Parser',
       faqTitle: 'ASN.1 Parser FAQ',
       usageTitle: 'ASN.1 Parser Anleitung',
       faqs: [
@@ -1358,8 +1358,8 @@ export default {
     },
     aes: {
       title: 'AES Verschlüsselung Online - Kostenloser AES Rechner | HSM Kit',
-      description: 'Kostenloses Online AES Verschlüsselungs- und Entschlüsselungs-Tool. Unterstützt AES-128, AES-192, AES-256 mit ECB, CBC, CFB, OFB, CTR Modi. KCV berechnen, Hex- oder Textdaten sicher im Browser verschlüsseln/entschlüsseln.',
-      keywords: 'AES Verschlüsselung, AES Entschlüsselung, AES-128, AES-192, AES-256, AES Rechner, AES Online Tool, AES ECB, AES CBC, AES KCV',
+      description: 'Kostenloses Online AES Verschlüsselungs- und Entschlüsselungs-Tool. Unterstützt AES-128, AES-192, AES-256 mit ECB, CBC, CFB, OFB, CTR Modi. KCV berechnen, Hex- oder Textdaten sicher im Browser verschlüsseln/entschlüsseln. 100% clientseitig, keine Daten werden an Server gesendet.',
+      keywords: 'AES Verschlüsselung, AES Entschlüsselung, AES-128, AES-192, AES-256, AES Rechner, AES Online Tool, AES ECB, AES CBC, AES KCV, Advanced Encryption Standard, symmetrische Verschlüsselung',
       faqTitle: 'AES Verschlüsselung FAQ',
       usageTitle: 'AES Verschlüsselungs-Tool Anleitung',
       faqs: [
@@ -1377,8 +1377,8 @@ export default {
     },
     des: {
       title: 'DES/3DES Verschlüsselung Online - Kostenloser Triple DES Rechner | HSM Kit',
-      description: 'Kostenloses Online DES und Triple DES (3DES) Verschlüsselungs- und Entschlüsselungs-Tool. Unterstützt DES, 2-Key 3DES, 3-Key 3DES mit ECB/CBC Modi. Mehrere Padding-Optionen einschließlich PKCS5, ISO 7816 und mehr.',
-      keywords: 'DES Verschlüsselung, 3DES Verschlüsselung, Triple DES, DES Entschlüsselung, DES Rechner, 3DES Online Tool, TDES, DES ECB, DES CBC',
+      description: 'Kostenloses Online DES und Triple DES (3DES) Verschlüsselungs- und Entschlüsselungs-Tool. Unterstützt DES, 2-Key 3DES, 3-Key 3DES mit ECB/CBC Modi. Mehrere Padding-Optionen einschließlich PKCS5, ISO 7816 und mehr. 100% clientseitig, sichere Verschlüsselung.',
+      keywords: 'DES Verschlüsselung, 3DES Verschlüsselung, Triple DES, DES Entschlüsselung, DES Rechner, 3DES Online Tool, TDES, DES ECB, DES CBC, Datenverschlüsselungsstandard, Zahlungsverschlüsselung',
       faqTitle: 'DES/3DES Verschlüsselung FAQ',
       usageTitle: 'DES/3DES Tool Anleitung',
       faqs: [
@@ -1397,8 +1397,8 @@ export default {
     },
     rsa: {
       title: 'RSA Verschlüsselung Online - Kostenloser RSA Rechner & Schlüsselgenerator | HSM Kit',
-      description: 'Kostenloses Online RSA Verschlüsselungs-, Entschlüsselungs-, Signatur- und Verifizierungs-Tool. Generieren Sie RSA Schlüsselpaare (1024-4096 Bit), verschlüsseln Sie mit dem öffentlichen Schlüssel, signieren Sie mit dem privaten Schlüssel. Unterstützt PKCS#1 und OAEP Padding.',
-      keywords: 'RSA Verschlüsselung, RSA Entschlüsselung, RSA Schlüsselgenerator, RSA Rechner, RSA Online Tool, RSA Signatur, RSA Verifizierung, Public Key Verschlüsselung, PKCS1, OAEP',
+      description: 'Kostenloses Online RSA Verschlüsselungs-, Entschlüsselungs-, Signatur- und Verifizierungs-Tool. Generieren Sie RSA Schlüsselpaare (1024-4096 Bit), verschlüsseln Sie mit dem öffentlichen Schlüssel, signieren Sie mit dem privaten Schlüssel. Unterstützt PKCS#1 und OAEP Padding. Alle Operationen werden clientseitig durchgeführt.',
+      keywords: 'RSA Verschlüsselung, RSA Entschlüsselung, RSA Schlüsselgenerator, RSA Rechner, RSA Online Tool, RSA Signatur, RSA Verifizierung, Public Key Verschlüsselung, PKCS1, OAEP, asymmetrische Verschlüsselung, digitale Signatur',
       faqTitle: 'RSA Verschlüsselung FAQ',
       usageTitle: 'RSA Tool Anleitung',
       faqs: [
@@ -1417,8 +1417,8 @@ export default {
     },
     ecc: {
       title: 'ECC/ECDSA Online Tool - Elliptische Kurven Kryptografie | HSM Kit',
-      description: 'Kostenloses Online ECC (Elliptische Kurven Kryptografie) Tool. Generieren Sie ECDSA Schlüsselpaare, signieren und verifizieren Sie Daten mit secp256k1, P-256, P-384 Kurven. Kompakte Schlüssel mit starker Sicherheit.',
-      keywords: 'ECC Verschlüsselung, ECDSA, elliptische Kurve, secp256k1, P-256, P-384, ECC Schlüsselgenerator, ECDSA Signatur, ECDSA Verifizierung, Bitcoin Kryptografie',
+      description: 'Kostenloses Online ECC (Elliptische Kurven Kryptografie) Tool. Generieren Sie ECDSA Schlüsselpaare, signieren und verifizieren Sie Daten mit secp256k1, P-256, P-384 Kurven. Kompakte Schlüssel mit starker Sicherheit. 100% Browser-Verarbeitung.',
+      keywords: 'ECC Verschlüsselung, ECDSA, elliptische Kurve, secp256k1, P-256, P-384, ECC Schlüsselgenerator, ECDSA Signatur, ECDSA Verifizierung, Bitcoin Kryptografie, Ethereum Kryptografie, digitale Signatur',
       faqTitle: 'ECC/ECDSA FAQ',
       usageTitle: 'ECC/ECDSA Tool Anleitung',
       faqs: [
@@ -1436,8 +1436,8 @@ export default {
     },
     fpe: {
       title: 'Format-Preserving Encryption (FPE) Online - FF1/FF3-1 Tool | HSM Kit',
-      description: 'Kostenloses Online Format-Preserving Encryption Tool gemäß NIST SP 800-38G. Verschlüsseln Sie Daten unter Beibehaltung von Format und Länge. Ideal für die Tokenisierung von Kreditkartennummern, Sozialversicherungsnummern und anderen strukturierten Daten.',
-      keywords: 'FPE, Format Preserving Encryption, FF1, FF3, FF3-1, NIST 800-38G, Tokenisierung, Kreditkarten Verschlüsselung, Datenmaskierung, PCI DSS',
+      description: 'Kostenloses Online Format-Preserving Encryption Tool gemäß NIST SP 800-38G. Verschlüsseln Sie Daten unter Beibehaltung von Format und Länge. Ideal für die Tokenisierung von Kreditkartennummern, Sozialversicherungsnummern und anderen strukturierten Daten. PCI DSS konform.',
+      keywords: 'FPE, Format Preserving Encryption, FF1, FF3, FF3-1, NIST 800-38G, Tokenisierung, Kreditkarten Verschlüsselung, Datenmaskierung, PCI DSS, Daten-Tokenisierung, strukturierte Datenverschlüsselung',
       faqTitle: 'Format-Preserving Encryption FAQ',
       usageTitle: 'FPE Tool Anleitung',
       faqs: [
@@ -1455,8 +1455,8 @@ export default {
     },
     keyGenerator: {
       title: 'Sicherer Schlüsselgenerator Online - Zufalls AES/DES Schlüsselgenerator | HSM Kit',
-      description: 'Kostenloser Online kryptografischer Schlüsselgenerator. Generieren Sie sichere Zufallsschlüssel für AES, DES, 3DES Verschlüsselung. Schlüsselkombination (XOR), Paritätsanpassung und Schlüsselvalidierungs-Tools enthalten.',
-      keywords: 'Schlüsselgenerator, Zufallsschlüssel, AES Schlüsselgenerator, DES Schlüsselgenerator, 3DES Schlüsselgenerator, kryptografischer Schlüssel, sicherer Zufall, Schlüsselkombination, XOR Schlüssel',
+      description: 'Kostenloser Online kryptografischer Schlüsselgenerator. Generieren Sie sichere Zufallsschlüssel für AES, DES, 3DES Verschlüsselung. Schlüsselkombination (XOR), Paritätsanpassung und Schlüsselvalidierungs-Tools enthalten. Kryptografisch sichere Zufallszahlengenerierung.',
+      keywords: 'Schlüsselgenerator, Zufallsschlüssel, AES Schlüsselgenerator, DES Schlüsselgenerator, 3DES Schlüsselgenerator, kryptografischer Schlüssel, sicherer Zufall, Schlüsselkombination, XOR Schlüssel, sicherer Schlüsselgenerator, Zufallsschlüsselgenerator',
       faqTitle: 'Schlüsselgenerator FAQ',
       usageTitle: 'Schlüsselgenerator Anleitung',
       faqs: [
@@ -1475,8 +1475,8 @@ export default {
     },
     keyshare: {
       title: 'Keyshare Generator Online - Schlüssel in Komponenten aufteilen | HSM Kit',
-      description: 'Kostenloser Online Keyshare Generator zum Aufteilen von kryptografischen Schlüsseln in mehrere Komponenten. Schlüssel eingeben, um automatisch 2-teilige oder 3-teilige Anteile mit KCV-Verifikation zu generieren. Unverzichtbar für Schlüsselzeremonien und Verwahrer-Verteilung.',
-      keywords: 'Keyshare Generator, Schlüssel teilen, Schlüsselkomponenten, XOR Schlüssel, Schlüsselzeremonie, Schlüsselverwahrer, KCV Verifikation, DES Schlüsselanteil, AES Schlüsselanteil, Schlüsselverteilung',
+      description: 'Kostenloser Online Keyshare Generator zum Aufteilen von kryptografischen Schlüsseln in mehrere Komponenten. Schlüssel eingeben, um automatisch 2-teilige oder 3-teilige Anteile mit KCV-Verifikation zu generieren. Unverzichtbar für Schlüsselzeremonien und Verwahrer-Verteilung. Sicherheitsmodus mit PIN-Schutz unterstützt.',
+      keywords: 'Keyshare Generator, Schlüssel teilen, Schlüsselkomponenten, XOR Schlüssel, Schlüsselzeremonie, Schlüsselverwahrer, KCV Verifikation, DES Schlüsselanteil, AES Schlüsselanteil, Schlüsselverteilung, Schlüsselteilung, Schlüsselverwahrung',
       faqTitle: 'Keyshare Generator FAQ',
       usageTitle: 'So verwenden Sie den Keyshare Generator',
       faqs: [
@@ -1496,8 +1496,8 @@ export default {
     },
     tr31: {
       title: 'TR-31 Schlüsselblock Encoder/Decoder Online - ANSI X9.143 | HSM Kit',
-      description: 'Kostenloser Online TR-31 Schlüsselblock Encoder und Decoder. Kryptografische Schlüssel nach ANSI X9.143 (TR-31) Standard mit KBPK-Schutz umhüllen/entpacken. Unterstützt Version A-E (TDES/AES), alle Schlüsselverwendungen, Algorithmen und Exportierbarkeitsoptionen.',
-      keywords: 'TR-31, Schlüsselblock, ANSI X9.143, TR31 Encoder, TR31 Decoder, Schlüsselblock Wrapper, KBPK, Zahlungs-HSM, Schlüsselverwendung, Schlüssel-Exportierbarkeit, DUKPT, Schlüsselverwaltung, TDES Schlüsselumhüllung, AES Schlüsselumhüllung',
+      description: 'Kostenloser Online TR-31 Schlüsselblock Encoder und Decoder. Kryptografische Schlüssel nach ANSI X9.143 (TR-31) Standard mit KBPK-Schutz umhüllen/entpacken. Unterstützt Version A-E (TDES/AES), alle Schlüsselverwendungen, Algorithmen und Exportierbarkeitsoptionen. Ideal für Zahlungssicherheit.',
+      keywords: 'TR-31, Schlüsselblock, ANSI X9.143, TR31 Encoder, TR31 Decoder, Schlüsselblock Wrapper, KBPK, Zahlungs-HSM, Schlüsselverwendung, Schlüssel-Exportierbarkeit, DUKPT, Schlüsselverwaltung, TDES Schlüsselumhüllung, AES Schlüsselumhüllung, Zahlungssicherheit, HSM-Schlüsselaustausch',
       faqTitle: 'TR-31 Schlüsselblock FAQ',
       usageTitle: 'TR-31 Schlüsselblock Tool Anleitung',
       faqs: [
@@ -1517,8 +1517,8 @@ export default {
     },
     kcv: {
       title: 'KCV Rechner Online - Key Check Value Generator | HSM Kit',
-      description: 'Kostenloser Online KCV (Key Check Value) Rechner für AES und DES/3DES Schlüssel. Verifizieren Sie die Korrektheit von Verschlüsselungsschlüsseln durch Berechnung des Prüfwerts. Unterstützt automatische Paritätsanpassung für DES-Schlüssel.',
-      keywords: 'KCV Rechner, Key Check Value, KCV Generator, AES KCV, DES KCV, 3DES KCV, CMAC, Schlüsselverifizierung, Zahlungsschlüssel',
+      description: 'Kostenloser Online KCV (Key Check Value) Rechner für AES und DES/3DES Schlüssel. Verifizieren Sie die Korrektheit von Verschlüsselungsschlüsseln durch Berechnung des Prüfwerts. Unterstützt automatische Paritätsanpassung für DES-Schlüssel. Unverzichtbar für Zahlungssicherheit und Schlüsselverifizierung.',
+      keywords: 'KCV Rechner, Key Check Value, KCV Generator, AES KCV, DES KCV, 3DES KCV, CMAC, Schlüsselverifizierung, Zahlungsschlüssel, Key Check Value Rechner, HSM-Schlüsselverifizierung',
       faqTitle: 'KCV Rechner FAQ',
       usageTitle: 'KCV Rechner Anleitung',
       faqs: [
@@ -1537,8 +1537,8 @@ export default {
     },
     pinBlock: {
       title: 'PIN Block Generator Online - ISO 9564 Format 0/1/3/4 | HSM Kit',
-      description: 'Kostenloser Online PIN Block Generator mit Unterstützung für ISO 9564 Formate (Format 0, 1, 3, 4). Generieren Sie PIN Blocks für Zahlungstransaktionen, ATM und POS-Systeme. Essentielles Tool für Zahlungssicherheitstests.',
-      keywords: 'PIN Block, ISO 9564, PIN Block Format 0, PIN Block Format 4, Zahlungssicherheit, ATM PIN, POS PIN, PIN Verschlüsselung, Karten-PIN',
+      description: 'Kostenloser Online PIN Block Generator mit Unterstützung für ISO 9564 Formate (Format 0, 1, 3, 4). Generieren Sie PIN Blocks für Zahlungstransaktionen, ATM und POS-Systeme. Essentielles Tool für Zahlungssicherheitstests. 100% clientseitig.',
+      keywords: 'PIN Block, ISO 9564, PIN Block Format 0, PIN Block Format 4, Zahlungssicherheit, ATM PIN, POS PIN, PIN Verschlüsselung, Karten-PIN, PIN Block Generator, Zahlungskartensicherheit',
       faqTitle: 'PIN Block FAQ',
       usageTitle: 'PIN Block Generator Anleitung',
       faqs: [
@@ -1557,8 +1557,8 @@ export default {
     },
     hash: {
       title: 'Hash-Rechner Online - MD5, SHA-256, SHA-512, BLAKE2 | HSM Kit',
-      description: 'Kostenloser Online-Hash-Rechner mit Unterstützung für MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 und mehr. Hash-Werte aus Text oder Hex-Eingabe berechnen.',
-      keywords: 'Hash-Rechner, MD5-Hash, SHA-256-Hash, SHA-512-Hash, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, Hash-Generator, Prüfsummenrechner',
+      description: 'Kostenloser Online-Hash-Rechner mit Unterstützung für MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, WHIRLPOOL, BLAKE2, CRC32 und mehr. Hash-Werte aus Text oder Hex-Eingabe berechnen. Unterstützt über 20 Hash-Algorithmen. Alle Berechnungen werden im Browser durchgeführt.',
+      keywords: 'Hash-Rechner, MD5-Hash, SHA-256-Hash, SHA-512-Hash, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, Hash-Generator, Prüfsummenrechner, Nachrichtendigest, kryptografischer Hash',
       faqTitle: 'Hash-Rechner FAQ',
       usageTitle: 'Hash-Rechner Anleitung',
       faqs: [
@@ -1571,8 +1571,8 @@ export default {
     },
     encoding: {
       title: 'Zeichencodierung Konverter Online - ASCII, EBCDIC, Hex | HSM Kit',
-      description: 'Kostenloser Online-Zeichencodierung-Konverter. Konvertierung zwischen ASCII, EBCDIC, Hexadezimal, Binär und ATM-Dezimal.',
-      keywords: 'Zeichencodierung, ASCII EBCDIC Konverter, Hex-Konverter, Binär-Konverter, EBCDIC-Konverter, ATM-Dezimal',
+      description: 'Kostenloser Online-Zeichencodierung-Konverter. Konvertierung zwischen ASCII, EBCDIC, Hexadezimal, Binär und ATM-Dezimal. Unverzichtbar für Zahlungssystementwicklung und Mainframe-Integration. 100% clientseitige Konvertierung.',
+      keywords: 'Zeichencodierung, ASCII EBCDIC Konverter, Hex-Konverter, Binär-Konverter, EBCDIC-Konverter, ATM-Dezimal, Codierungskonvertierung, Zahlungssystemcodierung, Bankcodierung',
       faqTitle: 'Zeichencodierung FAQ',
       usageTitle: 'Codierung-Konverter Anleitung',
       faqs: [
@@ -1585,8 +1585,8 @@ export default {
     },
     bcd: {
       title: 'BCD Encoder/Decoder Online | HSM Kit',
-      description: 'Kostenloser Online-BCD-Encoder und -Decoder. Dezimalzahlen in BCD oder BCD zurück in Dezimal konvertieren.',
-      keywords: 'BCD-Encoder, BCD-Decoder, Binär codierte Dezimalzahl, Dezimal-BCD-Konvertierung',
+      description: 'Kostenloser Online-BCD-Encoder und -Decoder. Dezimalzahlen in BCD oder BCD zurück in Dezimal konvertieren. Wird in Finanz- und Embedded-Systemen verwendet. Ideal für Zahlungsterminal-Integration.',
+      keywords: 'BCD-Encoder, BCD-Decoder, Binär codierte Dezimalzahl, Dezimal-BCD-Konvertierung, Finanzcodierung, Zahlungssystemcodierung',
       faqTitle: 'BCD FAQ',
       usageTitle: 'BCD-Tool Anleitung',
       faqs: [
@@ -1599,8 +1599,8 @@ export default {
     },
     checkDigits: {
       title: 'Prüfziffer-Rechner Online - Luhn MOD 10, MOD 9 | HSM Kit',
-      description: 'Kostenloser Online-Prüfziffer-Rechner und -Validator. Prüfziffern mit Luhn (MOD 10) und MOD 9 generieren oder verifizieren.',
-      keywords: 'Prüfziffer-Rechner, Luhn-Algorithmus, MOD 10, MOD 9, Kreditkartenvalidierung',
+      description: 'Kostenloser Online-Prüfziffer-Rechner und -Validator. Prüfziffern mit Luhn (MOD 10) und MOD 9 generieren oder verifizieren. Validiert Kreditkartennummern, IMEI und andere Identifikatoren. Unverzichtbar für Zahlungsvalidierung.',
+      keywords: 'Prüfziffer-Rechner, Luhn-Algorithmus, MOD 10, MOD 9, Kreditkartenvalidierung, IMEI-Prüfung, Prüfsummenrechner, Luhn-Prüfung, Kartennummernvalidierung, Identifikatorvalidierung',
       faqTitle: 'Prüfziffer FAQ',
       usageTitle: 'Prüfziffer-Rechner Anleitung',
       faqs: [
@@ -1613,8 +1613,8 @@ export default {
     },
     base64: {
       title: 'Base64 Encoder/Decoder Online | HSM Kit',
-      description: 'Kostenloser Online-Base64-Encoder und -Decoder. Text in Base64 oder Base64 in Text konvertieren.',
-      keywords: 'Base64-Encoder, Base64-Decoder, Base64-Konvertierung, Binär-Text-Konvertierung',
+      description: 'Kostenloser Online-Base64-Encoder und -Decoder. Text in Base64 oder Base64 in Text konvertieren. Unverzichtbar für Webanwendungsdaten-Codierung. Schnelle und sichere Browser-Verarbeitung.',
+      keywords: 'Base64-Encoder, Base64-Decoder, Base64-Konvertierung, Binär-Text-Konvertierung, Base64-Konverter, MIME-Codierung',
       faqTitle: 'Base64 FAQ',
       usageTitle: 'Base64-Tool Anleitung',
       faqs: [
@@ -1627,8 +1627,8 @@ export default {
     },
     base94: {
       title: 'Base94 Encoder/Decoder Online | HSM Kit',
-      description: 'Kostenloser Online-Base94-Encoder und -Decoder. Kompakte Codierung mit allen 94 druckbaren ASCII-Zeichen.',
-      keywords: 'Base94-Encoder, Base94-Decoder, Kompakte Codierung',
+      description: 'Kostenloser Online-Base94-Encoder und -Decoder. Kompakte Codierung mit allen 94 druckbaren ASCII-Zeichen. Etwa 20% kompakter als Base64. Nützlich für effiziente Datenspeicherung und -übertragung.',
+      keywords: 'Base94-Encoder, Base94-Decoder, Kompakte Codierung, effiziente Codierung, URL-sichere Codierung',
       faqTitle: 'Base94 FAQ',
       usageTitle: 'Base94-Tool Anleitung',
       faqs: [
@@ -1641,8 +1641,8 @@ export default {
     },
     messageParser: {
       title: 'Nachrichtenparser Online - ATM NDC, Wincor, ISO 8583 | HSM Kit',
-      description: 'Kostenloser Online-ATM- und Finanznachrichtenparser. ATM NDC, Wincor, ISO 8583 Nachrichtenformate analysieren.',
-      keywords: 'Nachrichtenparser, ATM NDC, ATM Wincor, ISO 8583, Finanznachricht',
+      description: 'Kostenloser Online-ATM- und Finanznachrichtenparser. ATM NDC, Wincor, ISO 8583 Nachrichtenformate analysieren. Unverzichtbar für Zahlungssystementwicklung und -debugging. Alle Parsing-Vorgänge werden im Browser durchgeführt.',
+      keywords: 'Nachrichtenparser, ATM NDC, ATM Wincor, ISO 8583, Finanznachricht, Transaktionsparser, Hex-Parser, ATM-Nachrichtendecoder, Zahlungsnachrichtenparser, Finanztransaktionsparser',
       faqTitle: 'Nachrichtenparser FAQ',
       usageTitle: 'Nachrichtenparser Anleitung',
       faqs: [
@@ -1655,8 +1655,8 @@ export default {
     },
     rsaDer: {
       title: 'RSA DER Öffentlicher Schlüssel Encoder/Decoder Online | HSM Kit',
-      description: 'Kostenloser Online-RSA-DER-Öffentlicher-Schlüssel-Encoder und -Decoder. Zwischen Modulus/Exponent und DER ASN.1 Format konvertieren.',
-      keywords: 'RSA DER, RSA öffentlicher Schlüssel, DER-Codierung, ASN.1, PEM-Format',
+      description: 'Kostenloser Online-RSA-DER-Öffentlicher-Schlüssel-Encoder und -Decoder. Zwischen Modulus/Exponent und DER ASN.1 Format konvertieren. Unterstützt PEM-Ausgabe und verschiedene Eingabe-Codierungen (ASCII Hex, Base64, EBCDIC). 100% Browser-Verarbeitung.',
+      keywords: 'RSA DER, RSA öffentlicher Schlüssel, DER-Codierung, ASN.1, PEM-Format, Modulus, Exponent, RSA-Schlüsselkonverter, öffentlicher Schlüsselencoder, RSA-Schlüsselparser, Zertifikatschlüsselextraktor',
       faqTitle: 'RSA DER Öffentlicher Schlüssel FAQ',
       usageTitle: 'RSA DER Tool Anleitung',
       faqs: [
@@ -1669,8 +1669,8 @@ export default {
     },
     futurexKeys: {
       title: 'Futurex Schlüssel Verschlüsselung/Entschlüsselung Online - HSM Schlüssel-Varianten-Tool | HSM Kit',
-      description: 'Kostenloses Online Futurex HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Verschlüsseln und Entschlüsseln von Schlüsseln mit MFK (Master File Key) und Modifier-Varianten (0-F, 1A-1F). Unterstützt Futurex, IBM, Atalla und VISA Schlüssel-Varianten-Methoden. Schlüsselsuche findet den korrekten Modifier durch KCV-Abgleich.',
-      keywords: 'Futurex HSM, Schlüsselverschlüsselung, Schlüsselentschlüsselung, MFK, Master File Key, Schlüsselvariante, Modifier, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, IBM HSM, Atalla HSM, VISA PVK, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche',
+      description: 'Kostenloses Online Futurex HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Verschlüsseln und Entschlüsseln von Schlüsseln mit MFK (Master File Key) und Modifier-Varianten (0-F, 1A-1F). Unterstützt Futurex, IBM, Atalla und VISA Schlüssel-Varianten-Methoden. Schlüsselsuche findet den korrekten Modifier durch KCV-Abgleich. 100% clientseitig.',
+      keywords: 'Futurex HSM, Schlüsselverschlüsselung, Schlüsselentschlüsselung, MFK, Master File Key, Schlüsselvariante, Modifier, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, IBM HSM, Atalla HSM, VISA PVK, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche, HSM-Schlüsselverwaltung',
       faqTitle: 'Futurex Schlüssel FAQ',
       usageTitle: 'Futurex Schlüssel-Tool Anleitung',
       faqs: [
@@ -1692,8 +1692,8 @@ export default {
     },
     atallaKeys: {
       title: 'Atalla Schlüssel (AKB) Online - HSM Schlüssel-Verschlüsselungstool | HSM Kit',
-      description: 'Kostenloses Online Atalla HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Schlüssel mit AKB (Atalla Key Block) Format verschlüsseln/entschlüsseln. Sichere Schlüsselverwaltung mit MFK und AKB-Header. KCV-Verifizierung und Paritätsprüfung unterstützt.',
-      keywords: 'Atalla HSM, AKB, Atalla Key Block, Schlüsselverschlüsselung, Schlüsselentschlüsselung, MFK, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung',
+      description: 'Kostenloses Online Atalla HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Schlüssel mit AKB (Atalla Key Block) Format verschlüsseln/entschlüsseln. Sichere Schlüsselverwaltung mit MFK und AKB-Header. KCV-Verifizierung und Paritätsprüfung unterstützt. Alle Verarbeitung erfolgt im Browser.',
+      keywords: 'Atalla HSM, AKB, Atalla Key Block, Schlüsselverschlüsselung, Schlüsselentschlüsselung, MFK, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung, Atalla-Schlüsselverwaltung',
       faqTitle: 'Atalla Schlüssel FAQ',
       usageTitle: 'Atalla Schlüssel-Tool Anleitung',
       faqs: [
@@ -1713,8 +1713,8 @@ export default {
     },
     safenetKeys: {
       title: 'SafeNet Schlüssel Verschlüsselung/Entschlüsselung Online - HSM Schlüssel-Varianten-Tool | HSM Kit',
-      description: 'Kostenloses Online SafeNet HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Schlüssel mit KM-Schlüssel und Schlüsselformat/Varianten-Optionen verschlüsseln/entschlüsseln. DPK, PPK, MPK, KPK Varianten unterstützt. Schlüsselsuche findet die richtige Variante durch KCV-Abgleich.',
-      keywords: 'SafeNet HSM, Schlüsselverschlüsselung, Schlüsselentschlüsselung, KM-Schlüssel, Schlüsselvariante, DPK, PPK, MPK, KPK, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche',
+      description: 'Kostenloses Online SafeNet HSM Schlüssel-Verschlüsselungs- und Entschlüsselungstool. Schlüssel mit KM-Schlüssel und Schlüsselformat/Varianten-Optionen verschlüsseln/entschlüsseln. DPK, PPK, MPK, KPK Varianten unterstützt. Schlüsselsuche findet die richtige Variante durch KCV-Abgleich. Sichere Browser-Verarbeitung.',
+      keywords: 'SafeNet HSM, Schlüsselverschlüsselung, Schlüsselentschlüsselung, KM-Schlüssel, Schlüsselvariante, DPK, PPK, MPK, KPK, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche, SafeNet-Schlüsselverwaltung',
       faqTitle: 'SafeNet Schlüssel FAQ',
       usageTitle: 'SafeNet Schlüssel-Tool Anleitung',
       faqs: [
@@ -1735,8 +1735,8 @@ export default {
     },
     thalesKeys: {
       title: 'Thales Schlüssel (LMK) Online - HSM Schlüssel-Verschlüsselung/Entschlüsselung | HSM Kit',
-      description: 'Kostenloses Online Thales HSM Schlüssel-Verschlüsselungs-/Entschlüsselungstool. Schlüssel mit LMK (Local Master Key) und Schlüsselschema/Varianten-Optionen verschlüsseln/entschlüsseln. Unterstützt mehrere LMK-Paare und Varianten-Masken. Schlüsselsuche findet passende Entschlüsselungen.',
-      keywords: 'Thales HSM, LMK, Local Master Key, Schlüsselverschlüsselung, Schlüsselentschlüsselung, Schlüsselschema, Schlüsselvariante, LMK-Paar, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche',
+      description: 'Kostenloses Online Thales HSM Schlüssel-Verschlüsselungs-/Entschlüsselungstool. Schlüssel mit LMK (Local Master Key) und Schlüsselschema/Varianten-Optionen verschlüsseln/entschlüsseln. Unterstützt mehrere LMK-Paare und Varianten-Masken. Schlüsselsuche findet passende Entschlüsselungen. 100% clientseitig.',
+      keywords: 'Thales HSM, LMK, Local Master Key, Schlüsselverschlüsselung, Schlüsselentschlüsselung, Schlüsselschema, Schlüsselvariante, LMK-Paar, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, KCV-Prüfung, 3DES-Verschlüsselung, Schlüsselsuche, Thales-Schlüsselverwaltung',
       faqTitle: 'Thales Schlüssel (LMK) FAQ',
       usageTitle: 'Thales Schlüssel-Tool Anleitung',
       faqs: [
@@ -1758,8 +1758,8 @@ export default {
     },
     thalesKeyBlock: {
       title: 'Thales Schlüsselblock Online - Proprietäre Schlüsselblöcke Kodieren/Dekodieren | HSM Kit',
-      description: 'Kostenloser Online Thales Schlüsselblock-Encoder und -Decoder. Proprietäre Thales-Schlüsselblöcke mit KBPK (Key Block Protection Key) kodieren/dekodieren. Unterstützt 3DES/AES KBPK, verschiedene Schlüsselverwendungen, Algorithmen und Exportfähigkeitsoptionen.',
-      keywords: 'Thales Schlüsselblock, KBPK, Key Block Protection Key, Schlüsselblock-Encoder, Schlüsselblock-Decoder, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, 3DES, AES, Schlüsselverwendung, Exportfähigkeit',
+      description: 'Kostenloser Online Thales Schlüsselblock-Encoder und -Decoder. Proprietäre Thales-Schlüsselblöcke mit KBPK (Key Block Protection Key) kodieren/dekodieren. Unterstützt 3DES/AES KBPK, verschiedene Schlüsselverwendungen, Algorithmen und Exportfähigkeitsoptionen. Alle Verarbeitung erfolgt im Browser.',
+      keywords: 'Thales Schlüsselblock, KBPK, Key Block Protection Key, Schlüsselblock-Encoder, Schlüsselblock-Decoder, HSM-Tools, Zahlungssicherheit, Schlüsselverwaltung, 3DES, AES, Schlüsselverwendung, Exportfähigkeit, Thales-Schlüsselblockformat',
       faqTitle: 'Thales Schlüsselblock FAQ',
       usageTitle: 'Thales Schlüsselblock-Tool Anleitung',
       faqs: [
@@ -1779,8 +1779,8 @@ export default {
     },
     uuid: {
       title: 'UUID Generator Online - Version 1, 3, 4, 5 | HSM Kit',
-      description: 'Kostenloser Online-UUID-Generator mit Unterstützung für Version 1 (zeitbasiert), 3 (MD5), 4 (zufällig), 5 (SHA-1).',
-      keywords: 'UUID-Generator, GUID-Generator, UUID v4, UUID v1, Zufällige UUID',
+      description: 'Kostenloser Online-UUID-Generator mit Unterstützung für Version 1 (zeitbasiert), 3 (MD5), 4 (zufällig), 5 (SHA-1). Generieren Sie einzelne oder Batch-UUIDs für Anwendungen. Kryptografisch sichere Zufallszahlengenerierung.',
+      keywords: 'UUID-Generator, GUID-Generator, UUID v4, UUID v1, Zufällige UUID, Eindeutige Kennung, UUID online, Batch-UUID-Generator, Eindeutige ID-Generator, GUID-Generator online',
       faqTitle: 'UUID Generator FAQ',
       usageTitle: 'UUID Generator Anleitung',
       faqs: [
@@ -1793,8 +1793,8 @@ export default {
     },
     sslCert: {
       title: 'SSL-Zertifikate (X509) - Schlüssel, CSR, Selbstsignierte Zertifikate | HSM Kit',
-      description: 'Kostenloses Online-SSL-Zertifikat-Tool. RSA-Schlüsselpaare mit verschlüsselten privaten Schlüsseln generieren, Certificate Signing Requests (CSR) erstellen, selbstsignierte X.509-Zertifikate generieren und Zertifikate analysieren. Alle Verarbeitung erfolgt clientseitig in Ihrem Browser.',
-      keywords: 'SSL-Zertifikat, X509, CSR-Generator, selbstsigniertes Zertifikat, RSA-Schlüsselgenerator, Zertifikat-Parser, PEM, PKI-Tools, Certificate Signing Request, X.509-Zertifikat, SSL-Tools',
+      description: 'Kostenloses Online-SSL-Zertifikat-Tool. RSA-Schlüsselpaare mit verschlüsselten privaten Schlüsseln generieren, Certificate Signing Requests (CSR) erstellen, selbstsignierte X.509-Zertifikate generieren und Zertifikate analysieren. Alle Verarbeitung erfolgt clientseitig in Ihrem Browser. 100% sicher.',
+      keywords: 'SSL-Zertifikat, X509, CSR-Generator, selbstsigniertes Zertifikat, RSA-Schlüsselgenerator, Zertifikat-Parser, PEM, PKI-Tools, Certificate Signing Request, X.509-Zertifikat, SSL-Tools, Zertifikatgenerator, TLS-Zertifikat, HTTPS-Zertifikat',
       faqTitle: 'SSL-Zertifikate FAQ',
       usageTitle: 'SSL-Zertifikat-Tool Anleitung',
       faqs: [

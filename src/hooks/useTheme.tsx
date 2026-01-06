@@ -72,6 +72,20 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
             colorPrimary: '#1677ff',
             borderRadius: 8,
           },
+          components: {
+            Tooltip: {
+              mouseEnterDelay: 0.1, // 鼠标进入延迟 100ms
+              mouseLeaveDelay: 0, // 鼠标离开立即消失
+            },
+            Menu: {
+              subMenuOpenDelay: 0.1, // 子菜单打开延迟 100ms
+              subMenuCloseDelay: 0.05, // 子菜单关闭延迟 50ms，仅用于处理菜单之间的微小间隙
+            },
+            Popover: {
+              mouseEnterDelay: 0.1,
+              mouseLeaveDelay: 0,
+            },
+          },
   }), [isDark]);
 
   const contextValue = useMemo(() => ({

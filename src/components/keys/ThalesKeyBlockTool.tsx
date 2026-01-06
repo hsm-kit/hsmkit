@@ -570,7 +570,7 @@ const ThalesKeyBlockTool: React.FC = () => {
 
           {/* Error */}
           {encodeError && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
               <Text type="danger">{encodeError}</Text>
             </Card>
           )}
@@ -583,7 +583,7 @@ const ThalesKeyBlockTool: React.FC = () => {
                   <LockOutlined /> {t.thalesKeyBlock?.encodeResult || 'Encoded Key Block'}
                 </span>
               }
-              bordered={false}
+              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -684,7 +684,7 @@ const ThalesKeyBlockTool: React.FC = () => {
 
           {/* Error */}
           {decodeError && (
-            <Card bordered={false} style={{ borderLeft: '4px solid #ff4d4f' }}>
+            <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
               <Text type="danger">{decodeError}</Text>
             </Card>
           )}
@@ -697,7 +697,7 @@ const ThalesKeyBlockTool: React.FC = () => {
                   <UnlockOutlined /> {t.thalesKeyBlock?.decodeResult || 'Decoded Key Block'}
                 </span>
               }
-              bordered={false}
+              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
@@ -752,7 +752,7 @@ const ThalesKeyBlockTool: React.FC = () => {
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
-        <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+        <Card  style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.thalesKeyBlock?.title || 'Thales Key Block'}

@@ -1318,8 +1318,8 @@ export default {
   seo: {
     home: {
       title: 'HSM Kit - 無料オンライン暗号化・鍵管理ツール',
-      description: '無料オンライン暗号ツール。Thales、Futurex、Atalla、SafeNet HSM鍵操作をサポート。KCV計算、TR-31鍵ブロックエンコード、安全な鍵生成、AES/DES/RSA暗号化。すべての計算はブラウザ上で実行。',
-      keywords: 'HSMツール, Thales HSM, Futurex HSM, Atalla AKB, SafeNet鍵, 暗号化ツールキット, 鍵管理, KCV計算機, TR-31鍵ブロック, AES暗号化, DES暗号化, RSA暗号化, PINブロック, 鍵生成器, 暗号ツール, 決済セキュリティ, LMK暗号化',
+      description: '無料オンライン暗号ツール。Thales、Futurex、Atalla、SafeNet HSM鍵操作をサポート。KCV計算、TR-31鍵ブロックエンコード、安全な鍵生成、AES/DES/RSA暗号化。すべての計算はブラウザ上で実行。100%無料、登録不要。',
+      keywords: 'HSMツール, Thales HSM, Futurex HSM, Atalla AKB, SafeNet鍵, 暗号化ツールキット, 鍵管理, KCV計算機, TR-31鍵ブロック, AES暗号化, DES暗号化, RSA暗号化, PINブロック, 鍵生成器, 暗号ツール, 決済セキュリティ, LMK暗号化, オンライン暗号化ツール, 無料暗号ツール',
       faqTitle: 'よくある質問',
       usageTitle: 'HSM Kitについて',
       faqs: [
@@ -1339,8 +1339,8 @@ export default {
     },
     asn1: {
       title: 'ASN.1パーサー オンライン - 無料DER/BER構造デコーダー | HSM Kit',
-      description: '無料オンラインASN.1パーサーとデコーダー。ASN.1 DER/BER構造の解析、X.509証明書のデコード、PKCS形式の分析。16進数、Base64、PEM入力をサポートし、RFC定義マッチング機能付き。',
-      keywords: 'ASN.1パーサー, DERデコーダー, BERデコーダー, X.509証明書パーサー, PKCSデコーダー, ASN1オンラインツール, 証明書アナライザー, PEMパーサー',
+      description: '無料オンラインASN.1パーサーとデコーダー。ASN.1 DER/BER構造の解析、X.509証明書のデコード、PKCS形式の分析。16進数、Base64、PEM入力をサポートし、RFC定義マッチング機能付き。100%クライアント側処理。',
+      keywords: 'ASN.1パーサー, DERデコーダー, BERデコーダー, X.509証明書パーサー, PKCSデコーダー, ASN1オンラインツール, 証明書アナライザー, PEMパーサー, ASN.1デコーダー, 証明書パーサー, PKCSパーサー',
       faqTitle: 'ASN.1パーサー FAQ',
       usageTitle: 'ASN.1パーサーの使い方',
       faqs: [
@@ -1358,8 +1358,8 @@ export default {
     },
     aes: {
       title: 'AES暗号化/復号化 オンライン - 無料AES計算機 | HSM Kit',
-      description: '無料オンラインAES暗号化・復号化ツール。AES-128、AES-192、AES-256をECB、CBC、CFB、OFB、CTRモードでサポート。KCV計算、ブラウザ内で安全に16進数またはテキストデータを暗号化/復号化。',
-      keywords: 'AES暗号化, AES復号化, AES-128, AES-192, AES-256, AES計算機, AESオンラインツール, AES ECB, AES CBC, AES KCV',
+      description: '無料オンラインAES暗号化・復号化ツール。AES-128、AES-192、AES-256をECB、CBC、CFB、OFB、CTRモードでサポート。KCV計算、ブラウザ内で安全に16進数またはテキストデータを暗号化/復号化。100%クライアント側処理、データはサーバーに送信されません。',
+      keywords: 'AES暗号化, AES復号化, AES-128, AES-192, AES-256, AES計算機, AESオンラインツール, AES ECB, AES CBC, AES KCV, 高度暗号化標準, 対称暗号',
       faqTitle: 'AES暗号化 FAQ',
       usageTitle: 'AES暗号化ツールの使い方',
       faqs: [
@@ -1377,8 +1377,8 @@ export default {
     },
     des: {
       title: 'DES/3DES暗号化 オンライン - 無料トリプルDES計算機 | HSM Kit',
-      description: '無料オンラインDESおよびトリプルDES（3DES）暗号化・復号化ツール。DES、2キー3DES、3キー3DESをECB/CBCモードでサポート。PKCS5、ISO 7816などの複数のパディングオプション。',
-      keywords: 'DES暗号化, 3DES暗号化, トリプルDES, DES復号化, DES計算機, 3DESオンラインツール, TDES, DES ECB, DES CBC',
+      description: '無料オンラインDESおよびトリプルDES（3DES）暗号化・復号化ツール。DES、2キー3DES、3キー3DESをECB/CBCモードでサポート。PKCS5、ISO 7816などの複数のパディングオプション。100%クライアント側処理、安全な暗号化。',
+      keywords: 'DES暗号化, 3DES暗号化, トリプルDES, DES復号化, DES計算機, 3DESオンラインツール, TDES, DES ECB, DES CBC, データ暗号化標準, 決済暗号化',
       faqTitle: 'DES/3DES暗号化 FAQ',
       usageTitle: 'DES/3DESツールの使い方',
       faqs: [
@@ -1397,8 +1397,8 @@ export default {
     },
     rsa: {
       title: 'RSA暗号化 オンライン - 無料RSA計算機・鍵生成器 | HSM Kit',
-      description: '無料オンラインRSA暗号化、復号化、署名、検証ツール。RSA鍵ペア（1024-4096ビット）を生成し、公開鍵で暗号化、秘密鍵で署名。PKCS#1とOAEPパディングをサポート。',
-      keywords: 'RSA暗号化, RSA復号化, RSA鍵生成器, RSA計算機, RSAオンラインツール, RSA署名, RSA検証, 公開鍵暗号, PKCS1, OAEP',
+      description: '無料オンラインRSA暗号化、復号化、署名、検証ツール。RSA鍵ペア（1024-4096ビット）を生成し、公開鍵で暗号化、秘密鍵で署名。PKCS#1とOAEPパディングをサポート。すべての操作はクライアント側で処理。',
+      keywords: 'RSA暗号化, RSA復号化, RSA鍵生成器, RSA計算機, RSAオンラインツール, RSA署名, RSA検証, 公開鍵暗号, PKCS1, OAEP, 非対称暗号, デジタル署名',
       faqTitle: 'RSA暗号化 FAQ',
       usageTitle: 'RSAツールの使い方',
       faqs: [
@@ -1417,8 +1417,8 @@ export default {
     },
     ecc: {
       title: 'ECC/ECDSA オンラインツール - 楕円曲線暗号 | HSM Kit',
-      description: '無料オンラインECC（楕円曲線暗号）ツール。ECDSA鍵ペアを生成し、secp256k1、P-256、P-384曲線でデータに署名・検証。コンパクトな鍵で強力なセキュリティを実現。',
-      keywords: 'ECC暗号化, ECDSA, 楕円曲線, secp256k1, P-256, P-384, ECC鍵生成器, ECDSA署名, ECDSA検証, ビットコイン暗号',
+      description: '無料オンラインECC（楕円曲線暗号）ツール。ECDSA鍵ペアを生成し、secp256k1、P-256、P-384曲線でデータに署名・検証。コンパクトな鍵で強力なセキュリティを実現。100%ブラウザ処理。',
+      keywords: 'ECC暗号化, ECDSA, 楕円曲線, secp256k1, P-256, P-384, ECC鍵生成器, ECDSA署名, ECDSA検証, ビットコイン暗号, イーサリアム暗号, デジタル署名',
       faqTitle: 'ECC/ECDSA FAQ',
       usageTitle: 'ECC/ECDSAツールの使い方',
       faqs: [
@@ -1436,8 +1436,8 @@ export default {
     },
     fpe: {
       title: 'フォーマット保持暗号化（FPE）オンライン - FF1/FF3-1ツール | HSM Kit',
-      description: 'NIST SP 800-38Gを実装した無料オンラインフォーマット保持暗号化ツール。フォーマットと長さを保持したままデータを暗号化。クレジットカード番号、社会保障番号などの構造化データのトークナイゼーションに最適。',
-      keywords: 'FPE, フォーマット保持暗号化, FF1, FF3, FF3-1, NIST 800-38G, トークナイゼーション, クレジットカード暗号化, データマスキング, PCI DSS',
+      description: 'NIST SP 800-38Gを実装した無料オンラインフォーマット保持暗号化ツール。フォーマットと長さを保持したままデータを暗号化。クレジットカード番号、社会保障番号などの構造化データのトークナイゼーションに最適。PCI DSS準拠。',
+      keywords: 'FPE, フォーマット保持暗号化, FF1, FF3, FF3-1, NIST 800-38G, トークナイゼーション, クレジットカード暗号化, データマスキング, PCI DSS, データトークナイゼーション, 構造化データ暗号化',
       faqTitle: 'フォーマット保持暗号化 FAQ',
       usageTitle: 'FPEツールの使い方',
       faqs: [
@@ -1455,8 +1455,8 @@ export default {
     },
     keyGenerator: {
       title: 'セキュア鍵生成器 オンライン - ランダムAES/DES鍵生成器 | HSM Kit',
-      description: '無料オンライン暗号鍵生成器。AES、DES、3DES暗号化用の安全なランダム鍵を生成。鍵結合（XOR）、パリティ調整、鍵検証ツールを含む。',
-      keywords: '鍵生成器, ランダム鍵, AES鍵生成器, DES鍵生成器, 3DES鍵生成器, 暗号鍵, セキュアランダム, 鍵結合, XOR鍵',
+      description: '無料オンライン暗号鍵生成器。AES、DES、3DES暗号化用の安全なランダム鍵を生成。鍵結合（XOR）、パリティ調整、鍵検証ツールを含む。暗号学的に安全な乱数生成。',
+      keywords: '鍵生成器, ランダム鍵, AES鍵生成器, DES鍵生成器, 3DES鍵生成器, 暗号鍵, セキュアランダム, 鍵結合, XOR鍵, 安全鍵生成, ランダム鍵生成器',
       faqTitle: '鍵生成器 FAQ',
       usageTitle: '鍵生成器の使い方',
       faqs: [
@@ -1475,8 +1475,8 @@ export default {
     },
     keyshare: {
       title: 'キーシェアジェネレーター オンライン - 鍵を複数コンポーネントに分割 | HSM Kit',
-      description: '無料オンラインキーシェアジェネレーター。暗号鍵を複数のコンポーネントに分割。鍵を入力すると2パートまたは3パートシェアを自動生成、KCV検証付き。鍵セレモニーと保管者配布に不可欠。',
-      keywords: 'キーシェアジェネレーター, 鍵分割, 鍵コンポーネント, XOR鍵, 鍵セレモニー, 鍵保管者, KCV検証, DES鍵シェア, AES鍵シェア, 鍵配布',
+      description: '無料オンラインキーシェアジェネレーター。暗号鍵を複数のコンポーネントに分割。鍵を入力すると2パートまたは3パートシェアを自動生成、KCV検証付き。鍵セレモニーと保管者配布に不可欠。セキュアモードでPIN保護対応。',
+      keywords: 'キーシェアジェネレーター, 鍵分割, 鍵コンポーネント, XOR鍵, 鍵セレモニー, 鍵保管者, KCV検証, DES鍵シェア, AES鍵シェア, 鍵配布, 鍵分割, 鍵保管',
       faqTitle: 'キーシェアジェネレーター FAQ',
       usageTitle: 'キーシェアジェネレーターの使い方',
       faqs: [
@@ -1496,8 +1496,8 @@ export default {
     },
     tr31: {
       title: 'TR-31鍵ブロックエンコーダー/デコーダー オンライン - ANSI X9.143 | HSM Kit',
-      description: '無料オンラインTR-31鍵ブロックエンコーダーとデコーダー。KBPK保護でANSI X9.143 (TR-31) 標準に従って暗号鍵をラップ/アンラップ。バージョンA-E（TDES/AES）、全鍵用途、アルゴリズム、エクスポート可能性オプションをサポート。',
-      keywords: 'TR-31, 鍵ブロック, ANSI X9.143, TR31エンコーダー, TR31デコーダー, 鍵ブロックラッパー, KBPK, 決済HSM, 鍵用途, 鍵エクスポート可能性, DUKPT, 鍵管理, TDES鍵ラップ, AES鍵ラップ',
+      description: '無料オンラインTR-31鍵ブロックエンコーダーとデコーダー。KBPK保護でANSI X9.143 (TR-31) 標準に従って暗号鍵をラップ/アンラップ。バージョンA-E（TDES/AES）、全鍵用途、アルゴリズム、エクスポート可能性オプションをサポート。決済セキュリティに最適。',
+      keywords: 'TR-31, 鍵ブロック, ANSI X9.143, TR31エンコーダー, TR31デコーダー, 鍵ブロックラッパー, KBPK, 決済HSM, 鍵用途, 鍵エクスポート可能性, DUKPT, 鍵管理, TDES鍵ラップ, AES鍵ラップ, 決済セキュリティ, HSM鍵交換',
       faqTitle: 'TR-31鍵ブロック FAQ',
       usageTitle: 'TR-31鍵ブロックツールの使い方',
       faqs: [
@@ -1517,8 +1517,8 @@ export default {
     },
     kcv: {
       title: 'KCV計算機 オンライン - 鍵チェック値生成器 | HSM Kit',
-      description: 'AESおよびDES/3DES鍵用の無料オンラインKCV（鍵チェック値）計算機。チェック値を計算して暗号化鍵の正確性を検証。DES鍵の自動パリティ調整をサポート。',
-      keywords: 'KCV計算機, 鍵チェック値, KCV生成器, AES KCV, DES KCV, 3DES KCV, CMAC, 鍵検証, 決済鍵',
+      description: 'AESおよびDES/3DES鍵用の無料オンラインKCV（鍵チェック値）計算機。チェック値を計算して暗号化鍵の正確性を検証。DES鍵の自動パリティ調整をサポート。決済セキュリティと鍵検証に不可欠。',
+      keywords: 'KCV計算機, 鍵チェック値, KCV生成器, AES KCV, DES KCV, 3DES KCV, CMAC, 鍵検証, 決済鍵, 鍵チェック値計算機, HSM鍵検証',
       faqTitle: 'KCV計算機 FAQ',
       usageTitle: 'KCV計算機の使い方',
       faqs: [
@@ -1537,8 +1537,8 @@ export default {
     },
     pinBlock: {
       title: 'PINブロック生成器 オンライン - ISO 9564 フォーマット0/1/3/4 | HSM Kit',
-      description: 'ISO 9564フォーマット（フォーマット0、1、3、4）をサポートする無料オンラインPINブロック生成器。決済トランザクション、ATM、POSシステム用のPINブロックを生成。決済セキュリティテストに不可欠なツール。',
-      keywords: 'PINブロック, ISO 9564, PINブロックフォーマット0, PINブロックフォーマット4, 決済セキュリティ, ATM PIN, POS PIN, PIN暗号化, カードPIN',
+      description: 'ISO 9564フォーマット（フォーマット0、1、3、4）をサポートする無料オンラインPINブロック生成器。決済トランザクション、ATM、POSシステム用のPINブロックを生成。決済セキュリティテストに不可欠なツール。100%クライアント側処理。',
+      keywords: 'PINブロック, ISO 9564, PINブロックフォーマット0, PINブロックフォーマット4, 決済セキュリティ, ATM PIN, POS PIN, PIN暗号化, カードPIN, PINブロック生成器, 決済カードセキュリティ',
       faqTitle: 'PINブロック FAQ',
       usageTitle: 'PINブロック生成器の使い方',
       faqs: [
@@ -1557,8 +1557,8 @@ export default {
     },
     hash: {
       title: 'ハッシュ計算機 オンライン - MD5, SHA-256, SHA-512, BLAKE2 | HSM Kit',
-      description: 'MD5、SHA-1、SHA-256、SHA-512、RIPEMD-160、WHIRLPOOL、BLAKE2、CRC32などをサポートする無料オンラインハッシュ計算機。テキストまたは16進数入力からハッシュ値を計算。',
-      keywords: 'ハッシュ計算機, MD5ハッシュ, SHA-256ハッシュ, SHA-512ハッシュ, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, ハッシュジェネレーター, チェックサム計算機',
+      description: 'MD5、SHA-1、SHA-256、SHA-512、RIPEMD-160、WHIRLPOOL、BLAKE2、CRC32などをサポートする無料オンラインハッシュ計算機。テキストまたは16進数入力からハッシュ値を計算。20以上のハッシュアルゴリズムをサポート。すべての処理はブラウザで実行。',
+      keywords: 'ハッシュ計算機, MD5ハッシュ, SHA-256ハッシュ, SHA-512ハッシュ, BLAKE2, RIPEMD-160, WHIRLPOOL, CRC32, ハッシュジェネレーター, チェックサム計算機, メッセージダイジェスト, 暗号学的ハッシュ',
       faqTitle: 'ハッシュ計算機 FAQ',
       usageTitle: 'ハッシュ計算機の使い方',
       faqs: [
@@ -1571,8 +1571,8 @@ export default {
     },
     encoding: {
       title: '文字エンコーディング変換 オンライン - ASCII, EBCDIC, Hex | HSM Kit',
-      description: '無料オンライン文字エンコーディング変換ツール。ASCII、EBCDIC、16進数、バイナリ、ATM 10進数形式間で変換。',
-      keywords: '文字エンコーディング, ASCII EBCDIC変換, 16進数変換, バイナリ変換, EBCDIC変換, ATM10進数, エンコーディング変換',
+      description: '無料オンライン文字エンコーディング変換ツール。ASCII、EBCDIC、16進数、バイナリ、ATM 10進数形式間で変換。決済システム開発とメインフレーム統合に不可欠。100%クライアント側変換。',
+      keywords: '文字エンコーディング, ASCII EBCDIC変換, 16進数変換, バイナリ変換, EBCDIC変換, ATM10進数, エンコーディング変換, 決済システムエンコーディング, 銀行エンコーディング',
       faqTitle: '文字エンコーディング FAQ',
       usageTitle: 'エンコーディング変換の使い方',
       faqs: [
@@ -1585,8 +1585,8 @@ export default {
     },
     bcd: {
       title: 'BCD エンコーダ/デコーダ オンライン | HSM Kit',
-      description: '無料オンラインBCDエンコーダとデコーダ。10進数をBCDに変換またはBCDを10進数に戻す。',
-      keywords: 'BCDエンコーダ, BCDデコーダ, 2進化10進数, 10進BCD変換, BCD10進変換',
+      description: '無料オンラインBCDエンコーダとデコーダ。10進数をBCDに変換またはBCDを10進数に戻す。金融および組み込みシステムで使用。決済端末統合に最適。',
+      keywords: 'BCDエンコーダ, BCDデコーダ, 2進化10進数, 10進BCD変換, BCD10進変換, 金融エンコーディング, 決済システムエンコーディング',
       faqTitle: 'BCD FAQ',
       usageTitle: 'BCD ツールの使い方',
       faqs: [
@@ -1599,8 +1599,8 @@ export default {
     },
     checkDigits: {
       title: 'チェックディジット計算機 オンライン - Luhn MOD 10, MOD 9 | HSM Kit',
-      description: '無料オンラインチェックディジット計算機と検証ツール。Luhn（MOD 10）とMOD 9でチェックディジットを生成または検証。',
-      keywords: 'チェックディジット計算機, Luhnアルゴリズム, MOD 10, MOD 9, クレジットカード検証',
+      description: '無料オンラインチェックディジット計算機と検証ツール。Luhn（MOD 10）とMOD 9でチェックディジットを生成または検証。クレジットカード番号、IMEI、その他の識別子を検証。決済検証に不可欠。',
+      keywords: 'チェックディジット計算機, Luhnアルゴリズム, MOD 10, MOD 9, クレジットカード検証, IMEIチェック, チェックサム計算機, Luhnチェック, カード番号検証, 識別子検証',
       faqTitle: 'チェックディジット FAQ',
       usageTitle: 'チェックディジット計算機の使い方',
       faqs: [
@@ -1613,8 +1613,8 @@ export default {
     },
     base64: {
       title: 'Base64 エンコーダ/デコーダ オンライン | HSM Kit',
-      description: '無料オンラインBase64エンコーダとデコーダ。テキストをBase64に変換またはBase64をテキストに戻す。',
-      keywords: 'Base64エンコーダ, Base64デコーダ, Base64変換, バイナリテキスト変換',
+      description: '無料オンラインBase64エンコーダとデコーダ。テキストをBase64に変換またはBase64をテキストに戻す。Webアプリケーションデータエンコーディングに不可欠。高速で安全なブラウザ処理。',
+      keywords: 'Base64エンコーダ, Base64デコーダ, Base64変換, バイナリテキスト変換, Base64コンバーター, MIMEエンコーディング',
       faqTitle: 'Base64 FAQ',
       usageTitle: 'Base64 ツールの使い方',
       faqs: [
@@ -1627,8 +1627,8 @@ export default {
     },
     base94: {
       title: 'Base94 エンコーダ/デコーダ オンライン | HSM Kit',
-      description: '無料オンラインBase94エンコーダとデコーダ。94の印刷可能ASCII文字を使用したコンパクトなエンコーディング。',
-      keywords: 'Base94エンコーダ, Base94デコーダ, コンパクトエンコーディング',
+      description: '無料オンラインBase94エンコーダとデコーダ。94の印刷可能ASCII文字を使用したコンパクトなエンコーディング。Base64より約20%コンパクト。効率的なデータストレージと転送に有用。',
+      keywords: 'Base94エンコーダ, Base94デコーダ, コンパクトエンコーディング, 効率的エンコーディング, URL安全エンコーディング',
       faqTitle: 'Base94 FAQ',
       usageTitle: 'Base94 ツールの使い方',
       faqs: [
@@ -1641,8 +1641,8 @@ export default {
     },
     messageParser: {
       title: 'メッセージパーサー オンライン - ATM NDC, Wincor, ISO 8583 | HSM Kit',
-      description: '無料オンラインATMおよび金融メッセージパーサー。ATM NDC、Wincor、ISO 8583メッセージ形式を解析。',
-      keywords: 'メッセージパーサー, ATM NDC, ATM Wincor, ISO 8583, 金融メッセージ',
+      description: '無料オンラインATMおよび金融メッセージパーサー。ATM NDC、Wincor、ISO 8583メッセージ形式を解析。決済システム開発とデバッグに不可欠。すべての解析はブラウザで実行。',
+      keywords: 'メッセージパーサー, ATM NDC, ATM Wincor, ISO 8583, 金融メッセージ, 取引パーサー, 16進数パーサー, ATMメッセージデコーダー, 決済メッセージパーサー, 金融取引パーサー',
       faqTitle: 'メッセージパーサー FAQ',
       usageTitle: 'メッセージパーサーの使い方',
       faqs: [
@@ -1655,8 +1655,8 @@ export default {
     },
     rsaDer: {
       title: 'RSA DER 公開鍵 エンコーダ/デコーダ オンライン | HSM Kit',
-      description: '無料オンラインRSA DER公開鍵エンコーダとデコーダ。モジュラス/指数とDER ASN.1形式間で変換。',
-      keywords: 'RSA DER, RSA公開鍵, DERエンコーディング, ASN.1, PEM形式',
+      description: '無料オンラインRSA DER公開鍵エンコーダとデコーダ。モジュラス/指数とDER ASN.1形式間で変換。PEM出力と各種入力エンコーディング（ASCII Hex、Base64、EBCDIC）をサポート。100%ブラウザ処理。',
+      keywords: 'RSA DER, RSA公開鍵, DERエンコーディング, ASN.1, PEM形式, モジュラス, 指数, RSA鍵コンバーター, 公開鍵エンコーダー, RSA鍵パーサー, 証明書鍵抽出器',
       faqTitle: 'RSA DER 公開鍵 FAQ',
       usageTitle: 'RSA DER ツールの使い方',
       faqs: [
@@ -1669,8 +1669,8 @@ export default {
     },
     futurexKeys: {
       title: 'Futurex 鍵暗号化/復号化 オンライン - HSM 鍵バリアントツール | HSM Kit',
-      description: '無料オンライン Futurex HSM 鍵暗号化/復号化ツール。MFK（マスターファイル鍵）とモディファイアバリアント（0-F、1A-1F）を使用して鍵を暗号化/復号化。Futurex、IBM、Atalla、VISA の鍵バリアント方式をサポート。鍵検索でKCVマッチングにより正しいモディファイアを特定。',
-      keywords: 'Futurex HSM, 鍵暗号化, 鍵復号化, MFK, マスターファイル鍵, 鍵バリアント, モディファイア, HSMツール, 決済セキュリティ, 鍵管理, IBM HSM, Atalla HSM, VISA PVK, KCV検証, 3DES暗号化, 鍵検索',
+      description: '無料オンライン Futurex HSM 鍵暗号化/復号化ツール。MFK（マスターファイル鍵）とモディファイアバリアント（0-F、1A-1F）を使用して鍵を暗号化/復号化。Futurex、IBM、Atalla、VISA の鍵バリアント方式をサポート。鍵検索でKCVマッチングにより正しいモディファイアを特定。100%クライアント側処理。',
+      keywords: 'Futurex HSM, 鍵暗号化, 鍵復号化, MFK, マスターファイル鍵, 鍵バリアント, モディファイア, HSMツール, 決済セキュリティ, 鍵管理, IBM HSM, Atalla HSM, VISA PVK, KCV検証, 3DES暗号化, 鍵検索, HSM鍵管理',
       faqTitle: 'Futurex 鍵 FAQ',
       usageTitle: 'Futurex 鍵ツールの使い方',
       faqs: [
@@ -1692,8 +1692,8 @@ export default {
     },
     atallaKeys: {
       title: 'Atalla 鍵 (AKB) オンライン - HSM 鍵暗号化/復号化ツール | HSM Kit',
-      description: '無料オンライン Atalla HSM 鍵暗号化/復号化ツール。AKB（Atalla Key Block）形式を使用して鍵を暗号化/復号化。MFKとAKBヘッダーを使用したセキュアな鍵管理。KCV検証とパリティチェック対応。',
-      keywords: 'Atalla HSM, AKB, Atalla Key Block, 鍵暗号化, 鍵復号化, MFK, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化',
+      description: '無料オンライン Atalla HSM 鍵暗号化/復号化ツール。AKB（Atalla Key Block）形式を使用して鍵を暗号化/復号化。MFKとAKBヘッダーを使用したセキュアな鍵管理。KCV検証とパリティチェック対応。すべての処理はブラウザで実行。',
+      keywords: 'Atalla HSM, AKB, Atalla Key Block, 鍵暗号化, 鍵復号化, MFK, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化, Atalla鍵管理',
       faqTitle: 'Atalla 鍵 FAQ',
       usageTitle: 'Atalla 鍵ツールの使い方',
       faqs: [
@@ -1713,8 +1713,8 @@ export default {
     },
     safenetKeys: {
       title: 'SafeNet 鍵暗号化/復号化 オンライン - HSM 鍵バリアントツール | HSM Kit',
-      description: '無料オンライン SafeNet HSM 鍵暗号化/復号化ツール。KM鍵と鍵フォーマット・バリアントオプションを使用して鍵を暗号化/復号化。DPK、PPK、MPK、KPKバリアントをサポート。鍵検索でKCVマッチングにより正しいバリアントを特定。',
-      keywords: 'SafeNet HSM, 鍵暗号化, 鍵復号化, KM鍵, 鍵バリアント, DPK, PPK, MPK, KPK, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化, 鍵検索',
+      description: '無料オンライン SafeNet HSM 鍵暗号化/復号化ツール。KM鍵と鍵フォーマット・バリアントオプションを使用して鍵を暗号化/復号化。DPK、PPK、MPK、KPKバリアントをサポート。鍵検索でKCVマッチングにより正しいバリアントを特定。安全なブラウザ処理。',
+      keywords: 'SafeNet HSM, 鍵暗号化, 鍵復号化, KM鍵, 鍵バリアント, DPK, PPK, MPK, KPK, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化, 鍵検索, SafeNet鍵管理',
       faqTitle: 'SafeNet 鍵 FAQ',
       usageTitle: 'SafeNet 鍵ツールの使い方',
       faqs: [
@@ -1735,8 +1735,8 @@ export default {
     },
     thalesKeys: {
       title: 'Thales 鍵 (LMK) オンライン - HSM 鍵暗号化/復号化ツール | HSM Kit',
-      description: '無料オンライン Thales HSM 鍵暗号化/復号化ツール。LMK（ローカルマスター鍵）と鍵スキーム・バリアントオプションを使用して鍵を暗号化/復号化。複数のLMKペアとバリアントマスクをサポート。鍵検索で一致する復号化を検索。',
-      keywords: 'Thales HSM, LMK, ローカルマスター鍵, 鍵暗号化, 鍵復号化, 鍵スキーム, 鍵バリアント, LMKペア, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化, 鍵検索',
+      description: '無料オンライン Thales HSM 鍵暗号化/復号化ツール。LMK（ローカルマスター鍵）と鍵スキーム・バリアントオプションを使用して鍵を暗号化/復号化。複数のLMKペアとバリアントマスクをサポート。鍵検索で一致する復号化を検索。100%クライアント側処理。',
+      keywords: 'Thales HSM, LMK, ローカルマスター鍵, 鍵暗号化, 鍵復号化, 鍵スキーム, 鍵バリアント, LMKペア, HSMツール, 決済セキュリティ, 鍵管理, KCV検証, 3DES暗号化, 鍵検索, Thales鍵管理',
       faqTitle: 'Thales 鍵 (LMK) FAQ',
       usageTitle: 'Thales 鍵ツールの使い方',
       faqs: [
@@ -1758,8 +1758,8 @@ export default {
     },
     thalesKeyBlock: {
       title: 'Thales 鍵ブロック オンライン - 専用鍵ブロックのエンコード/デコード | HSM Kit',
-      description: '無料オンライン Thales 鍵ブロックエンコーダーとデコーダー。KBPK（鍵ブロック保護鍵）を使用して Thales 専用鍵ブロックをエンコード/デコード。3DES/AES KBPK、各種鍵用途、アルゴリズム、エクスポート可能性オプションに対応。',
-      keywords: 'Thales鍵ブロック, KBPK, 鍵ブロック保護鍵, 鍵ブロックエンコーダー, 鍵ブロックデコーダー, HSMツール, 決済セキュリティ, 鍵管理, 3DES, AES, 鍵用途, エクスポート可能性',
+      description: '無料オンライン Thales 鍵ブロックエンコーダーとデコーダー。KBPK（鍵ブロック保護鍵）を使用して Thales 専用鍵ブロックをエンコード/デコード。3DES/AES KBPK、各種鍵用途、アルゴリズム、エクスポート可能性オプションに対応。すべての処理はブラウザで実行。',
+      keywords: 'Thales鍵ブロック, KBPK, 鍵ブロック保護鍵, 鍵ブロックエンコーダー, 鍵ブロックデコーダー, HSMツール, 決済セキュリティ, 鍵管理, 3DES, AES, 鍵用途, エクスポート可能性, Thales鍵ブロック形式',
       faqTitle: 'Thales 鍵ブロック FAQ',
       usageTitle: 'Thales 鍵ブロックツールの使い方',
       faqs: [
@@ -1779,8 +1779,8 @@ export default {
     },
     uuid: {
       title: 'UUID ジェネレーター オンライン - バージョン 1, 3, 4, 5 | HSM Kit',
-      description: '無料オンラインUUIDジェネレーター。バージョン1（時間ベース）、3（MD5）、4（ランダム）、5（SHA-1）をサポート。',
-      keywords: 'UUIDジェネレーター, GUIDジェネレーター, UUID v4, UUID v1, ランダムUUID',
+      description: '無料オンラインUUIDジェネレーター。バージョン1（時間ベース）、3（MD5）、4（ランダム）、5（SHA-1）をサポート。アプリケーション用の単一またはバッチUUIDを生成。暗号学的に安全な乱数生成。',
+      keywords: 'UUIDジェネレーター, GUIDジェネレーター, UUID v4, UUID v1, ランダムUUID, 一意識別子, UUIDオンライン, バッチUUIDジェネレーター, 一意IDジェネレーター, GUIDジェネレーターオンライン',
       faqTitle: 'UUID ジェネレーター FAQ',
       usageTitle: 'UUID ジェネレーターの使い方',
       faqs: [
@@ -1793,8 +1793,8 @@ export default {
     },
     sslCert: {
       title: 'SSL証明書 (X509) - 鍵生成、CSR、自己署名証明書 | HSM Kit',
-      description: '無料オンラインSSL証明書ツール。暗号化された秘密鍵でRSA鍵ペアを生成、証明書署名リクエスト(CSR)を作成、自己署名X.509証明書を生成、証明書を解析・分析。すべての処理はブラウザ内でクライアントサイドで実行。',
-      keywords: 'SSL証明書, X509, CSRジェネレーター, 自己署名証明書, RSA鍵ジェネレーター, 証明書パーサー, PEM, PKIツール, 証明書署名リクエスト, X.509証明書, SSLツール',
+      description: '無料オンラインSSL証明書ツール。暗号化された秘密鍵でRSA鍵ペアを生成、証明書署名リクエスト(CSR)を作成、自己署名X.509証明書を生成、証明書を解析・分析。すべての処理はブラウザ内でクライアントサイドで実行。100%安全。',
+      keywords: 'SSL証明書, X509, CSRジェネレーター, 自己署名証明書, RSA鍵ジェネレーター, 証明書パーサー, PEM, PKIツール, 証明書署名リクエスト, X.509証明書, SSLツール, 証明書ジェネレーター, TLS証明書, HTTPS証明書',
       faqTitle: 'SSL証明書 FAQ',
       usageTitle: 'SSL証明書ツールの使い方',
       faqs: [

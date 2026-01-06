@@ -21,11 +21,11 @@ const LanguageSwitcher: React.FC = () => {
       value={language}
       onChange={setLanguage}
       style={{ width: 95 }}
-      bordered={false}
+      variant="borderless"
       suffixIcon={<GlobalOutlined />}
       options={languageOptions}
       popupMatchSelectWidth={false}
-      dropdownStyle={{ minWidth: 110 }}
+      styles={{ popup: { root: { minWidth: 110 } } }}
       className="language-switcher"
     />
   );

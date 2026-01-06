@@ -193,13 +193,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       {/* Usage Guide Section - adds text content for SEO */}
       {usageContent && (
         <Card 
-          bordered={false} 
           style={{ 
             marginTop: 24, 
             boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
             background: isDark 
               ? 'linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 100%)'
-              : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
+              : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+            border: 'none'
           }}
         >
           <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#52c41a' : '#1e293b' }}>
@@ -214,13 +214,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       {/* FAQ Section - adds keyword-rich text content for SEO */}
       {faqs && faqs.length > 0 && (
         <Card 
-          bordered={false} 
           style={{ 
             marginTop: 24, 
             boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
             background: isDark 
               ? 'linear-gradient(135deg, #2a2a1a 0%, #3a3a1a 100%)'
-              : 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)'
+              : 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)',
+            border: 'none'
           }}
         >
           <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#faad14' : '#854d0e' }}>
