@@ -254,6 +254,10 @@ export default {
         title: 'PIN 블록 생성기',
         description: '결제 거래용 ISO 9564 PIN 블록 (형식 0, 1, 3, 4) 생성.',
       },
+      as2805: {
+        title: 'AS2805 도구',
+        description: 'AS2805 결제 메시지(ISO 8583 변형)를 파싱하고 분석합니다.',
+      },
       hash: {
         title: '해시 계산기',
         description: 'MD5, SHA-1, SHA-256, SHA-512, BLAKE2 등의 알고리즘으로 해시 값 계산.',

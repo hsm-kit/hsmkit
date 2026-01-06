@@ -461,7 +461,7 @@ const ASN1Parser: React.FC = () => {
 
         <Divider style={{ margin: '16px 0' }} />
 
-        <Space direction="vertical" style={{ width: '100%' }} size="middle">
+        <Space vertical style={{ width: '100%' }} size="middle">
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.asn1.inputLabel}

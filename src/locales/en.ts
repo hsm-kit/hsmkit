@@ -225,6 +225,10 @@ export default {
         title: 'PIN Block Generator',
         description: 'Generate ISO 9564 PIN Blocks (Format 0, 1, 3, 4) for payment transactions.',
       },
+      as2805: {
+        title: 'AS2805 Message Tools',
+        description: 'Parse and analyze AS2805 financial messages (Australian ISO 8583 variant) used in payments.',
+      },
       // Generic Tools
       hash: {
         title: 'Hash Calculator',

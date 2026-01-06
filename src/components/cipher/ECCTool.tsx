@@ -8,12 +8,15 @@ import { CollapsibleInfo } from '../common';
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-// ECC 曲线定义
-const ECC_CURVES = [
+// ECC 曲线定义 (with keySize metadata)
+const ECC_CURVES_DATA = [
   { label: 'NIST P-256, P-256 (prime256v1)', value: 'P-256', keySize: 32 },
   { label: 'NIST P-384, P-384 (secp384r1)', value: 'P-384', keySize: 48 },
   { label: 'P-521 (secp521r1)', value: 'P-521', keySize: 66 },
 ];
+
+// For Select component (without keySize to avoid DOM prop warning)
+const ECC_CURVES = ECC_CURVES_DATA.map(({ label, value }) => ({ label, value }));
 
 type ECCCurve = 'P-256' | 'P-384' | 'P-521';
 type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512';
@@ -55,7 +58,7 @@ const ECCTool: React.FC = () => {
 
   // 获取曲线的密钥大小
   const getCurveKeySize = (): number => {
-    const curveInfo = ECC_CURVES.find(c => c.value === curve);
+    const curveInfo = ECC_CURVES_DATA.find(c => c.value === curve);
     return curveInfo?.keySize || 32;
   };
 

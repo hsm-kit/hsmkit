@@ -224,6 +224,10 @@ export default {
         title: 'PIN ブロック生成器',
         description: '決済取引用の ISO 9564 PIN ブロック（フォーマット 0、1、3、4）を生成。',
       },
+      as2805: {
+        title: 'AS2805 ツール',
+        description: 'AS2805（ISO 8583 の変種）決済メッセージを解析・パース。',
+      },
       hash: {
         title: 'ハッシュ計算機',
         description: 'MD5、SHA-1、SHA-256、SHA-512、BLAKE2 などのアルゴリズムでハッシュ値を計算。',

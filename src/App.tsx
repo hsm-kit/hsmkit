@@ -106,8 +106,7 @@ const globalStyles = `
   .ant-menu-submenu-popup .ant-menu-submenu-title > span:not(.ant-menu-submenu-arrow) {
     flex: 1 !important;
     text-align: left !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
     min-width: 0 !important;
   }
   /* 箭头图标绝对定位在右侧，不占用布局空间，完全移除其flex影响 */
@@ -153,9 +152,19 @@ const globalStyles = `
     width: 4px;
     z-index: 1;
   }
-  /* 统一三级菜单宽度 */
-  .ant-menu-submenu-popup .ant-menu-submenu-popup .ant-menu-vertical {
-    min-width: 200px !important;
+  /* 调整子菜单容器边框、圆角与阴影，统一为更薄、更精致的样式 */
+  .ant-menu-submenu-popup {
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 6px 18px rgba(25,33,43,0.08) !important;
+    overflow: hidden !important;
+    background-clip: padding-box !important;
+  }
+  /* 子菜单内的白色卡片（AntD 4.x 结构）也应用相同样式保护 */
+  .ant-dropdown,
+  .ant-dropdown__menu,
+  .ant-menu-submenu-popup .ant-menu {
+    border-radius: 8px !important;
   }
 `;
 
@@ -338,49 +347,53 @@ const App: React.FC = () => {
       icon: <CreditCardOutlined />,
       children: [
         { label: t.menu.as2805 || 'AS2805', key: 'payments-as2805' },
-        { label: t.menu.bitmap || 'Bitmap', key: 'payments-bitmap' },
+        { label: t.menu.bitmap || 'Bitmap', key: 'payments-bitmap', disabled: true },
         { 
           label: t.menu.cardValidation || 'Card Validation', 
           key: 'payments-card-validation',
+          disabled: true,
           children: [
-            { label: t.menu.cvvs || 'CVVs', key: 'payments-card-validation-cvvs' },
-            { label: t.menu.amexCscs || 'AMEX CSCs', key: 'payments-card-validation-amex-cscs' },
-            { label: t.menu.mastercardCvc3 || 'MasterCard dynamic CVC3', key: 'payments-card-validation-mastercard-cvc3' },
+            { label: t.menu.cvvs || 'CVVs', key: 'payments-card-validation-cvvs', disabled: true },
+            { label: t.menu.amexCscs || 'AMEX CSCs', key: 'payments-card-validation-amex-cscs', disabled: true },
+            { label: t.menu.mastercardCvc3 || 'MasterCard dynamic CVC3', key: 'payments-card-validation-mastercard-cvc3', disabled: true },
           ]
         },
         { 
           label: t.menu.dukpt || 'DUKPT', 
           key: 'payments-dukpt',
+          disabled: true,
           children: [
-            { label: t.menu.dukptIso9797 || 'DUKPT (ISO 9797)', key: 'payments-dukpt-iso9797' },
-            { label: t.menu.dukptAes || 'DUKPT (AES)', key: 'payments-dukpt-aes' },
+            { label: t.menu.dukptIso9797 || 'DUKPT (ISO 9797)', key: 'payments-dukpt-iso9797', disabled: true },
+            { label: t.menu.dukptAes || 'DUKPT (AES)', key: 'payments-dukpt-aes', disabled: true },
           ]
         },
         { 
           label: t.menu.macAlgorithms || 'MAC Algorithms', 
           key: 'payments-mac-algorithms',
+          disabled: true,
           children: [
-            { label: t.menu.iso9797_1 || 'ISO/IEC 9797-1', key: 'payments-mac-iso9797-1' },
-            { label: t.menu.ansix9 || 'ANSI X9.9 & X9.19', key: 'payments-mac-ansix9' },
-            { label: t.menu.as2805_4_1 || 'AS2805.4.1', key: 'payments-mac-as2805' },
-            { label: t.menu.tdesCbcMac || 'TDES CBC-MAC', key: 'payments-mac-tdes-cbc-mac' },
-            { label: t.menu.hmac || 'HMAC', key: 'payments-mac-hmac' },
-            { label: t.menu.cmac || 'CMAC', key: 'payments-mac-cmac' },
-            { label: t.menu.retail || 'Retail', key: 'payments-mac-retail' },
+            { label: t.menu.iso9797_1 || 'ISO/IEC 9797-1', key: 'payments-mac-iso9797-1', disabled: true },
+            { label: t.menu.ansix9 || 'ANSI X9.9 & X9.19', key: 'payments-mac-ansix9', disabled: true },
+            { label: t.menu.as2805_4_1 || 'AS2805.4.1', key: 'payments-mac-as2805', disabled: true },
+            { label: t.menu.tdesCbcMac || 'TDES CBC-MAC', key: 'payments-mac-tdes-cbc-mac', disabled: true },
+            { label: t.menu.hmac || 'HMAC', key: 'payments-mac-hmac', disabled: true },
+            { label: t.menu.cmac || 'CMAC', key: 'payments-mac-cmac', disabled: true },
+            { label: t.menu.retail || 'Retail', key: 'payments-mac-retail', disabled: true },
           ]
         },
         { 
           label: t.menu.pinBlocks || 'PIN Blocks', 
           key: 'payments-pin-blocks',
+          disabled: true,
           children: [
-            { label: t.menu.pinBlocksGeneral || 'PIN Blocks General', key: 'payments-pin-blocks-general' },
-            { label: t.menu.pinBlocksAes || 'PIN Blocks AES', key: 'payments-pin-blocks-aes' },
+            { label: t.menu.pinBlocksGeneral || 'PIN Blocks General', key: 'payments-pin-blocks-general', disabled: true },
+            { label: t.menu.pinBlocksAes || 'PIN Blocks AES', key: 'payments-pin-blocks-aes', disabled: true },
           ]
         },
-        { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset' },
-        { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv' },
-        { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates' },
-        { label: t.menu.zka || 'ZKA', key: 'payments-zka' },
+        { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset', disabled: true },
+        { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv', disabled: true },
+        { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates', disabled: true },
+        { label: t.menu.zka || 'ZKA', key: 'payments-zka', disabled: true },
       ]
     },
   ], [t]);

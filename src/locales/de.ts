@@ -224,6 +224,10 @@ export default {
         title: 'PIN-Block Generator',
         description: 'ISO 9564 PIN-Blöcke (Format 0, 1, 3, 4) für Zahlungstransaktionen generieren.',
       },
+      as2805: {
+        title: 'AS2805 Werkzeuge',
+        description: 'AS2805 Zahlungsnachrichten (ISO 8583 Variante) analysieren und parsen.',
+      },
       hash: {
         title: 'Hash-Rechner',
         description: 'Hash-Werte mit MD5, SHA-1, SHA-256, SHA-512, BLAKE2 und mehr berechnen.',

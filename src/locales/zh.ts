@@ -225,6 +225,10 @@ export default {
         title: 'PIN Block 生成器',
         description: '生成 ISO 9564 PIN Block（格式 0、1、3、4）用于支付交易。',
       },
+      as2805: {
+        title: 'AS2805 报文工具',
+        description: '解析与分析 AS2805 支付报文（澳大利亚 ISO 8583 变体）。',
+      },
       // Generic Tools
       hash: {
         title: '哈希计算器',
