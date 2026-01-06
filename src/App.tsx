@@ -42,6 +42,7 @@ const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'))
 
 // Payment
 const PinBlockPage = lazy(() => import('./pages/payment/PinBlockPage'));
+const AS2805Page = lazy(() => import('./pages/payment/AS2805Page'));
 
 // Generic Tools
 const HashPage = lazy(() => import('./pages/generic/HashPage'));
@@ -558,6 +559,7 @@ const App: React.FC = () => {
               <Route path="/thales-keys" element={<ThalesKeysPage />} />
               <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
               <Route path="/pin-block-generator" element={<PinBlockPage />} />
+              <Route path="/payments-as2805" element={<AS2805Page />} />
               {/* Legal Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/terms-of-service" element={<TermsOfServicePage />} />

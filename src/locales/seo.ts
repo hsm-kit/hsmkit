@@ -19,6 +19,7 @@ export interface SEOContent {
 export interface PageSEO {
   home: SEOContent;
   asn1: SEOContent;
+  as2805: SEOContent;
   aes: SEOContent;
   des: SEOContent;
   rsa: SEOContent;
