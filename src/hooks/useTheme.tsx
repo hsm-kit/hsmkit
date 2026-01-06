@@ -67,11 +67,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // 使用 useMemo 缓存主题配置，避免不必要的重渲染
   const themeConfig = useMemo(() => ({
-    algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-    token: {
-      colorPrimary: '#1677ff',
-      borderRadius: 8,
-    },
+          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          token: {
+            colorPrimary: '#1677ff',
+            borderRadius: 8,
+          },
   }), [isDark]);
 
   const contextValue = useMemo(() => ({

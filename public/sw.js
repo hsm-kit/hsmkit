@@ -2,14 +2,14 @@
 const CACHE_NAME = 'hsmkit-v2';
 const STATIC_CACHE = 'hsmkit-static-v2';
 
-// 静态资源 - 长期缓存
+// 静态资源 - 长期缓存（只缓存实际使用的资源）
 const staticAssets = [
   '/favicon.svg',
   '/favicon-48.png',
   '/favicon-192.png',
   '/favicon-512.png',
-  '/apple-touch-icon.png',
-  '/logo.svg'
+  '/apple-touch-icon.png'
+  // logo.svg 未在代码中使用，不缓存
 ];
 
 // 安装 Service Worker

@@ -50,14 +50,12 @@ export default defineConfig({
     sourcemap: false,
     // 设置警告阈值
     chunkSizeWarningLimit: 600,
-    // 启用压缩 - 使用默认压缩器（rolldown 内置）
-    minify: true,
-    // 启用 CSS 代码分割
-    cssCodeSplit: true,
+    // 启用压缩 - rolldown 默认使用内置压缩器
+    // minify 默认为 true，不需要显式设置
+    // CSS 代码分割 - 对于单页应用，禁用可以减少 HTTP 请求
+    cssCodeSplit: false,
     // 优化构建输出
     reportCompressedSize: false, // 禁用压缩大小报告以加快构建速度
-    // 启用 CSS 压缩
-    cssMinify: true,
   },
   
   // 优化依赖预构建

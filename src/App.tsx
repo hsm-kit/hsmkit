@@ -313,8 +313,6 @@ const App: React.FC = () => {
           <img 
             src="/favicon.svg" 
             alt="HSM Kit"
-            loading="eager"
-            fetchPriority="high"
             style={{ 
               width: isMobile ? 28 : 32, 
               height: isMobile ? 28 : 32, 
