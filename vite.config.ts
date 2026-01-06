@@ -9,7 +9,7 @@ export default defineConfig({
     // 代码分割配置 - 使用函数形式
     rollupOptions: {
       output: {
-        // 手动分割代码块
+        // 手动分割代码块 - 优化 Ant Design 拆分
         manualChunks(id) {
           // React 核心
           if (id.includes('node_modules/react') || 
@@ -17,11 +17,71 @@ export default defineConfig({
               id.includes('node_modules/react-router')) {
             return 'vendor-react';
           }
-          // Ant Design UI 库
-          if (id.includes('node_modules/antd') || 
-              id.includes('node_modules/@ant-design')) {
-            return 'vendor-antd';
+          
+          // Ant Design 图标库单独拆分（可以延迟加载）
+          if (id.includes('node_modules/@ant-design/icons')) {
+            return 'vendor-antd-icons';
           }
+          
+          // Ant Design 核心库 - 实用拆分策略
+          // 策略：接受 core 稍大（因为内部依赖），但将其他组件拆分为小 chunk
+          // 这样首屏加载 core，其他页面按需加载小 chunk，不会卡顿
+          if (id.includes('node_modules/antd')) {
+            // 首屏必需的核心组件（包含必要的内部依赖）
+            // Layout, Menu, Typography, Button, Drawer, Tooltip, Spin, ConfigProvider
+            // 这些组件有内部依赖，所以 core 会稍大，但这是必要的
+            if (id.includes('antd/es/layout') || 
+                id.includes('antd/es/menu') ||
+                id.includes('antd/es/typography') || 
+                id.includes('antd/es/button') || 
+                id.includes('antd/es/drawer') ||
+                id.includes('antd/es/tooltip') ||
+                id.includes('antd/es/spin') ||
+                id.includes('antd/es/config-provider') ||
+                id.includes('antd/es/locale') ||
+                id.includes('antd/es/theme') ||
+                id.includes('antd/es/style')) {
+              return 'vendor-antd-core';
+            }
+            
+            // 表单组件（Input, Select, Tabs, Form）- 单独拆分，约 85KB
+            if (id.includes('antd/es/input') || 
+                id.includes('antd/es/select') || 
+                id.includes('antd/es/tabs') ||
+                id.includes('antd/es/form') ||
+                id.includes('antd/es/upload') ||
+                id.includes('antd/es/checkbox') ||
+                id.includes('antd/es/radio') ||
+                id.includes('antd/es/segmented') ||
+                id.includes('antd/es/input-number')) {
+              return 'vendor-antd-form';
+            }
+            
+            // 数据展示组件（Card, Table, Tag, Alert, Divider）- 单独拆分，约 340KB
+            if (id.includes('antd/es/card') || 
+                id.includes('antd/es/table') || 
+                id.includes('antd/es/tag') ||
+                id.includes('antd/es/alert') ||
+                id.includes('antd/es/divider') ||
+                id.includes('antd/es/collapse') ||
+                id.includes('antd/es/popover') ||
+                id.includes('antd/es/space') ||
+                id.includes('antd/es/row') ||
+                id.includes('antd/es/col')) {
+              return 'vendor-antd-display';
+            }
+            
+            // 反馈组件（Message, Modal, Notification）- 单独拆分，约 40KB
+            if (id.includes('antd/es/message') ||
+                id.includes('antd/es/modal') ||
+                id.includes('antd/es/notification')) {
+              return 'vendor-antd-feedback';
+            }
+            
+            // 其他 Ant Design 组件（较少使用）
+            return 'vendor-antd-other';
+          }
+          
           // 加密库
           if (id.includes('node_modules/crypto-js') || 
               id.includes('node_modules/node-forge') || 
@@ -70,5 +130,11 @@ export default defineConfig({
     ],
     // 排除不需要预构建的依赖
     exclude: [],
+    // 使用 Rolldown 优化选项（rolldown-vite 使用）
+    rolldownOptions: {
+      target: 'es2020',
+    },
   },
+  
+  // 确保 tree-shaking 正常工作（rolldown 自动处理）
 })
