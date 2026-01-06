@@ -67,25 +67,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // 使用 useMemo 缓存主题配置，避免不必要的重渲染
   const themeConfig = useMemo(() => ({
-          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          token: {
-            colorPrimary: '#1677ff',
-            borderRadius: 8,
-          },
-          components: {
-            Tooltip: {
-              mouseEnterDelay: 0.1, // 鼠标进入延迟 100ms
-              mouseLeaveDelay: 0, // 鼠标离开立即消失
-            },
-            Menu: {
-              subMenuOpenDelay: 0.1, // 子菜单打开延迟 100ms
-              subMenuCloseDelay: 0.05, // 子菜单关闭延迟 50ms，仅用于处理菜单之间的微小间隙
-            },
-            Popover: {
-              mouseEnterDelay: 0.1,
-              mouseLeaveDelay: 0,
-            },
-          },
+    algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: '#1677ff',
+      borderRadius: 8,
+    },
   }), [isDark]);
 
   const contextValue = useMemo(() => ({
@@ -112,4 +98,3 @@ export const useTheme = (): ThemeContextType => {
 };
 
 export default useTheme;
-

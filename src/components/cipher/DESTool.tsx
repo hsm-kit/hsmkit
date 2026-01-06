@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
+import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
+import { workerDesEncrypt, isWorkerAvailable } from '../../utils/cryptoWorker';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -30,6 +31,8 @@ const DESTool: React.FC = () => {
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
   const [lastOperation, setLastOperation] = useState<'encrypt' | 'decrypt' | null>(null);
+  const [useWorker] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // 是否需要 IV（ECB 模式不需要）
   const needsIv = mode !== 'ECB';
@@ -276,20 +279,39 @@ const DESTool: React.FC = () => {
   };
 
   // 加密
-  const handleEncrypt = () => {
+  const handleEncrypt = async () => {
     if (!validateInputs()) return;
 
+    setIsProcessing(true);
     try {
       const cleanKey = cleanHex(key);
       const keyWordArray = hexToWordArray(cleanKey);
       
       let dataWordArray: CryptoJS.lib.WordArray;
+      let dataHex: string;
       if (inputType === 'Hex') {
-        dataWordArray = hexToWordArray(cleanHex(data));
+        dataHex = cleanHex(data);
+        dataWordArray = hexToWordArray(dataHex);
       } else {
         dataWordArray = asciiToWordArray(data);
+        dataHex = dataWordArray.toString(CryptoJS.enc.Hex);
       }
 
+      // 🚀 尝试使用 Web Worker 后台计算 (ECB/CBC 模式, NoPadding)
+      if (useWorker && isWorkerAvailable() && padding === 'None' && (mode === 'ECB' || mode === 'CBC')) {
+        try {
+          const cleanIv = needsIv ? cleanHex(iv) : undefined;
+          const workerResult = await workerDesEncrypt(cleanKey, dataHex, mode, cleanIv);
+          setResult(workerResult);
+          setLastOperation('encrypt');
+          setIsProcessing(false);
+          return;
+        } catch {
+          // Worker 失败，回退到主线程
+        }
+      }
+
+      // 回退到 crypto-js
       const options: Record<string, unknown> = {
         mode: getCryptoMode(),
         padding: getCryptoPadding(),
@@ -310,6 +332,8 @@ const DESTool: React.FC = () => {
       setLastOperation('encrypt');
     } catch (err) {
       setError((t.des?.errorEncryption || 'Encryption failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -389,6 +413,11 @@ const DESTool: React.FC = () => {
                 <div>• {t.des?.ivInfo || 'IV (Initialization Vector) must be 8 bytes'}</div>
               )}
               <div>• {t.des?.blockSizeInfo || 'Block size is 8 bytes'}</div>
+              {isWorkerAvailable() && useWorker && padding === 'None' && (mode === 'ECB' || mode === 'CBC') && (
+                <div style={{ color: '#52c41a', marginTop: 8 }}>
+                  <ThunderboltOutlined /> Web Worker 后台计算已启用
+                </div>
+              )}
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
@@ -552,6 +581,7 @@ const DESTool: React.FC = () => {
                 icon={<LockOutlined />}
                 onClick={handleEncrypt}
                 size="large"
+                loading={isProcessing}
               >
                 {t.des?.encrypt || 'Encrypt'}
               </Button>

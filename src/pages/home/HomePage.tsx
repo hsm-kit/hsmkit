@@ -42,15 +42,50 @@ const { Title, Text, Paragraph } = Typography;
 type Category = 'all' | 'symmetric' | 'asymmetric' | 'payment' | 'encoding' | 'hashing';
 type ViewMode = 'grid' | 'list';
 
-interface ToolInfo {
+// Static tool configuration - moved outside component to prevent recreation on each render
+interface ToolConfig {
   icon: React.ReactNode;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   path: string;
   color: string;
   category: Category;
   keywords: string[];
 }
+
+const toolConfigs: ToolConfig[] = [
+  // Symmetric Encryption
+  { icon: <LockOutlined />, titleKey: 'aes', descKey: 'aes', path: '/aes-encryption', color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', category: 'symmetric', keywords: ['aes', 'encryption', 'symmetric', 'block cipher', '128', '192', '256', 'cbc', 'ecb', 'ctr'] },
+  { icon: <UnlockOutlined />, titleKey: 'des', descKey: 'des', path: '/des-encryption', color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', category: 'symmetric', keywords: ['des', '3des', 'triple des', 'encryption', 'symmetric', 'block cipher'] },
+  { icon: <InteractionOutlined />, titleKey: 'fpe', descKey: 'fpe', path: '/fpe-encryption', color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', category: 'symmetric', keywords: ['fpe', 'format preserving', 'ff1', 'ff3', 'tokenization'] },
+  // Asymmetric Encryption
+  { icon: <SecurityScanOutlined />, titleKey: 'rsa', descKey: 'rsa', path: '/rsa-encryption', color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', category: 'asymmetric', keywords: ['rsa', 'public key', 'private key', 'asymmetric', 'pkcs', 'oaep'] },
+  { icon: <ApiOutlined />, titleKey: 'ecc', descKey: 'ecc', path: '/ecc-encryption', color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', category: 'asymmetric', keywords: ['ecc', 'ecdsa', 'elliptic curve', 'secp256k1', 'signature', 'bitcoin'] },
+  { icon: <SafetyOutlined />, titleKey: 'rsaDer', descKey: 'rsaDer', path: '/rsa-der-public-key', color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)', category: 'asymmetric', keywords: ['rsa', 'der', 'asn1', 'public key', 'pem', 'modulus', 'exponent'] },
+  { icon: <SafetyCertificateOutlined />, titleKey: 'sslCert', descKey: 'sslCert', path: '/ssl-certificates', color: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)', category: 'asymmetric', keywords: ['ssl', 'certificate', 'x509', 'csr', 'pem', 'rsa', 'pki', 'self-signed', 'openssl'] },
+  // Payment/Finance Tools
+  { icon: <BlockOutlined />, titleKey: 'tr31', descKey: 'tr31', path: '/tr31-key-block', color: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', category: 'payment', keywords: ['tr31', 'key block', 'ansi', 'key management', 'hsm', 'payment'] },
+  { icon: <CalculatorOutlined />, titleKey: 'kcv', descKey: 'kcv', path: '/kcv-calculator', color: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)', category: 'payment', keywords: ['kcv', 'key check value', 'verification', 'des', 'aes'] },
+  { icon: <AppstoreOutlined />, titleKey: 'pinBlock', descKey: 'pinBlock', path: '/pin-block-generator', color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', category: 'payment', keywords: ['pin block', 'iso 9564', 'format 0', 'format 1', 'format 3', 'format 4', 'atm', 'pos'] },
+  { icon: <KeyOutlined />, titleKey: 'keyGenerator', descKey: 'keyGenerator', path: '/keys-dea', color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', category: 'payment', keywords: ['key generator', 'random', 'des', 'aes', 'key component', 'xor', 'keys dea'] },
+  { icon: <SplitCellsOutlined />, titleKey: 'keyshareGenerator', descKey: 'keyshareGenerator', path: '/keyshare-generator', color: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)', category: 'payment', keywords: ['keyshare', 'key share', 'key component', 'split', 'kcv', 'pin'] },
+  { icon: <CloudOutlined />, titleKey: 'futurexKeys', descKey: 'futurexKeys', path: '/futurex-keys', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['futurex', 'hsm', 'key encryption', 'mfk', 'variant', 'key lookup'] },
+  { icon: <DatabaseOutlined />, titleKey: 'atallaKeys', descKey: 'atallaKeys', path: '/atalla-keys', color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', category: 'payment', keywords: ['atalla', 'akb', 'hsm', 'key block', 'mfk', 'mac'] },
+  { icon: <InsuranceOutlined />, titleKey: 'safeNetKeys', descKey: 'safeNetKeys', path: '/safenet-keys', color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', category: 'payment', keywords: ['safenet', 'hsm', 'key encryption', 'km key', 'variant', 'key lookup'] },
+  { icon: <ContainerOutlined />, titleKey: 'thalesKeys', descKey: 'thalesKeys', path: '/thales-keys', color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', category: 'payment', keywords: ['thales', 'hsm', 'lmk', 'key encryption', 'variant', 'key lookup'] },
+  { icon: <PartitionOutlined />, titleKey: 'thalesKeyBlock', descKey: 'thalesKeyBlock', path: '/thales-key-block', color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', category: 'payment', keywords: ['thales', 'key block', 'kbpk', 'encode', 'decode'] },
+  { icon: <ReadOutlined />, titleKey: 'messageParser', descKey: 'messageParser', path: '/message-parser', color: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', category: 'payment', keywords: ['message parser', 'ndc', 'wincor', 'iso 8583', 'atm', 'financial'] },
+  // Encoding Tools
+  { icon: <SwapOutlined />, titleKey: 'encoding', descKey: 'encoding', path: '/character-encoding', color: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', category: 'encoding', keywords: ['encoding', 'ascii', 'ebcdic', 'hex', 'binary', 'character'] },
+  { icon: <FieldBinaryOutlined />, titleKey: 'bcd', descKey: 'bcd', path: '/bcd', color: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', category: 'encoding', keywords: ['bcd', 'binary coded decimal', 'packed', 'unpacked'] },
+  { icon: <FileTextOutlined />, titleKey: 'base64', descKey: 'base64', path: '/base64', color: 'linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)', category: 'encoding', keywords: ['base64', 'encode', 'decode', 'binary', 'text'] },
+  { icon: <CodeOutlined />, titleKey: 'base94', descKey: 'base94', path: '/base94', color: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', category: 'encoding', keywords: ['base94', 'encode', 'decode', 'compact'] },
+  { icon: <FileSearchOutlined />, titleKey: 'asn1', descKey: 'asn1', path: '/asn1-parser', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'encoding', keywords: ['asn1', 'der', 'ber', 'x509', 'certificate', 'pkcs'] },
+  // Hashing Tools
+  { icon: <NumberOutlined />, titleKey: 'hash', descKey: 'hash', path: '/hashes', color: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', category: 'hashing', keywords: ['hash', 'md5', 'sha1', 'sha256', 'sha512', 'blake2', 'ripemd', 'checksum'] },
+  { icon: <CheckCircleOutlined />, titleKey: 'checkDigits', descKey: 'checkDigits', path: '/check-digits', color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', category: 'hashing', keywords: ['check digit', 'luhn', 'mod 10', 'mod 9', 'credit card', 'validation'] },
+  { icon: <ThunderboltOutlined />, titleKey: 'uuid', descKey: 'uuid', path: '/uuid', color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', category: 'hashing', keywords: ['uuid', 'guid', 'unique', 'identifier', 'v1', 'v4', 'v5'] },
+];
 
 interface ToolCardProps {
   icon: React.ReactNode;
@@ -171,247 +206,19 @@ const HomePage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
-  const tools: ToolInfo[] = [
-    // Symmetric Encryption
-    {
-      icon: <LockOutlined />,
-      title: home.tools.aes.title,
-      description: home.tools.aes.description,
-      path: '/aes-encryption',
-      color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      category: 'symmetric',
-      keywords: ['aes', 'encryption', 'symmetric', 'block cipher', '128', '192', '256', 'cbc', 'ecb', 'ctr'],
-    },
-    {
-      icon: <UnlockOutlined />,
-      title: home.tools.des.title,
-      description: home.tools.des.description,
-      path: '/des-encryption',
-      color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      category: 'symmetric',
-      keywords: ['des', '3des', 'triple des', 'encryption', 'symmetric', 'block cipher'],
-    },
-    {
-      icon: <InteractionOutlined />,
-      title: home.tools.fpe.title,
-      description: home.tools.fpe.description,
-      path: '/fpe-encryption',
-      color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-      category: 'symmetric',
-      keywords: ['fpe', 'format preserving', 'ff1', 'ff3', 'tokenization'],
-    },
-    // Asymmetric Encryption
-    {
-      icon: <SecurityScanOutlined />,
-      title: home.tools.rsa.title,
-      description: home.tools.rsa.description,
-      path: '/rsa-encryption',
-      color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      category: 'asymmetric',
-      keywords: ['rsa', 'public key', 'private key', 'asymmetric', 'pkcs', 'oaep'],
-    },
-    {
-      icon: <ApiOutlined />,
-      title: home.tools.ecc.title,
-      description: home.tools.ecc.description,
-      path: '/ecc-encryption',
-      color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-      category: 'asymmetric',
-      keywords: ['ecc', 'ecdsa', 'elliptic curve', 'secp256k1', 'signature', 'bitcoin'],
-    },
-    {
-      icon: <SafetyOutlined />,
-      title: home.tools.rsaDer.title,
-      description: home.tools.rsaDer.description,
-      path: '/rsa-der-public-key',
-      color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)',
-      category: 'asymmetric',
-      keywords: ['rsa', 'der', 'asn1', 'public key', 'pem', 'modulus', 'exponent'],
-    },
-    {
-      icon: <SafetyCertificateOutlined />,
-      title: home.tools.sslCert.title,
-      description: home.tools.sslCert.description,
-      path: '/ssl-certificates',
-      color: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
-      category: 'asymmetric',
-      keywords: ['ssl', 'certificate', 'x509', 'csr', 'pem', 'rsa', 'pki', 'self-signed', 'openssl'],
-    },
-    // Payment/Finance Tools
-    {
-      icon: <BlockOutlined />,
-      title: home.tools.tr31.title,
-      description: home.tools.tr31.description,
-      path: '/tr31-key-block',
-      color: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
-      category: 'payment',
-      keywords: ['tr31', 'key block', 'ansi', 'key management', 'hsm', 'payment'],
-    },
-    {
-      icon: <CalculatorOutlined />,
-      title: home.tools.kcv.title,
-      description: home.tools.kcv.description,
-      path: '/kcv-calculator',
-      color: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-      category: 'payment',
-      keywords: ['kcv', 'key check value', 'verification', 'des', 'aes'],
-    },
-    {
-      icon: <AppstoreOutlined />,
-      title: home.tools.pinBlock.title,
-      description: home.tools.pinBlock.description,
-      path: '/pin-block-generator',
-      color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-      category: 'payment',
-      keywords: ['pin block', 'iso 9564', 'format 0', 'format 1', 'format 3', 'format 4', 'atm', 'pos'],
-    },
-    {
-      icon: <KeyOutlined />,
-      title: home.tools.keyGenerator.title,
-      description: home.tools.keyGenerator.description,
-      path: '/keys-dea',
-      color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-      category: 'payment',
-      keywords: ['key generator', 'random', 'des', 'aes', 'key component', 'xor', 'keys dea'],
-    },
-    {
-      icon: <SplitCellsOutlined />,
-      title: home.tools.keyshareGenerator.title,
-      description: home.tools.keyshareGenerator.description,
-      path: '/keyshare-generator',
-      color: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)',
-      category: 'payment',
-      keywords: ['keyshare', 'key share', 'key component', 'split', 'kcv', 'pin'],
-    },
-    {
-      icon: <CloudOutlined />,
-      title: home.tools.futurexKeys.title,
-      description: home.tools.futurexKeys.description,
-      path: '/futurex-keys',
-      color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      category: 'payment',
-      keywords: ['futurex', 'hsm', 'key encryption', 'mfk', 'variant', 'key lookup'],
-    },
-    {
-      icon: <DatabaseOutlined />,
-      title: home.tools.atallaKeys.title,
-      description: home.tools.atallaKeys.description,
-      path: '/atalla-keys',
-      color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      category: 'payment',
-      keywords: ['atalla', 'akb', 'hsm', 'key block', 'mfk', 'mac'],
-    },
-    {
-      icon: <InsuranceOutlined />,
-      title: home.tools.safeNetKeys.title,
-      description: home.tools.safeNetKeys.description,
-      path: '/safenet-keys',
-      color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      category: 'payment',
-      keywords: ['safenet', 'hsm', 'key encryption', 'km key', 'variant', 'key lookup'],
-    },
-    {
-      icon: <ContainerOutlined />,
-      title: home.tools.thalesKeys.title,
-      description: home.tools.thalesKeys.description,
-      path: '/thales-keys',
-      color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-      category: 'payment',
-      keywords: ['thales', 'hsm', 'lmk', 'key encryption', 'variant', 'key lookup'],
-    },
-    {
-      icon: <PartitionOutlined />,
-      title: home.tools.thalesKeyBlock.title,
-      description: home.tools.thalesKeyBlock.description,
-      path: '/thales-key-block',
-      color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      category: 'payment',
-      keywords: ['thales', 'key block', 'kbpk', 'encode', 'decode'],
-    },
-    {
-      icon: <ReadOutlined />,
-      title: home.tools.messageParser.title,
-      description: home.tools.messageParser.description,
-      path: '/message-parser',
-      color: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-      category: 'payment',
-      keywords: ['message parser', 'ndc', 'wincor', 'iso 8583', 'atm', 'financial'],
-    },
-    // Encoding Tools
-    {
-      icon: <SwapOutlined />,
-      title: home.tools.encoding.title,
-      description: home.tools.encoding.description,
-      path: '/character-encoding',
-      color: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-      category: 'encoding',
-      keywords: ['encoding', 'ascii', 'ebcdic', 'hex', 'binary', 'character'],
-    },
-    {
-      icon: <FieldBinaryOutlined />,
-      title: home.tools.bcd.title,
-      description: home.tools.bcd.description,
-      path: '/bcd',
-      color: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
-      category: 'encoding',
-      keywords: ['bcd', 'binary coded decimal', 'packed', 'unpacked'],
-    },
-    {
-      icon: <FileTextOutlined />,
-      title: home.tools.base64.title,
-      description: home.tools.base64.description,
-      path: '/base64',
-      color: 'linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)',
-      category: 'encoding',
-      keywords: ['base64', 'encode', 'decode', 'binary', 'text'],
-    },
-    {
-      icon: <CodeOutlined />,
-      title: home.tools.base94.title,
-      description: home.tools.base94.description,
-      path: '/base94',
-      color: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
-      category: 'encoding',
-      keywords: ['base94', 'encode', 'decode', 'compact'],
-    },
-    {
-      icon: <FileSearchOutlined />,
-      title: home.tools.asn1.title,
-      description: home.tools.asn1.description,
-      path: '/asn1-parser',
-      color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      category: 'encoding',
-      keywords: ['asn1', 'der', 'ber', 'x509', 'certificate', 'pkcs'],
-    },
-    // Hashing Tools
-    {
-      icon: <NumberOutlined />,
-      title: home.tools.hash.title,
-      description: home.tools.hash.description,
-      path: '/hashes',
-      color: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-      category: 'hashing',
-      keywords: ['hash', 'md5', 'sha1', 'sha256', 'sha512', 'blake2', 'ripemd', 'checksum'],
-    },
-    {
-      icon: <CheckCircleOutlined />,
-      title: home.tools.checkDigits.title,
-      description: home.tools.checkDigits.description,
-      path: '/check-digits',
-      color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-      category: 'hashing',
-      keywords: ['check digit', 'luhn', 'mod 10', 'mod 9', 'credit card', 'validation'],
-    },
-    {
-      icon: <ThunderboltOutlined />,
-      title: home.tools.uuid.title,
-      description: home.tools.uuid.description,
-      path: '/uuid',
-      color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-      category: 'hashing',
-      keywords: ['uuid', 'guid', 'unique', 'identifier', 'v1', 'v4', 'v5'],
-    },
-  ];
+  // Generate tools with translations - only recalculates when language changes
+  const tools = useMemo(() => 
+    toolConfigs.map(config => ({
+      icon: config.icon,
+      title: (home.tools as Record<string, { title: string; description: string }>)[config.titleKey]?.title || config.titleKey,
+      description: (home.tools as Record<string, { title: string; description: string }>)[config.descKey]?.description || '',
+      path: config.path,
+      color: config.color,
+      category: config.category,
+      keywords: config.keywords,
+    })),
+    [home.tools]
+  );
 
   // 基于搜索词过滤的工具列表（用于计算分类计数）
   const searchFilteredTools = useMemo(() => {

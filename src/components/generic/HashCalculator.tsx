@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
-import { CopyOutlined, CalculatorOutlined, ClearOutlined } from '@ant-design/icons';
+import { CopyOutlined, CalculatorOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import * as hashWasm from 'hash-wasm';
+import { webCryptoHash, isWebCryptoAvailable, hexToArrayBuffer } from '../../utils/webCrypto';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -71,7 +72,34 @@ const HashCalculator: React.FC = () => {
     return new TextEncoder().encode(str);
   };
 
-  // Calculate hash using crypto-js
+  // 🚀 使用 Web Crypto API 计算哈希（硬件加速）
+  const calculateWebCryptoHash = async (data: string, type: string, isHex: boolean): Promise<string | null> => {
+    if (!isWebCryptoAvailable()) return null;
+    
+    // Web Crypto 支持的算法映射
+    const webCryptoAlgorithms: Record<string, 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'> = {
+      'sha1': 'SHA-1',
+      'sha256': 'SHA-256',
+      'sha384': 'SHA-384',
+      'sha512': 'SHA-512',
+    };
+    
+    const algorithm = webCryptoAlgorithms[type];
+    if (!algorithm) return null;
+    
+    try {
+      if (isHex) {
+        const buffer = hexToArrayBuffer(cleanHex(data));
+        return await webCryptoHash(algorithm, buffer);
+      } else {
+        return await webCryptoHash(algorithm, data);
+      }
+    } catch {
+      return null; // 回退到 crypto-js
+    }
+  };
+
+  // Calculate hash using crypto-js (fallback)
   const calculateCryptoJsHash = (data: string, type: string, isHex: boolean): string => {
     let input: CryptoJS.lib.WordArray | string;
     
@@ -200,7 +228,13 @@ const HashCalculator: React.FC = () => {
       let result: string;
       
       if (hashConfig.lib === 'crypto-js') {
-        result = calculateCryptoJsHash(inputData, hashType, isHex);
+        // 🚀 优先尝试 Web Crypto API（SHA-1/256/384/512 硬件加速）
+        const webCryptoResult = await calculateWebCryptoHash(inputData, hashType, isHex);
+        if (webCryptoResult) {
+          result = webCryptoResult;
+        } else {
+          result = calculateCryptoJsHash(inputData, hashType, isHex);
+        }
       } else {
         const inputBytes = isHex 
           ? hexToUint8Array(inputData)
@@ -267,6 +301,11 @@ const HashCalculator: React.FC = () => {
             <CollapsibleInfo title={t.hash?.algorithmInfo || 'Algorithm Information'}>
               <div>• {getHashInfo()?.label} - {t.hash?.outputLength || 'Output'}: {getHashInfo()?.bits} bits ({(getHashInfo()?.bits || 0) / 4} hex chars)</div>
               <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
+              {isWebCryptoAvailable() && ['sha1', 'sha256', 'sha384', 'sha512'].includes(hashType) && (
+                <div style={{ color: '#52c41a' }}>
+                  <ThunderboltOutlined /> Web Crypto API 硬件加速已启用
+                </div>
+              )}
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>

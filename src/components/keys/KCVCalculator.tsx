@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox } from 'antd';
-import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined } from '@ant-design/icons';
+import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { calculateKCV, isValidHex, cleanHexInput } from '../../utils/crypto';
+import { workerKcv, isWorkerAvailable } from '../../utils/cryptoWorker';
 
 const { Title, Text } = Typography;
 
@@ -16,8 +17,10 @@ const KCVCalculator: React.FC = () => {
   const [adjustParity, setAdjustParity] = useState(false);
   const [kcvResult, setKcvResult] = useState('');
   const [error, setError] = useState('');
+  const [useWorker] = useState(true);
+  const [isCalculating, setIsCalculating] = useState(false);
 
-  const performCalculation = () => {
+  const performCalculation = async () => {
     setError('');
     setKcvResult('');
 
@@ -39,14 +42,33 @@ const KCVCalculator: React.FC = () => {
       return;
     }
 
+    setIsCalculating(true);
     try {
-      const kcv = calculateKCV(cleanKey, { 
-        algorithm, 
-        adjustParity: algorithm === 'DES' ? adjustParity : false 
-      });
+      let kcv: string;
+      
+      // 🚀 尝试使用 Web Worker 后台计算
+      if (useWorker && isWorkerAvailable()) {
+        try {
+          kcv = await workerKcv(cleanKey, algorithm);
+        } catch {
+          // Worker 失败，回退到主线程
+          kcv = calculateKCV(cleanKey, { 
+            algorithm, 
+            adjustParity: algorithm === 'DES' ? adjustParity : false 
+          });
+        }
+      } else {
+        kcv = calculateKCV(cleanKey, { 
+          algorithm, 
+          adjustParity: algorithm === 'DES' ? adjustParity : false 
+        });
+      }
+      
       setKcvResult(kcv);
     } catch (err) {
       setError(t.kcvCalculator.errorCalculation);
+    } finally {
+      setIsCalculating(false);
     }
   };
 
@@ -60,6 +82,11 @@ const KCVCalculator: React.FC = () => {
           </Title>
             <CollapsibleInfo title={t.kcvCalculator.kcvCalcTitle}>
               {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
+              {isWorkerAvailable() && useWorker && (
+                <div style={{ color: '#52c41a', marginTop: 8 }}>
+                  <ThunderboltOutlined /> Web Worker 后台计算已启用
+                </div>
+              )}
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
@@ -121,6 +148,7 @@ const KCVCalculator: React.FC = () => {
                 icon={<CalculatorOutlined />}
                 onClick={performCalculation}
                 size="large"
+                loading={isCalculating}
               >
                 {t.kcvCalculator.calculateKCV}
               </Button>

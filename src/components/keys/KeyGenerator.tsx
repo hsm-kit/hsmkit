@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Alert, Segmented } from 'antd';
-import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClearOutlined } from '@ant-design/icons';
+import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -12,6 +12,7 @@ import {
   cleanHexInput 
 } from '../../utils/crypto';
 import { formatHexDisplay } from '../../utils/format';
+import { webCryptoRandomBytes, isWebCryptoAvailable } from '../../utils/webCrypto';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -44,8 +45,16 @@ const KeyGenerator: React.FC = () => {
 
   // 密钥生成
   const handleGenerate = () => {
-    const randomWord = CryptoJS.lib.WordArray.random(length);
-    const keyHex = randomWord.toString().toUpperCase();
+    let keyHex: string;
+    
+    // 🚀 优先使用 Web Crypto API 生成随机数（更安全更快）
+    if (isWebCryptoAvailable()) {
+      keyHex = webCryptoRandomBytes(length);
+    } else {
+      const randomWord = CryptoJS.lib.WordArray.random(length);
+      keyHex = randomWord.toString().toUpperCase();
+    }
+    
     setGeneratedKey(keyHex);
 
     const kcvResult: {des?: string; aes?: string} = {};
@@ -677,6 +686,11 @@ const KeyGenerator: React.FC = () => {
             <div>• {t.keyGenerator.infoContent1 || 'Generate cryptographically secure random keys using Web Crypto API'}</div>
             <div>• {t.keyGenerator.infoContent2 || 'Supports DES (8 bytes), 3DES (16/24 bytes), and AES (16/24/32 bytes)'}</div>
             <div>• {t.keyGenerator.infoContent3 || 'KCV (Key Check Value) is calculated for key verification'}</div>
+            {isWebCryptoAvailable() && (
+              <div style={{ color: '#52c41a', marginTop: 8 }}>
+                <ThunderboltOutlined /> Web Crypto API 安全随机数已启用
+              </div>
+            )}
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>

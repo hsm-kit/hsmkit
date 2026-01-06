@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
+import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
+import { webCryptoAesEncrypt, isWebCryptoAvailable } from '../../utils/webCrypto';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -163,6 +164,9 @@ const CipherTool: React.FC = () => {
   const [error, setError] = useState('');
   const [lastOperation, setLastOperation] = useState<'encrypt' | 'decrypt' | 'kcv' | null>(null);
 
+  const [useWebCrypto] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
+
   // 是否需要 IV（ECB 和 KCV 模式不需要）
   const needsIv = mode !== 'ECB' && mode !== 'KCV';
   
@@ -301,6 +305,25 @@ const CipherTool: React.FC = () => {
     return true;
   };
 
+  // 🚀 使用 Web Crypto API 加密（硬件加速）
+  const encryptWithWebCrypto = async (keyHex: string, dataHex: string, ivHex: string, cipherMode: AESMode): Promise<string | null> => {
+    if (!isWebCryptoAvailable() || !useWebCrypto) return null;
+    
+    // Web Crypto 支持的模式映射 (ECB 不支持)
+    const webCryptoModes: Record<string, 'AES-CBC' | 'AES-CTR' | 'AES-GCM'> = {
+      'CBC': 'AES-CBC',
+    };
+    
+    const webMode = webCryptoModes[cipherMode];
+    if (!webMode) return null;
+    
+    try {
+      return await webCryptoAesEncrypt(webMode, keyHex, dataHex, ivHex);
+    } catch {
+      return null;
+    }
+  };
+
   // 计算 KCV（三种方式）
   const handleCalculateKcv = () => {
     if (!validateInputs(true)) return;
@@ -334,7 +357,7 @@ const CipherTool: React.FC = () => {
   };
 
   // 加密
-  const handleEncrypt = () => {
+  const handleEncrypt = async () => {
     if (isKcvMode) {
       handleCalculateKcv();
       return;
@@ -342,20 +365,38 @@ const CipherTool: React.FC = () => {
     
     if (!validateInputs()) return;
 
+    setIsProcessing(true);
     try {
       const cleanKey = cleanHex(key);
       const keyWordArray = hexToWordArray(cleanKey);
       
       let dataWordArray: CryptoJS.lib.WordArray;
+      let dataHex: string;
       if (inputType === 'Hex') {
-        dataWordArray = hexToWordArray(cleanHex(data));
+        dataHex = cleanHex(data);
+        dataWordArray = hexToWordArray(dataHex);
       } else {
         dataWordArray = asciiToWordArray(data);
+        dataHex = dataWordArray.toString(CryptoJS.enc.Hex);
       }
 
+      // 🚀 尝试使用 Web Crypto API (CBC 模式)
+      if (mode === 'CBC' && useWebCrypto && isWebCryptoAvailable()) {
+        const cleanIv = cleanHex(iv);
+        const webResult = await encryptWithWebCrypto(cleanKey, dataHex, cleanIv, mode);
+        if (webResult) {
+          setResult(webResult);
+          setKcvResult(null);
+          setLastOperation('encrypt');
+          setIsProcessing(false);
+          return;
+        }
+      }
+
+      // 回退到 crypto-js
       const options: Record<string, unknown> = {
         mode: getCryptoMode(),
-        padding: CryptoJS.pad.NoPadding, // 使用 NoPadding，数据必须是 16 字节的倍数
+        padding: CryptoJS.pad.NoPadding,
       };
 
       if (needsIv) {
@@ -368,6 +409,8 @@ const CipherTool: React.FC = () => {
       setLastOperation('encrypt');
     } catch (err) {
       setError((t.cipher?.errorEncryption || 'Encryption failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -443,6 +486,11 @@ const CipherTool: React.FC = () => {
                 <div>• {t.cipher?.kcvInfo || 'KCV: Encrypt zeros and take first 6 hex characters'}</div>
               ) : (
                 <div>• {t.cipher?.noPaddingInfo || 'No padding - data length must be multiple of 16 bytes'}</div>
+              )}
+              {isWebCryptoAvailable() && mode === 'CBC' && useWebCrypto && (
+                <div style={{ color: '#52c41a' }}>
+                  <ThunderboltOutlined /> Web Crypto API 硬件加速已启用
+                </div>
               )}
             </CollapsibleInfo>
           </div>
@@ -599,6 +647,7 @@ const CipherTool: React.FC = () => {
                 icon={<LockOutlined />}
                 onClick={handleEncrypt}
                 size="large"
+                loading={isProcessing}
               >
                 {mode === 'KCV' ? (t.cipher?.calculateKcv || 'Calculate KCV') : (t.cipher?.encrypt || 'Encrypt')}
               </Button>
