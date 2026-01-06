@@ -2,8 +2,6 @@ import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react';
 import { Layout, Menu, Typography, Button, Drawer, Tooltip, Spin } from 'antd';
 import { 
   KeyOutlined, 
-  CalculatorOutlined, 
-  AppstoreOutlined, 
   MenuOutlined,
   LockOutlined,
   HomeOutlined,
@@ -11,7 +9,8 @@ import {
   SunOutlined,
   MoonOutlined,
   LoadingOutlined,
-  SafetyCertificateOutlined
+  SafetyCertificateOutlined,
+  CreditCardOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
@@ -78,15 +77,58 @@ const PageLoader: React.FC = () => (
 
 // 全局样式：调整子菜单宽度和字体，优化三级菜单的鼠标移动体验
 const globalStyles = `
+  /* 统一二级菜单宽度，确保Keys和Payments菜单对齐 */
   .ant-menu-submenu-popup .ant-menu-vertical {
-    min-width: 80px !important;
+    min-width: 180px !important;
+    width: auto !important;
   }
-  .ant-menu-submenu-popup .ant-menu-item {
-    padding-inline: 10px !important;
-    margin-inline: 4px !important;
+  /* 所有菜单项统一左内边距，右内边距为箭头预留空间 */
+  .ant-menu-submenu-popup .ant-menu-item,
+  .ant-menu-submenu-popup .ant-menu-submenu-title {
+    padding-left: 16px !important;
+    padding-right: 32px !important;
+    margin-inline: 0 !important;
     font-size: 13px !important;
     height: 32px !important;
     line-height: 32px !important;
+    white-space: nowrap !important;
+    position: relative !important;
+  }
+  /* 确保文字内容区域对齐 - 使用flex布局 */
+  .ant-menu-submenu-popup .ant-menu-item,
+  .ant-menu-submenu-popup .ant-menu-submenu-title {
+    display: flex !important;
+    align-items: center !important;
+  }
+  /* 文字内容区域，统一宽度和对齐 - 针对所有span元素 */
+  .ant-menu-submenu-popup .ant-menu-item > span,
+  .ant-menu-submenu-popup .ant-menu-submenu-title > span:not(.ant-menu-submenu-arrow) {
+    flex: 1 !important;
+    text-align: left !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-width: 0 !important;
+  }
+  /* 箭头图标绝对定位在右侧，不占用布局空间，完全移除其flex影响 */
+  .ant-menu-submenu-popup .ant-menu-submenu-title .ant-menu-submenu-arrow {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    width: auto !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+    order: 999 !important;
+  }
+  /* 确保submenu-title内部布局不影响文字位置 */
+  .ant-menu-submenu-popup .ant-menu-submenu-title {
+    display: flex !important;
+    align-items: center !important;
+  }
+  /* 确保没有箭头的菜单项也有相同的右内边距，保持对齐 */
+  .ant-menu-submenu-popup .ant-menu-item {
+    padding-right: 32px !important;
   }
   .ant-menu-submenu-popup .ant-menu {
     padding: 4px 0 !important;
@@ -100,10 +142,6 @@ const globalStyles = `
     margin-left: -4px !important;
     margin-top: -4px !important;
   }
-  /* 增加菜单项的触发区域，减少误关闭 */
-  .ant-menu-submenu-popup .ant-menu-submenu-title {
-    padding-right: 24px !important;
-  }
   /* 确保菜单容器之间有重叠，让鼠标移动时不会触发关闭 */
   .ant-menu-submenu-popup::before {
     content: '';
@@ -113,6 +151,10 @@ const globalStyles = `
     bottom: 0;
     width: 4px;
     z-index: 1;
+  }
+  /* 统一三级菜单宽度 */
+  .ant-menu-submenu-popup .ant-menu-submenu-popup .ant-menu-vertical {
+    min-width: 200px !important;
   }
 `;
 
@@ -152,6 +194,27 @@ const routes = [
   { key: 'keys-blocks-tr31', path: '/tr31-key-block' },
   { key: 'kcv', path: '/kcv-calculator' },
   { key: 'pin', path: '/pin-block-generator' },
+  // Payments menu routes
+  { key: 'payments-as2805', path: '/payments-as2805' },
+  { key: 'payments-bitmap', path: '/payments-bitmap' },
+  { key: 'payments-card-validation-cvvs', path: '/payments-card-validation-cvvs' },
+  { key: 'payments-card-validation-amex-cscs', path: '/payments-card-validation-amex-cscs' },
+  { key: 'payments-card-validation-mastercard-cvc3', path: '/payments-card-validation-mastercard-cvc3' },
+  { key: 'payments-dukpt-iso9797', path: '/payments-dukpt-iso9797' },
+  { key: 'payments-dukpt-aes', path: '/payments-dukpt-aes' },
+  { key: 'payments-mac-iso9797-1', path: '/payments-mac-iso9797-1' },
+  { key: 'payments-mac-ansix9', path: '/payments-mac-ansix9' },
+  { key: 'payments-mac-as2805', path: '/payments-mac-as2805' },
+  { key: 'payments-mac-tdes-cbc-mac', path: '/payments-mac-tdes-cbc-mac' },
+  { key: 'payments-mac-hmac', path: '/payments-mac-hmac' },
+  { key: 'payments-mac-cmac', path: '/payments-mac-cmac' },
+  { key: 'payments-mac-retail', path: '/payments-mac-retail' },
+  { key: 'payments-pin-blocks-general', path: '/payments-pin-blocks-general' },
+  { key: 'payments-pin-blocks-aes', path: '/payments-pin-blocks-aes' },
+  { key: 'payments-pin-offset', path: '/payments-pin-offset' },
+  { key: 'payments-pin-pvv', path: '/payments-pin-pvv' },
+  { key: 'payments-visa-certificates', path: '/payments-visa-certificates' },
+  { key: 'payments-zka', path: '/payments-zka' },
 ] as const;
 
 // Generate bidirectional mappings from single source
@@ -268,8 +331,57 @@ const App: React.FC = () => {
         },
       ]
     },
-    { label: t.menu.kcv || 'KCV', key: 'kcv', icon: <CalculatorOutlined /> },
-    { label: t.menu.pinBlock, key: 'pin', icon: <AppstoreOutlined /> },
+    { 
+      label: t.menu.payments || 'Payments', 
+      key: 'payments', 
+      icon: <CreditCardOutlined />,
+      children: [
+        { label: t.menu.as2805 || 'AS2805', key: 'payments-as2805' },
+        { label: t.menu.bitmap || 'Bitmap', key: 'payments-bitmap' },
+        { 
+          label: t.menu.cardValidation || 'Card Validation', 
+          key: 'payments-card-validation',
+          children: [
+            { label: t.menu.cvvs || 'CVVs', key: 'payments-card-validation-cvvs' },
+            { label: t.menu.amexCscs || 'AMEX CSCs', key: 'payments-card-validation-amex-cscs' },
+            { label: t.menu.mastercardCvc3 || 'MasterCard dynamic CVC3', key: 'payments-card-validation-mastercard-cvc3' },
+          ]
+        },
+        { 
+          label: t.menu.dukpt || 'DUKPT', 
+          key: 'payments-dukpt',
+          children: [
+            { label: t.menu.dukptIso9797 || 'DUKPT (ISO 9797)', key: 'payments-dukpt-iso9797' },
+            { label: t.menu.dukptAes || 'DUKPT (AES)', key: 'payments-dukpt-aes' },
+          ]
+        },
+        { 
+          label: t.menu.macAlgorithms || 'MAC Algorithms', 
+          key: 'payments-mac-algorithms',
+          children: [
+            { label: t.menu.iso9797_1 || 'ISO/IEC 9797-1', key: 'payments-mac-iso9797-1' },
+            { label: t.menu.ansix9 || 'ANSI X9.9 & X9.19', key: 'payments-mac-ansix9' },
+            { label: t.menu.as2805_4_1 || 'AS2805.4.1', key: 'payments-mac-as2805' },
+            { label: t.menu.tdesCbcMac || 'TDES CBC-MAC', key: 'payments-mac-tdes-cbc-mac' },
+            { label: t.menu.hmac || 'HMAC', key: 'payments-mac-hmac' },
+            { label: t.menu.cmac || 'CMAC', key: 'payments-mac-cmac' },
+            { label: t.menu.retail || 'Retail', key: 'payments-mac-retail' },
+          ]
+        },
+        { 
+          label: t.menu.pinBlocks || 'PIN Blocks', 
+          key: 'payments-pin-blocks',
+          children: [
+            { label: t.menu.pinBlocksGeneral || 'PIN Blocks General', key: 'payments-pin-blocks-general' },
+            { label: t.menu.pinBlocksAes || 'PIN Blocks AES', key: 'payments-pin-blocks-aes' },
+          ]
+        },
+        { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset' },
+        { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv' },
+        { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates' },
+        { label: t.menu.zka || 'ZKA', key: 'payments-zka' },
+      ]
+    },
   ], [t]);
 
   const handleMenuClick = useCallback((key: string) => {
