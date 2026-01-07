@@ -186,15 +186,13 @@ const TDESCBCMACTool: React.FC = () => {
 
             {/* Key Input */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.tdescbc.keyK}:</Text>
-                {getKeyLengthIndicator(keyK, 48)}
-              </div>
+              <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac.tdescbc.keyK}:</Text>
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
                 placeholder="Enter 48 hex characters (3DES) or 32 hex characters (2DES)"
                 maxLength={48}
+                suffix={getKeyLengthIndicator(keyK, 48)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -225,6 +223,7 @@ const TDESCBCMACTool: React.FC = () => {
                 onChange={(e) => setData(e.target.value.toUpperCase())}
                 placeholder="Enter hex data"
                 autoSize={{ minRows: 4, maxRows: 8 }}
+                suffix={<span style={{ color: '#999' }}>[{data.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

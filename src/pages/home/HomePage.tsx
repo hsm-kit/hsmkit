@@ -31,6 +31,7 @@ import {
   InteractionOutlined,
   BarsOutlined,
   AppstoreAddOutlined,
+  CreditCardOutlined,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -65,8 +66,6 @@ const toolConfigs: ToolConfig[] = [
   { icon: <SafetyCertificateOutlined />, titleKey: 'sslCert', descKey: 'sslCert', path: '/ssl-certificates', color: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)', category: 'asymmetric', keywords: ['ssl', 'certificate', 'x509', 'csr', 'pem', 'rsa', 'pki', 'self-signed', 'openssl'] },
   // Payment/Finance Tools
   { icon: <BlockOutlined />, titleKey: 'tr31', descKey: 'tr31', path: '/tr31-key-block', color: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', category: 'payment', keywords: ['tr31', 'key block', 'ansi', 'key management', 'hsm', 'payment'] },
-  { icon: <CalculatorOutlined />, titleKey: 'kcv', descKey: 'kcv', path: '/kcv-calculator', color: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)', category: 'payment', keywords: ['kcv', 'key check value', 'verification', 'des', 'aes'] },
-  { icon: <AppstoreOutlined />, titleKey: 'pinBlock', descKey: 'pinBlock', path: '/pin-block-generator', color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', category: 'payment', keywords: ['pin block', 'iso 9564', 'format 0', 'format 1', 'format 3', 'format 4', 'atm', 'pos'] },
   { icon: <AppstoreAddOutlined />, titleKey: 'pinBlockGeneral', descKey: 'pinBlockGeneral', path: '/payments-pin-blocks-general', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['pin block', 'iso 9564', 'format 0', 'format 1', 'format 2', 'format 3', 'format 4', 'encode', 'decode', 'general'] },
   { icon: <BarsOutlined />, titleKey: 'pinBlockAes', descKey: 'pinBlockAes', path: '/payments-pin-blocks-aes', color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', category: 'payment', keywords: ['pin block', 'aes', 'format 4', 'iso 9564', 'encryption', 'aes-128', 'ecb'] },
   { icon: <CalculatorOutlined />, titleKey: 'pinOffset', descKey: 'pinOffset', path: '/payments-pin-offset', color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)', category: 'payment', keywords: ['pin offset', 'ibm 3624', 'pin verification', 'decimalization', 'validation data', 'pvv'] },
@@ -78,8 +77,14 @@ const toolConfigs: ToolConfig[] = [
   { icon: <InsuranceOutlined />, titleKey: 'safeNetKeys', descKey: 'safeNetKeys', path: '/safenet-keys', color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', category: 'payment', keywords: ['safenet', 'hsm', 'key encryption', 'km key', 'variant', 'key lookup'] },
   { icon: <ContainerOutlined />, titleKey: 'thalesKeys', descKey: 'thalesKeys', path: '/thales-keys', color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', category: 'payment', keywords: ['thales', 'hsm', 'lmk', 'key encryption', 'variant', 'key lookup'] },
   { icon: <PartitionOutlined />, titleKey: 'thalesKeyBlock', descKey: 'thalesKeyBlock', path: '/thales-key-block', color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', category: 'payment', keywords: ['thales', 'key block', 'kbpk', 'encode', 'decode'] },
+  { icon: <AppstoreOutlined />, titleKey: 'bitmap', descKey: 'bitmap', path: '/iso8583-bitmap', color: 'linear-gradient(135deg, #96fbc4 0%, #f9f586 100%)', category: 'payment', keywords: ['iso 8583', 'bitmap', 'payment message', 'field indicator', 'primary', 'secondary', 'financial', 'transaction'] },
+  { icon: <CreditCardOutlined />, titleKey: 'cvv', descKey: 'cvv', path: '/payments-card-validation-cvvs', color: 'linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%)', category: 'payment', keywords: ['cvv', 'cvc', 'icvv', 'cvv2', 'dcvv', 'card verification', 'cvk', 'payment security'] },
+  { icon: <CreditCardOutlined />, titleKey: 'amexCsc', descKey: 'amexCsc', path: '/payments-card-validation-amex-cscs', color: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)', category: 'payment', keywords: ['amex', 'csc', 'american express', 'card security code', 'csc3', 'csc4', 'csc5'] },
+  { icon: <CreditCardOutlined />, titleKey: 'mastercardCvc3', descKey: 'mastercardCvc3', path: '/payments-card-validation-mastercard-cvc3', color: 'linear-gradient(135deg, #fd79a8 0%, #e84393 100%)', category: 'payment', keywords: ['mastercard', 'cvc3', 'dynamic cvc', 'contactless', 'emv', 'imk', 'atc'] },
   { icon: <FileSearchOutlined />, titleKey: 'as2805', descKey: 'as2805', path: '/payments-as2805', color: 'linear-gradient(135deg, #ffd6a5 0%, #ffd666 100%)', category: 'payment', keywords: ['as2805', 'iso8583', 'payment', 'financial'] },
   { icon: <ReadOutlined />, titleKey: 'messageParser', descKey: 'messageParser', path: '/message-parser', color: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', category: 'payment', keywords: ['message parser', 'ndc', 'wincor', 'iso 8583', 'atm', 'financial'] },
+  { icon: <KeyOutlined />, titleKey: 'dukpt', descKey: 'dukpt', path: '/payments-dukpt-iso9797', color: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)', category: 'payment', keywords: ['dukpt', 'iso 9797', 'bdk', 'ipek', 'ksn', 'pek', 'pin', 'mac', 'pos', 'atm', 'key derivation'] },
+  { icon: <SafetyOutlined />, titleKey: 'dukptAes', descKey: 'dukptAes', path: '/payments-dukpt-aes', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['dukpt', 'aes', 'aes-128', 'aes-192', 'aes-256', '2tdea', '3tdea', 'working key', 'bdk', 'ksn', 'pek', 'mac gen', 'dek'] },
   // Encoding Tools
   { icon: <SwapOutlined />, titleKey: 'encoding', descKey: 'encoding', path: '/character-encoding', color: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', category: 'encoding', keywords: ['encoding', 'ascii', 'ebcdic', 'hex', 'binary', 'character'] },
   { icon: <FieldBinaryOutlined />, titleKey: 'bcd', descKey: 'bcd', path: '/bcd', color: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', category: 'encoding', keywords: ['bcd', 'binary coded decimal', 'packed', 'unpacked'] },

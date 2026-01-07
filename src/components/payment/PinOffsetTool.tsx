@@ -43,6 +43,18 @@ const PinOffsetTool: React.FC = () => {
   const [pinResult, setPinResult] = useState('');
   const [error, setError] = useState('');
 
+  const lengthIndicator = (current: number, expected: number) => (
+    <Text 
+      style={{ 
+        fontSize: '12px', 
+        color: current === expected ? '#52c41a' : '#999',
+        fontWeight: current > 0 ? 600 : 400
+      }}
+    >
+      [{current}]
+    </Text>
+  );
+
   // IBM 3624 PIN Offset calculation
   const calculatePinOffset = (
     pdkValue: string,
@@ -286,9 +298,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.pdkLabel || 'PDK:'}
-              <Tag color="blue" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{sanitizeHex(pdk).length}]
-              </Tag>
             </Text>
             <TextArea
               value={pdk}
@@ -296,6 +305,11 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pdkPlaceholder || '0123456789ABCDEFFEDCBA9876543210'}
               autoSize={{ minRows: 2, maxRows: 3 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+              suffix={
+                <Tag color="blue" style={{ fontSize: '11px' }}>
+                  [{sanitizeHex(pdk).length}]
+                </Tag>
+              }
             />
           </div>
 
@@ -303,9 +317,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.panLabel || 'PAN:'}
-              <Tag color="green" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{pan.replace(/\D/g, '').length}]
-              </Tag>
             </Text>
             <Input
               value={pan}
@@ -313,6 +324,7 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.panPlaceholder || '1234567899876543'}
               maxLength={19}
               prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
+              suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -322,9 +334,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.pinLabel || 'PIN:'}
-              <Tag color="purple" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{pin.length}]
-              </Tag>
             </Text>
             <Input
               value={pin}
@@ -332,6 +341,7 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pinPlaceholder || '3196'}
               maxLength={12}
               prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
+              suffix={lengthIndicator(pin.length, 4)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -341,15 +351,13 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.decTabLabel || 'DecTab:'}
-              <Tag color="orange" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{decTab.replace(/\D/g, '').length}]
-              </Tag>
             </Text>
             <Input
               value={decTab}
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
               placeholder="0123456789012345"
               maxLength={16}
+              suffix={lengthIndicator(decTab.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -441,9 +449,6 @@ const PinOffsetTool: React.FC = () => {
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.pinOffset?.validationMaskLabel || 'Validation data mask:'}
-                <Tag color="cyan" style={{ marginLeft: 8, fontSize: '11px' }}>
-                  [{validationMask.length}]
-                </Tag>
               </Text>
               <Input
                 value={validationMask}
@@ -454,6 +459,7 @@ const PinOffsetTool: React.FC = () => {
                   }
                 }}
                 placeholder="0000000N0000"
+                suffix={lengthIndicator(validationMask.length, 12)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
@@ -540,9 +546,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.pdkLabel || 'PDK:'}
-              <Tag color="blue" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{sanitizeHex(pdk).length}]
-              </Tag>
             </Text>
             <TextArea
               value={pdk}
@@ -550,6 +553,7 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pdkPlaceholder || '0123456789ABCDEFFEDCBA9876543210'}
               autoSize={{ minRows: 2, maxRows: 3 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+              suffix={lengthIndicator(sanitizeHex(pdk).length, 32)}
             />
           </div>
 
@@ -557,9 +561,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.panLabel || 'PAN:'}
-              <Tag color="green" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{pan.replace(/\D/g, '').length}]
-              </Tag>
             </Text>
             <Input
               value={pan}
@@ -567,6 +568,7 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.panPlaceholder || '1234567899876543'}
               maxLength={19}
               prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
+              suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -576,9 +578,6 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.offsetLabel || 'PIN offset:'}
-              <Tag color="purple" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{pinOffset.length}]
-              </Tag>
             </Text>
             <Input
               value={pinOffset}
@@ -586,6 +585,7 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.offsetPlaceholder || '0000'}
               maxLength={12}
               prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
+              suffix={lengthIndicator(pinOffset.length, 4)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -595,15 +595,13 @@ const PinOffsetTool: React.FC = () => {
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
               {t.pinOffset?.decTabLabel || 'DecTab:'}
-              <Tag color="orange" style={{ marginLeft: 8, fontSize: '11px' }}>
-                [{decTab.replace(/\D/g, '').length}]
-              </Tag>
             </Text>
             <Input
               value={decTab}
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
               placeholder="0123456789012345"
               maxLength={16}
+              suffix={lengthIndicator(decTab.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -695,9 +693,6 @@ const PinOffsetTool: React.FC = () => {
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.pinOffset?.validationMaskLabel || 'Validation data mask:'}
-                <Tag color="cyan" style={{ marginLeft: 8, fontSize: '11px' }}>
-                  [{validationMask.length}]
-                </Tag>
               </Text>
               <Input
                 value={validationMask}
@@ -708,6 +703,7 @@ const PinOffsetTool: React.FC = () => {
                   }
                 }}
                 placeholder="0000000N0000"
+                suffix={lengthIndicator(validationMask.length, 12)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
@@ -791,21 +787,19 @@ const PinOffsetTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.pinOffset?.title || 'PIN offset (IBM 3624 Method)'}
-          </Title>
-          
-          <CollapsibleInfo title={t.pinOffset?.infoTitle || 'About PIN Offset'}>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinOffset?.info1 || 'IBM 3624 method calculates PIN offset using 3DES encryption with PDK and decimalization table.'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinOffset?.info2 || 'The offset is calculated as (Customer PIN - Natural PIN) mod 10.'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block' }}>
-              • {t.pinOffset?.info3 || 'Validation data can be extracted using parameters or a mask pattern for flexible PIN verification.'}
-            </Text>
-          </CollapsibleInfo>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.pinOffset?.title || 'PIN offset (IBM 3624 Method)'}
+            </Title>
+            <CollapsibleInfo title={t.pinOffset?.infoTitle || 'About PIN Offset'}>
+              <div>{t.pinOffset?.info1 || 'IBM 3624 method calculates PIN offset using 3DES encryption with PDK and decimalization table.'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinOffset?.info2 || 'The offset is calculated as (Customer PIN - Natural PIN) mod 10.'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinOffset?.info3 || 'Validation data can be extracted using parameters or a mask pattern for flexible PIN verification.'}</div>
+            </CollapsibleInfo>
+          </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.pinOffset?.description || 'Calculate and verify PIN offsets using IBM 3624 method with decimalization.'}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 

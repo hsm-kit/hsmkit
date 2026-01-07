@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Select, Input, message, Tag, Typography } from 'antd';
+import { Card, Button, Select, Input, message, Tag, Typography, Divider } from 'antd';
 import { CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -130,9 +130,10 @@ const AS2805MACTool: React.FC = () => {
             <div style={{ marginTop: 8 }}>Method 2 uses DES CBC-MAC with final 3DES encryption.</div>
           </CollapsibleInfo>
         </div>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 16, fontSize: '13px' }}>
+        <Text type="secondary" style={{ fontSize: '13px' }}>
           Calculate Message Authentication Code using AS2805.4.1 standard.
         </Text>
+        <Divider style={{ margin: '16px 0' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
@@ -146,39 +147,27 @@ const AS2805MACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Key (K|KL):</Text>
-              {lengthIndicator(sanitizeHex(keyKL).length, 16)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (K|KL):</Text>
             <Input value={keyKL} onChange={e => setKeyKL(sanitizeHex(e.target.value))} placeholder="0123456789ABCDEF"
-              maxLength={16} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
+              maxLength={16} suffix={lengthIndicator(sanitizeHex(keyKL).length, 16)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Key (KR):</Text>
-              {lengthIndicator(sanitizeHex(keyKR).length, 16)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (KR):</Text>
             <Input value={keyKR} onChange={e => setKeyKR(sanitizeHex(e.target.value))} placeholder="FEDCBA9876543210"
-              maxLength={16} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
+              maxLength={16} suffix={lengthIndicator(sanitizeHex(keyKR).length, 16)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data:</Text>
-              {lengthIndicator(sanitizeHex(data).length, 0)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
             <TextArea value={data} onChange={e => setData(sanitizeHex(e.target.value))} placeholder="Enter hex data"
-              autoSize={{ minRows: 6, maxRows: 12 }} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} />
+              autoSize={{ minRows: 6, maxRows: 12 }} suffix={lengthIndicator(sanitizeHex(data).length, 0)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} />
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Truncation:</Text>
-              {lengthIndicator(truncation.length, 1)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Truncation:</Text>
             <Input value={truncation} onChange={e => setTruncation(e.target.value.replace(/[^0-9]/g, ''))} placeholder="4"
-              maxLength={1} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
+              maxLength={1} suffix={lengthIndicator(truncation.length, 1)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>

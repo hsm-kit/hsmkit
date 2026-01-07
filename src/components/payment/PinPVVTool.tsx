@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Input, Button, Typography, message, Divider, Tabs, InputNumber } from 'antd';
-import { CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { CopyOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -264,15 +264,16 @@ const PinPVVTool: React.FC = () => {
         <div>
           {/* PDK Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pdkLabel || 'PDK:'} <Text type="success">[{sanitizeHex(pdkPVV).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.pdkLabel || 'PDK:'}
             </Text>
             <Input
               value={pdkPVV}
               onChange={(e) => setPdkPVV(sanitizeHex(e.target.value))}
               placeholder="0123456789ABCDEFFEDCBA9876543210"
               maxLength={32}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeHex(pdkPVV).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.pdkHint || '32 hex characters (16 bytes) - PIN Derivation Key'}
@@ -281,15 +282,16 @@ const PinPVVTool: React.FC = () => {
 
           {/* PAN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.panLabel || 'PAN:'} <Text type="success">[{sanitizeDigits(panPVV).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.panLabel || 'PAN:'}
             </Text>
             <Input
               value={panPVV}
               onChange={(e) => setPanPVV(sanitizeDigits(e.target.value))}
               placeholder="1234567899876543"
               maxLength={19}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeDigits(panPVV).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.panHint || '12-19 digits - Primary Account Number'}
@@ -298,15 +300,16 @@ const PinPVVTool: React.FC = () => {
 
           {/* PIN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pinLabel || 'PIN:'} <Text type="success">[{sanitizeDigits(pinPVV).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.pinLabel || 'PIN:'}
             </Text>
             <Input
               value={pinPVV}
               onChange={(e) => setPinPVV(sanitizeDigits(e.target.value))}
               placeholder="1234"
               maxLength={12}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeDigits(pinPVV).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.pinHint || '4-12 digits - Customer PIN'}
@@ -315,10 +318,10 @@ const PinPVVTool: React.FC = () => {
 
           {/* PVKI Input */}
           <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
               {t.pinPvv?.pvkiLabel || 'PVKI:'}
             </Text>
-            <div style={{ marginTop: 8 }}>
+            <div>
               <InputNumber
                 min={0}
                 max={9}
@@ -333,15 +336,15 @@ const PinPVVTool: React.FC = () => {
           </div>
 
           {/* Calculate Button */}
-          <Button
-            type="primary"
-            onClick={handleCalculatePVV}
-            size="large"
-            block
-            style={{ marginBottom: 24, height: 48, fontSize: 16 }}
-          >
-            {t.pinPvv?.calculatePvv || 'Calculate PVV'}
-          </Button>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
+            <Button
+              type="primary"
+              onClick={handleCalculatePVV}
+              size="large"
+            >
+              {t.pinPvv?.calculatePvv || 'Calculate PVV'}
+            </Button>
+          </div>
 
           {/* Result */}
           {pvvResult && (
@@ -439,15 +442,16 @@ const PinPVVTool: React.FC = () => {
         <div>
           {/* PDK Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pdkLabel || 'PDK:'} <Text type="success">[{sanitizeHex(pdkPIN).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.pdkLabel || 'PDK:'}
             </Text>
             <Input
               value={pdkPIN}
               onChange={(e) => setPdkPIN(sanitizeHex(e.target.value))}
               placeholder="0123456789ABCDEFFEDCBA9876543210"
               maxLength={32}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeHex(pdkPIN).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.pdkHint || '32 hex characters (16 bytes) - PIN Derivation Key'}
@@ -456,15 +460,16 @@ const PinPVVTool: React.FC = () => {
 
           {/* PAN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.panLabel || 'PAN:'} <Text type="success">[{sanitizeDigits(panPIN).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.panLabel || 'PAN:'}
             </Text>
             <Input
               value={panPIN}
               onChange={(e) => setPanPIN(sanitizeDigits(e.target.value))}
               placeholder="123456789123456"
               maxLength={19}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeDigits(panPIN).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.panHint || '12-19 digits - Primary Account Number'}
@@ -473,15 +478,16 @@ const PinPVVTool: React.FC = () => {
 
           {/* PVV Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pvvLabel || 'PVV:'} <Text type="success">[{sanitizeDigits(pvvPIN).length}]</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
+              {t.pinPvv?.pvvLabel || 'PVV:'}
             </Text>
             <Input
               value={pvvPIN}
               onChange={(e) => setPvvPIN(sanitizeDigits(e.target.value))}
               placeholder="9365"
               maxLength={4}
-              style={{ marginTop: 8, fontFamily: 'Monaco, Consolas, monospace' }}
+              suffix={<Text type="success">[{sanitizeDigits(pvvPIN).length}]</Text>}
+              style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t.pinPvv?.pvvHint || '4 digits - PIN Verification Value'}
@@ -490,10 +496,10 @@ const PinPVVTool: React.FC = () => {
 
           {/* PVKI Input */}
           <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>
+            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
               {t.pinPvv?.pvkiLabel || 'PVKI:'}
             </Text>
-            <div style={{ marginTop: 8 }}>
+            <div>
               <InputNumber
                 min={0}
                 max={9}
@@ -508,15 +514,15 @@ const PinPVVTool: React.FC = () => {
           </div>
 
           {/* Calculate Button */}
-          <Button
-            type="primary"
-            onClick={handleCalculatePIN}
-            size="large"
-            block
-            style={{ marginBottom: 24, height: 48, fontSize: 16 }}
-          >
-            {t.pinPvv?.calculatePin || 'Calculate PIN'}
-          </Button>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
+            <Button
+              type="primary"
+              onClick={handleCalculatePIN}
+              size="large"
+            >
+              {t.pinPvv?.calculatePin || 'Calculate PIN'}
+            </Button>
+          </div>
 
           {/* Result */}
           {pinResult && (
@@ -610,43 +616,36 @@ const PinPVVTool: React.FC = () => {
   ];
 
   return (
-    <Card
-      style={{
-        maxWidth: 800,
-        margin: '0 auto',
-        boxShadow: isDark ? '0 4px 12px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.1)',
-      }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={2} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#333' }}>
-          {t.pinPvv?.title || 'PIN PVV Calculator'}
-        </Title>
-        <InfoCircleOutlined style={{ fontSize: 24, color: isDark ? '#8c8c8c' : '#999', cursor: 'help' }} />
-      </div>
-
-      <CollapsibleInfo title={t.pinPvv?.infoTitle || 'About PIN PVV'}>
-        <Text style={{ color: isDark ? '#b3b3b3' : '#595959' }}>
-          {t.pinPvv?.info1 ||
-            'PIN Verification Value (PVV) is a Visa standard for PIN verification. It uses a PIN Derivation Key (PDK) to encrypt the card number (PAN), applies decimalization, and calculates a 4-digit verification value.'}
+    <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
+      <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+            {t.pinPvv?.title || 'PIN PVV Calculator'}
+          </Title>
+          <CollapsibleInfo title={t.pinPvv?.infoTitle || 'About PIN PVV'}>
+            <div>
+              {t.pinPvv?.info1 ||
+                'PIN Verification Value (PVV) is a Visa standard for PIN verification. It uses a PIN Derivation Key (PDK) to encrypt the card number (PAN), applies decimalization, and calculates a 4-digit verification value.'}
+            </div>
+            <div style={{ marginTop: 8 }}>
+              {t.pinPvv?.info2 ||
+                'The PVV tab calculates the PVV from a PIN. The PIN tab verifies a PIN by calculating it from a known PVV.'}
+            </div>
+            <div style={{ marginTop: 8 }}>
+              {t.pinPvv?.info3 ||
+                'PVKI (PIN Verification Key Index) determines which position in the encrypted result to use for verification.'}
+            </div>
+          </CollapsibleInfo>
+        </div>
+        <Text type="secondary" style={{ fontSize: '13px' }}>
+          Calculate and verify PIN Verification Values (PVV) using Visa standard with decimalization.
         </Text>
-        <br />
-        <br />
-        <Text style={{ color: isDark ? '#b3b3b3' : '#595959' }}>
-          {t.pinPvv?.info2 ||
-            'The PVV tab calculates the PVV from a PIN. The PIN tab verifies a PIN by calculating it from a known PVV.'}
-        </Text>
-        <br />
-        <br />
-        <Text style={{ color: isDark ? '#b3b3b3' : '#595959' }}>
-          {t.pinPvv?.info3 ||
-            'PVKI (PIN Verification Key Index) determines which position in the encrypted result to use for verification.'}
-        </Text>
-      </CollapsibleInfo>
 
-      <Divider />
+        <Divider style={{ margin: '16px 0' }} />
 
-      <Tabs activeKey={activeTab} onChange={setActiveTab} items={tabItems} />
-    </Card>
+        <Tabs activeKey={activeTab} onChange={setActiveTab} items={tabItems} />
+      </Card>
+    </div>
   );
 };
 

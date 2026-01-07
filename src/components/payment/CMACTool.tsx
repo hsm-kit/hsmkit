@@ -312,7 +312,6 @@ const CMACTool: React.FC = () => {
               />
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
                   {t.mac.cmac.cmacKey}:
-                  {getKeyLengthIndicator()}
                 </Text>
               <TextArea
                 value={keyInput}
@@ -324,6 +323,7 @@ const CMACTool: React.FC = () => {
                 }
                 autoSize={{ minRows: 3, maxRows: 6 }}
                 maxLength={keyType === 'Hexadecimal' ? 64 : undefined}
+                suffix={getKeyLengthIndicator()}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -351,6 +351,7 @@ const CMACTool: React.FC = () => {
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
                 placeholder={dataType === 'Hexadecimal' ? t.mac.cmac.dataPlaceholderHex : t.mac.cmac.dataPlaceholderAscii}
                 autoSize={{ minRows: 4, maxRows: 8 }}
+                suffix={<span style={{ color: '#999' }}>[{dataInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

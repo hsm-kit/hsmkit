@@ -65,6 +65,12 @@ const PinBlockAESPage = lazy(() => import('./pages/payment/PinBlockAESPage'));
 const PinOffsetPage = lazy(() => import('./pages/payment/PinOffsetPage'));
 const PinPVVPage = lazy(() => import('./pages/payment/PinPVVPage'));
 
+// VISA Tools
+const VISACertificatesPage = lazy(() => import('./pages/payment/VISACertificatesPage'));
+
+// ZKA Tools
+const ZKAPage = lazy(() => import('./pages/payment/ZKAPage'));
+
 // Generic Tools
 const HashPage = lazy(() => import('./pages/generic/HashPage'));
 const CharacterEncodingPage = lazy(() => import('./pages/generic/CharacterEncodingPage'));
@@ -223,8 +229,6 @@ const routes = [
   { key: 'keys-hsm-thales', path: '/thales-keys' },
   { key: 'keys-blocks-thales', path: '/thales-key-block' },
   { key: 'keys-blocks-tr31', path: '/tr31-key-block' },
-  { key: 'kcv', path: '/kcv-calculator' },
-  { key: 'pin', path: '/pin-block-generator' },
   // Payments menu routes
   { key: 'payments-as2805', path: '/payments-as2805' },
   { key: 'payments-bitmap', path: '/payments-bitmap' },
@@ -409,8 +413,8 @@ const App: React.FC = () => {
         },
         { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset' },
         { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv' },
-        { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates', disabled: true },
-        { label: t.menu.zka || 'ZKA', key: 'payments-zka', disabled: true },
+        { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates' },
+        { label: t.menu.zka || 'ZKA', key: 'payments-zka' },
       ]
     },
   ], [t]);
@@ -582,8 +586,7 @@ const App: React.FC = () => {
               <Route path="/tr31-key-block" element={<TR31Page />} />
               <Route path="/kcv-calculator" element={<KCVPage />} />
               <Route path="/keyshare-generator" element={<KeysharePage />} />
-              <Route path="/futurex-keys" element={<FuturexKeysPage />} />
-              <Route path="/atalla-keys" element={<AtallaKeysPage />} />
+              <Route path="/ftalla-keys" element={<AtallaKeysPage />} />
               <Route path="/safenet-keys" element={<SafeNetKeysPage />} />
               <Route path="/thales-keys" element={<ThalesKeysPage />} />
               <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
@@ -606,6 +609,8 @@ const App: React.FC = () => {
               <Route path="/payments-pin-blocks-aes" element={<PinBlockAESPage />} />
               <Route path="/payments-pin-offset" element={<PinOffsetPage />} />
               <Route path="/payments-pin-pvv" element={<PinPVVPage />} />
+              <Route path="/payments-visa-certificates" element={<VISACertificatesPage />} />
+              <Route path="/payments-zka" element={<ZKAPage />} />
               {/* Legal Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/terms-of-service" element={<TermsOfServicePage />} />

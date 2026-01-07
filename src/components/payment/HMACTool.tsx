@@ -231,6 +231,7 @@ const HMACTool: React.FC = () => {
                 onChange={(e) => setKeyInput(keyType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
                 placeholder={keyType === 'Hexadecimal' ? 'Enter hex key' : 'Enter ASCII key'}
                 autoSize={{ minRows: 3, maxRows: 6 }}
+                suffix={<span style={{ color: '#999' }}>[{keyInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -259,6 +260,7 @@ const HMACTool: React.FC = () => {
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
                 placeholder={dataType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII data'}
                 autoSize={{ minRows: 4, maxRows: 8 }}
+                suffix={<span style={{ color: '#999' }}>[{dataInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

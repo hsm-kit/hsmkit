@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Spin } from 'antd';
 import { PageLayout, SEO } from '../../components/common';
-import { ANSIMACTool } from '../../components/mac';
+import { ANSIMACTool } from '../../components/payment';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
 

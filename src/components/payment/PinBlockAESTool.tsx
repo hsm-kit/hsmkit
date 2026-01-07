@@ -31,6 +31,18 @@ const PinBlockAESTool: React.FC = () => {
   const [panBlock, setPanBlock] = useState('');
   const [error, setError] = useState('');
 
+  const lengthIndicator = (current: number, expected: number) => (
+    <Text 
+      style={{ 
+        fontSize: '12px', 
+        color: current === expected ? '#52c41a' : '#999',
+        fontWeight: current > 0 ? 600 : 400
+      }}
+    >
+      [{current}]
+    </Text>
+  );
+
   // Generate AES PIN Block Format 4 (clear text, before encryption)
   const generatePinBlockFormat4 = (pinValue: string, panValue: string): { pinBlock: string; panBlock: string } => {
     const cleanPin = pinValue.replace(/\D/g, '');
@@ -189,21 +201,19 @@ const PinBlockAESTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.pinBlockAes?.title || 'AES PIN Block Format 4'}
-          </Title>
-          
-          <CollapsibleInfo title={t.pinBlockAes?.infoTitle || 'About AES PIN Block'}>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinBlockAes?.info1 || 'PIN Block Format 4 is designed specifically for AES encryption with 128-bit block size.'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinBlockAes?.info2 || 'Unlike older formats, Format 4 uses a 32 hex character block (16 bytes) suitable for AES.'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block' }}>
-              • {t.pinBlockAes?.info3 || 'The PIN block is XORed with the PAN block before AES encryption for enhanced security.'}
-            </Text>
-          </CollapsibleInfo>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.pinBlockAes?.title || 'AES PIN Block Format 4'}
+            </Title>
+            <CollapsibleInfo title={t.pinBlockAes?.infoTitle || 'About AES PIN Block'}>
+              <div>{t.pinBlockAes?.info1 || 'PIN Block Format 4 is designed specifically for AES encryption with 128-bit block size.'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinBlockAes?.info2 || 'Unlike older formats, Format 4 uses a 32 hex character block (16 bytes) suitable for AES.'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinBlockAes?.info3 || 'The PIN block is XORed with the PAN block before AES encryption for enhanced security.'}</div>
+            </CollapsibleInfo>
+          </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.pinBlockAes?.description || 'Generate and process AES PIN blocks using Format 4 for secure PIN encryption.'}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 
@@ -226,9 +236,6 @@ const PinBlockAESTool: React.FC = () => {
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.pinBlockAes?.keyLabel || 'Key:'}
-                <Tag color="blue" style={{ marginLeft: 8, fontSize: '11px' }}>
-                  [{sanitizeHex(aesKey).length}]
-                </Tag>
               </Text>
               <TextArea
                 value={aesKey}
@@ -236,6 +243,7 @@ const PinBlockAESTool: React.FC = () => {
                 placeholder={t.pinBlockAes?.keyPlaceholder || 'C1D0F8FB4958670DBA40AB1F3752EF0D'}
                 autoSize={{ minRows: 2, maxRows: 3 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                suffix={lengthIndicator(sanitizeHex(aesKey).length, 32)}
               />
               <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
                 {t.pinBlockAes?.keyHint || 'AES-128 key: 32 hex characters (16 bytes)'}
@@ -246,17 +254,13 @@ const PinBlockAESTool: React.FC = () => {
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
                 {t.pinBlockAes?.panLabel || 'PAN/PAN Block:'}
-                <Tag color="green" style={{ marginLeft: 8, fontSize: '11px' }}>
-                  [{pan.replace(/\D/g, '').length}]
-                </Tag>
               </Text>
               <Input
                 value={pan}
                 onChange={(e) => setPan(sanitizeDigits(e.target.value))}
                 placeholder={t.pinBlockAes?.panPlaceholder || '6432198765432109870'}
                 maxLength={19}
-                prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}                suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
             </div>
@@ -266,9 +270,6 @@ const PinBlockAESTool: React.FC = () => {
               <div>
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
                   {t.pinBlockAes?.pinLabel || 'PIN/PIN Block:'}
-                  <Tag color="purple" style={{ marginLeft: 8, fontSize: '11px' }}>
-                    [{pin.length}]
-                  </Tag>
                 </Text>
                 <Input
                   value={pin}
@@ -276,6 +277,7 @@ const PinBlockAESTool: React.FC = () => {
                   placeholder={t.pinBlockAes?.pinPlaceholder || '441234'}
                   maxLength={12}
                   prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
+                  suffix={lengthIndicator(pin.length, 4)}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
@@ -287,14 +289,12 @@ const PinBlockAESTool: React.FC = () => {
               <div>
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
                   {t.pinBlockAes?.encryptedBlockLabel || 'Encrypted PIN Block:'}
-                  <Tag color="orange" style={{ marginLeft: 8, fontSize: '11px' }}>
-                    [{sanitizeHex(encryptedBlock).length}]
-                  </Tag>
                 </Text>
                 <TextArea
                   value={encryptedBlock}
                   onChange={(e) => setEncryptedBlock(sanitizeHex(e.target.value))}
                   placeholder={t.pinBlockAes?.encryptedBlockPlaceholder || 'Enter encrypted PIN block (32 hex chars)'}
+                  suffix={lengthIndicator(sanitizeHex(encryptedBlock).length, 32)}
                   autoSize={{ minRows: 2, maxRows: 4 }}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 />

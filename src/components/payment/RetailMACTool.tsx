@@ -246,15 +246,13 @@ const RetailMACTool: React.FC = () => {
 
             {/* Key K Input */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.retail.keyK}:</Text>
-                {getKeyLengthIndicator(keyK, 16)}
-              </div>
+              <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac.retail.keyK}:</Text>
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
                 placeholder="Enter 16 hex characters"
                 maxLength={16}
+                suffix={getKeyLengthIndicator(keyK, 16)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -262,15 +260,13 @@ const RetailMACTool: React.FC = () => {
             {/* Key K' Input (optional) */}
             {(finalizeMethod === '3DES' || algorithm === '3DES') && (
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>{t.mac.retail.keyKPrime}:</Text>
-                  {getKeyLengthIndicator(keyKPrime, 16)}
-                </div>
+                <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac.retail.keyKPrime}:</Text>
                 <Input
                   value={keyKPrime}
                   onChange={(e) => setKeyKPrime(e.target.value.toUpperCase())}
                   placeholder="Enter 16 hex characters (optional)"
                   maxLength={16}
+                  suffix={getKeyLengthIndicator(keyKPrime, 16)}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
                 />
               </div>
@@ -286,6 +282,7 @@ const RetailMACTool: React.FC = () => {
                 onChange={(e) => setData(e.target.value.toUpperCase())}
                 placeholder="Enter hex data"
                 autoSize={{ minRows: 4, maxRows: 8 }}
+                suffix={<span style={{ color: '#999' }}>[{data.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

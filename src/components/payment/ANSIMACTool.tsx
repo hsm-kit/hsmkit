@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Select, Input, message, Tag, Typography } from 'antd';
+import { Card, Button, Select, Input, message, Tag, Typography, Divider } from 'antd';
 import { CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -168,9 +168,11 @@ const ANSIMACTool: React.FC = () => {
             </div>
           </CollapsibleInfo>
         </div>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 16, fontSize: '13px' }}>
+        <Text type="secondary" style={{ fontSize: '13px' }}>
           Calculate Message Authentication Code using ANSI X9.9 or X9.19 standard.
         </Text>
+
+        <Divider style={{ margin: '16px 0' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
@@ -190,15 +192,13 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Key (K):</Text>
-              {lengthIndicator(sanitizeHex(keyK).length, 16)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (K):</Text>
             <Input
               value={keyK}
               onChange={e => setKeyK(sanitizeHex(e.target.value))}
               placeholder="3636353534343333"
               maxLength={32}
+              suffix={lengthIndicator(sanitizeHex(keyK).length, 16)}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -208,15 +208,13 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Key (K'):</Text>
-              {lengthIndicator(sanitizeHex(keyKPrime).length, 16)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (K'):</Text>
             <Input
               value={keyKPrime}
               onChange={e => setKeyKPrime(sanitizeHex(e.target.value))}
               placeholder="FEDCBA9876543210"
               maxLength={32}
+              suffix={lengthIndicator(sanitizeHex(keyKPrime).length, 16)}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -226,15 +224,13 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data:</Text>
-              {lengthIndicator(sanitizeHex(data).length, 0)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
               placeholder="Enter hex data"
               autoSize={{ minRows: 6, maxRows: 12 }}
+              suffix={<Text type="secondary" style={{ fontSize: 12 }}>[{sanitizeHex(data).length}]</Text>}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'

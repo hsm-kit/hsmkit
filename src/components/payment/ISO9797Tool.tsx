@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Select, Input, message, Tag, Typography } from 'antd';
+import { Card, Button, Select, Input, message, Tag, Typography, Divider } from 'antd';
 import { CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -218,9 +218,11 @@ const ISO9797Tool: React.FC = () => {
             </div>
           </CollapsibleInfo>
         </div>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 16, fontSize: '13px' }}>
+        <Text type="secondary" style={{ fontSize: '13px' }}>
           Calculate Message Authentication Code using ISO/IEC 9797-1 standard.
         </Text>
+
+        <Divider style={{ margin: '16px 0' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
@@ -245,10 +247,7 @@ const ISO9797Tool: React.FC = () => {
 
           {['Key (K):', "Key (K'):", 'Key (K"):', 'Key 2 (K):', "Key 2 (K'):", 'Key 2 (K"):'].map((label, idx) => (
             <div key={idx}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{label}</Text>
-                {lengthIndicator(sanitizeHex(keys[idx]).length, 16)}
-              </div>
+              <Text strong style={{ display: 'block', marginBottom: 8 }}>{label}</Text>
               <Input
                 value={keys[idx]}
                 onChange={e => {
@@ -258,6 +257,7 @@ const ISO9797Tool: React.FC = () => {
                 }}
                 placeholder="3636353534343333"
                 maxLength={32}
+                suffix={lengthIndicator(sanitizeHex(keys[idx]).length, 16)}
                 style={{ 
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                   fontSize: '14px'
@@ -285,15 +285,13 @@ const ISO9797Tool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data:</Text>
-              {lengthIndicator(sanitizeHex(data).length, 0)}
-            </div>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
               placeholder="Enter hex data"
               autoSize={{ minRows: 6, maxRows: 12 }}
+              suffix={<Text type="secondary" style={{ fontSize: 12 }}>[{sanitizeHex(data).length}]</Text>}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'

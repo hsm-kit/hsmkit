@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, Checkbox, message, Tag, Typography } from 'antd';
+import { Card, Button, Tabs, Input, Segmented, Checkbox, message, Tag, Typography, Divider } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -244,7 +244,7 @@ const DUKPTTool: React.FC = () => {
       await navigator.clipboard.writeText(text);
       message.success(t.common?.copied || 'Copied to clipboard!');
     } catch {
-      message.error('Failed to copy');
+      message.error(t.common?.copyFailed || 'Failed to copy');
     }
   };
 
@@ -257,11 +257,11 @@ const DUKPTTool: React.FC = () => {
     const cleanKsn = sanitizeHex(ksn);
     
     if (cleanBdk.length !== 32) {
-      setDerivError(keyType === 'BDK' ? 'BDK must be 32 hex characters' : 'IPEK must be 32 hex characters');
+      setDerivError(keyType === 'BDK' ? (t.dukpt?.errorInvalidBdk || 'BDK must be 32 hex characters') : (t.dukpt?.errorInvalidIpek || 'IPEK must be 32 hex characters'));
       return;
     }
     if (cleanKsn.length !== 20) {
-      setDerivError('KSN must be 20 hex characters');
+      setDerivError(t.dukpt?.errorInvalidKsn || 'KSN must be 20 hex characters');
       return;
     }
     
@@ -269,7 +269,7 @@ const DUKPTTool: React.FC = () => {
       const pek = derivePEK(cleanBdk, cleanKsn);
       setDerivedPek(pek);
     } catch (err) {
-      setDerivError('Failed to derive PEK');
+      setDerivError(t.dukpt?.errorDerivation || 'Failed to derive PEK');
     }
   };
 
@@ -282,11 +282,11 @@ const DUKPTTool: React.FC = () => {
     const cleanPin = sanitizeHex(pinBlock);
     
     if (cleanPek.length !== 32) {
-      setPinError('PEK must be 32 hex characters');
+      setPinError(t.dukpt?.errorInvalidPekPin || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanPin.length !== 16) {
-      setPinError('PIN block must be 16 hex characters');
+      setPinError(t.dukpt?.errorInvalidPinBlock || 'PIN block must be 16 hex characters');
       return;
     }
     
@@ -294,7 +294,7 @@ const DUKPTTool: React.FC = () => {
       const encrypted = encryptPIN(cleanPek, cleanPin);
       setPinResult(encrypted);
     } catch (err) {
-      setPinError('Failed to encrypt PIN block');
+      setPinError(t.dukpt?.errorEncryption || 'Failed to encrypt PIN block');
     }
   };
 
@@ -307,11 +307,11 @@ const DUKPTTool: React.FC = () => {
     const cleanPin = sanitizeHex(pinBlock);
     
     if (cleanPek.length !== 32) {
-      setPinError('PEK must be 32 hex characters');
+      setPinError(t.dukpt?.errorInvalidPekPin || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanPin.length !== 16) {
-      setPinError('PIN block must be 16 hex characters');
+      setPinError(t.dukpt?.errorInvalidPinBlock || 'PIN block must be 16 hex characters');
       return;
     }
     
@@ -319,7 +319,7 @@ const DUKPTTool: React.FC = () => {
       const decrypted = decryptPIN(cleanPek, cleanPin);
       setPinResult(decrypted);
     } catch (err) {
-      setPinError('Failed to decrypt PIN block');
+      setPinError(t.dukpt?.errorDecryption || 'Failed to decrypt PIN block');
     }
   };
 
@@ -332,11 +332,11 @@ const DUKPTTool: React.FC = () => {
     const cleanData = sanitizeHex(macData);
     
     if (cleanPek.length !== 32 && cleanPek.length !== 48) {
-      setMacError('PEK must be 32 or 48 hex characters');
+      setMacError(t.dukpt?.errorInvalidPekMac || 'PEK must be 32 or 48 hex characters');
       return;
     }
     if (cleanData.length === 0) {
-      setMacError('Data is required');
+      setMacError(t.dukpt?.errorInvalidData || 'Data is required');
       return;
     }
     
@@ -344,7 +344,7 @@ const DUKPTTool: React.FC = () => {
       const mac = calculateMAC(cleanPek, cleanData, macAlgo === '3DES');
       setMacResult(mac);
     } catch (err) {
-      setMacError('Failed to calculate MAC');
+      setMacError(t.dukpt?.errorMacCalculation || 'Failed to calculate MAC');
     }
   };
 
@@ -364,11 +364,11 @@ const DUKPTTool: React.FC = () => {
     }
     
     if (cleanPek.length !== 32) {
-      setDataError('PEK must be 32 hex characters');
+      setDataError(t.dukpt?.errorInvalidPekData || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanData.length === 0) {
-      setDataError('Data is required');
+      setDataError(t.dukpt?.errorInvalidData || 'Data is required');
       return;
     }
     
@@ -381,7 +381,7 @@ const DUKPTTool: React.FC = () => {
       const encrypted = processData(cleanPek, cleanData, dataVariant, true);
       setDataResult(encrypted);
     } catch (err) {
-      setDataError('Failed to encrypt data');
+      setDataError(t.dukpt?.errorDataEncryption || 'Failed to encrypt data');
     }
   };
 
@@ -394,15 +394,15 @@ const DUKPTTool: React.FC = () => {
     const cleanData = sanitizeHex(dataInput);
     
     if (cleanPek.length !== 32) {
-      setDataError('PEK must be 32 hex characters');
+      setDataError(t.dukpt?.errorInvalidPekData || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanData.length === 0) {
-      setDataError('Data is required');
+      setDataError(t.dukpt?.errorInvalidData || 'Data is required');
       return;
     }
     if (cleanData.length % 16 !== 0) {
-      setDataError('Encrypted data must be multiple of 16 hex characters');
+      setDataError(t.dukpt?.errorInvalidEncryptedData || 'Encrypted data must be multiple of 16 hex characters');
       return;
     }
     
@@ -410,7 +410,7 @@ const DUKPTTool: React.FC = () => {
       const decrypted = processData(cleanPek, cleanData, dataVariant, false);
       setDataResult(decrypted);
     } catch (err) {
-      setDataError('Failed to decrypt data');
+      setDataError(t.dukpt?.errorDataDecryption || 'Failed to decrypt data');
     }
   };
 
@@ -418,29 +418,27 @@ const DUKPTTool: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Input key designation:
+          {t.dukpt?.inputKeyDesignation || 'Input key designation'}:
         </Text>
         <Segmented
           value={keyType}
           onChange={(value) => setKeyType(value as 'BDK' | 'IPEK')}
           options={[
-            { label: 'BDK', value: 'BDK' },
-            { label: 'IPEK', value: 'IPEK' },
+            { label: t.dukpt?.bdk || 'BDK', value: 'BDK' },
+            { label: t.dukpt?.ipek || 'IPEK', value: 'IPEK' },
           ]}
           block
         />
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>{keyType}:</Text>
-          {lengthIndicator(sanitizeHex(bdk).length, 32)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{keyType}:</Text>
         <Input
           value={bdk}
           onChange={e => setBdk(sanitizeHex(e.target.value))}
           placeholder="C1D0F8FB4958670DBA40AB1F3752EF0D"
           maxLength={32}
+          suffix={lengthIndicator(sanitizeHex(bdk).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -450,14 +448,12 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>KSN:</Text>
-          {lengthIndicator(sanitizeHex(ksn).length, 20)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukpt?.ksn || 'KSN'}:</Text>
         <Input
           value={ksn}
           onChange={e => setKsn(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
+          suffix={lengthIndicator(sanitizeHex(ksn).length, 20)}
           maxLength={20}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
@@ -474,7 +470,7 @@ const DUKPTTool: React.FC = () => {
           icon={<KeyOutlined />}
           onClick={handleDerivePEK}
         >
-          Derive PEK
+          {t.dukpt?.derivePek || 'Derive PEK'}
         </Button>
       </div>
 
@@ -497,7 +493,7 @@ const DUKPTTool: React.FC = () => {
           borderRadius: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>PEK:</Text>
+            <Text strong style={{ fontSize: '14px' }}>{t.dukpt?.pek || 'PEK'}:</Text>
             <Tag color="green">[32]</Tag>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -529,15 +525,13 @@ const DUKPTTool: React.FC = () => {
   const pinTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PEK:</Text>
-          {lengthIndicator(sanitizeHex(pinPek).length, 32)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>PEK:</Text>
         <Input
           value={pinPek}
           onChange={e => setPinPek(sanitizeHex(e.target.value))}
-          placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
+          placeholder="6AC292FAA1315B4D858AB3A3D7D5933A"
           maxLength={32}
+          suffix={lengthIndicator(sanitizeHex(pinPek).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -547,15 +541,13 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PIN block:</Text>
-          {lengthIndicator(sanitizeHex(pinBlock).length, 16)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>PIN block:</Text>
         <Input
           value={pinBlock}
           onChange={e => setPinBlock(sanitizeHex(e.target.value))}
-          placeholder="3131323332333333434"
+          placeholder="89D63FA012D10F11"
           maxLength={16}
+          suffix={lengthIndicator(sanitizeHex(pinBlock).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -571,7 +563,7 @@ const DUKPTTool: React.FC = () => {
           icon={<LockOutlined />}
           onClick={handleEncryptPIN}
         >
-          Encrypt
+          {t.dukpt?.encrypt || 'Encrypt'}
         </Button>
         <Button
           type="default"
@@ -579,7 +571,7 @@ const DUKPTTool: React.FC = () => {
           icon={<UnlockOutlined />}
           onClick={handleDecryptPIN}
         >
-          Decrypt
+          {t.dukpt?.decrypt || 'Decrypt'}
         </Button>
       </div>
 
@@ -653,29 +645,27 @@ const DUKPTTool: React.FC = () => {
 
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Algorithm:
+          {t.dukpt?.algorithm || 'Algorithm'}:
         </Text>
         <Segmented
           value={macAlgo}
           onChange={(value) => setMacAlgo(value as 'DES' | '3DES')}
           options={[
-            { label: 'DES', value: 'DES' },
-            { label: '3DES', value: '3DES' },
+            { label: t.dukpt?.des || 'DES', value: 'DES' },
+            { label: t.dukpt?.threeDes || '3DES', value: '3DES' },
           ]}
           block
         />
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>Data:</Text>
-          {lengthIndicator(sanitizeHex(macData).length, 0)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
         <TextArea
           value={macData}
           onChange={e => setMacData(sanitizeHex(e.target.value))}
           placeholder="Enter hex data"
-          autoSize={{ minRows: 6, maxRows: 12 }}
+          autoSize={{ minRows: 8, maxRows: 16 }}
+          suffix={lengthIndicator(sanitizeHex(macData).length, 0)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -690,7 +680,7 @@ const DUKPTTool: React.FC = () => {
           icon={<CalculatorOutlined />}
           onClick={handleCalculateMAC}
         >
-          Calculate MAC
+          {t.dukpt?.calculateMac || 'Calculate MAC'}
         </Button>
       </div>
 
@@ -713,7 +703,7 @@ const DUKPTTool: React.FC = () => {
           borderRadius: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>MAC:</Text>
+            <Text strong style={{ fontSize: '14px' }}>{t.dukpt?.mac || 'MAC'}:</Text>
             <Tag color="green">[16]</Tag>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -767,38 +757,36 @@ const DUKPTTool: React.FC = () => {
           checked={dataVariant}
           onChange={e => setDataVariant(e.target.checked)}
         >
-          <Text strong>Data Variant</Text>
+          <Text strong>{t.dukpt?.dataVariant || 'Data Variant'}</Text>
         </Checkbox>
       </div>
 
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Data input:
+          {t.dukpt?.dataInput || 'Data input'}:
         </Text>
         <Segmented
           value={dataInputType}
           onChange={(value) => setDataInputType(value as 'ASCII' | 'Hex')}
           options={[
-            { label: 'ASCII', value: 'ASCII' },
-            { label: 'Hexadecimal', value: 'Hex' },
+            { label: t.dukpt?.ascii || 'ASCII', value: 'ASCII' },
+            { label: t.dukpt?.hexadecimal || 'Hex', value: 'Hex' },
           ]}
           block
         />
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>Data:</Text>
-          {lengthIndicator(
-            dataInputType === 'Hex' ? sanitizeHex(dataInput).length : dataInput.length * 2,
-            0
-          )}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
         <TextArea
           value={dataInput}
-          onChange={e => setDataInput(dataInputType === 'Hex' ? sanitizeHex(e.target.value) : e.target.value)}
-          placeholder={dataInputType === 'Hex' ? 'Enter hex data' : 'Enter ASCII text'}
-          autoSize={{ minRows: 6, maxRows: 12 }}
+          onChange={e => setDataInput(dataInputType === 'Hexadecimal' ? sanitizeHex(e.target.value) : e.target.value)}
+          placeholder={dataInputType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII text'}
+          autoSize={{ minRows: 8, maxRows: 16 }}
+          suffix={lengthIndicator(
+            dataInputType === 'Hexadecimal' ? sanitizeHex(dataInput).length : dataInput.length * 2,
+            0
+          )}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -878,42 +866,44 @@ const DUKPTTool: React.FC = () => {
       <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            DUKPT
+            {t.dukpt?.title || 'DUKPT (ISO 9797)'}
           </Title>
-          <CollapsibleInfo title="About DUKPT">
+          <CollapsibleInfo title={t.dukpt?.infoTitle || 'About DUKPT'}>
             <div>
-              DUKPT (Derived Unique Key Per Transaction) is a key management scheme used in POS and ATM systems.
+              {t.dukpt?.info1 || 'DUKPT (Derived Unique Key Per Transaction) is a key management scheme used in POS and ATM systems.'}
             </div>
             <div style={{ marginTop: 8 }}>
-              It derives a unique encryption key for each transaction from a Base Derivation Key (BDK) and Key Serial Number (KSN), ensuring that compromised keys cannot be used to decrypt past transactions.
+              {t.dukpt?.info2 || 'It derives a unique encryption key for each transaction from a Base Derivation Key (BDK) and Key Serial Number (KSN), ensuring that compromised keys cannot be used to decrypt past transactions.'}
             </div>
           </CollapsibleInfo>
         </div>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 16, fontSize: '13px' }}>
-          Derive keys and encrypt/decrypt data using DUKPT (ISO 9797) standard.
+        <Text type="secondary" style={{ fontSize: '13px' }}>
+          {t.dukpt?.subtitle || 'Derive keys and encrypt/decrypt data using DUKPT (ISO 9797) standard.'}
         </Text>
+
+        <Divider style={{ margin: '16px 0' }} />
 
         <Tabs
           defaultActiveKey="derivation"
           items={[
             {
               key: 'derivation',
-              label: 'PEK derivation',
+              label: t.dukpt?.tabPekDerivation || 'PEK derivation',
               children: derivationTab,
             },
             {
               key: 'pin',
-              label: 'DUKPT PIN',
+              label: t.dukpt?.tabDukptPin || 'DUKPT PIN',
               children: pinTab,
             },
             {
               key: 'mac',
-              label: 'DUKPT MAC',
+              label: t.dukpt?.tabDukptMac || 'DUKPT MAC',
               children: macTab,
             },
             {
               key: 'data',
-              label: 'DUKPT DATA',
+              label: t.dukpt?.tabDukptData || 'DUKPT DATA',
               children: dataTab,
             },
           ]}

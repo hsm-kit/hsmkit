@@ -30,6 +30,18 @@ const PinBlockGeneralTool: React.FC = () => {
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
+  const lengthIndicator = (current: number, expected: number) => (
+    <Text 
+      style={{ 
+        fontSize: '12px', 
+        color: current === expected ? '#52c41a' : '#999',
+        fontWeight: current > 0 ? 600 : 400
+      }}
+    >
+      [{current}]
+    </Text>
+  );
+
   // PIN Block 编码（Encode）
   const encodePinBlock = (
     pinValue: string, 
@@ -334,21 +346,19 @@ const PinBlockGeneralTool: React.FC = () => {
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <Title level={4} style={{ marginTop: 0, fontSize: '18px' }}>
-            {t.pinBlockGeneral?.title || 'PIN Blocks'}
-          </Title>
-          
-          <CollapsibleInfo title={t.pinBlockGeneral?.infoTitle || 'About PIN Blocks'}>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinBlockGeneral?.info1 || 'ISO 9564 defines PIN block formats for secure PIN transmission in payment systems.'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block', marginBottom: 8 }}>
-              • {t.pinBlockGeneral?.info2 || 'Format 0: XOR with PAN (most common). Format 1: No PAN required (random padding).'}
-            </Text>
-            <Text style={{ fontSize: '13px', display: 'block' }}>
-              • {t.pinBlockGeneral?.info3 || 'Formats 2-4: Enhanced security with different PAN encoding and random padding schemes.'}
-            </Text>
-          </CollapsibleInfo>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+            <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
+              {t.pinBlockGeneral?.title || 'PIN Blocks'}
+            </Title>
+            <CollapsibleInfo title={t.pinBlockGeneral?.infoTitle || 'About PIN Blocks'}>
+              <div>{t.pinBlockGeneral?.info1 || 'ISO 9564 defines PIN block formats for secure PIN transmission in payment systems.'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinBlockGeneral?.info2 || 'Format 0: XOR with PAN (most common). Format 1: No PAN required (random padding).'}</div>
+              <div style={{ marginTop: 8 }}>{t.pinBlockGeneral?.info3 || 'Formats 2-4: Enhanced security with different PAN encoding and random padding schemes.'}</div>
+            </CollapsibleInfo>
+          </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.pinBlockGeneral?.description || 'Generate and decode PIN blocks using ISO 9564 formats for secure PIN transmission.'}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 
@@ -392,11 +402,6 @@ const PinBlockGeneralTool: React.FC = () => {
               <div>
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
                   {t.pinBlockGeneral?.panLabel || 'PAN:'}
-                  {mode === 'decode' && (
-                    <Tag color="blue" style={{ marginLeft: 8, fontSize: '11px' }}>
-                      [{pan.replace(/\D/g, '').length}]
-                    </Tag>
-                  )}
                 </Text>
                 <Input
                   value={pan}
@@ -404,6 +409,7 @@ const PinBlockGeneralTool: React.FC = () => {
                   placeholder={t.pinBlockGeneral?.panPlaceholder || '456789012345cccc'}
                   maxLength={19}
                   prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
+                  suffix={mode === 'decode' ? lengthIndicator(pan.replace(/\D/g, '').length, 16) : undefined}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
@@ -415,17 +421,13 @@ const PinBlockGeneralTool: React.FC = () => {
               <div>
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
                   {t.pinBlockGeneral?.pinLabel || 'PIN:'}
-                  <Tag color="green" style={{ marginLeft: 8, fontSize: '11px' }}>
-                    [{pin.length}]
-                  </Tag>
                 </Text>
                 <Input
                   value={pin}
                   onChange={(e) => setPin(sanitizeDigits(e.target.value))}
                   placeholder={t.pinBlockGeneral?.pinPlaceholder || '123456'}
                   maxLength={12}
-                  prefix={<NumberOutlined style={{ color: '#bfbfbf' }} />}
-                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                  prefix={<NumberOutlined style={{ color: '#bfbfbf' }} />}                  suffix={lengthIndicator(pin.length, 4)}                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
               </div>

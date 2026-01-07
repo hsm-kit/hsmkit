@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, message, Tag, Typography } from 'antd';
+import { Card, Button, Tabs, Input, Segmented, message, Tag, Typography, Divider } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -304,7 +304,7 @@ const DUKPTAESTool: React.FC = () => {
       await navigator.clipboard.writeText(text);
       message.success(t.common?.copied || 'Copied to clipboard!');
     } catch {
-      message.error('Failed to copy');
+      message.error(t.common?.copyFailed || 'Failed to copy');
     }
   };
 
@@ -334,11 +334,11 @@ const DUKPTAESTool: React.FC = () => {
     const expectedLength = getExpectedKeyLength(workingKeyType);
     
     if (cleanBdk.length !== expectedLength) {
-      setDerivError(`${keyDesignation} must be ${expectedLength} hex characters`);
+      setDerivError(t.dukptAes?.errorInvalidKeyLength?.replace('{keyDesignation}', keyDesignation).replace('{expectedLength}', expectedLength.toString()) || `${keyDesignation} must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanKsn.length !== 24) {
-      setDerivError('KSN must be 24 hex characters');
+      setDerivError(t.dukptAes?.errorInvalidKsn || 'KSN must be 24 hex characters');
       return;
     }
     
@@ -346,7 +346,7 @@ const DUKPTAESTool: React.FC = () => {
       const key = deriveWorkingKey(cleanBdk, cleanKsn, workingKeyType);
       setDerivedKey(key);
     } catch (err) {
-      setDerivError('Failed to derive working key');
+      setDerivError(t.dukptAes?.errorDerivation || 'Failed to derive working key');
     }
   };
 
@@ -360,11 +360,11 @@ const DUKPTAESTool: React.FC = () => {
     const expectedLength = getExpectedKeyLength(workingKeyType);
     
     if (cleanPek.length !== expectedLength) {
-      setPinError(`PEK must be ${expectedLength} hex characters`);
+      setPinError(t.dukptAes?.errorInvalidPekLength?.replace('{expectedLength}', expectedLength.toString()) || `PEK must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanPin.length !== 32) {
-      setPinError('PIN block must be 32 hex characters');
+      setPinError(t.dukptAes?.errorInvalidPinBlock || 'PIN block must be 32 hex characters');
       return;
     }
     
@@ -372,7 +372,7 @@ const DUKPTAESTool: React.FC = () => {
       const encrypted = processPIN(cleanPek, cleanPin, workingKeyType, true);
       setPinResult(encrypted);
     } catch (err) {
-      setPinError('Failed to encrypt PIN block');
+      setPinError(t.dukptAes?.errorEncryption || 'Failed to encrypt PIN block');
     }
   };
 
@@ -386,11 +386,11 @@ const DUKPTAESTool: React.FC = () => {
     const expectedLength = getExpectedKeyLength(workingKeyType);
     
     if (cleanPek.length !== expectedLength) {
-      setPinError(`PEK must be ${expectedLength} hex characters`);
+      setPinError(t.dukptAes?.errorInvalidPekLength?.replace('{expectedLength}', expectedLength.toString()) || `PEK must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanPin.length !== 32) {
-      setPinError('PIN block must be 32 hex characters');
+      setPinError(t.dukptAes?.errorInvalidPinBlock || 'PIN block must be 32 hex characters');
       return;
     }
     
@@ -398,7 +398,7 @@ const DUKPTAESTool: React.FC = () => {
       const decrypted = processPIN(cleanPek, cleanPin, workingKeyType, false);
       setPinResult(decrypted);
     } catch (err) {
-      setPinError('Failed to decrypt PIN block');
+      setPinError(t.dukptAes?.errorDecryption || 'Failed to decrypt PIN block');
     }
   };
 
@@ -412,11 +412,11 @@ const DUKPTAESTool: React.FC = () => {
     const expectedLength = getExpectedKeyLength(workingKeyType);
     
     if (cleanMac.length !== expectedLength) {
-      setMacError(`MAC Gen. must be ${expectedLength} hex characters`);
+      setMacError(t.dukptAes?.errorInvalidMacLength?.replace('{expectedLength}', expectedLength.toString()) || `MAC Gen. must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanData.length === 0) {
-      setMacError('Data is required');
+      setMacError(t.dukptAes?.errorInvalidData || 'Data is required');
       return;
     }
     
@@ -424,7 +424,7 @@ const DUKPTAESTool: React.FC = () => {
       const mac = calculateMAC(cleanMac, cleanData, workingKeyType);
       setMacResult(mac);
     } catch (err) {
-      setMacError('Failed to calculate MAC');
+      setMacError(t.dukptAes?.errorMacCalculation || 'Failed to calculate MAC');
     }
   };
 
@@ -445,11 +445,11 @@ const DUKPTAESTool: React.FC = () => {
     }
     
     if (cleanDek.length !== expectedLength) {
-      setDataError(`DEK must be ${expectedLength} hex characters`);
+      setDataError(t.dukptAes?.errorInvalidDekLength?.replace('{expectedLength}', expectedLength.toString()) || `DEK must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanData.length === 0) {
-      setDataError('Data is required');
+      setDataError(t.dukptAes?.errorInvalidData || 'Data is required');
       return;
     }
     
@@ -463,7 +463,7 @@ const DUKPTAESTool: React.FC = () => {
       const encrypted = processData(cleanDek, cleanData, workingKeyType, true);
       setDataResult(encrypted);
     } catch (err) {
-      setDataError('Failed to encrypt data');
+      setDataError(t.dukptAes?.errorDataEncryption || 'Failed to encrypt data');
     }
   };
 
@@ -478,15 +478,15 @@ const DUKPTAESTool: React.FC = () => {
     const blockSize = (workingKeyType === '2TDEA' || workingKeyType === '3TDEA') ? 16 : 32;
     
     if (cleanDek.length !== expectedLength) {
-      setDataError(`DEK must be ${expectedLength} hex characters`);
+      setDataError(t.dukptAes?.errorInvalidDekLength?.replace('{expectedLength}', expectedLength.toString()) || `DEK must be ${expectedLength} hex characters`);
       return;
     }
     if (cleanData.length === 0) {
-      setDataError('Data is required');
+      setDataError(t.dukptAes?.errorInvalidData || 'Data is required');
       return;
     }
     if (cleanData.length % blockSize !== 0) {
-      setDataError(`Encrypted data must be multiple of ${blockSize} hex characters`);
+      setDataError(t.dukptAes?.errorInvalidEncryptedData?.replace('{blockSize}', blockSize.toString()) || `Encrypted data must be multiple of ${blockSize} hex characters`);
       return;
     }
     
@@ -494,7 +494,7 @@ const DUKPTAESTool: React.FC = () => {
       const decrypted = processData(cleanDek, cleanData, workingKeyType, false);
       setDataResult(decrypted);
     } catch (err) {
-      setDataError('Failed to decrypt data');
+      setDataError(t.dukptAes?.errorDataDecryption || 'Failed to decrypt data');
     }
   };
 
@@ -502,29 +502,27 @@ const DUKPTAESTool: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Input key designation:
+          {t.dukptAes?.inputKeyDesignation || 'Input key designation'}:
         </Text>
         <Segmented
           value={keyDesignation}
           onChange={(value) => setKeyDesignation(value as 'BDK' | 'IK')}
           options={[
-            { label: 'BDK', value: 'BDK' },
-            { label: 'IK', value: 'IK' },
+            { label: t.dukptAes?.bdk || 'BDK', value: 'BDK' },
+            { label: t.dukptAes?.ik || 'IK', value: 'IK' },
           ]}
           block
         />
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>{keyDesignation}:</Text>
-          {lengthIndicator(sanitizeHex(bdk).length, getExpectedKeyLength(workingKeyType))}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{keyDesignation}:</Text>
         <Input
           value={bdk}
           onChange={e => setBdk(sanitizeHex(e.target.value))}
           placeholder="FEDCBA9876543210F1F1F1F1F1F1F1F1"
           maxLength={64}
+          suffix={lengthIndicator(sanitizeHex(bdk).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -535,7 +533,7 @@ const DUKPTAESTool: React.FC = () => {
 
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Working key type:
+          {t.dukptAes?.workingKeyType || 'Working key type'}:
         </Text>
         <Segmented
           value={workingKeyType}
@@ -552,15 +550,13 @@ const DUKPTAESTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>KSN:</Text>
-          {lengthIndicator(sanitizeHex(ksn).length, 24)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.ksn || 'KSN'}:</Text>
         <Input
           value={ksn}
           onChange={e => setKsn(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
           maxLength={24}
+          suffix={lengthIndicator(sanitizeHex(ksn).length, 24)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -576,7 +572,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<KeyOutlined />}
           onClick={handleDeriveKey}
         >
-          Derive Key
+          {t.dukptAes?.deriveKey || 'Derive Key'}
         </Button>
       </div>
 
@@ -599,7 +595,7 @@ const DUKPTAESTool: React.FC = () => {
           borderRadius: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>Working Key:</Text>
+            <Text strong style={{ fontSize: '14px' }}>{t.dukptAes?.workingKey || 'Working Key'}:</Text>
             <Tag color="green">[{derivedKey.length}]</Tag>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -631,15 +627,13 @@ const DUKPTAESTool: React.FC = () => {
   const pinTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PEK:</Text>
-          {lengthIndicator(sanitizeHex(pinPek).length, getExpectedKeyLength(workingKeyType))}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.pek || 'PEK'}:</Text>
         <Input
           value={pinPek}
           onChange={e => setPinPek(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
+          suffix={lengthIndicator(sanitizeHex(pinPek).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -649,15 +643,13 @@ const DUKPTAESTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PIN block:</Text>
-          {lengthIndicator(sanitizeHex(pinBlock).length, 32)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.pinBlock || 'PIN block'}:</Text>
         <Input
           value={pinBlock}
           onChange={e => setPinBlock(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
           maxLength={32}
+          suffix={lengthIndicator(sanitizeHex(pinBlock).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -673,7 +665,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<LockOutlined />}
           onClick={handleEncryptPIN}
         >
-          Encrypt
+          {t.dukptAes?.encrypt || 'Encrypt'}
         </Button>
         <Button
           type="default"
@@ -681,7 +673,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<UnlockOutlined />}
           onClick={handleDecryptPIN}
         >
-          Decrypt
+          {t.dukptAes?.decrypt || 'Decrypt'}
         </Button>
       </div>
 
@@ -736,15 +728,13 @@ const DUKPTAESTool: React.FC = () => {
   const macTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>MAC Gen.:</Text>
-          {lengthIndicator(sanitizeHex(macGen).length, getExpectedKeyLength(workingKeyType))}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.macGen || 'MAC Gen.'}:</Text>
         <Input
           value={macGen}
           onChange={e => setMacGen(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
+          suffix={lengthIndicator(sanitizeHex(macGen).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -754,15 +744,13 @@ const DUKPTAESTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>Data:</Text>
-          {lengthIndicator(sanitizeHex(macData).length, 0)}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.data || 'Data'}:</Text>
         <TextArea
           value={macData}
           onChange={e => setMacData(sanitizeHex(e.target.value))}
           placeholder="Enter hex data"
           autoSize={{ minRows: 8, maxRows: 16 }}
+          suffix={lengthIndicator(sanitizeHex(macData).length, 0)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -777,7 +765,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<CalculatorOutlined />}
           onClick={handleCalculateMAC}
         >
-          Calculate MAC
+          {t.dukptAes?.calculateMac || 'Calculate MAC'}
         </Button>
       </div>
 
@@ -800,7 +788,7 @@ const DUKPTAESTool: React.FC = () => {
           borderRadius: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>MAC:</Text>
+            <Text strong style={{ fontSize: '14px' }}>{t.dukptAes?.mac || 'MAC'}:</Text>
             <Tag color="green">[{macResult.length}]</Tag>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -832,15 +820,13 @@ const DUKPTAESTool: React.FC = () => {
   const dataTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>DEK:</Text>
-          {lengthIndicator(sanitizeHex(dek).length, getExpectedKeyLength(workingKeyType))}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.dek || 'DEK'}:</Text>
         <Input
           value={dek}
           onChange={e => setDek(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
+          suffix={lengthIndicator(sanitizeHex(dek).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -851,32 +837,30 @@ const DUKPTAESTool: React.FC = () => {
 
       <div>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          Data input:
+          {t.dukptAes?.dataInput || 'Data input'}:
         </Text>
         <Segmented
           value={dataInputType}
           onChange={(value) => setDataInputType(value as 'ASCII' | 'Hexadecimal')}
           options={[
-            { label: 'ASCII', value: 'ASCII' },
-            { label: 'Hexadecimal', value: 'Hexadecimal' },
+            { label: t.dukptAes?.ascii || 'ASCII', value: 'ASCII' },
+            { label: t.dukptAes?.hexadecimal || 'Hexadecimal', value: 'Hexadecimal' },
           ]}
           block
         />
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>Data:</Text>
-          {lengthIndicator(
-            dataInputType === 'Hexadecimal' ? sanitizeHex(dataInput).length : dataInput.length * 2,
-            0
-          )}
-        </div>
+        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukptAes?.data || 'Data'}:</Text>
         <TextArea
           value={dataInput}
           onChange={e => setDataInput(dataInputType === 'Hexadecimal' ? sanitizeHex(e.target.value) : e.target.value)}
           placeholder={dataInputType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII text'}
           autoSize={{ minRows: 8, maxRows: 16 }}
+          suffix={lengthIndicator(
+            dataInputType === 'Hexadecimal' ? sanitizeHex(dataInput).length : dataInput.length * 2,
+            0
+          )}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -891,7 +875,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<LockOutlined />}
           onClick={handleEncryptData}
         >
-          Encrypt
+          {t.dukptAes?.encrypt || 'Encrypt'}
         </Button>
         <Button
           type="default"
@@ -899,7 +883,7 @@ const DUKPTAESTool: React.FC = () => {
           icon={<UnlockOutlined />}
           onClick={handleDecryptData}
         >
-          Decrypt
+          {t.dukptAes?.decrypt || 'Decrypt'}
         </Button>
       </div>
 
@@ -956,42 +940,44 @@ const DUKPTAESTool: React.FC = () => {
       <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            DUKPT (AES)
+            {t.dukptAes?.title || 'DUKPT (AES)'}
           </Title>
-          <CollapsibleInfo title="About DUKPT (AES)">
+          <CollapsibleInfo title={t.dukptAes?.infoTitle || 'About DUKPT (AES)'}>
             <div>
-              DUKPT (Derived Unique Key Per Transaction) with AES support extends the original DUKPT standard to use AES encryption algorithms.
+              {t.dukptAes?.info1 || 'DUKPT (Derived Unique Key Per Transaction) with AES support extends the original DUKPT standard to use AES encryption algorithms.'}
             </div>
             <div style={{ marginTop: 8 }}>
-              It supports 2TDEA, 3TDEA, AES-128, AES-192, and AES-256 encryption, providing enhanced security for modern payment systems while maintaining backward compatibility.
+              {t.dukptAes?.info2 || 'It supports 2TDEA, 3TDEA, AES-128, AES-192, and AES-256 encryption, providing enhanced security for modern payment systems while maintaining backward compatibility.'}
             </div>
           </CollapsibleInfo>
         </div>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 16, fontSize: '13px' }}>
-          Derive keys and encrypt/decrypt data using DUKPT with AES support.
+        <Text type="secondary" style={{ fontSize: '13px' }}>
+          {t.dukptAes?.subtitle || 'Derive keys and encrypt/decrypt data using DUKPT with AES support.'}
         </Text>
+
+        <Divider style={{ margin: '16px 0' }} />
 
         <Tabs
           defaultActiveKey="derivation"
           items={[
             {
               key: 'derivation',
-              label: 'Working key derivation',
+              label: t.dukptAes?.tabWorkingKeyDerivation || 'Working key derivation',
               children: derivationTab,
             },
             {
               key: 'pin',
-              label: 'DUKPT PIN',
+              label: t.dukptAes?.tabDukptPin || 'DUKPT PIN',
               children: pinTab,
             },
             {
               key: 'mac',
-              label: 'DUKPT MAC',
+              label: t.dukptAes?.tabDukptMac || 'DUKPT MAC',
               children: macTab,
             },
             {
               key: 'data',
-              label: 'DUKPT DATA',
+              label: t.dukptAes?.tabDukptData || 'DUKPT DATA',
               children: dataTab,
             },
           ]}
