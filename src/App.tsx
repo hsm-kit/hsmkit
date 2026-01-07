@@ -43,6 +43,27 @@ const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'))
 // Payment
 const PinBlockPage = lazy(() => import('./pages/payment/PinBlockPage'));
 const AS2805Page = lazy(() => import('./pages/payment/AS2805Page'));
+const BitmapPage = lazy(() => import('./pages/payment/BitmapPage'));
+const CVVPage = lazy(() => import('./pages/payment/CVVPage'));
+const AmexCSCPage = lazy(() => import('./pages/payment/AmexCSCPage'));
+const MastercardCVC3Page = lazy(() => import('./pages/payment/MastercardCVC3Page'));
+const DUKPTPage = lazy(() => import('./pages/payment/DUKPTPage'));
+const DUKPTAESPage = lazy(() => import('./pages/payment/DUKPTAESPage'));
+
+// MAC Tools
+const ISO9797Page = lazy(() => import('./pages/payment/ISO9797Page'));
+const ANSIMACPage = lazy(() => import('./pages/payment/ANSIMACPage'));
+const AS2805MACPage = lazy(() => import('./pages/payment/AS2805MACPage'));
+const TDESCBCMACPage = lazy(() => import('./pages/payment/TDESCBCMACPage'));
+const HMACPage = lazy(() => import('./pages/payment/HMACPage'));
+const CMACPage = lazy(() => import('./pages/payment/CMACPage'));
+const RetailMACPage = lazy(() => import('./pages/payment/RetailMACPage'));
+
+// PIN Block Tools
+const PinBlockGeneralPage = lazy(() => import('./pages/payment/PinBlockGeneralPage'));
+const PinBlockAESPage = lazy(() => import('./pages/payment/PinBlockAESPage'));
+const PinOffsetPage = lazy(() => import('./pages/payment/PinOffsetPage'));
+const PinPVVPage = lazy(() => import('./pages/payment/PinPVVPage'));
 
 // Generic Tools
 const HashPage = lazy(() => import('./pages/generic/HashPage'));
@@ -347,51 +368,47 @@ const App: React.FC = () => {
       icon: <CreditCardOutlined />,
       children: [
         { label: t.menu.as2805 || 'AS2805', key: 'payments-as2805' },
-        { label: t.menu.bitmap || 'Bitmap', key: 'payments-bitmap', disabled: true },
+        { label: t.menu.bitmap || 'Bitmap', key: 'payments-bitmap' },
         { 
           label: t.menu.cardValidation || 'Card Validation', 
           key: 'payments-card-validation',
-          disabled: true,
           children: [
-            { label: t.menu.cvvs || 'CVVs', key: 'payments-card-validation-cvvs', disabled: true },
-            { label: t.menu.amexCscs || 'AMEX CSCs', key: 'payments-card-validation-amex-cscs', disabled: true },
-            { label: t.menu.mastercardCvc3 || 'MasterCard dynamic CVC3', key: 'payments-card-validation-mastercard-cvc3', disabled: true },
+            { label: t.menu.cvvs || 'CVVs', key: 'payments-card-validation-cvvs' },
+            { label: t.menu.amexCscs || 'AMEX CSCs', key: 'payments-card-validation-amex-cscs' },
+            { label: t.menu.mastercardCvc3 || 'MasterCard dynamic CVC3', key: 'payments-card-validation-mastercard-cvc3' },
           ]
         },
         { 
           label: t.menu.dukpt || 'DUKPT', 
           key: 'payments-dukpt',
-          disabled: true,
           children: [
-            { label: t.menu.dukptIso9797 || 'DUKPT (ISO 9797)', key: 'payments-dukpt-iso9797', disabled: true },
-            { label: t.menu.dukptAes || 'DUKPT (AES)', key: 'payments-dukpt-aes', disabled: true },
+            { label: t.menu.dukptIso9797 || 'DUKPT (ISO 9797)', key: 'payments-dukpt-iso9797' },
+            { label: t.menu.dukptAes || 'DUKPT (AES)', key: 'payments-dukpt-aes' },
           ]
         },
         { 
           label: t.menu.macAlgorithms || 'MAC Algorithms', 
           key: 'payments-mac-algorithms',
-          disabled: true,
           children: [
-            { label: t.menu.iso9797_1 || 'ISO/IEC 9797-1', key: 'payments-mac-iso9797-1', disabled: true },
-            { label: t.menu.ansix9 || 'ANSI X9.9 & X9.19', key: 'payments-mac-ansix9', disabled: true },
-            { label: t.menu.as2805_4_1 || 'AS2805.4.1', key: 'payments-mac-as2805', disabled: true },
-            { label: t.menu.tdesCbcMac || 'TDES CBC-MAC', key: 'payments-mac-tdes-cbc-mac', disabled: true },
-            { label: t.menu.hmac || 'HMAC', key: 'payments-mac-hmac', disabled: true },
-            { label: t.menu.cmac || 'CMAC', key: 'payments-mac-cmac', disabled: true },
-            { label: t.menu.retail || 'Retail', key: 'payments-mac-retail', disabled: true },
+            { label: t.menu.iso9797_1 || 'ISO/IEC 9797-1', key: 'payments-mac-iso9797-1' },
+            { label: t.menu.ansix9 || 'ANSI X9.9 & X9.19', key: 'payments-mac-ansix9' },
+            { label: t.menu.as2805_4_1 || 'AS2805.4.1', key: 'payments-mac-as2805' },
+            { label: t.menu.tdesCbcMac || 'TDES CBC-MAC', key: 'payments-mac-tdes-cbc-mac' },
+            { label: t.menu.hmac || 'HMAC', key: 'payments-mac-hmac' },
+            { label: t.menu.cmac || 'CMAC', key: 'payments-mac-cmac' },
+            { label: t.menu.retail || 'Retail', key: 'payments-mac-retail' },
           ]
         },
         { 
           label: t.menu.pinBlocks || 'PIN Blocks', 
           key: 'payments-pin-blocks',
-          disabled: true,
           children: [
-            { label: t.menu.pinBlocksGeneral || 'PIN Blocks General', key: 'payments-pin-blocks-general', disabled: true },
-            { label: t.menu.pinBlocksAes || 'PIN Blocks AES', key: 'payments-pin-blocks-aes', disabled: true },
+            { label: t.menu.pinBlocksGeneral || 'PIN Blocks General', key: 'payments-pin-blocks-general' },
+            { label: t.menu.pinBlocksAes || 'PIN Blocks AES', key: 'payments-pin-blocks-aes' },
           ]
         },
-        { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset', disabled: true },
-        { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv', disabled: true },
+        { label: t.menu.pinOffset || 'PIN Offset', key: 'payments-pin-offset' },
+        { label: t.menu.pinPvv || 'PIN PVV', key: 'payments-pin-pvv' },
         { label: t.menu.visaCertificates || 'Visa Certificates', key: 'payments-visa-certificates', disabled: true },
         { label: t.menu.zka || 'ZKA', key: 'payments-zka', disabled: true },
       ]
@@ -562,7 +579,6 @@ const App: React.FC = () => {
               <Route path="/fpe-encryption" element={<FPEPage />} />
               {/* Keys 菜单 */}
               <Route path="/keys-dea" element={<KeyGeneratorPage />} />
-              <Route path="/key-generator" element={<KeyGeneratorPage />} /> {/* 旧URL重定向兼容 */}
               <Route path="/tr31-key-block" element={<TR31Page />} />
               <Route path="/kcv-calculator" element={<KCVPage />} />
               <Route path="/keyshare-generator" element={<KeysharePage />} />
@@ -573,6 +589,23 @@ const App: React.FC = () => {
               <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
               <Route path="/pin-block-generator" element={<PinBlockPage />} />
               <Route path="/payments-as2805" element={<AS2805Page />} />
+              <Route path="/payments-bitmap" element={<BitmapPage />} />
+              <Route path="/payments-card-validation-cvvs" element={<CVVPage />} />
+              <Route path="/payments-card-validation-amex-cscs" element={<AmexCSCPage />} />
+              <Route path="/payments-card-validation-mastercard-cvc3" element={<MastercardCVC3Page />} />
+              <Route path="/payments-dukpt-iso9797" element={<DUKPTPage />} />
+              <Route path="/payments-dukpt-aes" element={<DUKPTAESPage />} />
+              <Route path="/payments-mac-iso9797-1" element={<ISO9797Page />} />
+              <Route path="/payments-mac-ansix9" element={<ANSIMACPage />} />
+              <Route path="/payments-mac-as2805" element={<AS2805MACPage />} />
+              <Route path="/payments-mac-tdes-cbc-mac" element={<TDESCBCMACPage />} />
+              <Route path="/payments-mac-hmac" element={<HMACPage />} />
+              <Route path="/payments-mac-cmac" element={<CMACPage />} />
+              <Route path="/payments-mac-retail" element={<RetailMACPage />} />
+              <Route path="/payments-pin-blocks-general" element={<PinBlockGeneralPage />} />
+              <Route path="/payments-pin-blocks-aes" element={<PinBlockAESPage />} />
+              <Route path="/payments-pin-offset" element={<PinOffsetPage />} />
+              <Route path="/payments-pin-pvv" element={<PinPVVPage />} />
               {/* Legal Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/terms-of-service" element={<TermsOfServicePage />} />

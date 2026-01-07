@@ -35,6 +35,23 @@ export interface PageSEO {
   tr31: SEOContent;
   kcv: SEOContent;
   pinBlock: SEOContent;
+  pinBlockGeneral: SEOContent;
+  pinBlockAes: SEOContent;
+  pinOffset: SEOContent;
+  pinPvv: SEOContent;
+  bitmap: SEOContent;
+  cvv: SEOContent;
+  amexCsc: SEOContent;
+  mastercardCvc3: SEOContent;
+  dukpt: SEOContent;
+  dukptAes: SEOContent;
+  iso9797Mac: SEOContent;
+  ansiMac: SEOContent;
+  as2805Mac: SEOContent;
+  tdesCbcMac: SEOContent;
+  hmac: SEOContent;
+  cmac: SEOContent;
+  retailMac: SEOContent;
   // Generic tools
   hash: SEOContent;
   encoding: SEOContent;
@@ -58,13 +75,13 @@ import de from './de';
 import fr from './fr';
 
 // Build seoContent from language files
-const seoContent: Record<string, PageSEO> = {
-  en: en.seo,
-  zh: zh.seo,
-  ja: ja.seo,
-  ko: ko.seo,
-  de: de.seo,
-  fr: fr.seo,
+const seoContent: Record<string, Partial<PageSEO>> = {
+  en: en.seo as any,
+  zh: zh.seo as any,
+  ja: ja.seo as any,
+  ko: ko.seo as any,
+  de: de.seo as any,
+  fr: fr.seo as any,
 };
 
 export default seoContent;
