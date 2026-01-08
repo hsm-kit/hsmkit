@@ -357,7 +357,7 @@ const PinBlockGeneralTool: React.FC = () => {
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            {t.pinBlockGeneral?.description || 'Generate and decode PIN blocks using ISO 9564 formats for secure PIN transmission.'}
+            Generate and decode PIN blocks using ISO 9564 formats for secure PIN transmission.
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />

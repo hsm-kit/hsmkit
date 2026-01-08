@@ -11,6 +11,10 @@ const ThalesKeysPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.thalesKeys || seoContent.en.thalesKeys;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

@@ -11,6 +11,10 @@ const SafeNetKeysPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.safenetKeys || seoContent.en.safenetKeys;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

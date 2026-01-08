@@ -11,6 +11,10 @@ const PinBlockAESPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.pinBlockAes || seoContent.en.pinBlockAes;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

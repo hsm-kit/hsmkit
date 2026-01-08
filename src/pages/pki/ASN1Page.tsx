@@ -11,6 +11,10 @@ const ASN1Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.asn1 || seoContent.en.asn1;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

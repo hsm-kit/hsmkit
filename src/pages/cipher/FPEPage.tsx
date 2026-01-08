@@ -11,6 +11,10 @@ const FPEPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.fpe || seoContent.en.fpe;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

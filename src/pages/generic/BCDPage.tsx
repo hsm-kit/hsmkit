@@ -11,6 +11,10 @@ const BCDPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.bcd || seoContent.en.bcd;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

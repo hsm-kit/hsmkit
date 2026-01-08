@@ -11,6 +11,10 @@ const TR31Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.tr31 || seoContent.en.tr31;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

@@ -11,6 +11,10 @@ const CheckDigitsPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.checkDigits || seoContent.en.checkDigits;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

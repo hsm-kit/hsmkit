@@ -11,6 +11,10 @@ const MastercardCVC3Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.mastercardCvc3 || seoContent.en.mastercardCvc3;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

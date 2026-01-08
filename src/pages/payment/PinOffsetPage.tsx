@@ -11,6 +11,10 @@ const PinOffsetPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.pinOffset || seoContent.en.pinOffset;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

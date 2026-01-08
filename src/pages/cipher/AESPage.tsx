@@ -11,6 +11,10 @@ const AESPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.aes || seoContent.en.aes;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

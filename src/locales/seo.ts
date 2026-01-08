@@ -52,6 +52,8 @@ export interface PageSEO {
   hmac: SEOContent;
   cmac: SEOContent;
   retailMac: SEOContent;
+  visaCertificates: SEOContent;
+  zka: SEOContent;
   // Generic tools
   hash: SEOContent;
   encoding: SEOContent;

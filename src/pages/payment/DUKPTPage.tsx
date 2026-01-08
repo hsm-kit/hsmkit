@@ -11,6 +11,10 @@ const DUKPTPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.dukpt || seoContent.en.dukpt;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

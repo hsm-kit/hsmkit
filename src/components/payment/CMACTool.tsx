@@ -244,22 +244,13 @@ const CMACTool: React.FC = () => {
     }
   };
 
-  // Handle copy
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    message.success(t.mac.cmac.copied);
-  };
-
-  // Get key length indicator
-  const getExpectedKeyLengths = (): number[] => {
-    return encryptionType === 'AES' ? [32, 48, 64] : [32, 48];
-  };
-
-  const getKeyLengthIndicator = () => {
-    const expectedLengths = getExpectedKeyLengths();
-    const isValid = keyType === 'Hexadecimal' && expectedLengths.includes(keyInput.length);
-    const color = isValid ? '#52c41a' : '#999';
-    return <span style={{ color, marginLeft: 8 }}>[{keyInput.length}]</span>;
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      message.success(t.common?.copied || 'Copied!');
+    } catch {
+      message.error(t.common?.copyFailed || 'Failed to copy');
+    }
   };
 
   return (
@@ -270,10 +261,13 @@ const CMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.cmac.title}
             </Title>
-            <CollapsibleInfo title="About CMAC">
-              <div>{t.mac.cmac.description}</div>
+            <CollapsibleInfo title={t.mac.cmac.infoTitle || 'About CMAC'}>
+              <div>{t.mac.cmac.info || 'Calculate cipher-based MAC using AES or TDES with NIST SP 800-38B standard'}</div>
             </CollapsibleInfo>
           </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.mac.cmac.description}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 
@@ -323,7 +317,6 @@ const CMACTool: React.FC = () => {
                 }
                 autoSize={{ minRows: 3, maxRows: 6 }}
                 maxLength={keyType === 'Hexadecimal' ? 64 : undefined}
-                suffix={getKeyLengthIndicator()}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -351,7 +344,6 @@ const CMACTool: React.FC = () => {
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
                 placeholder={dataType === 'Hexadecimal' ? t.mac.cmac.dataPlaceholderHex : t.mac.cmac.dataPlaceholderAscii}
                 autoSize={{ minRows: 4, maxRows: 8 }}
-                suffix={<span style={{ color: '#999' }}>[{dataInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

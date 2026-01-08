@@ -28,10 +28,12 @@ import {
   ContainerOutlined,
   PartitionOutlined,
   ApiOutlined,
+  ShoppingOutlined,
   InteractionOutlined,
   BarsOutlined,
   AppstoreAddOutlined,
   CreditCardOutlined,
+  BankOutlined,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -70,6 +72,7 @@ const toolConfigs: ToolConfig[] = [
   { icon: <BarsOutlined />, titleKey: 'pinBlockAes', descKey: 'pinBlockAes', path: '/payments-pin-blocks-aes', color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', category: 'payment', keywords: ['pin block', 'aes', 'format 4', 'iso 9564', 'encryption', 'aes-128', 'ecb'] },
   { icon: <CalculatorOutlined />, titleKey: 'pinOffset', descKey: 'pinOffset', path: '/payments-pin-offset', color: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)', category: 'payment', keywords: ['pin offset', 'ibm 3624', 'pin verification', 'decimalization', 'validation data', 'pvv'] },
   { icon: <SecurityScanOutlined />, titleKey: 'pinPvv', descKey: 'pinPvv', path: '/payments-pin-pvv', color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', category: 'payment', keywords: ['pin pvv', 'visa pvv', 'pin verification value', 'pdk', 'pvki', 'tsp', 'decimalization'] },
+  { icon: <SafetyCertificateOutlined />, titleKey: 'visaCertificates', descKey: 'visaCertificates', path: '/payments-visa-certificates', color: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)', category: 'payment', keywords: ['visa', 'certificates', 'issuer certificate', 'ca key', 'vsdc', 'emv', 'certificate validation', 'rsa signature', 'ca v92', 'ca v94'] },
   { icon: <KeyOutlined />, titleKey: 'keyGenerator', descKey: 'keyGenerator', path: '/keys-dea', color: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', category: 'payment', keywords: ['key generator', 'random', 'des', 'aes', 'key component', 'xor', 'keys dea'] },
   { icon: <SplitCellsOutlined />, titleKey: 'keyshareGenerator', descKey: 'keyshareGenerator', path: '/keyshare-generator', color: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)', category: 'payment', keywords: ['keyshare', 'key share', 'key component', 'split', 'kcv', 'pin'] },
   { icon: <CloudOutlined />, titleKey: 'futurexKeys', descKey: 'futurexKeys', path: '/futurex-keys', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['futurex', 'hsm', 'key encryption', 'mfk', 'variant', 'key lookup'] },
@@ -82,6 +85,14 @@ const toolConfigs: ToolConfig[] = [
   { icon: <CreditCardOutlined />, titleKey: 'amexCsc', descKey: 'amexCsc', path: '/payments-card-validation-amex-cscs', color: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)', category: 'payment', keywords: ['amex', 'csc', 'american express', 'card security code', 'csc3', 'csc4', 'csc5'] },
   { icon: <CreditCardOutlined />, titleKey: 'mastercardCvc3', descKey: 'mastercardCvc3', path: '/payments-card-validation-mastercard-cvc3', color: 'linear-gradient(135deg, #fd79a8 0%, #e84393 100%)', category: 'payment', keywords: ['mastercard', 'cvc3', 'dynamic cvc', 'contactless', 'emv', 'imk', 'atc'] },
   { icon: <FileSearchOutlined />, titleKey: 'as2805', descKey: 'as2805', path: '/payments-as2805', color: 'linear-gradient(135deg, #ffd6a5 0%, #ffd666 100%)', category: 'payment', keywords: ['as2805', 'iso8583', 'payment', 'financial'] },
+  { icon: <SecurityScanOutlined />, titleKey: 'ansiMac', descKey: 'ansiMac', path: '/payments-mac-ansix9', color: 'linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%)', category: 'payment', keywords: ['ansi mac', 'x9.9', 'x9.19', 'wholesale mac', 'retail mac', 'des', '3des', 'financial mac', 'payment mac', 'message authentication'] },
+  { icon: <SafetyCertificateOutlined />, titleKey: 'as2805Mac', descKey: 'as2805Mac', path: '/payments-mac-as2805', color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', category: 'payment', keywords: ['as2805 mac', 'australian mac', 'eftpos mac', 'as2805.4.1', 'method 1', 'method 2', 'des mac', '3des mac', 'payment mac', 'message authentication'] },
+  { icon: <LockOutlined />, titleKey: 'tdesCbcMac', descKey: 'tdesCbcMac', path: '/payments-mac-tdes-cbc-mac', color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', category: 'payment', keywords: ['tdes cbc-mac', 'triple des mac', '3des mac', 'cbc mode', 'iso 9797-1', 'padding', 'message authentication', 'payment mac', 'financial mac', 'pci dss', 'emv mac'] },
+  { icon: <SafetyOutlined />, titleKey: 'hmac', descKey: 'hmac', path: '/payments-mac-hmac', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['hmac', 'sha256', 'sha512', 'hash-based mac', 'rfc 2104', 'api authentication', 'jwt', 'webhook', 'message authentication', 'api security', 'oauth'] },
+  { icon: <ThunderboltOutlined />, titleKey: 'cmac', descKey: 'cmac', path: '/payments-mac-cmac', color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', category: 'payment', keywords: ['cmac', 'aes-cmac', 'tdes-cmac', '3des-cmac', 'cipher-based mac', 'nist sp 800-38b', 'message authentication', 'aes cmac 96', 'block cipher mac', 'payment mac', 'financial mac'] },
+  { icon: <ShoppingOutlined />, titleKey: 'retailMac', descKey: 'retailMac', path: '/payments-mac-retail', color: 'linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%)', category: 'payment', keywords: ['retail mac', 'des mac', '3des mac', 'iso 9797-1', 'method 2 padding', 'payment mac', 'financial mac', 'pos mac', 'atm security', '3des finalization'] },
+  { icon: <SecurityScanOutlined />, titleKey: 'iso9797', descKey: 'iso9797', path: '/payments-mac-iso9797-1', color: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', category: 'payment', keywords: ['iso 9797', 'iso 9797-1', 'mac', 'message authentication', 'des', '3des', 'cbc-mac', 'algorithm 1', 'algorithm 2', 'algorithm 3', 'padding method', 'financial mac'] },
+  { icon: <BankOutlined />, titleKey: 'zka', descKey: 'zka', path: '/payments-zka', color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', category: 'payment', keywords: ['zka', 'german banking', 'session key derivation', 'sk derivation', 'pin encryption', 'mac calculation', 'tdes', '3des', 'german payment standard', 'banking cryptography'] },
   { icon: <ReadOutlined />, titleKey: 'messageParser', descKey: 'messageParser', path: '/message-parser', color: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', category: 'payment', keywords: ['message parser', 'ndc', 'wincor', 'iso 8583', 'atm', 'financial'] },
   { icon: <KeyOutlined />, titleKey: 'dukpt', descKey: 'dukpt', path: '/payments-dukpt-iso9797', color: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)', category: 'payment', keywords: ['dukpt', 'iso 9797', 'bdk', 'ipek', 'ksn', 'pek', 'pin', 'mac', 'pos', 'atm', 'key derivation'] },
   { icon: <SafetyOutlined />, titleKey: 'dukptAes', descKey: 'dukptAes', path: '/payments-dukpt-aes', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', category: 'payment', keywords: ['dukpt', 'aes', 'aes-128', 'aes-192', 'aes-256', '2tdea', '3tdea', 'working key', 'bdk', 'ksn', 'pek', 'mac gen', 'dek'] },
@@ -211,6 +222,10 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const seo = seoContent[language]?.home || seoContent.en.home;
   const home = t.home;
+
+  if (!seo) {
+    return null;
+  }
 
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('all');

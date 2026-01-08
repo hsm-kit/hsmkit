@@ -212,7 +212,7 @@ const PinBlockAESTool: React.FC = () => {
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            {t.pinBlockAes?.description || 'Generate and process AES PIN blocks using Format 4 for secure PIN encryption.'}
+            Generate and process AES PIN blocks using Format 4 for secure PIN encryption.
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />
@@ -243,7 +243,6 @@ const PinBlockAESTool: React.FC = () => {
                 placeholder={t.pinBlockAes?.keyPlaceholder || 'C1D0F8FB4958670DBA40AB1F3752EF0D'}
                 autoSize={{ minRows: 2, maxRows: 3 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
-                suffix={lengthIndicator(sanitizeHex(aesKey).length, 32)}
               />
               <Text type="secondary" style={{ fontSize: '11px', marginTop: 4, display: 'block' }}>
                 {t.pinBlockAes?.keyHint || 'AES-128 key: 32 hex characters (16 bytes)'}
@@ -277,7 +276,6 @@ const PinBlockAESTool: React.FC = () => {
                   placeholder={t.pinBlockAes?.pinPlaceholder || '441234'}
                   maxLength={12}
                   prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
-                  suffix={lengthIndicator(pin.length, 4)}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
@@ -294,7 +292,6 @@ const PinBlockAESTool: React.FC = () => {
                   value={encryptedBlock}
                   onChange={(e) => setEncryptedBlock(sanitizeHex(e.target.value))}
                   placeholder={t.pinBlockAes?.encryptedBlockPlaceholder || 'Enter encrypted PIN block (32 hex chars)'}
-                  suffix={lengthIndicator(sanitizeHex(encryptedBlock).length, 32)}
                   autoSize={{ minRows: 2, maxRows: 4 }}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 />

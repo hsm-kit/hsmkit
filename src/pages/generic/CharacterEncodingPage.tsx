@@ -11,6 +11,10 @@ const CharacterEncodingPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.encoding || seoContent.en.encoding;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

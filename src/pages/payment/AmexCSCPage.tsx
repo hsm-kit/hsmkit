@@ -11,6 +11,10 @@ const AmexCSCPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.amexCsc || seoContent.en.amexCsc;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

@@ -177,20 +177,20 @@ const ISO9797Tool: React.FC = () => {
     
     // Validate key
     if (cleanKeys[0].length !== 16 && cleanKeys[0].length !== 32) {
-      setError('Key (K) must be 16 or 32 hex characters');
+      setError(t.mac?.iso9797?.error?.invalidKeyLength || 'Key (K) must be 16 or 32 hex characters');
       return;
     }
     
     // Validate data
     if (cleanData.length === 0) {
-      setError('Data is required');
+      setError(t.mac?.iso9797?.error?.emptyData || 'Data is required');
       return;
     }
     
     // Validate truncation
     const trunc = parseInt(truncation);
     if (isNaN(trunc) || trunc < 1 || trunc > 8) {
-      setError('Truncation must be between 1 and 8');
+      setError(t.mac?.iso9797?.error?.invalidTruncation || 'Truncation must be between 1 and 8');
       return;
     }
     
@@ -198,7 +198,7 @@ const ISO9797Tool: React.FC = () => {
       const mac = calculateISO9797MAC(algorithm, cleanKeys, cleanData, padding, trunc);
       setResult(mac);
     } catch (err) {
-      setError('Failed to calculate MAC');
+      setError(t.common?.error || 'Failed to calculate MAC');
     }
   };
 
@@ -207,11 +207,11 @@ const ISO9797Tool: React.FC = () => {
       <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            ISO/IEC 9797-1 MACs
+            {t.mac?.iso9797?.title || 'ISO/IEC 9797-1 MACs'}
           </Title>
-          <CollapsibleInfo title="About ISO/IEC 9797-1">
+          <CollapsibleInfo title={t.mac?.iso9797?.title || 'About ISO/IEC 9797-1'}>
             <div>
-              ISO/IEC 9797-1 defines MAC algorithms using block cipher algorithms like DES and Triple DES.
+              {t.mac?.iso9797?.description || 'ISO/IEC 9797-1 defines MAC algorithms using block cipher algorithms like DES and Triple DES.'}
             </div>
             <div style={{ marginTop: 8 }}>
               It specifies different padding methods and MAC algorithms for data authentication in financial and security applications.
@@ -219,7 +219,7 @@ const ISO9797Tool: React.FC = () => {
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          Calculate Message Authentication Code using ISO/IEC 9797-1 standard.
+          {t.mac?.iso9797?.description || 'Calculate Message Authentication Code using ISO/IEC 9797-1 standard.'}
         </Text>
 
         <Divider style={{ margin: '16px 0' }} />
@@ -227,7 +227,7 @@ const ISO9797Tool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              MAC Algorithm:
+              {t.mac?.iso9797?.algorithm || 'MAC Algorithm'}:
             </Text>
             <Select
               value={algorithm}
@@ -245,7 +245,14 @@ const ISO9797Tool: React.FC = () => {
             />
           </div>
 
-          {['Key (K):', "Key (K'):", 'Key (K"):', 'Key 2 (K):', "Key 2 (K'):", 'Key 2 (K"):'].map((label, idx) => (
+          {[
+            t.mac?.iso9797?.keyK || 'Key (K):',
+            t.mac?.iso9797?.keyKPrime || "Key (K'):",
+            t.mac?.iso9797?.keyKDoublePrime || 'Key (K"):',
+            t.mac?.iso9797?.key2K || 'Key 2 (K):',
+            t.mac?.iso9797?.key2KPrime || "Key 2 (K'):",
+            t.mac?.iso9797?.key2KDoublePrime || 'Key 2 (K"):'
+          ].map((label, idx) => (
             <div key={idx}>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>{label}</Text>
               <Input
@@ -257,7 +264,6 @@ const ISO9797Tool: React.FC = () => {
                 }}
                 placeholder="3636353534343333"
                 maxLength={32}
-                suffix={lengthIndicator(sanitizeHex(keys[idx]).length, 16)}
                 style={{ 
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                   fontSize: '14px'
@@ -269,7 +275,7 @@ const ISO9797Tool: React.FC = () => {
 
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              Padding:
+              {t.mac?.iso9797?.padding || 'Padding'}:
             </Text>
             <Select
               value={padding}
@@ -285,13 +291,12 @@ const ISO9797Tool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.iso9797?.data || 'Data'}:</Text>
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
               placeholder="Enter hex data"
               autoSize={{ minRows: 6, maxRows: 12 }}
-              suffix={<Text type="secondary" style={{ fontSize: 12 }}>[{sanitizeHex(data).length}]</Text>}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -301,7 +306,7 @@ const ISO9797Tool: React.FC = () => {
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Truncation:</Text>
+              <Text strong>{t.mac?.iso9797?.truncation || 'Truncation'}:</Text>
               {lengthIndicator(truncation.length, 1)}
             </div>
             <Input
@@ -324,7 +329,7 @@ const ISO9797Tool: React.FC = () => {
               icon={<CalculatorOutlined />}
               onClick={handleCalculate}
             >
-              Calculate MAC
+              {t.mac?.iso9797?.calculate || 'Calculate MAC'}
             </Button>
           </div>
 

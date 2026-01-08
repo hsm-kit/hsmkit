@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Tabs, Input, message, Divider, Typography } from 'antd';
 import { LockOutlined, UnlockOutlined, CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
+import { useLanguage } from '../../hooks/useLanguage';
 import { CollapsibleInfo } from '../common';
 import CryptoJS from 'crypto-js';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
@@ -172,6 +173,7 @@ const calculateMAC = (macKey: string, data: string): string => {
 
 const ZKATool: React.FC = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
 
   // 检测移动端
   const [isMobile, setIsMobile] = useState(false);
@@ -265,25 +267,19 @@ const ZKATool: React.FC = () => {
       <div style={{ marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            ZKA (German Banking Standard)
+            {t.mac?.zka?.title || 'ZKA (German Banking Standard)'}
           </Title>
-          <CollapsibleInfo title="About ZKA">
+          <CollapsibleInfo title={t.mac?.zka?.infoTitle || 'About ZKA'}>
             <div style={{ marginBottom: 8 }}>
-              • ZKA is a German banking standard for secure key management and cryptographic operations
-            </div>
-            <div style={{ marginBottom: 8 }}>
-              • SK Derivation: Derives session keys from master key, command data, and random numbers
-            </div>
-            <div style={{ marginBottom: 8 }}>
-              • PIN: Encrypts/decrypts PIN blocks using derived session keys
+              • {t.mac?.zka?.info1 || 'German banking standard for key management and cryptographic operations'}
             </div>
             <div>
-              • MAC: Calculates message authentication codes for transaction verification
+              • {t.mac?.zka?.info2 || 'Includes SK derivation, PIN encryption, and MAC calculation'}
             </div>
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          ZKA cryptographic operations for German banking systems - session key derivation, PIN encryption, and MAC calculation
+          {t.mac?.zka?.description || 'ZKA cryptographic operations for German banking systems'}
         </Text>
       </div>
 

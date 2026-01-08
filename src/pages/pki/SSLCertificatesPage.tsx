@@ -11,6 +11,10 @@ const SSLCertificatesPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.sslCert || seoContent.en.sslCert;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

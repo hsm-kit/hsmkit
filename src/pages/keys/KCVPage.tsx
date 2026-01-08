@@ -11,6 +11,10 @@ const KCVPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.kcv || seoContent.en.kcv;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

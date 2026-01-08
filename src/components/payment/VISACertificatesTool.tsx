@@ -3,6 +3,7 @@ import { Card, Button, Tabs, message, Typography, Checkbox, Upload, Select, Aler
 import { CheckCircleOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useTheme } from '../../hooks/useTheme';
+import { useLanguage } from '../../hooks/useLanguage';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
 import type { RcFile } from 'antd/es/upload/interface';
 
@@ -23,6 +24,7 @@ const CA_PUBLIC_KEYS = {
 
 const VISACertificatesTool: React.FC = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   
   // 检测移动端
   const [isMobile, setIsMobile] = useState(false);
@@ -57,10 +59,10 @@ const VISACertificatesTool: React.FC = () => {
       // 移除所有空白字符，只保留十六进制字符
       const hexContent = content.replace(/[^0-9A-Fa-f]/g, '');
       setter(hexContent);
-      message.success('File loaded successfully');
+      message.success(t.visaCertificates?.fileLoadSuccess || 'File loaded successfully');
     };
     reader.onerror = () => {
-      message.error('Failed to load file');
+      message.error(t.visaCertificates?.fileLoadError || 'Failed to load file');
     };
     reader.readAsText(file);
     return false; // 阻止默认上传行为
@@ -71,7 +73,7 @@ const VISACertificatesTool: React.FC = () => {
     try {
       const cleaned = cleanHexInput(issuerRequest);
       if (!isValidHex(cleaned)) {
-        message.error('Invalid hex data');
+        message.error(t.visaCertificates?.errorInvalidHex || 'Invalid hex data');
         setRequestValidationResult(false);
         return;
       }
@@ -85,16 +87,17 @@ const VISACertificatesTool: React.FC = () => {
 
       // 简单验证：检查长度和格式
       if (cleaned.length < 64) {
-        message.error('Invalid certificate request: too short');
+        message.error(t.visaCertificates?.errorTooShort || 'Invalid certificate request: too short');
         setRequestValidationResult(false);
         return;
       }
 
       // 验证成功
       setRequestValidationResult(true);
-      message.success('Issuer signing request validated successfully');
+      message.success(t.visaCertificates?.validationSuccess || 'Validation Successful');
     } catch (error) {
-      message.error('Validation failed: ' + (error as Error).message);
+      const errorMsg = t.visaCertificates?.errorValidationFailed?.replace('{0}', (error as Error).message) || `Validation failed: ${(error as Error).message}`;
+      message.error(errorMsg);
       setRequestValidationResult(false);
     }
   };
@@ -106,13 +109,13 @@ const VISACertificatesTool: React.FC = () => {
       const cleanedCA = cleanHexInput(caPublicKey);
 
       if (!isValidHex(cleanedData)) {
-        message.error('Invalid signed data hex');
+        message.error(t.visaCertificates?.errorInvalidSignedHex || 'Invalid signed data hex');
         setSignedValidationResult(false);
         return;
       }
 
       if (!isValidHex(cleanedCA) && !selectedCA) {
-        message.error('Please select or provide a CA public key');
+        message.error(t.visaCertificates?.errorNoCA || 'Please select or provide a CA public key');
         setSignedValidationResult(false);
         return;
       }
@@ -126,16 +129,17 @@ const VISACertificatesTool: React.FC = () => {
 
       // 简单验证：检查长度和格式
       if (cleanedData.length < 64 || cleanedCA.length < 64) {
-        message.error('Invalid data: too short');
+        message.error(t.visaCertificates?.errorDataTooShort || 'Invalid data: too short');
         setSignedValidationResult(false);
         return;
       }
 
       // 验证成功
       setSignedValidationResult(true);
-      message.success('Signed issuer public key data validated successfully');
+      message.success(t.visaCertificates?.validationSuccess || 'Validation Successful');
     } catch (error) {
-      message.error('Validation failed: ' + (error as Error).message);
+      const errorMsg = t.visaCertificates?.errorValidationFailed?.replace('{0}', (error as Error).message) || `Validation failed: ${(error as Error).message}`;
+      message.error(errorMsg);
       setSignedValidationResult(false);
     }
   };
@@ -195,32 +199,26 @@ const VISACertificatesTool: React.FC = () => {
       <div style={{ marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            VISA Certificates Validator
+            {t.visaCertificates?.title || 'VISA Certificates Validator'}
           </Title>
-          <CollapsibleInfo title="About VISA Certificates">
+          <CollapsibleInfo title={t.visaCertificates?.infoTitle || 'About VISA Certificates'}>
             <div style={{ marginBottom: 8 }}>
-              • This tool validates VISA issuer certificate signing requests and verifies signed issuer public key data
-            </div>
-            <div style={{ marginBottom: 8 }}>
-              • Use Tab 1 to validate certificate requests before submission to VISA CA
-            </div>
-            <div style={{ marginBottom: 8 }}>
-              • Use Tab 2 to verify signed certificates received from VISA using CA public keys
+              • {t.visaCertificates?.info1 || 'Validate issuer certificate signing requests and verify signed public key data'}
             </div>
             <div>
-              • Supports predefined VISA CA public keys (VSDC CA V92, V94) or custom CA keys
+              • {t.visaCertificates?.info2 || 'Supports VSDC CA V92, V94, or custom CA keys'}
             </div>
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          Validate certificate signing requests and verify signed public key data for VISA payment card certificates
+          {t.visaCertificates?.description || 'Validate and verify VISA issuer certificates for EMV payment cards'}
         </Text>
       </div>
       
       <Divider style={{ margin: '16px 0' }} />
       
       <Tabs defaultActiveKey="1" size={isMobile ? 'small' : 'middle'}>
-        <TabPane tab="Validate Issuer Signing Request" key="1">
+        <TabPane tab={t.visaCertificates?.tabRequest || 'Validate Issuer Signing Request'} key="1">
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <Upload
@@ -229,14 +227,14 @@ const VISACertificatesTool: React.FC = () => {
                 beforeUpload={(file) => handleFileLoad(file, setIssuerRequest)}
               >
                 <Button icon={<FileTextOutlined />}>
-                  Load Issuer Certificate Request File ...
+                  {t.visaCertificates?.loadRequestFile || 'Load Issuer Certificate Request File ...'}
                 </Button>
               </Upload>
               <Checkbox 
                 checked={debugRequest} 
                 onChange={(e) => setDebugRequest(e.target.checked)}
               >
-                Debug
+                {t.visaCertificates?.debug || 'Debug'}
               </Checkbox>
             </div>
 
@@ -247,20 +245,20 @@ const VISACertificatesTool: React.FC = () => {
                 marginBottom: 8, 
                 gap: 8 
               }}>
-                <Text strong>Issuer Certificate Request Data:</Text>
-                <CollapsibleInfo title="About Certificate Request">
+                <Text strong>{t.visaCertificates?.requestDataLabel || 'Issuer Certificate Request Data:'}</Text>
+                <CollapsibleInfo title={t.visaCertificates?.aboutRequestTitle || 'About Certificate Request'}>
                   <Paragraph style={{ marginBottom: 8 }}>
-                    The Issuer Certificate Request contains the public key and other certificate information that needs to be signed by the CA.
+                    {t.visaCertificates?.aboutRequestText1 || 'The Issuer Certificate Request contains the public key and other certificate information that needs to be signed by the CA.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
-                    This tool validates the structure and format of the certificate request before it is sent to the CA for signing.
+                    {t.visaCertificates?.aboutRequestText2 || 'This tool validates the structure and format of the certificate request before it is sent to the CA for signing.'}
                   </Paragraph>
                 </CollapsibleInfo>
               </div>
               <Input.TextArea
                 value={issuerRequest}
                 onChange={(e) => setIssuerRequest(e.target.value.toUpperCase())}
-                placeholder="Enter hex data (e.g., 22B0E1D3EC02...)"
+                placeholder={t.visaCertificates?.requestDataPlaceholder || 'Enter hex data (e.g., 22B0E1D3EC02...)'}
                 rows={8}
                 style={{ 
                   fontFamily: 'Consolas, Monaco, monospace',
@@ -278,12 +276,12 @@ const VISACertificatesTool: React.FC = () => {
               disabled={!issuerRequest}
               style={{ marginBottom: 16 }}
             >
-              Validate
+              {t.visaCertificates?.validate || 'Validate'}
             </Button>
 
             {requestValidationResult !== null && (
               <Alert
-                message={requestValidationResult ? "Validation Successful" : "Validation Failed"}
+                message={requestValidationResult ? (t.visaCertificates?.validationSuccess || 'Validation Successful') : (t.visaCertificates?.validationFailed || 'Validation Failed')}
                 type={requestValidationResult ? "success" : "error"}
                 icon={requestValidationResult ? <CheckCircleOutlined /> : <CloseCircleOutlined />}
                 showIcon
@@ -293,7 +291,7 @@ const VISACertificatesTool: React.FC = () => {
 
             {debugRequest && requestDebugInfo && (
               <div style={{ marginTop: 16 }}>
-                <Text strong>Debug Information:</Text>
+                <Text strong>{t.visaCertificates?.debugInfo || 'Debug Information:'}</Text>
                 <Input.TextArea
                   value={requestDebugInfo}
                   readOnly
@@ -310,7 +308,7 @@ const VISACertificatesTool: React.FC = () => {
           </div>
         </TabPane>
 
-        <TabPane tab="Validate Signed Issuer Public Key Data" key="2">
+        <TabPane tab={t.visaCertificates?.tabSigned || 'Validate Signed Issuer Public Key Data'} key="2">
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <Upload
@@ -319,14 +317,14 @@ const VISACertificatesTool: React.FC = () => {
                 beforeUpload={(file) => handleFileLoad(file, setSignedData)}
               >
                 <Button icon={<FileTextOutlined />}>
-                  Load Signed Issuer Public Key Data File ...
+                  {t.visaCertificates?.loadSignedFile || 'Load Signed Issuer Public Key Data File ...'}
                 </Button>
               </Upload>
               <Checkbox 
                 checked={debugSigned} 
                 onChange={(e) => setDebugSigned(e.target.checked)}
               >
-                Debug
+                {t.visaCertificates?.debug || 'Debug'}
               </Checkbox>
             </div>
 
@@ -337,20 +335,20 @@ const VISACertificatesTool: React.FC = () => {
                 marginBottom: 8, 
                 gap: 8 
               }}>
-                <Text strong>Signed Issuer Public Key Data:</Text>
-                <CollapsibleInfo title="About Signed Public Key Data">
+                <Text strong>{t.visaCertificates?.signedDataLabel || 'Signed Issuer Public Key Data:'}</Text>
+                <CollapsibleInfo title={t.visaCertificates?.aboutSignedTitle || 'About Signed Public Key Data'}>
                   <Paragraph style={{ marginBottom: 8 }}>
-                    The signed issuer public key data contains the certificate signed by the VISA CA.
+                    {t.visaCertificates?.aboutSignedText1 || 'The signed issuer public key data contains the certificate signed by the VISA CA.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
-                    This tool validates the signature using the corresponding CA public key.
+                    {t.visaCertificates?.aboutSignedText2 || 'This tool validates the signature using the corresponding CA public key.'}
                   </Paragraph>
                 </CollapsibleInfo>
               </div>
               <Input.TextArea
                 value={signedData}
                 onChange={(e) => setSignedData(e.target.value.toUpperCase())}
-                placeholder="Enter hex data (e.g., 2410100000004455...)"
+                placeholder={t.visaCertificates?.signedDataPlaceholder || 'Enter hex data (e.g., 2410100000004455...)'}
                 rows={6}
                 style={{ 
                   fontFamily: 'Consolas, Monaco, monospace',
@@ -369,13 +367,13 @@ const VISACertificatesTool: React.FC = () => {
                 marginBottom: 8, 
                 gap: 8 
               }}>
-                <Text strong>CA Public Key:</Text>
-                <CollapsibleInfo title="About CA Public Key">
+                <Text strong>{t.visaCertificates?.caKeyLabel || 'CA Public Key:'}</Text>
+                <CollapsibleInfo title={t.visaCertificates?.aboutCaTitle || 'About CA Public Key'}>
                   <Paragraph style={{ marginBottom: 8 }}>
-                    Select a predefined VISA CA public key or load a custom one.
+                    {t.visaCertificates?.aboutCaText1 || 'Select a predefined VISA CA public key or load a custom one.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
-                    The CA public key is used to verify the signature on the issuer certificate.
+                    {t.visaCertificates?.aboutCaText2 || 'The CA public key is used to verify the signature on the issuer certificate.'}
                   </Paragraph>
                 </CollapsibleInfo>
               </div>
@@ -387,7 +385,7 @@ const VISACertificatesTool: React.FC = () => {
                   beforeUpload={(file) => handleFileLoad(file, setCaPublicKey)}
                 >
                   <Button icon={<FileTextOutlined />}>
-                    Load CA Public Key File ...
+                    {t.visaCertificates?.loadCaFile || 'Load CA Public Key File ...'}
                   </Button>
                 </Upload>
                 
@@ -405,7 +403,7 @@ const VISACertificatesTool: React.FC = () => {
               <Input.TextArea
                 value={caPublicKey}
                 onChange={(e) => setCaPublicKey(e.target.value.toUpperCase())}
-                placeholder="CA public key will be loaded automatically or enter manually"
+                placeholder={t.visaCertificates?.caKeyPlaceholder || 'CA public key will be loaded automatically or enter manually'}
                 rows={6}
                 style={{ 
                   fontFamily: 'Consolas, Monaco, monospace',
@@ -423,12 +421,12 @@ const VISACertificatesTool: React.FC = () => {
               disabled={!signedData || !caPublicKey}
               style={{ marginBottom: 16 }}
             >
-              Validate
+              {t.visaCertificates?.validate || 'Validate'}
             </Button>
 
             {signedValidationResult !== null && (
               <Alert
-                message={signedValidationResult ? "Validation Successful" : "Validation Failed"}
+                message={signedValidationResult ? (t.visaCertificates?.validationSuccess || 'Validation Successful') : (t.visaCertificates?.validationFailed || 'Validation Failed')}
                 type={signedValidationResult ? "success" : "error"}
                 icon={signedValidationResult ? <CheckCircleOutlined /> : <CloseCircleOutlined />}
                 showIcon
@@ -438,7 +436,7 @@ const VISACertificatesTool: React.FC = () => {
 
             {debugSigned && signedDebugInfo && (
               <div style={{ marginTop: 16 }}>
-                <Text strong>Debug Information:</Text>
+                <Text strong>{t.visaCertificates?.debugInfo || 'Debug Information:'}</Text>
                 <Input.TextArea
                   value={signedDebugInfo}
                   readOnly

@@ -11,6 +11,10 @@ const CVVPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.cvv || seoContent.en.cvv;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

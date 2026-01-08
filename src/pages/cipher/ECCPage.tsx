@@ -11,6 +11,10 @@ const ECCPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.ecc || seoContent.en.ecc;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

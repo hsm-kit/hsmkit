@@ -11,6 +11,10 @@ const AtallaKeysPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.atallaKeys || seoContent.en.atallaKeys;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

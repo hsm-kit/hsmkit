@@ -32,16 +32,13 @@ const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
 // Key Management
 const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
 const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
-const KCVPage = lazy(() => import('./pages/keys/KCVPage'));
 const KeysharePage = lazy(() => import('./pages/keys/KeysharePage'));
-const FuturexKeysPage = lazy(() => import('./pages/keys/FuturexKeysPage'));
 const AtallaKeysPage = lazy(() => import('./pages/keys/AtallaKeysPage'));
 const SafeNetKeysPage = lazy(() => import('./pages/keys/SafeNetKeysPage'));
 const ThalesKeysPage = lazy(() => import('./pages/keys/ThalesKeysPage'));
 const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'));
 
 // Payment
-const PinBlockPage = lazy(() => import('./pages/payment/PinBlockPage'));
 const AS2805Page = lazy(() => import('./pages/payment/AS2805Page'));
 const BitmapPage = lazy(() => import('./pages/payment/BitmapPage'));
 const CVVPage = lazy(() => import('./pages/payment/CVVPage'));
@@ -584,13 +581,11 @@ const App: React.FC = () => {
               {/* Keys 菜单 */}
               <Route path="/keys-dea" element={<KeyGeneratorPage />} />
               <Route path="/tr31-key-block" element={<TR31Page />} />
-              <Route path="/kcv-calculator" element={<KCVPage />} />
               <Route path="/keyshare-generator" element={<KeysharePage />} />
-              <Route path="/ftalla-keys" element={<AtallaKeysPage />} />
+              <Route path="/atalla-keys" element={<AtallaKeysPage />} />
               <Route path="/safenet-keys" element={<SafeNetKeysPage />} />
               <Route path="/thales-keys" element={<ThalesKeysPage />} />
               <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
-              <Route path="/pin-block-generator" element={<PinBlockPage />} />
               <Route path="/payments-as2805" element={<AS2805Page />} />
               <Route path="/payments-bitmap" element={<BitmapPage />} />
               <Route path="/payments-card-validation-cvvs" element={<CVVPage />} />

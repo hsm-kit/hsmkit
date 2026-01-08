@@ -163,7 +163,7 @@ const HMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.hmac.title}
             </Title>
-            <CollapsibleInfo title="About HMAC">
+            <CollapsibleInfo title={t.mac.hmac.title}>
               <div>{t.mac.hmac.description}</div>
             </CollapsibleInfo>
           </div>
@@ -210,7 +210,7 @@ const HMACTool: React.FC = () => {
             {/* Key Input Type */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                Key Input:
+                {t.mac.hmac.inputTypeLabel}:
               </Text>
               <Segmented
                 value={keyType}
@@ -229,9 +229,8 @@ const HMACTool: React.FC = () => {
               <TextArea
                 value={keyInput}
                 onChange={(e) => setKeyInput(keyType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
-                placeholder={keyType === 'Hexadecimal' ? 'Enter hex key' : 'Enter ASCII key'}
+                placeholder={keyType === 'Hexadecimal' ? t.mac.hmac.keyPlaceholderHex : t.mac.hmac.keyPlaceholderAscii}
                 autoSize={{ minRows: 3, maxRows: 6 }}
-                suffix={<span style={{ color: '#999' }}>[{keyInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -239,7 +238,7 @@ const HMACTool: React.FC = () => {
             {/* Data Input Type */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                Data Input:
+                {t.mac.hmac.inputTypeLabel}:
               </Text>
               <Segmented
                 value={dataType}
@@ -258,9 +257,8 @@ const HMACTool: React.FC = () => {
               <TextArea
                 value={dataInput}
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
-                placeholder={dataType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII data'}
+                placeholder={dataType === 'Hexadecimal' ? t.mac.hmac.dataPlaceholderHex : t.mac.hmac.dataPlaceholderAscii}
                 autoSize={{ minRows: 4, maxRows: 8 }}
-                suffix={<span style={{ color: '#999' }}>[{dataInput.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

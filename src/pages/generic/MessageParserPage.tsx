@@ -11,6 +11,10 @@ const MessageParserPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.messageParser || seoContent.en.messageParser;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

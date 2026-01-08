@@ -11,6 +11,10 @@ const Base64Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.base64 || seoContent.en.base64;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

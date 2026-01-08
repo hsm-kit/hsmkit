@@ -11,6 +11,10 @@ const KeysharePage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.keyshare || seoContent.en.keyshare;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

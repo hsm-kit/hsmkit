@@ -11,6 +11,10 @@ const KeyGeneratorPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.keyGenerator || seoContent.en.keyGenerator;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

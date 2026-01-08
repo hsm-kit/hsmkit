@@ -11,6 +11,10 @@ const FuturexKeysPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.futurexKeys || seoContent.en.futurexKeys;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

@@ -11,6 +11,10 @@ const DESPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.des || seoContent.en.des;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

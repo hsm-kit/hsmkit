@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Radio, message, Divider, Tag, Typography, Input, InputNumber } from 'antd';
+import { Card, Button, Tabs, Radio, message, Divider, Typography, Input, InputNumber } from 'antd';
 import { KeyOutlined, CopyOutlined, LockOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 import { CollapsibleInfo } from '../common';
@@ -42,18 +42,6 @@ const PinOffsetTool: React.FC = () => {
   const [offsetResult, setOffsetResult] = useState('');
   const [pinResult, setPinResult] = useState('');
   const [error, setError] = useState('');
-
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
 
   // IBM 3624 PIN Offset calculation
   const calculatePinOffset = (
@@ -305,11 +293,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pdkPlaceholder || '0123456789ABCDEFFEDCBA9876543210'}
               autoSize={{ minRows: 2, maxRows: 3 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
-              suffix={
-                <Tag color="blue" style={{ fontSize: '11px' }}>
-                  [{sanitizeHex(pdk).length}]
-                </Tag>
-              }
             />
           </div>
 
@@ -324,7 +307,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.panPlaceholder || '1234567899876543'}
               maxLength={19}
               prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-              suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -341,7 +323,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pinPlaceholder || '3196'}
               maxLength={12}
               prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
-              suffix={lengthIndicator(pin.length, 4)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -357,7 +338,6 @@ const PinOffsetTool: React.FC = () => {
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
               placeholder="0123456789012345"
               maxLength={16}
-              suffix={lengthIndicator(decTab.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -459,7 +439,6 @@ const PinOffsetTool: React.FC = () => {
                   }
                 }}
                 placeholder="0000000N0000"
-                suffix={lengthIndicator(validationMask.length, 12)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
@@ -553,7 +532,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.pdkPlaceholder || '0123456789ABCDEFFEDCBA9876543210'}
               autoSize={{ minRows: 2, maxRows: 3 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
-              suffix={lengthIndicator(sanitizeHex(pdk).length, 32)}
             />
           </div>
 
@@ -568,7 +546,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.panPlaceholder || '1234567899876543'}
               maxLength={19}
               prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-              suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -585,7 +562,6 @@ const PinOffsetTool: React.FC = () => {
               placeholder={t.pinOffset?.offsetPlaceholder || '0000'}
               maxLength={12}
               prefix={<KeyOutlined style={{ color: '#bfbfbf' }} />}
-              suffix={lengthIndicator(pinOffset.length, 4)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -601,7 +577,6 @@ const PinOffsetTool: React.FC = () => {
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
               placeholder="0123456789012345"
               maxLength={16}
-              suffix={lengthIndicator(decTab.replace(/\D/g, '').length, 16)}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
               size="large"
             />
@@ -703,7 +678,6 @@ const PinOffsetTool: React.FC = () => {
                   }
                 }}
                 placeholder="0000000N0000"
-                suffix={lengthIndicator(validationMask.length, 12)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
@@ -798,7 +772,7 @@ const PinOffsetTool: React.FC = () => {
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            {t.pinOffset?.description || 'Calculate and verify PIN offsets using IBM 3624 method with decimalization.'}
+            Calculate and verify PIN offsets using IBM 3624 method with decimalization.
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />

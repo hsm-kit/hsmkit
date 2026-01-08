@@ -188,13 +188,6 @@ const RetailMACTool: React.FC = () => {
     message.success(t.mac.retail.copied);
   };
 
-  // Get key length indicator
-  const getKeyLengthIndicator = (key: string, expectedLength: number) => {
-    const isValid = isValidHex(key, expectedLength);
-    const color = isValid ? '#52c41a' : '#999';
-    return <span style={{ color, marginLeft: 8 }}>[{key.length}]</span>;
-  };
-
   return (
     <div style={{ animation: 'fadeIn 0.5s', width: '100%' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
@@ -203,7 +196,7 @@ const RetailMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.retail.title}
             </Title>
-            <CollapsibleInfo title="About Retail MAC">
+            <CollapsibleInfo title={t.mac.retail.title}>
               <div>{t.mac.retail.description}</div>
             </CollapsibleInfo>
           </div>
@@ -250,9 +243,8 @@ const RetailMACTool: React.FC = () => {
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
-                placeholder="Enter 16 hex characters"
+                placeholder={t.mac.retail.keyKPlaceholder || "0123456789ABCDEF"}
                 maxLength={16}
-                suffix={getKeyLengthIndicator(keyK, 16)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -264,9 +256,8 @@ const RetailMACTool: React.FC = () => {
                 <Input
                   value={keyKPrime}
                   onChange={(e) => setKeyKPrime(e.target.value.toUpperCase())}
-                  placeholder="Enter 16 hex characters (optional)"
+                  placeholder={t.mac.retail.keyKPrimePlaceholder || "FEDCBA9876543210"}
                   maxLength={16}
-                  suffix={getKeyLengthIndicator(keyKPrime, 16)}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
                 />
               </div>
@@ -280,9 +271,8 @@ const RetailMACTool: React.FC = () => {
               <TextArea
                 value={data}
                 onChange={(e) => setData(e.target.value.toUpperCase())}
-                placeholder="Enter hex data"
+                placeholder={t.mac.retail.dataPlaceholder || "Enter hex data"}
                 autoSize={{ minRows: 4, maxRows: 8 }}
-                suffix={<span style={{ color: '#999' }}>[{data.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -298,7 +288,7 @@ const RetailMACTool: React.FC = () => {
                 onChange={(e) => setTruncation(parseInt(e.target.value) || 8)}
                 min={1}
                 max={8}
-                placeholder="1-8 bytes"
+                placeholder={t.mac.retail.truncationPlaceholder || "1-8 bytes"}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

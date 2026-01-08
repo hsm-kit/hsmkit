@@ -7,7 +7,9 @@ import seoContent from '../../locales/seo';
 const AS2805Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = (seoContent[language]?.as2805 || seoContent.en.as2805);
-
+  if (!seo) {
+    return null;
+  }
   return (
     <PageLayout
       seoTitle={seo.title}

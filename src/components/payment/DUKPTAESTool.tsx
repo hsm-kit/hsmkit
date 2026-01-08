@@ -287,18 +287,6 @@ const DUKPTAESTool: React.FC = () => {
     return value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -522,7 +510,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setBdk(sanitizeHex(e.target.value))}
           placeholder="FEDCBA9876543210F1F1F1F1F1F1F1F1"
           maxLength={64}
-          suffix={lengthIndicator(sanitizeHex(bdk).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -556,7 +543,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setKsn(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
           maxLength={24}
-          suffix={lengthIndicator(sanitizeHex(ksn).length, 24)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -633,7 +619,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setPinPek(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
-          suffix={lengthIndicator(sanitizeHex(pinPek).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -649,7 +634,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setPinBlock(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(pinBlock).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -734,7 +718,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setMacGen(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
-          suffix={lengthIndicator(sanitizeHex(macGen).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -750,7 +733,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setMacData(sanitizeHex(e.target.value))}
           placeholder="Enter hex data"
           autoSize={{ minRows: 8, maxRows: 16 }}
-          suffix={lengthIndicator(sanitizeHex(macData).length, 0)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -826,7 +808,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setDek(sanitizeHex(e.target.value))}
           placeholder="4EC2A2974ECA53F5691E5273963EBE5C"
           maxLength={64}
-          suffix={lengthIndicator(sanitizeHex(dek).length, getExpectedKeyLength(workingKeyType))}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -857,10 +838,6 @@ const DUKPTAESTool: React.FC = () => {
           onChange={e => setDataInput(dataInputType === 'Hexadecimal' ? sanitizeHex(e.target.value) : e.target.value)}
           placeholder={dataInputType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII text'}
           autoSize={{ minRows: 8, maxRows: 16 }}
-          suffix={lengthIndicator(
-            dataInputType === 'Hexadecimal' ? sanitizeHex(dataInput).length : dataInput.length * 2,
-            0
-          )}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'

@@ -11,6 +11,10 @@ const BitmapPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.bitmap || seoContent.en.bitmap;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

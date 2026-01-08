@@ -11,6 +11,10 @@ const UUIDPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.uuid || seoContent.en.uuid;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

@@ -11,6 +11,10 @@ const ThalesKeyBlockPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.thalesKeyBlock || seoContent.en.thalesKeyBlock;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

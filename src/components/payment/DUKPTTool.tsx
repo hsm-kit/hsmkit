@@ -282,7 +282,7 @@ const DUKPTTool: React.FC = () => {
     const cleanPin = sanitizeHex(pinBlock);
     
     if (cleanPek.length !== 32) {
-      setPinError(t.dukpt?.errorInvalidPekPin || 'PEK must be 32 hex characters');
+      setPinError(t.dukpt?.errorInvalidPek || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanPin.length !== 16) {
@@ -307,7 +307,7 @@ const DUKPTTool: React.FC = () => {
     const cleanPin = sanitizeHex(pinBlock);
     
     if (cleanPek.length !== 32) {
-      setPinError(t.dukpt?.errorInvalidPekPin || 'PEK must be 32 hex characters');
+      setPinError(t.dukpt?.errorInvalidPek || 'PEK must be 32 hex characters');
       return;
     }
     if (cleanPin.length !== 16) {
@@ -438,7 +438,6 @@ const DUKPTTool: React.FC = () => {
           onChange={e => setBdk(sanitizeHex(e.target.value))}
           placeholder="C1D0F8FB4958670DBA40AB1F3752EF0D"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(bdk).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -453,7 +452,6 @@ const DUKPTTool: React.FC = () => {
           value={ksn}
           onChange={e => setKsn(sanitizeHex(e.target.value))}
           placeholder="11111111C14017E00000"
-          suffix={lengthIndicator(sanitizeHex(ksn).length, 20)}
           maxLength={20}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
@@ -531,7 +529,6 @@ const DUKPTTool: React.FC = () => {
           onChange={e => setPinPek(sanitizeHex(e.target.value))}
           placeholder="6AC292FAA1315B4D858AB3A3D7D5933A"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(pinPek).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -547,7 +544,6 @@ const DUKPTTool: React.FC = () => {
           onChange={e => setPinBlock(sanitizeHex(e.target.value))}
           placeholder="89D63FA012D10F11"
           maxLength={16}
-          suffix={lengthIndicator(sanitizeHex(pinBlock).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -665,7 +661,6 @@ const DUKPTTool: React.FC = () => {
           onChange={e => setMacData(sanitizeHex(e.target.value))}
           placeholder="Enter hex data"
           autoSize={{ minRows: 8, maxRows: 16 }}
-          suffix={lengthIndicator(sanitizeHex(macData).length, 0)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -780,13 +775,9 @@ const DUKPTTool: React.FC = () => {
         <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
         <TextArea
           value={dataInput}
-          onChange={e => setDataInput(dataInputType === 'Hexadecimal' ? sanitizeHex(e.target.value) : e.target.value)}
-          placeholder={dataInputType === 'Hexadecimal' ? 'Enter hex data' : 'Enter ASCII text'}
+          onChange={e => setDataInput(dataInputType === 'Hex' ? sanitizeHex(e.target.value) : e.target.value)}
+          placeholder={dataInputType === 'Hex' ? 'Enter hex data' : 'Enter ASCII text'}
           autoSize={{ minRows: 8, maxRows: 16 }}
-          suffix={lengthIndicator(
-            dataInputType === 'Hexadecimal' ? sanitizeHex(dataInput).length : dataInput.length * 2,
-            0
-          )}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'

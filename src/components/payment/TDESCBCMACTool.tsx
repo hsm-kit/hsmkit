@@ -143,13 +143,6 @@ const TDESCBCMACTool: React.FC = () => {
     message.success(t.mac.tdescbc.copied);
   };
 
-  // Get key length indicator
-  const getKeyLengthIndicator = (key: string, expectedLength: number) => {
-    const isValid = isValidHex(key, expectedLength);
-    const color = isValid ? '#52c41a' : '#999';
-    return <span style={{ color, marginLeft: 8 }}>[{key.length}]</span>;
-  };
-
   const { isDark } = useTheme();
 
   return (
@@ -160,10 +153,13 @@ const TDESCBCMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.tdescbc.title}
             </Title>
-            <CollapsibleInfo title="About TDES CBC-MAC">
-              <div>{t.mac.tdescbc.description}</div>
+            <CollapsibleInfo title={t.mac.tdescbc.infoTitle || 'About TDES CBC-MAC'}>
+              <div>{t.mac.tdescbc.info || 'Calculate MAC using Triple DES in CBC mode with ISO 9797-1 padding'}</div>
             </CollapsibleInfo>
           </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.mac.tdescbc.description}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 
@@ -192,7 +188,6 @@ const TDESCBCMACTool: React.FC = () => {
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
                 placeholder="Enter 48 hex characters (3DES) or 32 hex characters (2DES)"
                 maxLength={48}
-                suffix={getKeyLengthIndicator(keyK, 48)}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -223,7 +218,6 @@ const TDESCBCMACTool: React.FC = () => {
                 onChange={(e) => setData(e.target.value.toUpperCase())}
                 placeholder="Enter hex data"
                 autoSize={{ minRows: 4, maxRows: 8 }}
-                suffix={<span style={{ color: '#999' }}>[{data.length}]</span>}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>

@@ -11,6 +11,10 @@ const Base94Page: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.base94 || seoContent.en.base94;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}

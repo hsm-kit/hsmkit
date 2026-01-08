@@ -129,18 +129,18 @@ const ANSIMACTool: React.FC = () => {
     const cleanData = sanitizeHex(data);
     
     if (cleanK.length !== 16 && cleanK.length !== 32) {
-      setError('Key (K) must be 16 or 32 hex characters');
+      setError(t.mac?.ansimac?.error?.invalidKeyK || 'Key (K) must be 16 or 32 hex characters');
       return;
     }
     
     if (cleanData.length === 0) {
-      setError('Data is required');
+      setError(t.mac?.ansimac?.error?.emptyData || 'Data is required');
       return;
     }
     
     const trunc = parseInt(truncation);
     if (isNaN(trunc) || trunc < 1 || trunc > 8) {
-      setError('Truncation must be between 1 and 8');
+      setError(t.mac?.ansimac?.error?.invalidTruncation || 'Truncation must be between 1 and 8');
       return;
     }
     
@@ -148,7 +148,7 @@ const ANSIMACTool: React.FC = () => {
       const mac = calculateANSIMAC(algorithm, cleanK, cleanKP, cleanData, trunc);
       setResult(mac);
     } catch (err) {
-      setError('Failed to calculate MAC');
+      setError(t.mac?.ansimac?.error?.calculationFailed || 'Failed to calculate MAC');
     }
   };
 
@@ -157,19 +157,19 @@ const ANSIMACTool: React.FC = () => {
       <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-            ANSI MACs
+            {t.mac?.ansimac?.title || 'ANSI MACs'}
           </Title>
-          <CollapsibleInfo title="About ANSI MACs">
+          <CollapsibleInfo title={t.mac?.ansimac?.infoTitle || 'About ANSI MACs'}>
             <div>
-              ANSI X9.9 and X9.19 define MAC algorithms used in financial transactions.
+              {t.mac?.ansimac?.infoDescription1 || 'ANSI X9.9 and X9.19 define MAC algorithms used in financial transactions.'}
             </div>
             <div style={{ marginTop: 8 }}>
-              X9.9 (Wholesale MAC) uses DES CBC-MAC. X9.19 (Retail MAC) uses DES with final 3DES encryption for enhanced security.
+              {t.mac?.ansimac?.infoDescription2 || 'X9.9 (Wholesale MAC) uses DES CBC-MAC. X9.19 (Retail MAC) uses DES with final 3DES encryption for enhanced security.'}
             </div>
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          Calculate Message Authentication Code using ANSI X9.9 or X9.19 standard.
+          {t.mac?.ansimac?.description || 'Calculate Message Authentication Code using ANSI X9.9 or X9.19 standard.'}
         </Text>
 
         <Divider style={{ margin: '16px 0' }} />
@@ -177,7 +177,7 @@ const ANSIMACTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              MAC Algorithm:
+              {t.mac?.ansimac?.algorithmLabel || 'MAC Algorithm:'}
             </Text>
             <Select
               value={algorithm}
@@ -185,20 +185,19 @@ const ANSIMACTool: React.FC = () => {
               style={{ width: '100%' }}
               size="large"
               options={[
-                { label: 'ANSI MAC X9.9 (Wholesale MAC)', value: 'ANSI MAC X9.9 (Wholesale MAC)' },
-                { label: 'ANSI MAC X9.19 (Retail MAC)', value: 'ANSI MAC X9.19 (Retail MAC)' },
+                { label: t.mac?.ansimac?.algorithmX99 || 'ANSI MAC X9.9 (Wholesale MAC)', value: 'ANSI MAC X9.9 (Wholesale MAC)' },
+                { label: t.mac?.ansimac?.algorithmX919 || 'ANSI MAC X9.19 (Retail MAC)', value: 'ANSI MAC X9.19 (Retail MAC)' },
               ]}
             />
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (K):</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.keyK || 'Key (K):'}</Text>
             <Input
               value={keyK}
               onChange={e => setKeyK(sanitizeHex(e.target.value))}
               placeholder="3636353534343333"
               maxLength={32}
-              suffix={lengthIndicator(sanitizeHex(keyK).length, 16)}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -208,13 +207,12 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Key (K'):</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.keyKPrime || 'Key (K\'):'}</Text>
             <Input
               value={keyKPrime}
               onChange={e => setKeyKPrime(sanitizeHex(e.target.value))}
               placeholder="FEDCBA9876543210"
               maxLength={32}
-              suffix={lengthIndicator(sanitizeHex(keyKPrime).length, 16)}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -224,13 +222,12 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.dataLabel || 'Data:'}</Text>
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
-              placeholder="Enter hex data"
+              placeholder={t.mac?.ansimac?.dataPlaceholder || 'Enter hex data'}
               autoSize={{ minRows: 6, maxRows: 12 }}
-              suffix={<Text type="secondary" style={{ fontSize: 12 }}>[{sanitizeHex(data).length}]</Text>}
               style={{ 
                 fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
                 fontSize: '14px'
@@ -240,7 +237,7 @@ const ANSIMACTool: React.FC = () => {
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Truncation:</Text>
+              <Text strong>{t.mac?.ansimac?.truncation || 'Truncation:'}</Text>
               {lengthIndicator(truncation.length, 1)}
             </div>
             <Input
@@ -263,7 +260,7 @@ const ANSIMACTool: React.FC = () => {
               icon={<CalculatorOutlined />}
               onClick={handleCalculate}
             >
-              Calculate MAC
+              {t.mac?.ansimac?.calculate || 'Calculate MAC'}
             </Button>
           </div>
 
@@ -286,7 +283,7 @@ const ANSIMACTool: React.FC = () => {
               borderRadius: '6px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text strong style={{ fontSize: '14px' }}>MAC:</Text>
+                <Text strong style={{ fontSize: '14px' }}>{t.mac?.ansimac?.result || 'MAC:'}</Text>
                 <Tag color="green">[{result.length}]</Tag>
               </div>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>

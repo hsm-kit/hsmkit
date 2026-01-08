@@ -11,6 +11,10 @@ const RSAPage: React.FC = () => {
   const { language } = useLanguage();
   const seo = seoContent[language]?.rsa || seoContent.en.rsa;
 
+  if (!seo) {
+    return null;
+  }
+
   return (
     <PageLayout
       seoTitle={seo.title}
