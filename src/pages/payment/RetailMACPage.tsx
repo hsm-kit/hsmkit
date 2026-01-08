@@ -33,7 +33,7 @@ const RetailMACPage: React.FC = () => {
           <div>
             {(seo.usage as string[]).map((text: string, index: number) => (
               <p key={index} style={{ marginBottom: index === seo.usage.length - 1 ? 0 : 8 }}>
-                • {text}
+                {text}
               </p>
             ))}
           </div>

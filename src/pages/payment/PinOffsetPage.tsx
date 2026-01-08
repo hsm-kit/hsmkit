@@ -28,7 +28,7 @@ const PinOffsetPage: React.FC = () => {
         <div>
           {seo.usage.map((text, index) => (
             <Paragraph key={index} style={{ marginBottom: index === seo.usage.length - 1 ? 0 : 8 }}>
-              • {text}
+              {text}
             </Paragraph>
           ))}
         </div>
