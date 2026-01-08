@@ -2663,10 +2663,10 @@ export default {
         { question: 'Was ist Datenvariante in DUKPT?', answer: 'Datenvariante ist eine Schlüsselmodifikationstechnik, bei der der Verschlüsselungsschlüssel vor der Verwendung mit einem festen Muster (typischerweise 0x000...0FF) XOR-verknüpft wird. Dies erzeugt verschiedene Schlüssel für verschiedene Zwecke (PIN, MAC, Daten) aus demselben abgeleiteten Schlüssel.' },
       ],
       usage: [
-        'Für PEK-Ableitung: Geben Sie BDK/IPEK (32 Hex) und KSN (20 Hex) ein, klicken Sie dann auf \"PEK ableiten\", um den PIN-Verschlüsselungsschlüssel zu generieren.',
-        'Für PIN-Verschlüsselung: Geben Sie PEK und PIN-Block ein, klicken Sie dann auf \"Verschlüsseln\" oder \"Entschlüsseln\".',
-        'Für MAC-Berechnung: Geben Sie PEK ein, wählen Sie den Algorithmus (DES/3DES), geben Sie Daten ein und klicken Sie auf \"MAC berechnen\".',
-        'Für Datenverschlüsselung: Geben Sie PEK ein, aktivieren Sie optional Datenvariante, wählen Sie Eingabetyp (ASCII/Hex), geben Sie Daten ein und klicken Sie auf \"Verschlüsseln\" oder \"Entschlüsseln\".',
+        'Für PEK-Ableitung: Geben Sie BDK/IPEK (32 Hex) und KSN (20 Hex) ein, klicken Sie dann auf "PEK ableiten", um den PIN-Verschlüsselungsschlüssel zu generieren.',
+        'Für PIN-Verschlüsselung: Geben Sie PEK und PIN-Block ein, klicken Sie dann auf "Verschlüsseln" oder "Entschlüsseln".',
+        'Für MAC-Berechnung: Geben Sie PEK ein, wählen Sie den Algorithmus (DES/3DES), geben Sie Daten ein und klicken Sie auf "MAC berechnen".',
+        'Für Datenverschlüsselung: Geben Sie PEK ein, aktivieren Sie optional Datenvariante, wählen Sie Eingabetyp (ASCII/Hex), geben Sie Daten ein und klicken Sie auf "Verschlüsseln" oder "Entschlüsseln".',
       ],
     },
     dukptAes: {
@@ -2685,7 +2685,7 @@ export default {
       usage: [
         'Wählen Sie Schlüsseltyp (BDK/IK) und Arbeitsschlüsseltyp (2TDEA, 3TDEA, AES-128, AES-192 oder AES-256).',
         'Geben Sie BDK/IK mit korrekter Länge basierend auf Schlüsseltyp (32/48/64 Hex) und KSN (24 Hex) ein.',
-        'Klicken Sie auf \"Schlüssel ableiten\", um den Arbeitsschlüssel für die spezifische Transaktion zu generieren.',
+        'Klicken Sie auf "Schlüssel ableiten", um den Arbeitsschlüssel für die spezifische Transaktion zu generieren.',
         'Verwenden Sie den abgeleiteten Schlüssel für PIN-Verschlüsselung/Entschlüsselung, MAC-Berechnung oder Datenverschlüsselungsoperationen.',
       ],
     },
@@ -2754,7 +2754,7 @@ export default {
         'Wählen Sie die Padding-Methode: Methode 1 (Nullen), Methode 2 (0x80 + Nullen) oder Methode 3 (mit Länge).',
         'Geben Sie Ihre Daten im Hexadezimalformat in das Datenfeld ein.',
         'Legen Sie die Truncation-Länge (1-8 Bytes) für die Ausgabe-MAC-Größe fest.',
-        'Klicken Sie auf \"MAC berechnen\", um den Message Authentication Code zu generieren.',
+        'Klicken Sie auf "MAC berechnen", um den Message Authentication Code zu generieren.',
         'Kopieren Sie den resultierenden MAC zur Verwendung in Ihrer Anwendung oder im Verifikationsprozess.',
       ],
     },

@@ -130,7 +130,7 @@ const TR31KeyBlockTool: React.FC = () => {
 
   // Decode state
   const [keyBlock, setKeyBlock] = useState('');
-  const [decodeResult, setDecodeResult] = useState<any>(null);
+  const [decodeResult, setDecodeResult] = useState<Record<string, string> | null>(null);
   const [decodeError, setDecodeError] = useState('');
 
   // Calculate KCV for key
@@ -142,7 +142,7 @@ const TR31KeyBlockTool: React.FC = () => {
       if (algo === 'A') {
         // AES KCV
         const zeros = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
-        let keyForKcv = cleaned;
+        const keyForKcv = cleaned;
         // Pad to valid AES key length
         if (cleaned.length === 32) {
           // 128-bit key
@@ -417,7 +417,7 @@ const TR31KeyBlockTool: React.FC = () => {
       setDecodeResult({
         version: VERSION_OPTIONS.find(o => o.value === version)?.label || version,
         versionCode: version,
-        length: parseInt(length),
+        length: length,
         keyUsage: KEY_USAGE_OPTIONS.find(o => o.value === usage)?.label || usage,
         keyUsageCode: usage,
         algorithm: ALGORITHM_OPTIONS.find(o => o.value === algo)?.label || algo,
@@ -427,7 +427,7 @@ const TR31KeyBlockTool: React.FC = () => {
         keyVersion: keyVer,
         exportability: EXPORTABILITY_OPTIONS.find(o => o.value === exp)?.label || exp,
         exportCode: exp,
-        numOptBlocks,
+        numOptBlocks: numOptBlocks.toString(),
         reserved: res,
         optionalHeaders: optHeaders,
         encryptedData,

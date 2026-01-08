@@ -44,7 +44,7 @@ const calculateCVC3 = (
   // For dynamic CVC3: use first 64 bytes of track data
   // For PIN-CVC3: different derivation
   
-  let inputData = cleanTrack.padEnd(128, '0').substring(0, 128) + cleanUN.padStart(8, '0') + cleanAtc.padStart(4, '0');
+  const inputData = cleanTrack.padEnd(128, '0').substring(0, 128) + cleanUN.padStart(8, '0') + cleanAtc.padStart(4, '0');
   
   // Take first 16 bytes for encryption
   const inputBlock = inputData.substring(0, 32);
@@ -167,7 +167,7 @@ const MastercardCVC3Tool: React.FC = () => {
     try {
       const cvc3 = calculateCVC3(cleanImk, cleanPan, cleanPanSeq, cleanTrack, cleanUN, cleanAtc);
       setGenResult(cvc3);
-    } catch (err) {
+    } catch {
       setGenError(t.mastercardCvc3?.errorGeneration || 'Failed to generate CVC3');
     }
   };
@@ -218,7 +218,7 @@ const MastercardCVC3Tool: React.FC = () => {
     try {
       const isValid = validateCVC3(cleanImk, cleanPan, cleanPanSeq, cleanTrack, cleanUN, cleanAtc, cleanCvc3);
       setValResult(isValid ? 'valid' : 'invalid');
-    } catch (err) {
+    } catch {
       setValError(t.mastercardCvc3?.errorValidation || 'Failed to validate CVC3');
     }
   };

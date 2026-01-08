@@ -686,7 +686,7 @@ const SSLCertificatesTool: React.FC = () => {
             };
             const parts: string[] = [];
             // keyIdentifier 可能存储在 keyIdentifier 属性或需要从 value 解析
-            let keyId = aki.keyIdentifier;
+            const keyId = aki.keyIdentifier;
             if (keyId) {
               // 检查是否已经是十六进制字符串
               const isHexString = /^[0-9a-fA-F]+$/.test(keyId);

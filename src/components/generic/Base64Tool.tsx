@@ -10,6 +10,59 @@ const { TextArea } = Input;
 
 type InputEncoding = 'ASCII' | 'Hex';
 
+// Validate hex input
+const isValidHex = (hex: string): boolean => {
+  const cleaned = hex.replace(/[\s\n\r]/g, '').toUpperCase();
+  return /^[0-9A-F]*$/.test(cleaned) && cleaned.length % 2 === 0;
+};
+
+// Hex to bytes
+const hexToBytes = (hex: string): Uint8Array => {
+  const cleaned = hex.replace(/[\s\n\r]/g, '');
+  const bytes = new Uint8Array(cleaned.length / 2);
+  for (let i = 0; i < cleaned.length; i += 2) {
+    bytes[i / 2] = parseInt(cleaned.substr(i, 2), 16);
+  }
+  return bytes;
+};
+
+// Bytes to hex
+const bytesToHex = (bytes: Uint8Array): string => {
+  return Array.from(bytes)
+    .map(b => b.toString(16).toUpperCase().padStart(2, '0'))
+    .join('');
+};
+
+// Encode to Base64
+const encodeBase64 = (input: string, encoding: InputEncoding): string => {
+  if (encoding === 'ASCII') {
+    // UTF-8 encoding for text
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(input);
+    return btoa(String.fromCharCode(...bytes));
+  } else {
+    // Hex input
+    const bytes = hexToBytes(input);
+    return btoa(String.fromCharCode(...bytes));
+  }
+};
+
+// Decode from Base64
+const decodeBase64 = (input: string, outputEncoding: InputEncoding): string => {
+  const binaryStr = atob(input.replace(/[\s\n\r]/g, ''));
+  const bytes = new Uint8Array(binaryStr.length);
+  for (let i = 0; i < binaryStr.length; i++) {
+    bytes[i] = binaryStr.charCodeAt(i);
+  }
+  
+  if (outputEncoding === 'ASCII') {
+    const decoder = new TextDecoder();
+    return decoder.decode(bytes);
+  } else {
+    return bytesToHex(bytes);
+  }
+};
+
 const Base64Tool: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
@@ -25,59 +78,6 @@ const Base64Tool: React.FC = () => {
   const [decodeInput, setDecodeInput] = useState<string>('');
   const [decodeResult, setDecodeResult] = useState('');
   const [decodeError, setDecodeError] = useState('');
-
-  // Validate hex input
-  const isValidHex = (hex: string): boolean => {
-    const cleaned = hex.replace(/[\s\n\r]/g, '').toUpperCase();
-    return /^[0-9A-F]*$/.test(cleaned) && cleaned.length % 2 === 0;
-  };
-
-  // Hex to bytes
-  const hexToBytes = (hex: string): Uint8Array => {
-    const cleaned = hex.replace(/[\s\n\r]/g, '');
-    const bytes = new Uint8Array(cleaned.length / 2);
-    for (let i = 0; i < cleaned.length; i += 2) {
-      bytes[i / 2] = parseInt(cleaned.substr(i, 2), 16);
-    }
-    return bytes;
-  };
-
-  // Bytes to hex
-  const bytesToHex = (bytes: Uint8Array): string => {
-    return Array.from(bytes)
-      .map(b => b.toString(16).toUpperCase().padStart(2, '0'))
-      .join('');
-  };
-
-  // Encode to Base64
-  const encodeBase64 = (input: string, encoding: InputEncoding): string => {
-    if (encoding === 'ASCII') {
-      // UTF-8 encoding for text
-      const encoder = new TextEncoder();
-      const bytes = encoder.encode(input);
-      return btoa(String.fromCharCode(...bytes));
-    } else {
-      // Hex input
-      const bytes = hexToBytes(input);
-      return btoa(String.fromCharCode(...bytes));
-    }
-  };
-
-  // Decode from Base64
-  const decodeBase64 = (input: string, outputEncoding: InputEncoding): string => {
-    const binaryStr = atob(input.replace(/[\s\n\r]/g, ''));
-    const bytes = new Uint8Array(binaryStr.length);
-    for (let i = 0; i < binaryStr.length; i++) {
-      bytes[i] = binaryStr.charCodeAt(i);
-    }
-    
-    if (outputEncoding === 'ASCII') {
-      const decoder = new TextDecoder();
-      return decoder.decode(bytes);
-    } else {
-      return bytesToHex(bytes);
-    }
-  };
 
   // Encode function
   const performEncode = useCallback(() => {

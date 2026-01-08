@@ -97,7 +97,7 @@ const decryptPIN = (pek: string, encryptedPinBlock: string): string => {
   const ciphertext = CryptoJS.enc.Hex.parse(cleanEncrypted);
   
   const decrypted = CryptoJS.TripleDES.decrypt(
-    { ciphertext } as any,
+    { ciphertext } as CryptoJS.lib.CipherParams,
     key,
     {
       mode: CryptoJS.mode.ECB,
@@ -180,7 +180,7 @@ const processData = (
   } else {
     const ciphertext = CryptoJS.enc.Hex.parse(cleanData);
     const decrypted = CryptoJS.TripleDES.decrypt(
-      { ciphertext } as any,
+      { ciphertext } as CryptoJS.lib.CipherParams,
       key,
       {
         mode: CryptoJS.mode.ECB,
@@ -268,7 +268,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const pek = derivePEK(cleanBdk, cleanKsn);
       setDerivedPek(pek);
-    } catch (err) {
+    } catch {
       setDerivError(t.dukpt?.errorDerivation || 'Failed to derive PEK');
     }
   };
@@ -293,7 +293,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const encrypted = encryptPIN(cleanPek, cleanPin);
       setPinResult(encrypted);
-    } catch (err) {
+    } catch {
       setPinError(t.dukpt?.errorEncryption || 'Failed to encrypt PIN block');
     }
   };
@@ -318,7 +318,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const decrypted = decryptPIN(cleanPek, cleanPin);
       setPinResult(decrypted);
-    } catch (err) {
+    } catch {
       setPinError(t.dukpt?.errorDecryption || 'Failed to decrypt PIN block');
     }
   };
@@ -343,7 +343,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const mac = calculateMAC(cleanPek, cleanData, macAlgo === '3DES');
       setMacResult(mac);
-    } catch (err) {
+    } catch {
       setMacError(t.dukpt?.errorMacCalculation || 'Failed to calculate MAC');
     }
   };
@@ -380,7 +380,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const encrypted = processData(cleanPek, cleanData, dataVariant, true);
       setDataResult(encrypted);
-    } catch (err) {
+    } catch {
       setDataError(t.dukpt?.errorDataEncryption || 'Failed to encrypt data');
     }
   };
@@ -409,7 +409,7 @@ const DUKPTTool: React.FC = () => {
     try {
       const decrypted = processData(cleanPek, cleanData, dataVariant, false);
       setDataResult(decrypted);
-    } catch (err) {
+    } catch {
       setDataError(t.dukpt?.errorDataDecryption || 'Failed to decrypt data');
     }
   };

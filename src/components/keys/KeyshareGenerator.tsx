@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Card, Divider, Typography, Input, Segmented, Button, message, Modal, Tabs } from 'antd';
 import { UnlockOutlined, LockOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
@@ -281,14 +281,7 @@ const KeyshareGenerator: React.FC = () => {
     }
   };
 
-  // Recalculate when parity changes
-  useEffect(() => {
-    if (combinedKeyInput) {
-      const cleaned = cleanHexInput(combinedKeyInput);
-      setCombinedKcv(calculateKeyKcv(cleaned));
-      generateShares(combinedKeyInput);
-    }
-  }, [parity, calculateKeyKcv, generateShares, combinedKeyInput]);
+  // Note: KCV is now calculated inline when needed, shares are regenerated via onChange handlers
 
   // Get key length info for display
   const getKeyLengthInfo = (value: string) => {

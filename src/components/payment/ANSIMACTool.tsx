@@ -147,7 +147,7 @@ const ANSIMACTool: React.FC = () => {
     try {
       const mac = calculateANSIMAC(algorithm, cleanK, cleanKP, cleanData, trunc);
       setResult(mac);
-    } catch (err) {
+    } catch {
       setError(t.mac?.ansimac?.error?.calculationFailed || 'Failed to calculate MAC');
     }
   };

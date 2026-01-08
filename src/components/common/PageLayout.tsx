@@ -54,91 +54,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const schemaId = useId();
   const { isDark } = useTheme();
 
-  // Generate WebApplication Schema
-  const webAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    '@id': canonical || 'https://hsmkit.com',
-    name: toolName || seoTitle,
-    description: seoDescription,
-    url: canonical,
-    applicationCategory: toolCategory,
-    applicationSubCategory: 'Cryptography Tool',
-    operatingSystem: 'Any (Web Browser)',
-    browserRequirements: 'Requires JavaScript',
-    softwareVersion: '1.0.0',
-    // Free offering
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-    // Provider/Publisher info
-    author: {
-      '@type': 'Organization',
-      name: 'HSM Kit',
-      url: 'https://hsmkit.com',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'HSM Kit',
-      url: 'https://hsmkit.com',
-    },
-    // Features
-    featureList: [
-      '100% Client-side Processing',
-      'No Data Sent to Server',
-      'Free to Use',
-      'No Registration Required',
-    ],
-    // Additional properties
-    isAccessibleForFree: true,
-    inLanguage: ['en', 'zh', 'ja', 'ko', 'de', 'fr'],
-  };
-
-  // Generate SoftwareApplication Schema (alternative type for better coverage)
-  const softwareAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: toolName || seoTitle,
-    description: seoDescription,
-    url: canonical,
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Web Browser',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-  };
-
-  // Generate FAQPage Schema for FAQ section (shows Q&A in search results)
-  const faqPageSchema = faqs && faqs.length > 0 ? {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  } : null;
-
-  // Generate HowTo Schema for usage instructions
-  const howToSchema = usageContent ? {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: `How to use ${toolName || seoTitle}`,
-    description: seoDescription,
-    tool: {
-      '@type': 'HowToTool',
-      name: 'Web Browser',
-    },
-  } : null;
-
   // Inject schema scripts dynamically to avoid SSR issues
   useEffect(() => {
     const schemaScripts: HTMLScriptElement[] = [];
@@ -152,6 +67,61 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       schemaScripts.push(script);
     };
 
+    // Generate WebApplication Schema
+    const webAppSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      '@id': canonical || 'https://hsmkit.com',
+      name: toolName || seoTitle,
+      description: seoDescription,
+      url: canonical,
+      applicationCategory: toolCategory,
+      applicationSubCategory: 'Cryptography Tool',
+      operatingSystem: 'Any (Web Browser)',
+      browserRequirements: 'Requires JavaScript',
+      softwareVersion: '1.0.0',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+      author: {
+        '@type': 'Organization',
+        name: 'HSM Kit',
+        url: 'https://hsmkit.com',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'HSM Kit',
+        url: 'https://hsmkit.com',
+      },
+      featureList: [
+        '100% Client-side Processing',
+        'No Data Sent to Server',
+        'Free to Use',
+        'No Registration Required',
+      ],
+      isAccessibleForFree: true,
+      inLanguage: ['en', 'zh', 'ja', 'ko', 'de', 'fr'],
+    };
+
+    // Generate SoftwareApplication Schema
+    const softwareAppSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: toolName || seoTitle,
+      description: seoDescription,
+      url: canonical,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    };
+
     // Add WebApplication schema
     addSchema(webAppSchema, `schema-webapp-${schemaId}`);
     
@@ -159,12 +129,34 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
     addSchema(softwareAppSchema, `schema-software-${schemaId}`);
 
     // Add FAQPage schema if FAQs exist
-    if (faqPageSchema) {
+    if (faqs && faqs.length > 0) {
+      const faqPageSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map(faq => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      };
       addSchema(faqPageSchema, `schema-faq-${schemaId}`);
     }
 
     // Add HowTo schema if usage content exists
-    if (howToSchema) {
+    if (usageContent) {
+      const howToSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: `How to use ${toolName || seoTitle}`,
+        description: seoDescription,
+        tool: {
+          '@type': 'HowToTool',
+          name: 'Web Browser',
+        },
+      };
       addSchema(howToSchema, `schema-howto-${schemaId}`);
     }
 
@@ -176,7 +168,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         }
       });
     };
-  }, [schemaId, seoTitle, seoDescription, canonical, faqs]);
+  }, [schemaId, seoTitle, seoDescription, canonical, faqs, toolName, toolCategory, usageContent]);
 
   return (
     <>

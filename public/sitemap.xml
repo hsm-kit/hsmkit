@@ -5,7 +5,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://hsmkit.com/</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,13 +13,13 @@
   <!-- PKI Tools -->
   <url>
     <loc>https://hsmkit.com/asn1-parser</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/ssl-certificates</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -27,31 +27,31 @@
   <!-- Cipher Tools -->
   <url>
     <loc>https://hsmkit.com/aes-encryption</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/des-encryption</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/rsa-encryption</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/ecc-encryption</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/fpe-encryption</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -59,13 +59,13 @@
   <!-- Key Management Tools -->
   <url>
     <loc>https://hsmkit.com/keys-dea</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/keyshare-generator</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -73,25 +73,25 @@
   <!-- HSM Keys Tools -->
   <url>
     <loc>https://hsmkit.com/futurex-keys</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/atalla-keys</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/safenet-keys</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/thales-keys</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -99,77 +99,201 @@
   <!-- Key Blocks Tools -->
   <url>
     <loc>https://hsmkit.com/thales-key-block</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/tr31-key-block</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Payment Tools -->
+  <!-- Payment Tools - AS2805 & Message -->
   <url>
     <loc>https://hsmkit.com/payments-as2805</loc>
-    <lastmod>2026-01-06</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-bitmap</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Payment Tools - Card Validation -->
+  <url>
+    <loc>https://hsmkit.com/payments-card-validation-cvvs</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-card-validation-amex-cscs</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-card-validation-mastercard-cvc3</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Payment Tools - DUKPT -->
+  <url>
+    <loc>https://hsmkit.com/payments-dukpt-iso9797</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-dukpt-aes</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Payment Tools - MAC -->
+  <url>
+    <loc>https://hsmkit.com/payments-mac-iso9797-1</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-ansix9</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-as2805</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-tdes-cbc-mac</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-hmac</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-cmac</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-mac-retail</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Payment Tools - PIN -->
+  <url>
+    <loc>https://hsmkit.com/payments-pin-blocks-general</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-pin-blocks-aes</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-pin-offset</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-pin-pvv</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Payment Tools - Other -->
+  <url>
+    <loc>https://hsmkit.com/payments-visa-certificates</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/payments-zka</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Generic Tools -->
   <url>
     <loc>https://hsmkit.com/hashes</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/character-encoding</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/bcd</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/check-digits</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/base64</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/base94</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/message-parser</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/rsa-der-public-key</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/uuid</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -177,19 +301,19 @@
   <!-- Legal Pages -->
   <url>
     <loc>https://hsmkit.com/privacy-policy</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/terms-of-service</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://hsmkit.com/disclaimer</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -37,147 +37,137 @@ const HASH_TYPES = [
 
 type InputType = 'ASCII' | 'Hex';
 
-const HashCalculator: React.FC = () => {
-  const { t } = useLanguage();
-  const { isDark } = useTheme();
-  const [inputType, setInputType] = useState<InputType>('ASCII');
-  const [hashType, setHashType] = useState<string>('sha256');
-  const [inputData, setInputData] = useState<string>('');
-  const [hashResult, setHashResult] = useState('');
-  const [error, setError] = useState('');
-  const [isCalculating, setIsCalculating] = useState(false);
+// 清理十六进制输入
+const cleanHex = (hex: string): string => {
+  return hex.replace(/[\s\n\r]/g, '').toUpperCase();
+};
 
-  // 清理十六进制输入
-  const cleanHex = (hex: string): string => {
-    return hex.replace(/[\s\n\r]/g, '').toUpperCase();
+// 验证十六进制
+const isValidHex = (hex: string): boolean => {
+  return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
+};
+
+// Convert hex string to Uint8Array
+const hexToUint8Array = (hex: string): Uint8Array => {
+  const cleanedHex = cleanHex(hex);
+  const bytes = new Uint8Array(cleanedHex.length / 2);
+  for (let i = 0; i < bytes.length; i++) {
+    bytes[i] = parseInt(cleanedHex.substr(i * 2, 2), 16);
+  }
+  return bytes;
+};
+
+// Convert string to Uint8Array
+const stringToUint8Array = (str: string): Uint8Array => {
+  return new TextEncoder().encode(str);
+};
+
+// 🚀 使用 Web Crypto API 计算哈希（硬件加速）
+const calculateWebCryptoHash = async (data: string, type: string, isHex: boolean): Promise<string | null> => {
+  if (!isWebCryptoAvailable()) return null;
+  
+  // Web Crypto 支持的算法映射
+  const webCryptoAlgorithms: Record<string, 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'> = {
+    'sha1': 'SHA-1',
+    'sha256': 'SHA-256',
+    'sha384': 'SHA-384',
+    'sha512': 'SHA-512',
   };
-
-  // 验证十六进制
-  const isValidHex = (hex: string): boolean => {
-    return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
-  };
-
-  // Convert hex string to Uint8Array
-  const hexToUint8Array = (hex: string): Uint8Array => {
-    const cleanedHex = cleanHex(hex);
-    const bytes = new Uint8Array(cleanedHex.length / 2);
-    for (let i = 0; i < bytes.length; i++) {
-      bytes[i] = parseInt(cleanedHex.substr(i * 2, 2), 16);
-    }
-    return bytes;
-  };
-
-  // Convert string to Uint8Array
-  const stringToUint8Array = (str: string): Uint8Array => {
-    return new TextEncoder().encode(str);
-  };
-
-  // 🚀 使用 Web Crypto API 计算哈希（硬件加速）
-  const calculateWebCryptoHash = async (data: string, type: string, isHex: boolean): Promise<string | null> => {
-    if (!isWebCryptoAvailable()) return null;
-    
-    // Web Crypto 支持的算法映射
-    const webCryptoAlgorithms: Record<string, 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'> = {
-      'sha1': 'SHA-1',
-      'sha256': 'SHA-256',
-      'sha384': 'SHA-384',
-      'sha512': 'SHA-512',
-    };
-    
-    const algorithm = webCryptoAlgorithms[type];
-    if (!algorithm) return null;
-    
-    try {
-      if (isHex) {
-        const buffer = hexToArrayBuffer(cleanHex(data));
-        return await webCryptoHash(algorithm, buffer);
-      } else {
-        return await webCryptoHash(algorithm, data);
-      }
-    } catch {
-      return null; // 回退到 crypto-js
-    }
-  };
-
-  // Calculate hash using crypto-js (fallback)
-  const calculateCryptoJsHash = (data: string, type: string, isHex: boolean): string => {
-    let input: CryptoJS.lib.WordArray | string;
-    
+  
+  const algorithm = webCryptoAlgorithms[type];
+  if (!algorithm) return null;
+  
+  try {
     if (isHex) {
-      input = CryptoJS.enc.Hex.parse(cleanHex(data));
+      const buffer = hexToArrayBuffer(cleanHex(data));
+      return await webCryptoHash(algorithm, buffer);
     } else {
-      input = data;
+      return await webCryptoHash(algorithm, data);
     }
+  } catch {
+    return null; // 回退到 crypto-js
+  }
+};
 
-    let hash: CryptoJS.lib.WordArray;
+// Calculate hash using crypto-js (fallback)
+const calculateCryptoJsHash = (data: string, type: string, isHex: boolean): string => {
+  let input: CryptoJS.lib.WordArray | string;
+  
+  if (isHex) {
+    input = CryptoJS.enc.Hex.parse(cleanHex(data));
+  } else {
+    input = data;
+  }
 
-    switch (type) {
-      case 'md5':
-        hash = CryptoJS.MD5(input);
-        break;
-      case 'sha1':
-        hash = CryptoJS.SHA1(input);
-        break;
-      case 'sha224':
-        hash = CryptoJS.SHA224(input);
-        break;
-      case 'sha256':
-        hash = CryptoJS.SHA256(input);
-        break;
-      case 'sha384':
-        hash = CryptoJS.SHA384(input);
-        break;
-      case 'sha512':
-        hash = CryptoJS.SHA512(input);
-        break;
-      case 'ripemd160':
-        hash = CryptoJS.RIPEMD160(input);
-        break;
-      default:
-        return '';
-    }
+  let hash: CryptoJS.lib.WordArray;
 
-    return hash.toString(CryptoJS.enc.Hex).toUpperCase();
-  };
+  switch (type) {
+    case 'md5':
+      hash = CryptoJS.MD5(input);
+      break;
+    case 'sha1':
+      hash = CryptoJS.SHA1(input);
+      break;
+    case 'sha224':
+      hash = CryptoJS.SHA224(input);
+      break;
+    case 'sha256':
+      hash = CryptoJS.SHA256(input);
+      break;
+    case 'sha384':
+      hash = CryptoJS.SHA384(input);
+      break;
+    case 'sha512':
+      hash = CryptoJS.SHA512(input);
+      break;
+    case 'ripemd160':
+      hash = CryptoJS.RIPEMD160(input);
+      break;
+    default:
+      return '';
+  }
 
-  // Calculate hash using hash-wasm
-  const calculateHashWasmHash = async (data: Uint8Array, type: string): Promise<string> => {
-    let result: string;
+  return hash.toString(CryptoJS.enc.Hex).toUpperCase();
+};
 
-    switch (type) {
-      case 'md4':
-        result = await hashWasm.md4(data);
-        break;
-      case 'sha3-224':
-        result = await hashWasm.sha3(data, 224);
-        break;
-      case 'sha3-256':
-        result = await hashWasm.sha3(data, 256);
-        break;
-      case 'sha3-384':
-        result = await hashWasm.sha3(data, 384);
-        break;
-      case 'sha3-512':
-        result = await hashWasm.sha3(data, 512);
-        break;
-      case 'crc32':
-        result = await hashWasm.crc32(data);
-        break;
-      case 'whirlpool':
-        result = await hashWasm.whirlpool(data);
-        break;
-      case 'blake2b':
-        result = await hashWasm.blake2b(data, 512);
-        break;
-      case 'blake2s':
-        result = await hashWasm.blake2s(data, 256);
-        break;
-      case 'blake3':
-        result = await hashWasm.blake3(data);
-        break;
-      case 'keccak256':
-        result = await hashWasm.keccak(data, 256);
-        break;
+// Calculate hash using hash-wasm
+const calculateHashWasmHash = async (data: Uint8Array, type: string): Promise<string> => {
+  let result: string;
+
+  switch (type) {
+    case 'md4':
+      result = await hashWasm.md4(data);
+      break;
+    case 'sha3-224':
+      result = await hashWasm.sha3(data, 224);
+      break;
+    case 'sha3-256':
+      result = await hashWasm.sha3(data, 256);
+      break;
+    case 'sha3-384':
+      result = await hashWasm.sha3(data, 384);
+      break;
+    case 'sha3-512':
+      result = await hashWasm.sha3(data, 512);
+      break;
+    case 'crc32':
+      result = await hashWasm.crc32(data);
+      break;
+    case 'whirlpool':
+      result = await hashWasm.whirlpool(data);
+      break;
+    case 'blake2b':
+      result = await hashWasm.blake2b(data, 512);
+      break;
+    case 'blake2s':
+      result = await hashWasm.blake2s(data, 256);
+      break;
+    case 'blake3':
+      result = await hashWasm.blake3(data);
+      break;
+    case 'keccak256':
+      result = await hashWasm.keccak(data, 256);
+      break;
       case 'keccak512':
         result = await hashWasm.keccak(data, 512);
         break;
@@ -190,6 +180,16 @@ const HashCalculator: React.FC = () => {
 
     return result.toUpperCase();
   };
+
+const HashCalculator: React.FC = () => {
+  const { t } = useLanguage();
+  const { isDark } = useTheme();
+  const [inputType, setInputType] = useState<InputType>('ASCII');
+  const [hashType, setHashType] = useState<string>('sha256');
+  const [inputData, setInputData] = useState<string>('');
+  const [hashResult, setHashResult] = useState('');
+  const [error, setError] = useState('');
+  const [isCalculating, setIsCalculating] = useState(false);
 
   // Main calculation function
   const performCalculation = useCallback(async () => {

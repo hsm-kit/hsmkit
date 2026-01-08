@@ -197,7 +197,7 @@ const ISO9797Tool: React.FC = () => {
     try {
       const mac = calculateISO9797MAC(algorithm, cleanKeys, cleanData, padding, trunc);
       setResult(mac);
-    } catch (err) {
+    } catch {
       setError(t.common?.error || 'Failed to calculate MAC');
     }
   };

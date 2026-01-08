@@ -90,13 +90,13 @@ const CMACTool: React.FC = () => {
     const LBytesSliced = LBytes.slice(0, blockSize);
 
     // Generate K1
-    let K1 = leftShift(LBytesSliced);
+    const K1 = leftShift(LBytesSliced);
     if (LBytesSliced[0] & 0x80) {
       K1[K1.length - 1] ^= Rb;
     }
 
     // Generate K2
-    let K2 = leftShift(K1);
+    const K2 = leftShift(K1);
     if (K1[0] & 0x80) {
       K2[K2.length - 1] ^= Rb;
     }
@@ -162,7 +162,7 @@ const CMACTool: React.FC = () => {
       }
 
       // Convert back to WordArray
-      const paddedWordArray = CryptoJS.lib.WordArray.create(paddedData as any, paddedData.length);
+      const paddedWordArray = CryptoJS.lib.WordArray.create(paddedData as number[], paddedData.length);
 
       // Encrypt using CBC mode with zero IV
       const iv = CryptoJS.lib.WordArray.create(new Array(blockSize).fill(0), blockSize);

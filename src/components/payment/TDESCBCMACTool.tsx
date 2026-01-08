@@ -44,7 +44,7 @@ const TDESCBCMACTool: React.FC = () => {
         // Method 2: Add 0x80 followed by zeros
         const paddingBytes = new Uint8Array(blockSize);
         paddingBytes[0] = 0x80;
-        const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as any, blockSize);
+        const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as number[], blockSize);
         return dataBytes.concat(padding).toString();
       }
     }
@@ -52,13 +52,13 @@ const TDESCBCMACTool: React.FC = () => {
     if (method === 'ISO9797-1-1') {
       // Method 1: Pad with zeros
       const paddingBytes = new Uint8Array(paddingLength).fill(0);
-      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as any, paddingLength);
+      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as number[], paddingLength);
       return dataBytes.concat(padding).toString();
     } else if (method === 'ISO9797-1-2') {
       // Method 2: Pad with 0x80 followed by zeros
       const paddingBytes = new Uint8Array(paddingLength);
       paddingBytes[0] = 0x80;
-      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as any, paddingLength);
+      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as number[], paddingLength);
       return dataBytes.concat(padding).toString();
     }
 

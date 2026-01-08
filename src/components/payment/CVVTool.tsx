@@ -22,7 +22,7 @@ const calculateCVV = (
   const cleanPan = pan.replace(/\s/g, '');
   
   // Build data block: PAN (rightmost 16 digits, left-padded with 0) + Exp Date (YYMM) + Service Code
-  let panPart = cleanPan.slice(-16).padStart(16, '0');
+  const panPart = cleanPan.slice(-16).padStart(16, '0');
   let data = panPart + expDate + serviceCode;
   
   // For iCVV and dCVV, append ATC
@@ -152,7 +152,7 @@ const CVVTool: React.FC = () => {
         (genType === 'iCVV' || genType === 'dCVV') ? genAtc : undefined
       );
       setGenResult(cvv);
-    } catch (err) {
+    } catch {
       setGenError(t.cvv?.errorGeneration || 'Failed to generate CVV');
     }
   };
@@ -212,7 +212,7 @@ const CVVTool: React.FC = () => {
         (valType === 'iCVV' || valType === 'dCVV') ? valAtc : undefined
       );
       setValResult(isValid ? 'valid' : 'invalid');
-    } catch (err) {
+    } catch {
       setValError(t.cvv?.errorValidation || 'Failed to validate CVV');
     }
   };

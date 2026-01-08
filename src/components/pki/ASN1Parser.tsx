@@ -8,6 +8,7 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 // 预加载 asn1js 模块 - 立即开始加载，不阻塞渲染
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let ASN1: any, Hex: any, Base64: any, Defs: any;
 let asn1LoadPromise: Promise<boolean> | null = null;
 
@@ -15,13 +16,13 @@ const preloadASN1 = () => {
   if (asn1LoadPromise) return asn1LoadPromise;
   
   asn1LoadPromise = Promise.all([
-    // @ts-ignore
+    // @ts-expect-error - Dynamic import of legacy JS module
     import('../../lib/asn1js/asn1.js'),
-    // @ts-ignore
+    // @ts-expect-error - Dynamic import of legacy JS module
     import('../../lib/asn1js/hex.js'),
-    // @ts-ignore
+    // @ts-expect-error - Dynamic import of legacy JS module
     import('../../lib/asn1js/base64.js'),
-    // @ts-ignore
+    // @ts-expect-error - Dynamic import of legacy JS module
     import('../../lib/asn1js/defs.js'),
   ]).then(([asn1Module, hexModule, base64Module, defsModule]) => {
     ASN1 = asn1Module.ASN1;
@@ -65,6 +66,7 @@ const ASN1Parser: React.FC = () => {
   const [withHexDump, setWithHexDump] = useState(true);
   const [trimBigChunks, setTrimBigChunks] = useState(true);
   const [withDefinitions, setWithDefinitions] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [asn1Object, setAsn1Object] = useState<any>(null);
 
   useEffect(() => {
@@ -72,6 +74,7 @@ const ASN1Parser: React.FC = () => {
     preloadASN1().then(loaded => {
       setAsn1Loaded(loaded);
       if (loaded && Defs && Defs.commonTypes) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const allDefs = Defs.commonTypes.map((type: any) => ({
           label: type.description,
           value: type.description
@@ -81,6 +84,7 @@ const ASN1Parser: React.FC = () => {
     });
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const convertASN1ToNode = (asn1: any): ASN1Node => {
     const node: ASN1Node = {
       typeName: asn1.typeName().replace(/_/g, ' '),
@@ -121,6 +125,7 @@ const ASN1Parser: React.FC = () => {
 
     // 递归处理子节点
     if (asn1.sub !== null && asn1.sub.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       node.children = asn1.sub.map((sub: any) => convertASN1ToNode(sub));
     }
 
@@ -181,6 +186,7 @@ const ASN1Parser: React.FC = () => {
       // 尝试匹配 RFC 定义
       if (withDefinitions && Defs && Defs.commonTypes) {
         const types = Defs.commonTypes
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((type: any) => {
             const stats = Defs.match(asn1, type);
             return { 
@@ -190,6 +196,7 @@ const ASN1Parser: React.FC = () => {
               value: type.description
             };
           })
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .sort((a: any, b: any) => b.match - a.match);
         
         // 更新定义列表(带匹配度)
@@ -234,6 +241,7 @@ const ASN1Parser: React.FC = () => {
       if (value === 'none') {
         Defs.match(asn1Object, null);
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const selectedType = Defs.commonTypes.find((t: any) => t.description === value);
         if (selectedType) {
           Defs.match(asn1Object, selectedType);
@@ -520,6 +528,7 @@ const ASN1Parser: React.FC = () => {
                   setSelectedDef('');
                   // 重新加载初始定义列表
                   if (Defs && Defs.commonTypes) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const allDefs = Defs.commonTypes.map((type: any) => ({
                       label: type.description,
                       value: type.description

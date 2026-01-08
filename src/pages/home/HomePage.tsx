@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, Typography, Row, Col, Input, Tag, Button, Tooltip, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -223,10 +223,6 @@ const HomePage: React.FC = () => {
   const seo = seoContent[language]?.home || seoContent.en.home;
   const home = t.home;
 
-  if (!seo) {
-    return null;
-  }
-
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
@@ -275,12 +271,29 @@ const HomePage: React.FC = () => {
     return counts;
   }, [searchFilteredTools]);
 
-  // 当搜索导致当前分类计数为 0 时，自动切换回 All
-  useEffect(() => {
+  // 计算有效的活动分类（当搜索导致当前分类计数为 0 时，自动使用 'all'）
+  const effectiveCategory = useMemo(() => {
     if (activeCategory !== 'all' && categoryCounts[activeCategory] === 0) {
-      setActiveCategory('all');
+      return 'all';
     }
-  }, [categoryCounts, activeCategory]);
+    return activeCategory;
+  }, [activeCategory, categoryCounts]);
+
+  // 过滤工具（分类 + 搜索）
+  const filteredTools = useMemo(() => {
+    return searchFilteredTools.filter(tool => {
+      // 分类过滤
+      if (effectiveCategory !== 'all' && tool.category !== effectiveCategory) {
+        return false;
+      }
+      return true;
+    });
+  }, [searchFilteredTools, effectiveCategory]);
+
+  // Early return if no SEO content
+  if (!seo) {
+    return null;
+  }
 
   // 分类定义
   const categories: { key: Category; label: string; color: string }[] = [
@@ -291,17 +304,6 @@ const HomePage: React.FC = () => {
     { key: 'encoding', label: home.categories.encoding, color: '#13c2c2' },
     { key: 'hashing', label: home.categories.hashing, color: '#52c41a' },
   ];
-
-  // 过滤工具（分类 + 搜索）
-  const filteredTools = useMemo(() => {
-    return searchFilteredTools.filter(tool => {
-      // 分类过滤
-      if (activeCategory !== 'all' && tool.category !== activeCategory) {
-        return false;
-      }
-      return true;
-    });
-  }, [searchFilteredTools, activeCategory]);
 
   // 搜索并跳转
   const handleSearch = (value: string) => {
@@ -385,7 +387,7 @@ const HomePage: React.FC = () => {
         {categories.map(cat => {
           const count = categoryCounts[cat.key];
           const isDisabled = count === 0 && cat.key !== 'all';
-          const isActive = activeCategory === cat.key;
+          const isActive = effectiveCategory === cat.key;
           
           return (
             <Tag
@@ -421,14 +423,14 @@ const HomePage: React.FC = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
         <Title level={3} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>
           🔧 {home.availableTools}
-          {activeCategory !== 'all' && (
+          {effectiveCategory !== 'all' && (
             <span style={{ 
               fontSize: '0.7em', 
               fontWeight: 400, 
               marginLeft: 8,
               color: isDark ? '#8c8c8c' : '#8c8c8c'
             }}>
-              — {categories.find(c => c.key === activeCategory)?.label}
+              — {categories.find(c => c.key === effectiveCategory)?.label}
             </span>
           )}
         </Title>

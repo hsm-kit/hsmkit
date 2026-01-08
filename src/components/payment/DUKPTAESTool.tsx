@@ -132,7 +132,7 @@ const processPIN = (
     } else {
       const ciphertext = CryptoJS.enc.Hex.parse(cleanPin);
       return CryptoJS.TripleDES.decrypt(
-        { ciphertext } as any,
+        { ciphertext } as CryptoJS.lib.CipherParams,
         key,
         {
           mode: CryptoJS.mode.ECB,
@@ -149,7 +149,7 @@ const processPIN = (
     } else {
       const ciphertext = CryptoJS.enc.Hex.parse(cleanPin);
       return CryptoJS.AES.decrypt(
-        { ciphertext } as any,
+        { ciphertext } as CryptoJS.lib.CipherParams,
         key,
         {
           mode: CryptoJS.mode.ECB,
@@ -223,7 +223,7 @@ const processData = (
     } else {
       const ciphertext = CryptoJS.enc.Hex.parse(cleanData);
       return CryptoJS.TripleDES.decrypt(
-        { ciphertext } as any,
+        { ciphertext } as CryptoJS.lib.CipherParams,
         key,
         {
           mode: CryptoJS.mode.ECB,
@@ -241,7 +241,7 @@ const processData = (
     } else {
       const ciphertext = CryptoJS.enc.Hex.parse(cleanData);
       return CryptoJS.AES.decrypt(
-        { ciphertext } as any,
+        { ciphertext } as CryptoJS.lib.CipherParams,
         key,
         {
           mode: CryptoJS.mode.ECB,
@@ -333,7 +333,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const key = deriveWorkingKey(cleanBdk, cleanKsn, workingKeyType);
       setDerivedKey(key);
-    } catch (err) {
+    } catch {
       setDerivError(t.dukptAes?.errorDerivation || 'Failed to derive working key');
     }
   };
@@ -359,7 +359,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const encrypted = processPIN(cleanPek, cleanPin, workingKeyType, true);
       setPinResult(encrypted);
-    } catch (err) {
+    } catch {
       setPinError(t.dukptAes?.errorEncryption || 'Failed to encrypt PIN block');
     }
   };
@@ -385,7 +385,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const decrypted = processPIN(cleanPek, cleanPin, workingKeyType, false);
       setPinResult(decrypted);
-    } catch (err) {
+    } catch {
       setPinError(t.dukptAes?.errorDecryption || 'Failed to decrypt PIN block');
     }
   };
@@ -411,7 +411,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const mac = calculateMAC(cleanMac, cleanData, workingKeyType);
       setMacResult(mac);
-    } catch (err) {
+    } catch {
       setMacError(t.dukptAes?.errorMacCalculation || 'Failed to calculate MAC');
     }
   };
@@ -450,7 +450,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const encrypted = processData(cleanDek, cleanData, workingKeyType, true);
       setDataResult(encrypted);
-    } catch (err) {
+    } catch {
       setDataError(t.dukptAes?.errorDataEncryption || 'Failed to encrypt data');
     }
   };
@@ -481,7 +481,7 @@ const DUKPTAESTool: React.FC = () => {
     try {
       const decrypted = processData(cleanDek, cleanData, workingKeyType, false);
       setDataResult(decrypted);
-    } catch (err) {
+    } catch {
       setDataError(t.dukptAes?.errorDataDecryption || 'Failed to decrypt data');
     }
   };

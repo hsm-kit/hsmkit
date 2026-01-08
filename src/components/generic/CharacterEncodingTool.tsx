@@ -48,6 +48,110 @@ ASCII_TO_EBCDIC.forEach((ebcdic, ascii) => {
   }
 });
 
+// Clean hex input
+const cleanHex = (hex: string): string => {
+  return hex.replace(/[\s\n\r]/g, '').toUpperCase();
+};
+
+// Validate hex
+const isValidHex = (hex: string): boolean => {
+  return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
+};
+
+// Binary -> Hexadecimal (Industry convention: input hex string as ASCII, output hex ASCII of each char)
+// Example: "57652C" -> "353736353243" (each char '5','7','6'... to hex 35,37,36...)
+const binToHex = (input: string): string => {
+  const cleaned = input.replace(/[\s\n\r]/g, '');
+  let hex = '';
+  for (let i = 0; i < cleaned.length; i++) {
+    hex += cleaned.charCodeAt(i).toString(16).toUpperCase().padStart(2, '0');
+  }
+  return hex;
+};
+
+// Hexadecimal -> Binary (Reverse: hex ASCII pairs back to original chars)
+// Example: "353736353243" -> "57652C"
+const hexToBin = (hex: string): string => {
+  const cleaned = cleanHex(hex);
+  let result = '';
+  for (let i = 0; i < cleaned.length; i += 2) {
+    const charCode = parseInt(cleaned.substr(i, 2), 16);
+    result += String.fromCharCode(charCode);
+  }
+  return result;
+};
+
+// ASCII to EBCDIC (ASCII text input, hex EBCDIC output)
+// Example: "57652C20" -> "F5F7F6F5F2C3F2F0" (each char converted to EBCDIC)
+const asciiToEbcdic = (input: string): string => {
+  const cleaned = input.replace(/[\s\n\r]/g, '');
+  let result = '';
+  for (let i = 0; i < cleaned.length; i++) {
+    const ascii = cleaned.charCodeAt(i);
+    const ebcdic = ASCII_TO_EBCDIC[ascii] || 0x3F;
+    result += ebcdic.toString(16).toUpperCase().padStart(2, '0');
+  }
+  return result;
+};
+
+// EBCDIC to ASCII (hex EBCDIC input, ASCII text output)
+// Example: "F5F7F6F5F2C3F2F0" -> "57652C20"
+const ebcdicToAscii = (hex: string): string => {
+  const cleaned = cleanHex(hex);
+  let result = '';
+  for (let i = 0; i < cleaned.length; i += 2) {
+    const ebcdic = parseInt(cleaned.substr(i, 2), 16);
+    const ascii = EBCDIC_TO_ASCII[ebcdic] || 0x3F;
+    result += String.fromCharCode(ascii);
+  }
+  return result;
+};
+
+// ASCII Text to Hexadecimal
+const textToHex = (text: string): string => {
+  let hex = '';
+  for (let i = 0; i < text.length; i++) {
+    hex += text.charCodeAt(i).toString(16).toUpperCase().padStart(2, '0');
+  }
+  return hex;
+};
+
+// Hexadecimal to ASCII Text
+const hexToText = (hex: string): string => {
+  const cleaned = cleanHex(hex);
+  let text = '';
+  for (let i = 0; i < cleaned.length; i += 2) {
+    const charCode = parseInt(cleaned.substr(i, 2), 16);
+    text += String.fromCharCode(charCode);
+  }
+  return text;
+};
+
+// ATM ASCII Decimal to Hexadecimal (e.g., "065 066 067" -> "414243")
+const atmToHex = (atm: string): string => {
+  const numbers = atm.trim().split(/[\s,]+/).filter(n => n.length > 0);
+  let hex = '';
+  for (const num of numbers) {
+    const decimal = parseInt(num, 10);
+    if (isNaN(decimal) || decimal < 0 || decimal > 255) {
+      throw new Error(`Invalid decimal value: ${num}`);
+    }
+    hex += decimal.toString(16).toUpperCase().padStart(2, '0');
+  }
+  return hex;
+};
+
+// Hexadecimal to ATM ASCII Decimal
+const hexToAtm = (hex: string): string => {
+  const cleaned = cleanHex(hex);
+  const decimals: string[] = [];
+  for (let i = 0; i < cleaned.length; i += 2) {
+    const byte = parseInt(cleaned.substr(i, 2), 16);
+    decimals.push(byte.toString().padStart(3, '0'));
+  }
+  return decimals.join(' ');
+};
+
 const CharacterEncodingTool: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
@@ -55,110 +159,6 @@ const CharacterEncodingTool: React.FC = () => {
   const [inputData, setInputData] = useState<string>('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
-
-  // Clean hex input
-  const cleanHex = (hex: string): string => {
-    return hex.replace(/[\s\n\r]/g, '').toUpperCase();
-  };
-
-  // Validate hex
-  const isValidHex = (hex: string): boolean => {
-    return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
-  };
-
-  // Binary -> Hexadecimal (Industry convention: input hex string as ASCII, output hex ASCII of each char)
-  // Example: "57652C" -> "353736353243" (each char '5','7','6'... to hex 35,37,36...)
-  const binToHex = (input: string): string => {
-    const cleaned = input.replace(/[\s\n\r]/g, '');
-    let hex = '';
-    for (let i = 0; i < cleaned.length; i++) {
-      hex += cleaned.charCodeAt(i).toString(16).toUpperCase().padStart(2, '0');
-    }
-    return hex;
-  };
-
-  // Hexadecimal -> Binary (Reverse: hex ASCII pairs back to original chars)
-  // Example: "353736353243" -> "57652C"
-  const hexToBin = (hex: string): string => {
-    const cleaned = cleanHex(hex);
-    let result = '';
-    for (let i = 0; i < cleaned.length; i += 2) {
-      const charCode = parseInt(cleaned.substr(i, 2), 16);
-      result += String.fromCharCode(charCode);
-    }
-    return result;
-  };
-
-  // ASCII to EBCDIC (ASCII text input, hex EBCDIC output)
-  // Example: "57652C20" -> "F5F7F6F5F2C3F2F0" (each char converted to EBCDIC)
-  const asciiToEbcdic = (input: string): string => {
-    const cleaned = input.replace(/[\s\n\r]/g, '');
-    let result = '';
-    for (let i = 0; i < cleaned.length; i++) {
-      const ascii = cleaned.charCodeAt(i);
-      const ebcdic = ASCII_TO_EBCDIC[ascii] || 0x3F;
-      result += ebcdic.toString(16).toUpperCase().padStart(2, '0');
-    }
-    return result;
-  };
-
-  // EBCDIC to ASCII (hex EBCDIC input, ASCII text output)
-  // Example: "F5F7F6F5F2C3F2F0" -> "57652C20"
-  const ebcdicToAscii = (hex: string): string => {
-    const cleaned = cleanHex(hex);
-    let result = '';
-    for (let i = 0; i < cleaned.length; i += 2) {
-      const ebcdic = parseInt(cleaned.substr(i, 2), 16);
-      const ascii = EBCDIC_TO_ASCII[ebcdic] || 0x3F;
-      result += String.fromCharCode(ascii);
-    }
-    return result;
-  };
-
-  // ASCII Text to Hexadecimal
-  const textToHex = (text: string): string => {
-    let hex = '';
-    for (let i = 0; i < text.length; i++) {
-      hex += text.charCodeAt(i).toString(16).toUpperCase().padStart(2, '0');
-    }
-    return hex;
-  };
-
-  // Hexadecimal to ASCII Text
-  const hexToText = (hex: string): string => {
-    const cleaned = cleanHex(hex);
-    let text = '';
-    for (let i = 0; i < cleaned.length; i += 2) {
-      const charCode = parseInt(cleaned.substr(i, 2), 16);
-      text += String.fromCharCode(charCode);
-    }
-    return text;
-  };
-
-  // ATM ASCII Decimal to Hexadecimal (e.g., "065 066 067" -> "414243")
-  const atmToHex = (atm: string): string => {
-    const numbers = atm.trim().split(/[\s,]+/).filter(n => n.length > 0);
-    let hex = '';
-    for (const num of numbers) {
-      const decimal = parseInt(num, 10);
-      if (isNaN(decimal) || decimal < 0 || decimal > 255) {
-        throw new Error(`Invalid decimal value: ${num}`);
-      }
-      hex += decimal.toString(16).toUpperCase().padStart(2, '0');
-    }
-    return hex;
-  };
-
-  // Hexadecimal to ATM ASCII Decimal
-  const hexToAtm = (hex: string): string => {
-    const cleaned = cleanHex(hex);
-    const decimals: string[] = [];
-    for (let i = 0; i < cleaned.length; i += 2) {
-      const byte = parseInt(cleaned.substr(i, 2), 16);
-      decimals.push(byte.toString().padStart(3, '0'));
-    }
-    return decimals.join(' ');
-  };
 
   // Main conversion function
   const performConversion = useCallback(() => {
@@ -266,9 +266,10 @@ const CharacterEncodingTool: React.FC = () => {
     switch (encodingType) {
       case 'hex2bin':
       case 'ebcdic2ascii':
-      case 'hex2atm':
+      case 'hex2atm': {
         const cleaned = cleanHex(inputData);
         return isValidHex(cleaned) ? cleaned.length / 2 : 0;
+      }
       case 'bin2hex':
       case 'text2hex':
       case 'ascii2ebcdic':

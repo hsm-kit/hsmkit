@@ -302,7 +302,7 @@ export const combineKeyComponents = (components: string[]): string => {
 export const checkDesKeyParityOdd = (hexKey: string): boolean => {
   const bytes = hexKey.match(/.{2}/g) || [];
   return bytes.every(byte => {
-    let b = parseInt(byte, 16);
+    const b = parseInt(byte, 16);
     let bits = 0;
     for (let i = 0; i < 8; i++) {
       if (b & (1 << i)) bits++;
@@ -317,7 +317,7 @@ export const checkDesKeyParityOdd = (hexKey: string): boolean => {
 export const checkDesKeyParityEven = (hexKey: string): boolean => {
   const bytes = hexKey.match(/.{2}/g) || [];
   return bytes.every(byte => {
-    let b = parseInt(byte, 16);
+    const b = parseInt(byte, 16);
     let bits = 0;
     for (let i = 0; i < 8; i++) {
       if (b & (1 << i)) bits++;
@@ -509,7 +509,7 @@ export const validateKey = (hexKey: string): KeyValidationResult => {
     });
     kcvAes = encryptedAes.ciphertext.toString().toUpperCase().substring(0, 6);
 
-  } catch (err) {
+  } catch {
     errors.push('KCV calculation failed');
   }
 

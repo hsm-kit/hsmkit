@@ -636,7 +636,7 @@ const RSATool: React.FC = () => {
       const e = new forge.jsbn.BigInteger(cleanHex(publicExponent), 16);
       const sigBI = new forge.jsbn.BigInteger(cleanSig, 16);
       const decryptedBI = sigBI.modPow(e, n);
-      let decryptedHex = decryptedBI.toString(16).toUpperCase().padStart(cleanHex(modulus).length, '0');
+      const decryptedHex = decryptedBI.toString(16).toUpperCase().padStart(cleanHex(modulus).length, '0');
       
       // 验证 PKCS#1 v1.5 格式: 00 01 [FF...] 00 [DigestInfo]
       if (!decryptedHex.startsWith('0001')) {

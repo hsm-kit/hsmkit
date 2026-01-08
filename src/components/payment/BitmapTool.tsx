@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, Button, Checkbox, Input, message, Divider, Typography, Row, Col } from 'antd';
 import { CopyOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -7,69 +7,82 @@ import { CollapsibleInfo } from '../common';
 
 const { Title, Text } = Typography;
 
+// Parse bitmap hex to bits
+const parseBitmapHex = (bitmapHex: string): { primary: boolean[], secondary: boolean[], hasSecondary: boolean } => {
+  if (!bitmapHex) {
+    return {
+      primary: new Array(64).fill(false),
+      secondary: new Array(64).fill(false),
+      hasSecondary: false
+    };
+  }
+
+  const cleanHex = bitmapHex.replace(/\s/g, '').toUpperCase();
+  if (!/^[0-9A-F]*$/.test(cleanHex)) {
+    return {
+      primary: new Array(64).fill(false),
+      secondary: new Array(64).fill(false),
+      hasSecondary: false
+    };
+  }
+
+  try {
+    // Parse primary bitmap (first 16 hex chars = 64 bits)
+    const primaryHex = cleanHex.substring(0, 16);
+    const newPrimaryBits = new Array(64).fill(false);
+    
+    for (let i = 0; i < primaryHex.length && i < 16; i++) {
+      const hexDigit = parseInt(primaryHex[i], 16);
+      for (let bit = 0; bit < 4; bit++) {
+        const bitIndex = i * 4 + bit;
+        if (bitIndex < 64) {
+          newPrimaryBits[bitIndex] = (hexDigit & (8 >> bit)) !== 0;
+        }
+      }
+    }
+
+    const hasSecondaryBitmap = newPrimaryBits[0]; // Bit 1 indicates secondary bitmap
+    const newSecondaryBits = new Array(64).fill(false);
+
+    // Parse secondary bitmap if present
+    if (hasSecondaryBitmap && cleanHex.length > 16) {
+      const secondaryHex = cleanHex.substring(16, 32);
+      
+      for (let i = 0; i < secondaryHex.length && i < 16; i++) {
+        const hexDigit = parseInt(secondaryHex[i], 16);
+        for (let bit = 0; bit < 4; bit++) {
+          const bitIndex = i * 4 + bit;
+          if (bitIndex < 64) {
+            newSecondaryBits[bitIndex] = (hexDigit & (8 >> bit)) !== 0;
+          }
+        }
+      }
+    }
+
+    return {
+      primary: newPrimaryBits,
+      secondary: newSecondaryBits,
+      hasSecondary: hasSecondaryBitmap
+    };
+  } catch {
+    return {
+      primary: new Array(64).fill(false),
+      secondary: new Array(64).fill(false),
+      hasSecondary: false
+    };
+  }
+};
+
 const BitmapTool: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
   const [bitmapHex, setBitmapHex] = useState('');
-  const [primaryBits, setPrimaryBits] = useState<boolean[]>(new Array(64).fill(false));
-  const [secondaryBits, setSecondaryBits] = useState<boolean[]>(new Array(64).fill(false));
-  const [hasSecondary, setHasSecondary] = useState(false);
-
-  // Parse bitmap hex to bits
-  useEffect(() => {
-    if (!bitmapHex) {
-      setPrimaryBits(new Array(64).fill(false));
-      setSecondaryBits(new Array(64).fill(false));
-      setHasSecondary(false);
-      return;
-    }
-
-    const cleanHex = bitmapHex.replace(/\s/g, '').toUpperCase();
-    if (!/^[0-9A-F]*$/.test(cleanHex)) {
-      return;
-    }
-
-    try {
-      // Parse primary bitmap (first 16 hex chars = 64 bits)
-      const primaryHex = cleanHex.substring(0, 16);
-      const newPrimaryBits = new Array(64).fill(false);
-      
-      for (let i = 0; i < primaryHex.length && i < 16; i++) {
-        const hexDigit = parseInt(primaryHex[i], 16);
-        for (let bit = 0; bit < 4; bit++) {
-          const bitIndex = i * 4 + bit;
-          if (bitIndex < 64) {
-            newPrimaryBits[bitIndex] = (hexDigit & (8 >> bit)) !== 0;
-          }
-        }
-      }
-
-      setPrimaryBits(newPrimaryBits);
-      const hasSecondaryBitmap = newPrimaryBits[0]; // Bit 1 indicates secondary bitmap
-      setHasSecondary(hasSecondaryBitmap);
-
-      // Parse secondary bitmap if present
-      if (hasSecondaryBitmap && cleanHex.length > 16) {
-        const secondaryHex = cleanHex.substring(16, 32);
-        const newSecondaryBits = new Array(64).fill(false);
-        
-        for (let i = 0; i < secondaryHex.length && i < 16; i++) {
-          const hexDigit = parseInt(secondaryHex[i], 16);
-          for (let bit = 0; bit < 4; bit++) {
-            const bitIndex = i * 4 + bit;
-            if (bitIndex < 64) {
-              newSecondaryBits[bitIndex] = (hexDigit & (8 >> bit)) !== 0;
-            }
-          }
-        }
-        setSecondaryBits(newSecondaryBits);
-      } else {
-        setSecondaryBits(new Array(64).fill(false));
-      }
-    } catch (err) {
-      console.error('Error parsing bitmap:', err);
-    }
-  }, [bitmapHex]);
+  
+  // Parse bitmap using useMemo instead of useEffect + setState
+  const { primary: primaryBits, secondary: secondaryBits, hasSecondary } = useMemo(
+    () => parseBitmapHex(bitmapHex),
+    [bitmapHex]
+  );
 
   // Generate bitmap hex from bits
   const generateBitmapHex = (primary: boolean[], secondary: boolean[]) => {
@@ -108,22 +121,15 @@ const BitmapTool: React.FC = () => {
     const newPrimaryBits = [...primaryBits];
     newPrimaryBits[index] = checked;
     
-    // If toggling bit 1, update hasSecondary
-    if (index === 0) {
-      setHasSecondary(checked);
-      if (!checked) {
-        setSecondaryBits(new Array(64).fill(false));
-      }
-    }
+    // If toggling bit 1 off, clear secondary bits
+    const newSecondaryBits = (index === 0 && !checked) ? new Array(64).fill(false) : secondaryBits;
     
-    setPrimaryBits(newPrimaryBits);
-    setBitmapHex(generateBitmapHex(newPrimaryBits, index === 0 && !checked ? new Array(64).fill(false) : secondaryBits));
+    setBitmapHex(generateBitmapHex(newPrimaryBits, newSecondaryBits));
   };
 
   const handleSecondaryBitChange = (index: number, checked: boolean) => {
     const newSecondaryBits = [...secondaryBits];
     newSecondaryBits[index] = checked;
-    setSecondaryBits(newSecondaryBits);
     setBitmapHex(generateBitmapHex(primaryBits, newSecondaryBits));
   };
 

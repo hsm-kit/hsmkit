@@ -98,7 +98,7 @@ const PinBlockAESTool: React.FC = () => {
       });
       
       return encrypted.ciphertext.toString(CryptoJS.enc.Hex).toUpperCase();
-    } catch (err) {
+    } catch {
       throw new Error(t.pinBlockAes?.errorEncryption || 'Encryption failed');
     }
   };
@@ -126,7 +126,7 @@ const PinBlockAESTool: React.FC = () => {
       const ciphertext = CryptoJS.enc.Hex.parse(cleanEncrypted);
       
       const decrypted = CryptoJS.AES.decrypt(
-        { ciphertext } as any,
+        { ciphertext } as CryptoJS.lib.CipherParams,
         keyWords,
         {
           mode: CryptoJS.mode.ECB,

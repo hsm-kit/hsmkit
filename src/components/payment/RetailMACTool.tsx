@@ -44,13 +44,13 @@ const RetailMACTool: React.FC = () => {
       // Full block of padding
       const paddingBytes = new Uint8Array(blockSize);
       paddingBytes[0] = 0x80;
-      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as any, blockSize);
+      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as number[], blockSize);
       return dataBytes.concat(padding).toString();
     } else {
       // Partial padding
       const paddingBytes = new Uint8Array(paddingLength);
       paddingBytes[0] = 0x80;
-      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as any, paddingLength);
+      const padding = CryptoJS.lib.WordArray.create(Array.from(paddingBytes) as number[], paddingLength);
       return dataBytes.concat(padding).toString();
     }
   };
@@ -112,7 +112,7 @@ const RetailMACTool: React.FC = () => {
         
         // Decrypt
         const decrypted = CryptoJS.DES.decrypt(
-          { ciphertext: blockToFinalize } as any,
+          { ciphertext: blockToFinalize } as CryptoJS.lib.CipherParams,
           key1,
           {
             mode: CryptoJS.mode.ECB,

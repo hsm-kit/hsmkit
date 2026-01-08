@@ -36,70 +36,66 @@ const formatHexDisplay = (hex: string, bytesPerGroup = 2): string => {
  * @returns PVV (4 digits)
  */
 const calculatePVV = (pdk: string, pan: string, pin: string, pvki: number): { pvv: string; encryptedPan: string; tsp: string } => {
-  try {
-    // Validate inputs
-    if (!pdk || pdk.length !== 32) {
-      throw new Error('PDK must be 32 hex characters (16 bytes)');
-    }
-    if (!pan || pan.length < 12 || pan.length > 19) {
-      throw new Error('PAN must be 12-19 digits');
-    }
-    if (!pin || pin.length < 4 || pin.length > 12) {
-      throw new Error('PIN must be 4-12 digits');
-    }
-    if (pvki < 0 || pvki > 9) {
-      throw new Error('PVKI must be 0-9');
-    }
-
-    // Step 1: Prepare PAN block (right-align PAN, pad left with zeros to 16 hex chars)
-    const panBlock = pan.padStart(16, '0');
-
-    // Step 2: Encrypt PAN with 3DES using PDK
-    const key = CryptoJS.enc.Hex.parse(pdk);
-    const panWords = CryptoJS.enc.Hex.parse(panBlock);
-    const encrypted = CryptoJS.TripleDES.encrypt(panWords, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.NoPadding,
-    });
-    const encryptedPan = encrypted.ciphertext.toString(CryptoJS.enc.Hex).toUpperCase();
-
-    // Step 3: Extract digits from encrypted result (decimalization)
-    // Apply decimalization table: 0-9 stay, A-F map to 0-5
-    const decTab: { [key: string]: string } = {
-      '0': '0', '1': '1', '2': '2', '3': '3', '4': '4',
-      '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
-      'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4', 'F': '5',
-    };
-
-    let naturalPin = '';
-    for (const char of encryptedPan) {
-      naturalPin += decTab[char] || '0';
-    }
-
-    // Step 4: Extract TSP (Transformed Selection Process) starting from position determined by PVKI
-    // Select 4 digits starting from position PVKI
-    const tsp = naturalPin.substring(pvki, pvki + 4);
-    if (tsp.length < 4) {
-      throw new Error('Failed to extract TSP from encrypted PAN');
-    }
-
-    // Step 5: Calculate PVV by XORing PIN with TSP (digit by digit)
-    let pvv = '';
-    for (let i = 0; i < 4; i++) {
-      const pinDigit = parseInt(pin[i] || '0', 10);
-      const tspDigit = parseInt(tsp[i], 10);
-      const pvvDigit = (pinDigit + tspDigit) % 10;
-      pvv += pvvDigit.toString();
-    }
-
-    return {
-      pvv,
-      encryptedPan,
-      tsp,
-    };
-  } catch (error) {
-    throw error;
+  // Validate inputs
+  if (!pdk || pdk.length !== 32) {
+    throw new Error('PDK must be 32 hex characters (16 bytes)');
   }
+  if (!pan || pan.length < 12 || pan.length > 19) {
+    throw new Error('PAN must be 12-19 digits');
+  }
+  if (!pin || pin.length < 4 || pin.length > 12) {
+    throw new Error('PIN must be 4-12 digits');
+  }
+  if (pvki < 0 || pvki > 9) {
+    throw new Error('PVKI must be 0-9');
+  }
+
+  // Step 1: Prepare PAN block (right-align PAN, pad left with zeros to 16 hex chars)
+  const panBlock = pan.padStart(16, '0');
+
+  // Step 2: Encrypt PAN with 3DES using PDK
+  const key = CryptoJS.enc.Hex.parse(pdk);
+  const panWords = CryptoJS.enc.Hex.parse(panBlock);
+  const encrypted = CryptoJS.TripleDES.encrypt(panWords, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.NoPadding,
+  });
+  const encryptedPan = encrypted.ciphertext.toString(CryptoJS.enc.Hex).toUpperCase();
+
+  // Step 3: Extract digits from encrypted result (decimalization)
+  // Apply decimalization table: 0-9 stay, A-F map to 0-5
+  const decTab: { [key: string]: string } = {
+    '0': '0', '1': '1', '2': '2', '3': '3', '4': '4',
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+    'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4', 'F': '5',
+  };
+
+  let naturalPin = '';
+  for (const char of encryptedPan) {
+    naturalPin += decTab[char] || '0';
+  }
+
+  // Step 4: Extract TSP (Transformed Selection Process) starting from position determined by PVKI
+  // Select 4 digits starting from position PVKI
+  const tsp = naturalPin.substring(pvki, pvki + 4);
+  if (tsp.length < 4) {
+    throw new Error('Failed to extract TSP from encrypted PAN');
+  }
+
+  // Step 5: Calculate PVV by XORing PIN with TSP (digit by digit)
+  let pvv = '';
+  for (let i = 0; i < 4; i++) {
+    const pinDigit = parseInt(pin[i] || '0', 10);
+    const tspDigit = parseInt(tsp[i], 10);
+    const pvvDigit = (pinDigit + tspDigit) % 10;
+    pvv += pvvDigit.toString();
+  }
+
+  return {
+    pvv,
+    encryptedPan,
+    tsp,
+  };
 };
 
 /**
@@ -111,69 +107,65 @@ const calculatePVV = (pdk: string, pan: string, pin: string, pvki: number): { pv
  * @returns Calculated PIN (4 digits)
  */
 const verifyPinWithPVV = (pdk: string, pan: string, pvv: string, pvki: number): { pin: string; encryptedPan: string; tsp: string } => {
-  try {
-    // Validate inputs
-    if (!pdk || pdk.length !== 32) {
-      throw new Error('PDK must be 32 hex characters (16 bytes)');
-    }
-    if (!pan || pan.length < 12 || pan.length > 19) {
-      throw new Error('PAN must be 12-19 digits');
-    }
-    if (!pvv || pvv.length !== 4) {
-      throw new Error('PVV must be 4 digits');
-    }
-    if (pvki < 0 || pvki > 9) {
-      throw new Error('PVKI must be 0-9');
-    }
-
-    // Step 1: Prepare PAN block
-    const panBlock = pan.padStart(16, '0');
-
-    // Step 2: Encrypt PAN with 3DES using PDK
-    const key = CryptoJS.enc.Hex.parse(pdk);
-    const panWords = CryptoJS.enc.Hex.parse(panBlock);
-    const encrypted = CryptoJS.TripleDES.encrypt(panWords, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.NoPadding,
-    });
-    const encryptedPan = encrypted.ciphertext.toString(CryptoJS.enc.Hex).toUpperCase();
-
-    // Step 3: Decimalization
-    const decTab: { [key: string]: string } = {
-      '0': '0', '1': '1', '2': '2', '3': '3', '4': '4',
-      '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
-      'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4', 'F': '5',
-    };
-
-    let naturalPin = '';
-    for (const char of encryptedPan) {
-      naturalPin += decTab[char] || '0';
-    }
-
-    // Step 4: Extract TSP
-    const tsp = naturalPin.substring(pvki, pvki + 4);
-    if (tsp.length < 4) {
-      throw new Error('Failed to extract TSP from encrypted PAN');
-    }
-
-    // Step 5: Calculate PIN by reversing the PVV calculation
-    // PIN = (PVV - TSP) mod 10
-    let pin = '';
-    for (let i = 0; i < 4; i++) {
-      const pvvDigit = parseInt(pvv[i], 10);
-      const tspDigit = parseInt(tsp[i], 10);
-      const pinDigit = (pvvDigit - tspDigit + 10) % 10;
-      pin += pinDigit.toString();
-    }
-
-    return {
-      pin,
-      encryptedPan,
-      tsp,
-    };
-  } catch (error) {
-    throw error;
+  // Validate inputs
+  if (!pdk || pdk.length !== 32) {
+    throw new Error('PDK must be 32 hex characters (16 bytes)');
   }
+  if (!pan || pan.length < 12 || pan.length > 19) {
+    throw new Error('PAN must be 12-19 digits');
+  }
+  if (!pvv || pvv.length !== 4) {
+    throw new Error('PVV must be 4 digits');
+  }
+  if (pvki < 0 || pvki > 9) {
+    throw new Error('PVKI must be 0-9');
+  }
+
+  // Step 1: Prepare PAN block
+  const panBlock = pan.padStart(16, '0');
+
+  // Step 2: Encrypt PAN with 3DES using PDK
+  const key = CryptoJS.enc.Hex.parse(pdk);
+  const panWords = CryptoJS.enc.Hex.parse(panBlock);
+  const encrypted = CryptoJS.TripleDES.encrypt(panWords, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.NoPadding,
+  });
+  const encryptedPan = encrypted.ciphertext.toString(CryptoJS.enc.Hex).toUpperCase();
+
+  // Step 3: Decimalization
+  const decTab: { [key: string]: string } = {
+    '0': '0', '1': '1', '2': '2', '3': '3', '4': '4',
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+    'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4', 'F': '5',
+  };
+
+  let naturalPin = '';
+  for (const char of encryptedPan) {
+    naturalPin += decTab[char] || '0';
+  }
+
+  // Step 4: Extract TSP
+  const tsp = naturalPin.substring(pvki, pvki + 4);
+  if (tsp.length < 4) {
+    throw new Error('Failed to extract TSP from encrypted PAN');
+  }
+
+  // Step 5: Calculate PIN by reversing the PVV calculation
+  // PIN = (PVV - TSP) mod 10
+  let pin = '';
+  for (let i = 0; i < 4; i++) {
+    const pvvDigit = parseInt(pvv[i], 10);
+    const tspDigit = parseInt(tsp[i], 10);
+    const pinDigit = (pvvDigit - tspDigit + 10) % 10;
+    pin += pinDigit.toString();
+  }
+
+  return {
+    pin,
+    encryptedPan,
+    tsp,
+  };
 };
 
 const PinPVVTool: React.FC = () => {

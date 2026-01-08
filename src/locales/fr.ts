@@ -629,10 +629,7 @@ export default {
     errorEncryption: 'Encryption failed',
     errorDecryption: 'Decryption failed',
     errorProcessing: 'Processing failed, please check input',
-  },
-
-  pinOffset: {
-
+      },
       pinOffset: {
         title: 'Décalage PIN',
         description: 'Calculer et vérifier le décalage PIN avec la méthode IBM 3624 et les données de validation.',

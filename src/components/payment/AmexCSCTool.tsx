@@ -23,7 +23,7 @@ const calculateAmexCSC = (
   const cleanPan = pan.replace(/\s/g, '');
 
   // Build data block: PAN (15 digits) + Exp Date (YYMM) + Service Code (3 digits)
-  let panPart = cleanPan.padEnd(15, '0').substring(0, 15);
+  const panPart = cleanPan.padEnd(15, '0').substring(0, 15);
   let data = panPart + expDate + serviceCode;
 
   if (version === '2') {
@@ -155,7 +155,7 @@ const AmexCSCTool: React.FC = () => {
         genVersion
       );
       setGenResults(results);
-    } catch (err) {
+    } catch {
       setGenError(t.amexCsc?.errorGeneration || 'Failed to generate CSC');
     }
   };
@@ -204,7 +204,7 @@ const AmexCSCTool: React.FC = () => {
         valType
       );
       setValResult(isValid ? 'valid' : 'invalid');
-    } catch (err) {
+    } catch {
       setValError(t.amexCsc?.errorValidation || 'Failed to validate CSC');
     }
   };

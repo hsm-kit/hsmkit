@@ -102,7 +102,7 @@ const decryptPIN = (skPac: string, encryptedPinBlock: string): string => {
     const ciphertext = CryptoJS.enc.Hex.parse(cleanEncrypted);
 
     const decrypted = CryptoJS.TripleDES.decrypt(
-      { ciphertext } as any,
+      { ciphertext } as CryptoJS.lib.CipherParams,
       key,
       {
         mode: CryptoJS.mode.ECB,

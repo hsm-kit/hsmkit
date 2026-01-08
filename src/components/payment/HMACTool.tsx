@@ -65,7 +65,7 @@ const HMACTool: React.FC = () => {
       const data = dataIsHex ? CryptoJS.enc.Hex.parse(dataStr) : CryptoJS.enc.Utf8.parse(dataStr);
 
       // Calculate HMAC based on hash type
-      let hmac: any;
+      let hmac: CryptoJS.lib.WordArray;
       switch (hash) {
         case 'SHA-1':
           hmac = CryptoJS.HmacSHA1(data, key);
@@ -92,8 +92,8 @@ const HMACTool: React.FC = () => {
           hmac = CryptoJS.HmacMD5(data, key);
           break;
         case 'RIPEMD-160':
-          if ((CryptoJS as any).HmacRIPEMD160) {
-            hmac = (CryptoJS as any).HmacRIPEMD160(data, key);
+          if ((CryptoJS as unknown as { HmacRIPEMD160?: typeof CryptoJS.HmacSHA256 }).HmacRIPEMD160) {
+            hmac = (CryptoJS as unknown as { HmacRIPEMD160: typeof CryptoJS.HmacSHA256 }).HmacRIPEMD160(data, key);
           } else {
             throw new Error('RIPEMD-160 HMAC not available in this build');
           }

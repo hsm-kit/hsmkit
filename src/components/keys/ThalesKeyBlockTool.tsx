@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
@@ -140,8 +140,6 @@ const ThalesKeyBlockTool: React.FC = () => {
   // KBPK (Key Block Protection Key) state
   const [desKbpk, setDesKbpk] = useState('0123456789ABCDEF808080808080FEDC');
   const [aesKbpk, setAesKbpk] = useState('9B71333A13F9FAE72F9D0E2DAB4AD678471801');
-  const [desKbpkKcv, setDesKbpkKcv] = useState('');
-  const [aesKbpkKcv, setAesKbpkKcv] = useState('');
 
   // Encode state
   const [plainKey, setPlainKey] = useState('');
@@ -160,7 +158,7 @@ const ThalesKeyBlockTool: React.FC = () => {
   // Decode state
   const [keyBlock, setKeyBlock] = useState('');
   const [dataInputFormat, setDataInputFormat] = useState<'ascii' | 'hex'>('ascii');
-  const [decodeResult, setDecodeResult] = useState<any>(null);
+  const [decodeResult, setDecodeResult] = useState<Record<string, string> | null>(null);
   const [decodeError, setDecodeError] = useState('');
 
   // Calculate KCV for KBPK
@@ -204,14 +202,9 @@ const ThalesKeyBlockTool: React.FC = () => {
     }
   };
 
-  // Update KCV when KBPK changes
-  useEffect(() => {
-    setDesKbpkKcv(calculateKCV(desKbpk));
-  }, [desKbpk]);
-
-  useEffect(() => {
-    setAesKbpkKcv(calculateKCV(aesKbpk));
-  }, [aesKbpk]);
+  // KCV values are now calculated inline using useMemo
+  const desKbpkKcv = useMemo(() => calculateKCV(desKbpk), [desKbpk]);
+  const aesKbpkKcv = useMemo(() => calculateKCV(aesKbpk), [aesKbpk]);
 
   // Get key length in bytes
   const getKeyLength = (hexKey: string): number => {
@@ -316,7 +309,7 @@ const ThalesKeyBlockTool: React.FC = () => {
       }).ciphertext.toString().substring(0, 16).toUpperCase();
       
       return header + encryptedHex + mac;
-    } catch (err) {
+    } catch {
       throw new Error('Key block encoding failed');
     }
   };
@@ -385,7 +378,7 @@ const ThalesKeyBlockTool: React.FC = () => {
       
       setDecodeResult({
         version: VERSION_OPTIONS.find(o => o.value === version)?.label || version,
-        length: parseInt(length),
+        length: length,
         keyUsage: KEY_USAGE_OPTIONS.find(o => o.value === usage)?.label || usage,
         algorithm: ALGORITHM_OPTIONS.find(o => o.value === algo)?.label || algo,
         modeOfUse: MODE_OF_USE_OPTIONS.find(o => o.value === mode)?.label || mode,

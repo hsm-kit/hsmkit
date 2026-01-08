@@ -113,7 +113,7 @@ const AS2805MACTool: React.FC = () => {
     try {
       const mac = calculateAS2805MAC(cleanKL, cleanKR, cleanData, trunc);
       setResult(mac);
-    } catch (err) {
+    } catch {
       setError(t.mac.as2805.error.calculationFailed);
     }
   };

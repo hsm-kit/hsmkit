@@ -78,12 +78,12 @@ import fr from './fr';
 
 // Build seoContent from language files
 const seoContent: Record<string, Partial<PageSEO>> = {
-  en: en.seo as any,
-  zh: zh.seo as any,
-  ja: ja.seo as any,
-  ko: ko.seo as any,
-  de: de.seo as any,
-  fr: fr.seo as any,
+  en: en.seo as unknown as Partial<PageSEO>,
+  zh: zh.seo as unknown as Partial<PageSEO>,
+  ja: ja.seo as unknown as Partial<PageSEO>,
+  ko: ko.seo as unknown as Partial<PageSEO>,
+  de: de.seo as unknown as Partial<PageSEO>,
+  fr: fr.seo as unknown as Partial<PageSEO>,
 };
 
 export default seoContent;

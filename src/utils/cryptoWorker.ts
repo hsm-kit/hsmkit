@@ -172,7 +172,7 @@ self.onmessage = function(e) {
 
 // Create worker instance
 let worker: Worker | null = null;
-let pendingRequests: Map<string, { resolve: (value: string) => void; reject: (error: Error) => void }> = new Map();
+const pendingRequests: Map<string, { resolve: (value: string) => void; reject: (error: Error) => void }> = new Map();
 let requestId = 0;
 
 /**

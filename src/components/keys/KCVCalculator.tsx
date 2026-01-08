@@ -65,7 +65,7 @@ const KCVCalculator: React.FC = () => {
       }
       
       setKcvResult(kcv);
-    } catch (err) {
+    } catch {
       setError(t.kcvCalculator.errorCalculation);
     } finally {
       setIsCalculating(false);

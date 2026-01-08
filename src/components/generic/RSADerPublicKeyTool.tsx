@@ -148,13 +148,14 @@ const decodeData = (data: string, encoding: DataEncoding): Uint8Array => {
     case 'UTF_8':
       // UTF-8 text to bytes
       return new TextEncoder().encode(cleaned);
-    case 'EBCDIC':
+    case 'EBCDIC': {
       // EBCDIC encoded string
       const ebcdicBytes = new Uint8Array(cleaned.length);
       for (let i = 0; i < cleaned.length; i++) {
         ebcdicBytes[i] = ASCII_TO_EBCDIC[cleaned.charCodeAt(i)] || 0x3F;
       }
       return ebcdicBytes;
+    }
     case 'BCD':
     case 'BCD_left_F':
     case 'BCD_Signed':
@@ -164,13 +165,14 @@ const decodeData = (data: string, encoding: DataEncoding): Uint8Array => {
       return hexToBytes(cleaned);
     case 'ASCII_BASE64':
       return base64ToBytes(cleaned);
-    case 'EBCDIC_HEX':
+    case 'EBCDIC_HEX': {
       // First convert EBCDIC hex to ASCII hex, then to bytes
       let asciiHex = '';
       for (let i = 0; i < cleaned.length; i++) {
         asciiHex += String.fromCharCode(EBCDIC_TO_ASCII[cleaned.charCodeAt(i)] || 0x3F);
       }
       return hexToBytes(asciiHex);
+    }
     case 'ASCII_zero_padded':
       // ASCII with zero padding
       return new TextEncoder().encode(cleaned);
@@ -372,7 +374,7 @@ const RSADerPublicKeyTool: React.FC = () => {
       console.error('Encode error:', err);
       setError((t.rsaDer?.errorEncode || 'Encoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
-  }, [modulus, modulusEncoding, exponent, exponentEncoding, modulusNegative, outputEncoding, t]);
+  }, [modulus, modulusEncoding, exponent, exponentEncoding, outputEncoding, t]);
 
   const handleDecode = useCallback(() => {
     setError('');
@@ -405,7 +407,7 @@ const RSADerPublicKeyTool: React.FC = () => {
       console.error('Decode error:', err);
       setError((t.rsaDer?.errorDecode || 'Decoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
-  }, [derInput, derInputEncoding, derOutputEncoding, t]);
+  }, [derInput, derInputEncoding, t]);
 
   const handleClear = useCallback(() => {
     setModulus('');

@@ -629,10 +629,7 @@ export default {
     errorEncryption: 'Encryption failed',
     errorDecryption: 'Decryption failed',
     errorProcessing: 'Processing failed, please check input',
-  },
-
-  pinOffset: {
-
+      },
       pinOffset: {
         title: 'PIN 오프셋',
         description: '검증 데이터를 사용하여 IBM 3624 방법으로 PIN 오프셋 계산 및 확인.',

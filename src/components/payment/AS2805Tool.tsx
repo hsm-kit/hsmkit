@@ -127,7 +127,7 @@ const AS2805Tool: React.FC = () => {
       const padWidth = Math.max(...rows.map(r => r[0].length));
       const aligned = rows.map(([k, v]) => `${k.padEnd(padWidth)}: ${v}`);
       setGenResult(aligned.join('\n'));
-    } catch (e) {
+    } catch {
       setGenError(t.as2805?.errorGeneration || '生成失败');
     }
   };
@@ -177,7 +177,7 @@ const AS2805Tool: React.FC = () => {
     try {
       const mac = tdesCbcMac(key, padded);
       setMacResult(mac);
-    } catch (e) {
+    } catch {
       setMacError(t.as2805?.errorCalculation || '计算失败');
     }
   };
@@ -198,7 +198,7 @@ const AS2805Tool: React.FC = () => {
     try {
       const r = hmacSha256Hex(key, data);
       setOwfResult(r);
-    } catch (e) {
+    } catch {
       setOwfError(t.as2805?.errorCalculation || '计算失败');
     }
   };

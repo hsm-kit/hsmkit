@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, Button, message, Divider, Tag, Typography, Tabs, Input, Space, Alert, Segmented } from 'antd';
 import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
@@ -35,13 +35,9 @@ const KeyGenerator: React.FC = () => {
 
   // Tab 3: 密钥校验
   const [validationInput, setValidationInput] = useState('');
-  const [validationResult, setValidationResult] = useState<any>(null);
+  const [validationResult, setValidationResult] = useState<ReturnType<typeof validateKey> | null>(null);
 
-  // 当密钥长度改变时清空结果
-  useEffect(() => {
-    setGeneratedKey('');
-    setCheckValue({});
-  }, [length]);
+  // Note: Results are now cleared when length changes via the onChange handler
 
   // 密钥生成
   const handleGenerate = () => {
@@ -228,7 +224,7 @@ const KeyGenerator: React.FC = () => {
     try {
       const result = validateKey(validationInput);
       setValidationResult(result);
-    } catch (err) {
+    } catch {
       message.error('Validation failed');
     }
   };
