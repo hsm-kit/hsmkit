@@ -82,7 +82,7 @@ const AS2805Tool: React.FC = () => {
     setGenResult('');
     const key = cleanHexInput(kekr);
     if (!key || !isValidHex(key)) {
-      setGenError(t.as2805?.errorInvalidHex || '十六进制格式无效');
+      setGenError(t.as2805?.errorInvalidHex || 'Invalid hexadecimal input');
       return;
     }
     try {
@@ -128,7 +128,7 @@ const AS2805Tool: React.FC = () => {
       const aligned = rows.map(([k, v]) => `${k.padEnd(padWidth)}: ${v}`);
       setGenResult(aligned.join('\n'));
     } catch {
-      setGenError(t.as2805?.errorGeneration || '生成失败');
+      setGenError(t.as2805?.errorGeneration || 'Generation failed');
     }
   };
 
@@ -141,7 +141,7 @@ const AS2805Tool: React.FC = () => {
       return;
     }
     if (!/^\d{12,19}$/.test(acct.replace(/\s/g, ''))) {
-      setTranslateError(t.as2805?.errorAccount || '账户号需12-19位数字');
+      setTranslateError(t.as2805?.errorAccount || 'Account number must be 12-19 digits');
       return;
     }
     const rows: Array<[string, string]> = [
@@ -166,11 +166,11 @@ const AS2805Tool: React.FC = () => {
     const key = cleanHexInput(macKey);
     const data = cleanHexInput(macData);
     if (!isValidHex(key) || ![16, 32, 48].includes(key.length)) {
-      setMacError(t.as2805?.errorKeyLength || '密钥长度需16/32/48十六进制字符');
+      setMacError(t.as2805?.errorKeyLength || 'Invalid key length');
       return;
     }
     if (!isValidHex(data)) {
-      setMacError(t.as2805?.errorInvalidHex || '十六进制格式无效');
+      setMacError(t.as2805?.errorInvalidHex || 'Invalid hexadecimal input');
       return;
     }
     const padded = padIso9797M2(data, 8);
@@ -178,7 +178,7 @@ const AS2805Tool: React.FC = () => {
       const mac = tdesCbcMac(key, padded);
       setMacResult(mac);
     } catch {
-      setMacError(t.as2805?.errorCalculation || '计算失败');
+      setMacError(t.as2805?.errorCalculation || 'Calculation failed');
     }
   };
 
@@ -188,18 +188,18 @@ const AS2805Tool: React.FC = () => {
     const key = cleanHexInput(owfKey);
     const data = cleanHexInput(owfData);
     if (!isValidHex(key) || ![16, 32, 48, 64].includes(key.length)) {
-      setOwfError(t.as2805?.errorKeyLength || '密钥长度无效');
+      setOwfError(t.as2805?.errorKeyLength || 'Invalid key length');
       return;
     }
     if (!isValidHex(data)) {
-      setOwfError(t.as2805?.errorInvalidHex || '十六进制格式无效');
+      setOwfError(t.as2805?.errorInvalidHex || 'Invalid hexadecimal input');
       return;
     }
     try {
       const r = hmacSha256Hex(key, data);
       setOwfResult(r);
     } catch {
-      setOwfError(t.as2805?.errorCalculation || '计算失败');
+      setOwfError(t.as2805?.errorCalculation || 'Calculation failed');
     }
   };
 
@@ -263,11 +263,11 @@ const AS2805Tool: React.FC = () => {
             {t.menu?.as2805 || 'AS2805'}
           </Title>
           <CollapsibleInfo title={t.as2805?.infoTitle || 'AS2805'}>
-            <div>{t.as2805?.info1 || '支付相关示例工具集：终端密钥组、PIN Block转换、MAC与OWF计算'}</div>
+            <div>{t.as2805?.info1 || 'Includes terminal key set generation, PIN block translation (formats 01/46), MAC calculation (ISO9797-1 M2, TDES-CBC) and OWF (HMAC-SHA256). All operations are client-side.'}</div>
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          {t.as2805?.description || '参考行业常见输入输出样式，所有计算在浏览器本地执行'}
+          {t.as2805?.description || 'Client-side implementations for common payment operations'}
         </Text>
 
         <Divider style={{ margin: '16px 0' }} />

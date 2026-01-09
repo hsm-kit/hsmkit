@@ -163,10 +163,13 @@ const HMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.hmac.title}
             </Title>
-            <CollapsibleInfo title={t.mac.hmac.title}>
-              <div>{t.mac.hmac.description}</div>
+            <CollapsibleInfo title={t.mac?.hmac?.infoTitle || 'About HMAC'}>
+              <div>{t.mac?.hmac?.info || 'HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret key to provide data integrity and authentication.'}</div>
             </CollapsibleInfo>
           </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.mac?.hmac?.description || 'Calculate Hash-based Message Authentication Code.'}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 

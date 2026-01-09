@@ -33,6 +33,7 @@ const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
 const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
 const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
 const KeysharePage = lazy(() => import('./pages/keys/KeysharePage'));
+const FuturexKeysPage = lazy(() => import('./pages/keys/FuturexKeysPage'));
 const AtallaKeysPage = lazy(() => import('./pages/keys/AtallaKeysPage'));
 const SafeNetKeysPage = lazy(() => import('./pages/keys/SafeNetKeysPage'));
 const ThalesKeysPage = lazy(() => import('./pages/keys/ThalesKeysPage'));
@@ -580,6 +581,7 @@ const App: React.FC = () => {
               <Route path="/fpe-encryption" element={<FPEPage />} />
               {/* Keys 菜单 */}
               <Route path="/keys-dea" element={<KeyGeneratorPage />} />
+              <Route path="/futurex-keys" element={<FuturexKeysPage />} />
               <Route path="/tr31-key-block" element={<TR31Page />} />
               <Route path="/keyshare-generator" element={<KeysharePage />} />
               <Route path="/atalla-keys" element={<AtallaKeysPage />} />

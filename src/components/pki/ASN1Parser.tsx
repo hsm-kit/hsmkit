@@ -404,7 +404,7 @@ const ASN1Parser: React.FC = () => {
                     handleCopy(node, 'hex');
                   }}
                 >
-                  {t.asn1.copyHex || '复制Hex'}
+                  {t.asn1?.copyHex || 'Copy Hex'}
                 </Button>
                 {node.content && (
                   <Button 
@@ -415,7 +415,7 @@ const ASN1Parser: React.FC = () => {
                       handleCopy(node, 'value');
                     }}
                   >
-                    {t.asn1.copyValue || '复制值'}
+                    {t.asn1?.copyValue || 'Copy Value'}
                   </Button>
                 )}
               </div>

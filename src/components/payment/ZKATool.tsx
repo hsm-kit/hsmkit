@@ -207,7 +207,7 @@ const ZKATool: React.FC = () => {
     try {
       const sk = deriveSessionKey(mk, cm, rnd);
       setDerivedSK(sk);
-      message.success('Session key derived successfully');
+      message.success(t.mac?.zka?.skDerivedSuccess || 'Session key derived successfully');
     } catch (error) {
       message.error((error as Error).message);
       setDerivedSK('');
@@ -219,7 +219,7 @@ const ZKATool: React.FC = () => {
     try {
       const encrypted = encryptPIN(skPac, pinBlock);
       setPinResult(encrypted);
-      message.success('PIN encrypted successfully');
+      message.success(t.mac?.zka?.pinEncryptedSuccess || 'PIN encrypted successfully');
     } catch (error) {
       message.error((error as Error).message);
       setPinResult('');
@@ -231,7 +231,7 @@ const ZKATool: React.FC = () => {
     try {
       const decrypted = decryptPIN(skPac, pinBlock);
       setPinResult(decrypted);
-      message.success('PIN decrypted successfully');
+      message.success(t.mac?.zka?.pinDecryptedSuccess || 'PIN decrypted successfully');
     } catch (error) {
       message.error((error as Error).message);
       setPinResult('');
@@ -243,7 +243,7 @@ const ZKATool: React.FC = () => {
     try {
       const mac = calculateMAC(macKey, macData);
       setMacResult(mac);
-      message.success('MAC calculated successfully');
+      message.success(t.mac?.zka?.macCalculatedSuccess || 'MAC calculated successfully');
     } catch (error) {
       message.error((error as Error).message);
       setMacResult('');
@@ -251,9 +251,14 @@ const ZKATool: React.FC = () => {
   };
 
   // Copy to clipboard
-  const copyToClipboard = (text: string, label: string) => {
+  const copyToClipboard = (text: string, labelKey: 'sessionKey' | 'result' | 'mac') => {
     navigator.clipboard.writeText(text);
-    message.success(`${label} copied to clipboard`);
+    const messages = {
+      sessionKey: t.mac?.zka?.sessionKeyCopied || 'Session Key copied to clipboard',
+      result: t.mac?.zka?.resultCopied || 'Result copied to clipboard',
+      mac: t.mac?.zka?.macCopied || 'MAC copied to clipboard',
+    };
+    message.success(messages[labelKey]);
   };
 
   return (
@@ -287,19 +292,19 @@ const ZKATool: React.FC = () => {
 
       <Tabs defaultActiveKey="1" size={isMobile ? 'small' : 'middle'}>
         {/* Tab 1: SK Derivation */}
-        <Tabs.TabPane tab="SK derivation" key="1">
+        <Tabs.TabPane tab={t.mac?.zka?.tabSKDerivation || 'SK derivation'} key="1">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>MK:</Text>
-                <CollapsibleInfo title="Master Key">
-                  <div>The master key used for session key derivation. Must be 16 bytes (32 hex characters).</div>
+                <Text strong>{t.mac?.zka?.mk || 'MK:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.mkInfo || 'Master Key'}>
+                  <div>{t.mac?.zka?.mkInfoDesc || 'The master key used for session key derivation. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={mk}
                 onChange={(e) => setMk(e.target.value.toUpperCase())}
-                placeholder="Enter master key (32 hex characters)"
+                placeholder={t.mac?.zka?.mkPlaceholder || 'Enter master key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -311,15 +316,15 @@ const ZKATool: React.FC = () => {
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>CM:</Text>
-                <CollapsibleInfo title="Command Data">
-                  <div>Command data used in the derivation process. Must be 16 bytes (32 hex characters).</div>
+                <Text strong>{t.mac?.zka?.cm || 'CM:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.cmInfo || 'Command Data'}>
+                  <div>{t.mac?.zka?.cmInfoDesc || 'Command data used in the derivation process. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={cm}
                 onChange={(e) => setCm(e.target.value.toUpperCase())}
-                placeholder="Enter command data (32 hex characters)"
+                placeholder={t.mac?.zka?.cmPlaceholder || 'Enter command data (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -331,15 +336,15 @@ const ZKATool: React.FC = () => {
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>Rnd:</Text>
-                <CollapsibleInfo title="Random Number">
-                  <div>Random number used in the derivation process. Must be 16 bytes (32 hex characters).</div>
+                <Text strong>{t.mac?.zka?.rnd || 'Rnd:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.rndInfo || 'Random Number'}>
+                  <div>{t.mac?.zka?.rndInfoDesc || 'Random number used in the derivation process. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={rnd}
                 onChange={(e) => setRnd(e.target.value.toUpperCase())}
-                placeholder="Enter random number (32 hex characters)"
+                placeholder={t.mac?.zka?.rndPlaceholder || 'Enter random number (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -356,7 +361,7 @@ const ZKATool: React.FC = () => {
               disabled={!mk || !cm || !rnd}
               style={{ alignSelf: 'flex-start' }}
             >
-              Derive SK
+              {t.mac?.zka?.deriveSK || 'Derive SK'}
             </Button>
 
             {derivedSK && (
@@ -369,12 +374,12 @@ const ZKATool: React.FC = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>Derived Session Key:</Text>
+                  <Text strong>{t.mac?.zka?.derivedSessionKey || 'Derived Session Key:'}</Text>
                   <Button
                     type="text"
                     size="small"
                     icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(derivedSK, 'Session Key')}
+                    onClick={() => copyToClipboard(derivedSK, 'sessionKey')}
                   />
                 </div>
                 <Text
@@ -393,19 +398,19 @@ const ZKATool: React.FC = () => {
         </Tabs.TabPane>
 
         {/* Tab 2: PIN */}
-        <Tabs.TabPane tab="PIN" key="2">
+        <Tabs.TabPane tab={t.mac?.zka?.tabPIN || 'PIN'} key="2">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>SK-pac:</Text>
-                <CollapsibleInfo title="Session Key for PIN/PAC">
-                  <div>The session key used for PIN encryption/decryption. Must be 16 bytes (32 hex characters).</div>
+                <Text strong>{t.mac?.zka?.skPac || 'SK-pac:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.skPacInfo || 'Session Key for PIN/PAC'}>
+                  <div>{t.mac?.zka?.skPacInfoDesc || 'The session key used for PIN encryption/decryption. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={skPac}
                 onChange={(e) => setSkPac(e.target.value.toUpperCase())}
-                placeholder="Enter session key (32 hex characters)"
+                placeholder={t.mac?.zka?.skPacPlaceholder || 'Enter session key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -417,15 +422,15 @@ const ZKATool: React.FC = () => {
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>PIN block:</Text>
-                <CollapsibleInfo title="PIN Block">
-                  <div>The PIN block to encrypt or decrypt. Must be 8 bytes (16 hex characters).</div>
+                <Text strong>{t.mac?.zka?.pinBlock || 'PIN block:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.pinBlockInfo || 'PIN Block'}>
+                  <div>{t.mac?.zka?.pinBlockInfoDesc || 'The PIN block to encrypt or decrypt. Must be 8 bytes (16 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={pinBlock}
                 onChange={(e) => setPinBlock(e.target.value.toUpperCase())}
-                placeholder="Enter PIN block (16 hex characters)"
+                placeholder={t.mac?.zka?.pinBlockPlaceholder || 'Enter PIN block (16 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -442,14 +447,14 @@ const ZKATool: React.FC = () => {
                 onClick={handleEncryptPIN}
                 disabled={!skPac || !pinBlock}
               >
-                Encrypt
+                {t.mac?.zka?.encrypt || 'Encrypt'}
               </Button>
               <Button
                 icon={<UnlockOutlined />}
                 onClick={handleDecryptPIN}
                 disabled={!skPac || !pinBlock}
               >
-                Decrypt
+                {t.mac?.zka?.decrypt || 'Decrypt'}
               </Button>
             </div>
 
@@ -463,12 +468,12 @@ const ZKATool: React.FC = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>Result:</Text>
+                  <Text strong>{t.mac?.zka?.result || 'Result:'}</Text>
                   <Button
                     type="text"
                     size="small"
                     icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(pinResult, 'Result')}
+                    onClick={() => copyToClipboard(pinResult, 'result')}
                   />
                 </div>
                 <Text
@@ -487,19 +492,19 @@ const ZKATool: React.FC = () => {
         </Tabs.TabPane>
 
         {/* Tab 3: MAC */}
-        <Tabs.TabPane tab="MAC" key="3">
+        <Tabs.TabPane tab={t.mac?.zka?.tabMAC || 'MAC'} key="3">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>MAC Key:</Text>
-                <CollapsibleInfo title="MAC Key">
-                  <div>The key used for MAC calculation. Must be 16 bytes (32 hex characters).</div>
+                <Text strong>{t.mac?.zka?.macKey || 'MAC Key:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.macKeyInfo || 'MAC Key'}>
+                  <div>{t.mac?.zka?.macKeyInfoDesc || 'The key used for MAC calculation. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
               </div>
               <Input
                 value={macKey}
                 onChange={(e) => setMacKey(e.target.value.toUpperCase())}
-                placeholder="Enter MAC key (32 hex characters)"
+                placeholder={t.mac?.zka?.macKeyPlaceholder || 'Enter MAC key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
                 suffix={
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -511,15 +516,15 @@ const ZKATool: React.FC = () => {
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>Data:</Text>
-                <CollapsibleInfo title="Data for MAC">
-                  <div>The data for which to calculate the MAC. Can be any length in hex format.</div>
+                <Text strong>{t.mac?.zka?.data || 'Data:'}</Text>
+                <CollapsibleInfo title={t.mac?.zka?.dataInfo || 'Data for MAC'}>
+                  <div>{t.mac?.zka?.dataInfoDesc || 'The data for which to calculate the MAC. Can be any length in hex format.'}</div>
                 </CollapsibleInfo>
               </div>
               <TextArea
                 value={macData}
                 onChange={(e) => setMacData(e.target.value.toUpperCase())}
-                placeholder="Enter data in hex format"
+                placeholder={t.mac?.zka?.dataPlaceholder || 'Enter data in hex format'}
                 rows={6}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
               />
@@ -535,7 +540,7 @@ const ZKATool: React.FC = () => {
               disabled={!macKey || !macData}
               style={{ alignSelf: 'flex-start' }}
             >
-              Calculate MAC
+              {t.mac?.zka?.calculateMAC || 'Calculate MAC'}
             </Button>
 
             {macResult && (
@@ -548,12 +553,12 @@ const ZKATool: React.FC = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>MAC Result:</Text>
+                  <Text strong>{t.mac?.zka?.macResult || 'MAC Result:'}</Text>
                   <Button
                     type="text"
                     size="small"
                     icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(macResult, 'MAC')}
+                    onClick={() => copyToClipboard(macResult, 'mac')}
                   />
                 </div>
                 <Text

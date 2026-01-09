@@ -630,7 +630,7 @@ const PinPVVTool: React.FC = () => {
           </CollapsibleInfo>
         </div>
         <Text type="secondary" style={{ fontSize: '13px' }}>
-          Calculate and verify PIN Verification Values (PVV) using Visa standard with decimalization.
+          {t.pinPvv?.description || 'Calculate and verify PIN Verification Values (PVV) using Visa standard with decimalization.'}
         </Text>
 
         <Divider style={{ margin: '16px 0' }} />

@@ -116,7 +116,7 @@ const ANSIMACTool: React.FC = () => {
       await navigator.clipboard.writeText(text);
       message.success(t.common?.copied || 'Copied to clipboard!');
     } catch {
-      message.error('Failed to copy');
+      message.error(t.common?.copyFailed || 'Failed to copy');
     }
   };
 

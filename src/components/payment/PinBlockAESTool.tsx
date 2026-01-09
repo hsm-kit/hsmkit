@@ -212,7 +212,7 @@ const PinBlockAESTool: React.FC = () => {
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            Generate and process AES PIN blocks using Format 4 for secure PIN encryption.
+            {t.pinBlockAes?.description || 'Generate and process AES PIN blocks using Format 4 for secure PIN encryption.'}
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />

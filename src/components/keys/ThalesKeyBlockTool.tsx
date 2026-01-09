@@ -252,7 +252,7 @@ const ThalesKeyBlockTool: React.FC = () => {
       const keyBlockData = encodeKeyBlock(cleanKey, cleanKbpk, header);
       
       setEncodeResult(keyBlockData);
-      message.success('Key block encoded successfully');
+      message.success(t.thalesKeyBlock?.encodeSuccess || 'Key block encoded successfully');
     } catch (err) {
       setEncodeError('Encoding failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
@@ -391,7 +391,7 @@ const ThalesKeyBlockTool: React.FC = () => {
         mac: mac,
       });
       
-      message.success('Key block decoded successfully');
+      message.success(t.thalesKeyBlock?.decodeSuccess || 'Key block decoded successfully');
     } catch (err) {
       setDecodeError('Decoding failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
     }

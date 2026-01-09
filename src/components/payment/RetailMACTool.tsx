@@ -196,10 +196,13 @@ const RetailMACTool: React.FC = () => {
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
               {t.mac.retail.title}
             </Title>
-            <CollapsibleInfo title={t.mac.retail.title}>
-              <div>{t.mac.retail.description}</div>
+            <CollapsibleInfo title={t.mac?.retail?.infoTitle || 'About Retail MAC'}>
+              <div>{t.mac?.retail?.info || 'Retail MAC (ISO 9797-1 Algorithm 3) uses DES/3DES CBC-MAC with optional final 3DES encryption for enhanced security in financial transactions.'}</div>
             </CollapsibleInfo>
           </div>
+          <Text type="secondary" style={{ fontSize: '13px' }}>
+            {t.mac?.retail?.description || 'Calculate Retail MAC using DES or Triple DES.'}
+          </Text>
 
           <Divider style={{ margin: '16px 0' }} />
 

@@ -136,9 +136,9 @@ const ECCTool: React.FC = () => {
         setPublicKeyForm('04');
       }
 
-      message.success('ECC key pair generated successfully');
+      message.success(t.ecc?.keyGenerated || 'ECC key pair generated successfully');
     } catch (err) {
-      setError('Key generation failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setError((t.ecc?.errorKeyGen || 'Key generation failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     } finally {
       setGenerating(false);
     }
@@ -152,7 +152,7 @@ const ECCTool: React.FC = () => {
     const cleanPubKey = cleanHex(publicKey);
     
     if (!cleanPubKey || !isValidHex(cleanPubKey)) {
-      setError('Invalid public key (must be hexadecimal)');
+      setError(t.ecc?.errorInvalidPublicKey || 'Invalid public key (must be hexadecimal)');
       return;
     }
 
@@ -161,7 +161,7 @@ const ECCTool: React.FC = () => {
       
       // 解析公钥 (格式: 04 || x || y)
       if (!cleanPubKey.startsWith('04') || cleanPubKey.length !== (keySize * 4 + 2)) {
-        setError(`Invalid public key format. Expected ${keySize * 2 + 1} bytes starting with 04`);
+        setError((t.ecc?.errorInvalidPublicKeyFormat || 'Invalid public key format. Expected {size} bytes starting with 04').replace('{size}', String(keySize * 2 + 1)));
         return;
       }
 
@@ -209,7 +209,7 @@ const ECCTool: React.FC = () => {
             ['sign']
           );
         } catch {
-          message.warning('Private key import failed, only public key imported');
+          message.warning(t.ecc?.privateKeyImportFailed || 'Private key import failed, only public key imported');
         }
       }
 
@@ -218,9 +218,9 @@ const ECCTool: React.FC = () => {
         privateKey: importedPrivateKey!,
       });
 
-      message.success('Keys imported successfully');
+      message.success(t.ecc?.keysImported || 'Keys imported successfully');
     } catch (err) {
-      setError('Key import failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setError((t.ecc?.errorKeyImport || 'Key import failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   };
 
@@ -241,7 +241,7 @@ const ECCTool: React.FC = () => {
     setVerifySignature('');
     setVerifyResult(null);
     setError('');
-    message.success('Keys cleared');
+    message.success(t.ecc?.keysCleared || 'Keys cleared');
   };
 
   // 将整数转为 DER 格式
@@ -279,12 +279,12 @@ const ECCTool: React.FC = () => {
     setSignDetails(null);
 
     if (!cryptoKeyPair?.privateKey) {
-      setError('Please generate or import a private key first');
+      setError(t.ecc?.errorNoPrivateKey || 'Please generate or import a private key first');
       return;
     }
 
     if (!signData.trim()) {
-      setError('Data is required');
+      setError(t.ecc?.errorDataRequired || 'Data is required');
       return;
     }
 
@@ -298,7 +298,7 @@ const ECCTool: React.FC = () => {
     } else {
       const cleanData = cleanHex(signData);
       if (!isValidHex(cleanData)) {
-        setError('Invalid data (must be hexadecimal)');
+        setError(t.ecc?.errorInvalidData || 'Invalid data (must be hexadecimal)');
         return;
       }
       dataBuffer = hexToArrayBuffer(cleanData);
@@ -344,7 +344,7 @@ const ECCTool: React.FC = () => {
         dataSize: dataHex.length / 2,
       });
     } catch (err) {
-      setError('Signing failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setError((t.ecc?.errorSign || 'Signing failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   };
 
@@ -419,18 +419,18 @@ const ECCTool: React.FC = () => {
     setVerifyResult(null);
 
     if (!cryptoKeyPair?.publicKey) {
-      setError('Please generate or import a public key first');
+      setError(t.ecc?.errorNoPublicKey || 'Please generate or import a public key first');
       return;
     }
 
     if (!verifyData.trim()) {
-      setError('Data is required');
+      setError(t.ecc?.errorDataRequired || 'Data is required');
       return;
     }
 
     const cleanSig = cleanHex(verifySignature);
     if (!cleanSig || !isValidHex(cleanSig)) {
-      setError('Invalid signature (must be hexadecimal)');
+      setError(t.ecc?.errorInvalidSignature || 'Invalid signature (must be hexadecimal)');
       return;
     }
 
@@ -441,7 +441,7 @@ const ECCTool: React.FC = () => {
     } else {
       const cleanData = cleanHex(verifyData);
       if (!isValidHex(cleanData)) {
-        setError('Invalid data (must be hexadecimal)');
+        setError(t.ecc?.errorInvalidData || 'Invalid data (must be hexadecimal)');
         return;
       }
       dataBuffer = hexToArrayBuffer(cleanData);
@@ -470,7 +470,7 @@ const ECCTool: React.FC = () => {
 
       setVerifyResult(isValid);
     } catch (err) {
-      setError('Verification failed: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setError((t.ecc?.errorVerify || 'Verification failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
       setVerifyResult(false);
     }
   };
@@ -492,13 +492,13 @@ const ECCTool: React.FC = () => {
     {
       key: 'keys',
       label: (
-        <span><KeyOutlined /> Keys</span>
+        <span><KeyOutlined /> {t.ecc?.tabKeys || 'Keys'}</span>
       ),
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* ECC Curve 选择 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Text strong>ECC curve name:</Text>
+            <Text strong>{t.ecc?.curveName || 'ECC curve name:'}</Text>
             <Select
               value={curve}
               onChange={(value) => setCurve(value)}
@@ -510,7 +510,7 @@ const ECCTool: React.FC = () => {
           {/* Private Key */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Private Key:</Text>
+              <Text strong>{t.ecc?.privateKey || 'Private Key:'}</Text>
               <Text style={{ fontSize: '12px', color: privateKey ? '#52c41a' : '#999' }}>
                 [{getByteLength(privateKey)}]
               </Text>
@@ -518,7 +518,7 @@ const ECCTool: React.FC = () => {
             <TextArea
               value={privateKey}
               onChange={e => setPrivateKey(e.target.value)}
-              placeholder="Private key (hexadecimal)"
+              placeholder={t.ecc?.privateKeyPlaceholder || 'Private key (hexadecimal)'}
               autoSize={{ minRows: 3, maxRows: 6 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
@@ -527,7 +527,7 @@ const ECCTool: React.FC = () => {
           {/* Public Key */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Public Key:</Text>
+              <Text strong>{t.ecc?.publicKey || 'Public Key:'}</Text>
               <Text style={{ fontSize: '12px', color: publicKey ? '#52c41a' : '#999' }}>
                 [{getByteLength(publicKey)}]
               </Text>
@@ -535,7 +535,7 @@ const ECCTool: React.FC = () => {
             <TextArea
               value={publicKey}
               onChange={e => setPublicKey(e.target.value)}
-              placeholder="Public key (hexadecimal, uncompressed format: 04 || X || Y)"
+              placeholder={t.ecc?.publicKeyPlaceholder || 'Public key (hexadecimal, uncompressed format: 04 || X || Y)'}
               autoSize={{ minRows: 4, maxRows: 8 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
@@ -543,7 +543,7 @@ const ECCTool: React.FC = () => {
 
           {/* Public key form */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Text strong>Public key form:</Text>
+            <Text strong>{t.ecc?.publicKeyForm || 'Public key form:'}</Text>
             <Input
               value={publicKeyForm}
               onChange={e => setPublicKeyForm(e.target.value)}
@@ -563,14 +563,14 @@ const ECCTool: React.FC = () => {
               loading={generating}
               size="large"
             >
-              Generate Keys
+              {t.ecc?.generateKeys || 'Generate Keys'}
             </Button>
             <Button 
               icon={<KeyOutlined />}
               onClick={importKeys}
               size="large"
             >
-              Import Keys
+              {t.ecc?.importKeys || 'Import Keys'}
             </Button>
             <Button 
               danger 
@@ -578,7 +578,7 @@ const ECCTool: React.FC = () => {
               onClick={clearKeys}
               size="large"
             >
-              Clear
+              {t.ecc?.clear || 'Clear'}
             </Button>
           </div>
         </div>
@@ -587,14 +587,14 @@ const ECCTool: React.FC = () => {
     {
       key: 'sign',
       label: (
-        <span><EditOutlined /> Sign</span>
+        <span><EditOutlined /> {t.ecc?.tabSign || 'Sign'}</span>
       ),
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data:</Text>
+              <Text strong>{t.ecc?.data || 'Data:'}</Text>
               <Text style={{ fontSize: '12px', color: '#52c41a' }}>
                 [{signInputFormat === 'Hex' ? getByteLength(signData) : signData.length}]
               </Text>
@@ -602,7 +602,7 @@ const ECCTool: React.FC = () => {
             <TextArea
               value={signData}
               onChange={e => setSignData(e.target.value)}
-              placeholder={signInputFormat === 'ASCII' ? 'Enter text data' : 'Enter hexadecimal data'}
+              placeholder={signInputFormat === 'ASCII' ? (t.ecc?.dataPlaceholderAscii || 'Enter text data') : (t.ecc?.dataPlaceholderHex || 'Enter hexadecimal data')}
               autoSize={{ minRows: 4, maxRows: 8 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
@@ -610,7 +610,7 @@ const ECCTool: React.FC = () => {
 
           {/* Input data format */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Input data format:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.ecc?.inputDataFormat || 'Input data format:'}</Text>
             <Radio.Group value={signInputFormat} onChange={e => setSignInputFormat(e.target.value)}>
               <Radio value="ASCII">ASCII</Radio>
               <Radio value="Hex">Hexadecimal</Radio>
@@ -619,7 +619,7 @@ const ECCTool: React.FC = () => {
 
           {/* Hash Algorithm */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Algorithm:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.ecc?.hashAlgorithm || 'Hash Algorithm:'}</Text>
             <Select
               value={signHash}
               onChange={setSignHash}
@@ -636,7 +636,7 @@ const ECCTool: React.FC = () => {
           {/* 签名按钮 */}
           <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
             <Button type="primary" icon={<EditOutlined />} onClick={handleSign} size="large">
-              Sign
+              {t.ecc?.sign || 'Sign'}
             </Button>
           </div>
 
@@ -654,7 +654,7 @@ const ECCTool: React.FC = () => {
                 : '0 4px 16px rgba(82, 196, 26, 0.2)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <Text strong style={{ color: isDark ? '#95de64' : '#389e0d' }}>✓ ECDSA Signature Result</Text>
+                <Text strong style={{ color: isDark ? '#95de64' : '#389e0d' }}>{t.ecc?.signatureResult || '✓ ECDSA Signature Result'}</Text>
                 <Button 
                   type={isDark ? 'primary' : 'default'} 
                   size="small" 
@@ -666,7 +666,7 @@ const ECCTool: React.FC = () => {
                     color: isDark ? '#fff' : '#52c41a',
                   }}
                 >
-                  Copy DER
+                  {t.ecc?.copyDER || 'Copy DER'}
                 </Button>
               </div>
               
@@ -674,31 +674,31 @@ const ECCTool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Data:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>{t.ecc?.dataLabel || 'Data:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.dataHex}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Data size:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.dataSize || 'Data size:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.dataSize}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Hash algorithm:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.hashAlgorithmLabel || 'Hash algorithm:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signHash}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>EC Name:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.ecName || 'EC Name:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{ECC_CURVES.find(c => c.value === curve)?.label}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public Key:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.publicKey || 'Public Key:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{publicKey}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Key Conversion Form:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.keyConversionForm || 'Key Conversion Form:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{publicKeyForm}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Private Key:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.privateKey || 'Private Key:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{privateKey}</td>
                   </tr>
                 </tbody>
@@ -711,11 +711,11 @@ const ECCTool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Message digest:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>{t.ecc?.messageDigest || 'Message digest:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{messageDigest}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest size:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.messageDigestSize || 'Message digest size:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{messageDigest.length / 2}</td>
                   </tr>
                 </tbody>
@@ -728,15 +728,15 @@ const ECCTool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '12px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>Signature-&gt;r:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '160px' }}>{t.ecc?.signatureR || 'Signature->r:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signatureR}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Signature-&gt;s:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.ecc?.signatureS || 'Signature->s:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signatureS}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Signature (DER):</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.ecc?.signatureDER || 'Signature (DER):'}</td>
                     <td style={{ 
                       padding: '8px 12px',
                       wordBreak: 'break-all',
@@ -759,14 +759,14 @@ const ECCTool: React.FC = () => {
     {
       key: 'verify',
       label: (
-        <span><CheckCircleOutlined /> Verify</span>
+        <span><CheckCircleOutlined /> {t.ecc?.tabVerify || 'Verify'}</span>
       ),
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data to Verify:</Text>
+              <Text strong>{t.ecc?.dataToVerify || 'Data to Verify:'}</Text>
               <Text style={{ fontSize: '12px', color: '#52c41a' }}>
                 [{verifyInputFormat === 'Hex' ? getByteLength(verifyData) : verifyData.length}]
               </Text>
@@ -774,7 +774,7 @@ const ECCTool: React.FC = () => {
             <TextArea
               value={verifyData}
               onChange={e => setVerifyData(e.target.value)}
-              placeholder={verifyInputFormat === 'ASCII' ? 'Enter text data' : 'Enter hexadecimal data'}
+              placeholder={verifyInputFormat === 'ASCII' ? (t.ecc?.dataPlaceholderAscii || 'Enter text data') : (t.ecc?.dataPlaceholderHex || 'Enter hexadecimal data')}
               autoSize={{ minRows: 4, maxRows: 8 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }}
             />
@@ -782,7 +782,7 @@ const ECCTool: React.FC = () => {
 
           {/* Input data format */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Input data format:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.ecc?.inputDataFormat || 'Input data format:'}</Text>
             <Radio.Group value={verifyInputFormat} onChange={e => setVerifyInputFormat(e.target.value)}>
               <Radio value="ASCII">ASCII</Radio>
               <Radio value="Hex">Hexadecimal</Radio>
@@ -791,7 +791,7 @@ const ECCTool: React.FC = () => {
 
           {/* Hash Algorithm */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Algorithm:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.ecc?.hashAlgorithm || 'Hash Algorithm:'}</Text>
             <Select
               value={verifyHash}
               onChange={setVerifyHash}
@@ -807,11 +807,11 @@ const ECCTool: React.FC = () => {
 
           {/* Signature 输入 */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Signature (Hex):</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.ecc?.signatureHex || 'Signature (Hex):'}</Text>
             <TextArea
               value={verifySignature}
               onChange={e => setVerifySignature(e.target.value)}
-              placeholder="Enter signature in hexadecimal (r || s format)"
+              placeholder={t.ecc?.signaturePlaceholder || 'Enter signature in hexadecimal (r || s format)'}
               autoSize={{ minRows: 3, maxRows: 6 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
             />
@@ -820,7 +820,7 @@ const ECCTool: React.FC = () => {
           {/* 验证按钮 */}
           <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 4 }}>
             <Button type="primary" icon={<CheckCircleOutlined />} onClick={handleVerify} size="large">
-              Verify
+              {t.ecc?.verify || 'Verify'}
             </Button>
           </div>
 
@@ -837,8 +837,8 @@ const ECCTool: React.FC = () => {
             }}>
               <Text strong style={{ color: verifyResult ? '#52c41a' : '#ff4d4f', fontSize: '16px' }}>
                 {verifyResult 
-                  ? '✓ Signature is valid'
-                  : '✗ Signature is invalid'
+                  ? (t.ecc?.signatureValid || '✓ Signature is valid')
+                  : (t.ecc?.signatureInvalid || '✗ Signature is invalid')
                 }
               </Text>
             </div>

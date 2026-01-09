@@ -772,7 +772,7 @@ const PinOffsetTool: React.FC = () => {
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            Calculate and verify PIN offsets using IBM 3624 method with decimalization.
+            {t.pinOffset?.description || 'Calculate and verify PIN offsets using IBM 3624 method with decimalization.'}
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />

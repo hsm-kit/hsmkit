@@ -164,7 +164,7 @@ const ISO9797Tool: React.FC = () => {
       await navigator.clipboard.writeText(text);
       message.success(t.common?.copied || 'Copied to clipboard!');
     } catch {
-      message.error('Failed to copy');
+      message.error(t.common?.copyFailed || 'Failed to copy');
     }
   };
 
@@ -214,7 +214,7 @@ const ISO9797Tool: React.FC = () => {
               {t.mac?.iso9797?.description || 'ISO/IEC 9797-1 defines MAC algorithms using block cipher algorithms like DES and Triple DES.'}
             </div>
             <div style={{ marginTop: 8 }}>
-              It specifies different padding methods and MAC algorithms for data authentication in financial and security applications.
+              {t.mac?.iso9797?.details || 'It specifies different padding methods and MAC algorithms for data authentication in financial and security applications.'}
             </div>
           </CollapsibleInfo>
         </div>

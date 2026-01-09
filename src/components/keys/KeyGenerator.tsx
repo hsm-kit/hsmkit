@@ -225,7 +225,7 @@ const KeyGenerator: React.FC = () => {
       const result = validateKey(validationInput);
       setValidationResult(result);
     } catch {
-      message.error('Validation failed');
+      message.error(t.keyGenerator?.validationFailed || 'Validation failed');
     }
   };
 
