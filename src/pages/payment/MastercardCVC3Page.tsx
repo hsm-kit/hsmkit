@@ -28,7 +28,7 @@ const MastercardCVC3Page: React.FC = () => {
         <div>
           {seo.usage.map((text, index) => (
             <Paragraph key={index} style={{ margin: '8px 0' }}>
-              {text}
+              • {text}
             </Paragraph>
           ))}
         </div>

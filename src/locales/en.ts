@@ -2065,10 +2065,10 @@ export default {
         { question: 'What encoding tools are available?', answer: 'Base64, Base94, BCD, character encoding (ASCII/EBCDIC/Hex), ASN.1/DER parsing, UUID generation, hash calculation (MD5/SHA/BLAKE2), and check digit verification.' },
       ],
       usage: [
-        '• HSM Kit is a comprehensive suite of 44+ cryptographic tools designed for security professionals, developers, and anyone working with encryption and payment systems.',
-        '• All tools work entirely in your browser - zero server communication means your sensitive data, keys, and PINs never leave your device.',
-        '• Professional-grade HSM tools supporting Thales, Futurex, Atalla, and SafeNet key operations, TR-31 key blocks, and KCV calculations.',
-        '• Perfect for testing, development, and educational purposes in cryptography, payment security, and HSM key management.',
+        'HSM Kit is a comprehensive suite of 44+ cryptographic tools designed for security professionals, developers, and anyone working with encryption and payment systems.',
+        'All tools work entirely in your browser - zero server communication means your sensitive data, keys, and PINs never leave your device.',
+        'Professional-grade HSM tools supporting Thales, Futurex, Atalla, and SafeNet key operations, TR-31 key blocks, and KCV calculations.',
+        'Perfect for testing, development, and educational purposes in cryptography, payment security, and HSM key management.',
       ],
     },
     as2805: {
@@ -2706,11 +2706,11 @@ export default {
         { question: 'How does MAC truncation work?', answer: 'MAC truncation reduces the 8-byte (64-bit) MAC output to a shorter length for transmission efficiency. Common truncation values are 4 bytes (32 bits) for standard security or 6 bytes (48 bits) for enhanced security. Truncation uses the leftmost N bytes of the final MAC block. Note that shorter MACs reduce security - a 4-byte MAC provides 2^32 possible values, making brute force more feasible than the full 8-byte MAC with 2^64 possibilities.' }
       ],
       usage: [
-        '• Select MAC algorithm: X9.9 (Wholesale) for DES CBC-MAC, or X9.19 (Retail) for 3DES final block.',
-        '• Enter the primary DES key K (16 hex). For X9.19 with separate keys, also enter K\' (16 hex).',
-        '• Enter data in hexadecimal format (auto-padded to 8-byte blocks).',
-        '• Set truncation length (1-8 bytes). Standard is 4 bytes for most applications.',
-        '• Click "Calculate MAC" and copy the result.',
+        'Select MAC algorithm: X9.9 (Wholesale) for DES CBC-MAC, or X9.19 (Retail) for 3DES final block.',
+        'Enter the primary DES key K (16 hex). For X9.19 with separate keys, also enter K\' (16 hex).',
+        'Enter data in hexadecimal format (auto-padded to 8-byte blocks).',
+        'Set truncation length (1-8 bytes). Standard is 4 bytes for most applications.',
+        'Click "Calculate MAC" and copy the result.',
       ],
     },
     as2805Mac: {
@@ -2727,11 +2727,11 @@ export default {
         { question: 'What is the typical truncation for AS2805 MAC?', answer: 'AS2805 MAC typically uses 4-byte (8 hex characters) truncation for most Australian EFTPOS transactions, balancing security and message efficiency. Some high-security applications may use 6-byte or full 8-byte MACs. The truncation parameter selects the leftmost N bytes of the final MAC block. Check your payment network specifications for required MAC length.' }
       ],
       usage: [
-        '• Select MAC method: Method 1 (DES CBC) or Method 2 (DES CBC + 3DES final block).',
-        '• Enter left key K|KL (16 hex) and right key KR (16 hex).',
-        '• Enter transaction data in hexadecimal format.',
-        '• Set truncation length (1-8 bytes, standard EFTPOS uses 4 bytes).',
-        '• Click "Calculate MAC" and copy the result for your payment message.',
+        'Select MAC method: Method 1 (DES CBC) or Method 2 (DES CBC + 3DES final block).',
+        'Enter left key K|KL (16 hex) and right key KR (16 hex).',
+        'Enter transaction data in hexadecimal format.',
+        'Set truncation length (1-8 bytes, standard EFTPOS uses 4 bytes).',
+        'Click "Calculate MAC" and copy the result for your payment message.',
       ],
     },
     tdesCbcMac: {
@@ -2748,11 +2748,11 @@ export default {
         { question: 'What is the typical MAC truncation for TDES CBC-MAC?', answer: 'TDES CBC-MAC generates an 8-byte (16 hex characters) MAC from the final encrypted block. Common truncation values are 4 bytes (8 hex characters) for standard security in payment systems, 6 bytes (12 hex characters) for enhanced security, or full 8 bytes (16 hex characters) for maximum protection. Truncation balances security with message efficiency - shorter MACs reduce bandwidth but provide fewer bits of security against brute-force attacks.' },
       ],
       usage: [
-        '• Select key type: 3-key TDES (48 hex, maximum security) or 2-key TDES (32 hex, legacy systems).',
-        '• Enter the TDES key in hexadecimal format.',
-        '• Choose padding method: Method 1 (zero padding) or Method 2 (0x80 + zeros, recommended).',
-        '• Enter message data in hexadecimal format.',
-        '• Set truncation length (1-8 bytes) and click "Calculate MAC".',
+        'Select key type: 3-key TDES (48 hex, maximum security) or 2-key TDES (32 hex, legacy systems).',
+        'Enter the TDES key in hexadecimal format.',
+        'Choose padding method: Method 1 (zero padding) or Method 2 (0x80 + zeros, recommended).',
+        'Enter message data in hexadecimal format.',
+        'Set truncation length (1-8 bytes) and click "Calculate MAC".',
       ],
     },
     hmac: {
@@ -2769,11 +2769,11 @@ export default {
         { question: 'Can I truncate HMAC output?', answer: 'Yes, HMAC supports truncation while maintaining security. RFC 2104 recommends keeping at least half the hash output length: minimum 16 bytes for SHA-256-HMAC (128 bits of security), 20 bytes for SHA-512-HMAC (160 bits). Common truncations include HMAC-SHA-256-128 (16 bytes), HMAC-SHA-512-256 (32 bytes). Truncation reduces MAC size for bandwidth-constrained environments while preserving authentication strength against forgery attacks. Never truncate below 80 bits (10 bytes) for security applications.' },
       ],
       usage: [
-        '• Select a hash algorithm (SHA-256 recommended for most applications, SHA-512 for high security).',
-        '• Choose key format (Hex or ASCII) and enter your secret key.',
-        '• Choose data format (Hex or ASCII) and enter the message to authenticate.',
-        '• Click "Calculate HMAC" to generate the authentication code.',
-        '• Copy the HMAC result for use in API headers, webhooks, or verification systems.',
+        'Select a hash algorithm (SHA-256 recommended for most applications, SHA-512 for high security).',
+        'Choose key format (Hex or ASCII) and enter your secret key.',
+        'Choose data format (Hex or ASCII) and enter the message to authenticate.',
+        'Click "Calculate HMAC" to generate the authentication code.',
+        'Copy the HMAC result for use in API headers, webhooks, or verification systems.',
       ],
     },
     cmac: {
@@ -2790,11 +2790,11 @@ export default {
         { question: 'Can I truncate CMAC output?', answer: 'Yes, CMAC supports truncation while maintaining security. NIST SP 800-38B recommends minimum MAC lengths: For AES-CMAC, use at least 64 bits (8 bytes) for general security, 96 bits (12 bytes) for strong security applications (AES-CMAC-96 is common in IPsec and wireless protocols), or full 128 bits (16 bytes) for maximum security. For TDES-CMAC, use minimum 64 bits (8 bytes), with 80 bits (10 bytes) or full 64 bits (8 bytes) output typical. Truncation affects security strength: 96-bit MAC provides 2^96 collision resistance and 2^48 forgery resistance, 64-bit MAC provides 2^64 collision resistance and 2^32 forgery resistance (marginal for high-value data). Never truncate below 64 bits for security-critical applications. Truncation is done by taking leftmost (most significant) bytes of full CMAC output.' },
       ],
       usage: [
-        '• Select encryption algorithm: AES (recommended) or TDES for legacy systems.',
-        '• Choose key format (Hex or ASCII) and enter your secret key (AES: 32/48/64 hex chars; TDES: 32/48 hex chars).',
-        '• Choose data format and enter the message to authenticate.',
-        '• Optional: Check "AES CMAC 96" for 96-bit truncated output (common in IPsec/802.11i).',
-        '• Click "Calculate CMAC" and copy the result for your application.',
+        'Select encryption algorithm: AES (recommended) or TDES for legacy systems.',
+        'Choose key format (Hex or ASCII) and enter your secret key (AES: 32/48/64 hex chars; TDES: 32/48 hex chars).',
+        'Choose data format and enter the message to authenticate.',
+        'Optional: Check "AES CMAC 96" for 96-bit truncated output (common in IPsec/802.11i).',
+        'Click "Calculate CMAC" and copy the result for your application.',
       ],
     },
     retailMac: {
@@ -2811,11 +2811,11 @@ export default {
         { question: 'What key lengths are supported?', answer: 'For DES mode: Key K must be exactly 16 hex characters (8 bytes, 64 bits with parity). If 3DES finalization is enabled, Key K\' should also be 16 hex characters for the final encryption step. For 3DES mode: Key K is 16 hex characters (2-key TDES where K1=K3), or you can provide both Key K and Key K\' (16 hex characters each) for full 3-key Triple DES where all three keys are unique. Keys must be generated using cryptographically secure random number generators and stored securely in HSMs or key management systems.' },
       ],
       usage: [
-        '• Select algorithm: DES for legacy systems, 3DES for enhanced security throughout.',
-        '• Choose finalization: "None" for standard processing, or "3DES" for enhanced final block security.',
-        '• Enter Key K (16 hex characters). Enter Key K\' if using 3DES finalization or 3-key mode.',
-        '• Enter message data in hexadecimal. ISO 9797-1 Method 2 padding is applied automatically.',
-        '• Set truncation length (1-8 bytes) and click "Calculate MAC" to generate the result.',
+        'Select algorithm: DES for legacy systems, 3DES for enhanced security throughout.',
+        'Choose finalization: "None" for standard processing, or "3DES" for enhanced final block security.',
+        'Enter Key K (16 hex characters). Enter Key K\' if using 3DES finalization or 3-key mode.',
+        'Enter message data in hexadecimal. ISO 9797-1 Method 2 padding is applied automatically.',
+        'Set truncation length (1-8 bytes) and click "Calculate MAC" to generate the result.',
       ],
     },
     zka: {

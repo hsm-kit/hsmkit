@@ -12,24 +12,25 @@ const HMACPage: React.FC = () => {
     return null;
   }
 
-  const usageSteps = (
-    <div>
-      {seo.usage.map((step, index) => (
-        <p key={index}>{step}</p>
-      ))}
-    </div>
-  );
-
   return (
     <PageLayout
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
       canonical="https://hsmkit.com/payments-mac-hmac"
-      faqs={seo.faqs}
       faqTitle={seo.faqTitle}
-      usageContent={usageSteps}
+      faqs={seo.faqs}
       usageTitle={seo.usageTitle}
+      usageContent={
+        <div>
+          {(seo.usage as string[]).map((text: string, index: number) => (
+            <p key={index} style={{ marginBottom: index === seo.usage.length - 1 ? 0 : 8 }}>
+              • {text}
+            </p>
+          ))}
+        </div>
+      }
+      
       toolName="HMAC Calculator"
       toolCategory="Payment MAC"
     >
