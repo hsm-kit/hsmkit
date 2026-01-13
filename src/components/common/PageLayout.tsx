@@ -1,4 +1,4 @@
-import React, { useEffect, useId } from 'react';
+import React, { useLayoutEffect, useId } from 'react';
 import { Card, Typography, Collapse } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SEO } from './SEO';
@@ -54,8 +54,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const schemaId = useId();
   const { isDark } = useTheme();
 
-  // Inject schema scripts dynamically to avoid SSR issues
-  useEffect(() => {
+  // Inject schema scripts dynamically - 使用 useLayoutEffect 确保预渲染时能捕获
+  useLayoutEffect(() => {
     const schemaScripts: HTMLScriptElement[] = [];
 
     const addSchema = (schema: object, id: string) => {

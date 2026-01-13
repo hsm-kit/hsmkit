@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 interface SEOProps {
   title: string;
@@ -9,9 +9,12 @@ interface SEOProps {
   ogDescription?: string;
 }
 
+// 检测是否在预渲染环境
+const isPrerendering = typeof window !== 'undefined' && (window as any).__PRERENDER_INJECTED?.isPrerendering;
+
 /**
  * SEO Component - Dynamically updates page metadata for search engines
- * Since react-helmet-async doesn't support React 19, we use vanilla DOM manipulation
+ * 支持预渲染：在预渲染时直接操作 DOM，确保 meta 标签被正确捕获
  */
 export const SEO: React.FC<SEOProps> = ({
   title,
@@ -21,8 +24,9 @@ export const SEO: React.FC<SEOProps> = ({
   ogTitle,
   ogDescription,
 }) => {
-  useEffect(() => {
-    // Update document title - ensure title is valid
+  // 使用 useLayoutEffect 确保在渲染前执行（对预渲染更友好）
+  const updateMetaTags = () => {
+    // Update document title
     if (title) {
       document.title = title;
     }
@@ -49,6 +53,10 @@ export const SEO: React.FC<SEOProps> = ({
     updateMeta('og:title', ogTitle || title, true);
     updateMeta('og:description', ogDescription || description, true);
     
+    // Twitter tags
+    updateMeta('twitter:title', ogTitle || title);
+    updateMeta('twitter:description', ogDescription || description);
+    
     // Canonical URL
     if (canonical) {
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
@@ -60,14 +68,21 @@ export const SEO: React.FC<SEOProps> = ({
       link.href = canonical;
     }
 
-    // Cleanup function
-    return () => {
-      // Optionally reset to default title on unmount
-    };
+    // 触发预渲染就绪事件
+    if (isPrerendering) {
+      // 延迟触发，确保所有内容都已渲染
+      setTimeout(() => {
+        document.dispatchEvent(new Event('prerender-ready'));
+      }, 100);
+    }
+  };
+
+  // 在预渲染环境使用 useLayoutEffect，否则使用 useEffect
+  useLayoutEffect(() => {
+    updateMetaTags();
   }, [title, description, keywords, canonical, ogTitle, ogDescription]);
 
   return null;
 };
 
 export default SEO;
-

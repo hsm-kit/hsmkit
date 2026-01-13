@@ -1,0 +1,31 @@
+# Cloudflare Pages 缓存头配置
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# 静态资源 - 长期缓存（1年）
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 主文档 - 短期缓存，支持 stale-while-revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# SEO 文件
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain
+
+# Service Worker - 不缓存
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# 安全头 - 全局
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()

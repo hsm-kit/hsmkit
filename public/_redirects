@@ -1,3 +1,9 @@
-# Netlify SPA routing - redirect all requests to index.html
-/*    /index.html   200
+# Cloudflare Pages SPA 路由配置
+# 预渲染后，每个路由都有对应的 HTML 文件
 
+# 静态资源直接返回（最高优先级）
+/assets/*  /assets/:splat  200
+
+# SPA fallback - 将所有其他请求重定向到 index.html
+# 预渲染后，Cloudflare 会优先返回预渲染的 HTML 文件
+/*         /index.html     200

@@ -1,9 +1,49 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import prerender from '@prerenderer/rollup-plugin'
+import { routes } from './prerender.config'
+import { writeFileSync } from 'fs'
+import { join } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // 预渲染插件 - 仅在构建时运行
+    prerender({
+      routes,
+      renderer: '@prerenderer/renderer-puppeteer',
+      // 指定入口 HTML 文件
+      indexPath: 'index.html',
+      rendererOptions: {
+        // 使用自定义事件来标记页面准备就绪
+        renderAfterDocumentEvent: 'prerender-ready',
+        // 超时时间（毫秒）- 等待懒加载组件
+        timeout: 30000,
+        // 注入 prerender 标志
+        injectProperty: '__PRERENDER_INJECTED',
+        inject: { isPrerendering: true },
+        // Puppeteer 启动参数
+        launchOptions: {
+          headless: true,
+          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        },
+      },
+      // 后处理 - 优化预渲染的 HTML
+      postProcess(renderedRoute) {
+        // 移除预渲染注入的脚本
+        renderedRoute.html = renderedRoute.html
+          .replace(/<script[^>]*>window\.__PRERENDER_INJECTED[^<]*<\/script>/g, '');
+        
+        // 处理根路径 - 直接写入 index.html
+        if (renderedRoute.route === '/') {
+          const outputPath = join(process.cwd(), 'dist', 'index.html');
+          writeFileSync(outputPath, renderedRoute.html);
+          console.log('✅ Created root index.html');
+        }
+      },
+    }),
+  ],
   
   build: {
     // 代码分割配置 - 使用函数形式
