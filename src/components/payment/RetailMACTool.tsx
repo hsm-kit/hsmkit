@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, message, Typography, Divider } from 'antd';
-import { CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -14,7 +14,7 @@ type FinalizeMethod = 'None' | '3DES';
 
 const RetailMACTool: React.FC = () => {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
+  useTheme();
   const [algorithm, setAlgorithm] = useState<Algorithm>('DES');
   const [finalizeMethod, setFinalizeMethod] = useState<FinalizeMethod>('None');
   const [keyK, setKeyK] = useState<string>('');
@@ -319,54 +319,12 @@ const RetailMACTool: React.FC = () => {
 
         {/* Result Display */}
         {result && (
-          <Card 
-            title={
-              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
-                <ThunderboltOutlined />
-                {' '}
-                {t.mac.retail.result}
-              </span>
-            }
-            style={{ 
-              background: isDark 
-                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
-                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
-              border: isDark ? '1px solid #274916' : '2px solid #95de64',
-              boxShadow: isDark 
-                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
-                : '0 4px 16px rgba(82, 196, 26, 0.2)',
-            }}
-            extra={
-              <Button 
-                type={isDark ? 'primary' : 'default'}
-                icon={<CopyOutlined />}
-                onClick={() => handleCopy(result)}
-                size="small"
-                style={{
-                  background: isDark ? '#52c41a' : undefined,
-                  borderColor: '#52c41a',
-                  color: isDark ? '#fff' : '#52c41a',
-                }}
-              >
-                {t.common.copy}
-              </Button>
-            }
-          >
-            <div style={{ 
-              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
-              padding: '16px', 
-              borderRadius: '8px', 
-              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
-              wordBreak: 'break-all',
-              fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-              fontSize: '14px',
-              lineHeight: '1.6',
-              color: isDark ? '#95de64' : '#237804',
-              fontWeight: 600
-            }}>
-              {result}
-            </div>
-          </Card>
+          <ResultCard
+            title={t.mac.retail.result}
+            result={result}
+            onCopy={() => handleCopy(result)}
+            icon={<ThunderboltOutlined />}
+          />
         )}
       </div>
     </div>

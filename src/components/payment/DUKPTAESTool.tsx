@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, message, Tag, Typography, Divider } from 'antd';
-import { LockOutlined, UnlockOutlined, CopyOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, Input, Segmented, message, Typography, Divider } from 'antd';
+import { LockOutlined, UnlockOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -574,38 +574,12 @@ const DUKPTAESTool: React.FC = () => {
       )}
 
       {derivedKey && (
-        <div style={{ 
-          padding: '16px', 
-          background: isDark ? '#162312' : '#f6ffed',
-          border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
-          borderRadius: '6px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>{t.dukptAes?.workingKey || 'Working Key'}:</Text>
-            <Tag color="green">[{derivedKey.length}]</Tag>
-          </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Input
-              value={derivedKey}
-              readOnly
-              style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#52c41a',
-                flex: 1
-              }}
-              size="large"
-            />
-            <Button
-              icon={<CopyOutlined />}
-              onClick={() => handleCopy(derivedKey)}
-              size="large"
-            >
-              {t.common?.copy || 'Copy'}
-            </Button>
-          </div>
-        </div>
+        <ResultCard
+          title={`${t.dukptAes?.workingKey || 'Working Key'}: [${derivedKey.length}]`}
+          result={derivedKey}
+          onCopy={() => handleCopy(derivedKey)}
+          icon={<KeyOutlined />}
+        />
       )}
     </div>
   );
@@ -673,38 +647,12 @@ const DUKPTAESTool: React.FC = () => {
       )}
 
       {pinResult && (
-        <div style={{ 
-          padding: '16px', 
-          background: isDark ? '#162312' : '#f6ffed',
-          border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
-          borderRadius: '6px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>Result:</Text>
-            <Tag color="green">[{pinResult.length}]</Tag>
-          </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Input
-              value={pinResult}
-              readOnly
-              style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#52c41a',
-                flex: 1
-              }}
-              size="large"
-            />
-            <Button
-              icon={<CopyOutlined />}
-              onClick={() => handleCopy(pinResult)}
-              size="large"
-            >
-              {t.common?.copy || 'Copy'}
-            </Button>
-          </div>
-        </div>
+        <ResultCard
+          title={t.common?.result || 'Result'}
+          result={pinResult}
+          onCopy={() => handleCopy(pinResult)}
+          icon={<LockOutlined />}
+        />
       )}
     </div>
   );
@@ -763,38 +711,12 @@ const DUKPTAESTool: React.FC = () => {
       )}
 
       {macResult && (
-        <div style={{ 
-          padding: '16px', 
-          background: isDark ? '#162312' : '#f6ffed',
-          border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
-          borderRadius: '6px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>{t.dukptAes?.mac || 'MAC'}:</Text>
-            <Tag color="green">[{macResult.length}]</Tag>
-          </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Input
-              value={macResult}
-              readOnly
-              style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#52c41a',
-                flex: 1
-              }}
-              size="large"
-            />
-            <Button
-              icon={<CopyOutlined />}
-              onClick={() => handleCopy(macResult)}
-              size="large"
-            >
-              {t.common?.copy || 'Copy'}
-            </Button>
-          </div>
-        </div>
+        <ResultCard
+          title={t.dukptAes?.mac || 'MAC'}
+          result={macResult}
+          onCopy={() => handleCopy(macResult)}
+          icon={<CalculatorOutlined />}
+        />
       )}
     </div>
   );
@@ -876,38 +798,12 @@ const DUKPTAESTool: React.FC = () => {
       )}
 
       {dataResult && (
-        <div style={{ 
-          padding: '16px', 
-          background: isDark ? '#162312' : '#f6ffed',
-          border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
-          borderRadius: '6px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>Result:</Text>
-            <Tag color="green">[{dataResult.length}]</Tag>
-          </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <TextArea
-              value={dataResult}
-              readOnly
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#52c41a',
-                flex: 1
-              }}
-            />
-            <Button
-              icon={<CopyOutlined />}
-              onClick={() => handleCopy(dataResult)}
-              size="large"
-            >
-              {t.common?.copy || 'Copy'}
-            </Button>
-          </div>
-        </div>
+        <ResultCard
+          title={t.common?.result || 'Result'}
+          result={dataResult}
+          onCopy={() => handleCopy(dataResult)}
+          icon={<UnlockOutlined />}
+        />
       )}
     </div>
   );

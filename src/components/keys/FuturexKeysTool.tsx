@@ -548,6 +548,7 @@ const FuturexKeysTool: React.FC = () => {
           {/* Result Display */}
           {resultDetails && (
             <Card 
+              size="small"
               title={
                 <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
                   {lastOperation === 'encrypt' ? <LockOutlined /> : <UnlockOutlined />}
@@ -557,7 +558,6 @@ const FuturexKeysTool: React.FC = () => {
                     : (t.futurexKeys?.decryptResult || 'Key Decryption Result')}
                 </span>
               }
-              
               style={{ 
                 background: isDark 
                   ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'

@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, message, Divider, Tag, Typography
 import { LockOutlined, CopyOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -338,93 +338,32 @@ const AmexCSCTool: React.FC = () => {
       {genResults && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {genVersion === '2' && genResults.csc5 && (
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>CSC-5:</Text>
-                <Tag color="green" style={{ marginLeft: 8 }}>
-                  [5]
-                </Tag>
-              </div>
-              <Input
-                value={genResults.csc5}
-                readOnly
-                size="large"
-                suffix={
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(genResults.csc5!)}
-                  />
-                }
-                style={{
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#52c41a',
-                }}
-              />
-            </div>
+            <ResultCard
+              title="CSC-5: [5]"
+              result={genResults.csc5}
+              onCopy={() => handleCopy(genResults.csc5!)}
+              icon={<LockOutlined />}
+              style={{ marginBottom: 16 }}
+            />
           )}
 
           {genResults.csc4 && (
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>CSC-4:</Text>
-                <Tag color="green" style={{ marginLeft: 8 }}>
-                  [4]
-                </Tag>
-              </div>
-              <Input
-                value={genResults.csc4}
-                readOnly
-                size="large"
-                suffix={
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(genResults.csc4!)}
-                  />
-                }
-                style={{
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#52c41a',
-                }}
-              />
-            </div>
+            <ResultCard
+              title="CSC-4: [4]"
+              result={genResults.csc4}
+              onCopy={() => handleCopy(genResults.csc4!)}
+              icon={<LockOutlined />}
+              style={{ marginBottom: 16 }}
+            />
           )}
 
           {genVersion === '2' && genResults.csc3 && (
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>CSC-3:</Text>
-                <Tag color="green" style={{ marginLeft: 8 }}>
-                  [3]
-                </Tag>
-              </div>
-              <Input
-                value={genResults.csc3}
-                readOnly
-                size="large"
-                suffix={
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(genResults.csc3!)}
-                  />
-                }
-                style={{
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#52c41a',
-                }}
-              />
-            </div>
+            <ResultCard
+              title="CSC-3: [3]"
+              result={genResults.csc3}
+              onCopy={() => handleCopy(genResults.csc3!)}
+              icon={<LockOutlined />}
+            />
           )}
         </div>
       )}

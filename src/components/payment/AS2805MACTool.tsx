@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Select, Input, message, Tag, Typography, Divider } from 'antd';
-import { CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
+import { Card, Button, Select, Input, message, Typography, Divider } from 'antd';
+import { CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -192,16 +192,12 @@ const AS2805MACTool: React.FC = () => {
           )}
 
           {result && (
-            <div style={{ padding: '16px', background: isDark ? '#162312' : '#f6ffed', border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`, borderRadius: '6px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text strong style={{ fontSize: '14px' }}>{t.mac.as2805.result}</Text>
-                <Tag color="green">[{result.length}]</Tag>
-              </div>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <Input value={result} readOnly style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px', fontWeight: 600, color: '#52c41a', flex: 1 }} size="large" />
-                <Button icon={<CopyOutlined />} onClick={() => handleCopy(result)} size="large">{t.common?.copy || t.mac.as2805.copied}</Button>
-              </div>
-            </div>
+            <ResultCard
+              title={t.mac.as2805.result}
+              result={result}
+              onCopy={() => handleCopy(result)}
+              icon={<CalculatorOutlined />}
+            />
           )}
         </div>
       </Card>

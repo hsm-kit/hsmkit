@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, message, Divider, Tag, Typography } from 'antd';
-import { LockOutlined, CopyOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } from 'antd';
+import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -386,31 +386,12 @@ const CVVTool: React.FC = () => {
       )}
 
       {genResult && (
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-            <Text strong>Ver.Val.:</Text>
-            <Tag color="green" style={{ marginLeft: 8 }}>[3]</Tag>
-          </div>
-          <Input
-            value={genResult}
-            readOnly
-            size="large"
-            suffix={
-              <Button
-                type="text"
-                size="small"
-                icon={<CopyOutlined />}
-                onClick={() => handleCopy(genResult)}
-              />
-            }
-            style={{ 
-              fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#52c41a'
-            }}
-          />
-        </div>
+        <ResultCard
+          title={`${t.cvv?.cvvLabel || 'CVV/CVC'}: [3]`}
+          result={genResult}
+          onCopy={() => handleCopy(genResult)}
+          icon={<LockOutlined />}
+        />
       )}
     </div>
   );

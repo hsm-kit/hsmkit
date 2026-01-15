@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, Radio, message, Divider, Typography, Input, InputNumber } from 'antd';
-import { KeyOutlined, CopyOutlined, LockOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { KeyOutlined, LockOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits } from '../../utils/format';
@@ -19,7 +19,7 @@ type ValidationMethod = 'parameters' | 'mask';
 
 const PinOffsetTool: React.FC = () => {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
+  useTheme();
   
   // Common inputs
   const [pdk, setPdk] = useState('');
@@ -462,56 +462,15 @@ const PinOffsetTool: React.FC = () => {
 
           {/* Offset Result */}
           {offsetResult && (
-            <Card 
-              title={
-                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
-                  <LockOutlined /> {t.pinOffset?.offsetResult || 'PIN Offset'}
-                </span>
-              }
-              style={{ 
-                background: isDark 
-                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
-                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
-                border: isDark ? '1px solid #274916' : '2px solid #95de64',
-                marginTop: 8
+            <ResultCard
+              title={t.pinOffset?.offsetResult || 'PIN Offset'}
+              result={offsetResult}
+              onCopy={() => {
+                navigator.clipboard.writeText(offsetResult);
+                message.success(t.common?.copied || 'Copied!');
               }}
-              extra={
-                <Button 
-                  type={isDark ? 'primary' : 'default'}
-                  icon={<CopyOutlined />}
-                  onClick={() => {
-                    navigator.clipboard.writeText(offsetResult);
-                    message.success(t.common?.copied || 'Copied!');
-                  }}
-                  size="small"
-                  style={{
-                    background: isDark ? '#52c41a' : undefined,
-                    borderColor: '#52c41a',
-                    color: isDark ? '#fff' : '#52c41a',
-                  }}
-                >
-                  {t.common?.copy || 'Copy'}
-                </Button>
-              }
-            >
-              <div style={{ 
-                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
-                padding: '16px', 
-                borderRadius: '8px', 
-                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f' 
-              }}>
-                <div style={{
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                  fontSize: 'clamp(20px, 4vw, 28px)',
-                  letterSpacing: '4px',
-                  color: isDark ? '#95de64' : '#237804',
-                  fontWeight: 600,
-                  textAlign: 'center'
-                }}>
-                  {offsetResult}
-                </div>
-              </div>
-            </Card>
+              icon={<LockOutlined />}
+            />
           )}
         </div>
       ),
@@ -701,56 +660,15 @@ const PinOffsetTool: React.FC = () => {
 
           {/* PIN Result */}
           {pinResult && (
-            <Card 
-              title={
-                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
-                  <LockOutlined /> {t.pinOffset?.pinResult || 'Calculated PIN'}
-                </span>
-              }
-              style={{ 
-                background: isDark 
-                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
-                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
-                border: isDark ? '1px solid #274916' : '2px solid #95de64',
-                marginTop: 8
+            <ResultCard
+              title={t.pinOffset?.pinResult || 'Calculated PIN'}
+              result={pinResult}
+              onCopy={() => {
+                navigator.clipboard.writeText(pinResult);
+                message.success(t.common?.copied || 'Copied!');
               }}
-              extra={
-                <Button 
-                  type={isDark ? 'primary' : 'default'}
-                  icon={<CopyOutlined />}
-                  onClick={() => {
-                    navigator.clipboard.writeText(pinResult);
-                    message.success(t.common?.copied || 'Copied!');
-                  }}
-                  size="small"
-                  style={{
-                    background: isDark ? '#52c41a' : undefined,
-                    borderColor: '#52c41a',
-                    color: isDark ? '#fff' : '#52c41a',
-                  }}
-                >
-                  {t.common?.copy || 'Copy'}
-                </Button>
-              }
-            >
-              <div style={{ 
-                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
-                padding: '16px', 
-                borderRadius: '8px', 
-                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f' 
-              }}>
-                <div style={{
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                  fontSize: 'clamp(20px, 4vw, 28px)',
-                  letterSpacing: '4px',
-                  color: isDark ? '#95de64' : '#237804',
-                  fontWeight: 600,
-                  textAlign: 'center'
-                }}>
-                  {pinResult}
-                </div>
-              </div>
-            </Card>
+              icon={<LockOutlined />}
+            />
           )}
         </div>
       ),

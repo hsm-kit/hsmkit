@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, message, Tag, Typography, Divider } from 'antd';
-import { LockOutlined, CopyOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, Input, Segmented, message, Typography, Divider } from 'antd';
+import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -371,40 +371,12 @@ const MastercardCVC3Tool: React.FC = () => {
       )}
 
       {genResult && (
-        <div style={{ 
-          padding: '16px', 
-          background: isDark ? '#162312' : '#f6ffed',
-          border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
-          borderRadius: '6px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <Text strong style={{ fontSize: '14px' }}>
-              {genType === 'dynamic' ? 'dynamic CVC3:' : 'PIN-CVC3:'}
-            </Text>
-            <Tag color="green">[3]</Tag>
-          </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Input
-              value={genResult}
-              readOnly
-              style={{ 
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#52c41a',
-                flex: 1
-              }}
-              size="large"
-            />
-            <Button
-              icon={<CopyOutlined />}
-              onClick={() => handleCopy(genResult)}
-              size="large"
-            >
-              {t.common?.copy || 'Copy'}
-            </Button>
-          </div>
-        </div>
+        <ResultCard
+          title={genType === 'dynamic' ? 'dynamic CVC3' : 'PIN-CVC3'}
+          result={genResult}
+          onCopy={() => handleCopy(genResult)}
+          icon={<CheckCircleOutlined />}
+        />
       )}
     </div>
   );

@@ -4,5 +4,6 @@ export { SEO } from './SEO';
 export { PageLayout } from './PageLayout';
 export { CollapsibleInfo } from './CollapsibleInfo';
 export { default as ErrorBoundary } from './ErrorBoundary';
+export { ResultCard } from './ResultCard';
 
 

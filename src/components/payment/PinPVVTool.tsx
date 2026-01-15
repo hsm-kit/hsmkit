@@ -328,7 +328,7 @@ const PinPVVTool: React.FC = () => {
           </div>
 
           {/* Calculate Button */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>
             <Button
               type="primary"
               onClick={handleCalculatePVV}
@@ -341,86 +341,72 @@ const PinPVVTool: React.FC = () => {
           {/* Result */}
           {pvvResult && (
             <Card
+              size="small"
+              title={
+                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+                  {t.pinPvv?.pvvResult || 'PVV Result'}
+                </span>
+              }
               style={{
                 background: isDark
-                  ? 'linear-gradient(135deg, #1a4d2e 0%, #2d5a3d 100%)'
-                  : 'linear-gradient(135deg, #d4f4dd 0%, #c8e6c9 100%)',
-                border: 'none',
+                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+                border: isDark ? '1px solid #274916' : '2px solid #95de64',
+                boxShadow: isDark
+                  ? '0 4px 16px rgba(82, 196, 26, 0.15)'
+                  : '0 4px 16px rgba(82, 196, 26, 0.2)',
               }}
+              extra={
+                <Button
+                  type={isDark ? 'primary' : 'default'}
+                  icon={<CopyOutlined />}
+                  onClick={() => handleCopy(`PVV: ${pvvResult.pvv}\nEncrypted PAN: ${pvvResult.encryptedPan}\nTSP: ${pvvResult.tsp}`, 'PVV Result')}
+                  size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
+                  {t.common?.copy || 'Copy'}
+                </Button>
+              }
             >
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ fontSize: 16, color: isDark ? '#e6e6e6' : '#1a4d2e' }}>
-                    {t.pinPvv?.pvvResult || 'PVV:'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pvvResult.pvv, 'PVV')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
+              <div style={{
+                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                padding: '16px',
+                borderRadius: '8px',
+                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
+                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+                fontSize: '13px',
+                lineHeight: '2',
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.pvvLabel || 'PVV'}:
+                    </span>
+                    <span style={{ color: '#52c41a', fontWeight: 600 }}>
+                      {pvvResult.pvv}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.encryptedPan || 'Encrypted PAN'}:
+                    </span>
+                    <span style={{ color: '#52c41a', wordBreak: 'break-all' }}>
+                      {formatHexDisplay(pvvResult.encryptedPan, 2)}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.tsp || 'TSP (Transformed Selection)'}:
+                    </span>
+                    <span style={{ color: '#52c41a' }}>
+                      {pvvResult.tsp}
+                    </span>
+                  </div>
                 </div>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#fff' : '#1a4d2e',
-                    fontWeight: 600,
-                  }}
-                >
-                  {pvvResult.pvv}
-                </Text>
-              </div>
-
-              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#3a6e4a' : '#a5d6a7' }} />
-
-              <div style={{ marginBottom: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ color: isDark ? '#b8e6c3' : '#2d5a3d' }}>
-                    {t.pinPvv?.encryptedPan || 'Encrypted PAN:'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pvvResult.encryptedPan, 'Encrypted PAN')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
-                </div>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#d9f2df' : '#1a4d2e',
-                  }}
-                >
-                  {formatHexDisplay(pvvResult.encryptedPan, 2)}
-                </Text>
-              </div>
-
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ color: isDark ? '#b8e6c3' : '#2d5a3d' }}>
-                    {t.pinPvv?.tsp || 'TSP (Transformed Selection):'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pvvResult.tsp, 'TSP')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
-                </div>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#d9f2df' : '#1a4d2e',
-                  }}
-                >
-                  {pvvResult.tsp}
-                </Text>
               </div>
             </Card>
           )}
@@ -506,7 +492,7 @@ const PinPVVTool: React.FC = () => {
           </div>
 
           {/* Calculate Button */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>
             <Button
               type="primary"
               onClick={handleCalculatePIN}
@@ -519,86 +505,72 @@ const PinPVVTool: React.FC = () => {
           {/* Result */}
           {pinResult && (
             <Card
+              size="small"
+              title={
+                <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
+                  {t.pinPvv?.pinResult || 'PIN Result'}
+                </span>
+              }
               style={{
                 background: isDark
-                  ? 'linear-gradient(135deg, #1a4d2e 0%, #2d5a3d 100%)'
-                  : 'linear-gradient(135deg, #d4f4dd 0%, #c8e6c9 100%)',
-                border: 'none',
+                  ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
+                  : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
+                border: isDark ? '1px solid #274916' : '2px solid #95de64',
+                boxShadow: isDark
+                  ? '0 4px 16px rgba(82, 196, 26, 0.15)'
+                  : '0 4px 16px rgba(82, 196, 26, 0.2)',
               }}
+              extra={
+                <Button
+                  type={isDark ? 'primary' : 'default'}
+                  icon={<CopyOutlined />}
+                  onClick={() => handleCopy(`PIN: ${pinResult.pin}\nEncrypted PAN: ${pinResult.encryptedPan}\nTSP: ${pinResult.tsp}`, 'PIN Result')}
+                  size="small"
+                  style={{
+                    background: isDark ? '#52c41a' : undefined,
+                    borderColor: '#52c41a',
+                    color: isDark ? '#fff' : '#52c41a',
+                  }}
+                >
+                  {t.common?.copy || 'Copy'}
+                </Button>
+              }
             >
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ fontSize: 16, color: isDark ? '#e6e6e6' : '#1a4d2e' }}>
-                    {t.pinPvv?.pinResult || 'PIN:'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pinResult.pin, 'PIN')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
+              <div style={{
+                background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+                padding: '16px',
+                borderRadius: '8px',
+                border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
+                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+                fontSize: '13px',
+                lineHeight: '2',
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.pin || 'PIN'}:
+                    </span>
+                    <span style={{ color: '#52c41a', fontWeight: 600 }}>
+                      {pinResult.pin}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.encryptedPan || 'Encrypted PAN'}:
+                    </span>
+                    <span style={{ color: '#52c41a', wordBreak: 'break-all' }}>
+                      {formatHexDisplay(pinResult.encryptedPan, 2)}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ color: isDark ? '#8c8c8c' : '#595959', minWidth: 180 }}>
+                      {t.pinPvv?.tsp || 'TSP (Transformed Selection)'}:
+                    </span>
+                    <span style={{ color: '#52c41a' }}>
+                      {pinResult.tsp}
+                    </span>
+                  </div>
                 </div>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#fff' : '#1a4d2e',
-                    fontWeight: 600,
-                  }}
-                >
-                  {pinResult.pin}
-                </Text>
-              </div>
-
-              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#3a6e4a' : '#a5d6a7' }} />
-
-              <div style={{ marginBottom: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ color: isDark ? '#b8e6c3' : '#2d5a3d' }}>
-                    {t.pinPvv?.encryptedPan || 'Encrypted PAN:'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pinResult.encryptedPan, 'Encrypted PAN')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
-                </div>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#d9f2df' : '#1a4d2e',
-                  }}
-                >
-                  {formatHexDisplay(pinResult.encryptedPan, 2)}
-                </Text>
-              </div>
-
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong style={{ color: isDark ? '#b8e6c3' : '#2d5a3d' }}>
-                    {t.pinPvv?.tsp || 'TSP (Transformed Selection):'}
-                  </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleCopy(pinResult.tsp, 'TSP')}
-                    style={{ color: isDark ? '#52c41a' : '#2d5a3d' }}
-                  />
-                </div>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'Monaco, Consolas, monospace',
-                    color: isDark ? '#d9f2df' : '#1a4d2e',
-                  }}
-                >
-                  {pinResult.tsp}
-                </Text>
               </div>
             </Card>
           )}

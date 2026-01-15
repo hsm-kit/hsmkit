@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, message, Divider, Typography } from 'antd';
 import { LockOutlined, UnlockOutlined, CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
 import { useLanguage } from '../../hooks/useLanguage';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import CryptoJS from 'crypto-js';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
 
@@ -354,45 +354,25 @@ const ZKATool: React.FC = () => {
               />
             </div>
 
-            <Button
-              type="primary"
-              icon={<LockOutlined />}
-              onClick={handleDeriveSK}
-              disabled={!mk || !cm || !rnd}
-              style={{ alignSelf: 'flex-start' }}
-            >
-              {t.mac?.zka?.deriveSK || 'Derive SK'}
-            </Button>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>
+              <Button
+                type="primary"
+                icon={<LockOutlined />}
+                onClick={handleDeriveSK}
+                disabled={!mk || !cm || !rnd}
+                size="large"
+              >
+                {t.mac?.zka?.deriveSK || 'Derive SK'}
+              </Button>
+            </div>
 
             {derivedSK && (
-              <div
-                style={{
-                  padding: 16,
-                  backgroundColor: isDark ? '#1f1f1f' : '#f5f5f5',
-                  borderRadius: 8,
-                  marginTop: 8,
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>{t.mac?.zka?.derivedSessionKey || 'Derived Session Key:'}</Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(derivedSK, 'sessionKey')}
-                  />
-                </div>
-                <Text
-                  code
-                  style={{
-                    fontSize: 13,
-                    wordBreak: 'break-all',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                  }}
-                >
-                  {derivedSK}
-                </Text>
-              </div>
+              <ResultCard
+                title={t.mac?.zka?.derivedSessionKey || 'Derived Session Key'}
+                result={derivedSK}
+                onCopy={() => copyToClipboard(derivedSK, 'sessionKey')}
+                icon={<LockOutlined />}
+              />
             )}
           </div>
         </Tabs.TabPane>
@@ -440,8 +420,9 @@ const ZKATool: React.FC = () => {
               />
             </div>
 
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>
               <Button
+                size="large"
                 type="primary"
                 icon={<LockOutlined />}
                 onClick={handleEncryptPIN}
@@ -450,6 +431,7 @@ const ZKATool: React.FC = () => {
                 {t.mac?.zka?.encrypt || 'Encrypt'}
               </Button>
               <Button
+                size="large"
                 icon={<UnlockOutlined />}
                 onClick={handleDecryptPIN}
                 disabled={!skPac || !pinBlock}
@@ -459,34 +441,12 @@ const ZKATool: React.FC = () => {
             </div>
 
             {pinResult && (
-              <div
-                style={{
-                  padding: 16,
-                  backgroundColor: isDark ? '#1f1f1f' : '#f5f5f5',
-                  borderRadius: 8,
-                  marginTop: 8,
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>{t.mac?.zka?.result || 'Result:'}</Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(pinResult, 'result')}
-                  />
-                </div>
-                <Text
-                  code
-                  style={{
-                    fontSize: 13,
-                    wordBreak: 'break-all',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                  }}
-                >
-                  {pinResult}
-                </Text>
-              </div>
+              <ResultCard
+                title={t.mac?.zka?.result || 'Result'}
+                result={pinResult}
+                onCopy={() => copyToClipboard(pinResult, 'result')}
+                icon={<LockOutlined />}
+              />
             )}
           </div>
         </Tabs.TabPane>
@@ -533,45 +493,25 @@ const ZKATool: React.FC = () => {
               </Text>
             </div>
 
-            <Button
-              type="primary"
-              icon={<CalculatorOutlined />}
-              onClick={handleCalculateMAC}
-              disabled={!macKey || !macData}
-              style={{ alignSelf: 'flex-start' }}
-            >
-              {t.mac?.zka?.calculateMAC || 'Calculate MAC'}
-            </Button>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>
+              <Button
+                size="large"
+                type="primary"
+                icon={<CalculatorOutlined />}
+                onClick={handleCalculateMAC}
+                disabled={!macKey || !macData}
+              >
+                {t.mac?.zka?.calculateMAC || 'Calculate MAC'}
+              </Button>
+            </div>
 
             {macResult && (
-              <div
-                style={{
-                  padding: 16,
-                  backgroundColor: isDark ? '#1f1f1f' : '#f5f5f5',
-                  borderRadius: 8,
-                  marginTop: 8,
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>{t.mac?.zka?.macResult || 'MAC Result:'}</Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<CopyOutlined />}
-                    onClick={() => copyToClipboard(macResult, 'mac')}
-                  />
-                </div>
-                <Text
-                  code
-                  style={{
-                    fontSize: 13,
-                    wordBreak: 'break-all',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                  }}
-                >
-                  {macResult}
-                </Text>
-              </div>
+              <ResultCard
+                title={t.mac?.zka?.macResult || 'MAC Result'}
+                result={macResult}
+                onCopy={() => copyToClipboard(macResult, 'mac')}
+                icon={<CalculatorOutlined />}
+              />
             )}
           </div>
         </Tabs.TabPane>

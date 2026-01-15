@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
-import { LockOutlined, CopyOutlined, KeyOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
+import { LockOutlined, KeyOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ResultCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
@@ -19,7 +19,7 @@ type OperationMode = 'encrypt' | 'decrypt';
 
 const PinBlockAESTool: React.FC = () => {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
+  useTheme();
   
   const [mode, setMode] = useState<OperationMode>('encrypt');
   const [aesKey, setAesKey] = useState('');
@@ -27,8 +27,8 @@ const PinBlockAESTool: React.FC = () => {
   const [pin, setPin] = useState('');
   const [encryptedBlock, setEncryptedBlock] = useState('');
   const [result, setResult] = useState('');
-  const [pinBlock, setPinBlock] = useState('');
-  const [panBlock, setPanBlock] = useState('');
+  const [, setPinBlock] = useState('');
+  const [, setPanBlock] = useState('');
   const [error, setError] = useState('');
 
   const lengthIndicator = (current: number, expected: number) => (
@@ -324,118 +324,15 @@ const PinBlockAESTool: React.FC = () => {
 
         {/* Result Display */}
         {result && (
-          <Card 
-            title={
-              <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
-                <LockOutlined /> {t.common?.result || 'Result'}
-              </span>
-            }
-            style={{ 
-              background: isDark 
-                ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
-                : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
-              border: isDark ? '1px solid #274916' : '2px solid #95de64',
-              boxShadow: isDark 
-                ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
-                : '0 4px 16px rgba(82, 196, 26, 0.2)',
+          <ResultCard
+            title={t.common?.result || 'Result'}
+            result={mode === 'encrypt' ? formatHexDisplay(result) : result}
+            onCopy={() => {
+              navigator.clipboard.writeText(result);
+              message.success(t.common?.copied || 'Copied!');
             }}
-            extra={
-              <Button 
-                type={isDark ? 'primary' : 'default'}
-                icon={<CopyOutlined />}
-                onClick={() => {
-                  navigator.clipboard.writeText(result);
-                  message.success(t.common?.copied || 'Copied!');
-                }}
-                size="small"
-                style={{
-                  background: isDark ? '#52c41a' : undefined,
-                  borderColor: '#52c41a',
-                  color: isDark ? '#fff' : '#52c41a',
-                }}
-              >
-                {t.common?.copy || 'Copy'}
-              </Button>
-            }
-          >
-            <div style={{ 
-              background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)', 
-              padding: '16px', 
-              borderRadius: '8px', 
-              border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f' 
-            }}>
-              <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
-                {mode === 'encrypt' 
-                  ? (t.pinBlockAes?.resultEncrypted || 'Encrypted PIN Block')
-                  : (t.pinBlockAes?.resultDecrypted || 'Decrypted PIN')
-                }
-              </Text>
-              <div style={{
-                fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                fontSize: 'clamp(18px, 4vw, 24px)',
-                letterSpacing: '2px',
-                color: isDark ? '#95de64' : '#237804',
-                marginTop: '8px',
-                wordBreak: 'break-all',
-                lineHeight: '1.6',
-                fontWeight: 600
-              }}>
-                {mode === 'encrypt' ? formatHexDisplay(result) : result}
-              </div>
-              
-              <Divider style={{ margin: '16px 0', borderColor: isDark ? '#3c5a24' : undefined }} />
-              
-              {/* Show intermediate blocks */}
-              {pinBlock && (
-                <div style={{ marginBottom: 12 }}>
-                  <Text type="secondary" style={{ fontSize: '11px', display: 'block', marginBottom: 4 }}>
-                    {mode === 'encrypt' 
-                      ? (t.pinBlockAes?.clearPinBlock || 'Clear PIN Block (before encryption):')
-                      : (t.pinBlockAes?.clearPinBlock || 'Clear PIN Block (after decryption):')
-                    }
-                  </Text>
-                  <Text 
-                    style={{ 
-                      fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                      fontSize: '13px',
-                      color: isDark ? '#8c8c8c' : '#595959'
-                    }}
-                  >
-                    {formatHexDisplay(pinBlock)}
-                  </Text>
-                </div>
-              )}
-              
-              {panBlock && (
-                <div style={{ marginBottom: 12 }}>
-                  <Text type="secondary" style={{ fontSize: '11px', display: 'block', marginBottom: 4 }}>
-                    {t.pinBlockAes?.panBlockUsed || 'PAN Block (used in XOR):'}
-                  </Text>
-                  <Text 
-                    style={{ 
-                      fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                      fontSize: '13px',
-                      color: isDark ? '#8c8c8c' : '#595959'
-                    }}
-                  >
-                    {formatHexDisplay(panBlock)}
-                  </Text>
-                </div>
-              )}
-              
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                <Tag color="blue">{t.pinBlockAes?.format || 'Format'}: Format 4 (AES)</Tag>
-                <Tag color="purple">
-                  {t.pinBlockAes?.algorithm || 'Algorithm'}: AES-128 ECB
-                </Tag>
-                {mode === 'encrypt' && (
-                  <Tag color="green">
-                    {t.pinBlockAes?.pinLength || 'PIN Length'}: {pin.length}
-                  </Tag>
-                )}
-              </div>
-            </div>
-          </Card>
+            icon={<LockOutlined />}
+          />
         )}
       </div>
     </div>
