@@ -68,22 +68,48 @@ export interface PageSEO {
   sslCert: SEOContent;
 }
 
-// Import SEO content from language files
+// Import only English (default) and build seoContent dynamically from translations cache
 import en from './en';
-import zh from './zh';
-import ja from './ja';
-import ko from './ko';
-import de from './de';
-import fr from './fr';
+import { getCachedTranslations, type Language } from './index';
 
-// Build seoContent from language files
-const seoContent: Record<string, Partial<PageSEO>> = {
-  en: en.seo as unknown as Partial<PageSEO>,
-  zh: zh.seo as unknown as Partial<PageSEO>,
-  ja: ja.seo as unknown as Partial<PageSEO>,
-  ko: ko.seo as unknown as Partial<PageSEO>,
-  de: de.seo as unknown as Partial<PageSEO>,
-  fr: fr.seo as unknown as Partial<PageSEO>,
+// Build seoContent dynamically - only return languages that are already loaded
+const buildSeoContent = (): Record<string, Partial<PageSEO>> => {
+  const result: Record<string, Partial<PageSEO>> = {
+    en: en.seo as unknown as Partial<PageSEO>,
+  };
+  
+  // Add other languages only if they're already cached (loaded)
+  const langs: Language[] = ['zh', 'ja', 'ko', 'de', 'fr'];
+  for (const lang of langs) {
+    const cached = getCachedTranslations(lang);
+    if (cached?.seo) {
+      result[lang] = cached.seo as unknown as Partial<PageSEO>;
+    }
+  }
+  
+  return result;
 };
+
+// Use Proxy to build seoContent lazily and keep it updated as languages load
+const seoContent = new Proxy({} as Record<string, Partial<PageSEO>>, {
+  get(_target, prop: string) {
+    // Rebuild on each access to pick up newly loaded languages
+    const current = buildSeoContent();
+    return current[prop];
+  },
+  ownKeys() {
+    return Object.keys(buildSeoContent());
+  },
+  getOwnPropertyDescriptor(_target, prop) {
+    const current = buildSeoContent();
+    if (prop in current) {
+      return {
+        enumerable: true,
+        configurable: true,
+      };
+    }
+    return undefined;
+  },
+});
 
 export default seoContent;

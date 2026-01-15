@@ -16,9 +16,9 @@ import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
+import HomePage from './pages/home/HomePage';
 
-// 🚀 路由懒加载 - 只有访问时才加载对应页面
-const HomePage = lazy(() => import('./pages/home/HomePage'));
+// 🚀 路由懒加载 - 只有访问时才加载对应页面（首页除外：首页是最常访问页面，同步加载避免闪烁）
 const ASN1Page = lazy(() => import('./pages/pki/ASN1Page'));
 const SSLCertificatesPage = lazy(() => import('./pages/pki/SSLCertificatesPage'));
 

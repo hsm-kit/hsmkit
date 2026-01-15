@@ -29,7 +29,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     return saved || defaultLanguage;
   });
 
-  const [t, setT] = useState<Translations>(() => getCachedTranslations(defaultLanguage)!);
+  // 初始化时直接用用户选择的语言（如果已缓存），避免先显示英文再切换
+  const [t, setT] = useState<Translations>(() => {
+    const userLang = localStorage.getItem('language') as Language;
+    const cached = getCachedTranslations(userLang || defaultLanguage);
+    return cached || getCachedTranslations(defaultLanguage)!;
+  });
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
