@@ -101,16 +101,18 @@ export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
       overlayStyle={{
         maxWidth: 360,
       }}
-      overlayInnerStyle={{
-        padding: '14px 18px',
-        fontSize: 13,
-        lineHeight: 1.6,
-        background: isDark ? '#1F2937' : '#FFFFFF',
-        border: isDark ? '1px solid #374151' : '1px solid #E5E7EB',
-        borderRadius: 10,
-        boxShadow: isDark 
-          ? '0 10px 40px rgba(0,0,0,0.5)' 
-          : '0 10px 40px rgba(0,0,0,0.08)',
+      styles={{
+        overlay: {
+          padding: '14px 18px',
+          fontSize: 13,
+          lineHeight: 1.6,
+          background: isDark ? '#1F2937' : '#FFFFFF',
+          border: isDark ? '1px solid #374151' : '1px solid #E5E7EB',
+          borderRadius: 10,
+          boxShadow: isDark 
+            ? '0 10px 40px rgba(0,0,0,0.5)' 
+            : '0 10px 40px rgba(0,0,0,0.08)',
+        }
       }}
     >
       <InfoCircleOutlined

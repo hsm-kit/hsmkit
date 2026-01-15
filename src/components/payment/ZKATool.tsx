@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, Input, message, Divider, Typography } from 'antd';
-import { LockOutlined, UnlockOutlined, CalculatorOutlined, CopyOutlined } from '@ant-design/icons';
+import { LockOutlined, UnlockOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
 import { useLanguage } from '../../hooks/useLanguage';
 import { CollapsibleInfo, ResultCard } from '../common';
@@ -290,9 +290,14 @@ const ZKATool: React.FC = () => {
 
       <Divider style={{ margin: '16px 0' }} />
 
-      <Tabs defaultActiveKey="1" size={isMobile ? 'small' : 'middle'}>
-        {/* Tab 1: SK Derivation */}
-        <Tabs.TabPane tab={t.mac?.zka?.tabSKDerivation || 'SK derivation'} key="1">
+      <Tabs 
+        defaultActiveKey="1" 
+        size={isMobile ? 'small' : 'middle'}
+        items={[
+          {
+            key: '1',
+            label: t.mac?.zka?.tabSKDerivation || 'SK derivation',
+            children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
@@ -375,10 +380,12 @@ const ZKATool: React.FC = () => {
               />
             )}
           </div>
-        </Tabs.TabPane>
-
-        {/* Tab 2: PIN */}
-        <Tabs.TabPane tab={t.mac?.zka?.tabPIN || 'PIN'} key="2">
+            ),
+          },
+          {
+            key: '2',
+            label: t.mac?.zka?.tabPIN || 'PIN',
+            children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
@@ -449,10 +456,12 @@ const ZKATool: React.FC = () => {
               />
             )}
           </div>
-        </Tabs.TabPane>
-
-        {/* Tab 3: MAC */}
-        <Tabs.TabPane tab={t.mac?.zka?.tabMAC || 'MAC'} key="3">
+            ),
+          },
+          {
+            key: '3',
+            label: t.mac?.zka?.tabMAC || 'MAC',
+            children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
@@ -514,8 +523,10 @@ const ZKATool: React.FC = () => {
               />
             )}
           </div>
-        </Tabs.TabPane>
-      </Tabs>
+            ),
+          },
+        ]}
+      />
     </Card>
   );
 };
