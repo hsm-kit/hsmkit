@@ -475,8 +475,8 @@ const DUKPTTool: React.FC = () => {
       {derivError && (
         <div style={{ 
           padding: '12px 16px', 
-          background: isDark ? '#2a1215' : '#fff2f0',
-          border: `1px solid ${isDark ? '#58181c' : '#ffccc7'}`,
+          background: '#fff2f0',
+          border: '1px solid #ffccc7',
           borderRadius: '6px'
         }}>
           <Text type="danger" style={{ fontSize: '13px' }}>{derivError}</Text>
@@ -548,8 +548,8 @@ const DUKPTTool: React.FC = () => {
       {pinError && (
         <div style={{ 
           padding: '12px 16px', 
-          background: isDark ? '#2a1215' : '#fff2f0',
-          border: `1px solid ${isDark ? '#58181c' : '#ffccc7'}`,
+          background: '#fff2f0',
+          border: '1px solid #ffccc7',
           borderRadius: '6px'
         }}>
           <Text type="danger" style={{ fontSize: '13px' }}>{pinError}</Text>
@@ -630,8 +630,8 @@ const DUKPTTool: React.FC = () => {
       {macError && (
         <div style={{ 
           padding: '12px 16px', 
-          background: isDark ? '#2a1215' : '#fff2f0',
-          border: `1px solid ${isDark ? '#58181c' : '#ffccc7'}`,
+          background: '#fff2f0',
+          border: '1px solid #ffccc7',
           borderRadius: '6px'
         }}>
           <Text type="danger" style={{ fontSize: '13px' }}>{macError}</Text>
@@ -729,8 +729,8 @@ const DUKPTTool: React.FC = () => {
       {dataError && (
         <div style={{ 
           padding: '12px 16px', 
-          background: isDark ? '#2a1215' : '#fff2f0',
-          border: `1px solid ${isDark ? '#58181c' : '#ffccc7'}`,
+          background: '#fff2f0',
+          border: '1px solid #ffccc7',
           borderRadius: '6px'
         }}>
           <Text type="danger" style={{ fontSize: '13px' }}>{dataError}</Text>

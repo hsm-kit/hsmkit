@@ -141,6 +141,7 @@ export default {
     pdkLabel: 'PDK',
     panLabel: 'PAN',
     pinLabel: 'PIN',
+    pin: 'PIN',
     pvvLabel: 'PVV',
     pvkiLabel: 'PVKI',
     pdkHint: '32 个十六进制字符（16 字节）- PIN 派生密钥',

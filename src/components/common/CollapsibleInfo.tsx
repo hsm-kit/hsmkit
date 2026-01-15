@@ -102,7 +102,7 @@ export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
         maxWidth: 360,
       }}
       styles={{
-        overlay: {
+        content: {
           padding: '14px 18px',
           fontSize: 13,
           lineHeight: 1.6,

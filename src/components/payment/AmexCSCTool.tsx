@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Button, Tabs, Input, Segmented, message, Divider, Tag, Typography } from 'antd';
-import { LockOutlined, CopyOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } from 'antd';
+import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { CollapsibleInfo, ResultCard } from '../common';

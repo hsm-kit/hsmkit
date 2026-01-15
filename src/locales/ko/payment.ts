@@ -141,6 +141,7 @@ export default {
     pdkLabel: 'PDK',
     panLabel: 'PAN',
     pinLabel: 'PIN',
+    pin: 'PIN',
     pvvLabel: 'PVV',
     pvkiLabel: 'PVKI',
     pdkHint: '32 hex 문자 (16바이트) - PIN 유도 키',
