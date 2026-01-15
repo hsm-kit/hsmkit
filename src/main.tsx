@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
@@ -7,7 +7,9 @@ import { LanguageProvider } from './hooks/useLanguage'
 import { ThemeProvider } from './hooks/useTheme'
 import { ErrorBoundary } from './components/common'
 
-createRoot(document.getElementById('root')!).render(
+const rootEl = document.getElementById('root')!;
+
+const app = (
   <StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
@@ -18,5 +20,12 @@ createRoot(document.getElementById('root')!).render(
         </LanguageProvider>
       </BrowserRouter>
     </ErrorBoundary>
-  </StrictMode>,
-)
+  </StrictMode>
+);
+
+// If prerendered HTML exists, hydrate instead of replacing DOM to avoid a visible "jump".
+if (rootEl.hasChildNodes()) {
+  hydrateRoot(rootEl, app);
+} else {
+  createRoot(rootEl).render(app);
+}

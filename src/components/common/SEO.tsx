@@ -9,8 +9,9 @@ interface SEOProps {
   ogDescription?: string;
 }
 
-// 检测是否在预渲染环境
-const isPrerendering = typeof window !== 'undefined' && (window as any).__PRERENDER_INJECTED?.isPrerendering;
+// 检测是否在预渲染环境（必须在运行时读取：注入标记可能在模块执行后才出现）
+const getIsPrerendering = () =>
+  typeof window !== 'undefined' && (window as any).__PRERENDER_INJECTED?.isPrerendering;
 
 /**
  * SEO Component - Dynamically updates page metadata for search engines
@@ -69,7 +70,7 @@ export const SEO: React.FC<SEOProps> = ({
     }
 
     // 触发预渲染就绪事件
-    if (isPrerendering) {
+    if (getIsPrerendering()) {
       // 延迟触发，确保所有内容都已渲染
       setTimeout(() => {
         document.dispatchEvent(new Event('prerender-ready'));
