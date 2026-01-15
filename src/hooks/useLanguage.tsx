@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { Language, Translations } from '../locales';
-import { translations, defaultLanguage } from '../locales';
+import { defaultLanguage, getCachedTranslations, loadTranslations } from '../locales';
 
 interface LanguageContextType {
   language: Language;
@@ -29,6 +29,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     return saved || defaultLanguage;
   });
 
+  const [t, setT] = useState<Translations>(() => getCachedTranslations(defaultLanguage)!);
+
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
@@ -41,8 +43,30 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = langMap[language];
   }, [language]);
 
-  // 使用 useMemo 缓存翻译对象，避免不必要的重渲染
-  const t = useMemo(() => translations[language], [language]);
+  // 按需加载语言包：避免将所有语言一次性打进首屏 bundle
+  useEffect(() => {
+    let cancelled = false;
+
+    const cached = getCachedTranslations(language);
+    if (cached) {
+      setT(cached);
+      return;
+    }
+
+    void loadTranslations(language)
+      .then((loaded) => {
+        if (!cancelled) setT(loaded);
+      })
+      .catch(() => {
+        // 动态加载失败时回退到默认语言
+        const fallback = getCachedTranslations(defaultLanguage);
+        if (!cancelled && fallback) setT(fallback);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [language]);
 
   const value: LanguageContextType = useMemo(() => ({
     language,
