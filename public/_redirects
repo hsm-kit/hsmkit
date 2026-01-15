@@ -3,7 +3,3 @@
 
 # 静态资源直接返回（最高优先级）
 /assets/*  /assets/:splat  200
-
-# SPA fallback - 将所有其他请求重定向到 index.html
-# 预渲染后，Cloudflare 会优先返回预渲染的 HTML 文件
-/*         /index.html     200
