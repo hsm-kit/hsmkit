@@ -1,5 +1,5 @@
-import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react';
-import { Layout, Menu, Typography, Button, Drawer, Tooltip, Spin } from 'antd';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Layout, Menu, Typography, Button, Drawer, Tooltip } from 'antd';
 import { 
   KeyOutlined, 
   MenuOutlined,
@@ -8,7 +8,6 @@ import {
   ToolOutlined,
   SunOutlined,
   MoonOutlined,
-  LoadingOutlined,
   SafetyCertificateOutlined,
   CreditCardOutlined
 } from '@ant-design/icons';
@@ -16,90 +15,78 @@ import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
-import HomePage from './pages/home/HomePage';
 
-// 🚀 路由懒加载 - 只有访问时才加载对应页面（首页除外：首页是最常访问页面，同步加载避免闪烁）
-const ASN1Page = lazy(() => import('./pages/pki/ASN1Page'));
-const SSLCertificatesPage = lazy(() => import('./pages/pki/SSLCertificatesPage'));
+// 同步导入所有页面 - 工具网站用户经常连续使用多个工具，预加载所有页面可以实现瞬间切换，体验更流畅
+// PKI Tools
+import HomePage from './pages/home/HomePage';
+import ASN1Page from './pages/pki/ASN1Page';
+import SSLCertificatesPage from './pages/pki/SSLCertificatesPage';
 
 // Cipher Tools
-const AESPage = lazy(() => import('./pages/cipher/AESPage'));
-const DESPage = lazy(() => import('./pages/cipher/DESPage'));
-const RSAPage = lazy(() => import('./pages/cipher/RSAPage'));
-const ECCPage = lazy(() => import('./pages/cipher/ECCPage'));
-const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
+import AESPage from './pages/cipher/AESPage';
+import DESPage from './pages/cipher/DESPage';
+import RSAPage from './pages/cipher/RSAPage';
+import ECCPage from './pages/cipher/ECCPage';
+import FPEPage from './pages/cipher/FPEPage';
 
 // Key Management
-const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
-const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
-const KeysharePage = lazy(() => import('./pages/keys/KeysharePage'));
-const FuturexKeysPage = lazy(() => import('./pages/keys/FuturexKeysPage'));
-const AtallaKeysPage = lazy(() => import('./pages/keys/AtallaKeysPage'));
-const SafeNetKeysPage = lazy(() => import('./pages/keys/SafeNetKeysPage'));
-const ThalesKeysPage = lazy(() => import('./pages/keys/ThalesKeysPage'));
-const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'));
+import KeyGeneratorPage from './pages/keys/KeyGeneratorPage';
+import TR31Page from './pages/keys/TR31Page';
+import KeysharePage from './pages/keys/KeysharePage';
+import FuturexKeysPage from './pages/keys/FuturexKeysPage';
+import AtallaKeysPage from './pages/keys/AtallaKeysPage';
+import SafeNetKeysPage from './pages/keys/SafeNetKeysPage';
+import ThalesKeysPage from './pages/keys/ThalesKeysPage';
+import ThalesKeyBlockPage from './pages/keys/ThalesKeyBlockPage';
 
 // Payment
-const AS2805Page = lazy(() => import('./pages/payment/AS2805Page'));
-const BitmapPage = lazy(() => import('./pages/payment/BitmapPage'));
-const CVVPage = lazy(() => import('./pages/payment/CVVPage'));
-const AmexCSCPage = lazy(() => import('./pages/payment/AmexCSCPage'));
-const MastercardCVC3Page = lazy(() => import('./pages/payment/MastercardCVC3Page'));
-const DUKPTPage = lazy(() => import('./pages/payment/DUKPTPage'));
-const DUKPTAESPage = lazy(() => import('./pages/payment/DUKPTAESPage'));
+import AS2805Page from './pages/payment/AS2805Page';
+import BitmapPage from './pages/payment/BitmapPage';
+import CVVPage from './pages/payment/CVVPage';
+import AmexCSCPage from './pages/payment/AmexCSCPage';
+import MastercardCVC3Page from './pages/payment/MastercardCVC3Page';
+import DUKPTPage from './pages/payment/DUKPTPage';
+import DUKPTAESPage from './pages/payment/DUKPTAESPage';
 
 // MAC Tools
-const ISO9797Page = lazy(() => import('./pages/payment/ISO9797Page'));
-const ANSIMACPage = lazy(() => import('./pages/payment/ANSIMACPage'));
-const AS2805MACPage = lazy(() => import('./pages/payment/AS2805MACPage'));
-const TDESCBCMACPage = lazy(() => import('./pages/payment/TDESCBCMACPage'));
-const HMACPage = lazy(() => import('./pages/payment/HMACPage'));
-const CMACPage = lazy(() => import('./pages/payment/CMACPage'));
-const RetailMACPage = lazy(() => import('./pages/payment/RetailMACPage'));
+import ISO9797Page from './pages/payment/ISO9797Page';
+import ANSIMACPage from './pages/payment/ANSIMACPage';
+import AS2805MACPage from './pages/payment/AS2805MACPage';
+import TDESCBCMACPage from './pages/payment/TDESCBCMACPage';
+import HMACPage from './pages/payment/HMACPage';
+import CMACPage from './pages/payment/CMACPage';
+import RetailMACPage from './pages/payment/RetailMACPage';
 
 // PIN Block Tools
-const PinBlockGeneralPage = lazy(() => import('./pages/payment/PinBlockGeneralPage'));
-const PinBlockAESPage = lazy(() => import('./pages/payment/PinBlockAESPage'));
-const PinOffsetPage = lazy(() => import('./pages/payment/PinOffsetPage'));
-const PinPVVPage = lazy(() => import('./pages/payment/PinPVVPage'));
+import PinBlockGeneralPage from './pages/payment/PinBlockGeneralPage';
+import PinBlockAESPage from './pages/payment/PinBlockAESPage';
+import PinOffsetPage from './pages/payment/PinOffsetPage';
+import PinPVVPage from './pages/payment/PinPVVPage';
 
 // VISA Tools
-const VISACertificatesPage = lazy(() => import('./pages/payment/VISACertificatesPage'));
+import VISACertificatesPage from './pages/payment/VISACertificatesPage';
 
 // ZKA Tools
-const ZKAPage = lazy(() => import('./pages/payment/ZKAPage'));
+import ZKAPage from './pages/payment/ZKAPage';
 
 // Generic Tools
-const HashPage = lazy(() => import('./pages/generic/HashPage'));
-const CharacterEncodingPage = lazy(() => import('./pages/generic/CharacterEncodingPage'));
-const BCDPage = lazy(() => import('./pages/generic/BCDPage'));
-const CheckDigitsPage = lazy(() => import('./pages/generic/CheckDigitsPage'));
-const Base64Page = lazy(() => import('./pages/generic/Base64Page'));
-const Base94Page = lazy(() => import('./pages/generic/Base94Page'));
-const MessageParserPage = lazy(() => import('./pages/generic/MessageParserPage'));
-const RSADerPublicKeyPage = lazy(() => import('./pages/generic/RSADerPublicKeyPage'));
-const UUIDPage = lazy(() => import('./pages/generic/UUIDPage'));
+import HashPage from './pages/generic/HashPage';
+import CharacterEncodingPage from './pages/generic/CharacterEncodingPage';
+import BCDPage from './pages/generic/BCDPage';
+import CheckDigitsPage from './pages/generic/CheckDigitsPage';
+import Base64Page from './pages/generic/Base64Page';
+import Base94Page from './pages/generic/Base94Page';
+import MessageParserPage from './pages/generic/MessageParserPage';
+import RSADerPublicKeyPage from './pages/generic/RSADerPublicKeyPage';
+import UUIDPage from './pages/generic/UUIDPage';
 
 // Legal Pages
-const PrivacyPolicyPage = lazy(() => import('./pages/legal/PrivacyPolicyPage'));
-const TermsOfServicePage = lazy(() => import('./pages/legal/TermsOfServicePage'));
-const DisclaimerPage = lazy(() => import('./pages/legal/DisclaimerPage'));
+import PrivacyPolicyPage from './pages/legal/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/legal/TermsOfServicePage';
+import DisclaimerPage from './pages/legal/DisclaimerPage';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
-
-// 加载中组件
-const PageLoader: React.FC = () => (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    minHeight: 300,
-    padding: 40 
-  }}>
-    <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} spin />} />
-  </div>
-);
 
 // 全局样式：调整子菜单宽度和字体，优化三级菜单的鼠标移动体验
 const globalStyles = `
@@ -555,67 +542,65 @@ const App: React.FC = () => {
         </div>
       </Drawer>
 
-      {/* 2. 内容区域 - 使用路由懒加载 */}
+      {/* 2. 内容区域 - 所有页面同步加载，实现瞬间切换 */}
       <Content key={location.pathname} style={{ ...contentStyle, paddingTop: isMobile ? 56 + 24 : 64 + 24 }}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/asn1-parser" element={<ASN1Page />} />
-              <Route path="/ssl-certificates" element={<SSLCertificatesPage />} />
-              {/* Generic Tools */}
-              <Route path="/hashes" element={<HashPage />} />
-              <Route path="/character-encoding" element={<CharacterEncodingPage />} />
-              <Route path="/bcd" element={<BCDPage />} />
-              <Route path="/check-digits" element={<CheckDigitsPage />} />
-              <Route path="/base64" element={<Base64Page />} />
-              <Route path="/base94" element={<Base94Page />} />
-              <Route path="/message-parser" element={<MessageParserPage />} />
-              <Route path="/rsa-der-public-key" element={<RSADerPublicKeyPage />} />
-              <Route path="/uuid" element={<UUIDPage />} />
-              {/* Cipher Tools */}
-              <Route path="/aes-encryption" element={<AESPage />} />
-              <Route path="/des-encryption" element={<DESPage />} />
-              <Route path="/rsa-encryption" element={<RSAPage />} />
-              <Route path="/ecc-encryption" element={<ECCPage />} />
-              <Route path="/fpe-encryption" element={<FPEPage />} />
-              {/* Keys 菜单 */}
-              <Route path="/keys-dea" element={<KeyGeneratorPage />} />
-              <Route path="/futurex-keys" element={<FuturexKeysPage />} />
-              <Route path="/tr31-key-block" element={<TR31Page />} />
-              <Route path="/keyshare-generator" element={<KeysharePage />} />
-              <Route path="/atalla-keys" element={<AtallaKeysPage />} />
-              <Route path="/safenet-keys" element={<SafeNetKeysPage />} />
-              <Route path="/thales-keys" element={<ThalesKeysPage />} />
-              <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
-              <Route path="/payments-as2805" element={<AS2805Page />} />
-              <Route path="/payments-bitmap" element={<BitmapPage />} />
-              <Route path="/payments-card-validation-cvvs" element={<CVVPage />} />
-              <Route path="/payments-card-validation-amex-cscs" element={<AmexCSCPage />} />
-              <Route path="/payments-card-validation-mastercard-cvc3" element={<MastercardCVC3Page />} />
-              <Route path="/payments-dukpt-iso9797" element={<DUKPTPage />} />
-              <Route path="/payments-dukpt-aes" element={<DUKPTAESPage />} />
-              <Route path="/payments-mac-iso9797-1" element={<ISO9797Page />} />
-              <Route path="/payments-mac-ansix9" element={<ANSIMACPage />} />
-              <Route path="/payments-mac-as2805" element={<AS2805MACPage />} />
-              <Route path="/payments-mac-tdes-cbc-mac" element={<TDESCBCMACPage />} />
-              <Route path="/payments-mac-hmac" element={<HMACPage />} />
-              <Route path="/payments-mac-cmac" element={<CMACPage />} />
-              <Route path="/payments-mac-retail" element={<RetailMACPage />} />
-              <Route path="/payments-pin-blocks-general" element={<PinBlockGeneralPage />} />
-              <Route path="/payments-pin-blocks-aes" element={<PinBlockAESPage />} />
-              <Route path="/payments-pin-offset" element={<PinOffsetPage />} />
-              <Route path="/payments-pin-pvv" element={<PinPVVPage />} />
-              <Route path="/payments-visa-certificates" element={<VISACertificatesPage />} />
-              <Route path="/payments-zka" element={<ZKAPage />} />
-              {/* Legal Pages */}
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-              <Route path="/disclaimer" element={<DisclaimerPage />} />
-              {/* Fallback to home for unknown routes */}
-              <Route path="*" element={<HomePage />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/asn1-parser" element={<ASN1Page />} />
+            <Route path="/ssl-certificates" element={<SSLCertificatesPage />} />
+            {/* Generic Tools */}
+            <Route path="/hashes" element={<HashPage />} />
+            <Route path="/character-encoding" element={<CharacterEncodingPage />} />
+            <Route path="/bcd" element={<BCDPage />} />
+            <Route path="/check-digits" element={<CheckDigitsPage />} />
+            <Route path="/base64" element={<Base64Page />} />
+            <Route path="/base94" element={<Base94Page />} />
+            <Route path="/message-parser" element={<MessageParserPage />} />
+            <Route path="/rsa-der-public-key" element={<RSADerPublicKeyPage />} />
+            <Route path="/uuid" element={<UUIDPage />} />
+            {/* Cipher Tools */}
+            <Route path="/aes-encryption" element={<AESPage />} />
+            <Route path="/des-encryption" element={<DESPage />} />
+            <Route path="/rsa-encryption" element={<RSAPage />} />
+            <Route path="/ecc-encryption" element={<ECCPage />} />
+            <Route path="/fpe-encryption" element={<FPEPage />} />
+            {/* Keys 菜单 */}
+            <Route path="/keys-dea" element={<KeyGeneratorPage />} />
+            <Route path="/futurex-keys" element={<FuturexKeysPage />} />
+            <Route path="/tr31-key-block" element={<TR31Page />} />
+            <Route path="/keyshare-generator" element={<KeysharePage />} />
+            <Route path="/atalla-keys" element={<AtallaKeysPage />} />
+            <Route path="/safenet-keys" element={<SafeNetKeysPage />} />
+            <Route path="/thales-keys" element={<ThalesKeysPage />} />
+            <Route path="/thales-key-block" element={<ThalesKeyBlockPage />} />
+            <Route path="/payments-as2805" element={<AS2805Page />} />
+            <Route path="/payments-bitmap" element={<BitmapPage />} />
+            <Route path="/payments-card-validation-cvvs" element={<CVVPage />} />
+            <Route path="/payments-card-validation-amex-cscs" element={<AmexCSCPage />} />
+            <Route path="/payments-card-validation-mastercard-cvc3" element={<MastercardCVC3Page />} />
+            <Route path="/payments-dukpt-iso9797" element={<DUKPTPage />} />
+            <Route path="/payments-dukpt-aes" element={<DUKPTAESPage />} />
+            <Route path="/payments-mac-iso9797-1" element={<ISO9797Page />} />
+            <Route path="/payments-mac-ansix9" element={<ANSIMACPage />} />
+            <Route path="/payments-mac-as2805" element={<AS2805MACPage />} />
+            <Route path="/payments-mac-tdes-cbc-mac" element={<TDESCBCMACPage />} />
+            <Route path="/payments-mac-hmac" element={<HMACPage />} />
+            <Route path="/payments-mac-cmac" element={<CMACPage />} />
+            <Route path="/payments-mac-retail" element={<RetailMACPage />} />
+            <Route path="/payments-pin-blocks-general" element={<PinBlockGeneralPage />} />
+            <Route path="/payments-pin-blocks-aes" element={<PinBlockAESPage />} />
+            <Route path="/payments-pin-offset" element={<PinOffsetPage />} />
+            <Route path="/payments-pin-pvv" element={<PinPVVPage />} />
+            <Route path="/payments-visa-certificates" element={<VISACertificatesPage />} />
+            <Route path="/payments-zka" element={<ZKAPage />} />
+            {/* Legal Pages */}
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/disclaimer" element={<DisclaimerPage />} />
+            {/* Fallback to home for unknown routes */}
+            <Route path="*" element={<HomePage />} />
+          </Routes>
         </div>
       </Content>
 
