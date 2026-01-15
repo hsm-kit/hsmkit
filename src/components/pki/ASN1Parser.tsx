@@ -499,7 +499,7 @@ const ASN1Parser: React.FC = () => {
             <Upload
               beforeUpload={handleFileUpload}
               showUploadList={false}
-              accept=".der,.cer,.crt,.pem,.p7b,.p7c,.key"
+              accept=".der,.cer,.crt,.csr,.pem,.p7b,.p7c,.p7s,.p7m,.p10,.p12,.pfx,.crl,.req,.key,.pub"
             >
               <Button icon={<UploadOutlined />} size="large">
                 {t.asn1.uploadFile}
