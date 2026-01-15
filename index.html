@@ -88,15 +88,34 @@
         "Thales Key Block Encoder/Decoder",
         "Keyshare Generator",
         "KCV Calculator",
-        "PIN Block Generator (ISO 9564)",
+        "PIN Block Generator (ISO 9564 - All Formats)",
+        "PIN Block AES Encryption",
+        "PIN Offset Calculator (IBM 3624)",
+        "PIN PVV Calculator (VISA)",
+        "Card Validation: CVV/CVV2/iCVV/dCVV",
+        "Card Validation: Amex CSC (CSC3/CSC4/CSC5)",
+        "Card Validation: Mastercard CVC3 (Dynamic)",
+        "DUKPT Key Derivation (ISO 9797)",
+        "DUKPT AES Key Derivation",
+        "MAC: ISO 9797-1 (Algorithm 1/2/3)",
+        "MAC: ANSI X9.9/X9.19",
+        "MAC: AS2805 (Australian EFTPOS)",
+        "MAC: 3DES CBC-MAC",
+        "MAC: HMAC (SHA-256/SHA-512)",
+        "MAC: AES-CMAC/3DES-CMAC",
+        "MAC: Retail MAC",
+        "VISA Certificate Validation",
+        "ZKA Session Key Derivation",
+        "ISO 8583 Bitmap Parser",
+        "AS2805 Message Parser",
         "ASN.1 DER/BER Parser",
         "SSL/TLS Certificate Parser (X.509)",
         "RSA DER Public Key Decoder",
         "Secure Key Generator (AES/DES/3DES)",
-        "Hash Calculator (20+ algorithms: MD5, SHA, SHA-3, BLAKE2, SM3, etc.)",
+        "Hash Calculator (MD5, SHA-1/2/3, BLAKE2, SM3, RIPEMD, etc.)",
         "Character Encoding Converter (ASCII/Hex/Binary/EBCDIC)",
-        "BCD Encoder/Decoder",
-        "Check Digits Calculator (Luhn, Amex SE)",
+        "BCD Encoder/Decoder (Packed/Unpacked)",
+        "Check Digits Calculator (Luhn, Mod 10/9, Amex SE)",
         "Base64/Base94 Encoder/Decoder",
         "UUID Generator (v1/v3/v4/v5)",
         "Message Parser (ISO 8583, ATM NDC/Wincor)"
@@ -158,9 +177,16 @@
       })();
     </script>
     <noscript>
-      <h1>HSM Kit - Online Encryption Toolkit</h1>
-      <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser.</p>
-      <p>Features include: AES/DES/RSA/ECC/FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 parser, SSL certificate parser, hash calculator, keyshare generator, and 20+ cryptographic tools. All calculations are performed client-side for maximum security.</p>
+      <h1>HSM Kit - Online Cryptographic Toolkit</h1>
+      <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser to use the tools.</p>
+      <h2>Available Tools (50+ Features):</h2>
+      <p><strong>Encryption:</strong> AES, DES/3DES, RSA, ECC/ECDSA, Format-Preserving Encryption (FPE)</p>
+      <p><strong>HSM Key Management:</strong> Futurex, Atalla, SafeNet, Thales key encryption/decryption, TR-31 key blocks, Thales key blocks, keyshare generation, KCV calculator</p>
+      <p><strong>Payment Security:</strong> PIN blocks (ISO 9564 all formats), PIN offset (IBM 3624), PIN PVV (VISA), CVV/CVV2/iCVV/dCVV, Amex CSC (CSC3/4/5), Mastercard CVC3, DUKPT (ISO 9797 & AES), ISO 8583 bitmap parser, AS2805 parser</p>
+      <p><strong>MAC Algorithms:</strong> ISO 9797-1, ANSI X9.9/X9.19, AS2805 MAC, 3DES CBC-MAC, HMAC, AES-CMAC, 3DES-CMAC, Retail MAC</p>
+      <p><strong>PKI Tools:</strong> ASN.1 DER/BER parser, SSL/TLS certificate parser (X.509), RSA DER public key decoder, VISA certificate validation</p>
+      <p><strong>Utilities:</strong> Hash calculator (MD5, SHA, SHA-3, BLAKE2, etc.), character encoding converter, BCD encoder/decoder, check digits calculator (Luhn, Mod 10/9), Base64/Base94 encoder/decoder, UUID generator, ZKA session key derivation</p>
+      <p><strong>Privacy:</strong> All calculations are performed client-side in your browser. No data is sent to any server.</p>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
