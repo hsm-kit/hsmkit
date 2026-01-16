@@ -4,7 +4,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { SEO } from './SEO';
 import { useTheme } from '../../hooks/useTheme';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text } = Typography;
 
 interface FAQItem {
   question: string;
