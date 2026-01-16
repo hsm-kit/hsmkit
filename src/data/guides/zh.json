@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "understanding-key-splitting-kcv",
+    "title": "密钥分片与 KCV 终极指南",
+    "excerpt": "了解 XOR 密钥分片背后的数学原理，理解密钥校验值 (KCV)，掌握 PCI DSS 合规的加密密钥管理。",
+    "category": "Keys",
+    "tags": ["KCV", "XOR", "合规性", "PCI DSS"],
+    "isFeatured": true,
+    "publishDate": "2026-01-15",
+    "lastModified": "2026-01-16",
+    "readTime": 8,
+    "relatedTool": "/keyshare-generator",
+    "relatedToolName": "密钥分片生成器"
+  },
+  {
+    "slug": "what-is-tr31-key-block",
+    "title": "TR-31 密钥块格式详解",
+    "excerpt": "ANSI X9.143 / TR-31 密钥块格式完整指南，包括结构、密钥用途代码和实际编码示例。",
+    "category": "Keys",
+    "tags": ["TR-31", "密钥块", "ANSI X9.143", "HSM"],
+    "isFeatured": true,
+    "publishDate": "2026-01-14",
+    "lastModified": "2026-01-16",
+    "readTime": 10,
+    "relatedTool": "/tr31-key-block",
+    "relatedToolName": "TR-31 密钥块工具"
+  },
+  {
+    "slug": "pin-block-formats-iso9564",
+    "title": "PIN 块格式详解 (ISO 9564)",
+    "excerpt": "深入了解 ISO 9564 PIN 块格式 (0, 1, 2, 3, 4)，它们的安全特性，以及何时使用每种格式。",
+    "category": "Payment",
+    "tags": ["PIN Block", "ISO 9564", "支付安全"],
+    "isFeatured": false,
+    "publishDate": "2026-01-12",
+    "lastModified": "2026-01-15",
+    "readTime": 7,
+    "relatedTool": "/payments-pin-blocks-general",
+    "relatedToolName": "PIN 块通用工具"
+  },
+  {
+    "slug": "dukpt-key-derivation-tutorial",
+    "title": "DUKPT 密钥派生完整教程",
+    "excerpt": "从 BDK 到工作密钥，掌握每笔交易唯一密钥派生 (DUKPT)，包含逐步派生示例。",
+    "category": "Payment",
+    "tags": ["DUKPT", "密钥派生", "POS", "ATM"],
+    "isFeatured": false,
+    "publishDate": "2026-01-10",
+    "lastModified": "2026-01-14",
+    "readTime": 12,
+    "relatedTool": "/payments-dukpt-iso9797",
+    "relatedToolName": "DUKPT 工具"
+  },
+  {
+    "slug": "cvv-cvc-calculation-methods",
+    "title": "CVV/CVC 计算方法详解",
+    "excerpt": "了解卡验证值背后的加密过程，包括 CVV1、CVV2、iCVV 和动态 CVV/CVC3。",
+    "category": "Payment",
+    "tags": ["CVV", "CVC", "卡片安全", "EMV"],
+    "isFeatured": false,
+    "publishDate": "2026-01-08",
+    "lastModified": "2026-01-12",
+    "readTime": 6,
+    "relatedTool": "/payments-card-validation-cvvs",
+    "relatedToolName": "CVV 计算器"
+  }
+]

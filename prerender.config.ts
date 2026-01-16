@@ -66,4 +66,12 @@ export const routes = [
   '/privacy-policy',
   '/terms-of-service',
   '/disclaimer',
+  
+  // Guides / Knowledge Base
+  '/guides',
+  '/guides/understanding-key-splitting-kcv',
+  '/guides/what-is-tr31-key-block',
+  '/guides/pin-block-formats-iso9564',
+  '/guides/dukpt-key-derivation-tutorial',
+  '/guides/cvv-cvc-calculation-methods',
 ];

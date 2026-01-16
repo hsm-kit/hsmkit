@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "understanding-key-splitting-kcv",
+    "title": "The Ultimate Guide to Key Splitting & KCV",
+    "excerpt": "Learn the mathematics behind XOR key splitting, understand Key Check Values (KCV), and master PCI DSS compliance for cryptographic key management.",
+    "category": "Keys",
+    "tags": ["KCV", "XOR", "Compliance", "PCI DSS"],
+    "isFeatured": true,
+    "publishDate": "2026-01-15",
+    "lastModified": "2026-01-16",
+    "readTime": 8,
+    "relatedTool": "/keyshare-generator",
+    "relatedToolName": "Keyshare Generator"
+  },
+  {
+    "slug": "what-is-tr31-key-block",
+    "title": "TR-31 Key Block Format Explained",
+    "excerpt": "A comprehensive guide to ANSI X9.143 / TR-31 key block format, including structure, key usage codes, and practical encoding examples.",
+    "category": "Keys",
+    "tags": ["TR-31", "Key Block", "ANSI X9.143", "HSM"],
+    "isFeatured": true,
+    "publishDate": "2026-01-14",
+    "lastModified": "2026-01-16",
+    "readTime": 10,
+    "relatedTool": "/tr31-key-block",
+    "relatedToolName": "TR-31 Key Block Tool"
+  },
+  {
+    "slug": "pin-block-formats-iso9564",
+    "title": "Understanding PIN Block Formats (ISO 9564)",
+    "excerpt": "Deep dive into ISO 9564 PIN block formats (0, 1, 2, 3, 4), their security properties, and when to use each format.",
+    "category": "Payment",
+    "tags": ["PIN Block", "ISO 9564", "Payment Security"],
+    "isFeatured": false,
+    "publishDate": "2026-01-12",
+    "lastModified": "2026-01-15",
+    "readTime": 7,
+    "relatedTool": "/payments-pin-blocks-general",
+    "relatedToolName": "PIN Blocks General Tool"
+  },
+  {
+    "slug": "dukpt-key-derivation-tutorial",
+    "title": "DUKPT Key Derivation: A Complete Tutorial",
+    "excerpt": "Master Derived Unique Key Per Transaction (DUKPT) from BDK to working keys, with step-by-step derivation examples.",
+    "category": "Payment",
+    "tags": ["DUKPT", "Key Derivation", "POS", "ATM"],
+    "isFeatured": false,
+    "publishDate": "2026-01-10",
+    "lastModified": "2026-01-14",
+    "readTime": 12,
+    "relatedTool": "/payments-dukpt-iso9797",
+    "relatedToolName": "DUKPT Tool"
+  },
+  {
+    "slug": "cvv-cvc-calculation-methods",
+    "title": "How CVV/CVC Values are Calculated",
+    "excerpt": "Understand the cryptographic process behind card verification values, including CVV1, CVV2, iCVV, and dynamic CVV/CVC3.",
+    "category": "Payment",
+    "tags": ["CVV", "CVC", "Card Security", "EMV"],
+    "isFeatured": false,
+    "publishDate": "2026-01-08",
+    "lastModified": "2026-01-12",
+    "readTime": 6,
+    "relatedTool": "/payments-card-validation-cvvs",
+    "relatedToolName": "CVV Calculator"
+  }
+]

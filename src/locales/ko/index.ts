@@ -1,4 +1,4 @@
-// English translations - Module aggregator
+// Korean translations - Module aggregator
 import common from './common';
 import header from './header';
 import menu from './menu';
@@ -11,6 +11,7 @@ import cipher from './cipher';
 import generic from './generic';
 import pki from './pki';
 import seo from './seo';
+import guides from './guides';
 
 export default {
   ...common,
@@ -25,4 +26,5 @@ export default {
   ...generic,
   ...pki,
   ...seo,
+  ...guides,
 };

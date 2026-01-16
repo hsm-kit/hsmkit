@@ -9,7 +9,9 @@ import {
   SunOutlined,
   MoonOutlined,
   SafetyCertificateOutlined,
-  CreditCardOutlined
+  CreditCardOutlined,
+  ReadOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons';
 import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLanguage } from './hooks/useLanguage';
@@ -84,6 +86,10 @@ import UUIDPage from './pages/generic/UUIDPage';
 import PrivacyPolicyPage from './pages/legal/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/legal/TermsOfServicePage';
 import DisclaimerPage from './pages/legal/DisclaimerPage';
+
+// Guides Pages
+import GuidesListPage from './pages/guides/GuidesListPage';
+import GuideDetailPage from './pages/guides/GuideDetailPage';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -235,6 +241,8 @@ const routes = [
   { key: 'payments-pin-pvv', path: '/payments-pin-pvv' },
   { key: 'payments-visa-certificates', path: '/payments-visa-certificates' },
   { key: 'payments-zka', path: '/payments-zka' },
+  // Guides
+  { key: 'guides', path: '/guides' },
 ] as const;
 
 // Generate bidirectional mappings from single source
@@ -483,6 +491,36 @@ const App: React.FC = () => {
               marginLeft: 16,
               gap: 8
             }}>
+              {/* Context-aware button: Explore Tools on /guides, Guides elsewhere */}
+              {location.pathname.startsWith('/guides') ? (
+                <Tooltip title={t.guides?.exploreTools || 'Explore Tools'}>
+                  <Link to="/">
+                    <Button
+                      type="primary"
+                      icon={<AppstoreOutlined />}
+                      style={{ fontSize: 14, fontWeight: 500 }}
+                    >
+                      {t.guides?.exploreTools || 'Explore Tools'}
+                    </Button>
+                  </Link>
+                </Tooltip>
+              ) : (
+                <Tooltip title={t.guides?.title || 'Guides'}>
+                  <Link to="/guides">
+                    <Button
+                      type="text"
+                      icon={<ReadOutlined />}
+                      style={{ 
+                        fontSize: 14,
+                        color: isDark ? '#e6e6e6' : '#595959',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {t.guides?.title || 'Guides'}
+                    </Button>
+                  </Link>
+                </Tooltip>
+              )}
               <Tooltip title={isDark ? 'Light Mode' : 'Dark Mode'}>
                 <Button
                   type="text"
@@ -524,7 +562,8 @@ const App: React.FC = () => {
           onClick={e => handleMenuClick(e.key)}
           items={[
             { label: 'Home', key: 'home', icon: <HomeOutlined /> },
-            ...items
+            ...items,
+            { label: t.guides?.title || 'Guides', key: 'guides', icon: <ReadOutlined /> },
           ]}
           subMenuOpenDelay={0.1}
           subMenuCloseDelay={0.05}
@@ -598,6 +637,9 @@ const App: React.FC = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
+            {/* Guides Pages */}
+            <Route path="/guides" element={<GuidesListPage />} />
+            <Route path="/guides/:slug" element={<GuideDetailPage />} />
             {/* Fallback to home for unknown routes */}
             <Route path="*" element={<HomePage />} />
           </Routes>
