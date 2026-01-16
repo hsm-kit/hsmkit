@@ -26,6 +26,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { SEO, triggerPrerenderReady } from '../../components/common/SEO';
+import { calculateReadTime } from '../../utils/readTime';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import type { Language } from '../../locales';
@@ -166,6 +167,9 @@ const GuideDetailPage: React.FC = () => {
 
   // Extract headings for TOC
   const headings = useMemo(() => extractHeadings(content), [content]);
+
+  // Calculate reading time dynamically from content
+  const readTime = useMemo(() => calculateReadTime(content), [content]);
 
   // Load markdown content
   useEffect(() => {
@@ -345,7 +349,7 @@ const GuideDetailPage: React.FC = () => {
                 <ClockCircleOutlined style={{ marginRight: 6 }} />
                 <span>{guides.lastUpdated || 'Last Updated'}: {formatDate(meta.lastModified)}</span>
                 <span style={{ margin: '0 12px' }}>•</span>
-                <span>{meta.readTime} {guides.minRead || 'min read'}</span>
+                <span>{readTime} {guides.minRead || 'min read'}</span>
                 <span style={{ margin: '0 12px' }}>•</span>
                 <span>By HSM Kit Team</span>
               </div>
