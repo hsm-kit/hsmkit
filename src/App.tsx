@@ -17,6 +17,7 @@ import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
+import { getGuidesPath, isGuidesPage } from './utils/guidesPath';
 
 // 同步导入所有页面 - 工具网站用户经常连续使用多个工具，预加载所有页面可以实现瞬间切换，体验更流畅
 // PKI Tools
@@ -254,7 +255,7 @@ const keyToRoute: Record<string, string> = Object.fromEntries(
 );
 
 const App: React.FC = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -492,7 +493,7 @@ const App: React.FC = () => {
               gap: 8
             }}>
               {/* Context-aware button: Explore Tools on /guides, Guides elsewhere */}
-              {location.pathname.startsWith('/guides') ? (
+              {isGuidesPage(location.pathname) ? (
                 <Tooltip title={t.guides?.exploreTools || 'Explore Tools'}>
                   <Link to="/">
                     <Button
@@ -506,7 +507,7 @@ const App: React.FC = () => {
                 </Tooltip>
               ) : (
                 <Tooltip title={t.guides?.title || 'Guides'}>
-                  <Link to="/guides">
+                  <Link to={getGuidesPath(language)}>
                     <Button
                       type="text"
                       icon={<ReadOutlined />}
@@ -637,9 +638,12 @@ const App: React.FC = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
-            {/* Guides Pages */}
+            {/* Guides Pages - English (default) */}
             <Route path="/guides" element={<GuidesListPage />} />
             <Route path="/guides/:slug" element={<GuideDetailPage />} />
+            {/* Guides Pages - Localized (zh, ja, ko, de, fr) */}
+            <Route path="/:lang/guides" element={<GuidesListPage />} />
+            <Route path="/:lang/guides/:slug" element={<GuideDetailPage />} />
             {/* Fallback to home for unknown routes */}
             <Route path="*" element={<HomePage />} />
           </Routes>

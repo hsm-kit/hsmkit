@@ -27,6 +27,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { SEO, triggerPrerenderReady } from '../../components/common/SEO';
 import { calculateReadTime } from '../../utils/readTime';
+import { getGuidesPath } from '../../utils/guidesPath';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import type { Language } from '../../locales';
@@ -124,11 +125,29 @@ const extractHeadings = (markdown: string): AnchorItem[] => {
   return headings;
 };
 
+const SUPPORTED_LANGUAGES: Language[] = ['en', 'zh', 'ja', 'ko', 'de', 'fr'];
+
 const GuideDetailPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { language, t } = useLanguage();
+  const { slug, lang } = useParams<{ slug: string; lang?: string }>();
+  const { language: contextLanguage, setLanguage, t } = useLanguage();
   const { isDark } = useTheme();
   const guides = t.guides;
+
+  // Determine effective language from URL or default to English
+  const language: Language = useMemo(() => {
+    if (lang && SUPPORTED_LANGUAGES.includes(lang as Language)) {
+      return lang as Language;
+    }
+    // If no lang param (English route), use 'en'
+    return 'en';
+  }, [lang]);
+
+  // Sync language context with URL
+  useEffect(() => {
+    if (language !== contextLanguage) {
+      setLanguage(language);
+    }
+  }, [language, contextLanguage, setLanguage]);
 
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -285,7 +304,7 @@ const GuideDetailPage: React.FC = () => {
                   </Link>
                 ),
               },
-              { title: <Link to="/guides" style={{ color: isDark ? '#8c8c8c' : '#595959' }}>{guides.title || 'Guides'}</Link> },
+              { title: <Link to={getGuidesPath(language)} style={{ color: isDark ? '#8c8c8c' : '#595959' }}>{guides.title || 'Guides'}</Link> },
               { 
                 title: (
                   <span style={{ color: getCategoryColor(meta?.category || '') }}>
@@ -525,7 +544,7 @@ const GuideDetailPage: React.FC = () => {
                     <Row gutter={[16, 16]}>
                       {relatedArticles.map(article => (
                         <Col xs={24} sm={12} md={8} key={article.slug}>
-                          <Link to={`/guides/${article.slug}`} style={{ textDecoration: 'none' }}>
+                          <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none' }}>
                             <Card
                               hoverable
                               style={{

@@ -18,8 +18,10 @@ export default defineConfig({
       rendererOptions: {
         // 使用自定义事件来标记页面准备就绪
         renderAfterDocumentEvent: 'prerender-ready',
-        // 超时时间（毫秒）- 等待懒加载组件
-        timeout: 30000,
+        // 超时时间（毫秒）- 等待懒加载组件和语言切换
+        timeout: 60000,
+        // 最大并发数
+        maxConcurrentRoutes: 3,
         // 注入 prerender 标志
         injectProperty: '__PRERENDER_INJECTED',
         inject: { isPrerendering: true },

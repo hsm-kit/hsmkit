@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Card, Typography, Row, Col, Tag, Input, Empty, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getGuidesPath } from '../../utils/guidesPath';
+import type { Language } from '../../locales';
 import {
   FileTextOutlined,
   SearchOutlined,
@@ -77,7 +79,8 @@ const ArticleCard: React.FC<{
   isDark: boolean; 
   guides: Record<string, unknown>;
   compact?: boolean;
-}> = ({ article, isDark, guides, compact = false }) => {
+  language: Language;
+}> = ({ article, isDark, guides, compact = false, language }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -87,7 +90,7 @@ const ArticleCard: React.FC<{
   };
 
   return (
-    <Link to={`/guides/${article.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
       <Card
         hoverable
         style={{
@@ -161,7 +164,8 @@ const CategorySection: React.FC<{
   isDark: boolean;
   guides: Record<string, unknown>;
   onViewAll?: () => void;
-}> = ({ title, icon, articles, isDark, guides, onViewAll }) => {
+  language: Language;
+}> = ({ title, icon, articles, isDark, guides, onViewAll, language }) => {
   if (articles.length === 0) return null;
 
   return (
@@ -188,7 +192,7 @@ const CategorySection: React.FC<{
       <Row gutter={[16, 16]}>
         {articles.slice(0, 4).map(article => (
           <Col xs={24} sm={12} md={12} lg={6} key={article.slug}>
-            <ArticleCard article={article} isDark={isDark} guides={guides} compact />
+            <ArticleCard article={article} isDark={isDark} guides={guides} compact language={language} />
           </Col>
         ))}
       </Row>
@@ -196,8 +200,27 @@ const CategorySection: React.FC<{
   );
 };
 
+const SUPPORTED_LANGUAGES: Language[] = ['en', 'zh', 'ja', 'ko', 'de', 'fr'];
+
 const GuidesListPage: React.FC = () => {
-  const { language, t } = useLanguage();
+  const { lang } = useParams<{ lang?: string }>();
+  const { language: contextLanguage, setLanguage, t } = useLanguage();
+  
+  // Determine effective language from URL or context
+  const language: Language = useMemo(() => {
+    if (lang && SUPPORTED_LANGUAGES.includes(lang as Language)) {
+      return lang as Language;
+    }
+    // If no lang param (English route), use 'en'
+    return 'en';
+  }, [lang]);
+
+  // Sync language context with URL
+  useEffect(() => {
+    if (language !== contextLanguage) {
+      setLanguage(language);
+    }
+  }, [language, contextLanguage, setLanguage]);
   const { isDark } = useTheme();
   const guides = t.guides;
 
@@ -401,7 +424,7 @@ const GuidesListPage: React.FC = () => {
             <Row gutter={[16, 16]}>
               {filteredArticles.map(article => (
                 <Col xs={24} sm={12} md={8} lg={6} key={article.slug}>
-                  <ArticleCard article={article} isDark={isDark} guides={guides} compact />
+                  <ArticleCard article={article} isDark={isDark} guides={guides} compact language={language} />
                 </Col>
               ))}
             </Row>
@@ -420,7 +443,7 @@ const GuidesListPage: React.FC = () => {
               <Row gutter={[24, 24]}>
                 {featuredArticles.map(article => (
                   <Col xs={24} md={12} key={article.slug}>
-                    <Link to={`/guides/${article.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+                    <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none', display: 'block' }}>
                       <Card
                         hoverable
                         style={{
@@ -486,6 +509,7 @@ const GuidesListPage: React.FC = () => {
               isDark={isDark}
               guides={guides}
               onViewAll={() => setSelectedCategory(cat.key)}
+              language={language}
             />
           ))}
         </>
