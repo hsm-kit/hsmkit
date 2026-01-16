@@ -224,7 +224,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             items={faqs.map((faq, index) => ({
               key: index,
               label: <Text strong style={{ color: isDark ? '#ffc53d' : '#78350f' }}>{faq.question}</Text>,
-              children: <Paragraph style={{ color: isDark ? '#d9a200' : '#92400e', marginBottom: 0 }}>{faq.answer}</Paragraph>
+              children: <div style={{ color: isDark ? '#d9a200' : '#92400e', marginBottom: 0 }}>{faq.answer}</div>
             }))}
             style={{ background: 'transparent' }}
           />
