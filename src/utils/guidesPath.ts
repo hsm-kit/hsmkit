@@ -31,3 +31,17 @@ export const parseGuidesLanguage = (pathname: string): Language | null => {
 export const isGuidesPage = (pathname: string): boolean => {
   return pathname.startsWith('/guides') || /^\/(zh|ja|ko|de|fr)\/guides/.test(pathname);
 };
+
+/**
+ * Extract slug from guides pathname, if any
+ */
+export const getGuidesSlug = (pathname: string): string | null => {
+  const parts = pathname.split('/').filter(Boolean);
+  // /guides or /guides/:slug
+  if (parts[0] === 'guides') return parts[1] || null;
+  // /:lang/guides or /:lang/guides/:slug
+  if (parts.length >= 2 && ['zh', 'ja', 'ko', 'de', 'fr'].includes(parts[0]) && parts[1] === 'guides') {
+    return parts[2] || null;
+  }
+  return null;
+};
