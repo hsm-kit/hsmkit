@@ -8,13 +8,15 @@ DUKPT provides a method for:
 2. Ensuring that compromise of one transaction key doesn't expose others
 3. Supporting millions of transactions without key exhaustion
 
+DUKPT is used in ATMs, POS terminals, and any device that needs to encrypt PINs or data without requiring a live connection to an [HSM](/guides/hsm-key-management-overview) for every transaction.
+
 ## Key Components
 
 ### Base Derivation Key (BDK)
-The master key held by the acquirer/processor. Never leaves the secure key management system.
+The master key held by the acquirer/processor. Never leaves the secure key management system. Stored in the HSM encrypted under the LMK. In [TR-31 format](/guides/what-is-tr31-key-block), a BDK has key usage code `B0`.
 
 ### Initial PIN Encryption Key (IPEK)
-Derived from BDK and the initial KSN. Injected into the PIN pad device.
+Derived from BDK and the initial KSN. Injected into the PIN pad device. Once injected, the BDK is no longer needed on the device.
 
 ### Key Serial Number (KSN)
 A unique identifier that includes:
@@ -56,6 +58,8 @@ From the Current Key, derive specific working keys:
 - **MAC Key**: XOR with mask `0x000000000000FF00000000000000FF00`
 - **Data Encryption Key**: XOR with mask `0x0000000000FF00000000000000FF0000`
 
+The PEK is used to encrypt [PIN blocks](/guides/pin-block-formats-iso9564). The MAC key is used to compute [transaction MACs](/guides/mac-algorithms-payment-security).
+
 ## Practical Example
 
 Given:
@@ -84,24 +88,33 @@ PEK: 042666B49184CF5C68DE962BD0397B36
 
 ## Security Considerations
 
-1. **Counter Exhaustion**: After 2^21 (about 2 million) transactions, the device needs re-injection
+1. **Counter Exhaustion**: After 2²¹ (about 2 million) transactions, the device needs re-injection
 2. **Future Key Secrecy**: Even if current key is compromised, future keys cannot be derived
-3. **BDK Protection**: The BDK must never be exposed; all security depends on it
+3. **BDK Protection**: The BDK must never be exposed; all security depends on it — store it in an [HSM](/guides/hsm-key-management-overview)
 
 ## AES DUKPT
 
-Modern implementations use AES instead of TDES:
+Modern implementations use [AES](/guides/aes-encryption-explained) instead of [3DES](/guides/des-3des-legacy-encryption):
 
 - 128/192/256-bit key sizes
 - Enhanced security
 - Larger counter space
 - Different derivation algorithm (NIST SP 800-108)
+- Works with [PIN Block Format 4](/guides/pin-block-formats-iso9564) (AES-encrypted PIN blocks)
+
+NIST deprecated 3DES in 2023, so new deployments should use AES DUKPT.
+
+## DUKPT in the Payment Ecosystem
+
+DUKPT keys are transported to devices using [TR-31 key blocks](/guides/what-is-tr31-key-block) (BDK has usage code `B0`). The BDK is stored in the HSM, and IPEKs are derived and injected into devices during key injection ceremonies.
+
+For the full picture of how keys flow through a payment system, see our [HSM Key Management overview](/guides/hsm-key-management-overview).
 
 ## Try It Yourself
 
-Use our DUKPT Tool to:
+Use our DUKPT tools to:
 
-- Calculate IPEK from BDK and KSN
-- Derive transaction keys step by step
-- Generate PIN, MAC, and data encryption keys
-- Visualize the entire derivation tree
+- [DUKPT Tool (3DES/ISO 9797)](/payments-dukpt-iso9797) — Calculate IPEK from BDK and KSN, derive transaction keys step by step, generate PIN, MAC, and data encryption keys
+- [DUKPT AES Tool](/payments-dukpt-aes) — AES-based DUKPT derivation
+
+All processing happens locally in your browser — your BDK never leaves your device.

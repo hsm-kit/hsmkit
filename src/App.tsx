@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, Suspense, lazy } from 'react';
 import { Layout, Menu, Typography, Button, Drawer, Tooltip } from 'antd';
 import { 
   KeyOutlined, 
@@ -19,78 +19,78 @@ import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
 import { getGuidesPath, isGuidesPage } from './utils/guidesPath';
 
-// 同步导入所有页面 - 工具网站用户经常连续使用多个工具，预加载所有页面可以实现瞬间切换，体验更流畅
+// 懒加载所有页面 - 减少首屏 JS 体积，配合预渲染确保爬虫能抓到完整内容
 // PKI Tools
-import HomePage from './pages/home/HomePage';
-import ASN1Page from './pages/pki/ASN1Page';
-import SSLCertificatesPage from './pages/pki/SSLCertificatesPage';
+const HomePage = lazy(() => import('./pages/home/HomePage'));
+const ASN1Page = lazy(() => import('./pages/pki/ASN1Page'));
+const SSLCertificatesPage = lazy(() => import('./pages/pki/SSLCertificatesPage'));
 
 // Cipher Tools
-import AESPage from './pages/cipher/AESPage';
-import DESPage from './pages/cipher/DESPage';
-import RSAPage from './pages/cipher/RSAPage';
-import ECCPage from './pages/cipher/ECCPage';
-import FPEPage from './pages/cipher/FPEPage';
+const AESPage = lazy(() => import('./pages/cipher/AESPage'));
+const DESPage = lazy(() => import('./pages/cipher/DESPage'));
+const RSAPage = lazy(() => import('./pages/cipher/RSAPage'));
+const ECCPage = lazy(() => import('./pages/cipher/ECCPage'));
+const FPEPage = lazy(() => import('./pages/cipher/FPEPage'));
 
 // Key Management
-import KeyGeneratorPage from './pages/keys/KeyGeneratorPage';
-import TR31Page from './pages/keys/TR31Page';
-import KeysharePage from './pages/keys/KeysharePage';
-import FuturexKeysPage from './pages/keys/FuturexKeysPage';
-import AtallaKeysPage from './pages/keys/AtallaKeysPage';
-import SafeNetKeysPage from './pages/keys/SafeNetKeysPage';
-import ThalesKeysPage from './pages/keys/ThalesKeysPage';
-import ThalesKeyBlockPage from './pages/keys/ThalesKeyBlockPage';
+const KeyGeneratorPage = lazy(() => import('./pages/keys/KeyGeneratorPage'));
+const TR31Page = lazy(() => import('./pages/keys/TR31Page'));
+const KeysharePage = lazy(() => import('./pages/keys/KeysharePage'));
+const FuturexKeysPage = lazy(() => import('./pages/keys/FuturexKeysPage'));
+const AtallaKeysPage = lazy(() => import('./pages/keys/AtallaKeysPage'));
+const SafeNetKeysPage = lazy(() => import('./pages/keys/SafeNetKeysPage'));
+const ThalesKeysPage = lazy(() => import('./pages/keys/ThalesKeysPage'));
+const ThalesKeyBlockPage = lazy(() => import('./pages/keys/ThalesKeyBlockPage'));
 
 // Payment
-import AS2805Page from './pages/payment/AS2805Page';
-import BitmapPage from './pages/payment/BitmapPage';
-import CVVPage from './pages/payment/CVVPage';
-import AmexCSCPage from './pages/payment/AmexCSCPage';
-import MastercardCVC3Page from './pages/payment/MastercardCVC3Page';
-import DUKPTPage from './pages/payment/DUKPTPage';
-import DUKPTAESPage from './pages/payment/DUKPTAESPage';
+const AS2805Page = lazy(() => import('./pages/payment/AS2805Page'));
+const BitmapPage = lazy(() => import('./pages/payment/BitmapPage'));
+const CVVPage = lazy(() => import('./pages/payment/CVVPage'));
+const AmexCSCPage = lazy(() => import('./pages/payment/AmexCSCPage'));
+const MastercardCVC3Page = lazy(() => import('./pages/payment/MastercardCVC3Page'));
+const DUKPTPage = lazy(() => import('./pages/payment/DUKPTPage'));
+const DUKPTAESPage = lazy(() => import('./pages/payment/DUKPTAESPage'));
 
 // MAC Tools
-import ISO9797Page from './pages/payment/ISO9797Page';
-import ANSIMACPage from './pages/payment/ANSIMACPage';
-import AS2805MACPage from './pages/payment/AS2805MACPage';
-import TDESCBCMACPage from './pages/payment/TDESCBCMACPage';
-import HMACPage from './pages/payment/HMACPage';
-import CMACPage from './pages/payment/CMACPage';
-import RetailMACPage from './pages/payment/RetailMACPage';
+const ISO9797Page = lazy(() => import('./pages/payment/ISO9797Page'));
+const ANSIMACPage = lazy(() => import('./pages/payment/ANSIMACPage'));
+const AS2805MACPage = lazy(() => import('./pages/payment/AS2805MACPage'));
+const TDESCBCMACPage = lazy(() => import('./pages/payment/TDESCBCMACPage'));
+const HMACPage = lazy(() => import('./pages/payment/HMACPage'));
+const CMACPage = lazy(() => import('./pages/payment/CMACPage'));
+const RetailMACPage = lazy(() => import('./pages/payment/RetailMACPage'));
 
 // PIN Block Tools
-import PinBlockGeneralPage from './pages/payment/PinBlockGeneralPage';
-import PinBlockAESPage from './pages/payment/PinBlockAESPage';
-import PinOffsetPage from './pages/payment/PinOffsetPage';
-import PinPVVPage from './pages/payment/PinPVVPage';
+const PinBlockGeneralPage = lazy(() => import('./pages/payment/PinBlockGeneralPage'));
+const PinBlockAESPage = lazy(() => import('./pages/payment/PinBlockAESPage'));
+const PinOffsetPage = lazy(() => import('./pages/payment/PinOffsetPage'));
+const PinPVVPage = lazy(() => import('./pages/payment/PinPVVPage'));
 
 // VISA Tools
-import VISACertificatesPage from './pages/payment/VISACertificatesPage';
+const VISACertificatesPage = lazy(() => import('./pages/payment/VISACertificatesPage'));
 
 // ZKA Tools
-import ZKAPage from './pages/payment/ZKAPage';
+const ZKAPage = lazy(() => import('./pages/payment/ZKAPage'));
 
 // Generic Tools
-import HashPage from './pages/generic/HashPage';
-import CharacterEncodingPage from './pages/generic/CharacterEncodingPage';
-import BCDPage from './pages/generic/BCDPage';
-import CheckDigitsPage from './pages/generic/CheckDigitsPage';
-import Base64Page from './pages/generic/Base64Page';
-import Base94Page from './pages/generic/Base94Page';
-import MessageParserPage from './pages/generic/MessageParserPage';
-import RSADerPublicKeyPage from './pages/generic/RSADerPublicKeyPage';
-import UUIDPage from './pages/generic/UUIDPage';
+const HashPage = lazy(() => import('./pages/generic/HashPage'));
+const CharacterEncodingPage = lazy(() => import('./pages/generic/CharacterEncodingPage'));
+const BCDPage = lazy(() => import('./pages/generic/BCDPage'));
+const CheckDigitsPage = lazy(() => import('./pages/generic/CheckDigitsPage'));
+const Base64Page = lazy(() => import('./pages/generic/Base64Page'));
+const Base94Page = lazy(() => import('./pages/generic/Base94Page'));
+const MessageParserPage = lazy(() => import('./pages/generic/MessageParserPage'));
+const RSADerPublicKeyPage = lazy(() => import('./pages/generic/RSADerPublicKeyPage'));
+const UUIDPage = lazy(() => import('./pages/generic/UUIDPage'));
 
 // Legal Pages
-import PrivacyPolicyPage from './pages/legal/PrivacyPolicyPage';
-import TermsOfServicePage from './pages/legal/TermsOfServicePage';
-import DisclaimerPage from './pages/legal/DisclaimerPage';
+const PrivacyPolicyPage = lazy(() => import('./pages/legal/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('./pages/legal/TermsOfServicePage'));
+const DisclaimerPage = lazy(() => import('./pages/legal/DisclaimerPage'));
 
 // Guides Pages
-import GuidesListPage from './pages/guides/GuidesListPage';
-import GuideDetailPage from './pages/guides/GuideDetailPage';
+const GuidesListPage = lazy(() => import('./pages/guides/GuidesListPage'));
+const GuideDetailPage = lazy(() => import('./pages/guides/GuideDetailPage'));
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -582,9 +582,10 @@ const App: React.FC = () => {
         </div>
       </Drawer>
 
-      {/* 2. 内容区域 - 所有页面同步加载，实现瞬间切换 */}
+      {/* 2. 内容区域 */}
       <Content key={location.pathname} style={{ ...contentStyle, paddingTop: isMobile ? 56 + 24 : 64 + 24 }}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
+          <Suspense fallback={<div style={{ minHeight: 380 }} />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/asn1-parser" element={<ASN1Page />} />
@@ -647,6 +648,7 @@ const App: React.FC = () => {
             {/* Fallback to home for unknown routes */}
             <Route path="*" element={<HomePage />} />
           </Routes>
+          </Suspense>
         </div>
       </Content>
 

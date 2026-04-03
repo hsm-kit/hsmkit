@@ -8,7 +8,7 @@ Key splitting is the process of dividing a cryptographic key into multiple compo
 - The original key can only be reconstructed when all shares are combined
 - Each share reveals no information about the original key
 
-This practice is mandated by **PCI DSS** (Payment Card Industry Data Security Standard) for managing sensitive cryptographic keys.
+This practice is mandated by **PCI DSS** (Payment Card Industry Data Security Standard) for managing sensitive cryptographic keys, especially those used in [HSMs (Hardware Security Modules)](/guides/hsm-key-management-overview).
 
 ### Why is Key Splitting Required?
 
@@ -66,12 +66,14 @@ A **Key Check Value (KCV)** is a cryptographic checksum used to verify that a ke
 ### How KCV is Calculated
 
 **For DES/3DES Keys:**
-1. Encrypt a block of zeros (8 bytes of `0x00`)
+1. Encrypt a block of zeros (8 bytes of `0x00`) using the key in ECB mode
 2. Take the first 3 or 6 bytes of the result
 
 **For AES Keys:**
-1. Encrypt a block of zeros (16 bytes of `0x00`)
+1. Encrypt a block of zeros (16 bytes of `0x00`) using the key in ECB mode
 2. Take the first 3 or 6 bytes of the result
+
+This is essentially a simplified hash of the key. For a deeper dive into hash functions, see our [Hash Functions guide](/guides/hash-functions-guide).
 
 ### KCV Properties
 
@@ -100,7 +102,17 @@ Before: 0101 0100 (4 ones - even)
 After:  0101 0101 (5 ones - odd, parity bit set)
 ```
 
-Always adjust parity after combining key shares for DES keys.
+Always adjust parity after combining key shares for DES keys. For more on DES and 3DES key properties, see our [DES/3DES guide](/guides/des-3des-legacy-encryption).
+
+## Key Splitting in the HSM Context
+
+In a typical HSM deployment, key splitting is used for:
+
+- **LMK (Local Master Key) loading**: The HSM's root key is loaded as 2 or 3 components during a key ceremony
+- **ZMK (Zone Master Key) exchange**: Keys exchanged between HSMs are split for secure transport
+- **TR-31 key blocks**: Modern key transport uses [TR-31 format](/guides/what-is-tr31-key-block) to bind key attributes to the key material
+
+For a full overview of HSM key hierarchy, see our [HSM Key Management guide](/guides/hsm-key-management-overview).
 
 ## Best Practices
 
@@ -112,11 +124,13 @@ Always adjust parity after combining key shares for DES keys.
 
 ## Try It Yourself
 
-Ready to generate key shares? Use our free online Keyshare Generator tool to:
+Ready to generate key shares? Use our free online [Keyshare Generator](/keyshare-generator) to:
 
 - Split keys into 2 or 3 components
 - Automatically calculate KCV
 - Adjust DES key parity
 - Export for secure distribution
 
-The tool runs entirely in your browser — your keys never leave your device.
+Also try our [Key Generator](/keys-dea) to generate fresh AES/DES/3DES keys with KCV before splitting them.
+
+All tools run entirely in your browser — your keys never leave your device.

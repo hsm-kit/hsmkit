@@ -19,10 +19,6 @@
   Cache-Control: public, max-age=86400
   Content-Type: text/plain
 
-# Service Worker - 不缓存
-/sw.js
-  Cache-Control: no-cache, no-store, must-revalidate
-
 # 安全头 - 全局
 /*
   X-Frame-Options: DENY

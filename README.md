@@ -39,9 +39,9 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 | 🌍 **多语言** | 英语、中文、日语、韩语、德语、法语 6 种语言 |
 | 🌙 **暗黑模式** | 日/夜间主题切换，保护眼睛 |
 | 📱 **响应式** | 完美适配桌面端和移动端 |
-| ⚡ **极速加载** | 代码分割、懒加载、Service Worker 缓存 |
-| 🔍 **SEO 优化** | 独立 URL、Schema 标记、多语言 hreflang |
-| 📚 **知识库** | 内置安全知识库，深入理解工具背后的原理 |
+| ⚡ **懒加载** | 路由级代码分割，首屏只加载当前页面 |
+| 🔍 **SEO 优化** | 预渲染静态 HTML、Schema 标记、多语言 hreflang |
+| 📚 **知识库** | 15 篇深度技术文章，覆盖加密、支付、HSM 等核心主题 |
 
 ---
 
@@ -120,21 +120,31 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 
 ## 📚 知识库
 
-HSM Kit 内置了安全知识库 (`/guides`)，提供深入的技术文章帮助您理解工具背后的原理：
+HSM Kit 内置安全知识库 (`/guides`)，提供 15 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
 
-| 文章 | 主题 | 路由 |
+| 文章 | 分类 | 路由 |
 |------|------|------|
-| 密钥分量与 KCV 详解 | 密钥拆分、XOR 组合、KCV 计算原理 | `/guides/understanding-key-splitting-kcv` |
-| TR-31 密钥块详解 | ANSI X9.143 标准、头部字段、版本差异 | `/guides/what-is-tr31-key-block` |
-| PIN Block 格式详解 | ISO 9564 Format 0/1/2/3/4 结构与计算 | `/guides/pin-block-formats-iso9564` |
-| DUKPT 密钥派生教程 | 初始密钥、KSN、派生过程详解 | `/guides/dukpt-key-derivation-tutorial` |
-| CVV/CVC 计算方法 | CVV1/CVV2/iCVV/dCVV 算法解析 | `/guides/cvv-cvc-calculation-methods` |
+| AES 加密详解：模式、填充与最佳实践 | Cipher | `/guides/aes-encryption-explained` |
+| DES 与 3DES：支付领域的遗留加密标准 | Cipher | `/guides/des-3des-legacy-encryption` |
+| RSA 加密指南：密钥、填充方案与使用场景 | Cipher | `/guides/rsa-encryption-guide` |
+| ECC 与 ECDSA：椭圆曲线密码学详解 | Cipher | `/guides/ecc-digital-signatures-explained` |
+| 哈希函数：MD5、SHA-256、BLAKE2 及使用场景 | PKI | `/guides/hash-functions-guide` |
+| ASN.1 与 X.509 证书：实用解析指南 | PKI | `/guides/asn1-certificates-explained` |
+| Base64 编码详解：标准、URL 安全与使用场景 | PKI | `/guides/base64-encoding-guide` |
+| HSM 密钥管理：Thales、Futurex、Atalla 与 SafeNet | Keys | `/guides/hsm-key-management-overview` |
+| 密钥分片与 KCV 终极指南 | Keys | `/guides/understanding-key-splitting-kcv` |
+| TR-31 密钥块格式详解 | Keys | `/guides/what-is-tr31-key-block` |
+| 支付安全中的 MAC 算法：ISO 9797、HMAC 与 CMAC | Payment | `/guides/mac-algorithms-payment-security` |
+| ISO 8583 支付消息：结构、位图与数据元素 | Payment | `/guides/iso8583-payment-messages` |
+| PIN 块格式详解 (ISO 9564) | Payment | `/guides/pin-block-formats-iso9564` |
+| DUKPT 密钥派生完整教程 | Payment | `/guides/dukpt-key-derivation-tutorial` |
+| CVV/CVC 计算方法详解 | Payment | `/guides/cvv-cvc-calculation-methods` |
 
 ### 知识库特性
 
 - 📝 **Markdown 渲染** - 支持代码块、表格、内部链接
-- 🔗 **关联工具** - 文章与相关工具直接跳转
-- 🌍 **多语言** - 支持英语和中文（更多语言开发中）
+- 🔗 **工具内链** - 文章正文中直接链接相关工具和关联文章
+- 🌍 **中英双语** - 英语和中文各 15 篇完整翻译
 - 📖 **目录导航** - 右侧 TOC 快速定位，滚动高亮
 - 🔍 **搜索功能** - 全文搜索文章内容
 
@@ -146,9 +156,8 @@ HSM Kit 内置了安全知识库 (`/guides`)，提供深入的技术文章帮助
 hsmkit/
 ├── public/                     # 静态资源
 │   ├── logo.svg                # 网站 Logo
-│   ├── sitemap.xml             # 网站地图 (70+ URLs)
+│   ├── sitemap.xml             # 网站地图 (100+ URLs)
 │   ├── robots.txt              # 爬虫指令
-│   ├── sw.js                   # Service Worker 缓存
 │   ├── _headers                # HTTP 头配置 (Cloudflare)
 │   └── _redirects              # SPA 路由重定向
 │
@@ -171,13 +180,13 @@ hsmkit/
 │   │
 │   ├── content/                # 知识库内容
 │   │   └── guides/
-│   │       ├── en/             # 英文文章 (Markdown)
-│   │       └── zh/             # 中文文章 (Markdown)
+│   │       ├── en/             # 英文文章 (15 篇 Markdown)
+│   │       └── zh/             # 中文文章 (15 篇 Markdown)
 │   │
 │   ├── data/                   # 数据文件
 │   │   └── guides/
-│   │       ├── en.json         # 英文文章元数据
-│   │       └── zh.json         # 中文文章元数据
+│   │       ├── en.json         # 英文文章元数据 (15 篇)
+│   │       └── zh.json         # 中文文章元数据 (15 篇)
 │   │
 │   ├── hooks/                  # 自定义 Hooks
 │   │   ├── useLanguage.tsx     # 多语言切换
@@ -207,17 +216,17 @@ hsmkit/
 │   │   └── pki/                # PKI 工具页面 (2)
 │   │
 │   ├── utils/                  # 工具函数
-│   │   ├── crypto.ts           # 加密工具函数
-│   │   ├── cryptoWorker.ts     # Web Worker 加密
-│   │   ├── format.ts           # 格式化工具
-│   │   └── webCrypto.ts        # Web Crypto API 封装
+│   │   ├── guidesPath.ts       # 知识库路由工具
+│   │   ├── readTime.ts         # 阅读时间计算
+│   │   └── ...
 │   │
-│   ├── App.tsx                 # 根组件 + 路由配置
-│   ├── main.tsx                # 入口文件
+│   ├── App.tsx                 # 根组件 + 路由配置（懒加载）
+│   ├── main.tsx                # 入口文件（预渲染水合）
 │   └── index.css               # 全局样式
 │
-├── prerender.config.ts         # 预渲染路由配置 (70+ 路由)
+├── prerender.config.ts         # 预渲染路由配置 (100+ 路由)
 ├── vite.config.ts              # Vite 构建配置
+├── wrangler.json               # Cloudflare Pages 配置
 ├── tsconfig.json               # TypeScript 配置
 ├── eslint.config.js            # ESLint 配置
 └── package.json                # 依赖管理
@@ -249,12 +258,14 @@ npm run dev
 ### 构建生产版本
 
 ```bash
-# 构建（包含预渲染）
+# 构建（含 sitemap 更新 + Puppeteer 预渲染）
 npm run build
 
 # 预览生产构建
 npm run preview
 ```
+
+> **注意**：构建时需要 Chrome。`prebuild` 脚本会自动通过 `npx puppeteer browsers install chrome` 安装，在 Cloudflare Pages 等 CI 环境中会自动执行。
 
 ### 类型检查
 
@@ -281,8 +292,9 @@ npm run lint
 | **node-forge** | 1.3 | RSA/ASN.1/X.509 |
 | **elliptic** | 6.6 | ECC/ECDSA |
 | **hash-wasm** | 4.12 | 高性能哈希 (WASM) |
-| **react-markdown** | 9.x | Markdown 渲染 |
+| **react-markdown** | 10.x | Markdown 渲染 |
 | **@prerenderer/rollup-plugin** | - | 构建时预渲染 (SEO) |
+| **Puppeteer** | 24 | 预渲染无头浏览器 |
 
 ---
 
@@ -290,12 +302,12 @@ npm run lint
 
 | 优化项 | 说明 |
 |--------|------|
-| **代码分割** | 主包从 2.2MB 减少到 413KB（-81%） |
-| **路由懒加载** | 各页面按需加载（0.8-10KB） |
-| **Vendor 分包** | React/Antd/Crypto 独立打包 |
-| **预渲染** | 构建时生成静态 HTML，SEO 友好 |
-| **Service Worker** | 离线缓存，二次访问秒开 |
-| **DNS 预解析** | preconnect, dns-prefetch |
+| **路由懒加载** | 所有页面 `React.lazy()` 按需加载，首屏只下载当前页面 JS |
+| **Vendor 分包** | React / Ant Design / Crypto 独立打包，充分利用浏览器缓存 |
+| **预渲染 SSG** | 构建时 Puppeteer 生成静态 HTML，爬虫直接获取完整内容 |
+| **水合复用** | 预渲染 HTML 存在时使用 `hydrateRoot`，避免重新渲染闪烁 |
+| **长期缓存** | 静态资源 `max-age=31536000, immutable`，HTML `must-revalidate` |
+| **DNS 预解析** | `preconnect` + `dns-prefetch` 加速字体加载 |
 
 ---
 
@@ -314,8 +326,8 @@ HSM Kit 可以部署到任何静态托管服务：
 
 | 平台 | 配置文件 |
 |------|----------|
+| **Cloudflare Pages** | `wrangler.json`, `public/_headers`, `public/_redirects` |
 | **Vercel** | `vercel.json` |
-| **Cloudflare Pages** | `public/_headers`, `public/_redirects` |
 | **Netlify** | `public/_redirects` |
 
 ```bash
@@ -335,12 +347,13 @@ npm run build
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 提交 Pull Request
 
-### 添加新文章
+### 添加新知识库文章
 
-1. 在 `src/content/guides/en/` 创建 `{slug}.md` 文件
-2. 更新 `src/data/guides/en.json` 添加元数据
-3. 在 `prerender.config.ts` 添加路由
-4. 运行 `npm run build` 验证
+1. 在 `src/content/guides/en/` 创建 `{slug}.md` 文件（同时在 `zh/` 创建中文版）
+2. 更新 `src/data/guides/en.json` 和 `zh.json` 添加元数据
+3. 在 `prerender.config.ts` 添加英文和中文路由
+4. 在 `public/sitemap.xml` 添加对应 URL
+5. 运行 `npm run build` 验证
 
 ---
 

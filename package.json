@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/update-sitemap-lastmod.js",
+    "prebuild": "node scripts/update-sitemap-lastmod.js && npx puppeteer browsers install chrome",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

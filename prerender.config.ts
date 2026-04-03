@@ -71,47 +71,35 @@ export const routes = [
   '/guides',
   '/guides/understanding-key-splitting-kcv',
   '/guides/what-is-tr31-key-block',
+  '/guides/hsm-key-management-overview',
+  '/guides/des-3des-legacy-encryption',
+  '/guides/aes-encryption-explained',
+  '/guides/rsa-encryption-guide',
+  '/guides/ecc-digital-signatures-explained',
+  '/guides/hash-functions-guide',
+  '/guides/asn1-certificates-explained',
+  '/guides/mac-algorithms-payment-security',
   '/guides/pin-block-formats-iso9564',
   '/guides/dukpt-key-derivation-tutorial',
   '/guides/cvv-cvc-calculation-methods',
+  '/guides/iso8583-payment-messages',
+  '/guides/base64-encoding-guide',
   
-  // Guides / Knowledge Base - Chinese
+  // Guides / Knowledge Base - Chinese (has translated content)
   '/zh/guides',
   '/zh/guides/understanding-key-splitting-kcv',
   '/zh/guides/what-is-tr31-key-block',
+  '/zh/guides/hsm-key-management-overview',
+  '/zh/guides/des-3des-legacy-encryption',
+  '/zh/guides/aes-encryption-explained',
+  '/zh/guides/rsa-encryption-guide',
+  '/zh/guides/ecc-digital-signatures-explained',
+  '/zh/guides/hash-functions-guide',
+  '/zh/guides/asn1-certificates-explained',
+  '/zh/guides/mac-algorithms-payment-security',
   '/zh/guides/pin-block-formats-iso9564',
   '/zh/guides/dukpt-key-derivation-tutorial',
   '/zh/guides/cvv-cvc-calculation-methods',
-  
-  // Guides / Knowledge Base - Japanese
-  '/ja/guides',
-  '/ja/guides/understanding-key-splitting-kcv',
-  '/ja/guides/what-is-tr31-key-block',
-  '/ja/guides/pin-block-formats-iso9564',
-  '/ja/guides/dukpt-key-derivation-tutorial',
-  '/ja/guides/cvv-cvc-calculation-methods',
-  
-  // Guides / Knowledge Base - Korean
-  '/ko/guides',
-  '/ko/guides/understanding-key-splitting-kcv',
-  '/ko/guides/what-is-tr31-key-block',
-  '/ko/guides/pin-block-formats-iso9564',
-  '/ko/guides/dukpt-key-derivation-tutorial',
-  '/ko/guides/cvv-cvc-calculation-methods',
-  
-  // Guides / Knowledge Base - German
-  '/de/guides',
-  '/de/guides/understanding-key-splitting-kcv',
-  '/de/guides/what-is-tr31-key-block',
-  '/de/guides/pin-block-formats-iso9564',
-  '/de/guides/dukpt-key-derivation-tutorial',
-  '/de/guides/cvv-cvc-calculation-methods',
-  
-  // Guides / Knowledge Base - French
-  '/fr/guides',
-  '/fr/guides/understanding-key-splitting-kcv',
-  '/fr/guides/what-is-tr31-key-block',
-  '/fr/guides/pin-block-formats-iso9564',
-  '/fr/guides/dukpt-key-derivation-tutorial',
-  '/fr/guides/cvv-cvc-calculation-methods',
+  '/zh/guides/iso8583-payment-messages',
+  '/zh/guides/base64-encoding-guide',
 ];
