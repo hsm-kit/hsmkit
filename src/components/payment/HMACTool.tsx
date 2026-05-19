@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, Select, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { isValidHex } from '../../utils/hex';
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -41,13 +42,6 @@ const HMACTool: React.FC = () => {
   const [dataInput, setDataInput] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
-
-  // Validate hex string
-  const isValidHex = (str: string): boolean => {
-    if (!str) return false;
-    const hexRegex = /^[0-9A-Fa-f]+$/;
-    return hexRegex.test(str) && str.length % 2 === 0;
-  };
 
   // Calculate HMAC
   const calculateHMAC = (
@@ -281,11 +275,7 @@ const HMACTool: React.FC = () => {
         </Card>
 
         {/* Error Display */}
-        {error && (
-          <Card style={{ borderLeft: '4px solid #ff4d4f' }}>
-            <Text type="danger">{error}</Text>
-          </Card>
-        )}
+        {error && <ErrorCard error={error} />}
 
         {/* Result Display */}
         {result && (

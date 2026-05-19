@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
+import { VitePWA } from 'vite-plugin-pwa'
 import { routes } from './prerender.config'
 import { writeFileSync } from 'fs'
 import { join } from 'path'
@@ -9,6 +10,72 @@ import { join } from 'path'
 export default defineConfig({
   plugins: [
     react(),
+    // PWA 插件 - 生成 Service Worker 和 Manifest
+    VitePWA({
+      registerType: 'prompt',
+      includeAssets: ['favicon.svg', 'favicon-48.png', 'favicon-192.png', 'favicon-512.png', 'apple-touch-icon.png'],
+      manifest: {
+        name: 'HSM Kit - Encryption & Key Management Tools',
+        short_name: 'HSM Kit',
+        description: 'Free online encryption toolkit with AES, DES, RSA, ECC, HSM key management, TR-31, KCV, PIN block, and 44+ cryptographic tools. 100% client-side.',
+        theme_color: '#8B5CF6',
+        background_color: '#f0f2f5',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: 'favicon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'favicon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'favicon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gstatic-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
+    }),
     // 预渲染插件 - 仅在构建时运行
     prerender({
       routes,
@@ -129,11 +196,6 @@ export default defineConfig({
               id.includes('node_modules/node-forge') || 
               id.includes('node_modules/hash-wasm')) {
             return 'vendor-crypto';
-          }
-          // ASN.1 解析
-          if (id.includes('node_modules/asn1js') || 
-              id.includes('node_modules/pvutils')) {
-            return 'vendor-asn1';
           }
           // 其他工具库
           if (id.includes('node_modules/elliptic') || 

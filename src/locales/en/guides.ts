@@ -45,6 +45,13 @@ export default {
     useOurTool: 'Use our free online {toolName} tool.',
     backToGuides: 'Back to Guides',
     readNext: 'Read Next',
+    articleNotFound: 'Article Not Found',
+    articleNotFoundDesc: 'The requested article could not be found.',
+    invalidArticle: 'Invalid article',
+    byTeam: 'By HSM Kit Team',
+    translationNotice: 'This article is displayed in English. Translation is coming soon.',
+    searchResults: 'Search Results',
+    articlesCount: 'articles',
     
     // Breadcrumb
     home: 'Home',

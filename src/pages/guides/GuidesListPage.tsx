@@ -346,9 +346,19 @@ const GuidesListPage: React.FC = () => {
       {/* Category Quick Filters */}
       <div style={{ marginBottom: 32, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
         <Tag
+          role="button"
+          tabIndex={0}
+          aria-pressed={!selectedCategory}
           onClick={() => {
             setSelectedCategory(null);
             setSearchTerm('');
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setSelectedCategory(null);
+              setSearchTerm('');
+            }
           }}
           style={{
             cursor: 'pointer',
@@ -366,9 +376,19 @@ const GuidesListPage: React.FC = () => {
         {categories.filter(cat => articlesByCategory[cat.key].length > 0).map(cat => (
           <Tag
             key={cat.key}
+            role="button"
+            tabIndex={0}
+            aria-pressed={selectedCategory === cat.key}
             onClick={() => {
               setSelectedCategory(selectedCategory === cat.key ? null : cat.key);
               setSearchTerm('');
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setSelectedCategory(selectedCategory === cat.key ? null : cat.key);
+                setSearchTerm('');
+              }
             }}
             style={{
               cursor: 'pointer',
@@ -397,10 +417,10 @@ const GuidesListPage: React.FC = () => {
           }}>
             <Title level={3} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>
               {searchTerm 
-                ? `🔍 Search Results: "${searchTerm}"` 
+                ? `🔍 ${guides.searchResults || 'Search Results'}: "${searchTerm}"` 
                 : `📂 ${categories.find(c => c.key === selectedCategory)?.label}`}
             </Title>
-            <Text type="secondary">{filteredArticles.length} articles</Text>
+            <Text type="secondary">{filteredArticles.length} {guides.articlesCount || 'articles'}</Text>
           </div>
           
           {filteredArticles.length === 0 ? (

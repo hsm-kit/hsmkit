@@ -45,6 +45,13 @@ export default {
     useOurTool: '使用我们免费的在线 {toolName} 工具。',
     backToGuides: '返回指南',
     readNext: '继续阅读',
+    articleNotFound: '文章未找到',
+    articleNotFoundDesc: '未找到请求的文章。',
+    invalidArticle: '无效文章',
+    byTeam: 'HSM Kit 团队',
+    translationNotice: '此文章显示为英文版本，翻译即将推出。',
+    searchResults: '搜索结果',
+    articlesCount: '篇文章',
     
     // Breadcrumb
     home: '首页',

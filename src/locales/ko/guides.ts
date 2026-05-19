@@ -39,6 +39,13 @@ export default {
     needToCalculate: '지금 계산이 필요하신가요?',
     useOurTool: '무료 온라인 {toolName} 도구를 사용하세요.',
     backToGuides: '가이드로 돌아가기',
+    articleNotFound: '기사를 찾을 수 없습니다',
+    articleNotFoundDesc: '요청하신 기사를 찾을 수 없습니다.',
+    invalidArticle: '유효하지 않은 기사',
+    byTeam: 'HSM Kit 팀',
+    translationNotice: '이 기사는 영어로 표시됩니다. 번역이 곧 제공될 예정입니다.',
+    searchResults: '검색 결과',
+    articlesCount: '개 기사',
     
     // Breadcrumb
     home: '홈',

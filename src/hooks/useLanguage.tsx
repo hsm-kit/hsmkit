@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { ReactNode } from 'react';
 import type { Language, Translations } from '../locales';
 import { defaultLanguage, getCachedTranslations, loadTranslations } from '../locales';
@@ -29,12 +29,15 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     return saved || defaultLanguage;
   });
 
-  // 初始化时直接用用户选择的语言（如果已缓存），避免先显示英文再切换
-  const [t, setT] = useState<Translations>(() => {
+  // 翻译状态：初始从缓存加载，异步加载后更新
+  const [translations, setTranslations] = useState<Translations>(() => {
     const userLang = localStorage.getItem('language') as Language;
     const cached = getCachedTranslations(userLang || defaultLanguage);
     return cached || getCachedTranslations(defaultLanguage)!;
   });
+
+  // 跟踪当前已加载的语言，避免重复加载
+  const loadedLangRef = useRef<Language>(language);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
@@ -50,22 +53,27 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   // 按需加载语言包：避免将所有语言一次性打进首屏 bundle
   useEffect(() => {
-    let cancelled = false;
-
-    const cached = getCachedTranslations(language);
-    if (cached) {
-      setT(cached);
+    // 如果已经加载了该语言的翻译，跳过
+    if (loadedLangRef.current === language) {
       return;
     }
 
+    let cancelled = false;
+
     void loadTranslations(language)
       .then((loaded) => {
-        if (!cancelled) setT(loaded);
+        if (!cancelled) {
+          loadedLangRef.current = language;
+          setTranslations(loaded);
+        }
       })
       .catch(() => {
         // 动态加载失败时回退到默认语言
         const fallback = getCachedTranslations(defaultLanguage);
-        if (!cancelled && fallback) setT(fallback);
+        if (!cancelled && fallback) {
+          loadedLangRef.current = defaultLanguage;
+          setTranslations(fallback);
+        }
       });
 
     return () => {
@@ -76,8 +84,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const value: LanguageContextType = useMemo(() => ({
     language,
     setLanguage,
-    t,
-  }), [language, setLanguage, t]);
+    t: translations,
+  }), [language, setLanguage, translations]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
@@ -89,4 +97,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-

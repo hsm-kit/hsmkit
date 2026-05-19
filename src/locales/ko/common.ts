@@ -13,5 +13,15 @@ export default {
     loading: '로딩 중...',
     close: '닫기',
     cancel: '취소',
+    home: '홈',
+    lightMode: '라이트',
+    darkMode: '다크',
+    errorBoundary: {
+      title: '문제가 발생했습니다',
+      subtitle: '예상치 못한 오류가 발생했습니다. 다시 시도해 주세요.',
+      tryAgain: '다시 시도',
+      reloadPage: '페이지 새로고침',
+    },
+    noResults: '도구를 찾을 수 없습니다. 다른 검색어를 시도해 주세요.',
   },
 };

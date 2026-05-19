@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" suppressHydrationWarning>
   <head>
     <meta charset="UTF-8" />
     
@@ -47,12 +47,10 @@
     <link rel="canonical" href="https://hsmkit.com/" />
     
     <!-- Hreflang for multilingual SEO -->
+    <!-- Note: Tool pages use client-side language switching (same URL for all languages).
+         Only guide pages have language-specific URLs (/zh/guides, /ja/guides, etc.).
+         Dynamic hreflang for guides is injected in GuideDetailPage.tsx. -->
     <link rel="alternate" hreflang="en" href="https://hsmkit.com/" />
-    <link rel="alternate" hreflang="zh" href="https://hsmkit.com/" />
-    <link rel="alternate" hreflang="ja" href="https://hsmkit.com/" />
-    <link rel="alternate" hreflang="ko" href="https://hsmkit.com/" />
-    <link rel="alternate" hreflang="de" href="https://hsmkit.com/" />
-    <link rel="alternate" hreflang="fr" href="https://hsmkit.com/" />
     <link rel="alternate" hreflang="x-default" href="https://hsmkit.com/" />
     
     <!-- Structured Data for Rich Snippets -->
@@ -147,12 +145,11 @@
     }
     </script>
     
-    <!-- PWA Manifest -->
-    <!-- <link rel="manifest" href="/manifest.json" /> -->
+    <!-- PWA Manifest is auto-injected by vite-plugin-pwa -->
     
     <title>HSM Kit - Free Online Encryption & Key Management Tools</title>
   </head>
-  <body>
+  <body suppressHydrationWarning>
     <!-- 主题初始化脚本 - 在 React 加载前执行，避免闪烁 -->
     <script>
       (function() {

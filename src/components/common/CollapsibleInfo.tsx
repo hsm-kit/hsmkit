@@ -116,6 +116,9 @@ export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
       }}
     >
       <InfoCircleOutlined
+        tabIndex={0}
+        role="button"
+        aria-label={title || 'Information'}
         style={{
           fontSize: 15,
           color: isDark ? '#6B7280' : '#9CA3AF',
@@ -127,6 +130,12 @@ export const CollapsibleInfo: React.FC<CollapsibleInfoProps> = ({
           e.currentTarget.style.color = isDark ? '#60A5FA' : '#1677ff';
         }}
         onMouseLeave={(e) => {
+          e.currentTarget.style.color = isDark ? '#6B7280' : '#9CA3AF';
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.color = isDark ? '#60A5FA' : '#1677ff';
+        }}
+        onBlur={(e) => {
           e.currentTarget.style.color = isDark ? '#6B7280' : '#9CA3AF';
         }}
       />

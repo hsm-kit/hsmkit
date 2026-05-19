@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 /**
  * CMAC-AES 实现
  */
-const cmacAES = (keyHex: string, dataHex: string): string => {
+export const cmacAES = (keyHex: string, dataHex: string): string => {
   const key = CryptoJS.enc.Hex.parse(keyHex);
   const data = CryptoJS.enc.Hex.parse(dataHex);
   

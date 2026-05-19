@@ -39,6 +39,13 @@ export default {
     needToCalculate: 'Besoin de calculer maintenant?',
     useOurTool: 'Utilisez notre outil gratuit {toolName} en ligne.',
     backToGuides: 'Retour aux Guides',
+    articleNotFound: 'Article non trouvé',
+    articleNotFoundDesc: 'L\'article demandé est introuvable.',
+    invalidArticle: 'Article invalide',
+    byTeam: 'Équipe HSM Kit',
+    translationNotice: 'Cet article est affiché en anglais. La traduction sera bientôt disponible.',
+    searchResults: 'Résultats de recherche',
+    articlesCount: 'articles',
     
     // Breadcrumb
     home: 'Accueil',

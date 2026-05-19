@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { workerDesEncrypt, isWorkerAvailable } from '../../utils/cryptoWorker';
+import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode, getLengthColor } from '../../utils/hex';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -69,49 +70,6 @@ const DESTool: React.FC = () => {
   const getActualIvLength = (): number => {
     const clean = cleanHex(iv);
     return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取长度指示器的颜色
-  const getLengthColor = (actual: number, expected: number | number[], disabled: boolean = false): string => {
-    if (disabled) return '#999';
-    if (actual === 0) return '#999';
-    if (Array.isArray(expected)) {
-      if (expected.includes(actual)) return '#52c41a';
-    } else {
-      if (actual === expected) return '#52c41a';
-    }
-    return '#ff4d4f';
-  };
-
-  // 清理十六进制输入
-  const cleanHex = (hex: string): string => {
-    return hex.replace(/[\s\n\r]/g, '').toUpperCase();
-  };
-
-  // 验证十六进制
-  const isValidHex = (hex: string): boolean => {
-    return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
-  };
-
-  // 十六进制转 WordArray
-  const hexToWordArray = (hex: string): CryptoJS.lib.WordArray => {
-    return CryptoJS.enc.Hex.parse(hex);
-  };
-
-  // ASCII 转 WordArray
-  const asciiToWordArray = (ascii: string): CryptoJS.lib.WordArray => {
-    return CryptoJS.enc.Utf8.parse(ascii);
-  };
-
-  // 获取 CryptoJS 模式
-  const getCryptoMode = () => {
-    switch (mode) {
-      case 'ECB': return CryptoJS.mode.ECB;
-      case 'CBC': return CryptoJS.mode.CBC;
-      case 'CFB': return CryptoJS.mode.CFB;
-      case 'OFB': return CryptoJS.mode.OFB;
-      default: return CryptoJS.mode.ECB;
-    }
   };
 
   // 自定义 Spaces padding（用空格 0x20 填充）
@@ -313,7 +271,7 @@ const DESTool: React.FC = () => {
 
       // 回退到 crypto-js
       const options: Record<string, unknown> = {
-        mode: getCryptoMode(),
+        mode: getCryptoMode(mode),
         padding: getCryptoPadding(),
       };
 
@@ -353,7 +311,7 @@ const DESTool: React.FC = () => {
       }
 
       const options: Record<string, unknown> = {
-        mode: getCryptoMode(),
+        mode: getCryptoMode(mode),
         padding: getCryptoPadding(),
       };
 
@@ -598,11 +556,7 @@ const DESTool: React.FC = () => {
         </Card>
 
         {/* 错误提示 */}
-        {error && (
-          <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
-            <Text type="danger">{error}</Text>
-          </Card>
-        )}
+        {error && <ErrorCard error={error} />}
 
         {/* 结果显示 */}
         {result && (

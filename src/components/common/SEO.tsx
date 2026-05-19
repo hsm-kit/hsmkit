@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useCallback } from 'react';
+import { triggerPrerenderReady } from '../../utils/prerender';
 
 interface SEOProps {
   title: string;
@@ -16,19 +17,6 @@ interface SEOProps {
   prerenderReady?: boolean;
 }
 
-// 检测是否在预渲染环境（必须在运行时读取：注入标记可能在模块执行后才出现）
-const getIsPrerendering = () =>
-  typeof window !== 'undefined' && (window as any).__PRERENDER_INJECTED?.isPrerendering;
-
-// 触发预渲染就绪事件（只触发一次）
-let prerenderEventFired = false;
-export const triggerPrerenderReady = () => {
-  if (getIsPrerendering() && !prerenderEventFired) {
-    prerenderEventFired = true;
-    document.dispatchEvent(new Event('prerender-ready'));
-  }
-};
-
 /**
  * SEO Component - Dynamically updates page metadata for search engines
  * 支持预渲染：在预渲染时直接操作 DOM，确保 meta 标签被正确捕获
@@ -42,10 +30,7 @@ export const SEO: React.FC<SEOProps> = ({
   ogDescription,
   prerenderReady = true,
 }) => {
-  const hasTriggeredRef = useRef(false);
-
-  // 使用 useLayoutEffect 确保在渲染前执行（对预渲染更友好）
-  const updateMetaTags = () => {
+  const updateMetaTags = useCallback(() => {
     // Update document title
     if (title) {
       document.title = title;
@@ -89,19 +74,16 @@ export const SEO: React.FC<SEOProps> = ({
     }
 
     // 触发预渲染就绪事件
-    if (prerenderReady && !hasTriggeredRef.current) {
-      hasTriggeredRef.current = true;
-      // 延迟触发，确保所有内容都已渲染
+    if (prerenderReady) {
       setTimeout(() => {
         triggerPrerenderReady();
       }, 100);
     }
-  };
+  }, [title, description, keywords, canonical, ogTitle, ogDescription, prerenderReady]);
 
-  // 在预渲染环境使用 useLayoutEffect，否则使用 useEffect
   useLayoutEffect(() => {
     updateMetaTags();
-  }, [title, description, keywords, canonical, ogTitle, ogDescription, prerenderReady]);
+  }, [updateMetaTags]);
 
   return null;
 };

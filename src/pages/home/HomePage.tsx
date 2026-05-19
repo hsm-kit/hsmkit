@@ -180,6 +180,14 @@ const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path
           e.currentTarget.style.transform = 'translateY(0)';
           e.currentTarget.style.boxShadow = isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)';
         }}
+        onFocus={(e) => {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.boxShadow = isDark ? '0 4px 12px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.1)';
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)';
+        }}
       >
         <div style={{ 
           width: 36, 
@@ -392,7 +400,17 @@ const HomePage: React.FC = () => {
           return (
             <Tag
               key={cat.key}
+              role="button"
+              tabIndex={isDisabled ? -1 : 0}
+              aria-pressed={isActive}
+              aria-disabled={isDisabled}
               onClick={() => !isDisabled && setActiveCategory(cat.key)}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !isDisabled) {
+                  e.preventDefault();
+                  setActiveCategory(cat.key);
+                }
+              }}
               style={{
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
                 padding: '6px 16px',
@@ -479,7 +497,7 @@ const HomePage: React.FC = () => {
           borderRadius: 12 
         }}>
           <Text type="secondary" style={{ fontSize: 16 }}>
-            No tools found. Try a different search term.
+            {t.common.noResults || 'No tools found. Try a different search term.'}
           </Text>
         </div>
       )}

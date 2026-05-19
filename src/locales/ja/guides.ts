@@ -39,6 +39,13 @@ export default {
     needToCalculate: '今すぐ計算が必要ですか？',
     useOurTool: '無料のオンライン{toolName}ツールをご利用ください。',
     backToGuides: 'ガイドに戻る',
+    articleNotFound: '記事が見つかりません',
+    articleNotFoundDesc: 'リクエストされた記事が見つかりませんでした。',
+    invalidArticle: '無効な記事',
+    byTeam: 'HSM Kit チーム',
+    translationNotice: 'この記事は英語で表示されています。翻訳は近日公開予定です。',
+    searchResults: '検索結果',
+    articlesCount: '件の記事',
     
     // Breadcrumb
     home: 'ホーム',

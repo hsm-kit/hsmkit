@@ -1,20 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { isValidHex } from '../../utils/hex';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 type InputEncoding = 'ASCII' | 'Hex';
-
-// Validate hex input
-const isValidHex = (hex: string): boolean => {
-  const cleaned = hex.replace(/[\s\n\r]/g, '').toUpperCase();
-  return /^[0-9A-F]*$/.test(cleaned) && cleaned.length % 2 === 0;
-};
 
 // Hex to bytes
 const hexToBytes = (hex: string): Uint8Array => {
@@ -230,11 +225,7 @@ const Base64Tool: React.FC = () => {
       </div>
 
       {/* Error Display */}
-      {encodeError && (
-        <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
-          <Text type="danger">{encodeError}</Text>
-        </Card>
-      )}
+      {encodeError && <ErrorCard error={encodeError} />}
 
       {/* Result Display */}
       {encodeResult && (
@@ -361,11 +352,7 @@ const Base64Tool: React.FC = () => {
       </div>
 
       {/* Error Display */}
-      {decodeError && (
-        <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
-          <Text type="danger">{decodeError}</Text>
-        </Card>
-      )}
+      {decodeError && <ErrorCard error={decodeError} />}
 
       {/* Result Display */}
       {decodeResult && (

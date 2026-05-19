@@ -13,5 +13,15 @@ export default {
     loading: '読み込み中...',
     close: '閉じる',
     cancel: 'キャンセル',
+    home: 'ホーム',
+    lightMode: 'ライト',
+    darkMode: 'ダーク',
+    errorBoundary: {
+      title: 'エラーが発生しました',
+      subtitle: '予期しないエラーが発生しました。もう一度お試しください。',
+      tryAgain: '再試行',
+      reloadPage: 'ページを再読み込み',
+    },
+    noResults: 'ツールが見つかりません。別のキーワードで検索してください。',
   },
 };

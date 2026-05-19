@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, Checkbox, message, Typography, Di
 import { LockOutlined, UnlockOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, LengthIndicator } from '../common';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -226,18 +226,6 @@ const DUKPTTool: React.FC = () => {
   const sanitizeHex = (value: string) => {
     return value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
   };
-
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
 
   const handleCopy = async (text: string) => {
     try {
@@ -572,7 +560,7 @@ const DUKPTTool: React.FC = () => {
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
           <Text strong>PEK:</Text>
-          {lengthIndicator(sanitizeHex(macPek).length, 32)}
+          <LengthIndicator current={sanitizeHex(macPek).length} expected={32} />
         </div>
         <Input
           value={macPek}
@@ -654,7 +642,7 @@ const DUKPTTool: React.FC = () => {
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
           <Text strong>PEK:</Text>
-          {lengthIndicator(sanitizeHex(dataPek).length, 32)}
+          <LengthIndicator current={sanitizeHex(dataPek).length} expected={32} />
         </div>
         <Input
           value={dataPek}

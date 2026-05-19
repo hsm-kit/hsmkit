@@ -481,3 +481,24 @@ body.dark-mode .article-content strong {
     font-size: 13px;
   }
 }
+
+/* 16. Keyboard Accessibility - Focus Visible */
+[role="button"]:focus-visible {
+  outline: 2px solid #1677ff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+body.dark-mode [role="button"]:focus-visible {
+  outline-color: #4096ff;
+}
+
+/* ListCard focus */
+a:focus-visible .ant-card {
+  outline: 2px solid #1677ff;
+  outline-offset: 2px;
+}
+
+body.dark-mode a:focus-visible .ant-card {
+  outline-color: #4096ff;
+}

@@ -1,0 +1,102 @@
+/* Menu popup styles - Ant Design submenu alignment overrides */
+
+/* Unified submenu width for Keys and Payments menus */
+.ant-menu-submenu-popup .ant-menu-vertical {
+  min-width: 180px !important;
+  width: auto !important;
+}
+
+/* All menu items: unified left padding, right padding for arrow space */
+.ant-menu-submenu-popup .ant-menu-item,
+.ant-menu-submenu-popup .ant-menu-submenu-title {
+  padding-left: 16px !important;
+  padding-right: 32px !important;
+  margin-inline: 0 !important;
+  font-size: 13px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  white-space: nowrap !important;
+  position: relative !important;
+}
+
+/* Flex layout for menu items */
+.ant-menu-submenu-popup .ant-menu-item,
+.ant-menu-submenu-popup .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Text content area */
+.ant-menu-submenu-popup .ant-menu-item > span,
+.ant-menu-submenu-popup .ant-menu-submenu-title > span:not(.ant-menu-submenu-arrow) {
+  flex: 1 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+}
+
+/* Arrow icon absolutely positioned */
+.ant-menu-submenu-popup .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  width: auto !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  order: 999 !important;
+}
+
+/* Ensure submenu-title internal layout */
+.ant-menu-submenu-popup .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Items without arrow also get right padding */
+.ant-menu-submenu-popup .ant-menu-item {
+  padding-right: 32px !important;
+}
+
+.ant-menu-submenu-popup .ant-menu {
+  padding: 4px 0 !important;
+}
+
+/* Optimize 3rd-level menu: reduce gaps for smoother mouse movement */
+.ant-menu-submenu-popup {
+  margin: 0 !important;
+}
+
+/* Ensure tight connection between submenus */
+.ant-menu-submenu-popup .ant-menu-submenu-popup {
+  margin-left: -4px !important;
+  margin-top: -4px !important;
+}
+
+/* Overlap containers so mouse doesn't trigger close */
+.ant-menu-submenu-popup::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  z-index: 1;
+}
+
+/* Submenu container border, radius, shadow */
+.ant-menu-submenu-popup {
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 18px rgba(25,33,43,0.08) !important;
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+}
+
+/* AntD dropdown card styles */
+.ant-dropdown,
+.ant-dropdown__menu,
+.ant-menu-submenu-popup .ant-menu {
+  border-radius: 8px !important;
+}

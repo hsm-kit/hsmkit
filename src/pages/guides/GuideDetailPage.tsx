@@ -25,7 +25,8 @@ import {
 } from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { SEO, triggerPrerenderReady } from '../../components/common/SEO';
+import { SEO } from '../../components/common/SEO';
+import { triggerPrerenderReady } from '../../utils/prerender';
 import { calculateReadTime } from '../../utils/readTime';
 import { getGuidesPath } from '../../utils/guidesPath';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -211,7 +212,7 @@ const GuideDetailPage: React.FC = () => {
             setIsFallback(true);
           }
         }
-      } catch (err) {
+      } catch {
         setError('Article not found');
         setContent('');
       } finally {
@@ -247,14 +248,14 @@ const GuideDetailPage: React.FC = () => {
   }, [slug]);
 
   if (!slug) {
-    return <div>Invalid article</div>;
+    return <div>{guides.invalidArticle || 'Invalid article'}</div>;
   }
 
   if (error) {
     return (
       <div style={{ padding: '48px 24px', textAlign: 'center' }}>
-        <Title level={2}>Article Not Found</Title>
-        <Text type="secondary">The requested article could not be found.</Text>
+        <Title level={2}>{guides.articleNotFound || 'Article Not Found'}</Title>
+        <Text type="secondary">{guides.articleNotFoundDesc || 'The requested article could not be found.'}</Text>
         <div style={{ marginTop: 24 }}>
           <Link to="/guides">
             <Button type="primary">
@@ -370,7 +371,7 @@ const GuideDetailPage: React.FC = () => {
                 <span style={{ margin: '0 12px' }}>•</span>
                 <span>{readTime} {guides.minRead || 'min read'}</span>
                 <span style={{ margin: '0 12px' }}>•</span>
-                <span>By HSM Kit Team</span>
+                <span>{guides.byTeam || 'By HSM Kit Team'}</span>
               </div>
             </>
           )}
@@ -389,7 +390,7 @@ const GuideDetailPage: React.FC = () => {
                 {/* Fallback Notice */}
                 {isFallback && (
                   <Alert
-                    message="This article is displayed in English. Translation is coming soon."
+                    message={guides.translationNotice || 'This article is displayed in English. Translation is coming soon.'}
                     type="info"
                     showIcon
                     style={{ marginBottom: 24 }}

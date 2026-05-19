@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { webCryptoAesEncrypt, isWebCryptoAvailable } from '../../utils/webCrypto';
+import { cmacAES } from '../../utils/crypto';
+import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode, getLengthColor } from '../../utils/hex';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -23,132 +25,6 @@ interface KCVResult {
   cmac: string;
   aes: string;
 }
-
-/**
- * CMAC-AES 实现
- */
-const cmacAES = (keyHex: string, dataHex: string): string => {
-  const key = CryptoJS.enc.Hex.parse(keyHex);
-  const data = CryptoJS.enc.Hex.parse(dataHex);
-  
-  // 生成子密钥
-  const generateSubkeys = (key: CryptoJS.lib.WordArray) => {
-    const zero = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
-    const L = CryptoJS.AES.encrypt(zero, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.NoPadding
-    }).ciphertext;
-    
-    const xorWithConst = (input: CryptoJS.lib.WordArray) => {
-      const words = input.words.slice();
-      const msb = (words[0] >>> 31) & 1;
-      
-      // 左移一位
-      for (let i = 0; i < words.length; i++) {
-        words[i] = (words[i] << 1) | (i < words.length - 1 ? (words[i + 1] >>> 31) : 0);
-      }
-      
-      // 如果MSB为1，与Rb异或
-      if (msb) {
-        words[words.length - 1] ^= 0x87;
-      }
-      
-      return CryptoJS.lib.WordArray.create(words, 16);
-    };
-    
-    const K1 = xorWithConst(L);
-    const K2 = xorWithConst(K1);
-    
-    return { K1, K2 };
-  };
-  
-  const { K1, K2 } = generateSubkeys(key);
-  
-  const blockSize = 16;
-  const dataBytes = data.words.length * 4;
-  const numBlocks = Math.ceil(dataBytes / blockSize);
-  
-  let M_last: CryptoJS.lib.WordArray;
-  
-  if (numBlocks === 0) {
-    // 数据为空
-    const padding = CryptoJS.enc.Hex.parse('80000000000000000000000000000000');
-    M_last = CryptoJS.lib.WordArray.create(
-      K2.words.map((w, i) => w ^ padding.words[i]),
-      16
-    );
-  } else {
-    const lastBlockStart = (numBlocks - 1) * blockSize;
-    const lastBlockSize = dataBytes - lastBlockStart;
-    
-    if (lastBlockSize === blockSize) {
-      // 完整块
-      const lastBlock = CryptoJS.lib.WordArray.create(
-        data.words.slice(-4),
-        blockSize
-      );
-      M_last = CryptoJS.lib.WordArray.create(
-        lastBlock.words.map((w, i) => w ^ K1.words[i]),
-        16
-      );
-    } else {
-      // 不完整块，需要padding
-      const lastBlockWords = data.words.slice(-(Math.ceil(lastBlockSize / 4)));
-      const paddedWords = lastBlockWords.slice();
-      
-      // 添加0x80后填充0
-      const paddingStart = lastBlockSize;
-      const wordIndex = Math.floor(paddingStart / 4);
-      const byteIndex = paddingStart % 4;
-      
-      if (wordIndex >= paddedWords.length) {
-        paddedWords.push(0x80000000);
-      } else {
-        paddedWords[wordIndex] |= (0x80 << (24 - byteIndex * 8));
-      }
-      
-      while (paddedWords.length < 4) {
-        paddedWords.push(0);
-      }
-      
-      const paddedBlock = CryptoJS.lib.WordArray.create(paddedWords, 16);
-      M_last = CryptoJS.lib.WordArray.create(
-        paddedBlock.words.map((w, i) => w ^ K2.words[i]),
-        16
-      );
-    }
-  }
-  
-  // CBC-MAC计算
-  let X = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
-  
-  for (let i = 0; i < numBlocks - 1; i++) {
-    const block = CryptoJS.lib.WordArray.create(
-      data.words.slice(i * 4, (i + 1) * 4),
-      blockSize
-    );
-    const xored = CryptoJS.lib.WordArray.create(
-      block.words.map((w, idx) => w ^ X.words[idx]),
-      16
-    );
-    X = CryptoJS.AES.encrypt(xored, key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.NoPadding
-    }).ciphertext;
-  }
-  
-  // 处理最后一块
-  const finalXored = CryptoJS.lib.WordArray.create(
-    M_last.words.map((w, i) => w ^ X.words[i]),
-    16
-  );
-  const T = CryptoJS.AES.encrypt(finalXored, key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.NoPadding
-  }).ciphertext;
-  
-  return T.toString().toUpperCase();
-};
 
 const CipherTool: React.FC = () => {
   const { t } = useLanguage();
@@ -203,46 +79,6 @@ const CipherTool: React.FC = () => {
   const getActualIvLength = (): number => {
     const clean = cleanHex(iv);
     return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取长度指示器的颜色
-  const getLengthColor = (actual: number, expected: number, disabled: boolean = false): string => {
-    if (disabled) return '#999';
-    if (actual === 0) return '#999';
-    if (actual === expected) return '#52c41a'; // 绿色
-    return '#ff4d4f'; // 红色
-  };
-
-  // 清理十六进制输入
-  const cleanHex = (hex: string): string => {
-    return hex.replace(/[\s\n\r]/g, '').toUpperCase();
-  };
-
-  // 验证十六进制
-  const isValidHex = (hex: string): boolean => {
-    return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
-  };
-
-  // 十六进制转 WordArray
-  const hexToWordArray = (hex: string): CryptoJS.lib.WordArray => {
-    return CryptoJS.enc.Hex.parse(hex);
-  };
-
-  // ASCII 转 WordArray
-  const asciiToWordArray = (ascii: string): CryptoJS.lib.WordArray => {
-    return CryptoJS.enc.Utf8.parse(ascii);
-  };
-
-  // 获取 CryptoJS 模式
-  const getCryptoMode = () => {
-    switch (mode) {
-      case 'ECB': return CryptoJS.mode.ECB;
-      case 'CBC': return CryptoJS.mode.CBC;
-      case 'CFB': return CryptoJS.mode.CFB;
-      case 'OFB': return CryptoJS.mode.OFB;
-      case 'KCV': return CryptoJS.mode.ECB; // KCV 使用 ECB 模式
-      default: return CryptoJS.mode.ECB;
-    }
   };
 
   // 验证输入
@@ -394,8 +230,9 @@ const CipherTool: React.FC = () => {
       }
 
       // 回退到 crypto-js
+      const effectiveMode = isKcvMode ? 'ECB' : mode;
       const options: Record<string, unknown> = {
-        mode: getCryptoMode(),
+        mode: getCryptoMode(effectiveMode),
         padding: CryptoJS.pad.NoPadding,
       };
 
@@ -429,8 +266,9 @@ const CipherTool: React.FC = () => {
         return;
       }
 
+      const effectiveMode2 = isKcvMode ? 'ECB' : mode;
       const options: Record<string, unknown> = {
-        mode: getCryptoMode(),
+        mode: getCryptoMode(effectiveMode2),
         padding: CryptoJS.pad.NoPadding, // 使用 NoPadding
       };
 
@@ -665,11 +503,7 @@ const CipherTool: React.FC = () => {
         </Card>
 
         {/* 错误提示 */}
-        {error && (
-          <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
-            <Text type="danger">{error}</Text>
-          </Card>
-        )}
+        {error && <ErrorCard error={error} />}
 
         {/* KCV 结果显示 */}
         {kcvResult && lastOperation === 'kcv' && (

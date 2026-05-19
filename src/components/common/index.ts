@@ -5,5 +5,6 @@ export { PageLayout } from './PageLayout';
 export { CollapsibleInfo } from './CollapsibleInfo';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { ResultCard } from './ResultCard';
-
-
+export { ErrorCard } from './ErrorCard';
+export { LengthIndicator } from './LengthIndicator';
+export { ToolPage } from './ToolPage';

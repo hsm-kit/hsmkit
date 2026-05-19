@@ -13,5 +13,15 @@ export default {
     loading: 'Chargement...',
     close: 'Fermer',
     cancel: 'Annuler',
+    home: 'Accueil',
+    lightMode: 'Clair',
+    darkMode: 'Sombre',
+    errorBoundary: {
+      title: 'Une erreur est survenue',
+      subtitle: 'Une erreur inattendue est survenue. Veuillez réessayer.',
+      tryAgain: 'Réessayer',
+      reloadPage: 'Recharger la page',
+    },
+    noResults: 'Aucun outil trouvé. Essayez un autre terme de recherche.',
   },
 };

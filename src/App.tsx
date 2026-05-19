@@ -18,6 +18,7 @@ import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
 import { getGuidesPath, isGuidesPage } from './utils/guidesPath';
+import './menu-styles.css';
 
 // 懒加载所有页面 - 减少首屏 JS 体积，配合预渲染确保爬虫能抓到完整内容
 // PKI Tools
@@ -92,100 +93,11 @@ const DisclaimerPage = lazy(() => import('./pages/legal/DisclaimerPage'));
 const GuidesListPage = lazy(() => import('./pages/guides/GuidesListPage'));
 const GuideDetailPage = lazy(() => import('./pages/guides/GuideDetailPage'));
 
+// 404 Page
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
-
-// 全局样式：调整子菜单宽度和字体，优化三级菜单的鼠标移动体验
-const globalStyles = `
-  /* 统一二级菜单宽度，确保Keys和Payments菜单对齐 */
-  .ant-menu-submenu-popup .ant-menu-vertical {
-    min-width: 180px !important;
-    width: auto !important;
-  }
-  /* 所有菜单项统一左内边距，右内边距为箭头预留空间 */
-  .ant-menu-submenu-popup .ant-menu-item,
-  .ant-menu-submenu-popup .ant-menu-submenu-title {
-    padding-left: 16px !important;
-    padding-right: 32px !important;
-    margin-inline: 0 !important;
-    font-size: 13px !important;
-    height: 32px !important;
-    line-height: 32px !important;
-    white-space: nowrap !important;
-    position: relative !important;
-  }
-  /* 确保文字内容区域对齐 - 使用flex布局 */
-  .ant-menu-submenu-popup .ant-menu-item,
-  .ant-menu-submenu-popup .ant-menu-submenu-title {
-    display: flex !important;
-    align-items: center !important;
-  }
-  /* 文字内容区域，统一宽度和对齐 - 针对所有span元素 */
-  .ant-menu-submenu-popup .ant-menu-item > span,
-  .ant-menu-submenu-popup .ant-menu-submenu-title > span:not(.ant-menu-submenu-arrow) {
-    flex: 1 !important;
-    text-align: left !important;
-    white-space: nowrap !important;
-    min-width: 0 !important;
-  }
-  /* 箭头图标绝对定位在右侧，不占用布局空间，完全移除其flex影响 */
-  .ant-menu-submenu-popup .ant-menu-submenu-title .ant-menu-submenu-arrow {
-    position: absolute !important;
-    right: 12px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin: 0 !important;
-    width: auto !important;
-    flex: none !important;
-    flex-shrink: 0 !important;
-    order: 999 !important;
-  }
-  /* 确保submenu-title内部布局不影响文字位置 */
-  .ant-menu-submenu-popup .ant-menu-submenu-title {
-    display: flex !important;
-    align-items: center !important;
-  }
-  /* 确保没有箭头的菜单项也有相同的右内边距，保持对齐 */
-  .ant-menu-submenu-popup .ant-menu-item {
-    padding-right: 32px !important;
-  }
-  .ant-menu-submenu-popup .ant-menu {
-    padding: 4px 0 !important;
-  }
-  /* 优化三级菜单：减少菜单之间的间隙，让鼠标移动更顺畅 */
-  .ant-menu-submenu-popup {
-    margin: 0 !important;
-  }
-  /* 确保子菜单之间紧密连接，减少间隙 */
-  .ant-menu-submenu-popup .ant-menu-submenu-popup {
-    margin-left: -4px !important;
-    margin-top: -4px !important;
-  }
-  /* 确保菜单容器之间有重叠，让鼠标移动时不会触发关闭 */
-  .ant-menu-submenu-popup::before {
-    content: '';
-    position: absolute;
-    left: -4px;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    z-index: 1;
-  }
-  /* 调整子菜单容器边框、圆角与阴影，统一为更薄、更精致的样式 */
-  .ant-menu-submenu-popup {
-    border: 1px solid rgba(0,0,0,0.06) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 6px 18px rgba(25,33,43,0.08) !important;
-    overflow: hidden !important;
-    background-clip: padding-box !important;
-  }
-  /* 子菜单内的白色卡片（AntD 4.x 结构）也应用相同样式保护 */
-  .ant-dropdown,
-  .ant-dropdown__menu,
-  .ant-menu-submenu-popup .ant-menu {
-    border-radius: 8px !important;
-  }
-`;
 
 const contentStyle: React.CSSProperties = {
   maxWidth: '1200px',
@@ -284,16 +196,6 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, [checkMobile]);
 
-  // 注入全局样式
-  React.useEffect(() => {
-    const styleEl = document.createElement('style');
-    styleEl.textContent = globalStyles;
-    document.head.appendChild(styleEl);
-    return () => {
-      document.head.removeChild(styleEl);
-    };
-  }, []);
-  
   // 菜单定义 - 使用 useMemo 缓存，避免每次渲染都重新创建
   const items = useMemo(() => [
     { 
@@ -557,12 +459,12 @@ const App: React.FC = () => {
         open={drawerVisible}
         size={250}
       >
-        <Menu
+          <Menu
           mode="vertical"
           selectedKeys={[currentKey]}
           onClick={e => handleMenuClick(e.key)}
           items={[
-            { label: 'Home', key: 'home', icon: <HomeOutlined /> },
+            { label: t.common.home || 'Home', key: 'home', icon: <HomeOutlined /> },
             ...items,
             { label: t.guides?.title || 'Guides', key: 'guides', icon: <ReadOutlined /> },
           ]}
@@ -576,7 +478,7 @@ const App: React.FC = () => {
             icon={isDark ? <SunOutlined /> : <MoonOutlined />}
             onClick={toggleTheme}
           >
-            {isDark ? 'Light' : 'Dark'}
+            {isDark ? t.common.lightMode || 'Light' : t.common.darkMode || 'Dark'}
           </Button>
           <LanguageSwitcher />
         </div>
@@ -645,8 +547,8 @@ const App: React.FC = () => {
             {/* Guides Pages - Localized (zh, ja, ko, de, fr) */}
             <Route path="/:lang/guides" element={<GuidesListPage />} />
             <Route path="/:lang/guides/:slug" element={<GuideDetailPage />} />
-            {/* Fallback to home for unknown routes */}
-            <Route path="*" element={<HomePage />} />
+            {/* Fallback to 404 for unknown routes */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           </Suspense>
         </div>

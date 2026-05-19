@@ -20,7 +20,7 @@ const KCVPage: React.FC = () => {
       seoTitle={seo.title}
       seoDescription={seo.description}
       seoKeywords={seo.keywords}
-      canonical="https://hsmkit.com/kcv-calculator"
+      canonical="https://hsmkit.com/keys-dea"
       faqTitle={seo.faqTitle}
       faqs={seo.faqs}
       usageTitle={seo.usageTitle}

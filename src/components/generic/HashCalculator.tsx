@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { CopyOutlined, CalculatorOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import * as hashWasm from 'hash-wasm';
 import { webCryptoHash, isWebCryptoAvailable, hexToArrayBuffer } from '../../utils/webCrypto';
+import { cleanHex, isValidHex } from '../../utils/hex';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -36,16 +37,6 @@ const HASH_TYPES = [
 ];
 
 type InputType = 'ASCII' | 'Hex';
-
-// 清理十六进制输入
-const cleanHex = (hex: string): string => {
-  return hex.replace(/[\s\n\r]/g, '').toUpperCase();
-};
-
-// 验证十六进制
-const isValidHex = (hex: string): boolean => {
-  return /^[0-9A-Fa-f]*$/.test(hex) && hex.length % 2 === 0;
-};
 
 // Convert hex string to Uint8Array
 const hexToUint8Array = (hex: string): Uint8Array => {
@@ -400,11 +391,7 @@ const HashCalculator: React.FC = () => {
         </Card>
 
         {/* Error Display */}
-        {error && (
-          <Card  style={{ borderLeft: '4px solid #ff4d4f' }}>
-            <Text type="danger">{error}</Text>
-          </Card>
-        )}
+        {error && <ErrorCard error={error} />}
 
         {/* Result Display */}
         {hashResult && (

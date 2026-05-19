@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Select, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
 
@@ -490,11 +490,7 @@ const PinBlockGeneralTool: React.FC = () => {
         </Card>
 
         {/* Error Display */}
-        {error && (
-          <Card style={{ borderLeft: '4px solid #ff4d4f' }}>
-            <Text type="danger">{error}</Text>
-          </Card>
-        )}
+        {error && <ErrorCard error={error} />}
 
         {/* Result Display */}
         {result && (
