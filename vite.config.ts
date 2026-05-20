@@ -12,7 +12,7 @@ export default defineConfig({
     react(),
     // PWA 插件 - 生成 Service Worker 和 Manifest
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'favicon-48.png', 'favicon-192.png', 'favicon-512.png', 'apple-touch-icon.png'],
       manifest: {
         name: 'HSM Kit - Encryption & Key Management Tools',
@@ -64,6 +64,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        skipWaiting: true,
+        clientsClaim: true,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
