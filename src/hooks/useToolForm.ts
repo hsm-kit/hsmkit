@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { message } from 'antd';
-import { useLanguage } from './useLanguage';
+import { useToast } from './useToast';
 
 interface UseToolFormOptions<TInput> {
   defaultInputs: TInput;
@@ -27,7 +26,7 @@ interface UseToolFormReturn<TInput> {
 export function useToolForm<TInput extends Record<string, string>>({ 
   defaultInputs 
 }: UseToolFormOptions<TInput>): UseToolFormReturn<TInput> {
-  const { t } = useLanguage();
+  const toast = useToast();
   const [inputs, setInputs] = useState<TInput>(defaultInputs);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
@@ -45,12 +44,15 @@ export function useToolForm<TInput extends Record<string, string>>({
     try {
       const res = await fn();
       setResult(res);
+      toast.operationSuccess();
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      const errMsg = err instanceof Error ? err.message : String(err);
+      setError(errMsg);
+      toast.operationError(errMsg);
     } finally {
       setIsProcessing(false);
     }
-  }, []);
+  }, [toast]);
 
   const clear = useCallback(() => {
     setInputs(defaultInputs);
@@ -60,8 +62,8 @@ export function useToolForm<TInput extends Record<string, string>>({
 
   const copyResult = useCallback(() => {
     navigator.clipboard.writeText(result);
-    message.success(t.common.copied || 'Copied to clipboard!');
-  }, [result, t.common.copied]);
+    toast.copySuccess();
+  }, [result, toast]);
 
   return {
     inputs,

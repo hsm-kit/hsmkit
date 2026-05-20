@@ -8,6 +8,8 @@ export default {
     clear: 'Effacer',
     copied: 'Copié dans le presse-papiers !',
     copyFailed: 'Échec de la copie',
+    operationSuccess: 'Opération terminée avec succès',
+    operationFailed: 'Échec de l\'opération',
     error: 'Erreur',
     result: 'Résultat',
     loading: 'Chargement...',

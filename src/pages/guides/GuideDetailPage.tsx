@@ -16,11 +16,6 @@ import {
   HomeOutlined, 
   ToolOutlined,
   ClockCircleOutlined,
-  KeyOutlined,
-  CreditCardOutlined,
-  LockOutlined,
-  SafetyCertificateOutlined,
-  FileTextOutlined,
   RightOutlined,
 } from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
@@ -32,26 +27,13 @@ import { getGuidesPath } from '../../utils/guidesPath';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import type { Language } from '../../locales';
+import { type ArticleMeta, getCategoryIcon, getCategoryColor } from './shared';
 
 // Import article metadata
 import articlesEn from '../../data/guides/en.json';
 import articlesZh from '../../data/guides/zh.json';
 
 const { Title, Text } = Typography;
-
-interface ArticleMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  tags: string[];
-  isFeatured: boolean;
-  publishDate: string;
-  lastModified: string;
-  readTime: number;
-  relatedTool?: string;
-  relatedToolName?: string;
-}
 
 interface AnchorItem {
   key: string;
@@ -62,28 +44,6 @@ interface AnchorItem {
 const articlesMap: Record<string, ArticleMeta[]> = {
   en: articlesEn as ArticleMeta[],
   zh: articlesZh as ArticleMeta[],
-};
-
-// Category colors and icons
-const getCategoryColor = (category: string): string => {
-  switch(category) {
-    case 'Keys': return '#faad14';
-    case 'Payment': return '#1677ff';
-    case 'Cipher': return '#52c41a';
-    case 'PKI': return '#13c2c2';
-    default: return '#722ed1';
-  }
-};
-
-const getCategoryIcon = (category: string) => {
-  const iconStyle = { marginRight: 6 };
-  switch(category) {
-    case 'Keys': return <KeyOutlined style={iconStyle} />;
-    case 'Payment': return <CreditCardOutlined style={iconStyle} />;
-    case 'Cipher': return <LockOutlined style={iconStyle} />;
-    case 'PKI': return <SafetyCertificateOutlined style={iconStyle} />;
-    default: return <FileTextOutlined style={iconStyle} />;
-  }
 };
 
 // Dynamic import for markdown files

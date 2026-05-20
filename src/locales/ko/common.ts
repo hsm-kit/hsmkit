@@ -8,6 +8,8 @@ export default {
     clear: '지우기',
     copied: '클립보드에 복사되었습니다!',
     copyFailed: '복사 실패',
+    operationSuccess: '작업이 완료되었습니다',
+    operationFailed: '작업에 실패했습니다',
     error: '오류',
     result: '결과',
     loading: '로딩 중...',

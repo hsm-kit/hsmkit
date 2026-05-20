@@ -88,6 +88,76 @@ code, pre, .mono {
   padding: 20px !important;
 }
 
+/* Tabs 胶囊按钮风格 */
+.ant-tabs .ant-tabs-nav::before {
+  display: none !important;
+}
+
+.ant-tabs .ant-tabs-nav {
+  margin-bottom: 20px !important;
+}
+
+.ant-tabs .ant-tabs-nav-list {
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.ant-tabs .ant-tabs-tab {
+  margin: 0 !important;
+  padding: 7px 18px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  color: #4b5563 !important;
+  font-weight: 500 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.ant-tabs .ant-tabs-tab:hover {
+  color: #374151 !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.ant-tabs .ant-tabs-tab-active {
+  background: #fff !important;
+  color: #1f2937 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ant-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+}
+
+.ant-tabs-ink-bar {
+  display: none !important;
+}
+
+body.dark-mode .ant-tabs .ant-tabs-nav-list {
+  background: #262626;
+}
+
+body.dark-mode .ant-tabs .ant-tabs-tab {
+  color: #8c8c8c !important;
+}
+
+body.dark-mode .ant-tabs .ant-tabs-tab:hover {
+  color: #d9d9d9 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.dark-mode .ant-tabs .ant-tabs-tab-active {
+  background: #404040 !important;
+  color: #e6e6e6 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .ant-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #e6e6e6 !important;
+}
+
 .ant-segmented .ant-segmented-item-label {
   text-align: center;
 }
@@ -184,6 +254,61 @@ textarea.ant-input,
   code, pre {
     font-size: 0.85em;
     word-break: break-all;
+  }
+
+  /* Tabs 胶囊窄屏滚动 */
+  .ant-tabs .ant-tabs-nav-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+
+  .ant-tabs .ant-tabs-nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ant-tabs .ant-tabs-tab {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  /* Segmented 窄屏优化 */
+  .ant-segmented {
+    font-size: 13px !important;
+  }
+
+  .ant-segmented-item-label {
+    font-size: 13px !important;
+    padding: 0 6px !important;
+  }
+
+  /* 文章 h1 移动端字号 */
+  .article-content h1 {
+    font-size: 24px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* 超小屏优化 */
+@media (max-width: 480px) {
+  .ant-card-body {
+    padding: 12px !important;
+  }
+
+  .ant-tabs .ant-tabs-tab {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .ant-segmented-item-label {
+    font-size: 12px !important;
+    padding: 0 4px !important;
+  }
+
+  .ant-segmented {
+    font-size: 12px !important;
   }
 }
 

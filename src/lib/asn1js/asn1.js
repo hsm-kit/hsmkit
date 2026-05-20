@@ -1,4 +1,6 @@
 // ASN.1 JavaScript decoder
+// Version: ~0.4.0 (vendored from https://github.com/nicedoc/asn1js)
+// Last synced: 2024 - manual updates required for security patches
 // Copyright (c) 2008 Lapo Luchini <lapo@lapo.it>
 
 // Permission to use, copy, modify, and/or distribute this software for any

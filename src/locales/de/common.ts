@@ -8,6 +8,8 @@ export default {
     clear: 'Leeren',
     copied: 'In die Zwischenablage kopiert!',
     copyFailed: 'Kopieren fehlgeschlagen',
+    operationSuccess: 'Vorgang erfolgreich abgeschlossen',
+    operationFailed: 'Vorgang fehlgeschlagen',
     error: 'Fehler',
     result: 'Ergebnis',
     loading: 'Laden...',

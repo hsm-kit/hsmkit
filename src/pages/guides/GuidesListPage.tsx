@@ -4,19 +4,19 @@ import { Link, useParams } from 'react-router-dom';
 import { getGuidesPath } from '../../utils/guidesPath';
 import type { Language } from '../../locales';
 import {
-  FileTextOutlined,
   SearchOutlined,
   StarFilled,
   ClockCircleOutlined,
+  RightOutlined,
   KeyOutlined,
   CreditCardOutlined,
   LockOutlined,
   SafetyCertificateOutlined,
-  RightOutlined,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { type ArticleMeta, type CategoryKey, getCategoryIcon, getCategoryColor } from './shared';
 
 // Import article metadata
 import articlesEn from '../../data/guides/en.json';
@@ -24,53 +24,9 @@ import articlesZh from '../../data/guides/zh.json';
 
 const { Title, Paragraph, Text } = Typography;
 
-interface ArticleMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  tags: string[];
-  isFeatured: boolean;
-  publishDate: string;
-  lastModified: string;
-  readTime: number;
-  relatedTool?: string;
-  relatedToolName?: string;
-}
-
-type CategoryKey = 'Keys' | 'Payment' | 'Cipher' | 'PKI';
-
 const articlesMap: Record<string, ArticleMeta[]> = {
   en: articlesEn as ArticleMeta[],
   zh: articlesZh as ArticleMeta[],
-};
-
-// Category icon mapping
-const getCategoryIcon = (category: string, size: number = 28) => {
-  const iconStyle = { fontSize: size };
-  switch(category) {
-    case 'Keys': 
-      return <KeyOutlined style={{ ...iconStyle, color: '#faad14' }} />;
-    case 'Payment': 
-      return <CreditCardOutlined style={{ ...iconStyle, color: '#1677ff' }} />;
-    case 'Cipher': 
-      return <LockOutlined style={{ ...iconStyle, color: '#52c41a' }} />;
-    case 'PKI': 
-      return <SafetyCertificateOutlined style={{ ...iconStyle, color: '#13c2c2' }} />;
-    default: 
-      return <FileTextOutlined style={{ ...iconStyle, color: '#667eea' }} />;
-  }
-};
-
-// Category colors
-const getCategoryColor = (category: string): string => {
-  switch(category) {
-    case 'Keys': return '#faad14';
-    case 'Payment': return '#1677ff';
-    case 'Cipher': return '#52c41a';
-    case 'PKI': return '#13c2c2';
-    default: return '#722ed1';
-  }
 };
 
 // Article Card Component

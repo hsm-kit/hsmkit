@@ -17,6 +17,7 @@ const NotFoundPage: React.FC = () => {
       <SEO
         title="404 - Page Not Found | HSM Kit"
         description="The page you are looking for does not exist."
+        noindex
       />
       <div style={{ 
         textAlign: 'center', 
@@ -28,7 +29,7 @@ const NotFoundPage: React.FC = () => {
         justifyContent: 'center',
       }}>
         <Title level={1} style={{ 
-          fontSize: 72, 
+          fontSize: 'clamp(48px, 10vw, 72px)', 
           marginBottom: 16,
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           WebkitBackgroundClip: 'text',

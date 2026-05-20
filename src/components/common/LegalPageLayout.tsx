@@ -54,8 +54,8 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
         <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{
-              width: 52,
-              height: 52,
+              width: 'clamp(40px, 8vw, 52px)',
+              height: 'clamp(40px, 8vw, 52px)',
               borderRadius: 14,
               background: iconGradient,
               display: 'flex',
@@ -67,7 +67,7 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
               {icon}
             </div>
             <div>
-              <Title level={2} style={{ margin: 0, fontSize: 28, lineHeight: 1.2, fontWeight: 700, color: isDark ? '#e6e6e6' : '#1a1a2e' }}>
+              <Title level={2} style={{ margin: 0, fontSize: 'clamp(22px, 4vw, 28px)', lineHeight: 1.2, fontWeight: 700, color: isDark ? '#e6e6e6' : '#1a1a2e' }}>
                 {title}
               </Title>
               <Text style={{ fontSize: 13, color: isDark ? '#8c8c8c' : '#8c8c8c', display: 'block', marginTop: 4 }}>

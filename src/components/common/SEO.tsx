@@ -8,6 +8,7 @@ interface SEOProps {
   canonical?: string;
   ogTitle?: string;
   ogDescription?: string;
+  noindex?: boolean;
   /**
    * 控制预渲染就绪时机
    * - true: 立即触发 prerender-ready 事件
@@ -28,6 +29,7 @@ export const SEO: React.FC<SEOProps> = ({
   canonical,
   ogTitle,
   ogDescription,
+  noindex,
   prerenderReady = true,
 }) => {
   const updateMetaTags = useCallback(() => {
@@ -47,6 +49,19 @@ export const SEO: React.FC<SEOProps> = ({
       }
       meta.content = content;
     };
+
+    // Helper to remove meta tag
+    const removeMeta = (name: string) => {
+      const meta = document.querySelector(`meta[name="${name}"]`);
+      if (meta) meta.remove();
+    };
+
+    // noindex handling
+    if (noindex) {
+      updateMeta('robots', 'noindex, nofollow');
+    } else {
+      removeMeta('robots');
+    }
 
     // Update meta tags
     updateMeta('description', description);
@@ -79,7 +94,7 @@ export const SEO: React.FC<SEOProps> = ({
         triggerPrerenderReady();
       }, 100);
     }
-  }, [title, description, keywords, canonical, ogTitle, ogDescription, prerenderReady]);
+  }, [title, description, keywords, canonical, ogTitle, ogDescription, noindex, prerenderReady]);
 
   useLayoutEffect(() => {
     updateMetaTags();

@@ -8,6 +8,8 @@ export default {
     clear: 'Clear',
     copied: 'Copied to clipboard!',
     copyFailed: 'Failed to copy',
+    operationSuccess: 'Operation completed successfully',
+    operationFailed: 'Operation failed',
     error: 'Error',
     result: 'Result',
     loading: 'Loading...',

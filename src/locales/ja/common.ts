@@ -8,6 +8,8 @@ export default {
     clear: 'クリア',
     copied: 'クリップボードにコピーしました！',
     copyFailed: 'コピーに失敗しました',
+    operationSuccess: '操作が完了しました',
+    operationFailed: '操作に失敗しました',
     error: 'エラー',
     result: '結果',
     loading: '読み込み中...',

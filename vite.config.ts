@@ -19,7 +19,7 @@ export default defineConfig({
         short_name: 'HSM Kit',
         description: 'Free online encryption toolkit with AES, DES, RSA, ECC, HSM key management, TR-31, KCV, PIN block, and 44+ cryptographic tools. 100% client-side.',
         theme_color: '#8B5CF6',
-        background_color: '#f0f2f5',
+        background_color: '#f8f9fb',
         display: 'standalone',
         scope: '/',
         start_url: '/',
@@ -39,6 +39,26 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
+          },
+        ],
+        shortcuts: [
+          {
+            name: 'AES Encryption',
+            short_name: 'AES',
+            url: '/aes-encryption',
+            icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
+          },
+          {
+            name: 'Key Generator',
+            short_name: 'Keys',
+            url: '/keys-dea',
+            icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
+          },
+          {
+            name: 'Guides',
+            short_name: 'Guides',
+            url: '/guides',
+            icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
           },
         ],
       },
@@ -108,7 +128,6 @@ export default defineConfig({
         if (renderedRoute.route === '/') {
           const outputPath = join(process.cwd(), 'dist', 'index.html');
           writeFileSync(outputPath, renderedRoute.html);
-          console.log('✅ Created root index.html');
         }
       },
     }),

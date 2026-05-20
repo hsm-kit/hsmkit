@@ -17,6 +17,7 @@ import { Routes, Route, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 import { LanguageSwitcher } from './components/common';
+import { ReloadPrompt } from './components/common/ReloadPrompt';
 import { getGuidesPath, isGuidesPage } from './utils/guidesPath';
 import './menu-styles.css';
 
@@ -706,6 +707,7 @@ const App: React.FC = () => {
           </a>
         </div>
       </Footer>
+      <ReloadPrompt />
     </Layout>
   );
 };

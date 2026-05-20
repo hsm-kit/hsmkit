@@ -458,6 +458,7 @@ const HomePage: React.FC = () => {
               type={viewMode === 'grid' ? 'primary' : 'default'}
               icon={<AppstoreAddOutlined />}
               onClick={() => setViewMode('grid')}
+              aria-label={home.gridView || 'Grid view'}
             />
           </Tooltip>
           <Tooltip title={home.listView} mouseLeaveDelay={0}>
@@ -465,6 +466,7 @@ const HomePage: React.FC = () => {
               type={viewMode === 'list' ? 'primary' : 'default'}
               icon={<BarsOutlined />}
               onClick={() => setViewMode('list')}
+              aria-label={home.listView || 'List view'}
             />
           </Tooltip>
         </Space.Compact>

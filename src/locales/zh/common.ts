@@ -8,6 +8,8 @@ export default {
     clear: '清除',
     copied: '已复制到剪贴板！',
     copyFailed: '复制失败',
+    operationSuccess: '操作成功',
+    operationFailed: '操作失败',
     error: '错误',
     result: '结果',
     loading: '加载中...',

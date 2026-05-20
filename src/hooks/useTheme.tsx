@@ -19,9 +19,10 @@ interface ThemeProviderProps {
 // 在 React 加载前就应用主题，避免闪烁
 const getInitialTheme = (): ThemeMode => {
   if (typeof window === 'undefined') return 'light';
-  const saved = localStorage.getItem('hsmkit-theme');
-  if (saved === 'dark' || saved === 'light') return saved;
-  // 检测系统偏好
+  try {
+    const saved = localStorage.getItem('hsmkit-theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch { /* localStorage unavailable */ }
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     return 'dark';
   }
@@ -57,7 +58,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     if (!isReady) return;
     
-    localStorage.setItem('hsmkit-theme', themeMode);
+    try {
+      localStorage.setItem('hsmkit-theme', themeMode);
+    } catch { /* localStorage unavailable */ }
     applyThemeToDOM(themeMode === 'dark');
   }, [themeMode, isReady]);
 

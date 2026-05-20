@@ -24,16 +24,23 @@ const langMap: Record<Language, string> = {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    // 从 localStorage 读取保存的语言设置，如果没有则使用默认语言
-    const saved = localStorage.getItem('language') as Language;
-    return saved || defaultLanguage;
+    try {
+      const saved = localStorage.getItem('language') as Language;
+      return saved || defaultLanguage;
+    } catch {
+      return defaultLanguage;
+    }
   });
 
   // 翻译状态：初始从缓存加载，异步加载后更新
   const [translations, setTranslations] = useState<Translations>(() => {
-    const userLang = localStorage.getItem('language') as Language;
-    const cached = getCachedTranslations(userLang || defaultLanguage);
-    return cached || getCachedTranslations(defaultLanguage)!;
+    try {
+      const userLang = localStorage.getItem('language') as Language;
+      const cached = getCachedTranslations(userLang || defaultLanguage);
+      return cached || getCachedTranslations(defaultLanguage)!;
+    } catch {
+      return getCachedTranslations(defaultLanguage)!;
+    }
   });
 
   // 跟踪当前已加载的语言，避免重复加载
@@ -41,8 +48,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
-    // 更新 HTML lang 属性
+    try {
+      localStorage.setItem('language', lang);
+    } catch { /* localStorage unavailable */ }
     document.documentElement.lang = langMap[lang];
   }, []);
 
