@@ -4,6 +4,7 @@ export default {
     heroTitle: 'Outils gratuits en ligne de chiffrement et de gestion de clés',
     heroDescription: 'Suite complète d\'outils cryptographiques pour les professionnels de la sécurité. Tous les calculs s\'exécutent côté client dans votre navigateur — vos données ne quittent jamais votre appareil.',
     searchPlaceholder: 'Rechercher des outils... (ex. : MD5, AES, PIN Block)',
+    recentlyUsed: 'Récemment utilisés',
     availableTools: 'Outils les plus populaires',
     gridView: 'Affichage grille',
     listView: 'Affichage liste',

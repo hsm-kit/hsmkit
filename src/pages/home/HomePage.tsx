@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Card, Typography, Row, Col, Input, Tag, Button, Tooltip, Space } from 'antd';
+import { Card, Typography, Row, Col, Input, Tag, Button, Tooltip, Space, AutoComplete } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FileSearchOutlined,
@@ -38,6 +38,7 @@ import {
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { useRecentTools } from '../../hooks/useRecentTools';
 import seoContent from '../../locales/seo';
 
 const { Title, Text, Paragraph } = Typography;
@@ -116,11 +117,12 @@ interface ToolCardProps {
   color: string;
   isDark: boolean;
   viewMode: ViewMode;
+  onClick?: () => void;
 }
 
 // 网格视图卡片
-const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, description, path, color, isDark }) => (
-  <Link to={path} style={{ textDecoration: 'none' }}>
+const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, description, path, color, isDark, onClick }) => (
+  <Link to={path} style={{ textDecoration: 'none' }} onClick={onClick}>
     <Card
       hoverable
       style={{
@@ -156,8 +158,8 @@ const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, desc
 );
 
 // 列表视图卡片 - 更紧凑
-const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark }) => (
-  <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
+const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark, onClick }) => (
+  <Link to={path} style={{ textDecoration: 'none', display: 'block' }} onClick={onClick}>
     <Tooltip title={title} placement="top" mouseLeaveDelay={0}>
       <div
         style={{
@@ -230,6 +232,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const seo = seoContent[language]?.home || seoContent.en.home;
   const home = t.home;
+  const { recentTools, addRecentTool, clearRecentTools } = useRecentTools();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
@@ -298,6 +301,36 @@ const HomePage: React.FC = () => {
     });
   }, [searchFilteredTools, effectiveCategory]);
 
+  // 搜索建议（模糊匹配）
+  const searchOptions = useMemo(() => {
+    if (!searchTerm.trim() || searchTerm.length < 2) return [];
+    const search = searchTerm.toLowerCase();
+    return tools
+      .filter(tool => {
+        const title = tool.title.toLowerCase();
+        const desc = tool.description.toLowerCase();
+        const kw = tool.keywords;
+        return title.includes(search) || desc.includes(search) || kw.some(k => k.includes(search));
+      })
+      .slice(0, 8)
+      .map(tool => ({
+        value: tool.path,
+        label: (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 0' }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: 6,
+              background: tool.color, display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+              color: '#fff', fontSize: 13, flexShrink: 0,
+            }}>
+              {tool.icon}
+            </div>
+            <span style={{ fontSize: 14 }}>{tool.title}</span>
+          </div>
+        ),
+      }));
+  }, [searchTerm, tools]);
+
   // Early return if no SEO content
   if (!seo) {
     return null;
@@ -317,16 +350,26 @@ const HomePage: React.FC = () => {
   const handleSearch = (value: string) => {
     if (value.trim()) {
       const search = value.toLowerCase().trim();
-      // 找到第一个匹配的工具
       const match = tools.find(tool => {
         const matchTitle = tool.title.toLowerCase().includes(search);
         const matchKeywords = tool.keywords.some(kw => kw.includes(search));
         return matchTitle || matchKeywords;
       });
       if (match) {
+        addRecentTool({ path: match.path, title: match.title, color: match.color });
         navigate(match.path);
       }
     }
+  };
+
+  // 点击搜索建议
+  const handleSelect = (value: string) => {
+    const tool = tools.find(t => t.path === value);
+    if (tool) {
+      addRecentTool({ path: tool.path, title: tool.title, color: tool.color });
+    }
+    navigate(value);
+    setSearchTerm('');
   };
 
   return (
@@ -373,22 +416,76 @@ const HomePage: React.FC = () => {
           {home.heroDescription}
         </Paragraph>
         
-        {/* Search Bar */}
+        {/* Search Bar with AutoComplete */}
         <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 16px' }}>
-          <Input.Search
-            placeholder={home.searchPlaceholder}
-            size="large"
-            enterButton={<SearchOutlined style={{ fontSize: 18 }} />}
-            allowClear
+          <AutoComplete
+            options={searchOptions}
+            onSearch={setSearchTerm}
+            onSelect={handleSelect}
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onSearch={handleSearch}
-            style={{ 
-              width: '100%',
-            }}
-          />
+            onChange={setSearchTerm}
+            style={{ width: '100%' }}
+            popupMatchSelectWidth={true}
+          >
+            <Input.Search
+              placeholder={home.searchPlaceholder}
+              size="large"
+              enterButton={<SearchOutlined style={{ fontSize: 18 }} />}
+              allowClear
+              onSearch={handleSearch}
+            />
+          </AutoComplete>
         </div>
       </div>
+
+      {/* Recently Used Tools */}
+      {recentTools.length > 0 && (
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+            <Title level={4} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b', fontSize: 16 }}>
+              🕐 {home.recentlyUsed || 'Recently Used'}
+            </Title>
+            <Button
+              type="text"
+              size="small"
+              onClick={clearRecentTools}
+              style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999' }}
+            >
+              {t.common?.clear || 'Clear'}
+            </Button>
+          </div>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {recentTools.map(tool => (
+              <Link key={tool.path} to={tool.path} style={{ textDecoration: 'none' }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '10px 16px', borderRadius: 10,
+                  background: isDark ? '#1f1f1f' : '#fff',
+                  border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+                  boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  <div style={{
+                    width: 28, height: 28, borderRadius: 6,
+                    background: tool.color, display: 'flex',
+                    alignItems: 'center', justifyContent: 'center',
+                    color: '#fff', fontSize: 13,
+                  }}>
+                    {toolConfigs.find(c => c.path === tool.path)?.icon}
+                  </div>
+                  <Text style={{ fontSize: 13, color: isDark ? '#e6e6e6' : '#1e293b', whiteSpace: 'nowrap' }}>
+                    {tool.title}
+                  </Text>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Category Filters */}
       <div style={{ marginBottom: 24, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
@@ -476,7 +573,12 @@ const HomePage: React.FC = () => {
         <Row gutter={[24, 24]}>
           {filteredTools.map((tool, index) => (
             <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-              <ToolCard {...tool} isDark={isDark} viewMode={viewMode} />
+              <ToolCard
+                {...tool}
+                isDark={isDark}
+                viewMode={viewMode}
+                onClick={() => addRecentTool({ path: tool.path, title: tool.title, color: tool.color })}
+              />
             </Col>
           ))}
         </Row>
@@ -484,7 +586,12 @@ const HomePage: React.FC = () => {
         <Row gutter={[16, 12]}>
           {filteredTools.map((tool, index) => (
             <Col xs={12} sm={8} md={6} lg={4} xl={4} key={index}>
-              <ToolCard {...tool} isDark={isDark} viewMode={viewMode} />
+              <ToolCard
+                {...tool}
+                isDark={isDark}
+                viewMode={viewMode}
+                onClick={() => addRecentTool({ path: tool.path, title: tool.title, color: tool.color })}
+              />
             </Col>
           ))}
         </Row>

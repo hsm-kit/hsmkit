@@ -1,8 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useToast } from './useToast';
+
+const INPUT_HISTORY_PREFIX = 'hsmkit-input-';
 
 interface UseToolFormOptions<TInput> {
   defaultInputs: TInput;
+  /** Tool key for persisting input history (e.g. 'aes', 'des', 'rsa') */
+  toolKey?: string;
 }
 
 interface UseToolFormReturn<TInput> {
@@ -22,15 +26,43 @@ interface UseToolFormReturn<TInput> {
 /**
  * 通用工具表单 Hook
  * 封装 result/error/isProcessing 状态 + process/clear/copyResult 操作
+ * 可选 toolKey 启用输入历史持久化
  */
 export function useToolForm<TInput extends Record<string, string>>({ 
-  defaultInputs 
+  defaultInputs,
+  toolKey,
 }: UseToolFormOptions<TInput>): UseToolFormReturn<TInput> {
   const toast = useToast();
-  const [inputs, setInputs] = useState<TInput>(defaultInputs);
+  const storageKey = toolKey ? `${INPUT_HISTORY_PREFIX}${toolKey}` : '';
+  const skipSaveRef = useRef(true);
+
+  // 初始化：从 localStorage 恢复输入历史
+  const [inputs, setInputs] = useState<TInput>(() => {
+    if (!toolKey) return defaultInputs;
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return { ...defaultInputs, ...parsed };
+      }
+    } catch { /* ignore */ }
+    return defaultInputs;
+  });
+
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // 自动保存输入历史（跳过首次渲染）
+  useEffect(() => {
+    if (!toolKey || skipSaveRef.current) {
+      skipSaveRef.current = false;
+      return;
+    }
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(inputs));
+    } catch { /* localStorage unavailable */ }
+  }, [inputs, toolKey, storageKey]);
 
   const updateInput = useCallback((key: keyof TInput, value: string) => {
     setInputs(prev => ({ ...prev, [key]: value }));
@@ -58,7 +90,12 @@ export function useToolForm<TInput extends Record<string, string>>({
     setInputs(defaultInputs);
     setResult('');
     setError('');
-  }, [defaultInputs]);
+    if (toolKey) {
+      try {
+        localStorage.removeItem(storageKey);
+      } catch { /* ignore */ }
+    }
+  }, [defaultInputs, toolKey, storageKey]);
 
   const copyResult = useCallback(() => {
     navigator.clipboard.writeText(result);

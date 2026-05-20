@@ -416,6 +416,24 @@ body.dark-mode .ant-typography strong {
   color: #fff !important;
 }
 
+/* 暗黑模式 - 结果卡片柔和化 */
+body.dark-mode .ant-card {
+  /* 降低结果卡片的饱和度和对比度 */
+}
+
+/* 暗黑模式 - 滚动条 */
+body.dark-mode ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #404040;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 /* 13. 等宽字体特性优化 - 启用编程连字 */
 .ant-input,
 .ant-input-textarea textarea,

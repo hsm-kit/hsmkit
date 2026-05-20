@@ -4,6 +4,7 @@ export default {
     heroTitle: '無料のオンライン暗号化＆鍵管理ツール',
     heroDescription: 'セキュリティ専門家のための包括的な暗号化ツールスイート。すべての計算はブラウザ内のクライアントサイドで実行され、データがデバイスから離れることはありません。',
     searchPlaceholder: 'ツールを検索... (例: MD5, AES, PIN Block)',
+    recentlyUsed: '最近使用',
     availableTools: '人気のツール',
     gridView: 'グリッド表示',
     listView: 'リスト表示',
