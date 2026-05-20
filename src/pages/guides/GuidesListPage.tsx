@@ -298,6 +298,20 @@ const GuidesListPage: React.FC = () => {
       seoDescription={guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.'}
       seoKeywords={guides.seoKeywords}
       canonical="https://hsmkit.com/guides"
+      faqTitle={guides.faqTitle}
+      faqs={guides.faqs}
+      usageTitle={guides.usageTitle}
+      usageContent={
+        guides.usage && guides.usage.length > 0 ? (
+          <div>
+            {guides.usage.map((text: string, index: number) => (
+              <Paragraph key={index} style={{ marginBottom: index === guides.usage!.length - 1 ? 0 : 8 }}>
+                • {text}
+              </Paragraph>
+            ))}
+          </div>
+        ) : undefined
+      }
       toolName="Security Knowledge Base"
       toolCategory="Documentation"
     >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography, Result } from 'antd';
 import { PageLayout } from './PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import seoContent from '../../locales/seo';
@@ -14,11 +14,6 @@ interface ToolPageProps {
   children: React.ReactNode;
 }
 
-/**
- * 通用工具页面工厂组件
- * 统一处理 SEO、FAQ、Usage 等样板代码
- * 每个工具页面从 ~45 行缩减到 ~10 行
- */
 export const ToolPage: React.FC<ToolPageProps> = ({
   seoKey,
   canonical,
@@ -31,7 +26,13 @@ export const ToolPage: React.FC<ToolPageProps> = ({
     || seoContent.en[seoKey as keyof typeof seoContent.en];
 
   if (!seo) {
-    return null;
+    return (
+      <Result
+        status="warning"
+        title="Content not available"
+        subTitle={`SEO data for "${seoKey}" could not be loaded. Please try refreshing the page.`}
+      />
+    );
   }
 
   const seoData = seo as {

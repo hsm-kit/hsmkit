@@ -23,5 +23,9 @@ export default {
       reloadPage: 'Seite neu laden',
     },
     noResults: 'Keine Werkzeuge gefunden. Versuchen Sie einen anderen Suchbegriff.',
+    notFound: {
+      title: 'Seite nicht gefunden',
+      description: 'Die gesuchte Seite existiert nicht oder wurde verschoben.',
+    },
   },
 };

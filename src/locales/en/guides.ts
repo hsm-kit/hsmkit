@@ -60,6 +60,22 @@ export default {
     seoTitle: 'Security Knowledge Base - HSM Kit Guides',
     seoDescription: 'In-depth guides and tutorials on cryptography, payment security, key management, and HSM operations. Learn encryption concepts with practical examples.',
     seoKeywords: 'cryptography guide, payment security tutorial, HSM documentation, key management, TR-31, DUKPT, PIN block, KCV, encryption tutorial',
+
+    // FAQ & Usage for SEO
+    faqTitle: 'Guides FAQ',
+    usageTitle: 'How to Use the Knowledge Base',
+    faqs: [
+      { question: 'What topics do the guides cover?', answer: 'Our guides cover key management (TR-31, KCV, key splitting), payment security (PIN blocks, DUKPT, CVV/CVC), encryption algorithms (AES, DES, RSA, ECC), and HSM operations for Thales, Futurex, Atalla, and SafeNet.' },
+      { question: 'Are the guides free to read?', answer: 'Yes, all guides are completely free. No registration or login required. They are written by the HSM Kit team to help developers and security professionals understand cryptographic concepts.' },
+      { question: 'Can I use the guides for production systems?', answer: 'The guides are educational resources. While the concepts are accurate, always consult official vendor documentation and conduct proper security reviews before implementing in production environments.' },
+      { question: 'How often are the guides updated?', answer: 'We regularly update guides to reflect the latest standards, algorithm changes, and best practices in cryptography and payment security.' },
+    ],
+    usage: [
+      'Browse guides by category: Key Management, Payment Security, Encryption, or PKI & Certificates.',
+      'Use the search bar to quickly find guides on specific topics like AES, TR-31, or PIN blocks.',
+      'Each guide includes related tools with direct links to try the concepts hands-on.',
+      'Guides are available in multiple languages including English and Chinese.',
+    ],
     
     // Tags
     tags: {

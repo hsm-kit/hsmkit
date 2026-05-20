@@ -23,5 +23,9 @@ export default {
       reloadPage: 'ページを再読み込み',
     },
     noResults: 'ツールが見つかりません。別のキーワードで検索してください。',
+    notFound: {
+      title: 'ページが見つかりません',
+      description: 'お探しのページは存在しないか、移動された可能性があります。',
+    },
   },
 };

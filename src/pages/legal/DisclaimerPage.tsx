@@ -1,124 +1,126 @@
-import React, { useState } from 'react';
-import { Typography, Card, Alert } from 'antd';
-import { WarningOutlined, FileProtectOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { PageLayout } from '../../components/common/PageLayout';
+import React from 'react';
+import { Typography, Alert } from 'antd';
+import {
+  FileProtectOutlined,
+  WarningOutlined,
+  StopOutlined,
+  SafetyCertificateOutlined,
+  AuditOutlined,
+  MailOutlined,
+} from '@ant-design/icons';
+import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
-const { Title, Paragraph, Text } = Typography;
+const { Paragraph } = Typography;
 
 const DisclaimerPage: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
   const content = t.disclaimer;
   const currentYear = new Date().getFullYear();
-  const [isBackHovered, setIsBackHovered] = useState(false);
 
   return (
-    <PageLayout
+    <LegalPageLayout
       seoTitle={content?.seoTitle}
       seoDescription={content?.seoDescription}
       seoKeywords={content?.seoKeywords}
       canonical="https://hsmkit.com/disclaimer"
+      icon={<FileProtectOutlined style={{ fontSize: 24, color: '#fff' }} />}
+      iconGradient="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+      title={content.title}
+      lastUpdated={content.lastUpdated}
+      lastUpdatedDate={content.lastUpdatedDate.replace('{year}', String(currentYear))}
     >
-      <div style={{ maxWidth: 800, margin: '0 auto' }}>
-        <Card
+      <section className="legal-section">
+        <Alert
+          message={content.securityWarningTitle}
+          description={content.securityWarningContent}
+          type="warning"
+          showIcon
+          icon={<WarningOutlined />}
           style={{
-            borderRadius: 12,
-            background: isDark ? '#1f1f1f' : '#fff',
-            border: isDark ? '1px solid #303030' : '1px solid #f0f0f0',
+            marginBottom: 32,
+            borderRadius: 10,
+            border: isDark ? '1px solid #614e0a' : undefined,
+          }}
+        />
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+            <FileProtectOutlined />
+          </span>
+          {content.generalTitle}
+        </h4>
+        <Paragraph>{content.generalContent}</Paragraph>
+        <div
+          className="legal-highlight"
+          style={{
+            background: isDark ? 'rgba(102, 126, 234, 0.08)' : 'rgba(102, 126, 234, 0.05)',
+            borderColor: '#667eea',
+            color: isDark ? '#a0b0f0' : '#1d39c4',
           }}
         >
-          {/* Back button with hover effect */}
-          <Link 
-            to="/"
-            onMouseEnter={() => setIsBackHovered(true)}
-            onMouseLeave={() => setIsBackHovered(false)}
-            style={{ 
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              marginBottom: 20, 
-              padding: '6px 12px',
-              borderRadius: 6,
-              color: isBackHovered ? '#667eea' : (isDark ? '#8c8c8c' : '#595959'),
-              background: isBackHovered ? (isDark ? 'rgba(102, 126, 234, 0.1)' : 'rgba(102, 126, 234, 0.08)') : 'transparent',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease',
-              fontSize: 14,
-            }}
-          >
-            <ArrowLeftOutlined />
-            {content.backToHome}
-          </Link>
+          This tool is intended for educational, testing, and development purposes only.
+        </div>
+      </section>
 
-          {/* Title with icon - better alignment */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-            <div style={{
-              width: 42,
-              height: 42,
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              <FileProtectOutlined style={{ fontSize: 20, color: '#fff' }} />
-            </div>
-            <Title level={2} style={{ margin: 0, fontSize: 28, lineHeight: 1.2 }}>
-              {content.title}
-            </Title>
-          </div>
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #f5576c 0%, #ff6b6b 100%)' }}>
+            <StopOutlined />
+          </span>
+          {content.noLiabilityTitle}
+        </h4>
+        <Paragraph>{content.noLiabilityContent}</Paragraph>
+      </section>
 
-          {/* Last updated - moved below title */}
-          <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 28 }}>
-            {content.lastUpdated}: {content.lastUpdatedDate.replace('{year}', String(currentYear))}
-          </Text>
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
+            <SafetyCertificateOutlined />
+          </span>
+          {content.securityTitle}
+        </h4>
+        <Paragraph>{content.securityContent}</Paragraph>
+        <div
+          className="legal-highlight"
+          style={{
+            background: isDark ? 'rgba(250, 112, 154, 0.08)' : 'rgba(250, 112, 154, 0.05)',
+            borderColor: '#fa709a',
+            color: isDark ? '#f0a0c0' : '#a8071a',
+          }}
+        >
+          Never use real production keys, sensitive data, or live credentials on this website.
+        </div>
+      </section>
 
-          <Alert
-            message={content.securityWarningTitle}
-            description={content.securityWarningContent}
-            type="warning"
-            showIcon
-            icon={<WarningOutlined />}
-            style={{ marginBottom: 36 }}
-          />
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }}>
+            <AuditOutlined />
+          </span>
+          {content.complianceTitle}
+        </h4>
+        <Paragraph>{content.complianceContent}</Paragraph>
+      </section>
 
-          <section style={{ marginBottom: 40 }}>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.generalTitle}</Title>
-            <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>{content.generalContent}</Paragraph>
-          </section>
-
-          <section style={{ marginBottom: 40 }}>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.noLiabilityTitle}</Title>
-            <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>{content.noLiabilityContent}</Paragraph>
-          </section>
-
-          <section style={{ marginBottom: 40 }}>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.securityTitle}</Title>
-            <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>{content.securityContent}</Paragraph>
-          </section>
-
-          <section style={{ marginBottom: 40 }}>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.complianceTitle}</Title>
-            <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>{content.complianceContent}</Paragraph>
-          </section>
-
-          {/* Contact section */}
-          <section>
-            <Title level={4} style={{ marginBottom: 12 }}>{content.contactTitle}</Title>
-            <Paragraph style={{ marginBottom: 0, lineHeight: 1.8 }}>
-              {content.contactContent}
-              <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea' }}>contact@hsmkit.com</a>
-            </Paragraph>
-          </section>
-        </Card>
-      </div>
-    </PageLayout>
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' }}>
+            <MailOutlined />
+          </span>
+          {content.contactTitle}
+        </h4>
+        <Paragraph>
+          {content.contactContent}
+          <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea', fontWeight: 500 }}>contact@hsmkit.com</a>
+        </Paragraph>
+      </section>
+    </LegalPageLayout>
   );
 };
 
 export default DisclaimerPage;
-

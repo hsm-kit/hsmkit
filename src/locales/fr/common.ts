@@ -23,5 +23,9 @@ export default {
       reloadPage: 'Recharger la page',
     },
     noResults: 'Aucun outil trouvé. Essayez un autre terme de recherche.',
+    notFound: {
+      title: 'Page non trouvée',
+      description: 'La page que vous recherchez n\'existe pas ou a été déplacée.',
+    },
   },
 };

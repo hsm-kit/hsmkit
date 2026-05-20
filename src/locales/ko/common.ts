@@ -23,5 +23,9 @@ export default {
       reloadPage: '페이지 새로고침',
     },
     noResults: '도구를 찾을 수 없습니다. 다른 검색어를 시도해 주세요.',
+    notFound: {
+      title: '페이지를 찾을 수 없습니다',
+      description: '찾으시는 페이지가 존재하지 않거나 이동되었습니다.',
+    },
   },
 };

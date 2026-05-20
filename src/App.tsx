@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, Suspense, lazy } from 'react';
-import { Layout, Menu, Typography, Button, Drawer, Tooltip } from 'antd';
+import { Layout, Menu, Typography, Button, Drawer, Tooltip, Skeleton, Card } from 'antd';
 import { 
   KeyOutlined, 
   MenuOutlined,
@@ -96,6 +96,82 @@ const GuideDetailPage = lazy(() => import('./pages/guides/GuideDetailPage'));
 // 404 Page
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+// 路由预加载映射 - 鼠标悬停菜单时提前加载对应 chunk
+const routePrefetchMap: Record<string, () => Promise<unknown>> = {
+  'home': () => import('./pages/home/HomePage'),
+  'pki-asn1': () => import('./pages/pki/ASN1Page'),
+  'pki-ssl': () => import('./pages/pki/SSLCertificatesPage'),
+  'cipher-aes': () => import('./pages/cipher/AESPage'),
+  'cipher-des': () => import('./pages/cipher/DESPage'),
+  'cipher-rsa': () => import('./pages/cipher/RSAPage'),
+  'cipher-ecc': () => import('./pages/cipher/ECCPage'),
+  'cipher-fpe': () => import('./pages/cipher/FPEPage'),
+  'generic-hashes': () => import('./pages/generic/HashPage'),
+  'generic-encoding': () => import('./pages/generic/CharacterEncodingPage'),
+  'generic-bcd': () => import('./pages/generic/BCDPage'),
+  'generic-checkdigits': () => import('./pages/generic/CheckDigitsPage'),
+  'generic-base64': () => import('./pages/generic/Base64Page'),
+  'generic-base94': () => import('./pages/generic/Base94Page'),
+  'generic-message': () => import('./pages/generic/MessageParserPage'),
+  'generic-rsader': () => import('./pages/generic/RSADerPublicKeyPage'),
+  'generic-uuid': () => import('./pages/generic/UUIDPage'),
+  'keys-dea': () => import('./pages/keys/KeyGeneratorPage'),
+  'keys-keyshare': () => import('./pages/keys/KeysharePage'),
+  'keys-hsm-futurex': () => import('./pages/keys/FuturexKeysPage'),
+  'keys-hsm-atalla': () => import('./pages/keys/AtallaKeysPage'),
+  'keys-hsm-safenet': () => import('./pages/keys/SafeNetKeysPage'),
+  'keys-hsm-thales': () => import('./pages/keys/ThalesKeysPage'),
+  'keys-blocks-thales': () => import('./pages/keys/ThalesKeyBlockPage'),
+  'keys-blocks-tr31': () => import('./pages/keys/TR31Page'),
+  'payments-as2805': () => import('./pages/payment/AS2805Page'),
+  'payments-bitmap': () => import('./pages/payment/BitmapPage'),
+  'payments-card-validation-cvvs': () => import('./pages/payment/CVVPage'),
+  'payments-card-validation-amex-cscs': () => import('./pages/payment/AmexCSCPage'),
+  'payments-card-validation-mastercard-cvc3': () => import('./pages/payment/MastercardCVC3Page'),
+  'payments-dukpt-iso9797': () => import('./pages/payment/DUKPTPage'),
+  'payments-dukpt-aes': () => import('./pages/payment/DUKPTAESPage'),
+  'payments-mac-iso9797-1': () => import('./pages/payment/ISO9797Page'),
+  'payments-mac-ansix9': () => import('./pages/payment/ANSIMACPage'),
+  'payments-mac-as2805': () => import('./pages/payment/AS2805MACPage'),
+  'payments-mac-tdes-cbc-mac': () => import('./pages/payment/TDESCBCMACPage'),
+  'payments-mac-hmac': () => import('./pages/payment/HMACPage'),
+  'payments-mac-cmac': () => import('./pages/payment/CMACPage'),
+  'payments-mac-retail': () => import('./pages/payment/RetailMACPage'),
+  'payments-pin-blocks-general': () => import('./pages/payment/PinBlockGeneralPage'),
+  'payments-pin-blocks-aes': () => import('./pages/payment/PinBlockAESPage'),
+  'payments-pin-offset': () => import('./pages/payment/PinOffsetPage'),
+  'payments-pin-pvv': () => import('./pages/payment/PinPVVPage'),
+  'payments-visa-certificates': () => import('./pages/payment/VISACertificatesPage'),
+  'payments-zka': () => import('./pages/payment/ZKAPage'),
+};
+
+// 子菜单 key 到其下属路由 key 的映射
+const submenuRouteKeys: Record<string, string[]> = {
+  'pki': ['pki-asn1', 'pki-ssl'],
+  'generic': ['generic-hashes', 'generic-encoding', 'generic-bcd', 'generic-checkdigits', 'generic-base64', 'generic-base94', 'generic-message', 'generic-rsader', 'generic-uuid'],
+  'cipher': ['cipher-aes', 'cipher-des', 'cipher-rsa', 'cipher-ecc', 'cipher-fpe'],
+  'keys': ['keys-dea', 'keys-keyshare', 'keys-hsm-futurex', 'keys-hsm-atalla', 'keys-hsm-safenet', 'keys-hsm-thales', 'keys-blocks-thales', 'keys-blocks-tr31'],
+  'keys-hsm': ['keys-hsm-futurex', 'keys-hsm-atalla', 'keys-hsm-safenet', 'keys-hsm-thales'],
+  'keys-blocks': ['keys-blocks-thales', 'keys-blocks-tr31'],
+  'payments': ['payments-as2805', 'payments-bitmap', 'payments-card-validation-cvvs', 'payments-card-validation-amex-cscs', 'payments-card-validation-mastercard-cvc3', 'payments-dukpt-iso9797', 'payments-dukpt-aes', 'payments-mac-iso9797-1', 'payments-mac-ansix9', 'payments-mac-as2805', 'payments-mac-tdes-cbc-mac', 'payments-mac-hmac', 'payments-mac-cmac', 'payments-mac-retail', 'payments-pin-blocks-general', 'payments-pin-blocks-aes', 'payments-pin-offset', 'payments-pin-pvv', 'payments-visa-certificates', 'payments-zka'],
+  'payments-card-validation': ['payments-card-validation-cvvs', 'payments-card-validation-amex-cscs', 'payments-card-validation-mastercard-cvc3'],
+  'payments-dukpt': ['payments-dukpt-iso9797', 'payments-dukpt-aes'],
+  'payments-mac-algorithms': ['payments-mac-iso9797-1', 'payments-mac-ansix9', 'payments-mac-as2805', 'payments-mac-tdes-cbc-mac', 'payments-mac-hmac', 'payments-mac-cmac', 'payments-mac-retail'],
+  'payments-pin-blocks': ['payments-pin-blocks-general', 'payments-pin-blocks-aes'],
+};
+
+const prefetchRoute = (key: string): void => {
+  const fn = routePrefetchMap[key];
+  if (fn) fn();
+};
+
+const prefetchSubmenuRoutes = (submenuKey: string): void => {
+  const keys = submenuRouteKeys[submenuKey];
+  if (keys) {
+    keys.forEach(prefetchRoute);
+  }
+};
+
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
 
@@ -164,6 +240,20 @@ const routeToKey: Record<string, string> = Object.fromEntries(
 );
 const keyToRoute: Record<string, string> = Object.fromEntries(
   routes.map(r => [r.key, r.path])
+);
+
+const PageSkeleton: React.FC = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <Card>
+      <Skeleton active paragraph={{ rows: 8 }} />
+    </Card>
+    <Card>
+      <Skeleton active paragraph={{ rows: 3 }} />
+    </Card>
+    <Card>
+      <Skeleton active paragraph={{ rows: 4 }} />
+    </Card>
+  </div>
 );
 
 const App: React.FC = () => {
@@ -316,6 +406,7 @@ const App: React.FC = () => {
   ], [t]);
 
   const handleMenuClick = useCallback((key: string) => {
+    prefetchRoute(key);
     const route = keyToRoute[key];
     if (route) {
       navigate(route);
@@ -324,7 +415,7 @@ const App: React.FC = () => {
   }, [navigate]);
 
   return (
-    <Layout style={{ minHeight: '100vh', background: isDark ? '#141414' : '#f0f2f5' }}>
+    <Layout style={{ minHeight: '100vh', background: isDark ? '#141414' : '#f8f9fb' }}>
       {/* 1. 顶部导航栏 */}
       <Header 
         style={{ 
@@ -377,6 +468,9 @@ const App: React.FC = () => {
               mode="horizontal" 
               selectedKeys={[currentKey]} 
               onClick={e => handleMenuClick(e.key)}
+              onOpenChange={(openKeys) => {
+                openKeys.forEach(key => prefetchSubmenuRoutes(key as string));
+              }}
               items={items}
               subMenuOpenDelay={0.1}
               subMenuCloseDelay={0.05}
@@ -463,6 +557,9 @@ const App: React.FC = () => {
           mode="vertical"
           selectedKeys={[currentKey]}
           onClick={e => handleMenuClick(e.key)}
+          onOpenChange={(openKeys) => {
+            openKeys.forEach(key => prefetchSubmenuRoutes(key as string));
+          }}
           items={[
             { label: t.common.home || 'Home', key: 'home', icon: <HomeOutlined /> },
             ...items,
@@ -487,7 +584,7 @@ const App: React.FC = () => {
       {/* 2. 内容区域 */}
       <Content key={location.pathname} style={{ ...contentStyle, paddingTop: isMobile ? 56 + 24 : 64 + 24 }}>
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
-          <Suspense fallback={<div style={{ minHeight: 380 }} />}>
+          <Suspense fallback={<PageSkeleton />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/asn1-parser" element={<ASN1Page />} />

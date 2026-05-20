@@ -23,5 +23,9 @@ export default {
       reloadPage: '刷新页面',
     },
     noResults: '未找到工具，请尝试其他搜索词。',
+    notFound: {
+      title: '页面未找到',
+      description: '您访问的页面不存在或已被移动。',
+    },
   },
 };

@@ -189,15 +189,15 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             marginTop: 24, 
             boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
             background: isDark 
-              ? 'linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 100%)'
-              : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+              ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
+              : 'linear-gradient(135deg, #f8f9fc 0%, #f3f4f8 100%)',
             border: 'none'
           }}
         >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#52c41a' : '#1e293b' }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#818cf8' : '#374151' }}>
             📖 {usageTitle}
           </Title>
-          <div style={{ color: isDark ? '#a3d9a3' : '#475569', lineHeight: 1.8 }}>
+          <div style={{ color: isDark ? '#a5b4fc' : '#4b5563', lineHeight: 1.8 }}>
             {usageContent}
           </div>
         </Card>
@@ -210,12 +210,12 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             marginTop: 24, 
             boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
             background: isDark 
-              ? 'linear-gradient(135deg, #2a2a1a 0%, #3a3a1a 100%)'
-              : 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)',
+              ? 'linear-gradient(135deg, #2a1a2e 0%, #341e3a 100%)'
+              : 'linear-gradient(135deg, #f9f8fc 0%, #f4f2f8 100%)',
             border: 'none'
           }}
         >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#faad14' : '#854d0e' }}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#c084fc' : '#374151' }}>
             <QuestionCircleOutlined style={{ marginRight: 8 }} />
             {faqTitle}
           </Title>
@@ -223,8 +223,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             ghost
             items={faqs.map((faq, index) => ({
               key: index,
-              label: <Text strong style={{ color: isDark ? '#ffc53d' : '#78350f' }}>{faq.question}</Text>,
-              children: <div style={{ color: isDark ? '#d9a200' : '#92400e', marginBottom: 0 }}>{faq.answer}</div>
+              label: <Text strong style={{ color: isDark ? '#d8b4fe' : '#1f2937' }}>{faq.question}</Text>,
+              children: <div style={{ color: isDark ? '#c4b5fd' : '#4b5563', marginBottom: 0 }}>{faq.answer}</div>
             }))}
             style={{ background: 'transparent' }}
           />
