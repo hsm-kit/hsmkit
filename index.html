@@ -173,6 +173,26 @@
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
+
+    <!-- 一次性迁移：清除旧 Service Worker 和缓存 -->
+    <script>
+      (function() {
+        if ('serviceWorker' in navigator && !localStorage.getItem('sw-clean-v2')) {
+          navigator.serviceWorker.getRegistrations().then(function(regs) {
+            if (regs.length > 0) {
+              for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+              caches.keys().then(function(names) {
+                for (var j = 0; j < names.length; j++) { caches.delete(names[j]); }
+                localStorage.setItem('sw-clean-v2', '1');
+                window.location.reload();
+              });
+            } else {
+              localStorage.setItem('sw-clean-v2', '1');
+            }
+          });
+        }
+      })();
+    </script>
     <noscript>
       <h1>HSM Kit - Online Cryptographic Toolkit</h1>
       <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser to use the tools.</p>
