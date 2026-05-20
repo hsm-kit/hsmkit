@@ -10,6 +10,8 @@ export default {
     copyFailed: '복사 실패',
     operationSuccess: '작업이 완료되었습니다',
     operationFailed: '작업에 실패했습니다',
+    example: '예제',
+    loadExample: '예제 불러오기',
     error: '오류',
     result: '결과',
     loading: '로딩 중...',

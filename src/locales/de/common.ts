@@ -10,6 +10,8 @@ export default {
     copyFailed: 'Kopieren fehlgeschlagen',
     operationSuccess: 'Vorgang erfolgreich abgeschlossen',
     operationFailed: 'Vorgang fehlgeschlagen',
+    example: 'Beispiel',
+    loadExample: 'Beispiel laden',
     error: 'Fehler',
     result: 'Ergebnis',
     loading: 'Laden...',

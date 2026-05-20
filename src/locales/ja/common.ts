@@ -10,6 +10,8 @@ export default {
     copyFailed: 'コピーに失敗しました',
     operationSuccess: '操作が完了しました',
     operationFailed: '操作に失敗しました',
+    example: '例',
+    loadExample: '例を読み込む',
     error: 'エラー',
     result: '結果',
     loading: '読み込み中...',

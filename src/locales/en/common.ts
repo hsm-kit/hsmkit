@@ -10,6 +10,8 @@ export default {
     copyFailed: 'Failed to copy',
     operationSuccess: 'Operation completed successfully',
     operationFailed: 'Operation failed',
+    example: 'Example',
+    loadExample: 'Load Example',
     error: 'Error',
     result: 'Result',
     loading: 'Loading...',

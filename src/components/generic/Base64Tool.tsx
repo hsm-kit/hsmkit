@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { isValidHex } from '../../utils/hex';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -184,13 +185,19 @@ const Base64Tool: React.FC = () => {
           <Text strong>
             {t.base64?.data || 'Data'}:
           </Text>
-          <Text style={{ 
-            fontSize: '12px',
-            color: getInputLength(encodeInput, encodeInputEncoding) > 0 ? '#52c41a' : '#999',
-            fontWeight: getInputLength(encodeInput, encodeInputEncoding) > 0 ? 600 : 400
-          }}>
-            [{getInputLength(encodeInput, encodeInputEncoding)}]
-          </Text>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ExampleButton onClick={() => {
+              setEncodeInput(examples.base64.input);
+              setEncodeInputEncoding('ASCII');
+            }} />
+            <Text style={{ 
+              fontSize: '12px',
+              color: getInputLength(encodeInput, encodeInputEncoding) > 0 ? '#52c41a' : '#999',
+              fontWeight: getInputLength(encodeInput, encodeInputEncoding) > 0 ? 600 : 400
+            }}>
+              [{getInputLength(encodeInput, encodeInputEncoding)}]
+            </Text>
+          </div>
         </div>
         <TextArea
           value={encodeInput}

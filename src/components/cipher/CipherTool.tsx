@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { webCryptoAesEncrypt, isWebCryptoAvailable } from '../../utils/webCrypto';
 import { cmacAES } from '../../utils/crypto';
 import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode, getLengthColor } from '../../utils/hex';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -396,13 +397,19 @@ const CipherTool: React.FC = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <Text strong>{t.cipher?.key || 'Key'}:</Text>
-                <Text style={{ 
-                  fontSize: '12px', 
-                  color: getLengthColor(getActualKeyLength(), getExpectedKeyLength()),
-                  fontWeight: getActualKeyLength() > 0 ? 600 : 400
-                }}>
-                  [{getActualKeyLength() || getExpectedKeyLength()}]
-                </Text>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <ExampleButton onClick={() => {
+                    setKey(examples.aes.key);
+                    setData(examples.aes.data);
+                  }} />
+                  <Text style={{ 
+                    fontSize: '12px', 
+                    color: getLengthColor(getActualKeyLength(), getExpectedKeyLength()),
+                    fontWeight: getActualKeyLength() > 0 ? 600 : 400
+                  }}>
+                    [{getActualKeyLength() || getExpectedKeyLength()}]
+                  </Text>
+                </div>
               </div>
               <Input
                 value={key}

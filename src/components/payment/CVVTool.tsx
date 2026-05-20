@@ -3,8 +3,9 @@ import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 
@@ -241,7 +242,16 @@ const CVVTool: React.FC = () => {
   const generateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CVK A:</Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <Text strong>CVK A:</Text>
+          <ExampleButton onClick={() => {
+            setGenCvkA(examples.cvv.cvkA);
+            setGenCvkB(examples.cvv.cvkB);
+            setGenPan(examples.cvv.pan);
+            setGenExpDate(examples.cvv.expDate);
+            setGenServiceCode(examples.cvv.serviceCode);
+          }} />
+        </div>
         <Input
           value={genCvkA}
           onChange={e => setGenCvkA(sanitizeHex(e.target.value))}

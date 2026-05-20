@@ -1,13 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { CopyOutlined, CalculatorOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import * as hashWasm from 'hash-wasm';
 import { webCryptoHash, isWebCryptoAvailable, hexToArrayBuffer } from '../../utils/webCrypto';
 import { cleanHex, isValidHex } from '../../utils/hex';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -347,13 +348,19 @@ const HashCalculator: React.FC = () => {
                 <Text strong>
                   {t.hash?.inputData || 'Input Data'}:
                 </Text>
-                <Text style={{ 
-                  fontSize: '12px',
-                  color: getLengthColor(),
-                  fontWeight: getByteLength() > 0 ? 600 : 400
-                }}>
-                  [{getByteLength()}]
-                </Text>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <ExampleButton onClick={() => {
+                    setInputType('ASCII');
+                    setInputData(examples.hash.input);
+                  }} />
+                  <Text style={{ 
+                    fontSize: '12px',
+                    color: getLengthColor(),
+                    fontWeight: getByteLength() > 0 ? 600 : 400
+                  }}>
+                    [{getByteLength()}]
+                  </Text>
+                </div>
               </div>
               <TextArea
                 value={inputData}

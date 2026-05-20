@@ -10,6 +10,8 @@ export default {
     copyFailed: '复制失败',
     operationSuccess: '操作成功',
     operationFailed: '操作失败',
+    example: '示例',
+    loadExample: '加载示例',
     error: '错误',
     result: '结果',
     loading: '加载中...',
