@@ -187,11 +187,11 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         <Card 
           style={{ 
             marginTop: 24, 
-            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
+            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
             background: isDark 
               ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
-              : 'linear-gradient(135deg, #f8f9fc 0%, #f3f4f8 100%)',
-            border: 'none'
+              : 'linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%)',
+            border: isDark ? 'none' : '1px solid #c7d2fe'
           }}
         >
           <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#818cf8' : '#374151' }}>
@@ -208,11 +208,11 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         <Card 
           style={{ 
             marginTop: 24, 
-            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.05)',
+            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
             background: isDark 
               ? 'linear-gradient(135deg, #2a1a2e 0%, #341e3a 100%)'
-              : 'linear-gradient(135deg, #f9f8fc 0%, #f4f2f8 100%)',
-            border: 'none'
+              : 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)',
+            border: isDark ? 'none' : '1px solid #ddd6fe'
           }}
         >
           <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#c084fc' : '#374151' }}>
