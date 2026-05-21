@@ -17,6 +17,8 @@ export default {
     advanced: '고급',
     linkCopied: '링크가 클립보드에 복사되었습니다!',
     share: '공유',
+    shareTool: '이 도구를 다른 사람과 공유',
+    copyLink: '링크 복사',
     foundResults: '{count}개의 일치하는 결과를 찾았습니다',
     searchNoResults: '일치하는 결과를 찾을 수 없습니다',
     invalidHash: '잘못된 해시 유형',

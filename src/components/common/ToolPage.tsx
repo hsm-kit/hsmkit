@@ -179,18 +179,42 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       toolCategory={toolCategory}
     >
       {children}
-      {/* Share button */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
+      {/* Share banner */}
+      <div style={{
+        marginTop: 24,
+        padding: '14px 20px',
+        borderRadius: 12,
+        background: isDark
+          ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
+          : 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
+        border: isDark ? '1px solid #2a2e3e' : '1px solid #c7d2fe',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 16,
+        flexWrap: 'wrap',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <ShareAltOutlined style={{ fontSize: 18, color: isDark ? '#818cf8' : '#4f46e5' }} />
+          <Text style={{ fontSize: 14, color: isDark ? '#c7d2fe' : '#3730a3', fontWeight: 500 }}>
+            {t.common?.shareTool || 'Share this tool with others'}
+          </Text>
+        </div>
         <Button
-          size="small"
+          type="primary"
           icon={<ShareAltOutlined />}
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
             toast.copySuccess();
           }}
-          style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999' }}
+          style={{
+            background: isDark ? '#6366f1' : '#4f46e5',
+            borderColor: isDark ? '#6366f1' : '#4f46e5',
+            fontWeight: 500,
+            borderRadius: 8,
+          }}
         >
-          {t.common?.share || 'Share'}
+          {t.common?.copyLink || 'Copy Link'}
         </Button>
       </div>
       <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} />

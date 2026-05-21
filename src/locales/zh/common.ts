@@ -17,6 +17,8 @@ export default {
     advanced: '高级',
     linkCopied: '链接已复制到剪贴板！',
     share: '分享',
+    shareTool: '分享此工具给其他人',
+    copyLink: '复制链接',
     foundResults: '找到 {count} 个匹配结果',
     searchNoResults: '未找到匹配结果',
     invalidHash: '无效的哈希类型',

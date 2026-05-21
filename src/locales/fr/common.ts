@@ -17,6 +17,8 @@ export default {
     advanced: 'Avancé',
     linkCopied: 'Lien copié dans le presse-papiers !',
     share: 'Partager',
+    shareTool: 'Partager cet outil avec d\'autres',
+    copyLink: 'Copier le lien',
     foundResults: '{count} résultat(s) correspondant(s) trouvé(s)',
     searchNoResults: 'Aucun résultat correspondant trouvé',
     invalidHash: 'Type de hachage invalide',

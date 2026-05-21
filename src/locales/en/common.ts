@@ -17,6 +17,8 @@ export default {
     advanced: 'Advanced',
     linkCopied: 'Link copied to clipboard!',
     share: 'Share',
+    shareTool: 'Share this tool with others',
+    copyLink: 'Copy Link',
     foundResults: 'Found {count} matching result(s)',
     searchNoResults: 'No matching results found',
     invalidHash: 'Invalid hash type',

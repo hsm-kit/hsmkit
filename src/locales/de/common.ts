@@ -17,6 +17,8 @@ export default {
     advanced: 'Experte',
     linkCopied: 'Link in die Zwischenablage kopiert!',
     share: 'Teilen',
+    shareTool: 'Dieses Tool mit anderen teilen',
+    copyLink: 'Link kopieren',
     foundResults: '{count} übereinstimmende(s) Ergebnis(se) gefunden',
     searchNoResults: 'Keine übereinstimmenden Ergebnisse gefunden',
     invalidHash: 'Ungültiger Hash-Typ',

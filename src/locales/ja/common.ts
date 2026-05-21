@@ -17,6 +17,8 @@ export default {
     advanced: '上級',
     linkCopied: 'リンクをクリップボードにコピーしました！',
     share: '共有',
+    shareTool: 'このツールを共有する',
+    copyLink: 'リンクをコピー',
     foundResults: '{count} 件の一致が見つかりました',
     searchNoResults: '一致する結果が見つかりません',
     invalidHash: '無効なハッシュタイプ',
