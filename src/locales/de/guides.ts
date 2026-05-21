@@ -60,7 +60,7 @@ export default {
     usageTitle: 'So nutzen Sie die Wissensdatenbank',
     faqs: [
       { question: 'Welche Themen decken die Anleitungen ab?', answer: 'Unsere Anleitungen decken Schlüsselverwaltung (TR-31, KCV, Schlüsselaufteilung), Zahlungssicherheit (PIN-Blöcke, DUKPT, CVV/CVC), Verschlüsselungsalgorithmen (AES, DES, RSA, ECC) und HSM-Operationen für Thales, Futurex, Atalla und SafeNet ab.' },
-      { question: 'Sind die Anleitungen kostenlos?', answer: 'Ja, alle Anleitungen sind完全 kostenlos. Keine Registrierung oder Anmeldung erforderlich. Sie wurden vom HSM Kit-Team erstellt, um Entwicklern und Sicherheitsexperten das Verständnis kryptografischer Konzepte zu erleichtern.' },
+      { question: 'Sind die Anleitungen kostenlos?', answer: 'Ja, alle Anleitungen sind vollständig kostenlos. Keine Registrierung oder Anmeldung erforderlich. Sie wurden vom HSM Kit-Team erstellt, um Entwicklern und Sicherheitsexperten das Verständnis kryptografischer Konzepte zu erleichtern.' },
       { question: 'Kann ich die Anleitungen für Produktionssysteme verwenden?', answer: 'Die Anleitungen sind Bildungsressourcen. Obwohl die Konzepte korrekt sind, konsultieren Sie immer die offizielle Herstellerdokumentation und führen Sie angemessene Sicherheitsprüfungen durch, bevor Sie sie in Produktionsumgebungen implementieren.' },
       { question: 'Wie oft werden die Anleitungen aktualisiert?', answer: 'Wir aktualisieren die Anleitungen regelmäßig, um die neuesten Standards, Algorithmusänderungen und bewährte Verfahren in Kryptographie und Zahlungssicherheit widerzuspiegeln.' },
     ],

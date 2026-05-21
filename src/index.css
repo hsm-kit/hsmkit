@@ -15,7 +15,7 @@
   --shadow-md: 0 2px 8px rgba(0,0,0,0.05);
   --radius-sm: 6px;
   --radius-md: 8px;
-  --mono-font: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+  --mono-font: 'SF Mono', 'Cascadia Code', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 }
 
 * {
@@ -307,6 +307,32 @@ textarea.ant-input,
   /* 知识库 Read Next 移动端 */
   .guides-read-next .ant-col {
     margin-bottom: 12px;
+  }
+
+  /* 工具页结果区复制按钮移动端优化 */
+  .ant-card-head-extra {
+    width: 100%;
+    margin-top: 8px !important;
+  }
+  
+  .ant-card-head-extra .ant-btn {
+    width: 100%;
+  }
+
+  /* 首页筛选面板移动端 */
+  .home-filter-panel {
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .home-filter-panel .filter-label {
+    width: 40px !important;
+    font-size: 10px !important;
+  }
+
+  .home-filter-panel .ant-tag {
+    padding: 2px 10px !important;
+    font-size: 11px !important;
   }
 }
 

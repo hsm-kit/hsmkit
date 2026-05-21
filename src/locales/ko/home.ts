@@ -5,6 +5,7 @@ export default {
     heroDescription: '보안 전문가를 위한 포괄적인 암호화 도구 모음입니다. 모든 계산은 브라우저 내 클라이언트 측에서 수행되며, 데이터는 기기를 절대 벗어나지 않습니다.',
     searchPlaceholder: '도구 검색... (예: MD5, AES, PIN Block)',
     recentlyUsed: '최근 사용',
+    difficultyAll: '전체 레벨',
     availableTools: '인기 도구',
     gridView: '격자 보기',
     listView: '목록 보기',

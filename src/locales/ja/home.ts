@@ -5,6 +5,7 @@ export default {
     heroDescription: 'セキュリティ専門家のための包括的な暗号化ツールスイート。すべての計算はブラウザ内のクライアントサイドで実行され、データがデバイスから離れることはありません。',
     searchPlaceholder: 'ツールを検索... (例: MD5, AES, PIN Block)',
     recentlyUsed: '最近使用',
+    difficultyAll: '全レベル',
     availableTools: '人気のツール',
     gridView: 'グリッド表示',
     listView: 'リスト表示',

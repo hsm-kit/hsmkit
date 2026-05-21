@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Typography, Result, Card } from 'antd';
 import { ReadOutlined, RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
@@ -104,6 +104,31 @@ export const ToolPage: React.FC<ToolPageProps> = ({
     || seoContent.en[seoKey as keyof typeof seoContent.en];
 
   const relatedGuides = getRelatedGuides(location.pathname);
+
+  // Inject BreadcrumbList Schema for tools - useLayoutEffect ensures prerender captures it
+  useLayoutEffect(() => {
+    if (!seo) return;
+    
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hsmkit.com' },
+        { '@type': 'ListItem', position: 2, name: seo.title, item: canonical },
+      ],
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'tool-breadcrumb-schema';
+    script.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      const el = document.getElementById('tool-breadcrumb-schema');
+      if (el) el.remove();
+    };
+  }, [seo, canonical]);
 
   if (!seo) {
     return (

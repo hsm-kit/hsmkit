@@ -5,6 +5,7 @@ export default {
     heroDescription: 'Eine umfassende Suite kryptografischer Werkzeuge für Sicherheitsexperten. Alle Berechnungen erfolgen clientseitig in Ihrem Browser — Ihre Daten verlassen niemals Ihr Gerät.',
     searchPlaceholder: 'Tools durchsuchen... (z. B. MD5, AES, PIN Block)',
     recentlyUsed: 'Zuletzt verwendet',
+    difficultyAll: 'Alle Niveaus',
     availableTools: 'Beliebteste Tools',
     gridView: 'Rasteransicht',
     listView: 'Listenansicht',

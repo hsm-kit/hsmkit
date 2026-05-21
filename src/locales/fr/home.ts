@@ -5,6 +5,7 @@ export default {
     heroDescription: 'Suite complète d\'outils cryptographiques pour les professionnels de la sécurité. Tous les calculs s\'exécutent côté client dans votre navigateur — vos données ne quittent jamais votre appareil.',
     searchPlaceholder: 'Rechercher des outils... (ex. : MD5, AES, PIN Block)',
     recentlyUsed: 'Récemment utilisés',
+    difficultyAll: 'Tous niveaux',
     availableTools: 'Outils les plus populaires',
     gridView: 'Affichage grille',
     listView: 'Affichage liste',

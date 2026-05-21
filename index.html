@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- 预加载关键资源 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    
+    <!-- 首屏关键 CSS 内联 - 防止主题闪烁 -->
+    <style>
+      :root { --bg-color: #f8f9fb; --card-bg: #fff; --text-primary: #1f2937; --text-secondary: #6b7280; --border-color: #e5e7eb; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body, #root { width: 100%; min-height: 100%; overflow-x: hidden; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+      body.dark-mode { --bg-color: #141414; --card-bg: #1f1f1f; --text-primary: #e6e6e6; --text-secondary: #a6a6a6; --border-color: #303030; }
+    </style>
+
     <!-- Favicon - 紫蓝渐变盾牌+钥匙设计 -->
     <!-- Google 搜索结果使用 PNG 格式 -->
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
@@ -19,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     
     <!-- SEO 元数据 - Enhanced for better search rankings -->
-    <meta name="description" content="Free online encryption toolkit - AES/DES/RSA/ECC encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, FPE encryption, hash calculator, and more. 100% client-side for maximum security." />
+    <meta name="description" content="Free online encryption toolkit with 44+ cryptographic tools: AES, DES, RSA, ECC, FPE, HSM key management (Thales, Futurex, Atalla, SafeNet), TR-31 key blocks, KCV, PIN blocks, CVV/CVC, DUKPT, MAC algorithms, ASN.1, SSL certificates, hash calculator, and more. 100% client-side, no data leaves your device." />
     <meta name="keywords" content="HSM Kit, encryption tools, AES encryption online, DES encryption, 3DES calculator, RSA encryption, ECC ECDSA, TR-31 key block parser, KCV calculator, key check value, PIN block generator, ISO 9564, ASN.1 parser, DER decoder, key generator, cryptography tools, payment security, ANSI X9.143, format preserving encryption, FPE, MD5 hash generator, SHA256 calculator, Base64 encoder decoder, UUID generator online, ISO 8583 message parser, BCD converter, character encoding converter, Luhn check digit, EBCDIC ASCII converter, HSM key management, Futurex keys, Atalla AKB, SafeNet keys, Thales LMK, keyshare generator, SSL certificate parser, X509 certificate, RSA DER public key" />
     <meta name="author" content="HSM Kit" />
     <meta name="robots" content="index, follow" />
@@ -28,7 +33,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hsmkit.com/" />
     <meta property="og:title" content="HSM Kit - Free Online Encryption & Key Management Tools" />
-    <meta property="og:description" content="Comprehensive suite of cryptographic tools: AES/DES/RSA/ECC/FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, hash calculator, and 20+ tools. 100% client-side, completely free." />
+    <meta property="og:description" content="Free online encryption toolkit with 44+ cryptographic tools: AES, DES, RSA, ECC, FPE, HSM key management, TR-31 key blocks, KCV, PIN blocks, CVV/CVC, DUKPT, MAC algorithms, and more. 100% client-side, completely free." />
     <meta property="og:image" content="https://hsmkit.com/favicon-512.png" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
@@ -37,7 +42,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="HSM Kit - Free Online Encryption Tools" />
-    <meta name="twitter:description" content="AES, DES, RSA, ECC, FPE encryption, HSM key management, TR-31 key block, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificates, and 20+ cryptographic tools. All free, all client-side." />
+    <meta name="twitter:description" content="44+ free cryptographic tools: AES, DES, RSA, ECC, FPE, HSM key management, TR-31, KCV, PIN blocks, CVV/CVC, DUKPT, MAC, ASN.1, SSL, and more. 100% client-side." />
     <meta name="twitter:image" content="https://hsmkit.com/favicon-512.png" />
     
     <!-- 主题颜色 - 紫蓝渐变主色 -->
@@ -65,27 +70,35 @@
       "@type": "WebApplication",
       "name": "HSM Kit",
       "url": "https://hsmkit.com",
-      "description": "Free online encryption toolkit with AES, DES, RSA, ECC, FPE encryption, HSM key management (Futurex/Atalla/SafeNet/Thales), TR-31 key block parser, KCV calculator, PIN block generator, ASN.1 decoder, SSL certificate parser, hash calculator, and 20+ cryptographic tools.",
+      "description": "Free online encryption toolkit with 44+ cryptographic tools: AES, DES, RSA, ECC, FPE encryption, HSM key management (Futurex, Atalla, SafeNet, Thales), TR-31 key blocks, KCV calculator, PIN block generation, CVV/CVC validation, DUKPT, MAC algorithms, ASN.1 decoder, SSL certificate parser, hash calculator, and more. 100% client-side, no data leaves your device.",
       "applicationCategory": "SecurityApplication",
       "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "HSM Kit",
+        "url": "https://hsmkit.com"
       },
       "featureList": [
-        "AES-128/192/256 Encryption (ECB/CBC/CFB/OFB/CTR)",
-        "DES/3DES Encryption",
-        "RSA Encryption and Signing",
-        "ECC/ECDSA Digital Signatures",
+        "44+ Cryptographic Tools - 100% Client-Side",
+        "AES-128/192/256 Encryption (ECB/CBC/CFB/OFB/KCV)",
+        "DES/3DES Encryption with Multiple Padding Options",
+        "RSA Encryption, Decryption, Signing and Verification",
+        "ECC/ECDSA Digital Signatures (P-256/P-384/P-521)",
         "Format-Preserving Encryption (FF1/FF3-1)",
         "TR-31 Key Block Parser (ANSI X9.143)",
-        "HSM Key Management (Futurex/Atalla/SafeNet/Thales)",
         "Thales Key Block Encoder/Decoder",
-        "Keyshare Generator",
-        "KCV Calculator",
-        "PIN Block Generator (ISO 9564 - All Formats)",
-        "PIN Block AES Encryption",
+        "HSM Key Management: Futurex, Atalla, SafeNet, Thales",
+        "Keyshare Generator with KCV Calculation",
+        "KCV Calculator (SHA256/CMAC/AES)",
+        "PIN Block Generator (ISO 9564 Formats 0-4)",
+        "PIN Block AES Encryption (Format 4)",
         "PIN Offset Calculator (IBM 3624)",
         "PIN PVV Calculator (VISA)",
         "Card Validation: CVV/CVV2/iCVV/dCVV",
@@ -93,28 +106,24 @@
         "Card Validation: Mastercard CVC3 (Dynamic)",
         "DUKPT Key Derivation (ISO 9797)",
         "DUKPT AES Key Derivation",
-        "MAC: ISO 9797-1 (Algorithm 1/2/3)",
-        "MAC: ANSI X9.9/X9.19",
-        "MAC: AS2805 (Australian EFTPOS)",
-        "MAC: 3DES CBC-MAC",
-        "MAC: HMAC (SHA-256/SHA-512)",
-        "MAC: AES-CMAC/3DES-CMAC",
-        "MAC: Retail MAC",
+        "MAC: ISO 9797-1, ANSI X9.9/X9.19, AS2805, TDES CBC-MAC",
+        "MAC: HMAC (SHA-256/SHA-512), AES-CMAC, Retail MAC",
         "VISA Certificate Validation",
         "ZKA Session Key Derivation",
+        "AS2805 Payment Tools (Terminal Keys, PIN Block, MAC, OWF)",
         "ISO 8583 Bitmap Parser",
-        "AS2805 Message Parser",
         "ASN.1 DER/BER Parser",
         "SSL/TLS Certificate Parser (X.509)",
         "RSA DER Public Key Decoder",
-        "Secure Key Generator (AES/DES/3DES)",
-        "Hash Calculator (MD5, SHA-1/2/3, BLAKE2, SM3, RIPEMD, etc.)",
+        "Hash Calculator (MD5, SHA-1/2/3, SHA-3, BLAKE2, SM3, RIPEMD)",
         "Character Encoding Converter (ASCII/Hex/Binary/EBCDIC)",
         "BCD Encoder/Decoder (Packed/Unpacked)",
         "Check Digits Calculator (Luhn, Mod 10/9, Amex SE)",
-        "Base64/Base94 Encoder/Decoder",
+        "Base64 Encoder/Decoder",
+        "Base94 Encoder/Decoder",
         "UUID Generator (v1/v3/v4/v5)",
-        "Message Parser (ISO 8583, ATM NDC/Wincor)"
+        "Secure Key Generator (AES/DES/3DES)",
+        "38 Knowledge Base Articles in English and Chinese"
       ]
     }
     </script>
@@ -167,8 +176,10 @@
         if (theme === 'dark') {
           document.body.classList.add('dark-mode');
           document.body.style.backgroundColor = '#141414';
+          document.documentElement.style.setProperty('--bg-color', '#141414');
         } else {
           document.body.style.backgroundColor = '#f8f9fb';
+          document.documentElement.style.setProperty('--bg-color', '#f8f9fb');
         }
         document.documentElement.setAttribute('data-theme', theme);
       })();
@@ -194,9 +205,9 @@
       })();
     </script>
     <noscript>
-      <h1>HSM Kit - Online Cryptographic Toolkit</h1>
+      <h1>HSM Kit - Free Online Cryptographic Toolkit (44+ Tools)</h1>
       <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser to use the tools.</p>
-      <h2>Available Tools (50+ Features):</h2>
+      <h2>Available Tools (44+):</h2>
       <p><strong>Encryption:</strong> AES, DES/3DES, RSA, ECC/ECDSA, Format-Preserving Encryption (FPE)</p>
       <p><strong>HSM Key Management:</strong> Futurex, Atalla, SafeNet, Thales key encryption/decryption, TR-31 key blocks, Thales key blocks, keyshare generation, KCV calculator</p>
       <p><strong>Payment Security:</strong> PIN blocks (ISO 9564 all formats), PIN offset (IBM 3624), PIN PVV (VISA), CVV/CVV2/iCVV/dCVV, Amex CSC (CSC3/4/5), Mastercard CVC3, DUKPT (ISO 9797 & AES), ISO 8583 bitmap parser, AS2805 parser</p>

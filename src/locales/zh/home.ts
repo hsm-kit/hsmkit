@@ -5,6 +5,7 @@ export default {
     heroDescription: '为安全专业人员提供的全面密码学工具套件。所有计算均在浏览器端执行——您的数据不会离开设备。',
     searchPlaceholder: '搜索工具...（例如：MD5、AES、PIN Block）',
     recentlyUsed: '最近使用',
+    difficultyAll: '全部难度',
     availableTools: '最受欢迎的工具',
     gridView: '网格视图',
     listView: '列表视图',

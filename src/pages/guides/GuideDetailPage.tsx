@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { 
   Typography, 
   Breadcrumb, 
@@ -90,6 +90,7 @@ const SUPPORTED_LANGUAGES: Language[] = ['en', 'zh', 'ja', 'ko', 'de', 'fr'];
 
 const GuideDetailPage: React.FC = () => {
   const { slug, lang } = useParams<{ slug: string; lang?: string }>();
+  const location = useLocation();
   const { language: contextLanguage, setLanguage, t } = useLanguage();
   const { isDark } = useTheme();
   const guides = t.guides;
@@ -114,6 +115,8 @@ const GuideDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFallback, setIsFallback] = useState(false);
+  const [prevArticle, setPrevArticle] = useState<ArticleMeta | null>(null);
+  const [nextArticle, setNextArticle] = useState<ArticleMeta | null>(null);
 
   // Get article metadata
   const meta = useMemo(() => {
@@ -144,6 +147,17 @@ const GuideDetailPage: React.FC = () => {
     
     return related.slice(0, 3);
   }, [meta, slug, language]);
+
+  // Calculate prev/next articles
+  useEffect(() => {
+    if (!meta) return;
+    const articles = articlesEn as ArticleMeta[];
+    const currentIndex = articles.findIndex(a => a.slug === slug);
+    if (currentIndex > 0) setPrevArticle(articles[currentIndex - 1]);
+    else setPrevArticle(null);
+    if (currentIndex < articles.length - 1) setNextArticle(articles[currentIndex + 1]);
+    else setNextArticle(null);
+  }, [meta, slug]);
 
   // Extract headings for TOC
   const headings = useMemo(() => extractHeadings(content), [content]);
@@ -186,6 +200,55 @@ const GuideDetailPage: React.FC = () => {
 
     loadContent();
   }, [slug, language]);
+
+  // Inject Article JSON-LD and BreadcrumbList Schema - useLayoutEffect ensures prerender captures it
+  useLayoutEffect(() => {
+    if (!meta || loading) return;
+
+    const articleSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: meta.title,
+      description: meta.excerpt,
+      author: { '@type': 'Organization', name: 'HSM Kit' },
+      publisher: { '@type': 'Organization', name: 'HSM Kit', url: 'https://hsmkit.com' },
+      datePublished: meta.publishDate,
+      dateModified: meta.lastModified,
+      mainEntityOfPage: `https://hsmkit.com${location.pathname}`,
+      articleSection: meta.category,
+      wordCount: content?.split(/\s+/).length || 0,
+      inLanguage: language === 'en' ? 'en' : language,
+    };
+
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hsmkit.com' },
+        { '@type': 'ListItem', position: 2, name: 'Guides', item: `https://hsmkit.com${getGuidesPath(language)}` },
+        { '@type': 'ListItem', position: 3, name: meta.title, item: `https://hsmkit.com${location.pathname}` },
+      ],
+    };
+
+    const articleScript = document.createElement('script');
+    articleScript.type = 'application/ld+json';
+    articleScript.id = 'article-schema';
+    articleScript.textContent = JSON.stringify(articleSchema);
+    document.head.appendChild(articleScript);
+
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.id = 'breadcrumb-schema';
+    breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(breadcrumbScript);
+
+    return () => {
+      const articleEl = document.getElementById('article-schema');
+      if (articleEl) articleEl.remove();
+      const breadcrumbEl = document.getElementById('breadcrumb-schema');
+      if (breadcrumbEl) breadcrumbEl.remove();
+    };
+  }, [meta, loading, content, language, location.pathname]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -493,6 +556,62 @@ const GuideDetailPage: React.FC = () => {
                       <Button type="primary" size="large">{guides.openTool || 'Open Tool'} <RightOutlined /></Button>
                     </Link>
                   </Card>
+                )}
+
+                {/* Prev/Next Navigation */}
+                {(prevArticle || nextArticle) && (
+                  <div style={{ 
+                    marginTop: 64, 
+                    paddingTop: 40, 
+                    borderTop: `1px solid ${isDark ? '#303030' : '#e5e7eb'}`,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: 16,
+                  }}>
+                    {prevArticle ? (
+                      <Link 
+                        to={getGuidesPath(language, prevArticle.slug)} 
+                        style={{ textDecoration: 'none', flex: 1 }}
+                      >
+                        <div style={{
+                          padding: '16px 20px',
+                          borderRadius: 12,
+                          background: isDark ? '#1f1f1f' : '#f8f9fb',
+                          border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+                          transition: 'all 0.2s',
+                        }}>
+                          <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
+                            ← Previous
+                          </div>
+                          <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
+                            {prevArticle.title}
+                          </div>
+                        </div>
+                      </Link>
+                    ) : <div style={{ flex: 1 }} />}
+                    
+                    {nextArticle ? (
+                      <Link 
+                        to={getGuidesPath(language, nextArticle.slug)} 
+                        style={{ textDecoration: 'none', flex: 1, textAlign: 'right' }}
+                      >
+                        <div style={{
+                          padding: '16px 20px',
+                          borderRadius: 12,
+                          background: isDark ? '#1f1f1f' : '#f8f9fb',
+                          border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+                          transition: 'all 0.2s',
+                        }}>
+                          <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
+                            Next →
+                          </div>
+                          <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
+                            {nextArticle.title}
+                          </div>
+                        </div>
+                      </Link>
+                    ) : <div style={{ flex: 1 }} />}
+                  </div>
                 )}
 
                 {/* Read Next Section */}

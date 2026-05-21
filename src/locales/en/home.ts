@@ -5,6 +5,7 @@ export default {
     heroDescription: 'A comprehensive suite of cryptographic tools for security professionals. All calculations are performed client-side in your browser — your data never leaves your device.',
     searchPlaceholder: 'Search tools... (e.g., MD5, AES, PIN Block)',
     recentlyUsed: 'Recently Used',
+    difficultyAll: 'All Levels',
     availableTools: 'Most Popular Tools',
     gridView: 'Grid View',
     listView: 'List View',
