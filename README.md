@@ -42,7 +42,9 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 | ♿ **键盘可访问** | 所有交互元素支持键盘导航，符合 WCAG 标准 |
 | ⚡ **懒加载** | 路由级代码分割，首屏只加载当前页面 |
 | 🔍 **SEO 优化** | 预渲染静态 HTML、Schema 标记、多语言 hreflang |
-| 📚 **知识库** | 15 篇深度技术文章，覆盖加密、支付、HSM 等核心主题 |
+| 📚 **知识库** | 39 篇深度技术文章，覆盖加密、支付、HSM 等核心主题 |
+| 📝 **Example 按钮** | 所有工具页提供示例数据一键填充 |
+| 🕐 **最近使用** | 记录常用工具，快速访问 |
 
 ---
 
@@ -121,31 +123,81 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 
 ## 📚 知识库
 
-HSM Kit 内置安全知识库 (`/guides`)，提供 15 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
+HSM Kit 内置安全知识库 (`/guides`)，提供 39 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
 
-| 文章 | 分类 | 路由 |
-|------|------|------|
-| AES 加密详解：模式、填充与最佳实践 | Cipher | `/guides/aes-encryption-explained` |
-| DES 与 3DES：支付领域的遗留加密标准 | Cipher | `/guides/des-3des-legacy-encryption` |
-| RSA 加密指南：密钥、填充方案与使用场景 | Cipher | `/guides/rsa-encryption-guide` |
-| ECC 与 ECDSA：椭圆曲线密码学详解 | Cipher | `/guides/ecc-digital-signatures-explained` |
-| 哈希函数：MD5、SHA-256、BLAKE2 及使用场景 | PKI | `/guides/hash-functions-guide` |
-| ASN.1 与 X.509 证书：实用解析指南 | PKI | `/guides/asn1-certificates-explained` |
-| Base64 编码详解：标准、URL 安全与使用场景 | PKI | `/guides/base64-encoding-guide` |
-| HSM 密钥管理：Thales、Futurex、Atalla 与 SafeNet | Keys | `/guides/hsm-key-management-overview` |
-| 密钥分片与 KCV 终极指南 | Keys | `/guides/understanding-key-splitting-kcv` |
-| TR-31 密钥块格式详解 | Keys | `/guides/what-is-tr31-key-block` |
-| 支付安全中的 MAC 算法：ISO 9797、HMAC 与 CMAC | Payment | `/guides/mac-algorithms-payment-security` |
-| ISO 8583 支付消息：结构、位图与数据元素 | Payment | `/guides/iso8583-payment-messages` |
-| PIN 块格式详解 (ISO 9564) | Payment | `/guides/pin-block-formats-iso9564` |
-| DUKPT 密钥派生完整教程 | Payment | `/guides/dukpt-key-derivation-tutorial` |
-| CVV/CVC 计算方法详解 | Payment | `/guides/cvv-cvc-calculation-methods` |
+### 加密工具 (5 篇)
+
+| 文章 | 路由 |
+|------|------|
+| AES 加密详解 | `/guides/aes-encryption-explained` |
+| DES 与 3DES | `/guides/des-3des-legacy-encryption` |
+| RSA 加密指南 | `/guides/rsa-encryption-guide` |
+| ECC 与 ECDSA | `/guides/ecc-digital-signatures-explained` |
+| FPE 格式保留加密 | `/guides/fpe-format-preserving-encryption` |
+
+### 密钥管理 (9 篇)
+
+| 文章 | 路由 |
+|------|------|
+| HSM 密钥管理 | `/guides/hsm-key-management-overview` |
+| 密钥分片与 KCV | `/guides/understanding-key-splitting-kcv` |
+| TR-31 密钥块 | `/guides/what-is-tr31-key-block` |
+| Futurex HSM | `/guides/futurex-hsm-key-management` |
+| Atalla AKB | `/guides/atalla-akh-key-block-format` |
+| SafeNet | `/guides/safenet-key-management-guide` |
+| Thales LMK | `/guides/thales-lmk-key-encryption` |
+| Thales 密钥块 | `/guides/thales-key-block-format-guide` |
+
+### 支付安全 (15 篇)
+
+| 文章 | 路由 |
+|------|------|
+| MAC 算法 | `/guides/mac-algorithms-payment-security` |
+| ISO 8583 | `/guides/iso8583-payment-messages` |
+| PIN Block | `/guides/pin-block-formats-iso9564` |
+| DUKPT | `/guides/dukpt-key-derivation-tutorial` |
+| CVV/CVC | `/guides/cvv-cvc-calculation-methods` |
+| AS2805 | `/guides/as2805-australian-payment-standard` |
+| AMEX CSC | `/guides/amex-csc-card-security-code` |
+| Mastercard CVC3 | `/guides/mastercard-dynamic-cvc3-guide` |
+| DUKPT AES | `/guides/dukpt-aes-key-derivation` |
+| PIN Block AES | `/guides/pin-block-aes-format4-guide` |
+| PIN Offset | `/guides/pin-offset-ibm3624-guide` |
+| PIN PVV | `/guides/pin-pvv-visa-verification` |
+| ZKA | `/guides/zka-german-banking-standard` |
+| VISA 证书 | `/guides/visa-certificate-validation-guide` |
+
+### 通用工具 (5 篇)
+
+| 文章 | 路由 |
+|------|------|
+| 字符编码 | `/guides/character-encoding-ascii-ebcdic` |
+| BCD 编码 | `/guides/bcd-binary-coded-decimal-explained` |
+| 校验位 | `/guides/check-digits-luhn-mod10` |
+| Base94 | `/guides/base94-encoding-guide` |
+| UUID | `/guides/uuid-generation-guide` |
+
+### PKI 工具 (5 篇)
+
+| 文章 | 路由 |
+|------|------|
+| 哈希函数 | `/guides/hash-functions-guide` |
+| ASN.1 | `/guides/asn1-certificates-explained` |
+| Base64 | `/guides/base64-encoding-guide` |
+| RSA DER | `/guides/rsa-der-public-key-decoding` |
+| SSL 证书 | `/guides/ssl-tls-certificate-guide` |
+
+### 消息解析 (1 篇)
+
+| 文章 | 路由 |
+|------|------|
+| Message Parser | `/guides/message-parser-iso8583-guide` |
 
 ### 知识库特性
 
 - 📝 **Markdown 渲染** - 支持代码块、表格、内部链接
 - 🔗 **工具内链** - 文章正文中直接链接相关工具和关联文章
-- 🌍 **中英双语** - 英语和中文各 15 篇完整翻译
+- 🌍 **中英双语** - 英语和中文各 39 篇完整翻译
 - 📖 **目录导航** - 右侧 TOC 快速定位，滚动高亮
 - 🔍 **搜索功能** - 全文搜索文章内容
 
@@ -178,7 +230,10 @@ hsmkit/
 │   │   │   ├── ResultCard.tsx  # 结果展示卡片
 │   │   │   ├── ErrorCard.tsx   # 错误展示卡片
 │   │   │   ├── LengthIndicator.tsx # 长度指示器
-│   │   │   └── CollapsibleInfo.tsx # 信息弹窗
+│   │   │   ├── CollapsibleInfo.tsx # 信息弹窗
+│   │   │   ├── ExampleButton.tsx # 示例数据一键填充
+│   │   │   ├── ReloadPrompt.tsx # PWA 更新提示
+│   │   │   └── LegalPageLayout.tsx # 法律页面布局
 │   │   ├── generic/            # 通用工具组件
 │   │   ├── keys/               # 密钥管理组件
 │   │   ├── payment/            # 支付工具组件
@@ -186,10 +241,12 @@ hsmkit/
 │   │
 │   ├── content/                # 知识库内容
 │   │   └── guides/
-│   │       ├── en/             # 英文文章 (15 篇 Markdown)
-│   │       └── zh/             # 中文文章 (15 篇 Markdown)
+│   │       ├── en/             # 英文文章 (39 篇 Markdown)
+│   │       └── zh/             # 中文文章 (39 篇 Markdown)
 │   │
 │   ├── data/                   # 数据文件
+│   │   ├── examples.ts         # 工具示例数据
+│   │   ├── toolGuidesMap.ts    # 工具与指南映射
 │   │   └── guides/
 │   │       ├── en.json         # 英文文章元数据
 │   │       └── zh.json         # 中文文章元数据
@@ -197,7 +254,10 @@ hsmkit/
 │   ├── hooks/                  # 自定义 Hooks
 │   │   ├── useLanguage.tsx     # 多语言切换 (懒加载翻译)
 │   │   ├── useTheme.tsx        # 主题切换 (暗黑/明亮)
-│   │   └── useToolForm.ts      # 工具表单通用 Hook
+│   │   ├── useToolForm.ts      # 工具表单通用 Hook
+│   │   ├── useToast.ts         # Toast 通知
+│   │   ├── useRecentTools.ts   # 最近使用工具
+│   │   └── useInputHistory.ts  # 输入历史记录
 │   │
 │   ├── lib/                    # 第三方库 (vendored)
 │   │   └── asn1js/             # ASN.1 解析库

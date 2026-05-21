@@ -612,4 +612,420 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/base64-encoding-guide" />
   </url>
 
+  <!-- New Guides -->
+  <url>
+    <loc>https://hsmkit.com/guides/fpe-format-preserving-encryption</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/fpe-format-preserving-encryption" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/fpe-format-preserving-encryption" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/fpe-format-preserving-encryption" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/fpe-format-preserving-encryption</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/fpe-format-preserving-encryption" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/fpe-format-preserving-encryption" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/fpe-format-preserving-encryption" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/character-encoding-ascii-ebcdic</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/character-encoding-ascii-ebcdic" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/character-encoding-ascii-ebcdic" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/character-encoding-ascii-ebcdic" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/character-encoding-ascii-ebcdic</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/character-encoding-ascii-ebcdic" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/character-encoding-ascii-ebcdic" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/character-encoding-ascii-ebcdic" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/bcd-binary-coded-decimal-explained</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/bcd-binary-coded-decimal-explained" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/bcd-binary-coded-decimal-explained" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/bcd-binary-coded-decimal-explained" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/bcd-binary-coded-decimal-explained</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/bcd-binary-coded-decimal-explained" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/bcd-binary-coded-decimal-explained" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/bcd-binary-coded-decimal-explained" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/check-digits-luhn-mod10</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/check-digits-luhn-mod10" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/check-digits-luhn-mod10" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/check-digits-luhn-mod10" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/check-digits-luhn-mod10</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/check-digits-luhn-mod10" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/check-digits-luhn-mod10" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/check-digits-luhn-mod10" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/base94-encoding-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/base94-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/base94-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/base94-encoding-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/base94-encoding-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/base94-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/base94-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/base94-encoding-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/uuid-generation-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/uuid-generation-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/uuid-generation-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/uuid-generation-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/uuid-generation-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/uuid-generation-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/uuid-generation-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/uuid-generation-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/rsa-der-public-key-decoding</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/rsa-der-public-key-decoding" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/rsa-der-public-key-decoding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/rsa-der-public-key-decoding" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/rsa-der-public-key-decoding</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/rsa-der-public-key-decoding" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/rsa-der-public-key-decoding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/rsa-der-public-key-decoding" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/ssl-tls-certificate-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/ssl-tls-certificate-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/ssl-tls-certificate-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/ssl-tls-certificate-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/ssl-tls-certificate-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/ssl-tls-certificate-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/ssl-tls-certificate-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/ssl-tls-certificate-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/futurex-hsm-key-management</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/futurex-hsm-key-management" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/futurex-hsm-key-management" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/futurex-hsm-key-management" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/futurex-hsm-key-management</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/futurex-hsm-key-management" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/futurex-hsm-key-management" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/futurex-hsm-key-management" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/atalla-akh-key-block-format</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/atalla-akh-key-block-format" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/atalla-akh-key-block-format" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/atalla-akh-key-block-format" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/atalla-akh-key-block-format</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/atalla-akh-key-block-format" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/atalla-akh-key-block-format" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/atalla-akh-key-block-format" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/safenet-key-management-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/safenet-key-management-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/safenet-key-management-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/safenet-key-management-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/safenet-key-management-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/safenet-key-management-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/safenet-key-management-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/safenet-key-management-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/thales-lmk-key-encryption</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/thales-lmk-key-encryption" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/thales-lmk-key-encryption" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/thales-lmk-key-encryption" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/thales-lmk-key-encryption</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/thales-lmk-key-encryption" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/thales-lmk-key-encryption" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/thales-lmk-key-encryption" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/thales-key-block-format-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/thales-key-block-format-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/thales-key-block-format-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/thales-key-block-format-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/thales-key-block-format-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/thales-key-block-format-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/thales-key-block-format-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/thales-key-block-format-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/message-parser-iso8583-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/message-parser-iso8583-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/message-parser-iso8583-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/message-parser-iso8583-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/message-parser-iso8583-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/message-parser-iso8583-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/message-parser-iso8583-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/message-parser-iso8583-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/as2805-australian-payment-standard</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/as2805-australian-payment-standard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/as2805-australian-payment-standard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/as2805-australian-payment-standard" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/as2805-australian-payment-standard</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/as2805-australian-payment-standard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/as2805-australian-payment-standard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/as2805-australian-payment-standard" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/amex-csc-card-security-code</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/amex-csc-card-security-code" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/amex-csc-card-security-code" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/amex-csc-card-security-code" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/amex-csc-card-security-code</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/amex-csc-card-security-code" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/amex-csc-card-security-code" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/amex-csc-card-security-code" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/mastercard-dynamic-cvc3-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/mastercard-dynamic-cvc3-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/mastercard-dynamic-cvc3-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/dukpt-aes-key-derivation</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/dukpt-aes-key-derivation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/dukpt-aes-key-derivation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/dukpt-aes-key-derivation" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/dukpt-aes-key-derivation</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/dukpt-aes-key-derivation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/dukpt-aes-key-derivation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/dukpt-aes-key-derivation" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/pin-block-aes-format4-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-block-aes-format4-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-block-aes-format4-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-block-aes-format4-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/pin-block-aes-format4-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-block-aes-format4-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-block-aes-format4-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-block-aes-format4-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/pin-offset-ibm3624-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-offset-ibm3624-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-offset-ibm3624-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-offset-ibm3624-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/pin-offset-ibm3624-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-offset-ibm3624-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-offset-ibm3624-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-offset-ibm3624-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/pin-pvv-visa-verification</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-pvv-visa-verification" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-pvv-visa-verification" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-pvv-visa-verification" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/pin-pvv-visa-verification</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/pin-pvv-visa-verification" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/pin-pvv-visa-verification" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/pin-pvv-visa-verification" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/zka-german-banking-standard</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/zka-german-banking-standard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/zka-german-banking-standard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/zka-german-banking-standard" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/zka-german-banking-standard</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/zka-german-banking-standard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/zka-german-banking-standard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/zka-german-banking-standard" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/guides/visa-certificate-validation-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/visa-certificate-validation-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/visa-certificate-validation-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/visa-certificate-validation-guide" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/visa-certificate-validation-guide</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/visa-certificate-validation-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/visa-certificate-validation-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/visa-certificate-validation-guide" />
+  </url>
+
 </urlset>
