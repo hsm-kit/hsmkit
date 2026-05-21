@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, message, Divider, Typography, Input, Select } from 'antd';
 import { SwapOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -259,28 +260,6 @@ const CharacterEncodingTool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // Get input length (in bytes or characters depending on type)
-  const getInputLength = (): number => {
-    if (!inputData) return 0;
-    
-    switch (encodingType) {
-      case 'hex2bin':
-      case 'ebcdic2ascii':
-      case 'hex2atm': {
-        const cleaned = cleanHex(inputData);
-        return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-      }
-      case 'bin2hex':
-      case 'text2hex':
-      case 'ascii2ebcdic':
-        return inputData.replace(/[\s\n\r]/g, '').length;
-      case 'atm2hex':
-        return inputData.trim().split(/[\s,]+/).filter(n => n.length > 0).length;
-      default:
-        return 0;
-    }
-  };
-
   // Get encoding info
   const getEncodingInfo = () => {
     const info = ENCODING_TYPES.find(e => e.value === encodingType);
@@ -354,13 +333,9 @@ const CharacterEncodingTool: React.FC = () => {
                 <Text strong>
                   {t.encoding?.data || 'Data'}:
                 </Text>
-                <Text style={{ 
-                  fontSize: '12px',
-                  color: getInputLength() > 0 ? '#52c41a' : '#999',
-                  fontWeight: getInputLength() > 0 ? 600 : 400
-                }}>
-                  [{getInputLength()}]
-                </Text>
+                <ExampleButton onClick={() => {
+                  setInputData(examples.characterEncoding.input);
+                }} />
               </div>
               <TextArea
                 value={inputData}

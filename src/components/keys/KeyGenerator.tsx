@@ -4,7 +4,8 @@ import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { 
   calculateKCV, 
   combineKeyComponents, 
@@ -236,9 +237,13 @@ const KeyGenerator: React.FC = () => {
       children: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.keyGenerator.keyLength}:
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.keyGenerator.keyLength}:</Text>
+                <ExampleButton onClick={() => {
+                  setComponents([examples.keyGenerator.component1, examples.keyGenerator.component2]);
+                  setValidationInput(examples.keyGenerator.validationKey);
+                }} />
+              </div>
             <Segmented
               value={length}
               onChange={(value) => setLength(value as number)}

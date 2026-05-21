@@ -5,6 +5,8 @@ import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CollapsibleInfo from '../common/CollapsibleInfo';
+import { ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 
@@ -256,9 +258,14 @@ const PinPVVTool: React.FC = () => {
         <div>
           {/* PDK Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pdkLabel || 'PDK:'}
-            </Text>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>{t.pinPvv?.pdkLabel || 'PDK:'}</Text>
+              <ExampleButton onClick={() => {
+                setPdkPVV(examples.pinPvv.pdk);
+                setPanPVV(examples.pinPvv.pan);
+                setPinPVV(examples.pinPvv.pin);
+              }} />
+            </div>
             <Input
               value={pdkPVV}
               onChange={(e) => setPdkPVV(sanitizeHex(e.target.value))}

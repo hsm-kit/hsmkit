@@ -3,8 +3,9 @@ import { Card, Button, Select, Input, message, Typography, Divider } from 'antd'
 import { CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -254,7 +255,19 @@ const ISO9797Tool: React.FC = () => {
             t.mac?.iso9797?.key2KDoublePrime || 'Key 2 (K"):'
           ].map((label, idx) => (
             <div key={idx}>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>{label}</Text>
+              {idx === 0 ? (
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                  <Text strong>{label}</Text>
+                  <ExampleButton onClick={() => {
+                    const newKeys = [...keys];
+                    newKeys[0] = examples.iso9797.key;
+                    setKeys(newKeys);
+                    setData(examples.iso9797.data);
+                  }} />
+                </div>
+              ) : (
+                <Text strong style={{ display: 'block', marginBottom: 8 }}>{label}</Text>
+              )}
               <Input
                 value={keys[idx]}
                 onChange={e => {

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Card, Button, Tabs, Radio, message, Divider, Typography, Input, InputNumber } from 'antd';
 import { KeyOutlined, LockOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits } from '../../utils/format';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -284,9 +285,15 @@ const PinOffsetTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* PDK Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.pdkLabel || 'PDK:'}
-            </Text>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text strong>{t.pinOffset?.pdkLabel || 'PDK:'}</Text>
+              <ExampleButton onClick={() => {
+                setPdk(examples.pinOffset.pdk);
+                setPan(examples.pinOffset.pan);
+                setPin(examples.pinOffset.pin);
+                setDecTab(examples.pinOffset.decTab);
+              }} />
+            </div>
             <TextArea
               value={pdk}
               onChange={(e) => setPdk(sanitizeHex(e.target.value))}

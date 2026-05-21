@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Card, Button, Select, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ResultCard, ErrorCard } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -363,9 +364,14 @@ const PinBlockGeneralTool: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             {/* PIN Block Format Selection */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.pinBlockGeneral?.formatLabel || 'PIN block format:'}
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.pinBlockGeneral?.formatLabel || 'PIN block format:'}</Text>
+                <ExampleButton onClick={() => {
+                  setPin(examples.pinBlockGeneral.pin);
+                  setPan(examples.pinBlockGeneral.pan);
+                  setPinBlock(examples.pinBlockGeneral.pinBlock);
+                }} />
+              </div>
               <Select
                 value={format}
                 onChange={(value) => setFormat(value as PinBlockFormat)}

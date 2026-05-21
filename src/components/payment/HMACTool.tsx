@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, Select, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ErrorCard } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { isValidHex } from '../../utils/hex';
+import { examples } from '../../data/examples';
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -206,9 +207,13 @@ const HMACTool: React.FC = () => {
 
             {/* Key Input Type */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.hmac.inputTypeLabel}:
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.mac.hmac.inputTypeLabel}:</Text>
+                <ExampleButton onClick={() => {
+                  setKeyInput(examples.hmac.key);
+                  setDataInput(examples.hmac.data);
+                }} />
+              </div>
               <Segmented
                 value={keyType}
                 onChange={(value) => setKeyType(value as InputType)}

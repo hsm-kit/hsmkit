@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { CheckCircleOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -146,11 +147,6 @@ const CheckDigitsTool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // Get input length
-  const getInputLength = (): number => {
-    return inputData.replace(/\D/g, '').length;
-  };
-
   // Get placeholder
   const getPlaceholder = (): string => {
     if (operation === 'check') {
@@ -240,13 +236,9 @@ const CheckDigitsTool: React.FC = () => {
               <Text strong>
                 {t.checkDigits?.input || 'Input'}:
               </Text>
-                <Text style={{ 
-                  fontSize: '12px',
-                  color: getInputLength() > 0 ? '#52c41a' : '#999',
-                  fontWeight: getInputLength() > 0 ? 600 : 400
-                }}>
-                  [{getInputLength()}]
-                </Text>
+                <ExampleButton onClick={() => {
+                  setInputData(examples.checkDigits.input);
+                }} />
               </div>
               <Input
                 value={inputData}

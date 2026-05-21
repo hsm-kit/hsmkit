@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented, Radio } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -121,19 +122,6 @@ const ThalesKeysTool: React.FC = () => {
   const [lookupParity, setLookupParity] = useState<'any' | 'odd' | 'even'>('any');
   const [lookupResults, setLookupResults] = useState<DecodeResultDetails[]>([]);
   const [lookupError, setLookupError] = useState('');
-
-  // Get key length in bytes
-  const getKeyLength = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (actual: number, expected: number[]): string => {
-    if (actual === 0) return '#999';
-    if (expected.includes(actual)) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // XOR two hex strings
   const xorHex = (hex1: string, hex2: string): string => {
@@ -528,7 +516,6 @@ const ThalesKeysTool: React.FC = () => {
   };
 
   // Key lengths for display
-  const encKeyLength = getKeyLength(encKey);
   const lookupKeyLength = lookupKey.length;
   const kcvLength = expectedKcv.length;
 
@@ -543,13 +530,10 @@ const ThalesKeysTool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>{t.thalesKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(encKeyLength, [8, 16, 24]),
-                fontWeight: encKeyLength > 0 ? 600 : 400
-              }}>
-                [{encKeyLength * 2 || 32}]
-              </Text>
+              <ExampleButton onClick={() => {
+                setEncKey(examples.thalesKeys.key);
+                setLookupKey(examples.thalesKeys.key);
+              }} />
             </div>
             <Input
               value={encKey}

@@ -289,6 +289,25 @@ textarea.ant-input,
     font-size: 24px !important;
     margin-bottom: 16px !important;
   }
+
+  /* 知识库分类过滤器移动端优化 */
+  .guides-category-filter {
+    gap: 6px !important;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .guides-category-filter .ant-tag {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+  }
+
+  /* 知识库 Read Next 移动端 */
+  .guides-read-next .ant-col {
+    margin-bottom: 12px;
+  }
 }
 
 /* 超小屏优化 */
@@ -310,6 +329,11 @@ textarea.ant-input,
   .ant-segmented {
     font-size: 12px !important;
   }
+}
+
+/* 9. 隐藏横向滚动条（分类过滤器） */
+div[style*="overflowX: auto"]::-webkit-scrollbar {
+  display: none;
 }
 
 /* 9. 滚动条美化 (webkit 浏览器) */

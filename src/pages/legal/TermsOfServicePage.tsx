@@ -9,6 +9,8 @@ import {
   SafetyOutlined,
   EditOutlined,
   MailOutlined,
+  UserOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -115,6 +117,26 @@ const TermsOfServicePage: React.FC = () => {
           {content.changesTitle}
         </h4>
         <Paragraph>{content.changesContent}</Paragraph>
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)' }}>
+            <UserOutlined />
+          </span>
+          {content.ageTitle}
+        </h4>
+        <Paragraph>{content.ageContent}</Paragraph>
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+            <GlobalOutlined />
+          </span>
+          {content.governingLawTitle}
+        </h4>
+        <Paragraph>{content.governingLawContent}</Paragraph>
       </section>
 
       <section className="legal-section">

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -597,7 +598,6 @@ const SafeNetKeysTool: React.FC = () => {
   };
 
   // Key lengths for display
-  const encKeyLength = getKeyLength(encKey);
   const lookupKeyLength = getKeyLength(lookupKey);
   const kcvLength = expectedKcv.length;
   const kmKeyLength = getKeyLength(encKmKey);
@@ -614,13 +614,10 @@ const SafeNetKeysTool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>{t.safenetKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(encKeyLength, [8, 16, 24]),
-                fontWeight: encKeyLength > 0 ? 600 : 400
-              }}>
-                [{encKeyLength * 2 || 32}]
-              </Text>
+              <ExampleButton onClick={() => {
+                setEncKey(examples.safenetKeys.key);
+                setLookupKey(examples.safenetKeys.key);
+              }} />
             </div>
             <Input
               value={encKey}

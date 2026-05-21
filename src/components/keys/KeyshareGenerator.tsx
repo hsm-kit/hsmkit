@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Card, Divider, Typography, Input, Segmented, Button, message, Modal, Tabs } from 'antd';
 import { UnlockOutlined, LockOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { 
@@ -483,12 +484,17 @@ const KeyshareGenerator: React.FC = () => {
             <div>
               <div style={{ 
                 display: 'flex', 
-                justifyContent: 'center',
-                gap: 24,
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 marginBottom: 12
               }}>
-                <Text strong>{t.keyshareGenerator?.combinedKey || 'Combined Key'}</Text>
-                <Text strong>KCV</Text>
+                <div style={{ display: 'flex', gap: 24 }}>
+                  <Text strong>{t.keyshareGenerator?.combinedKey || 'Combined Key'}</Text>
+                  <Text strong>KCV</Text>
+                </div>
+                <ExampleButton onClick={() => {
+                  setCombinedKeyInput(examples.keyshare.key);
+                }} />
               </div>
               <div style={{ 
                 display: 'grid', 

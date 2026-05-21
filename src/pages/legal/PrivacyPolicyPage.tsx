@@ -7,6 +7,9 @@ import {
   CloudOutlined,
   EditOutlined,
   MailOutlined,
+  MobileOutlined,
+  HistoryOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -82,6 +85,42 @@ const PrivacyPolicyPage: React.FC = () => {
 
       <section className="legal-section">
         <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)' }}>
+            <MobileOutlined />
+          </span>
+          {content.pwaTitle}
+        </h4>
+        <Paragraph>{content.pwaContent}</Paragraph>
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)' }}>
+            <HistoryOutlined />
+          </span>
+          {content.dataRetentionTitle}
+        </h4>
+        <Paragraph>{content.dataRetentionContent}</Paragraph>
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' }}>
+            <UserOutlined />
+          </span>
+          {content.gdprTitle}
+        </h4>
+        <Paragraph>{content.gdprContent}</Paragraph>
+        <ul>
+          <li>{content.gdprRight1}</li>
+          <li>{content.gdprRight2}</li>
+          <li>{content.gdprRight3}</li>
+          <li>{content.gdprRight4}</li>
+        </ul>
+      </section>
+
+      <section className="legal-section">
+        <h4 className="legal-section-title">
           <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
             <CloudOutlined />
           </span>
@@ -102,7 +141,7 @@ const PrivacyPolicyPage: React.FC = () => {
 
       <section className="legal-section">
         <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' }}>
+          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
             <MailOutlined />
           </span>
           {content.contactTitle}

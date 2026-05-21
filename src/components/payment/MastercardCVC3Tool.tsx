@@ -3,8 +3,9 @@ import { Card, Button, Tabs, Input, Segmented, message, Typography, Divider } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 
@@ -235,7 +236,16 @@ const MastercardCVC3Tool: React.FC = () => {
   const generateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>IMK:</Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <Text strong>IMK:</Text>
+          <ExampleButton onClick={() => {
+            setGenImk(examples.mastercardCvc3.imk);
+            setGenPan(examples.mastercardCvc3.pan);
+            setGenPanSeq(examples.mastercardCvc3.panSeqNum);
+            setGenAtc(examples.mastercardCvc3.atc);
+            setGenUN(examples.mastercardCvc3.unpredictableNum);
+          }} />
+        </div>
         <Input
           value={genImk}
           onChange={e => setGenImk(sanitizeHex(e.target.value))}

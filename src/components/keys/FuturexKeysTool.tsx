@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -437,7 +438,6 @@ const FuturexKeysTool: React.FC = () => {
   };
 
   // Key length for display
-  const keyLength = getKeyLength(key);
   const lookupKeyLength = getKeyLength(lookupKey);
 
   // Tab items
@@ -455,13 +455,10 @@ const FuturexKeysTool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>{t.futurexKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(keyLength, [16, 24, 32]),
-                fontWeight: keyLength > 0 ? 600 : 400
-              }}>
-                [{keyLength || 16}]
-              </Text>
+              <ExampleButton onClick={() => {
+                setKey(examples.futurexKeys.key);
+                setLookupKey(examples.futurexKeys.lookupKey);
+              }} />
             </div>
             <Input
               value={key}

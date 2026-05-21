@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -408,13 +409,10 @@ const ThalesKeyBlockTool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>{t.thalesKeyBlock?.plainKey || 'Plain Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(getKeyLength(plainKey), [8, 16, 24, 32]),
-                fontWeight: getKeyLength(plainKey) > 0 ? 600 : 400
-              }}>
-                [{cleanHexInput(plainKey).length || 32}]
-              </Text>
+              <ExampleButton onClick={() => {
+                setPlainKey(examples.thalesKeyBlock.key);
+                setKeyBlock(examples.thalesKeyBlock.key);
+              }} />
             </div>
             <Input
               value={plainKey}

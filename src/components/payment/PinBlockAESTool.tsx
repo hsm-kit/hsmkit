@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, KeyOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -234,9 +235,14 @@ const PinBlockAESTool: React.FC = () => {
 
             {/* AES Key Input */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.pinBlockAes?.keyLabel || 'Key:'}
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.pinBlockAes?.keyLabel || 'Key:'}</Text>
+                <ExampleButton onClick={() => {
+                  setAesKey(examples.pinBlockAes.key);
+                  setPin(examples.pinBlockAes.pin);
+                  setPan(examples.pinBlockAes.pan);
+                }} />
+              </div>
               <TextArea
                 value={aesKey}
                 onChange={(e) => setAesKey(sanitizeHex(e.target.value))}

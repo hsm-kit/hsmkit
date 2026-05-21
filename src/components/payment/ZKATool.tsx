@@ -3,9 +3,10 @@ import { Card, Button, Tabs, Input, message, Divider, Typography } from 'antd';
 import { LockOutlined, UnlockOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
 import { useLanguage } from '../../hooks/useLanguage';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -300,11 +301,19 @@ const ZKATool: React.FC = () => {
             children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.mk || 'MK:'}</Text>
-                <CollapsibleInfo title={t.mac?.zka?.mkInfo || 'Master Key'}>
-                  <div>{t.mac?.zka?.mkInfoDesc || 'The master key used for session key derivation. Must be 16 bytes (32 hex characters).'}</div>
-                </CollapsibleInfo>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Text strong>{t.mac?.zka?.mk || 'MK:'}</Text>
+                  <CollapsibleInfo title={t.mac?.zka?.mkInfo || 'Master Key'}>
+                    <div>{t.mac?.zka?.mkInfoDesc || 'The master key used for session key derivation. Must be 16 bytes (32 hex characters).'}</div>
+                  </CollapsibleInfo>
+                </div>
+                <ExampleButton onClick={() => {
+                  setMk(examples.zka.mk);
+                  setCm(examples.zka.cm);
+                  setRnd(examples.zka.rnd);
+                  setMacData(examples.zka.macData);
+                }} />
               </div>
               <Input
                 value={mk}

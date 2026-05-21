@@ -3,8 +3,9 @@ import { Card, Button, Select, Input, message, Typography, Divider } from 'antd'
 import { CalculatorOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -192,7 +193,14 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.keyK || 'Key (K):'}</Text>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text strong>{t.mac?.ansimac?.keyK || 'Key (K):'}</Text>
+              <ExampleButton onClick={() => {
+                setKeyK(examples.ansiMac.keyK);
+                setKeyKPrime(examples.ansiMac.keyKR);
+                setData(examples.ansiMac.data);
+              }} />
+            </div>
             <Input
               value={keyK}
               onChange={e => setKeyK(sanitizeHex(e.target.value))}

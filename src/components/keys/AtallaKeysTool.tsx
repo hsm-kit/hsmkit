@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -380,7 +381,6 @@ const AtallaKeysTool: React.FC = () => {
   };
 
   // Key lengths for display
-  const encKeyLength = getKeyLength(encKey);
   const akbLength = akbInput.trim().length;
   const kcvLength = expectedKcv.length;
   const mfkLength = getKeyLength(decodeMfk);
@@ -397,13 +397,11 @@ const AtallaKeysTool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>{t.atallaKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(encKeyLength, [16, 24, 32]),
-                fontWeight: encKeyLength > 0 ? 600 : 400
-              }}>
-                [{encKeyLength || 16}]
-              </Text>
+              <ExampleButton onClick={() => {
+                setEncKey(examples.atallaKeys.key);
+                setEncMfk(examples.atallaKeys.mfk);
+                setDecodeMfk(examples.atallaKeys.mfk);
+              }} />
             </div>
             <Input
               value={encKey}

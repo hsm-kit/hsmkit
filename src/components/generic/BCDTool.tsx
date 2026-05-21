@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
 import { SwapOutlined, CopyOutlined, ClearOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -185,13 +186,10 @@ const BCDTool: React.FC = () => {
           <Text strong>
             {t.bcd?.data || 'Data'}:
           </Text>
-          <Text style={{ 
-            fontSize: '12px',
-            color: getInputLength(encodeInput) > 0 ? '#52c41a' : '#999',
-            fontWeight: getInputLength(encodeInput) > 0 ? 600 : 400
-          }}>
-            [{getInputLength(encodeInput)}]
-          </Text>
+          <ExampleButton onClick={() => {
+            setEncodeInput(examples.bcd.encode);
+            setDecodeInput(examples.bcd.decode);
+          }} />
         </div>
         <TextArea
           value={encodeInput}

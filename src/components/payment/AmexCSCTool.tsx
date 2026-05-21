@@ -3,8 +3,9 @@ import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 
@@ -248,7 +249,15 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CSC Key:</Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <Text strong>CSC Key:</Text>
+          <ExampleButton onClick={() => {
+            setGenCscKey(examples.amexCsc.key);
+            setGenPan(examples.amexCsc.pan);
+            setGenExpDate(examples.amexCsc.expDate);
+            setGenServiceCode(examples.amexCsc.serviceCode);
+          }} />
+        </div>
         <Input
           value={genCscKey}
           onChange={e => setGenCscKey(sanitizeHex(e.target.value))}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select, Radio, Checkbox } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -473,12 +474,6 @@ const FPETool: React.FC = () => {
     }
   };
 
-  // 获取当前 Key 的实际字节数
-  const getActualKeyLength = (): number => {
-    const clean = cleanHex(key);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
   // 获取当前 Tweak 的实际字节数
   const getActualTweakLength = (): number => {
     const clean = cleanHex(tweak);
@@ -742,13 +737,12 @@ const FPETool: React.FC = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <Text strong>{t.cipher?.key || 'Key'}:</Text>
-                <Text style={{
-                  fontSize: '12px',
-                  color: getLengthColor(getActualKeyLength(), getExpectedKeyLength()),
-                  fontWeight: getActualKeyLength() > 0 ? 600 : 400
-                }}>
-                  [{getActualKeyLength() || getExpectedKeyLength()}]
-                </Text>
+                <ExampleButton onClick={() => {
+                  setKey(examples.fpe.key);
+                  setData(examples.fpe.data);
+                  setTweak(examples.fpe.tweak);
+                  setUseTweak(true);
+                }} />
               </div>
               <Input
                 value={key}

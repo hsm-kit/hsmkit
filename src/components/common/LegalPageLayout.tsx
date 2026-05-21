@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography, Card } from 'antd';
 import { SEO } from './SEO';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -41,28 +41,31 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
         canonical={canonical}
       />
 
-      {/* Header Section - T-layout, same width as content */}
-      <div style={{
-        background: isDark ? '#1f1f1f' : '#fff',
-        borderBottom: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
-        padding: '40px 0 32px',
-        marginBottom: 32,
-        marginLeft: -24,
-        marginRight: -24,
-        marginTop: -24,
-      }}>
-        <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 0 48px' }}>
+        {/* Header Card */}
+        <Card
+          style={{
+            marginBottom: 24,
+            borderRadius: 16,
+            background: isDark
+              ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
+              : 'linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%)',
+            border: isDark ? '1px solid #303030' : '1px solid #c7d2fe',
+            boxShadow: isDark ? '0 2px 12px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.06)',
+          }}
+          styles={{ body: { padding: '32px 40px' } }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{
-              width: 'clamp(40px, 8vw, 52px)',
-              height: 'clamp(40px, 8vw, 52px)',
-              borderRadius: 14,
+              width: 48,
+              height: 48,
+              borderRadius: 12,
               background: iconGradient,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
             }}>
               {icon}
             </div>
@@ -75,12 +78,20 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
               </Text>
             </div>
           </div>
-        </div>
-      </div>
+        </Card>
 
-      {/* Content */}
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 0 48px' }}>
-        {children}
+        {/* Content Card */}
+        <Card
+          style={{
+            borderRadius: 16,
+            background: isDark ? '#1f1f1f' : '#fff',
+            border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
+            boxShadow: isDark ? '0 2px 12px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.06)',
+          }}
+          styles={{ body: { padding: '40px 48px' } }}
+        >
+          {children}
+        </Card>
       </div>
 
       <style>{`
@@ -101,19 +112,20 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
           font-size: 18px;
         }
         .legal-section-title {
-          margin: 0 0 14px 0 !important;
-          font-size: 20px !important;
+          margin: 0 0 16px 0 !important;
+          font-size: 22px !important;
           font-weight: 700 !important;
           color: ${isDark ? '#e6e6e6' : '#1a1a2e'} !important;
           display: flex;
           align-items: center;
           gap: 12px;
         }
-        .legal-section p {
+        .legal-section p,
+        .legal-section .ant-typography {
           line-height: 1.9 !important;
           margin-bottom: 0 !important;
           color: ${isDark ? '#b0b0b0' : '#555'} !important;
-          font-size: 15px;
+          font-size: 16px !important;
         }
         .legal-section ul {
           padding-left: 0;
@@ -122,9 +134,9 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
         }
         .legal-section ul li {
           margin-bottom: 10px;
-          line-height: 1.8;
+          line-height: 1.9;
           color: ${isDark ? '#b0b0b0' : '#555'};
-          font-size: 15px;
+          font-size: 16px;
           padding-left: 24px;
           position: relative;
         }
@@ -150,12 +162,36 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
           height: 5px;
         }
         .legal-highlight {
-          padding: 16px 20px;
+          padding: 18px 24px;
           border-radius: 10px;
           margin: 16px 0 0 0;
           border-left: 3px solid;
-          font-size: 14px;
+          font-size: 15px;
           line-height: 1.8;
+        }
+        .legal-section a {
+          color: ${isDark ? '#818cf8' : '#667eea'};
+          font-weight: 500;
+          text-decoration: none;
+        }
+        .legal-section a:hover {
+          text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+          .legal-section-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+          }
+          .legal-section-title {
+            font-size: 19px !important;
+            gap: 10px;
+          }
+          .legal-section p,
+          .legal-section .ant-typography,
+          .legal-section ul li {
+            font-size: 15px !important;
+          }
         }
       `}</style>
     </>

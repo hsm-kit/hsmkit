@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -212,16 +213,6 @@ const Base94Tool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // Get input length
-  const getInputLength = (input: string, encoding: InputEncoding): number => {
-    if (!input) return 0;
-    if (encoding === 'Hex') {
-      const cleaned = input.replace(/[\s\n\r]/g, '');
-      return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-    }
-    return input.length;
-  };
-
   // Encode Tab Content
   const encodeContent = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
@@ -252,13 +243,9 @@ const Base94Tool: React.FC = () => {
           <Text strong>
             {t.base94?.data || 'Data'}:
           </Text>
-          <Text style={{ 
-            fontSize: '12px',
-            color: getInputLength(encodeInput, encodeInputEncoding) > 0 ? '#52c41a' : '#999',
-            fontWeight: getInputLength(encodeInput, encodeInputEncoding) > 0 ? 600 : 400
-          }}>
-            [{getInputLength(encodeInput, encodeInputEncoding)}]
-          </Text>
+          <ExampleButton onClick={() => {
+            setEncodeInput(examples.base94.input);
+          }} />
         </div>
         <TextArea
           value={encodeInput}

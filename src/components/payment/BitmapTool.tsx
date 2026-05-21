@@ -3,7 +3,8 @@ import { Card, Button, Checkbox, Input, message, Divider, Typography, Row, Col }
 import { CopyOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 
@@ -209,9 +210,12 @@ const BitmapTool: React.FC = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.bitmap?.bitmapLabel || 'Bitmap'}:
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.bitmap?.bitmapLabel || 'Bitmap'}:</Text>
+                <ExampleButton onClick={() => {
+                  setBitmapHex(examples.bitmap.hex);
+                }} />
+              </div>
               <Input
                 value={bitmapHex}
                 onChange={(e) => handleBitmapHexChange(e.target.value)}

@@ -6,7 +6,8 @@ import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { formatHexDisplay } from '../../utils/format';
 import { calculateKCV, cleanHexInput, isValidHex } from '../../utils/crypto';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -292,7 +293,15 @@ const AS2805Tool: React.FC = () => {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <Text strong>{t.as2805?.kekrKey || 'KEKr Key'}:</Text>
-                      {lengthText(cleanHexInput(kekr).length, isValidHex(cleanHexInput(kekr)))}
+                      <ExampleButton onClick={() => {
+                        setKekr(examples.as2805.kek);
+                        setMacKey(examples.as2805.macKey);
+                        setMacData(examples.as2805.macData);
+                        setOwfKey(examples.as2805.owfKey);
+                        setOwfData(examples.as2805.owfData);
+                        setInPinBlock(examples.as2805.pinBlock);
+                        setAcct(examples.as2805.account);
+                      }} />
                     </div>
                     <Input value={kekr} onChange={e => setKekr(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>

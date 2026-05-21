@@ -3,8 +3,9 @@ import { Card, Button, Select, Input, message, Typography, Divider } from 'antd'
 import { CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -147,7 +148,14 @@ const AS2805MACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac.as2805.keyKL}</Text>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text strong>{t.mac.as2805.keyKL}</Text>
+              <ExampleButton onClick={() => {
+                setKeyKL(examples.as2805Mac.keyKL);
+                setKeyKR(examples.as2805Mac.keyKR);
+                setData(examples.as2805Mac.data);
+              }} />
+            </div>
             <Input value={keyKL} onChange={e => setKeyKL(sanitizeHex(e.target.value))} placeholder={t.mac.as2805.keyKLPlaceholder}
               maxLength={16} suffix={lengthIndicator(sanitizeHex(keyKL).length, 16)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, Checkbox, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { examples } from '../../data/examples';
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -291,9 +292,13 @@ const CMACTool: React.FC = () => {
 
             {/* CMAC Key */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac.cmac.inputTypeLabel || 'Key Input'}:
-              </Text>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{t.mac.cmac.inputTypeLabel || 'Key Input'}:</Text>
+                <ExampleButton onClick={() => {
+                  setKeyInput(examples.cmac.key);
+                  setDataInput(examples.cmac.data);
+                }} />
+              </div>
               <Segmented
                 value={keyType}
                 onChange={(value) => setKeyType(value as InputType)}

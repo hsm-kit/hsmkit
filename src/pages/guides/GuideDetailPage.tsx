@@ -295,17 +295,21 @@ const GuideDetailPage: React.FC = () => {
               </Title>
 
               {/* Tags - below title, above meta */}
-              <div style={{ marginBottom: 20 }}>
+              <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
                 {/* Category Tag - colored, prominent */}
                 <Tag 
                   color={getCategoryColor(meta.category)} 
                   style={{ 
                     padding: '4px 12px', 
                     fontSize: 14,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    lineHeight: 1,
                   }}
                 >
-                  {getCategoryIcon(meta.category)}
-                  {guides.articleCategories?.[meta.category as keyof typeof guides.articleCategories] || meta.category}
+                  {getCategoryIcon(meta.category, 14)}
+                  <span>{guides.articleCategories?.[meta.category as keyof typeof guides.articleCategories] || meta.category}</span>
                 </Tag>
                 
                 {/* Topic Tags - subtle */}
@@ -316,7 +320,6 @@ const GuideDetailPage: React.FC = () => {
                     style={{ 
                       background: isDark ? '#2a2a2a' : '#f5f5f5',
                       color: isDark ? '#a6a6a6' : '#595959',
-                      marginLeft: 6,
                     }}
                   >
                     # {guides.tags?.[tag as keyof typeof guides.tags] || tag}
@@ -502,7 +505,7 @@ const GuideDetailPage: React.FC = () => {
                     <Title level={3} style={{ marginBottom: 24, color: isDark ? '#e6e6e6' : '#1f1f1f' }}>
                       📖 {guides.readNext || 'Read Next'}
                     </Title>
-                    <Row gutter={[16, 16]}>
+                    <Row gutter={[16, 16]} className="guides-read-next">
                       {relatedArticles.map(article => (
                         <Col xs={24} sm={12} md={8} key={article.slug}>
                           <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none' }}>
@@ -521,9 +524,12 @@ const GuideDetailPage: React.FC = () => {
                                 fontSize: 12, 
                                 fontWeight: 600,
                                 marginBottom: 8,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 6,
                               }}>
-                                {getCategoryIcon(article.category)}
-                                {guides.articleCategories?.[article.category as keyof typeof guides.articleCategories] || article.category}
+                                {getCategoryIcon(article.category, 12)}
+                                <span>{guides.articleCategories?.[article.category as keyof typeof guides.articleCategories] || article.category}</span>
                               </div>
                               <Title 
                                 level={5} 

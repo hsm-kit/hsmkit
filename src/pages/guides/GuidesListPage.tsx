@@ -12,6 +12,7 @@ import {
   CreditCardOutlined,
   LockOutlined,
   SafetyCertificateOutlined,
+  ToolOutlined,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -207,6 +208,7 @@ const GuidesListPage: React.FC = () => {
       Payment: [],
       Cipher: [],
       PKI: [],
+      Generic: [],
     };
     
     sortedArticles.forEach(article => {
@@ -242,6 +244,7 @@ const GuidesListPage: React.FC = () => {
     { key: 'Payment', label: guides.articleCategories?.Payment || 'Payment Security', color: '#1677ff', icon: <CreditCardOutlined /> },
     { key: 'Cipher', label: guides.articleCategories?.Cipher || 'Encryption', color: '#52c41a', icon: <LockOutlined /> },
     { key: 'PKI', label: guides.articleCategories?.PKI || 'PKI & Certificates', color: '#13c2c2', icon: <SafetyCertificateOutlined /> },
+    { key: 'Generic', label: guides.articleCategories?.Generic || 'General', color: '#722ed1', icon: <ToolOutlined /> },
   ];
 
   // Show search results or category filter results
@@ -254,20 +257,6 @@ const GuidesListPage: React.FC = () => {
       seoDescription={guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.'}
       seoKeywords={guides.seoKeywords}
       canonical="https://hsmkit.com/guides"
-      faqTitle={guides.faqTitle}
-      faqs={guides.faqs}
-      usageTitle={guides.usageTitle}
-      usageContent={
-        guides.usage && guides.usage.length > 0 ? (
-          <div>
-            {guides.usage.map((text: string, index: number) => (
-              <Paragraph key={index} style={{ marginBottom: index === guides.usage!.length - 1 ? 0 : 8 }}>
-                • {text}
-              </Paragraph>
-            ))}
-          </div>
-        ) : undefined
-      }
       toolName="Security Knowledge Base"
       toolCategory="Documentation"
     >
@@ -314,7 +303,19 @@ const GuidesListPage: React.FC = () => {
       </div>
 
       {/* Category Quick Filters */}
-      <div style={{ marginBottom: 32, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+      <div 
+        className="guides-category-filter"
+        style={{ 
+          marginBottom: 32, 
+          display: 'flex', 
+          gap: 8, 
+          overflowX: 'auto', 
+          paddingBottom: 4,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
         <Tag
           role="button"
           tabIndex={0}
@@ -339,6 +340,8 @@ const GuidesListPage: React.FC = () => {
             background: !selectedCategory ? '#722ed1' : (isDark ? '#2a2a2a' : '#fff'),
             color: !selectedCategory ? '#fff' : (isDark ? '#e6e6e6' : '#595959'),
             transition: 'all 0.2s',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
           }}
         >
           {guides.categories?.all || 'All'} ({articles.length})
@@ -369,9 +372,15 @@ const GuidesListPage: React.FC = () => {
               background: selectedCategory === cat.key ? cat.color : (isDark ? '#2a2a2a' : '#fff'),
               color: selectedCategory === cat.key ? '#fff' : (isDark ? '#e6e6e6' : '#595959'),
               transition: 'all 0.2s',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            {cat.icon} {cat.label} ({articlesByCategory[cat.key].length})
+            <span style={{ display: 'inline-flex', alignItems: 'center' }}>{cat.icon}</span>
+            <span>{cat.label} ({articlesByCategory[cat.key].length})</span>
           </Tag>
         ))}
       </div>

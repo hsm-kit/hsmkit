@@ -3,8 +3,9 @@ import { Card, Button, Tabs, Input, Segmented, message, Typography, Divider } fr
 import { LockOutlined, UnlockOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -504,7 +505,15 @@ const DUKPTAESTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>{keyDesignation}:</Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <Text strong>{keyDesignation}:</Text>
+          <ExampleButton onClick={() => {
+            setBdk(examples.dukptAes.bdk);
+            setKsn(examples.dukptAes.ksn);
+            setMacData(examples.dukptAes.macData);
+            setDataInput(examples.dukptAes.data);
+          }} />
+        </div>
         <Input
           value={bdk}
           onChange={e => setBdk(sanitizeHex(e.target.value))}

@@ -3,8 +3,9 @@ import { Card, Button, Tabs, Input, Segmented, Checkbox, message, Typography, Di
 import { LockOutlined, UnlockOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, LengthIndicator } from '../common';
+import { CollapsibleInfo, ResultCard, LengthIndicator, ExampleButton } from '../common';
 import CryptoJS from 'crypto-js';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -420,7 +421,19 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>{keyType}:</Text>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <Text strong>{keyType}:</Text>
+          <ExampleButton onClick={() => {
+            setBdk(examples.dukpt.bdk);
+            setKsn(examples.dukpt.ksn);
+            setPinPek(examples.dukpt.pinPek);
+            setPinBlock(examples.dukpt.pinBlock);
+            setMacPek(examples.dukpt.macPek);
+            setDataPek(examples.dukpt.dataPek);
+            setMacData(examples.dukpt.macData);
+            setDataInput(examples.dukpt.data);
+          }} />
+        </div>
         <Input
           value={bdk}
           onChange={e => setBdk(sanitizeHex(e.target.value))}
