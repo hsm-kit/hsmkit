@@ -589,7 +589,7 @@ const RSATool: React.FC = () => {
       // 直接使用输入的哈希值
       const inputHash = cleanHex(verifyData);
       if (!isValidHex(inputHash)) {
-        setError('Invalid hash value (must be hexadecimal)');
+        setError(t.common?.invalidHashHex || 'Invalid hash value (must be hexadecimal)');
         return;
       }
       expectedHashHex = inputHash.toUpperCase();

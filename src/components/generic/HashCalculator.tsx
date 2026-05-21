@@ -210,7 +210,7 @@ const HashCalculator: React.FC = () => {
 
     const hashConfig = HASH_TYPES.find(h => h.value === hashType);
     if (!hashConfig) {
-      setError('Invalid hash type');
+      setError(t.common?.invalidHash || 'Invalid hash type');
       return;
     }
 

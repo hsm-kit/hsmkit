@@ -582,7 +582,7 @@ const SafeNetKeysTool: React.FC = () => {
           });
         }
         setLookupResults(results);
-        message.success(`Found ${results.length} matching key(s)`);
+        message.success((t.common?.foundResults || 'Found {count} matching result(s)').replace('{count}', String(results.length)));
       } else {
         setLookupError(t.safenetKeys?.noResults || 'No matching keys found');
       }

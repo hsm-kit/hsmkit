@@ -1,10 +1,11 @@
 import React, { useLayoutEffect } from 'react';
-import { Typography, Result, Card } from 'antd';
-import { ReadOutlined, RightOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { Typography, Result, Card, Button } from 'antd';
+import { ReadOutlined, RightOutlined, ClockCircleOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { useToast } from '../../hooks/useToast';
 import seoContent from '../../locales/seo';
 import { getRelatedGuides, type RelatedGuide } from '../../data/toolGuidesMap';
 import { getGuidesPath } from '../../utils/guidesPath';
@@ -97,8 +98,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   toolCategory,
   children,
 }) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { isDark } = useTheme();
+  const toast = useToast();
   const location = useLocation();
   const seo = seoContent[language]?.[seoKey as keyof typeof seoContent.en] 
     || seoContent.en[seoKey as keyof typeof seoContent.en];
@@ -177,6 +179,20 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       toolCategory={toolCategory}
     >
       {children}
+      {/* Share button */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
+        <Button
+          size="small"
+          icon={<ShareAltOutlined />}
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            toast.copySuccess();
+          }}
+          style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999' }}
+        >
+          {t.common?.share || 'Share'}
+        </Button>
+      </div>
       <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} />
     </PageLayout>
   );

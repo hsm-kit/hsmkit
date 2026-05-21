@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
 import { KeyOutlined, CopyOutlined, AppstoreOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { generatePinBlock } from '../../utils/crypto';
@@ -71,9 +73,17 @@ const PinBlockTool: React.FC = () => {
             </div>
 
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.pinBlock.pinLabel}:
-              </Text>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <Text strong>
+                  {t.pinBlock.pinLabel}:
+                </Text>
+                <ExampleButton
+                  onClick={() => {
+                    setPin(examples.pinBlock.pin);
+                    setPan(examples.pinBlock.pan);
+                  }}
+                />
+              </div>
               <Input
                 value={pin}
                 onChange={e => setPin(sanitizeDigits(e.target.value))}

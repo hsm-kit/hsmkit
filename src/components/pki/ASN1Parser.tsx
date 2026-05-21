@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Typography, Upload, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
 import { FileSearchOutlined, UploadOutlined, ClearOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, ExampleButton } from '../common';
+import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -226,7 +227,7 @@ const ASN1Parser: React.FC = () => {
         const text = e.target?.result as string;
         setInput(text);
       } catch (err) {
-        setError(err instanceof Error ? err.message : '文件读取失败');
+        setError(err instanceof Error ? err.message : (t.common?.fileReadError || 'File read failed'));
       }
     };
     reader.readAsText(file);
@@ -471,9 +472,16 @@ const ASN1Parser: React.FC = () => {
 
         <Space vertical style={{ width: '100%' }} size="middle">
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.asn1.inputLabel}
-            </Text>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+              <Text strong>
+                {t.asn1.inputLabel}
+              </Text>
+              <ExampleButton
+                onClick={() => {
+                  setInput(examples.asn1.input);
+                }}
+              />
+            </div>
             <TextArea
               value={input}
               onChange={e => setInput(e.target.value)}

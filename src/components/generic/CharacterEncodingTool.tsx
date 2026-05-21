@@ -236,7 +236,7 @@ const CharacterEncodingTool: React.FC = () => {
           break;
 
         default:
-          setError('Unknown encoding type');
+          setError(t.common?.unknownEncoding || 'Unknown encoding type');
           return;
       }
 
