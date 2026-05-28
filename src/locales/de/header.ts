@@ -3,5 +3,6 @@ export default {
   header: {
     title: 'HSM Kit',
     github: 'GitHub',
+    menu: 'Menü',
   },
 };

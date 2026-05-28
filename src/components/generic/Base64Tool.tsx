@@ -6,6 +6,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { isValidHex } from '../../utils/hex';
 import { examples } from '../../data/examples';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -94,7 +95,7 @@ const Base64Tool: React.FC = () => {
       const result = encodeBase64(encodeInput, encodeInputEncoding);
       setEncodeResult(result);
     } catch (err) {
-      console.error('Base64 encode error:', err);
+      logger.error('Base64 encode error:', err);
       setEncodeError((t.base64?.errorEncode || 'Encoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [encodeInput, encodeInputEncoding, t]);
@@ -120,7 +121,7 @@ const Base64Tool: React.FC = () => {
       const result = decodeBase64(decodeInput, decodeOutputEncoding);
       setDecodeResult(result);
     } catch (err) {
-      console.error('Base64 decode error:', err);
+      logger.error('Base64 decode error:', err);
       setDecodeError((t.base64?.errorDecode || 'Decoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [decodeInput, decodeOutputEncoding, t]);

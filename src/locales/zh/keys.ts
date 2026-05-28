@@ -104,6 +104,9 @@ export default {
     enterPinToReveal: '输入 4 位 PIN 以显示密钥份额',
     unlock: '解锁',
     regenerate: '重新生成',
+    partLabel: '第 {{index}} 部分',
+    kcvLabel: 'KCV',
+    pinLabel: 'PIN',
   },
 
   futurexKeys: {
@@ -333,28 +336,6 @@ export default {
     decodeResult: '已解码的密钥块',
     encodeSuccess: '密钥块编码成功',
     decodeSuccess: '密钥块解码成功',
-  },
-
-  tr31: {
-    title: 'TR-31 密钥块',
-    description: '使用 KBPK 保护对 TR-31/ANSI X9.143 密钥块进行编码与解码。',
-    keyBlock: 'TR-31 密钥块',
-    keyBlockPlaceholder: '例如：B0112P0TE00N0000...',
-    parseKeyBlock: '解析密钥块',
-    header: '密钥块头部',
-    version: '版本',
-    keyLength: '长度',
-    keyUsage: '密钥用途',
-    mode: '模式',
-    keyVersion: '密钥版本',
-    exportability: '可导出性',
-    characters: '字符',
-    errorTooShort: 'TR-31 密钥块长度不足',
-    errorParsing: '解析失败，请检查 TR-31 格式',
-    exportable: '可导出',
-    nonExportable: '不可导出',
-    sensitive: '敏感',
-    keyBlockFormatHint: 'TR-31 密钥块格式（例如：B0112P0TE00N...），系统将自动验证格式',
   },
 
   tr31KeyBlock: {

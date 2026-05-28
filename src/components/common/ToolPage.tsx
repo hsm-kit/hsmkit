@@ -25,6 +25,7 @@ const RelatedGuidesSection: React.FC<{
   language: string;
   isDark: boolean;
 }> = ({ guides, language, isDark }) => {
+  const { t } = useLanguage();
   if (guides.length === 0) return null;
 
   return (
@@ -38,7 +39,7 @@ const RelatedGuidesSection: React.FC<{
     >
       <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#e6e6e6' : '#1a1a2e' }}>
         <ReadOutlined style={{ marginRight: 8 }} />
-        Related Guides
+        {t.common?.relatedGuides || 'Related Guides'}
       </Title>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {guides.map(guide => (
@@ -79,7 +80,7 @@ const RelatedGuidesSection: React.FC<{
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                 <Text style={{ color: isDark ? '#8c8c8c' : '#999', fontSize: 12 }}>
                   <ClockCircleOutlined style={{ marginRight: 4 }} />
-                  {guide.readTime} min
+                  {guide.readTime} {t.common?.minRead || 'min'}
                 </Text>
                 <RightOutlined style={{ color: isDark ? '#8c8c8c' : '#999', fontSize: 12 }} />
               </div>
@@ -136,8 +137,8 @@ export const ToolPage: React.FC<ToolPageProps> = ({
     return (
       <Result
         status="warning"
-        title="Content not available"
-        subTitle={`SEO data for "${seoKey}" could not be loaded. Please try refreshing the page.`}
+        title={t.common?.contentNotAvailable || 'Content not available'}
+        subTitle={(t.common?.contentLoadError || 'SEO data for "{{seoKey}}" could not be loaded. Please try refreshing the page.').replace('{{seoKey}}', seoKey)}
       />
     );
   }

@@ -108,29 +108,29 @@ const TDESCBCMACTool: React.FC = () => {
     try {
       // Validate key (48 hex chars for 3DES, or 32 for 2DES)
       if (!isValidHex(keyK)) {
-        throw new Error(t.mac.tdescbc.error.invalidKeyFormat);
+        throw new Error(t.mac?.tdescbc?.error?.invalidKeyFormat);
       }
       if (keyK.length !== 32 && keyK.length !== 48) {
-        throw new Error(t.mac.tdescbc.error.invalidKeyLength);
+        throw new Error(t.mac?.tdescbc?.error?.invalidKeyLength);
       }
 
       // Validate data
       if (!isValidHex(data)) {
-        throw new Error(t.mac.tdescbc.error.invalidDataFormat);
+        throw new Error(t.mac?.tdescbc?.error?.invalidDataFormat);
       }
       if (data.length === 0) {
-        throw new Error(t.mac.tdescbc.error.emptyData);
+        throw new Error(t.mac?.tdescbc?.error?.emptyData);
       }
 
       // Validate truncation
       if (truncation < 1 || truncation > 8) {
-        throw new Error(t.mac.tdescbc.error.invalidTruncation);
+        throw new Error(t.mac?.tdescbc?.error?.invalidTruncation);
       }
 
       // Calculate MAC
       const mac = calculateTDESCBCMAC(keyK, data, padding, truncation);
       setResult(mac);
-      message.success(t.mac.tdescbc.success);
+      message.success(t.mac?.tdescbc?.success);
     } catch (err) {
       const errorMsg = (err as Error).message;
       setError(errorMsg);
@@ -141,7 +141,7 @@ const TDESCBCMACTool: React.FC = () => {
   // Handle copy
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    message.success(t.mac.tdescbc.copied);
+    message.success(t.mac?.tdescbc?.copied);
   };
 
   useTheme();
@@ -152,14 +152,14 @@ const TDESCBCMACTool: React.FC = () => {
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-              {t.mac.tdescbc.title}
+              {t.mac?.tdescbc?.title}
             </Title>
-            <CollapsibleInfo title={t.mac.tdescbc.infoTitle || 'About TDES CBC-MAC'}>
-              <div>{t.mac.tdescbc.info || 'Calculate MAC using Triple DES in CBC mode with ISO 9797-1 padding'}</div>
+            <CollapsibleInfo title={t.mac?.tdescbc?.infoTitle || 'About TDES CBC-MAC'}>
+              <div>{t.mac?.tdescbc?.info || 'Calculate MAC using Triple DES in CBC mode with ISO 9797-1 padding'}</div>
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            {t.mac.tdescbc.description}
+            {t.mac?.tdescbc?.description}
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />
@@ -169,7 +169,7 @@ const TDESCBCMACTool: React.FC = () => {
             {/* Algorithm Selection */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.tdescbc.algorithm}:
+                {t.mac?.tdescbc?.algorithm}:
               </Text>
               <Segmented
                 value={algorithm}
@@ -184,7 +184,7 @@ const TDESCBCMACTool: React.FC = () => {
             {/* Key Input */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.tdescbc.keyK}:</Text>
+                <Text strong>{t.mac?.tdescbc?.keyK}:</Text>
                 <ExampleButton onClick={() => {
                   setKeyK(examples.tdescbcMac.key);
                   setData(examples.tdescbcMac.data);
@@ -202,7 +202,7 @@ const TDESCBCMACTool: React.FC = () => {
             {/* Padding Selection */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.tdescbc.padding}:
+                {t.mac?.tdescbc?.padding}:
               </Text>
               <Segmented
                 value={padding}
@@ -218,7 +218,7 @@ const TDESCBCMACTool: React.FC = () => {
             {/* Data Input */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.tdescbc.data}:
+                {t.mac?.tdescbc?.data}:
               </Text>
               <TextArea
                 value={data}
@@ -232,7 +232,7 @@ const TDESCBCMACTool: React.FC = () => {
             {/* Truncation Input */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.tdescbc.truncation}:
+                {t.mac?.tdescbc?.truncation}:
               </Text>
               <Input
                 type="number"
@@ -253,7 +253,7 @@ const TDESCBCMACTool: React.FC = () => {
                 onClick={handleCalculate}
                 size="large"
               >
-                {t.mac.tdescbc.calculate}
+                {t.mac?.tdescbc?.calculate}
               </Button>
             </div>
           </div>
@@ -269,7 +269,7 @@ const TDESCBCMACTool: React.FC = () => {
         {/* Result Display */}
         {result && (
           <ResultCard
-            title={t.mac.tdescbc.result}
+            title={t.mac?.tdescbc?.result}
             result={result}
             onCopy={() => handleCopy(result)}
             icon={<ThunderboltOutlined />}

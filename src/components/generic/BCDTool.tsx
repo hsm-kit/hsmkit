@@ -5,6 +5,7 @@ import { CollapsibleInfo, ExampleButton } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -113,7 +114,7 @@ const BCDTool: React.FC = () => {
       const bcd = encodeToBCD(encodeInput);
       setEncodeResult(`Binary: ${bcd.binary}\nHex: ${bcd.hex}`);
     } catch (err) {
-      console.error('BCD encode error:', err);
+      logger.error('BCD encode error:', err);
       setEncodeError((t.bcd?.errorConversion || 'Conversion failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [encodeInput, t]);
@@ -145,7 +146,7 @@ const BCDTool: React.FC = () => {
       }
       setDecodeResult(output);
     } catch (err) {
-      console.error('BCD decode error:', err);
+      logger.error('BCD decode error:', err);
       setDecodeError((t.bcd?.errorConversion || 'Conversion failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [decodeInput, inputFormat, t]);

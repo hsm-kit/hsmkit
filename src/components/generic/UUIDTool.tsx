@@ -4,6 +4,7 @@ import { ThunderboltOutlined, CopyOutlined, ClearOutlined } from '@ant-design/ic
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const MAX_UUID_COUNT = 100;
 
@@ -129,7 +130,7 @@ const UUIDTool: React.FC = () => {
       
       setResults(uuids);
     } catch (err) {
-      console.error('UUID generation error:', err);
+      logger.error('UUID generation error:', err);
       setError((t.uuid?.errorGenerate || 'Generation failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [variant, count, t, withoutHyphen]);

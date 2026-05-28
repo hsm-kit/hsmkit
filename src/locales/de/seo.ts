@@ -449,6 +449,7 @@ export default {
         'Geben Sie die Dezimalisierungstabelle ein (Standard vorhanden).',
         'Wählen Sie die Validierungsdatenmethode (Parameter oder Maske).',
         'Klicken Sie auf Berechnen, um das Ergebnis zu sehen.',
+        'PIN-Offset mit IBM 3624-Methode für sichere PIN-Verwaltung in Banksystemen berechnen',
       ],
     },
     pinPvv: {
@@ -469,6 +470,8 @@ export default {
         'Verwenden Sie den Tab "PIN" zur PIN-Berechnung aus einem PVV.',
         'Geben Sie PDK (32 Hex), PAN, Kunden-PIN/PVV und PVKI (0-9) ein.',
         'Klicken Sie auf Berechnen. Das Ergebnis zeigt den Wert sowie Zwischenwerte (Verschlüsselte PAN, TSP).',
+        'PVV für Batch-PIN-Verifizierung in Hochvolumen-Transaktionsumgebungen generieren',
+        'PIN-Verifizierungswerte für internationale Kartentransaktionen validieren',
       ],
     },
     bitmap: {
@@ -510,6 +513,7 @@ export default {
         'Daten laden oder einfügen, CA-Schlüssel wählen (oder eigenen laden).',
         'Auf Validieren klicken, um die RSA-Signatur zu prüfen.',
         'Debug-Modus aktivieren für Details zu Modulus, Exponent und Struktur.',
+        'VISA CA-Schlüssel für EMV-Kartenausstellerzertifikate verwalten und rotieren',
       ],
     },
     cvv: {
@@ -552,6 +556,7 @@ export default {
         'CSC-Schlüssel eingeben (32/48 Hex).',
         'AMEX PAN (15 Ziffern), Verfallsdatum und Service Code eingeben.',
         'Klicken Sie auf Generieren oder Validieren.',
+        'AMEX CSC-Versionen (CSC-3, CSC-4, CSC-5) für verschiedene Transaktionstypen verstehen',
       ],
     },
     mastercardCvc3: {
@@ -634,6 +639,8 @@ export default {
         'Padding-Methode wählen.',
         'Daten und Trunkierungslänge eingeben.',
         'Auf "MAC berechnen" klicken.',
+        'MAC-Algorithmus basierend auf Sicherheitsanforderungen und Datenlänge auswählen',
+        'MAC-Trunkierung für differente Systemkompatibilität konfigurieren',
       ],
     },
     ansiMac: {
@@ -654,6 +661,7 @@ export default {
         'Schlüssel eingeben (K für X9.9, K und K für X9.19).',
         'Daten eingeben.',
         'Trunkierung einstellen und berechnen.',
+        'ANSI MAC für EFTPOS- und Finanznetzwerktransaktionen implementieren',
       ],
     },
     as2805Mac: {
@@ -674,6 +682,7 @@ export default {
         'Linken Schlüssel (K|KL) und rechten Schlüssel (KR) eingeben.',
         'Daten eingeben.',
         'Trunkierung wählen und berechnen.',
+        'AS2805.4.1 MAC für australische Zahlungssysteme und ATM-Netzwerke konfigurieren',
       ],
     },
     tdesCbcMac: {
@@ -694,6 +703,7 @@ export default {
         'Schlüssel eingeben.',
         'Padding wählen.',
         'Daten eingeben und berechnen.',
+        'TDES CBC-MAC für sichere Nachrichtenauthentifizierung in Bankanwendungen berechnen',
       ],
     },
     hmac: {
@@ -714,6 +724,7 @@ export default {
         'Schlüssel und Format (Hex/ASCII) eingeben.',
         'Daten eingeben.',
         'Auf "HMAC berechnen" klicken.',
+        'HMAC-Schlüsselrotation und -verwaltung für API-Sicherheit implementieren',
       ],
     },
     cmac: {
@@ -774,6 +785,7 @@ export default {
         'SK Ableitung: MK, CM, Rnd eingeben, "SK ableiten" klicken.',
         'PIN: SK-pac und PIN-Block eingeben, ver-/entschlüsseln.',
         'MAC: MAC-Schlüssel und Daten eingeben, berechnen.',
+        'ZKA-Sitzungsschlüssel für deutsche Bankkartentransaktionen ableiten',
       ],
     },
     // Generic Tools SEO

@@ -8,7 +8,7 @@ interface ExampleButtonProps {
   size?: 'small' | 'middle' | 'large';
 }
 
-export const ExampleButton: React.FC<ExampleButtonProps> = ({ onClick, size = 'small' }) => {
+export const ExampleButton: React.FC<ExampleButtonProps> = React.memo(({ onClick, size = 'small' }) => {
   const { t } = useLanguage();
 
   return (
@@ -23,6 +23,8 @@ export const ExampleButton: React.FC<ExampleButtonProps> = ({ onClick, size = 's
       </Button>
     </Tooltip>
   );
-};
+});
+
+ExampleButton.displayName = 'ExampleButton';
 
 export default ExampleButton;

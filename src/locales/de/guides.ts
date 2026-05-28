@@ -31,6 +31,10 @@ export default {
     minRead: 'Min. Lesezeit',
     lastUpdated: 'Zuletzt aktualisiert',
     noArticles: 'Keine Artikel gefunden.',
+    searchPlaceholder: 'Anleitungen suchen...',
+    exploreTools: 'Tools erkunden',
+    noSearchResults: 'Keine Suchergebnisse',
+    readNext: 'Weiterlesen',
     
     // Article page
     onThisPage: 'Auf dieser Seite',
@@ -46,6 +50,12 @@ export default {
     translationNotice: 'Dieser Artikel wird auf Englisch angezeigt. Die Übersetzung folgt in Kürze.',
     searchResults: 'Suchergebnisse',
     articlesCount: 'Artikel',
+    previousArticle: '← Previous',
+    nextArticle: 'Next →',
+    searchResultsLabel: 'Search Results',
+    noSearchResultsGuides: "No guides found. Try searching for 'AES' or 'Key'.",
+    lastUpdatedLabel: 'Last Updated',
+    byTeamLabel: 'By HSM Kit Team',
     
     // Breadcrumb
     home: 'Startseite',

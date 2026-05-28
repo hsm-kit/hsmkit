@@ -1178,32 +1178,32 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>{t.rsa?.keyLengthLabel || 'Key length:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.keyLength}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encryption method:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.encryptionMethodLabel || 'Encryption method:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.method}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.paddingMethodLabel || 'Padding Method:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.padding}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Original data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.originalDataLabel || 'Original data:'}</td>
                       <td style={{ padding: '6px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.originalData}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.publicModulusLabel || 'Public modulus [n]:'}</td>
                       <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.modulus}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.publicExponentLabel || 'Public exponent [e]:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.publicExp}</td>
                     </tr>
                     {encryptDetails.privateExp && (
                       <tr>
-                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
+                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.privateExponentLabel || 'Private exponent [d]:'}</td>
                         <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.privateExp}</td>
                       </tr>
                     )}
@@ -1234,7 +1234,7 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Encoded data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>{t.rsa?.encodedDataLabel || 'Encoded data:'}</td>
                       <td style={{ 
                         wordBreak: 'break-all', 
                         lineHeight: '1.6',
@@ -1249,7 +1249,7 @@ const RSATool: React.FC = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Encoded data length:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.encodedDataLengthLabel || 'Encoded data length:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{encryptDetails.resultLength} bytes</td>
                     </tr>
                   </tbody>
@@ -1354,32 +1354,32 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Key length:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>{t.rsa?.keyLengthLabel || 'Key length:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.keyLength}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decryption method:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.decryptionMethodLabel || 'Decryption method:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.method}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Padding Method:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.paddingMethodLabel || 'Padding Method:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.padding}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Cipher data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.cipherDataLabel || 'Cipher data:'}</td>
                       <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.cipherData}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public modulus [n]:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.publicModulusLabel || 'Public modulus [n]:'}</td>
                       <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.modulus}</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Public exponent [e]:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.publicExponentLabel || 'Public exponent [e]:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.publicExp}</td>
                     </tr>
                     {decryptDetails.privateExp && (
                       <tr>
-                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Private exponent [d]:</td>
+                        <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.privateExponentLabel || 'Private exponent [d]:'}</td>
                         <td style={{ padding: '6px 0', wordBreak: 'break-all', lineHeight: '1.6', color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.privateExp}</td>
                       </tr>
                     )}
@@ -1410,7 +1410,7 @@ const RSATool: React.FC = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <tbody>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>Decoded data:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top', width: '180px' }}>{t.rsa?.decodedDataLabel || 'Decoded data:'}</td>
                       <td style={{ 
                         wordBreak: 'break-all', 
                         lineHeight: '1.6',
@@ -1425,7 +1425,7 @@ const RSATool: React.FC = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Decoded data length:</td>
+                      <td style={{ padding: '6px 12px 6px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.decodedDataLengthLabel || 'Decoded data length:'}</td>
                       <td style={{ padding: '6px 0', fontWeight: 500, color: isDark ? '#d9d9d9' : undefined }}>{decryptDetails.resultLength} bytes</td>
                     </tr>
                   </tbody>
@@ -1522,7 +1522,7 @@ const RSATool: React.FC = () => {
                 borderBottom: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f'
               }}>
                 <Text strong style={{ color: isDark ? '#95de64' : '#52c41a' }}>
-                  RSA: Data signing operation finished
+                  RSA: {t.rsa?.signingFinished || 'Data signing operation finished'}
                 </Text>
                 <Button 
                   type={isDark ? 'primary' : 'default'} 
@@ -1543,35 +1543,35 @@ const RSATool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>Key length:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>{t.rsa?.keyLengthLabel || 'Key length:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.keyLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>String to sign:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.stringToSignLabel || 'String to sign:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.stringToSign}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>String to sign length:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.stringToSignLengthLabel || 'String to sign length:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.stringLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest type:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.messageDigestTypeLabel || 'Message digest type:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.digestType}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Message digest length:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.messageDigestLengthLabel || 'Message digest length:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.digestLength}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public modulus [n]:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.publicModulusLabel || 'Public modulus [n]:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(modulus).toUpperCase()}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Public exponent [e]:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.publicExponentLabel || 'Public exponent [e]:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(publicExponent).toUpperCase()}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Private exponent [d]:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.privateExponentLabel || 'Private exponent [d]:'}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{cleanHex(privateExponent).toUpperCase()}</td>
                   </tr>
                 </tbody>
@@ -1597,11 +1597,11 @@ const RSATool: React.FC = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>String to {signDetails.digestType} hash:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', width: '180px' }}>{t.rsa?.stringToHashLabel?.replace('{hash}', signDetails.digestType) || `String to ${signDetails.digestType} hash:`}</td>
                     <td style={{ padding: '4px 0', wordBreak: 'break-all', color: isDark ? '#d9d9d9' : undefined }}>{signDetails.hashValue}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>Message Signature:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap', verticalAlign: 'top' }}>{t.rsa?.messageSignatureLabel || 'Message Signature:'}</td>
                     <td style={{ 
                       padding: '8px 12px',
                       wordBreak: 'break-all',
@@ -1615,7 +1615,7 @@ const RSATool: React.FC = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>Msg. Signature length:</td>
+                    <td style={{ padding: '4px 12px 4px 0', color: isDark ? '#8c8c8c' : '#666', whiteSpace: 'nowrap' }}>{t.rsa?.messageSignatureLengthLabel || 'Msg. Signature length:'}</td>
                     <td style={{ padding: '4px 0', color: isDark ? '#d9d9d9' : undefined }}>{signature.length / 2}</td>
                   </tr>
                 </tbody>
@@ -1635,11 +1635,11 @@ const RSATool: React.FC = () => {
           {/* Input type 选择 */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              Input type:
+              {t.rsa?.inputTypeLabel || 'Input type:'}
             </Text>
             <Radio.Group value={verifyInputType} onChange={e => setVerifyInputType(e.target.value)}>
-              <Radio value="Data">Data (will be hashed)</Radio>
-              <Radio value="Hash">Hash (direct comparison)</Radio>
+              <Radio value="Data">{t.rsa?.inputDataWillBeHashed || 'Data (will be hashed)'}</Radio>
+              <Radio value="Hash">{t.rsa?.inputHashDirectComparison || 'Hash (direct comparison)'}</Radio>
             </Radio.Group>
           </div>
 
@@ -1648,7 +1648,7 @@ const RSATool: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>
                 {verifyInputType === 'Hash' 
-                  ? 'Hash to Verify'
+                  ? (t.rsa?.hashToVerify || 'Hash to Verify')
                   : (t.rsa?.dataToVerify || 'Data to Verify')}:
               </Text>
               <Text style={{ fontSize: '12px', color: '#52c41a' }}>
@@ -1661,7 +1661,7 @@ const RSATool: React.FC = () => {
               value={verifyData}
               onChange={e => setVerifyData(e.target.value)}
               placeholder={verifyInputType === 'Hash'
-                ? 'Enter hash value in hexadecimal (e.g. SHA-1: 40 hex chars)'
+                ? (t.rsa?.hashPlaceholder || 'Enter hash value in hexadecimal (e.g. SHA-1: 40 hex chars)')
                 : (verifyInputFormat === 'ASCII' 
                   ? (t.rsa?.dataPlaceholderAscii || 'Enter text data') 
                   : (t.rsa?.dataPlaceholder || 'Enter hexadecimal data'))}
@@ -1703,7 +1703,7 @@ const RSATool: React.FC = () => {
             />
             {verifyInputType === 'Hash' && (
               <Text type="secondary" style={{ display: 'block', marginTop: 8, fontSize: '12px' }}>
-                Select the algorithm used when signing to extract correct hash length
+                {t.rsa?.hashAlgorithmHint || 'Select the algorithm used when signing to extract correct hash length'}
               </Text>
             )}
           </div>
@@ -1756,7 +1756,7 @@ const RSATool: React.FC = () => {
           {/* Data 输入 */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>Data:</Text>
+              <Text strong>{t.rsa?.data || 'Data'}:</Text>
               <Text style={{ fontSize: '12px', color: '#52c41a' }}>
                 [{getByteLength(oaepData)}]
               </Text>
@@ -1765,8 +1765,8 @@ const RSATool: React.FC = () => {
               value={oaepData}
               onChange={e => setOaepData(e.target.value)}
               placeholder={oaepMethod === 'Encode' 
-                ? 'Enter data to encode (hexadecimal)'
-                : 'Enter OAEP encoded data (hexadecimal)'}
+                ? (t.rsa?.oaepEncodePlaceholder || 'Enter data to encode (hexadecimal)')
+                : (t.rsa?.oaepDecodePlaceholder || 'Enter OAEP encoded data (hexadecimal)')}
               autoSize={{ minRows: 4, maxRows: 8 }}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '13px' }}
             />
@@ -1774,27 +1774,27 @@ const RSATool: React.FC = () => {
 
           {/* Encoding Parameters */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Encoding Parameters:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsa?.encodingParametersLabel || 'Encoding Parameters:'}</Text>
             <Input
               value={oaepLabel}
               onChange={e => setOaepLabel(e.target.value)}
-              placeholder="Optional label (empty by default)"
+              placeholder={t.rsa?.optionalLabelPlaceholder || 'Optional label (empty by default)'}
               style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
             />
           </div>
 
           {/* Method */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Method:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsa?.methodLabel || 'Method:'}</Text>
             <Radio.Group value={oaepMethod} onChange={e => setOaepMethod(e.target.value)}>
-              <Radio value="Encode">Encode</Radio>
-              <Radio value="Decode">Decode</Radio>
+              <Radio value="Encode">{t.rsa?.encode || 'Encode'}</Radio>
+              <Radio value="Decode">{t.rsa?.decode || 'Decode'}</Radio>
             </Radio.Group>
           </div>
 
           {/* Result Length */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Text strong>Result Length:</Text>
+            <Text strong>{t.rsa?.resultLengthLabel || 'Result Length:'}</Text>
             <Select
               value={oaepResultLength}
               onChange={setOaepResultLength}
@@ -1806,12 +1806,12 @@ const RSATool: React.FC = () => {
                 { label: '4096', value: 4096 },
               ]}
             />
-            <Text type="secondary" style={{ fontSize: '12px' }}>bits</Text>
+            <Text type="secondary" style={{ fontSize: '12px' }}>{t.rsa?.bits || 'bits'}</Text>
           </div>
 
           {/* Hash Function */}
           <div style={{ background: isDark ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)' : 'linear-gradient(135deg, #f0f5ff 0%, #fff 100%)', padding: 12, borderRadius: 8, border: isDark ? '1px solid #0f3460' : '1px solid #e6f0ff' }}>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>Hash Function:</Text>
+            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsa?.hashFunctionLabel || 'Hash Function:'}</Text>
             <Radio.Group value={oaepHash} onChange={e => setOaepHash(e.target.value)}>
               <Radio value="SHA-1">SHA-1</Radio>
               <Radio value="SHA-224">SHA-224</Radio>
@@ -1829,7 +1829,7 @@ const RSATool: React.FC = () => {
               onClick={handleOaep}
               size="large"
             >
-              {oaepMethod === 'Encode' ? 'Encode' : 'Decode'}
+              {oaepMethod === 'Encode' ? (t.rsa?.encode || 'Encode') : (t.rsa?.decode || 'Decode')}
             </Button>
           </div>
 
@@ -1848,7 +1848,7 @@ const RSATool: React.FC = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <Text strong style={{ color: isDark ? '#95de64' : '#389e0d' }}>
-                  {oaepMethod === 'Encode' ? '✓ Encoded Message (EM):' : '✓ Decoded Message:'}
+                  {oaepMethod === 'Encode' ? (t.rsa?.encodedMessageLabel || '✓ Encoded Message (EM):') : (t.rsa?.decodedMessageLabel || '✓ Decoded Message:')}
                 </Text>
                 <Button 
                   type={isDark ? 'primary' : 'default'} 
@@ -1879,7 +1879,7 @@ const RSATool: React.FC = () => {
               </div>
               <div style={{ marginTop: 8 }}>
                 <Text type="secondary" style={{ fontSize: '12px', color: isDark ? '#a6a6a6' : undefined }}>
-                  Length: {oaepResult.length / 2} bytes ({oaepResult.length * 4} bits)
+                  {t.rsa?.resultLengthBytes?.replace('{bytes}', String(oaepResult.length / 2)).replace('{bits}', String(oaepResult.length * 4)) || `Length: ${oaepResult.length / 2} bytes (${oaepResult.length * 4} bits)`}
                 </Text>
               </div>
             </div>
@@ -1899,11 +1899,11 @@ const RSATool: React.FC = () => {
               fontSize: '14px',
               outline: 'none'
             }}>
-              📖 OAEP Structure & Reference
+              {t.rsa?.oaepStructureReference || '📖 OAEP Structure & Reference'}
             </summary>
             <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px dashed #e8e8e8' }}>
               <div style={{ marginBottom: 16 }}>
-                <Text strong style={{ color: '#333', fontSize: '13px' }}>Structure:</Text>
+                <Text strong style={{ color: '#333', fontSize: '13px' }}>{t.rsa?.structureLabel || 'Structure:'}</Text>
                 <div style={{ 
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                   fontSize: '12px', 
@@ -1920,7 +1920,7 @@ const RSATool: React.FC = () => {
                 </div>
               </div>
               <div>
-                <Text strong style={{ color: '#333', fontSize: '13px' }}>Max Data Size (k = key bytes):</Text>
+                <Text strong style={{ color: '#333', fontSize: '13px' }}>{t.rsa?.maxDataSizeLabel || 'Max Data Size (k = key bytes):'}</Text>
                 <div style={{ 
                   fontSize: '12px', 
                   color: '#666', 
@@ -1929,11 +1929,11 @@ const RSATool: React.FC = () => {
                   gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                   gap: '4px 16px'
                 }}>
-                  <span>SHA-1: k - 42 bytes</span>
-                  <span>SHA-224: k - 58 bytes</span>
-                  <span>SHA-256: k - 66 bytes</span>
-                  <span>SHA-384: k - 98 bytes</span>
-                  <span>SHA-512: k - 130 bytes</span>
+                  <span>{t.rsa?.oaepMaxSizeSHA1 || 'SHA-1: k - 42 bytes'}</span>
+                  <span>{t.rsa?.oaepMaxSizeSHA224 || 'SHA-224: k - 58 bytes'}</span>
+                  <span>{t.rsa?.oaepMaxSizeSHA256 || 'SHA-256: k - 66 bytes'}</span>
+                  <span>{t.rsa?.oaepMaxSizeSHA384 || 'SHA-384: k - 98 bytes'}</span>
+                  <span>{t.rsa?.oaepMaxSizeSHA512 || 'SHA-512: k - 130 bytes'}</span>
                 </div>
               </div>
             </div>

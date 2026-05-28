@@ -5,6 +5,7 @@
  */
 
 import CryptoJS from 'crypto-js';
+import logger from './logger';
 
 // Worker message types
 export interface CryptoWorkerMessage {
@@ -32,7 +33,7 @@ export const initCryptoWorker = (): Worker | null => {
   if (worker) return worker;
   
   if (typeof Worker === 'undefined') {
-    console.warn('Web Workers not supported');
+    logger.warn('Web Workers not supported');
     return null;
   }
   
@@ -54,12 +55,12 @@ export const initCryptoWorker = (): Worker | null => {
     };
     
     worker.onerror = (e) => {
-      console.error('Crypto worker error:', e);
+      logger.error('Crypto worker error:', e);
     };
     
     return worker;
   } catch (e) {
-    console.warn('Failed to create crypto worker:', e);
+    logger.warn('Failed to create crypto worker:', e);
     return null;
   }
 };

@@ -328,7 +328,7 @@ const CipherTool: React.FC = () => {
               )}
               {isWebCryptoAvailable() && mode === 'CBC' && useWebCrypto && (
                 <div style={{ color: '#52c41a' }}>
-                  <ThunderboltOutlined /> Web Crypto API 硬件加速已启用
+                  <ThunderboltOutlined /> {t.common?.webCryptoEnabled || 'Web Crypto API hardware acceleration enabled'}
                 </div>
               )}
             </CollapsibleInfo>

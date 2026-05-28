@@ -17,7 +17,7 @@ interface ResultCardProps {
  * 统一的结果展示卡片组件
  * 用于在所有工具页面保持一致的输出样式（完全匹配 Base64/Base94 等工具的视觉风格）
  */
-export const ResultCard: React.FC<ResultCardProps> = ({
+export const ResultCard: React.FC<ResultCardProps> = React.memo(({
   title,
   result,
   onCopy,
@@ -30,6 +30,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
   return (
     <Card
+      aria-live="polite"
       title={
         <span style={{ color: isDark ? '#52c41a' : '#389e0d', fontWeight: 600 }}>
           {icon && <>{icon} </>}
@@ -54,6 +55,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             icon={<CopyOutlined />}
             onClick={onCopy}
             size="small"
+            aria-label={t.common?.copy || 'Copy'}
             style={{
               background: isDark ? '#52c41a' : undefined,
               borderColor: '#52c41a',
@@ -84,6 +86,8 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       </div>
     </Card>
   );
-};
+});
+
+ResultCard.displayName = 'ResultCard';
 
 export default ResultCard;

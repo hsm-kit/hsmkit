@@ -4,6 +4,7 @@ import { SearchOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -371,7 +372,7 @@ const MessageParserTool: React.FC = () => {
 
       setParsedFields(fields);
     } catch (err) {
-      console.error('Parse error:', err);
+      logger.error('Parse error:', err);
       setError((t.messageParser?.errorParseFailed || 'Parse failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [hexData, parseMode, t]);

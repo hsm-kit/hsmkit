@@ -5,6 +5,7 @@ import { CollapsibleInfo, ExampleButton } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 
@@ -128,7 +129,7 @@ const CheckDigitsTool: React.FC = () => {
         setIsValid(true);
       }
     } catch (err) {
-      console.error('Check digit error:', err);
+      logger.error('Check digit error:', err);
       setError((t.checkDigits?.errorCalculation || 'Calculation failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [inputData, operation, hashType, t]);

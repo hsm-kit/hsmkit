@@ -206,25 +206,25 @@ const CMACTool: React.FC = () => {
     try {
       // Validate key
       if (!keyInput) {
-        throw new Error(t.mac.cmac.error.emptyKey);
+        throw new Error(t.mac?.cmac?.error?.emptyKey);
       }
       if (keyType === 'Hexadecimal') {
         if (!isValidHex(keyInput)) {
-          throw new Error(t.mac.cmac.error.invalidKeyFormat);
+          throw new Error(t.mac?.cmac?.error?.invalidKeyFormat);
         }
         // Validate key length based on encryption type
         const expectedLengths = encryptionType === 'AES' ? [32, 48, 64] : [32, 48]; // AES: 16/24/32 bytes, TDES: 16/24 bytes
         if (!expectedLengths.includes(keyInput.length)) {
-          throw new Error(t.mac.cmac.error.invalidKeyLength);
+          throw new Error(t.mac?.cmac?.error?.invalidKeyLength);
         }
       }
 
       // Validate data
       if (!dataInput) {
-        throw new Error(t.mac.cmac.error.emptyData);
+        throw new Error(t.mac?.cmac?.error?.emptyData);
       }
       if (dataType === 'Hexadecimal' && !isValidHex(dataInput)) {
-        throw new Error(t.mac.cmac.error.invalidDataFormat);
+        throw new Error(t.mac?.cmac?.error?.invalidDataFormat);
       }
 
       // Calculate CMAC
@@ -237,7 +237,7 @@ const CMACTool: React.FC = () => {
         useCMAC96
       );
       setResult(cmac);
-      message.success(t.mac.cmac.success);
+      message.success(t.mac?.cmac?.success);
     } catch (err) {
       const errorMsg = (err as Error).message;
       setError(errorMsg);
@@ -260,14 +260,14 @@ const CMACTool: React.FC = () => {
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-              {t.mac.cmac.title}
+              {t.mac?.cmac?.title}
             </Title>
-            <CollapsibleInfo title={t.mac.cmac.infoTitle || 'About CMAC'}>
-              <div>{t.mac.cmac.info || 'Calculate cipher-based MAC using AES or TDES with NIST SP 800-38B standard'}</div>
+            <CollapsibleInfo title={t.mac?.cmac?.infoTitle || 'About CMAC'}>
+              <div>{t.mac?.cmac?.info || 'Calculate cipher-based MAC using AES or TDES with NIST SP 800-38B standard'}</div>
             </CollapsibleInfo>
           </div>
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            {t.mac.cmac.description}
+            {t.mac?.cmac?.description}
           </Text>
 
           <Divider style={{ margin: '16px 0' }} />
@@ -277,7 +277,7 @@ const CMACTool: React.FC = () => {
             {/* Encryption Type */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.cmac.encryptionType}:
+                {t.mac?.cmac?.encryptionType}:
               </Text>
               <Segmented
                 value={encryptionType}
@@ -293,7 +293,7 @@ const CMACTool: React.FC = () => {
             {/* CMAC Key */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.cmac.inputTypeLabel || 'Key Input'}:</Text>
+                <Text strong>{t.mac?.cmac?.inputTypeLabel || 'Key Input'}:</Text>
                 <ExampleButton onClick={() => {
                   setKeyInput(examples.cmac.key);
                   setDataInput(examples.cmac.data);
@@ -310,15 +310,15 @@ const CMACTool: React.FC = () => {
                 style={{ marginBottom: 8 }}
               />
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac.cmac.cmacKey}:
+                  {t.mac?.cmac?.cmacKey}:
                 </Text>
               <TextArea
                 value={keyInput}
                 onChange={(e) => setKeyInput(keyType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
                 placeholder={
                   keyType === 'Hexadecimal'
-                    ? (encryptionType === 'AES' ? t.mac.cmac.keyPlaceholderHex : t.mac.cmac.keyPlaceholderHex)
-                    : t.mac.cmac.keyPlaceholderAscii
+                    ? (encryptionType === 'AES' ? t.mac?.cmac?.keyPlaceholderHex : t.mac?.cmac?.keyPlaceholderHex)
+                    : t.mac?.cmac?.keyPlaceholderAscii
                 }
                 autoSize={{ minRows: 3, maxRows: 6 }}
                 maxLength={keyType === 'Hexadecimal' ? 64 : undefined}
@@ -329,7 +329,7 @@ const CMACTool: React.FC = () => {
             {/* Data */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac.cmac.inputTypeLabel || 'Data Input'}:
+                  {t.mac?.cmac?.inputTypeLabel || 'Data Input'}:
               </Text>
               <Segmented
                 value={dataType}
@@ -342,12 +342,12 @@ const CMACTool: React.FC = () => {
                 style={{ marginBottom: 8 }}
               />
                 <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac.cmac.data}:
+                  {t.mac?.cmac?.data}:
                 </Text>
               <TextArea
                 value={dataInput}
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
-                placeholder={dataType === 'Hexadecimal' ? t.mac.cmac.dataPlaceholderHex : t.mac.cmac.dataPlaceholderAscii}
+                placeholder={dataType === 'Hexadecimal' ? t.mac?.cmac?.dataPlaceholderHex : t.mac?.cmac?.dataPlaceholderAscii}
                 autoSize={{ minRows: 4, maxRows: 8 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
@@ -360,7 +360,7 @@ const CMACTool: React.FC = () => {
                   checked={useCMAC96}
                   onChange={(e) => setUseCMAC96(e.target.checked)}
                 >
-                  {t.mac.cmac.aesCmac96}
+                  {t.mac?.cmac?.aesCmac96}
                 </Checkbox>
               </div>
             )}
@@ -373,7 +373,7 @@ const CMACTool: React.FC = () => {
                 onClick={handleCalculate}
                 size="large"
               >
-                {t.mac.cmac.calculate}
+                {t.mac?.cmac?.calculate}
               </Button>
             </div>
           </div>
@@ -389,7 +389,7 @@ const CMACTool: React.FC = () => {
         {/* Result Display */}
         {result && (
           <ResultCard
-            title={t.mac.cmac.result}
+            title={t.mac?.cmac?.result}
             result={result}
             onCopy={() => handleCopy(result)}
             icon={<ThunderboltOutlined />}

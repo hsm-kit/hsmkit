@@ -3,5 +3,6 @@ export default {
   header: {
     title: 'HSM 工具箱',
     github: 'GitHub',
+    menu: '菜单',
   },
 };

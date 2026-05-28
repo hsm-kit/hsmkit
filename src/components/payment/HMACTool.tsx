@@ -113,18 +113,18 @@ const HMACTool: React.FC = () => {
     try {
       // Validate key
       if (!keyInput) {
-        throw new Error(t.mac.hmac.error.emptyKey);
+        throw new Error(t.mac?.hmac?.error?.emptyKey);
       }
       if (keyType === 'Hexadecimal' && !isValidHex(keyInput)) {
-        throw new Error(t.mac.hmac.error.invalidKeyFormat);
+        throw new Error(t.mac?.hmac?.error?.invalidKeyFormat);
       }
 
       // Validate data
       if (!dataInput) {
-        throw new Error(t.mac.hmac.error.emptyData);
+        throw new Error(t.mac?.hmac?.error?.emptyData);
       }
       if (dataType === 'Hexadecimal' && !isValidHex(dataInput)) {
-        throw new Error(t.mac.hmac.error.invalidDataFormat);
+        throw new Error(t.mac?.hmac?.error?.invalidDataFormat);
       }
 
       // Calculate HMAC
@@ -136,7 +136,7 @@ const HMACTool: React.FC = () => {
         dataType === 'Hexadecimal'
       );
       setResult(hmac);
-      message.success(t.mac.hmac.success);
+      message.success(t.mac?.hmac?.success);
     } catch (err) {
       const errorMsg = (err as Error).message;
       setError(errorMsg);
@@ -147,7 +147,7 @@ const HMACTool: React.FC = () => {
   // Handle copy
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    message.success(t.mac.hmac.copied);
+    message.success(t.mac?.hmac?.copied);
   };
 
   return (
@@ -156,7 +156,7 @@ const HMACTool: React.FC = () => {
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-              {t.mac.hmac.title}
+              {t.mac?.hmac?.title}
             </Title>
             <CollapsibleInfo title={t.mac?.hmac?.infoTitle || 'About HMAC'}>
               <div>{t.mac?.hmac?.info || 'HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret key to provide data integrity and authentication.'}</div>
@@ -173,7 +173,7 @@ const HMACTool: React.FC = () => {
             {/* Hash Type Selection */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac.hmac.hashType}:
+                  {t.mac?.hmac?.hashType}:
                 </Text>
                 <Select
                   value={hashType}
@@ -208,7 +208,7 @@ const HMACTool: React.FC = () => {
             {/* Key Input Type */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.hmac.inputTypeLabel}:</Text>
+                <Text strong>{t.mac?.hmac?.inputTypeLabel}:</Text>
                 <ExampleButton onClick={() => {
                   setKeyInput(examples.hmac.key);
                   setDataInput(examples.hmac.data);
@@ -226,12 +226,12 @@ const HMACTool: React.FC = () => {
               />
 
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.hmac.hmacKey}:
+                {t.mac?.hmac?.hmacKey}:
               </Text>
               <TextArea
                 value={keyInput}
                 onChange={(e) => setKeyInput(keyType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
-                placeholder={keyType === 'Hexadecimal' ? t.mac.hmac.keyPlaceholderHex : t.mac.hmac.keyPlaceholderAscii}
+                placeholder={keyType === 'Hexadecimal' ? t.mac?.hmac?.keyPlaceholderHex : t.mac?.hmac?.keyPlaceholderAscii}
                 autoSize={{ minRows: 3, maxRows: 6 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
@@ -240,7 +240,7 @@ const HMACTool: React.FC = () => {
             {/* Data Input Type */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.hmac.inputTypeLabel}:
+                {t.mac?.hmac?.inputTypeLabel}:
               </Text>
               <Segmented
                 value={dataType}
@@ -254,12 +254,12 @@ const HMACTool: React.FC = () => {
               />
 
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.hmac.data}:
+                {t.mac?.hmac?.data}:
               </Text>
               <TextArea
                 value={dataInput}
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}
-                placeholder={dataType === 'Hexadecimal' ? t.mac.hmac.dataPlaceholderHex : t.mac.hmac.dataPlaceholderAscii}
+                placeholder={dataType === 'Hexadecimal' ? t.mac?.hmac?.dataPlaceholderHex : t.mac?.hmac?.dataPlaceholderAscii}
                 autoSize={{ minRows: 4, maxRows: 8 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
@@ -273,7 +273,7 @@ const HMACTool: React.FC = () => {
                 onClick={handleCalculate}
                 size="large"
               >
-                {t.mac.hmac.calculate}
+                {t.mac?.hmac?.calculate}
               </Button>
             </div>
           </div>
@@ -285,7 +285,7 @@ const HMACTool: React.FC = () => {
         {/* Result Display */}
         {result && (
           <ResultCard
-            title={t.mac.hmac.result}
+            title={t.mac?.hmac?.result}
             result={result}
             onCopy={() => handleCopy(result)}
             icon={<ThunderboltOutlined />}

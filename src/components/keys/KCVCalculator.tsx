@@ -85,7 +85,7 @@ const KCVCalculator: React.FC = () => {
               {algorithm === 'AES' ? t.kcvCalculator.aesCalcDesc : t.kcvCalculator.desCalcDesc}
               {isWorkerAvailable() && useWorker && (
                 <div style={{ color: '#52c41a', marginTop: 8 }}>
-                  <ThunderboltOutlined /> Web Worker 后台计算已启用
+                  <ThunderboltOutlined /> {t.common?.webWorkerEnabled || 'Web Worker background computation enabled'}
                 </div>
               )}
             </CollapsibleInfo>

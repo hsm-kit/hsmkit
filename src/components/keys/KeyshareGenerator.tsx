@@ -490,7 +490,7 @@ const KeyshareGenerator: React.FC = () => {
               }}>
                 <div style={{ display: 'flex', gap: 24 }}>
                   <Text strong>{t.keyshareGenerator?.combinedKey || 'Combined Key'}</Text>
-                  <Text strong>KCV</Text>
+                  <Text strong>{t.keyshareGenerator?.kcvLabel || 'KCV'}</Text>
                 </div>
                 <ExampleButton onClick={() => {
                   setCombinedKeyInput(examples.keyshare.key);
@@ -558,14 +558,14 @@ const KeyshareGenerator: React.FC = () => {
                     <Text strong style={{ textAlign: 'center' }}>
                       {t.keyshareGenerator?.threePartKey || 'Three Part Key'}
                     </Text>
-                    <Text strong style={{ width: 80, textAlign: 'center' }}>KCV</Text>
-                    <Text strong style={{ width: 80, textAlign: 'center' }}>PIN</Text>
+                    <Text strong style={{ width: 80, textAlign: 'center' }}>{t.keyshareGenerator?.kcvLabel || 'KCV'}</Text>
+                    <Text strong style={{ width: 80, textAlign: 'center' }}>{t.keyshareGenerator?.pinLabel || 'PIN'}</Text>
                     <div style={{ width: 32 }}></div>
                   </div>
                   {[0, 1, 2].map((index) => (
                     <React.Fragment key={`three-${index}`}>
                       {renderSecureKeyPartRow(
-                        `Part ${index + 1}`,
+                        t.keyshareGenerator?.partLabel?.replace('{{index}}', String(index + 1)) || `Part ${index + 1}`,
                         threeParts[index],
                         'three',
                         index,
@@ -582,7 +582,7 @@ const KeyshareGenerator: React.FC = () => {
                   {[0, 1, 2].map((index) => (
                     <React.Fragment key={`three-${index}`}>
                       {renderInsecureKeyPartRow(
-                        `Part ${index + 1}`,
+                        t.keyshareGenerator?.partLabel?.replace('{{index}}', String(index + 1)) || `Part ${index + 1}`,
                         threeParts[index]
                       )}
                     </React.Fragment>
@@ -608,14 +608,14 @@ const KeyshareGenerator: React.FC = () => {
                     <Text strong style={{ textAlign: 'center' }}>
                       {t.keyshareGenerator?.twoPartKey || 'Two Part Key'}
                     </Text>
-                    <Text strong style={{ width: 80, textAlign: 'center' }}>KCV</Text>
-                    <Text strong style={{ width: 80, textAlign: 'center' }}>PIN</Text>
+                    <Text strong style={{ width: 80, textAlign: 'center' }}>{t.keyshareGenerator?.kcvLabel || 'KCV'}</Text>
+                    <Text strong style={{ width: 80, textAlign: 'center' }}>{t.keyshareGenerator?.pinLabel || 'PIN'}</Text>
                     <div style={{ width: 32 }}></div>
                   </div>
                   {[0, 1].map((index) => (
                     <React.Fragment key={`two-${index}`}>
                       {renderSecureKeyPartRow(
-                        `Part ${index + 1}`,
+                        t.keyshareGenerator?.partLabel?.replace('{{index}}', String(index + 1)) || `Part ${index + 1}`,
                         twoParts[index],
                         'two',
                         index,
@@ -632,7 +632,7 @@ const KeyshareGenerator: React.FC = () => {
                   {[0, 1].map((index) => (
                     <React.Fragment key={`two-${index}`}>
                       {renderInsecureKeyPartRow(
-                        `Part ${index + 1}`,
+                        t.keyshareGenerator?.partLabel?.replace('{{index}}', String(index + 1)) || `Part ${index + 1}`,
                         twoParts[index]
                       )}
                     </React.Fragment>

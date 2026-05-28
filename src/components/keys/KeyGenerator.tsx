@@ -689,7 +689,7 @@ const KeyGenerator: React.FC = () => {
             <div>• {t.keyGenerator.infoContent3 || 'KCV (Key Check Value) is calculated for key verification'}</div>
             {isWebCryptoAvailable() && (
               <div style={{ color: '#52c41a', marginTop: 8 }}>
-                <ThunderboltOutlined /> Web Crypto API 安全随机数已启用
+                <ThunderboltOutlined /> {t.common?.webCryptoRandom || 'Web Crypto API secure random enabled'}
               </div>
             )}
           </CollapsibleInfo>

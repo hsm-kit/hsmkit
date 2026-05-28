@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import i18n, { loadLanguage } from '../i18n';
 import type { Language, Translations } from '../locales';
-import { defaultLanguage, getCachedTranslations, loadTranslations } from '../locales';
 
 interface LanguageContextType {
   language: Language;
@@ -12,7 +12,6 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// 语言映射表 - 提取到组件外部避免重复创建
 const langMap: Record<Language, string> = {
   en: 'en',
   zh: 'zh-CN',
@@ -26,25 +25,15 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [language, setLanguageState] = useState<Language>(() => {
     try {
       const saved = localStorage.getItem('language') as Language;
-      return saved || defaultLanguage;
+      return saved || 'en';
     } catch {
-      return defaultLanguage;
+      return 'en';
     }
   });
 
-  // 翻译状态：初始从缓存加载，异步加载后更新
-  const [translations, setTranslations] = useState<Translations>(() => {
-    try {
-      const userLang = localStorage.getItem('language') as Language;
-      const cached = getCachedTranslations(userLang || defaultLanguage);
-      return cached || getCachedTranslations(defaultLanguage)!;
-    } catch {
-      return getCachedTranslations(defaultLanguage)!;
-    }
-  });
-
-  // 跟踪当前已加载的语言，避免重复加载
-  const loadedLangRef = useRef<Language>(language);
+  const [translations, setTranslations] = useState<Translations>(
+    () => i18n.getResourceBundle('en', 'translation') as Translations
+  );
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
@@ -52,42 +41,37 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       localStorage.setItem('language', lang);
     } catch { /* localStorage unavailable */ }
     document.documentElement.lang = langMap[lang];
+
+    loadLanguage(lang).then(() => {
+      void i18n.changeLanguage(lang);
+    });
   }, []);
 
   useEffect(() => {
-    // 初始化时设置 HTML lang 属性
-    document.documentElement.lang = langMap[language];
-  }, [language]);
+    const savedLang = language;
+    document.documentElement.lang = langMap[savedLang];
 
-  // 按需加载语言包：避免将所有语言一次性打进首屏 bundle
-  useEffect(() => {
-    // 如果已经加载了该语言的翻译，跳过
-    if (loadedLangRef.current === language) {
-      return;
+    const onLangChanged = (lng: string) => {
+      const bundle = i18n.getResourceBundle(lng, 'translation');
+      if (bundle) {
+        setTranslations(bundle as Translations);
+        setLanguageState(lng as Language);
+      }
+    };
+
+    i18n.on('languageChanged', onLangChanged);
+
+    if (savedLang !== 'en' && i18n.language !== savedLang) {
+      void loadLanguage(savedLang).then(() => {
+        void i18n.changeLanguage(savedLang);
+      });
     }
 
-    let cancelled = false;
-
-    void loadTranslations(language)
-      .then((loaded) => {
-        if (!cancelled) {
-          loadedLangRef.current = language;
-          setTranslations(loaded);
-        }
-      })
-      .catch(() => {
-        // 动态加载失败时回退到默认语言
-        const fallback = getCachedTranslations(defaultLanguage);
-        if (!cancelled && fallback) {
-          loadedLangRef.current = defaultLanguage;
-          setTranslations(fallback);
-        }
-      });
-
     return () => {
-      cancelled = true;
+      i18n.off('languageChanged', onLangChanged);
     };
-  }, [language]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const value: LanguageContextType = useMemo(() => ({
     language,

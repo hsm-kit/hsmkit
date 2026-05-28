@@ -31,6 +31,10 @@ export default {
     minRead: '분 읽기',
     lastUpdated: '마지막 업데이트',
     noArticles: '기사를 찾을 수 없습니다.',
+    searchPlaceholder: '가이드 검색...',
+    exploreTools: '도구 탐색',
+    noSearchResults: '검색 결과가 없습니다',
+    readNext: '다음 읽기',
     
     // Article page
     onThisPage: '이 페이지에서',
@@ -46,6 +50,12 @@ export default {
     translationNotice: '이 기사는 영어로 표시됩니다. 번역이 곧 제공될 예정입니다.',
     searchResults: '검색 결과',
     articlesCount: '개 기사',
+    previousArticle: '← Previous',
+    nextArticle: 'Next →',
+    searchResultsLabel: 'Search Results',
+    noSearchResultsGuides: "No guides found. Try searching for 'AES' or 'Key'.",
+    lastUpdatedLabel: 'Last Updated',
+    byTeamLabel: 'By HSM Kit Team',
     
     // Breadcrumb
     home: '홈',

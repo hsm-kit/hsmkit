@@ -99,5 +99,13 @@ export default {
       'Card Security': 'Card Security',
       EMV: 'EMV',
     },
+
+    // Navigation
+    previousArticle: '← Previous',
+    nextArticle: 'Next →',
+    searchResultsLabel: 'Search Results',
+    noSearchResultsGuides: "No guides found. Try searching for 'AES' or 'Key'.",
+    lastUpdatedLabel: 'Last Updated',
+    byTeamLabel: 'By HSM Kit Team',
   },
 };

@@ -1,91 +1,93 @@
-# HSM Kit - 专业在线加密工具套件
+# HSM Kit - Professional Online Encryption Toolkit
 
 <div align="center">
 
 <img src="public/favicon.svg" alt="HSM Kit Logo" width="120" height="120">
 
-🔐 **专业在线加密与密钥管理工具，100% 客户端计算，安全可靠**
+🔐 **Professional encryption & key management tools, 100% client-side, secure & reliable**
 
 [![Website](https://img.shields.io/badge/Website-hsmkit.com-8B5CF6?style=flat-square)](https://hsmkit.com)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Tests](https://img.shields.io/badge/Tests-56%20passed-brightgreen?style=flat-square)](#testing)
 
-[English](#features) | [简体中文](#-特性) | [日本語](#) | [한국어](#) | [Deutsch](#) | [Français](#)
+**English** | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
 </div>
 
 ---
 
-## 📖 项目简介
+## 📖 Introduction
 
-HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安全领域的开发者、测试人员和安全工程师设计。提供 44+ 工具，涵盖 HSM 密钥管理、支付安全、PKI 证书、加密算法等核心功能，完全在浏览器端运行，无需安装任何软件。
+HSM Kit is a professional online encryption toolkit designed for developers, testers, and security engineers in finance, payment, and security domains. It provides 44+ tools covering HSM key management, payment security, PKI certificates, and cryptographic algorithms, all running entirely in the browser.
 
-### 核心价值
+### Core Values
 
-- **安全第一** - 100% 客户端计算，密钥和敏感数据永不离开您的设备
-- **专业完整** - 涵盖 HSM 密钥管理、支付安全、PKI 证书、加密算法等 44+ 工具
-- **即开即用** - 打开浏览器即可使用，支持 PWA 安装到桌面，支持 Mac/Windows/Linux/移动端
-- **开源透明** - 代码公开可审计，满足金融行业合规要求
-
----
-
-## ✨ 特性
-
-| 特性 | 描述 |
-|------|------|
-| 🔒 **本地计算** | 所有加密操作在浏览器执行，数据永不上传服务器 |
-| 📱 **PWA 支持** | 可安装到桌面，像原生 App 一样启动，离线可用 |
-| 🌐 **跨平台** | Mac/Windows/Linux/iOS/Android 全平台适用 |
-| 🌍 **多语言** | 英语、中文、日语、韩语、德语、法语 6 种语言 |
-| 🌙 **暗黑模式** | 日/夜间主题切换，保护眼睛 |
-| ♿ **键盘可访问** | 所有交互元素支持键盘导航，符合 WCAG 标准 |
-| ⚡ **懒加载** | 路由级代码分割，首屏只加载当前页面 |
-| 🔍 **SEO 优化** | 预渲染静态 HTML、Schema 标记、多语言 hreflang |
-| 📚 **知识库** | 38 篇深度技术文章，覆盖加密、支付、HSM 等核心主题 |
-| 📝 **Example 按钮** | 所有工具页提供示例数据一键填充 |
-| 🕐 **最近使用** | 记录常用工具，快速访问 |
+- **Security First** - 100% client-side computation, keys and sensitive data never leave your device
+- **Professional & Complete** - 44+ tools covering HSM key management, payment security, PKI certificates, and cryptographic algorithms
+- **Ready to Use** - Open browser and start working, supports PWA installation, works on Mac/Windows/Linux/mobile
+- **Open Source** - Code is publicly auditable, meets financial industry compliance requirements
 
 ---
 
-## 🛠️ 功能模块
+## ✨ Features
 
-### 🔐 加密/解密工具 (5 个)
+| Feature | Description |
+|---------|-------------|
+| 🔒 **Local Computation** | All crypto operations run in browser, data never uploaded |
+| 📱 **PWA Support** | Installable to desktop, works like native app, offline available |
+| 🌐 **Cross Platform** | Mac/Windows/Linux/iOS/Android supported |
+| 🌍 **Multi-language** | English, Chinese, Japanese, Korean, German, French - 100% coverage |
+| 🌙 **Dark Mode** | Day/night theme switching to protect your eyes |
+| ♿ **Accessible** | ARIA labels, keyboard navigation, skip-to-content, aria-live regions, WCAG 2.1 AA compliant |
+| ⚡ **Lazy Loading** | Route-level code splitting, only loads current page |
+| 🔍 **SEO Optimized** | Pre-rendered static HTML, Schema markup, multi-language hreflang |
+| 📚 **Knowledge Base** | 38 in-depth technical articles on encryption, payment, HSM topics |
+| 📝 **Example Button** | One-click example data fill for all tools |
+| 🕐 **Recent Tools** | Track frequently used tools for quick access |
+| 🧪 **Test Coverage** | Vitest unit tests, 100% coverage for core utility functions |
 
-| 工具 | 描述 | 路由 |
-|------|------|------|
-| AES 加密 | AES-128/192/256，ECB/CBC/CFB/OFB/CTR 模式 | `/aes-encryption` |
-| DES/3DES 加密 | DES/Triple DES，多种填充选项 | `/des-encryption` |
-| RSA 加密 | RSA 加密/解密/签名/验证，PKCS#1/OAEP | `/rsa-encryption` |
-| ECC/ECDSA | 椭圆曲线加密，secp256k1/P-256/P-384 | `/ecc-encryption` |
-| FPE 格式保留加密 | FF1/FF3-1 算法，NIST SP 800-38G | `/fpe-encryption` |
+---
 
-### 🔑 密钥管理工具 (8 个)
+## 🛠️ Tool Modules
 
-| 工具 | 描述 | 路由 |
-|------|------|------|
-| 密钥生成器 | AES/DES/3DES 安全随机密钥，密钥组合、奇偶校验 | `/keys-dea` |
-| 密钥分量生成器 | 密钥分量用于安全分割保管，KCV 计算 | `/keyshare-generator` |
-| Futurex 密钥 | Futurex HSM 密钥加密/解密/查找 | `/futurex-keys` |
-| Atalla 密钥 (AKB) | Atalla AKB 格式密钥加密/解密 | `/atalla-keys` |
-| SafeNet 密钥 | SafeNet HSM 密钥加密/解密/查找 | `/safenet-keys` |
-| Thales 密钥 | Thales HSM LMK 密钥加密/解密/查找 | `/thales-keys` |
-| Thales 密钥块 | Thales 专有密钥块编码/解码 | `/thales-key-block` |
-| TR-31 密钥块 | ANSI X9.143 密钥块编码/解码 | `/tr31-key-block` |
+### 🔐 Encryption/Decryption Tools (5)
 
-### 🔐 PKI 工具 (2 个)
+| Tool | Description | Route |
+|------|-------------|-------|
+| AES Encryption | AES-128/192/256, ECB/CBC/CFB/OFB/CTR modes | `/aes-encryption` |
+| DES/3DES Encryption | DES/Triple DES, multiple padding options | `/des-encryption` |
+| RSA Encryption | RSA encrypt/decrypt/sign/verify, PKCS#1/OAEP | `/rsa-encryption` |
+| ECC/ECDSA | Elliptic curve, secp256k1/P-256/P-384 | `/ecc-encryption` |
+| FPE Format-Preserving | FF1/FF3-1 algorithms, NIST SP 800-38G | `/fpe-encryption` |
 
-| 工具 | 描述 | 路由 |
-|------|------|------|
-| ASN.1 解码器 | DER/BER 结构解码，X.509 证书解析 | `/asn1-parser` |
-| SSL 证书 (X509) | SSL/TLS 证书解析、验证，PEM/DER | `/ssl-certificates` |
+### 🔑 Key Management Tools (8)
 
-### 💳 支付安全工具 (21 个)
+| Tool | Description | Route |
+|------|-------------|-------|
+| Key Generator | AES/DES/3DES secure random keys, key combining, parity | `/keys-dea` |
+| Keyshare Generator | Key splitting for secure custody, KCV calculation | `/keyshare-generator` |
+| Futurex Keys | Futurex HSM key encrypt/decrypt/lookup | `/futurex-keys` |
+| Atalla Keys (AKB) | Atalla AKB format key encrypt/decrypt | `/atalla-keys` |
+| SafeNet Keys | SafeNet HSM key encrypt/decrypt/lookup | `/safenet-keys` |
+| Thales Keys | Thales HSM LMK key encrypt/decrypt/lookup | `/thales-keys` |
+| Thales Key Block | Thales proprietary key block encode/decode | `/thales-key-block` |
+| TR-31 Key Block | ANSI X9.143 key block encode/decode | `/tr31-key-block` |
 
-| 分类 | 工具 | 路由 |
-|------|------|------|
-| **AS2805** | AS2805 消息工具 | `/payments-as2805` |
-| **Bitmap** | ISO 8583 位图 | `/payments-bitmap` |
+### 🔐 PKI Tools (2)
+
+| Tool | Description | Route |
+|------|-------------|-------|
+| ASN.1 Decoder | DER/BER structure decoding, X.509 certificate parsing | `/asn1-parser` |
+| SSL Certificates (X509) | SSL/TLS certificate parsing & validation | `/ssl-certificates` |
+
+### 💳 Payment Security Tools (21)
+
+| Category | Tool | Route |
+|----------|------|-------|
+| **AS2805** | AS2805 Message Tool | `/payments-as2805` |
+| **Bitmap** | ISO 8583 Bitmap | `/payments-bitmap` |
 | **Card Validation** | CVV/CVC | `/payments-card-validation-cvvs` |
 | **Card Validation** | AMEX CSC | `/payments-card-validation-amex-cscs` |
 | **Card Validation** | MasterCard CVC3 | `/payments-card-validation-mastercard-cvc3` |
@@ -98,361 +100,306 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 | **MAC** | HMAC | `/payments-mac-hmac` |
 | **MAC** | CMAC | `/payments-mac-cmac` |
 | **MAC** | Retail MAC | `/payments-mac-retail` |
-| **PIN** | PIN Block 通用 | `/payments-pin-blocks-general` |
+| **PIN** | PIN Block General | `/payments-pin-blocks-general` |
 | **PIN** | PIN Block AES | `/payments-pin-blocks-aes` |
-| **PIN** | PIN 偏移 | `/payments-pin-offset` |
+| **PIN** | PIN Offset | `/payments-pin-offset` |
 | **PIN** | PIN PVV | `/payments-pin-pvv` |
-| **Other** | VISA 证书 | `/payments-visa-certificates` |
-| **Other** | ZKA (德国银行标准) | `/payments-zka` |
+| **Other** | VISA Certificates | `/payments-visa-certificates` |
+| **Other** | ZKA (German Banking) | `/payments-zka` |
 
-### 🧰 通用工具 (9 个)
+### 🧰 General Tools (9)
 
-| 工具 | 描述 | 路由 |
-|------|------|------|
-| Hash 计算器 | MD5/SHA/SHA-3/BLAKE2/SM3 等 20+ 算法 | `/hashes` |
-| 字符编码转换 | ASCII/Hex/Binary/EBCDIC/ATM 互转 | `/character-encoding` |
-| BCD 编码 | 十进制与 BCD 编码互转 | `/bcd` |
-| 校验位计算 | Luhn (MOD 10) / Amex SE (MOD 9) | `/check-digits` |
-| Base64 编解码 | 标准 Base64 编码解码 | `/base64` |
-| Base94 编解码 | Base94 编码解码 | `/base94` |
-| Message Parser | ISO 8583、ATM NDC/Wincor 解析 | `/message-parser` |
-| RSA DER 公钥 | RSA 公钥 DER/PEM 编解码 | `/rsa-der-public-key` |
-| UUID 生成器 | UUID v1/v3/v4/v5 生成 | `/uuid` |
-
----
-
-## 📚 知识库
-
-HSM Kit 内置安全知识库 (`/guides`)，提供 38 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
-
-### 加密工具 (5 篇)
-
-| 文章 | 路由 |
-|------|------|
-| AES 加密详解 | `/guides/aes-encryption-explained` |
-| DES 与 3DES | `/guides/des-3des-legacy-encryption` |
-| RSA 加密指南 | `/guides/rsa-encryption-guide` |
-| ECC 与 ECDSA | `/guides/ecc-digital-signatures-explained` |
-| FPE 格式保留加密 | `/guides/fpe-format-preserving-encryption` |
-
-### 密钥管理 (8 篇)
-
-| 文章 | 路由 |
-|------|------|
-| HSM 密钥管理 | `/guides/hsm-key-management-overview` |
-| 密钥分片与 KCV | `/guides/understanding-key-splitting-kcv` |
-| TR-31 密钥块 | `/guides/what-is-tr31-key-block` |
-| Futurex HSM | `/guides/futurex-hsm-key-management` |
-| Atalla AKB | `/guides/atalla-akh-key-block-format` |
-| SafeNet | `/guides/safenet-key-management-guide` |
-| Thales LMK | `/guides/thales-lmk-key-encryption` |
-| Thales 密钥块 | `/guides/thales-key-block-format-guide` |
-
-### 支付安全 (14 篇)
-
-| 文章 | 路由 |
-|------|------|
-| MAC 算法 | `/guides/mac-algorithms-payment-security` |
-| ISO 8583 | `/guides/iso8583-payment-messages` |
-| PIN Block | `/guides/pin-block-formats-iso9564` |
-| DUKPT | `/guides/dukpt-key-derivation-tutorial` |
-| CVV/CVC | `/guides/cvv-cvc-calculation-methods` |
-| AS2805 | `/guides/as2805-australian-payment-standard` |
-| AMEX CSC | `/guides/amex-csc-card-security-code` |
-| Mastercard CVC3 | `/guides/mastercard-dynamic-cvc3-guide` |
-| DUKPT AES | `/guides/dukpt-aes-key-derivation` |
-| PIN Block AES | `/guides/pin-block-aes-format4-guide` |
-| PIN Offset | `/guides/pin-offset-ibm3624-guide` |
-| PIN PVV | `/guides/pin-pvv-visa-verification` |
-| ZKA | `/guides/zka-german-banking-standard` |
-| VISA 证书 | `/guides/visa-certificate-validation-guide` |
-
-### 通用工具 (5 篇)
-
-| 文章 | 路由 |
-|------|------|
-| 字符编码 | `/guides/character-encoding-ascii-ebcdic` |
-| BCD 编码 | `/guides/bcd-binary-coded-decimal-explained` |
-| 校验位 | `/guides/check-digits-luhn-mod10` |
-| Base94 | `/guides/base94-encoding-guide` |
-| UUID | `/guides/uuid-generation-guide` |
-
-### PKI 工具 (5 篇)
-
-| 文章 | 路由 |
-|------|------|
-| 哈希函数 | `/guides/hash-functions-guide` |
-| ASN.1 | `/guides/asn1-certificates-explained` |
-| Base64 | `/guides/base64-encoding-guide` |
-| RSA DER | `/guides/rsa-der-public-key-decoding` |
-| SSL 证书 | `/guides/ssl-tls-certificate-guide` |
-
-### 消息解析 (1 篇)
-
-| 文章 | 路由 |
-|------|------|
-| Message Parser | `/guides/message-parser-iso8583-guide` |
-
-### 知识库特性
-
-- 📝 **Markdown 渲染** - 支持代码块、表格、内部链接
-- 🔗 **工具内链** - 文章正文中直接链接相关工具和关联文章
-- 🌍 **中英双语** - 英语和中文各 38 篇完整翻译
-- 📖 **目录导航** - 右侧 TOC 快速定位，滚动高亮
-- 🔍 **搜索功能** - 全文搜索文章内容
+| Tool | Description | Route |
+|------|-------------|-------|
+| Hash Calculator | MD5/SHA/SHA-3/BLAKE2/SM3 20+ algorithms | `/hashes` |
+| Character Encoding | ASCII/Hex/Binary/EBCDIC/ATM conversion | `/character-encoding` |
+| BCD Encoding | Decimal to BCD encoding conversion | `/bcd` |
+| Check Digits | Luhn (MOD 10) / Amex SE (MOD 9) | `/check-digits` |
+| Base64 Encode/Decode | Standard Base64 encoding/decoding | `/base64` |
+| Base94 Encode/Decode | Base94 encoding/decoding | `/base94` |
+| Message Parser | ISO 8583, ATM NDC/Wincor parsing | `/message-parser` |
+| RSA DER Public Key | RSA public key DER/PEM encode/decode | `/rsa-der-public-key` |
+| UUID Generator | UUID v1/v3/v4/v5 generation | `/uuid` |
 
 ---
 
-## 📁 项目结构
+## 📚 Knowledge Base
+
+HSM Kit includes a built-in knowledge base (`/guides`) with 38 in-depth technical articles covering encryption algorithms, payment security, HSM key management, and more. Articles are cross-linked and directly connected to corresponding tools.
+
+### Knowledge Base Features
+
+- 📝 **Markdown Rendering** - Code blocks, tables, internal links
+- 🔗 **Tool Integration** - Direct links to related tools and articles
+- 🌍 **Bilingual** - English and Chinese, 38 articles each, fully translated
+- 📖 **Table of Contents** - Right-side TOC navigation with scroll highlighting
+- 🔍 **Search** - Full-text search across articles
+
+---
+
+## 📁 Project Structure
 
 ```
 hsmkit/
-├── public/                     # 静态资源
-│   ├── favicon.svg             # 网站 Logo
-│   ├── favicon-*.png           # PWA 图标 (48/192/512)
-│   ├── apple-touch-icon.png    # iOS 图标
-│   ├── sitemap.xml             # 网站地图 (80+ URLs, 含 hreflang)
-│   ├── robots.txt              # 爬虫指令
-│   ├── _headers                # HTTP 头配置 (Cloudflare)
-│   └── _redirects              # SPA 路由重定向
+├── public/                     # Static assets
+│   ├── favicon.svg             # Website logo
+│   ├── favicon-*.png           # PWA icons (48/192/512)
+│   ├── apple-touch-icon.png    # iOS icon
+│   ├── sitemap.xml             # Sitemap (80+ URLs with hreflang)
+│   ├── robots.txt              # Crawler instructions
+│   ├── _headers                # HTTP headers (Cloudflare)
+│   └── _redirects              # SPA route redirects
 │
-├── scripts/                    # 构建脚本
-│   ├── generate-favicon-png.js # Favicon 生成
-│   └── update-sitemap-lastmod.js # Sitemap 日期更新
+├── scripts/                    # Build scripts
+│   ├── generate-favicon-png.js # Favicon generation
+│   └── update-sitemap-lastmod.js # Sitemap date update
 │
 ├── src/
-│   ├── components/             # 可复用组件
-│   │   ├── cipher/             # 加密工具组件
-│   │   ├── common/             # 通用组件
-│   │   │   ├── PageLayout.tsx  # 页面布局 + Schema.org
-│   │   │   ├── ToolPage.tsx    # 工具页面工厂（消除样板代码）
-│   │   │   ├── SEO.tsx         # SEO 元标签 + 预渲染
-│   │   │   ├── ResultCard.tsx  # 结果展示卡片
-│   │   │   ├── ErrorCard.tsx   # 错误展示卡片
-│   │   │   ├── LengthIndicator.tsx # 长度指示器
-│   │   │   ├── CollapsibleInfo.tsx # 信息弹窗
-│   │   │   ├── ExampleButton.tsx # 示例数据一键填充
-│   │   │   ├── ReloadPrompt.tsx # PWA 更新提示
-│   │   │   └── LegalPageLayout.tsx # 法律页面布局
-│   │   ├── generic/            # 通用工具组件
-│   │   ├── keys/               # 密钥管理组件
-│   │   ├── payment/            # 支付工具组件
-│   │   └── pki/                # PKI 工具组件
+│   ├── components/             # Reusable components
+│   │   ├── cipher/             # Encryption tool components
+│   │   ├── common/             # Common components
+│   │   │   ├── PageLayout.tsx  # Page layout + Schema.org
+│   │   │   ├── ToolPage.tsx    # Tool page factory
+│   │   │   ├── SEO.tsx         # SEO meta tags + prerender
+│   │   │   ├── ResultCard.tsx  # Result display (aria-live)
+│   │   │   ├── ErrorCard.tsx   # Error display (role="alert")
+│   │   │   ├── ErrorBoundary.tsx # Error boundary
+│   │   │   ├── ReloadPrompt.tsx # PWA update prompt (dark mode)
+│   │   │   └── ...
+│   │   ├── generic/            # General tool components
+│   │   ├── keys/               # Key management components
+│   │   ├── payment/            # Payment tool components
+│   │   └── pki/                # PKI tool components
 │   │
-│   ├── content/                # 知识库内容
-│   │   └── guides/
-│   │       ├── en/             # 英文文章 (38 篇 Markdown)
-│   │       └── zh/             # 中文文章 (38 篇 Markdown)
+│   ├── hooks/                  # Custom hooks
+│   │   ├── useLanguage.tsx     # Multi-language switching
+│   │   ├── useTheme.tsx        # Theme switching
+│   │   ├── useToolForm.ts      # Tool form hook
+│   │   └── ...
 │   │
-│   ├── data/                   # 数据文件
-│   │   ├── examples.ts         # 工具示例数据
-│   │   ├── toolGuidesMap.ts    # 工具与指南映射
-│   │   └── guides/
-│   │       ├── en.json         # 英文文章元数据
-│   │       └── zh.json         # 中文文章元数据
+│   ├── locales/                # Translations (6 languages)
+│   │   ├── en/                 # English
+│   │   ├── zh/                 # Chinese
+│   │   ├── ja/                 # Japanese
+│   │   ├── ko/                 # Korean
+│   │   ├── de/                 # German
+│   │   └── fr/                 # French
 │   │
-│   ├── hooks/                  # 自定义 Hooks
-│   │   ├── useLanguage.tsx     # 多语言切换 (懒加载翻译)
-│   │   ├── useTheme.tsx        # 主题切换 (暗黑/明亮)
-│   │   ├── useToolForm.ts      # 工具表单通用 Hook
-│   │   ├── useToast.ts         # Toast 通知
-│   │   ├── useRecentTools.ts   # 最近使用工具
-│   │   └── useInputHistory.ts  # 输入历史记录
+│   ├── utils/                  # Utility functions
+│   │   ├── crypto.ts           # Core crypto utilities
+│   │   ├── crypto.test.ts      # Crypto unit tests
+│   │   ├── hex.ts              # Hex utilities
+│   │   ├── hex.test.ts         # Hex unit tests
+│   │   ├── logger.ts           # Production-safe logger
+│   │   └── ...
 │   │
-│   ├── lib/                    # 第三方库 (vendored)
-│   │   └── asn1js/             # ASN.1 解析库
-│   │
-│   ├── locales/                # 多语言翻译 (6 种语言)
-│   │   ├── en/                 # 英语
-│   │   ├── zh/                 # 简体中文
-│   │   ├── ja/                 # 日语
-│   │   ├── ko/                 # 韩语
-│   │   ├── de/                 # 德语
-│   │   └── fr/                 # 法语
-│   │
-│   ├── pages/                  # 页面组件 (使用 ToolPage 工厂)
-│   │   ├── cipher/             # 加密工具页面
-│   │   ├── generic/            # 通用工具页面
-│   │   ├── guides/             # 知识库页面
-│   │   ├── home/               # 首页
-│   │   ├── keys/               # 密钥管理页面
-│   │   ├── legal/              # 法律信息页面
-│   │   ├── payment/            # 支付工具页面
-│   │   └── pki/                # PKI 工具页面
-│   │
-│   ├── utils/                  # 工具函数
-│   │   ├── crypto.ts           # 核心加密工具 (KCV, PIN Block, 密钥校验)
-│   │   ├── hex.ts              # 十六进制工具 (cleanHex, isValidHex, getCryptoMode)
-│   │   ├── webCrypto.ts        # Web Crypto API 封装
-│   │   ├── cryptoWorker.ts     # Web Worker 加密 (后台线程)
-│   │   ├── prerender.ts        # 预渲染工具
-│   │   ├── format.ts           # 格式化工具
-│   │   ├── guidesPath.ts       # 知识库路由工具
-│   │   └── readTime.ts         # 阅读时间计算
-│   │
-│   ├── App.tsx                 # 根组件 + 路由配置（懒加载）
-│   ├── main.tsx                # 入口文件（预渲染水合）
-│   ├── menu-styles.css         # 菜单样式
-│   └── index.css               # 全局样式
+│   ├── App.tsx                 # Root component + routes
+│   ├── routeConfig.ts          # Route configuration
+│   ├── routes.tsx              # Lazy-loaded page components
+│   └── main.tsx                # Entry point
 │
-├── prerender.config.ts         # 预渲染路由配置 (100+ 路由)
-├── vite.config.ts              # Vite 构建配置 (含 PWA 插件)
-├── wrangler.json               # Cloudflare Pages 配置
-├── vercel.json                 # Vercel 配置
-├── tsconfig.json               # TypeScript 配置
-├── eslint.config.js            # ESLint 配置
-└── package.json                # 依赖管理
+├── vitest.config.ts            # Test configuration
+├── vite.config.ts              # Build configuration
+├── tsconfig.json               # TypeScript config (strict mode)
+└── package.json                # Dependencies
 ```
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 在线使用
+### Online
 
-访问 [https://hsmkit.com](https://hsmkit.com) 即可直接使用所有工具。
+Visit [https://hsmkit.com](https://hsmkit.com) to use all tools directly.
 
-### PWA 安装
+### PWA Install
 
-访问网站后，浏览器会提示"安装 HSM Kit"，点击即可安装到桌面。也可在 Chrome 菜单中选择"安装应用"。
+After visiting the website, your browser will prompt "Install HSM Kit". Click to install to desktop.
 
-### 本地开发
+### Local Development
 
 ```bash
-# 克隆仓库
+# Clone repository
 git clone https://github.com/hsm-kit/hsmkit.git
 cd hsmkit
 
-# 安装依赖
+# Install dependencies
 npm install
 
-# 启动开发服务器
+# Start development server
 npm run dev
-# 访问 http://localhost:5173
+# Visit http://localhost:5173
 ```
 
-### 构建生产版本
+### Build for Production
 
 ```bash
-# 构建（含 sitemap 更新 + Puppeteer 预渲染 + PWA Service Worker）
+# Build (includes sitemap update + Puppeteer prerender + PWA Service Worker)
 npm run build
 
-# 预览生产构建
+# Preview production build
 npm run preview
 ```
 
-> **注意**：构建时需要 Chrome。`prebuild` 脚本会自动通过 `npx puppeteer browsers install chrome` 安装，在 Cloudflare Pages 等 CI 环境中会自动执行。
+> **Note**: Chrome is required for building. The `prebuild` script automatically installs it via `npx puppeteer browsers install chrome`.
 
-### 类型检查
+### Type Checking
 
 ```bash
-# TypeScript 类型检查
-npx tsc --noEmit
+# TypeScript type checking (strict mode)
+npm run typecheck
 
-# ESLint 代码检查
+# ESLint code checking
 npm run lint
+
+# ESLint auto-fix
+npm run lint:fix
+```
+
+### Testing
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode
+npm run test:watch
+
+# Test coverage
+npm run test:coverage
 ```
 
 ---
 
-## 🏗️ 技术栈
+## 🏗️ Tech Stack
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| **React** | 19 | 前端框架 |
-| **TypeScript** | 5.9 | 类型安全 |
-| **Vite (Rolldown)** | 7.2 | 构建工具 |
-| **Ant Design** | 6 | UI 组件库 |
-| **React Router** | 7 | 路由管理 |
-| **CryptoJS** | 4.2 | 对称加密 (AES/DES/3DES) |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **React** | 19 | Frontend framework |
+| **TypeScript** | 5.9 | Type safety (strict mode) |
+| **Vite (Rolldown)** | 7.2 | Build tool |
+| **Ant Design** | 6 | UI component library |
+| **React Router** | 7 | Routing |
+| **CryptoJS** | 4.2 | Symmetric encryption (AES/DES/3DES) |
 | **node-forge** | 1.3 | RSA/ASN.1/X.509 |
 | **elliptic** | 6.6 | ECC/ECDSA |
-| **hash-wasm** | 4.12 | 高性能哈希 (WASM) |
-| **react-markdown** | 10.x | Markdown 渲染 |
-| **vite-plugin-pwa** | 1.3 | PWA 支持 (Service Worker) |
-| **@prerenderer/rollup-plugin** | - | 构建时预渲染 (SEO) |
-| **Puppeteer** | 24 | 预渲染无头浏览器 |
+| **hash-wasm** | 4.12 | High-performance hashing (WASM) |
+| **react-markdown** | 10.x | Markdown rendering |
+| **vite-plugin-pwa** | 1.3 | PWA support (Service Worker) |
+| **Vitest** | 4.x | Unit testing framework |
+| **@testing-library/react** | 16.x | React component testing |
 
 ---
 
-## ⚡ 性能优化
+## ⚡ Performance
 
-| 优化项 | 说明 |
-|--------|------|
-| **路由懒加载** | 所有页面 `React.lazy()` 按需加载，首屏只下载当前页面 JS |
-| **Vendor 分包** | React / Ant Design / Crypto 独立打包，充分利用浏览器缓存 |
-| **预渲染 SSG** | 构建时 Puppeteer 生成静态 HTML，爬虫直接获取完整内容 |
-| **水合复用** | 预渲染 HTML 存在时使用 `hydrateRoot`，避免重新渲染闪烁 |
-| **PWA 缓存** | Service Worker 预缓存 210+ 资源，离线可用 |
-| **长期缓存** | 静态资源 `max-age=31536000, immutable`，HTML `must-revalidate` |
-| **DNS 预解析** | `preconnect` + `dns-prefetch` 加速字体加载 |
-
----
-
-## 🔐 安全性
-
-- **客户端加密** - 使用 Web Crypto API 和 crypto-js 在浏览器本地进行所有加密操作
-- **零数据传输** - 密钥和敏感数据永远不会离开您的设备
-- **开源透明** - 所有代码公开可审计
-- **符合合规** - 满足金融行业对密钥安全的严格要求
+| Optimization | Description |
+|--------------|-------------|
+| **Route Lazy Loading** | All pages use `React.lazy()` for on-demand loading |
+| **Vendor Splitting** | React / Ant Design / Crypto packaged separately for caching |
+| **Pre-rendering SSG** | Puppeteer generates static HTML at build time |
+| **Hydration Reuse** | Uses `hydrateRoot` when pre-rendered HTML exists |
+| **PWA Caching** | Service Worker pre-caches 210+ resources for offline use |
+| **Long-term Caching** | Static assets `max-age=31536000, immutable` |
 
 ---
 
-## 🌍 部署
+## 🔐 Security
 
-HSM Kit 可以部署到任何静态托管服务：
+- **Client-side Encryption** - All crypto operations run in browser using Web Crypto API and crypto-js
+- **Zero Data Transfer** - Keys and sensitive data never leave your device
+- **Open Source** - All code is publicly auditable
+- **Compliance Ready** - Meets financial industry security requirements
+- **CSP Protection** - Content-Security-Policy prevents XSS attacks
+- **Production Logging** - Debug logs silenced in production, only errors recorded
 
-| 平台 | 配置文件 |
-|------|----------|
+---
+
+## ♿ Accessibility
+
+HSM Kit follows WCAG 2.1 AA standards with comprehensive accessibility support:
+
+- **Skip-to-content Link** - Keyboard users can quickly jump to main content
+- **ARIA Labels** - Navigation, buttons, form elements have proper aria-labels
+- **aria-live Regions** - Dynamic results and errors are announced by screen readers
+- **Keyboard Navigation** - All interactive elements support Tab/Enter/Space
+- **Focus Management** - Clear focus indicators and logical focus order
+- **Semantic HTML** - Uses role="banner", role="main", role="alert" etc.
+
+---
+
+## 🌍 Internationalization
+
+HSM Kit supports 6 languages with 100% translation coverage:
+
+| Language | Code | Status |
+|----------|------|--------|
+| English | en | ✅ 100% |
+| 简体中文 | zh | ✅ 100% |
+| 日本語 | ja | ✅ 100% |
+| 한국어 | ko | ✅ 100% |
+| Deutsch | de | ✅ 100% |
+| Français | fr | ✅ 100% |
+
+Translation files are located in `src/locales/` with lazy loading for optimal performance.
+
+---
+
+## 🌍 Deployment
+
+HSM Kit can be deployed to any static hosting service:
+
+| Platform | Config File |
+|----------|-------------|
 | **Cloudflare Pages** | `wrangler.json`, `public/_headers`, `public/_redirects` |
 | **Vercel** | `vercel.json` |
 | **Netlify** | `public/_redirects` |
 
 ```bash
-# 构建后 dist/ 目录可直接部署
+# The dist/ directory can be deployed directly after build
 npm run build
 ```
 
 ---
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Welcome to submit Issues and Pull Requests!
 
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Submit a Pull Request
 
-### 添加新知识库文章
+### Adding New Knowledge Base Articles
 
-1. 在 `src/content/guides/en/` 创建 `{slug}.md` 文件（同时在 `zh/` 创建中文版）
-2. 更新 `src/data/guides/en.json` 和 `zh.json` 添加元数据
-3. 在 `prerender.config.ts` 添加英文和中文路由
-4. 在 `public/sitemap.xml` 添加对应 URL
-5. 运行 `npm run build` 验证
-
----
-
-## 📄 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
+1. Create `{slug}.md` in `src/content/guides/en/` (and `zh/` for Chinese)
+2. Update `src/data/guides/en.json` and `zh.json` with metadata
+3. Add routes in `prerender.config.ts`
+4. Add URL in `public/sitemap.xml`
+5. Run `npm run build` to verify
 
 ---
 
-## 🔗 相关链接
+## 📄 License
 
-- 🌐 [在线演示](https://hsmkit.com)
-- 📚 [知识库](https://hsmkit.com/guides)
-- 📦 [GitHub 仓库](https://github.com/hsm-kit/hsmkit)
-- 🐛 [问题反馈](https://github.com/hsm-kit/hsmkit/issues)
+MIT License - See [LICENSE](LICENSE) file
+
+---
+
+## 🔗 Links
+
+- 🌐 [Website](https://hsmkit.com)
+- 📚 [Knowledge Base](https://hsmkit.com/guides)
+- 📦 [GitHub Repository](https://github.com/hsm-kit/hsmkit)
+- 🐛 [Issue Tracker](https://github.com/hsm-kit/hsmkit/issues)
 
 ---
 
 <div align="center">
 
-**⚠️ 注意**: 本工具适用于测试和开发环境。在生产环境使用前，请确保遵守相关安全规范。
+**⚠️ Note**: This tool is intended for testing and development environments. Please ensure compliance with relevant security standards before using in production.
 
 Made with ❤️ by [HSM Kit Team](https://hsmkit.com)
 

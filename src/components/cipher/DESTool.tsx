@@ -374,7 +374,7 @@ const DESTool: React.FC = () => {
               <div>• {t.des?.blockSizeInfo || 'Block size is 8 bytes'}</div>
               {isWorkerAvailable() && useWorker && padding === 'None' && (mode === 'ECB' || mode === 'CBC') && (
                 <div style={{ color: '#52c41a', marginTop: 8 }}>
-                  <ThunderboltOutlined /> Web Worker 后台计算已启用
+                  <ThunderboltOutlined /> {t.common?.webWorkerEnabled || 'Web Worker background computation enabled'}
                 </div>
               )}
             </CollapsibleInfo>

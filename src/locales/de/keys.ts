@@ -104,6 +104,9 @@ export default {
     enterPinToReveal: '4-stellige PIN eingeben, um den Schlüsselanteil anzuzeigen',
     unlock: 'Freischalten',
     regenerate: 'Neu erzeugen',
+    partLabel: 'Part {{index}}',
+    kcvLabel: 'KCV',
+    pinLabel: 'PIN',
   },
 
   futurexKeys: {
@@ -333,28 +336,6 @@ export default {
     decodeResult: 'Dekodierter Key-Block',
     encodeSuccess: 'Key-Block erfolgreich kodiert',
     decodeSuccess: 'Key-Block erfolgreich dekodiert',
-  },
-
-  tr31: {
-    title: 'TR-31 Key Block',
-    description: 'TR-31/ANSI X9.143 Key Blocks mit KBPK-Schutz kodieren und dekodieren.',
-    keyBlock: 'TR-31 Key-Block',
-    keyBlockPlaceholder: 'z. B. B0112P0TE00N0000...',
-    parseKeyBlock: 'Key-Block parsen',
-    header: 'Key-Block Header',
-    version: 'Version',
-    keyLength: 'Länge',
-    keyUsage: 'Schlüsselverwendung',
-    mode: 'Modus',
-    keyVersion: 'Schlüssel-Version',
-    exportability: 'Exportierbar',
-    characters: 'Zeichen',
-    errorTooShort: 'TR-31 Key-Block ist zu kurz',
-    errorParsing: 'Parsing fehlgeschlagen, bitte TR-31-Format prüfen',
-    exportable: 'Exportierbar',
-    nonExportable: 'Nicht exportierbar',
-    sensitive: 'Sensibel',
-    keyBlockFormatHint: 'TR-31 Key-Block Format (z. B. B0112P0TE00N...), das System validiert automatisch das Format',
   },
 
   tr31KeyBlock: {

@@ -101,29 +101,29 @@ const AS2805Tool: React.FC = () => {
       const kcvTekr = calculateKCV(tekr, { algorithm: 'DES' });
 
       const rows: Array<[string, string]> = [
-        ['KEK Flag', kekFlag],
-        ['KEKr', key],
-        ['Key Scheme KEK', schemeKek],
-        ['Key Scheme LMK', schemeLmk],
-        ['Key Check Value Type', kcvType],
-        ['ZPK under LMK', `${schemeLmk}${zpk}`],
-        ['ZPK under KEK', `${schemeKek}${zpk}`],
-        ['KCV of ZPK', calculateKCV(zpk, { algorithm: 'DES' })],
-        ['TPK under LMK', `${schemeLmk}${tpk}`],
-        ['TPK under KEK', `${schemeKek}${tpk}`],
-        ['KCV of TPK', kcvTpk],
-        ['TAKs under LMK', `${schemeLmk}${taks}`],
-        ['TAKr under LMK', `${schemeLmk}${takr}`],
-        ['TAKs under KEK', `${schemeKek}${taks}`],
-        ['TAKr under KEK', `${schemeKek}${takr}`],
-        ['KCV of TAKs', kcvTaks],
-        ['KCV of TAKr', kcvTakr],
-        ['TEKs under LMK', `${schemeLmk}${teks}`],
-        ['TEKr under LMK', `${schemeLmk}${tekr}`],
-        ['TEKs under KEK', `${schemeKek}${teks}`],
-        ['TEKr under KEK', `${schemeKek}${tekr}`],
-        ['KCV of TEKs', kcvTeks],
-        ['KCV of TEKr', kcvTekr],
+        [t.as2805?.resultKekFlag || 'KEK Flag', kekFlag],
+        [t.as2805?.resultKekr || 'KEKr', key],
+        [t.as2805?.resultSchemeKek || 'Key Scheme KEK', schemeKek],
+        [t.as2805?.resultSchemeLmk || 'Key Scheme LMK', schemeLmk],
+        [t.as2805?.resultKcvType || 'Key Check Value Type', kcvType],
+        [t.as2805?.resultZpkUnderLmk || 'ZPK under LMK', `${schemeLmk}${zpk}`],
+        [t.as2805?.resultZpkUnderKek || 'ZPK under KEK', `${schemeKek}${zpk}`],
+        [t.as2805?.resultKcvZpk || 'KCV of ZPK', calculateKCV(zpk, { algorithm: 'DES' })],
+        [t.as2805?.resultTpkUnderLmk || 'TPK under LMK', `${schemeLmk}${tpk}`],
+        [t.as2805?.resultTpkUnderKek || 'TPK under KEK', `${schemeKek}${tpk}`],
+        [t.as2805?.resultKcvTpk || 'KCV of TPK', kcvTpk],
+        [t.as2805?.resultTaksUnderLmk || 'TAKs under LMK', `${schemeLmk}${taks}`],
+        [t.as2805?.resultTakrUnderLmk || 'TAKr under LMK', `${schemeLmk}${takr}`],
+        [t.as2805?.resultTaksUnderKek || 'TAKs under KEK', `${schemeKek}${taks}`],
+        [t.as2805?.resultTakrUnderKek || 'TAKr under KEK', `${schemeKek}${takr}`],
+        [t.as2805?.resultKcvTaks || 'KCV of TAKs', kcvTaks],
+        [t.as2805?.resultKcvTakr || 'KCV of TAKr', kcvTakr],
+        [t.as2805?.resultTeksUnderLmk || 'TEKs under LMK', `${schemeLmk}${teks}`],
+        [t.as2805?.resultTekrUnderLmk || 'TEKr under LMK', `${schemeLmk}${tekr}`],
+        [t.as2805?.resultTeksUnderKek || 'TEKs under KEK', `${schemeKek}${teks}`],
+        [t.as2805?.resultTekrUnderKek || 'TEKr under KEK', `${schemeKek}${tekr}`],
+        [t.as2805?.resultKcvTeks || 'KCV of TEKs', kcvTeks],
+        [t.as2805?.resultKcvTekr || 'KCV of TEKr', kcvTekr],
       ];
       const padWidth = Math.max(...rows.map(r => r[0].length));
       const aligned = rows.map(([k, v]) => `${k.padEnd(padWidth)}: ${v}`);
@@ -138,7 +138,7 @@ const AS2805Tool: React.FC = () => {
     setTranslateResult('');
     const pb = cleanHexInput(inPinBlock);
     if (!pb || !isValidHex(pb) || pb.length !== 16) {
-      setTranslateError(t.as2805?.errorPinBlock || 'PIN Block需16个十六进制字符');
+      setTranslateError(t.as2805?.errorPinBlock || 'PIN Block must be 16 hex characters');
       return;
     }
     if (!/^\d{12,19}$/.test(acct.replace(/\s/g, ''))) {
@@ -154,7 +154,7 @@ const AS2805Tool: React.FC = () => {
       [t.as2805?.outFmt || 'Outgoing PIN Block Format', outFmt],
       [t.as2805?.inPinBlock || 'Incoming PIN Block', pb.toUpperCase()],
       [t.as2805?.account || 'Account Number', acct.replace(/\s/g, '')],
-      ['Outgoing PIN Block', pb.toUpperCase()],
+        [t.as2805?.outPinBlock || 'Outgoing PIN Block', pb.toUpperCase()],
     ];
     const padWidth = Math.max(...rows.map(r => r[0].length));
     const aligned = rows.map(([k, v]) => `${k.padEnd(padWidth)}: ${v}`);

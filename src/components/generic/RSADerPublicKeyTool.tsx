@@ -4,6 +4,7 @@ import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -371,7 +372,7 @@ const RSADerPublicKeyTool: React.FC = () => {
       // Format output as hex
       setResult(bytesToHex(der));
     } catch (err) {
-      console.error('Encode error:', err);
+      logger.error('Encode error:', err);
       setError((t.rsaDer?.errorEncode || 'Encoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [modulus, modulusEncoding, exponent, exponentEncoding, outputEncoding, t]);
@@ -404,7 +405,7 @@ const RSADerPublicKeyTool: React.FC = () => {
       setDecodedExponent(bytesToHex(exp));
       setResult('success');
     } catch (err) {
-      console.error('Decode error:', err);
+      logger.error('Decode error:', err);
       setError((t.rsaDer?.errorDecode || 'Decoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [derInput, derInputEncoding, t]);

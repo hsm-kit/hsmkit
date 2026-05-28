@@ -257,7 +257,7 @@ const GuidesListPage: React.FC = () => {
       seoDescription={guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.'}
       seoKeywords={guides.seoKeywords}
       canonical="https://hsmkit.com/guides"
-      toolName="Security Knowledge Base"
+      toolName={t.guides?.title || 'Security Knowledge Base'}
       toolCategory="Documentation"
     >
       {/* Hero Section */}

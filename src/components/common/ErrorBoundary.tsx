@@ -1,6 +1,8 @@
 import React, { Component, type ReactNode } from 'react';
 import { Result, Button, Typography } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
+import i18n from '../../i18n';
+import logger from '../../utils/logger';
 
 const { Paragraph, Text } = Typography;
 
@@ -14,10 +16,6 @@ interface State {
   error: Error | null;
 }
 
-/**
- * ErrorBoundary - Catches JavaScript errors in child component tree
- * Displays a fallback UI instead of crashing the whole app
- */
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -29,8 +27,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error to console in development
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    logger.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
   handleReload = () => {
@@ -48,6 +45,9 @@ class ErrorBoundary extends Component<Props, State> {
         return this.props.fallback;
       }
 
+      const t = i18n.getResourceBundle(i18n.language, 'translation') as Record<string, Record<string, Record<string, string>>> | undefined;
+      const eb = t?.common?.errorBoundary;
+
       return (
         <div style={{ 
           padding: '48px 24px', 
@@ -58,26 +58,26 @@ class ErrorBoundary extends Component<Props, State> {
         }}>
           <Result
             status="error"
-            title="Something went wrong"
-            subTitle="An unexpected error occurred. Please try again."
+            title={eb?.title || 'Something went wrong'}
+            subTitle={eb?.subtitle || 'An unexpected error occurred. Please try again.'}
             extra={[
               <Button 
                 type="primary" 
                 key="retry" 
                 onClick={this.handleRetry}
               >
-                Try Again
+                {eb?.tryAgain || 'Try Again'}
               </Button>,
               <Button 
                 key="reload" 
                 icon={<ReloadOutlined />}
                 onClick={this.handleReload}
               >
-                Reload Page
+                {eb?.reloadPage || 'Reload Page'}
               </Button>,
             ]}
           >
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <div style={{ 
                 textAlign: 'left', 
                 background: '#fff2f0', 
@@ -86,7 +86,7 @@ class ErrorBoundary extends Component<Props, State> {
                 marginTop: 16 
               }}>
                 <Paragraph>
-                  <Text strong style={{ color: '#ff4d4f' }}>Error Details:</Text>
+                  <Text strong style={{ color: '#ff4d4f' }}>{eb?.errorDetails || 'Error Details'}:</Text>
                 </Paragraph>
                 <Paragraph>
                   <Text code style={{ wordBreak: 'break-all' }}>

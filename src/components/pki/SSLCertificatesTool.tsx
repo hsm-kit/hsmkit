@@ -930,7 +930,7 @@ const SSLCertificatesTool: React.FC = () => {
             <Input
               value={publicExponent}
               onChange={e => setPublicExponent(e.target.value)}
-              placeholder="010001"
+              placeholder={t.sslCert?.publicExponentPlaceholder || '010001'}
               style={inputStyle}
             />
           </div>
@@ -1121,56 +1121,56 @@ const SSLCertificatesTool: React.FC = () => {
                 <Text strong>{t.sslCert?.country || 'Country Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrCountry.length}]</Text>
               </div>
-              <Input value={csrCountry} onChange={e => setCsrCountry(e.target.value)} placeholder="AU" style={inputStyle} />
+              <Input value={csrCountry} onChange={e => setCsrCountry(e.target.value)} placeholder={t.sslCert?.countryPlaceholder || 'AU'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.state || 'State (Province)'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrState.length}]</Text>
               </div>
-              <Input value={csrState} onChange={e => setCsrState(e.target.value)} placeholder="Queensland" style={inputStyle} />
+              <Input value={csrState} onChange={e => setCsrState(e.target.value)} placeholder={t.sslCert?.statePlaceholder || 'Queensland'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.locality || 'Locality Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrLocality.length}]</Text>
               </div>
-              <Input value={csrLocality} onChange={e => setCsrLocality(e.target.value)} placeholder="Brisbane" style={inputStyle} />
+              <Input value={csrLocality} onChange={e => setCsrLocality(e.target.value)} placeholder={t.sslCert?.localityPlaceholder || 'Brisbane'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.organization || 'Organization'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrOrganization.length}]</Text>
               </div>
-              <Input value={csrOrganization} onChange={e => setCsrOrganization(e.target.value)} placeholder="My Company PTY" style={inputStyle} />
+              <Input value={csrOrganization} onChange={e => setCsrOrganization(e.target.value)} placeholder={t.sslCert?.organizationPlaceholder || 'My Company PTY'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.unit || 'Unit'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrUnit.length}]</Text>
               </div>
-              <Input value={csrUnit} onChange={e => setCsrUnit(e.target.value)} placeholder="DEV team" style={inputStyle} />
+              <Input value={csrUnit} onChange={e => setCsrUnit(e.target.value)} placeholder={t.sslCert?.unitPlaceholder || 'DEV team'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.commonName || 'Common Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrCommonName.length}]</Text>
               </div>
-              <Input value={csrCommonName} onChange={e => setCsrCommonName(e.target.value)} placeholder="example.com" style={inputStyle} />
+              <Input value={csrCommonName} onChange={e => setCsrCommonName(e.target.value)} placeholder={t.sslCert?.commonNamePlaceholder || 'example.com'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.email || 'Email address'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrEmail.length}]</Text>
               </div>
-              <Input value={csrEmail} onChange={e => setCsrEmail(e.target.value)} placeholder="info@example.com" style={inputStyle} />
+              <Input value={csrEmail} onChange={e => setCsrEmail(e.target.value)} placeholder={t.sslCert?.emailPlaceholder || 'info@example.com'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.passPhrase || 'Pass phrase'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{csrPassPhrase.length}]</Text>
               </div>
-              <Input.Password value={csrPassPhrase} onChange={e => setCsrPassPhrase(e.target.value)} placeholder="Private key password" style={inputStyle} />
+              <Input.Password value={csrPassPhrase} onChange={e => setCsrPassPhrase(e.target.value)} placeholder={t.sslCert?.passPhraseInputPlaceholder || 'Private key password'} style={inputStyle} />
             </div>
           </div>
 
@@ -1514,7 +1514,7 @@ const SSLCertificatesTool: React.FC = () => {
                 <Text strong>{t.sslCert?.serialNumber || 'Serial Number'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certSerialNumber.length}]</Text>
               </div>
-              <Input value={certSerialNumber} onChange={e => setCertSerialNumber(e.target.value)} placeholder="42" style={inputStyle} />
+              <Input value={certSerialNumber} onChange={e => setCertSerialNumber(e.target.value)} placeholder={t.sslCert?.serialNumberPlaceholder || '42'} style={inputStyle} />
             </div>
           </div>
 
@@ -1525,56 +1525,56 @@ const SSLCertificatesTool: React.FC = () => {
                 <Text strong>{t.sslCert?.country || 'Country Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certCountry.length}]</Text>
               </div>
-              <Input value={certCountry} onChange={e => setCertCountry(e.target.value)} placeholder="AU" style={inputStyle} />
+              <Input value={certCountry} onChange={e => setCertCountry(e.target.value)} placeholder={t.sslCert?.countryPlaceholder || 'AU'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.state || 'State (Province)'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certState.length}]</Text>
               </div>
-              <Input value={certState} onChange={e => setCertState(e.target.value)} placeholder="Queensland" style={inputStyle} />
+              <Input value={certState} onChange={e => setCertState(e.target.value)} placeholder={t.sslCert?.statePlaceholder || 'Queensland'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.locality || 'Locality Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certLocality.length}]</Text>
               </div>
-              <Input value={certLocality} onChange={e => setCertLocality(e.target.value)} placeholder="Brisbane" style={inputStyle} />
+              <Input value={certLocality} onChange={e => setCertLocality(e.target.value)} placeholder={t.sslCert?.localityPlaceholder || 'Brisbane'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.organization || 'Organization'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certOrganization.length}]</Text>
               </div>
-              <Input value={certOrganization} onChange={e => setCertOrganization(e.target.value)} placeholder="My Company PTY" style={inputStyle} />
+              <Input value={certOrganization} onChange={e => setCertOrganization(e.target.value)} placeholder={t.sslCert?.organizationPlaceholder || 'My Company PTY'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.unit || 'Unit'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certUnit.length}]</Text>
               </div>
-              <Input value={certUnit} onChange={e => setCertUnit(e.target.value)} placeholder="DEV team" style={inputStyle} />
+              <Input value={certUnit} onChange={e => setCertUnit(e.target.value)} placeholder={t.sslCert?.unitPlaceholder || 'DEV team'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.commonName || 'Common Name'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certCommonName.length}]</Text>
               </div>
-              <Input value={certCommonName} onChange={e => setCertCommonName(e.target.value)} placeholder="example.com" style={inputStyle} />
+              <Input value={certCommonName} onChange={e => setCertCommonName(e.target.value)} placeholder={t.sslCert?.commonNamePlaceholder || 'example.com'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.email || 'Email address'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certEmail.length}]</Text>
               </div>
-              <Input value={certEmail} onChange={e => setCertEmail(e.target.value)} placeholder="info@example.com" style={inputStyle} />
+              <Input value={certEmail} onChange={e => setCertEmail(e.target.value)} placeholder={t.sslCert?.emailPlaceholder || 'info@example.com'} style={inputStyle} />
             </div>
             <div>
               <div style={labelStyle}>
                 <Text strong>{t.sslCert?.passPhrase || 'Pass phrase'}:</Text>
                 <Text style={{ fontSize: '12px', color: '#52c41a' }}>[{certPassPhrase.length}]</Text>
               </div>
-              <Input.Password value={certPassPhrase} onChange={e => setCertPassPhrase(e.target.value)} placeholder="Private key password" style={inputStyle} />
+              <Input.Password value={certPassPhrase} onChange={e => setCertPassPhrase(e.target.value)} placeholder={t.sslCert?.passPhraseInputPlaceholder || 'Private key password'} style={inputStyle} />
             </div>
           </div>
 

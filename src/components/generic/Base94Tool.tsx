@@ -5,6 +5,7 @@ import { CollapsibleInfo, ExampleButton } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -156,7 +157,7 @@ const Base94Tool: React.FC = () => {
       const result = encodeBase94(bytes);
       setEncodeResult(result);
     } catch (err) {
-      console.error('Base94 encode error:', err);
+      logger.error('Base94 encode error:', err);
       setEncodeError((t.base94?.errorEncode || 'Encoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [encodeInput, encodeInputEncoding, t]);
@@ -188,7 +189,7 @@ const Base94Tool: React.FC = () => {
         setDecodeResult(bytesToHex(bytes));
       }
     } catch (err) {
-      console.error('Base94 decode error:', err);
+      logger.error('Base94 decode error:', err);
       setDecodeError((t.base94?.errorDecode || 'Decoding failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [decodeInput, decodeOutputEncoding, t]);

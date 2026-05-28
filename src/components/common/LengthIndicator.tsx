@@ -12,7 +12,7 @@ interface LengthIndicatorProps {
  * 长度指示器组件
  * 显示 [current] 并根据是否匹配预期长度变色
  */
-export const LengthIndicator: React.FC<LengthIndicatorProps> = ({ 
+export const LengthIndicator: React.FC<LengthIndicatorProps> = React.memo(({ 
   current, 
   expected, 
   disabled = false,
@@ -31,6 +31,8 @@ export const LengthIndicator: React.FC<LengthIndicatorProps> = ({
       [{current}]
     </span>
   );
-};
+});
+
+LengthIndicator.displayName = 'LengthIndicator';
 
 export default LengthIndicator;

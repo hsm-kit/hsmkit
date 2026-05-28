@@ -5,6 +5,7 @@ import { CollapsibleInfo, ExampleButton } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -242,7 +243,7 @@ const CharacterEncodingTool: React.FC = () => {
 
       setResult(output);
     } catch (err) {
-      console.error('Conversion error:', err);
+      logger.error('Conversion error:', err);
       setError((t.encoding?.errorConversion || 'Conversion failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   }, [inputData, encodingType, t]);

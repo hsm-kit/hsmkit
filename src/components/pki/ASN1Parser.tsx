@@ -4,6 +4,7 @@ import { FileSearchOutlined, UploadOutlined, ClearOutlined, CopyOutlined } from 
 import { useLanguage } from '../../hooks/useLanguage';
 import { CollapsibleInfo, ExampleButton } from '../common';
 import { examples } from '../../data/examples';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -32,7 +33,7 @@ const preloadASN1 = () => {
     Defs = defsModule.Defs;
     return true;
   }).catch(err => {
-    console.error('Failed to load asn1js:', err);
+    logger.error('Failed to load asn1js:', err);
     return false;
   });
   
@@ -111,7 +112,7 @@ const ASN1Parser: React.FC = () => {
       const end = start + asn1.header + Math.abs(asn1.length);
       node.rawData = asn1.stream.enc.slice(start, end);
     } catch (e) {
-      console.error('Failed to extract raw data:', e);
+      logger.error('Failed to extract raw data:', e);
     }
 
     // 获取内容
@@ -216,7 +217,7 @@ const ASN1Parser: React.FC = () => {
       
     } catch (err) {
       setError(err instanceof Error ? err.message : t.asn1.parseError);
-      console.error('Parse error:', err);
+      logger.error('Parse error:', err);
     }
   };
 

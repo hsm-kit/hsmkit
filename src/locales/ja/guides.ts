@@ -31,6 +31,10 @@ export default {
     minRead: '分で読める',
     lastUpdated: '最終更新',
     noArticles: '記事が見つかりません。',
+    searchPlaceholder: 'ガイドを検索...',
+    exploreTools: 'ツールを探す',
+    noSearchResults: '検索結果がありません',
+    readNext: '続きを読む',
     
     // Article page
     onThisPage: 'このページの内容',
@@ -46,6 +50,12 @@ export default {
     translationNotice: 'この記事は英語で表示されています。翻訳は近日公開予定です。',
     searchResults: '検索結果',
     articlesCount: '件の記事',
+    previousArticle: '← Previous',
+    nextArticle: 'Next →',
+    searchResultsLabel: 'Search Results',
+    noSearchResultsGuides: "No guides found. Try searching for 'AES' or 'Key'.",
+    lastUpdatedLabel: 'Last Updated',
+    byTeamLabel: 'By HSM Kit Team',
     
     // Breadcrumb
     home: 'ホーム',

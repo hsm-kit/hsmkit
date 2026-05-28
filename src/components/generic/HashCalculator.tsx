@@ -9,6 +9,7 @@ import * as hashWasm from 'hash-wasm';
 import { webCryptoHash, isWebCryptoAvailable, hexToArrayBuffer } from '../../utils/webCrypto';
 import { cleanHex, isValidHex } from '../../utils/hex';
 import { examples } from '../../data/examples';
+import logger from '../../utils/logger';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -236,7 +237,7 @@ const HashCalculator: React.FC = () => {
 
       setHashResult(result);
     } catch (err) {
-      console.error('Hash calculation error:', err);
+      logger.error('Hash calculation error:', err);
       setError(t.hash?.errorCalculation || 'Failed to calculate hash');
     } finally {
       setIsCalculating(false);
@@ -295,7 +296,7 @@ const HashCalculator: React.FC = () => {
               <div>• {t.hash?.hashInfo || 'Hash functions are one-way - cannot be reversed'}</div>
               {isWebCryptoAvailable() && ['sha1', 'sha256', 'sha384', 'sha512'].includes(hashType) && (
                 <div style={{ color: '#52c41a' }}>
-                  <ThunderboltOutlined /> Web Crypto API 硬件加速已启用
+                  <ThunderboltOutlined /> {t.common?.webCryptoEnabled || 'Web Crypto API hardware acceleration enabled'}
                 </div>
               )}
             </CollapsibleInfo>

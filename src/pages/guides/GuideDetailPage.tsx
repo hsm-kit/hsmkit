@@ -393,11 +393,11 @@ const GuideDetailPage: React.FC = () => {
               {/* Meta info */}
               <div style={{ color: isDark ? '#a6a6a6' : '#666666', fontSize: 14 }}>
                 <ClockCircleOutlined style={{ marginRight: 6 }} />
-                <span>{guides.lastUpdated || 'Last Updated'}: {formatDate(meta.lastModified)}</span>
+                <span>{t.guides?.lastUpdated || 'Last Updated'}: {formatDate(meta.lastModified)}</span>
                 <span style={{ margin: '0 12px' }}>•</span>
-                <span>{readTime} {guides.minRead || 'min read'}</span>
+                <span>{readTime} {t.guides?.minRead || 'min read'}</span>
                 <span style={{ margin: '0 12px' }}>•</span>
-                <span>{guides.byTeam || 'By HSM Kit Team'}</span>
+                <span>{t.guides?.byTeam || 'By HSM Kit Team'}</span>
               </div>
             </>
           )}
@@ -581,7 +581,7 @@ const GuideDetailPage: React.FC = () => {
                           transition: 'all 0.2s',
                         }}>
                           <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
-                            ← Previous
+                            {t.guides?.previousArticle || '← Previous'}
                           </div>
                           <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
                             {prevArticle.title}
@@ -603,7 +603,7 @@ const GuideDetailPage: React.FC = () => {
                           transition: 'all 0.2s',
                         }}>
                           <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
-                            Next →
+                            {t.guides?.nextArticle || 'Next →'}
                           </div>
                           <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
                             {nextArticle.title}
@@ -661,7 +661,7 @@ const GuideDetailPage: React.FC = () => {
                                 {article.title}
                               </Title>
                               <Text type="secondary" style={{ fontSize: 12 }}>
-                                {article.readTime} {guides.minRead || 'min read'}
+                                {article.readTime} {t.guides?.minRead || 'min read'}
                               </Text>
                             </Card>
                           </Link>
@@ -695,7 +695,7 @@ const GuideDetailPage: React.FC = () => {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
                   }}>
-                    {guides.onThisPage || 'On this page'}
+                    {t.guides?.onThisPage || 'On this page'}
                   </div>
                   <Anchor
                     targetOffset={100}

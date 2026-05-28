@@ -104,6 +104,9 @@ export default {
     enterPinToReveal: 'キーシェアを表示するには4桁のPINを入力してください',
     unlock: 'ロック解除',
     regenerate: '再生成',
+    partLabel: 'Part {{index}}',
+    kcvLabel: 'KCV',
+    pinLabel: 'PIN',
   },
 
   futurexKeys: {
@@ -333,28 +336,6 @@ export default {
     decodeResult: 'デコードされたキーブロック',
     encodeSuccess: 'キーブロックが正常にエンコードされました',
     decodeSuccess: 'キーブロックが正常にデコードされました',
-  },
-
-  tr31: {
-    title: 'TR-31 キーブロック',
-    description: 'KBPK 保護を使用して TR-31/ANSI X9.143 キーブロックをエンコードおよびデコードします。',
-    keyBlock: 'TR-31 キーブロック',
-    keyBlockPlaceholder: '例: B0112P0TE00N0000...',
-    parseKeyBlock: 'キーブロック解析',
-    header: 'キーブロックヘッダー',
-    version: 'バージョン',
-    keyLength: '長さ',
-    keyUsage: 'キーの使用法',
-    mode: 'モード',
-    keyVersion: 'キーバージョン',
-    exportability: 'エクスポート可能性',
-    characters: '文字',
-    errorTooShort: 'TR-31 キーブロックの長さが不足しています',
-    errorParsing: '解析に失敗しました。TR-31 形式を確認してください',
-    exportable: 'エクスポート可能',
-    nonExportable: 'エクスポート不可',
-    sensitive: '機密 (Sensitive)',
-    keyBlockFormatHint: 'TR-31 キーブロック形式 (例: B0112P0TE00N...)、システムが形式を自動検証します',
   },
 
   tr31KeyBlock: {

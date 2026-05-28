@@ -104,6 +104,9 @@ export default {
     enterPinToReveal: '키 공유를 보려면 4자리 PIN을 입력하세요',
     unlock: '잠금 해제',
     regenerate: '재생성',
+    partLabel: 'Part {{index}}',
+    kcvLabel: 'KCV',
+    pinLabel: 'PIN',
   },
 
   futurexKeys: {
@@ -333,28 +336,6 @@ export default {
     decodeResult: '디코딩된 키 블록',
     encodeSuccess: '키 블록이 성공적으로 인코딩되었습니다',
     decodeSuccess: '키 블록이 성공적으로 디코딩되었습니다',
-  },
-
-  tr31: {
-    title: 'TR-31 키 블록',
-    description: 'KBPK 보호가 적용된 TR-31/ANSI X9.143 키 블록을 인코딩 및 디코딩합니다.',
-    keyBlock: 'TR-31 키 블록',
-    keyBlockPlaceholder: '예: B0112P0TE00N0000...',
-    parseKeyBlock: '키 블록 파싱',
-    header: '키 블록 헤더',
-    version: '버전',
-    keyLength: '길이',
-    keyUsage: '키 사용',
-    mode: '모드',
-    keyVersion: '키 버전',
-    exportability: '내보내기 가능성',
-    characters: '자 (characters)',
-    errorTooShort: 'TR-31 키 블록 길이가 불충분합니다',
-    errorParsing: '파싱 실패, TR-31 형식을 확인해주세요',
-    exportable: '내보내기 가능',
-    nonExportable: '내보내기 불가',
-    sensitive: '민감 (Sensitive)',
-    keyBlockFormatHint: 'TR-31 키 블록 형식 (예: B0112P0TE00N...), 시스템이 형식을 자동 검증합니다',
   },
 
   tr31KeyBlock: {

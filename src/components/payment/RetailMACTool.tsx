@@ -149,33 +149,33 @@ const RetailMACTool: React.FC = () => {
     try {
       // Validate key K (16 hex chars for DES/3DES)
       if (!isValidHex(keyK, 16)) {
-        throw new Error(t.mac.retail.error.invalidKeyK);
+        throw new Error(t.mac?.retail?.error?.invalidKeyK);
       }
 
       // Validate key K' if finalization is enabled or algorithm is 3DES
       if ((finalizeMethod === '3DES' || algorithm === '3DES') && keyKPrime) {
         if (!isValidHex(keyKPrime, 16)) {
-          throw new Error(t.mac.retail.error.invalidKeyKPrime);
+          throw new Error(t.mac?.retail?.error?.invalidKeyKPrime);
         }
       }
 
       // Validate data
       if (!isValidHex(data)) {
-        throw new Error(t.mac.retail.error.invalidDataFormat);
+        throw new Error(t.mac?.retail?.error?.invalidDataFormat);
       }
       if (data.length === 0) {
-        throw new Error(t.mac.retail.error.emptyData);
+        throw new Error(t.mac?.retail?.error?.emptyData);
       }
 
       // Validate truncation
       if (truncation < 1 || truncation > 8) {
-        throw new Error(t.mac.retail.error.invalidTruncation);
+        throw new Error(t.mac?.retail?.error?.invalidTruncation);
       }
 
       // Calculate MAC
       const mac = calculateRetailMAC(algorithm, finalizeMethod, keyK, keyKPrime, data, truncation);
       setResult(mac);
-      message.success(t.mac.retail.success);
+      message.success(t.mac?.retail?.success);
     } catch (err) {
       const errorMsg = (err as Error).message;
       setError(errorMsg);
@@ -186,7 +186,7 @@ const RetailMACTool: React.FC = () => {
   // Handle copy
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    message.success(t.mac.retail.copied);
+    message.success(t.mac?.retail?.copied);
   };
 
   return (
@@ -195,7 +195,7 @@ const RetailMACTool: React.FC = () => {
         <Card style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <Title level={4} style={{ marginTop: 0, marginBottom: 0, fontSize: '18px' }}>
-              {t.mac.retail.title}
+              {t.mac?.retail?.title}
             </Title>
             <CollapsibleInfo title={t.mac?.retail?.infoTitle || 'About Retail MAC'}>
               <div>{t.mac?.retail?.info || 'Retail MAC (ISO 9797-1 Algorithm 3) uses DES/3DES CBC-MAC with optional final 3DES encryption for enhanced security in financial transactions.'}</div>
@@ -212,7 +212,7 @@ const RetailMACTool: React.FC = () => {
             {/* Algorithm Selection */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.retail.algorithm}:
+                {t.mac?.retail?.algorithm}:
               </Text>
               <Segmented
                 value={algorithm}
@@ -228,7 +228,7 @@ const RetailMACTool: React.FC = () => {
             {/* Finalize Selection */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.retail.finalize}:
+                {t.mac?.retail?.finalize}:
               </Text>
               <Segmented
                 value={finalizeMethod}
@@ -244,7 +244,7 @@ const RetailMACTool: React.FC = () => {
             {/* Key K Input */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac.retail.keyK}:</Text>
+                <Text strong>{t.mac?.retail?.keyK}:</Text>
                 <ExampleButton onClick={() => {
                   setKeyK(examples.retailMac.keyK);
                   setKeyKPrime(examples.retailMac.keyKR);
@@ -254,7 +254,7 @@ const RetailMACTool: React.FC = () => {
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
-                placeholder={t.mac.retail.keyKPlaceholder || "0123456789ABCDEF"}
+                placeholder={t.mac?.retail?.keyKPlaceholder || "0123456789ABCDEF"}
                 maxLength={16}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
@@ -263,11 +263,11 @@ const RetailMACTool: React.FC = () => {
             {/* Key K' Input (optional) */}
             {(finalizeMethod === '3DES' || algorithm === '3DES') && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac.retail.keyKPrime}:</Text>
+                <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.retail?.keyKPrime}:</Text>
                 <Input
                   value={keyKPrime}
                   onChange={(e) => setKeyKPrime(e.target.value.toUpperCase())}
-                  placeholder={t.mac.retail.keyKPrimePlaceholder || "FEDCBA9876543210"}
+                  placeholder={t.mac?.retail?.keyKPrimePlaceholder || "FEDCBA9876543210"}
                   maxLength={16}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
                 />
@@ -277,12 +277,12 @@ const RetailMACTool: React.FC = () => {
             {/* Data Input */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.retail.data}:
+                {t.mac?.retail?.data}:
               </Text>
               <TextArea
                 value={data}
                 onChange={(e) => setData(e.target.value.toUpperCase())}
-                placeholder={t.mac.retail.dataPlaceholder || "Enter hex data"}
+                placeholder={t.mac?.retail?.dataPlaceholder || "Enter hex data"}
                 autoSize={{ minRows: 4, maxRows: 8 }}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
@@ -291,7 +291,7 @@ const RetailMACTool: React.FC = () => {
             {/* Truncation Input */}
             <div>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac.retail.truncation}:
+                {t.mac?.retail?.truncation}:
               </Text>
               <Input
                 type="number"
@@ -299,7 +299,7 @@ const RetailMACTool: React.FC = () => {
                 onChange={(e) => setTruncation(parseInt(e.target.value) || 8)}
                 min={1}
                 max={8}
-                placeholder={t.mac.retail.truncationPlaceholder || "1-8 bytes"}
+                placeholder={t.mac?.retail?.truncationPlaceholder || "1-8 bytes"}
                 style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
             </div>
@@ -312,7 +312,7 @@ const RetailMACTool: React.FC = () => {
                 onClick={handleCalculate}
                 size="large"
               >
-                {t.mac.retail.calculate}
+                {t.mac?.retail?.calculate}
               </Button>
             </div>
           </div>
@@ -328,7 +328,7 @@ const RetailMACTool: React.FC = () => {
         {/* Result Display */}
         {result && (
           <ResultCard
-            title={t.mac.retail.result}
+            title={t.mac?.retail?.result}
             result={result}
             onCopy={() => handleCopy(result)}
             icon={<ThunderboltOutlined />}

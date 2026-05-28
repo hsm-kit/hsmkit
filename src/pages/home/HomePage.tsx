@@ -524,7 +524,7 @@ const HomePage: React.FC = () => {
             border: '1px solid rgba(255,255,255,0.2)',
             fontFamily: 'monospace',
           }}>/</kbd>
-          {' '}to search
+          {' '}{t.common?.toSearch || 'to search'}
         </div>
       </div>
 
@@ -577,7 +577,7 @@ const HomePage: React.FC = () => {
         {/* Category row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
           <Text className="filter-label" style={{ fontSize: 11, color: isDark ? '#666' : '#999', width: 52, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Type
+            {t.common?.filterType || 'Type'}
           </Text>
           {categories.map(cat => {
             const count = categoryCounts[cat.key];
@@ -624,7 +624,7 @@ const HomePage: React.FC = () => {
         {/* Difficulty row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <Text className="filter-label" style={{ fontSize: 11, color: isDark ? '#666' : '#999', width: 52, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Level
+            {t.common?.filterLevel || 'Level'}
           </Text>
           {(['all', 'beginner', 'intermediate', 'advanced'] as const).map(level => {
             const count = difficultyCounts[level];

@@ -77,6 +77,13 @@ export default {
       '指南提供多种语言版本，包括英文和中文。',
     ],
     
+    previousArticle: '← 上一篇',
+    nextArticle: '下一篇 →',
+    searchResultsLabel: '搜索结果',
+    noSearchResultsGuides: "未找到指南，试试搜索 'AES' 或 'Key'。",
+    lastUpdatedLabel: '最后更新',
+    byTeamLabel: 'HSM Kit 团队',
+
     // Tags
     tags: {
       KCV: 'KCV',

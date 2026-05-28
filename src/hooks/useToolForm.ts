@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useToast } from './useToast';
+import logger from '../utils/logger';
 
 const INPUT_HISTORY_PREFIX = 'hsmkit-input-';
 
@@ -97,9 +98,14 @@ export function useToolForm<TInput extends Record<string, string>>({
     }
   }, [defaultInputs, toolKey, storageKey]);
 
-  const copyResult = useCallback(() => {
-    navigator.clipboard.writeText(result);
-    toast.copySuccess();
+  const copyResult = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(result);
+      toast.copySuccess();
+    } catch (err) {
+      logger.error('Failed to copy to clipboard:', err);
+      toast.operationError('Failed to copy to clipboard');
+    }
   }, [result, toast]);
 
   return {

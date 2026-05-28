@@ -251,6 +251,7 @@ export default {
         'Décodage AKB : Entrez la chaîne AKB, entrez la MFK, cliquez sur Décoder.',
         'Optionnel : Activez Vérifier KCV et entrez le KCV attendu.',
         'Résultat : AKB, En-tête, Clé Décodée, KCV et Parité.',
+        'En-têtes AKB pour différents types de clés et niveaux de sécurité comprendre',
       ],
     },
     safenetKeys: {
@@ -272,6 +273,7 @@ export default {
         'Résultat : Clé, KCV, Parité, Format, Variante, Clé de Variante et sortie.',
         'Recherche : Entrez la clé chiffrée, optionnellement définissez un filtre KCV.',
         'Entrez la Clé KM et cliquez sur Chercher pour essayer toutes les variantes.',
+        'Variantes de clés SafeNet pour les opérations de paiement spécifiques sélectionner',
       ],
     },
     thalesKeys: {
@@ -294,6 +296,7 @@ export default {
         'Résultat : Clé, KCV, Parité, Schéma, Paire LMK, Variante et sortie.',
         'Recherche : Entrez clé chiffrée, optionnellement filtrez par KCV.',
         'Cliquez sur Chercher pour trouver les variantes correspondantes.',
+        'Schémas de clés Thales pour la conformité PCI DSS et la gestion des clés configurer',
       ],
     },
     thalesKeyBlock: {
@@ -335,6 +338,7 @@ export default {
         'Encoder : Entrez KBPK, clé claire, sélectionnez Version, Usage, Algo, Mode, Exportabilité, cliquez sur Encoder.',
         'Décoder : Entrez KBPK et collez le bloc de clé, cliquez sur Décoder.',
         'Le résultat affiche l\'en-tête (Version, Longueur, Usage, Algo, Mode, etc.), données chiffrées, MAC, clé déchiffrée et KCV.',
+        'Blocs de clés TR-31 pour l\'échange sécurisé de clés dans les réseaux de paiement utiliser',
       ],
     },
     kcv: {
@@ -422,6 +426,7 @@ export default {
         'Pour chiffrer : Entrez le PIN.',
         'Pour déchiffrer : Entrez le bloc PIN chiffré.',
         'Cliquez pour traiter et voir le résultat.',
+        'Blocs PIN AES Format 4 pour les terminaux de paiement EMV et les systèmes NFC implémenter',
       ],
     },
     pinOffset: {
@@ -443,6 +448,8 @@ export default {
         'Choisissez méthode de validation (Paramètres ou Masque).',
         'Entrez PIN client (pour Offset) ou Offset (pour PIN).',
         'Cliquez sur Calculer.',
+        'Tables de décimalisation pour la génération d\'offset PIN personnaliser',
+        'Offset PIN avec la méthode IBM 3624 pour la gestion sécurisée des PIN dans les systèmes bancaires calculer',
       ],
     },
     pinPvv: {
@@ -463,6 +470,8 @@ export default {
         'Entrez PDK (32 hex) et PAN.',
         'Entrez PIN et PVKI (pour calculer PVV) ou PVV et PVKI (pour trouver PIN).',
         'Cliquez sur Calculer.',
+        'PVV pour la vérification PIN par lot dans les environnements à haut volume de transactions générer',
+        'Valeurs de vérification PIN pour les transactions internationales de carte valider',
       ],
     },
     bitmap: {
@@ -482,6 +491,7 @@ export default {
         'Ou cochez/décochez les cases pour construire votre bitmap.',
         'Le bit 1 contrôle la présence du bitmap secondaire.',
         'Copiez le hex généré pour vos messages.',
+        'Champs de données ISO 8583 pour différents types de transactions de paiement mapper',
       ],
     },
     visaCertificates: {
@@ -502,6 +512,8 @@ export default {
         'Onglet "Valider Clé Publique Signée" : Vérifiez les certificats reçus.',
         'Chargez les données, sélectionnez la clé CA (V92/V94 ou custom).',
         'Cliquez sur Valider pour vérifier la signature RSA.',
+        'Demandes de signature de certificat VISA pour les émetteurs de cartes EMV valider',
+        'Clés CA VISA pour les certificats d\'émetteur de cartes EMV gérer et faire tourner',
       ],
     },
     cvv: {
@@ -523,6 +535,7 @@ export default {
         'Entrez PAN, expiration, code service.',
         'Pour iCVV/dCVV, entrez l\'ATC.',
         'Cliquez sur Générer ou Valider.',
+        'Types de valeurs de vérification (CVV, iCVV, dCVV) pour différents scénarios de transaction comprendre',
       ],
     },
     amexCsc: {
@@ -542,6 +555,8 @@ export default {
         'Sélectionnez Version 1 ou 2.',
         'Entrez Clé CSC (32/48 hex), PAN, expiration, code service.',
         'Cliquez sur Générer ou Valider.',
+        'Codes de sécurité AMEX pour les transactions en ligne et les achats par téléphone valider',
+        'Versions CSC AMEX (CSC-3, CSC-4, CSC-5) pour différents types de transactions comprendre',
       ],
     },
     mastercardCvc3: {
@@ -562,6 +577,7 @@ export default {
         'Entrez Track Data et Nombre Imprévisible.',
         'Sélectionnez type CVC3.',
         'Cliquez sur Générer ou Valider.',
+        'CVC3 dynamique MasterCard pour les transactions sans contact EMV et les paiements mobiles générer',
       ],
     },
     dukpt: {
@@ -623,6 +639,8 @@ export default {
         'Choisissez méthode de Padding.',
         'Entrez les données et la longueur de troncature.',
         'Cliquez sur Calculer.',
+        'Algorithme MAC basé sur les exigences de sécurité et la longueur des données sélectionner',
+        'Troncature MAC pour la compatibilité avec différents systèmes configurer',
       ],
     },
     ansiMac: {
@@ -706,6 +724,7 @@ export default {
         'Entrez clé (Hex/ASCII).',
         'Entrez message (Hex/ASCII).',
         'Cliquez sur Calculer.',
+        'Rotation et gestion des clés HMAC pour la sécurité des API implémenter',
       ],
     },
     cmac: {
@@ -747,6 +766,7 @@ export default {
         'Entrez Clés K (et K\').',
         'Entrez Données et Troncature.',
         'Cliquez sur Calculer.',
+        'MAC de détail pour les transactions financières de détail et les systèmes de point de vente calculer',
       ],
     },
     zka: {
@@ -765,6 +785,7 @@ export default {
         'Dérivation : Entrez MK, CM, Rnd -> Dériver SK.',
         'PIN : Entrez SK, Bloc PIN -> Chiffrer/Déchiffrer.',
         'MAC : Entrez Clé, Données -> Calculer MAC.',
+        'Clés de session ZKA pour les transactions de carte bancaire allemande dériver',
       ],
     },
     // Generic Tools SEO
