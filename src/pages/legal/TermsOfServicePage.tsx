@@ -1,28 +1,26 @@
 import React from 'react';
 import { Typography } from 'antd';
-import {
-  FileTextOutlined,
-  CheckCircleOutlined,
-  LockOutlined,
-  CopyrightOutlined,
-  WarningOutlined,
-  SafetyOutlined,
-  EditOutlined,
-  MailOutlined,
-  UserOutlined,
-  GlobalOutlined,
-} from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
 import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
-import { useTheme } from '../../hooks/useTheme';
 
 const { Paragraph, Text } = Typography;
 
 const TermsOfServicePage: React.FC = () => {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
   const content = t.termsOfService;
   const currentYear = new Date().getFullYear();
+  const sections = [
+    { id: 'acceptance', title: content.acceptanceTitle },
+    { id: 'use-of-service', title: content.useOfServiceTitle },
+    { id: 'intellectual-property', title: content.intellectualPropertyTitle },
+    { id: 'warranty-disclaimer', title: content.disclaimerTitle },
+    { id: 'limitation-of-liability', title: content.limitationTitle },
+    { id: 'terms-changes', title: content.changesTitle },
+    { id: 'age-requirement', title: content.ageTitle },
+    { id: 'governing-law', title: content.governingLawTitle },
+    { id: 'contact', title: content.contactTitle },
+  ];
 
   return (
     <LegalPageLayout
@@ -30,29 +28,20 @@ const TermsOfServicePage: React.FC = () => {
       seoDescription={content?.seoDescription}
       seoKeywords={content?.seoKeywords}
       canonical="https://hsmkit.com/terms-of-service"
-      icon={<FileTextOutlined style={{ fontSize: 24, color: '#fff' }} />}
-      iconGradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+      icon={<FileTextOutlined />}
       title={content.title}
       lastUpdated={content.lastUpdated}
       lastUpdatedDate={content.lastUpdatedDate.replace('{year}', String(currentYear))}
+      lastUpdatedDateTime={`${currentYear}-01`}
+      sections={sections}
     >
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }}>
-            <CheckCircleOutlined />
-          </span>
-          {content.acceptanceTitle}
-        </h4>
+      <section className="legal-section" id="acceptance">
+        <h2 className="legal-section-title">{content.acceptanceTitle}</h2>
         <Paragraph>{content.acceptanceContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
-            <LockOutlined />
-          </span>
-          {content.useOfServiceTitle}
-        </h4>
+      <section className="legal-section" id="use-of-service">
+        <h2 className="legal-section-title">{content.useOfServiceTitle}</h2>
         <Paragraph>{content.useOfServiceIntro}</Paragraph>
         <ul>
           <li>
@@ -69,86 +58,41 @@ const TermsOfServicePage: React.FC = () => {
         </ul>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <CopyrightOutlined />
-          </span>
-          {content.intellectualPropertyTitle}
-        </h4>
+      <section className="legal-section" id="intellectual-property">
+        <h2 className="legal-section-title">{content.intellectualPropertyTitle}</h2>
         <Paragraph>{content.intellectualPropertyContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #f5576c 0%, #ff6b6b 100%)' }}>
-            <WarningOutlined />
-          </span>
-          {content.disclaimerTitle}
-        </h4>
-        <Paragraph>{content.disclaimerContent}</Paragraph>
-        <div
-          className="legal-highlight"
-          style={{
-            background: isDark ? 'rgba(245, 87, 108, 0.08)' : 'rgba(245, 87, 108, 0.05)',
-            borderColor: '#f5576c',
-            color: isDark ? '#f5a0b0' : '#a8071a',
-          }}
-        >
-          The tools are provided "AS IS" without warranty of any kind.
-        </div>
+      <section className="legal-section" id="warranty-disclaimer">
+        <h2 className="legal-section-title">{content.disclaimerTitle}</h2>
+        <div className="legal-callout legal-callout-danger">{content.disclaimerContent}</div>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
-            <SafetyOutlined />
-          </span>
-          {content.limitationTitle}
-        </h4>
+      <section className="legal-section" id="limitation-of-liability">
+        <h2 className="legal-section-title">{content.limitationTitle}</h2>
         <Paragraph>{content.limitationContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' }}>
-            <EditOutlined />
-          </span>
-          {content.changesTitle}
-        </h4>
+      <section className="legal-section" id="terms-changes">
+        <h2 className="legal-section-title">{content.changesTitle}</h2>
         <Paragraph>{content.changesContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)' }}>
-            <UserOutlined />
-          </span>
-          {content.ageTitle}
-        </h4>
+      <section className="legal-section" id="age-requirement">
+        <h2 className="legal-section-title">{content.ageTitle}</h2>
         <Paragraph>{content.ageContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <GlobalOutlined />
-          </span>
-          {content.governingLawTitle}
-        </h4>
+      <section className="legal-section" id="governing-law">
+        <h2 className="legal-section-title">{content.governingLawTitle}</h2>
         <Paragraph>{content.governingLawContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)' }}>
-            <MailOutlined />
-          </span>
-          {content.contactTitle}
-        </h4>
+      <section className="legal-section" id="contact">
+        <h2 className="legal-section-title">{content.contactTitle}</h2>
         <Paragraph>
           {content.contactContent}
-          <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea', fontWeight: 500 }}>contact@hsmkit.com</a>
+          <a href="mailto:contact@hsmkit.com">contact@hsmkit.com</a>
         </Paragraph>
       </section>
     </LegalPageLayout>

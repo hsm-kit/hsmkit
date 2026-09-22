@@ -1,27 +1,26 @@
 import React from 'react';
 import { Typography } from 'antd';
-import {
-  SafetyOutlined,
-  GlobalOutlined,
-  DatabaseOutlined,
-  CloudOutlined,
-  EditOutlined,
-  MailOutlined,
-  MobileOutlined,
-  HistoryOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { SafetyOutlined } from '@ant-design/icons';
 import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
-import { useTheme } from '../../hooks/useTheme';
 
 const { Paragraph, Text } = Typography;
 
 const PrivacyPolicyPage: React.FC = () => {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
   const content = t.privacyPolicy;
   const currentYear = new Date().getFullYear();
+  const sections = [
+    { id: 'introduction', title: content.introTitle },
+    { id: 'client-side-processing', title: content.clientSideTitle },
+    { id: 'data-collection', title: content.dataCollectionTitle },
+    { id: 'progressive-web-app', title: content.pwaTitle },
+    { id: 'data-retention', title: content.dataRetentionTitle },
+    { id: 'privacy-rights', title: content.gdprTitle },
+    { id: 'third-party-services', title: content.thirdPartyTitle },
+    { id: 'policy-changes', title: content.changesTitle },
+    { id: 'contact', title: content.contactTitle },
+  ];
 
   return (
     <LegalPageLayout
@@ -29,49 +28,25 @@ const PrivacyPolicyPage: React.FC = () => {
       seoDescription={content?.seoDescription}
       seoKeywords={content?.seoKeywords}
       canonical="https://hsmkit.com/privacy-policy"
-      icon={<SafetyOutlined style={{ fontSize: 24, color: '#fff' }} />}
-      iconGradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      icon={<SafetyOutlined />}
       title={content.title}
       lastUpdated={content.lastUpdated}
       lastUpdatedDate={content.lastUpdatedDate.replace('{year}', String(currentYear))}
+      lastUpdatedDateTime={`${currentYear}-01`}
+      sections={sections}
     >
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <GlobalOutlined />
-          </span>
-          {content.introTitle}
-        </h4>
+      <section className="legal-section" id="introduction">
+        <h2 className="legal-section-title">{content.introTitle}</h2>
         <Paragraph>{content.introContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }}>
-            <SafetyOutlined />
-          </span>
-          {content.clientSideTitle}
-        </h4>
-        <Paragraph>{content.clientSideContent}</Paragraph>
-        <div
-          className="legal-highlight"
-          style={{
-            background: isDark ? 'rgba(67, 233, 123, 0.08)' : 'rgba(67, 233, 123, 0.06)',
-            borderColor: '#43e97b',
-            color: isDark ? '#a3d9a3' : '#237804',
-          }}
-        >
-          All cryptographic operations run 100% in your browser. Your data never touches our servers.
-        </div>
+      <section className="legal-section" id="client-side-processing">
+        <h2 className="legal-section-title">{content.clientSideTitle}</h2>
+        <div className="legal-callout legal-callout-success">{content.clientSideContent}</div>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
-            <DatabaseOutlined />
-          </span>
-          {content.dataCollectionTitle}
-        </h4>
+      <section className="legal-section" id="data-collection">
+        <h2 className="legal-section-title">{content.dataCollectionTitle}</h2>
         <Paragraph>{content.dataCollectionContent}</Paragraph>
         <ul>
           <li>
@@ -83,33 +58,18 @@ const PrivacyPolicyPage: React.FC = () => {
         </ul>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)' }}>
-            <MobileOutlined />
-          </span>
-          {content.pwaTitle}
-        </h4>
+      <section className="legal-section" id="progressive-web-app">
+        <h2 className="legal-section-title">{content.pwaTitle}</h2>
         <Paragraph>{content.pwaContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)' }}>
-            <HistoryOutlined />
-          </span>
-          {content.dataRetentionTitle}
-        </h4>
+      <section className="legal-section" id="data-retention">
+        <h2 className="legal-section-title">{content.dataRetentionTitle}</h2>
         <Paragraph>{content.dataRetentionContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' }}>
-            <UserOutlined />
-          </span>
-          {content.gdprTitle}
-        </h4>
+      <section className="legal-section" id="privacy-rights">
+        <h2 className="legal-section-title">{content.gdprTitle}</h2>
         <Paragraph>{content.gdprContent}</Paragraph>
         <ul>
           <li>{content.gdprRight1}</li>
@@ -119,36 +79,21 @@ const PrivacyPolicyPage: React.FC = () => {
         </ul>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
-            <CloudOutlined />
-          </span>
-          {content.thirdPartyTitle}
-        </h4>
+      <section className="legal-section" id="third-party-services">
+        <h2 className="legal-section-title">{content.thirdPartyTitle}</h2>
         <Paragraph>{content.thirdPartyContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
-            <EditOutlined />
-          </span>
-          {content.changesTitle}
-        </h4>
+      <section className="legal-section" id="policy-changes">
+        <h2 className="legal-section-title">{content.changesTitle}</h2>
         <Paragraph>{content.changesContent}</Paragraph>
       </section>
 
-      <section className="legal-section">
-        <h4 className="legal-section-title">
-          <span className="legal-section-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <MailOutlined />
-          </span>
-          {content.contactTitle}
-        </h4>
+      <section className="legal-section" id="contact">
+        <h2 className="legal-section-title">{content.contactTitle}</h2>
         <Paragraph>
           {content.contactContent}
-          <a href="mailto:contact@hsmkit.com" style={{ color: '#667eea', fontWeight: 500 }}>contact@hsmkit.com</a>
+          <a href="mailto:contact@hsmkit.com">contact@hsmkit.com</a>
         </Paragraph>
       </section>
     </LegalPageLayout>
