@@ -110,28 +110,15 @@
           document.documentElement.style.setProperty('--bg-color', '#f5f7fa');
         }
         document.documentElement.setAttribute('data-theme', theme);
+
+        document.documentElement.setAttribute('data-client-render', 'true');
+        var style = document.createElement('style');
+        style.id = 'client-render-guard';
+        style.textContent = '#root{visibility:hidden}';
+        document.head.appendChild(style);
       })();
     </script>
 
-    <!-- 一次性迁移：清除旧 Service Worker 和缓存 -->
-    <script>
-      (function() {
-        if ('serviceWorker' in navigator && !localStorage.getItem('sw-clean-v2')) {
-          navigator.serviceWorker.getRegistrations().then(function(regs) {
-            if (regs.length > 0) {
-              for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
-              caches.keys().then(function(names) {
-                for (var j = 0; j < names.length; j++) { caches.delete(names[j]); }
-                localStorage.setItem('sw-clean-v2', '1');
-                window.location.reload();
-              });
-            } else {
-              localStorage.setItem('sw-clean-v2', '1');
-            }
-          });
-        }
-      })();
-    </script>
     <noscript>
       <p><strong>HSM Kit - Free Online Cryptographic Toolkit (44+ Tools)</strong></p>
       <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser to use the tools.</p>

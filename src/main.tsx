@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
-import { createRoot, hydrateRoot } from 'react-dom/client'
+import { flushSync } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './i18n'
 import './index.css'
@@ -24,9 +25,12 @@ const app = (
   </StrictMode>
 );
 
-// If prerendered HTML exists, hydrate instead of replacing DOM to avoid a visible "jump".
-if (rootEl.hasChildNodes()) {
-  hydrateRoot(rootEl, app);
-} else {
-  createRoot(rootEl).render(app);
-}
+// Puppeteer prerender output is a browser DOM snapshot, not React SSR markup.
+// Replace it while hidden instead of attempting hydration and forcing React to
+// discard the visible tree after a mismatch.
+rootEl.replaceChildren();
+const root = createRoot(rootEl);
+flushSync(() => root.render(app));
+rootEl.style.visibility = '';
+document.getElementById('client-render-guard')?.remove();
+delete document.documentElement.dataset.clientRender;
