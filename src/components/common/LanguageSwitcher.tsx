@@ -44,7 +44,7 @@ const LanguageSwitcher: React.FC = () => {
       options={onGuidesPage ? languageOptions.filter(option => option.value === 'en' || option.value === 'zh') : languageOptions}
       popupMatchSelectWidth={false}
       styles={{ popup: { root: { minWidth: 110 } } }}
-      className="language-switcher"
+      className="header-language-switcher language-switcher"
     />
   );
 };

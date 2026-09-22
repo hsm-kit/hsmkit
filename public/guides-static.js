@@ -11,7 +11,6 @@
     root.setAttribute('data-theme', theme);
     root.style.setProperty('--bg-color', dark ? '#141414' : '#f5f7fa');
     if (themeButton) {
-      themeButton.textContent = dark ? '☀' : '☾';
       themeButton.setAttribute('aria-label', dark ? 'Light mode' : 'Dark mode');
       themeButton.setAttribute('title', dark ? 'Light mode' : 'Dark mode');
     }

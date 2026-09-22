@@ -48,7 +48,7 @@ const GuidesLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           <ReadOutlined />
           <span className="guides-section-label">{t.guides?.title || 'Guides'}</span>
         </Link>
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
           <a href="/">
             <Button type="text" icon={<AppstoreOutlined />}>
               <span className="guides-desktop-label">{t.guides?.exploreTools || 'Explore Tools'}</span>
@@ -56,11 +56,14 @@ const GuidesLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           </a>
           <Button
             data-guide-theme-toggle
+            className="header-theme-toggle"
             type="text"
-            icon={isDark ? <SunOutlined /> : <MoonOutlined />}
             onClick={toggleTheme}
             aria-label={isDark ? (t.common?.lightMode || 'Light') : (t.common?.darkMode || 'Dark')}
-          />
+          >
+            <MoonOutlined className="header-theme-icon header-theme-icon--moon" />
+            <SunOutlined className="header-theme-icon header-theme-icon--sun" />
+          </Button>
           <GuidesLanguageSwitcher />
         </div>
       </Header>

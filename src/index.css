@@ -339,25 +339,110 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
   width: 100%;
 }
 
-/* 7. 语言选择器 */
+/* 7. Header theme and language controls */
+.header-theme-toggle {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px !important;
+  color: #595959 !important;
+}
+
+.header-theme-toggle .header-theme-icon--sun,
+.header-theme-toggle .anticon-sun {
+  display: none;
+}
+
+.header-theme-toggle .header-theme-icon--moon,
+.header-theme-toggle .anticon-moon {
+  display: inline-flex;
+}
+
+body.dark-mode .header-theme-toggle {
+  color: #fadb14 !important;
+}
+
+body.dark-mode .header-theme-toggle .header-theme-icon--moon,
+body.dark-mode .header-theme-toggle .anticon-moon {
+  display: none;
+}
+
+body.dark-mode .header-theme-toggle .header-theme-icon--sun,
+body.dark-mode .header-theme-toggle .anticon-sun {
+  display: inline-flex;
+}
+
+.header-language-switcher {
+  width: 95px;
+  height: 36px;
+  flex: 0 0 95px;
+}
+
+.language-switcher {
+  width: 95px !important;
+}
+
 .language-switcher .ant-select-selector {
-  padding-right: 24px !important;
+  height: 36px !important;
+  padding: 0 30px 0 10px !important;
+  display: flex;
+  align-items: center;
 }
 
 .language-switcher .ant-select-arrow {
-  right: 4px;
+  right: 8px;
+}
+
+.guides-language-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
 .guides-language-switcher select {
-  min-width: 88px;
+  appearance: none;
+  width: 95px;
   height: 36px;
-  padding: 0 28px 0 10px;
-  border: 1px solid var(--border-color);
+  padding: 0 30px 0 10px;
+  border: 0;
   border-radius: var(--radius-sm);
-  background: var(--card-bg);
+  background: transparent;
   color: var(--text-primary);
   font: inherit;
   cursor: pointer;
+}
+
+.guides-language-switcher:hover,
+.guides-language-switcher:focus-within {
+  background: var(--surface-muted);
+}
+
+.header-language-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.mobile-header-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.mobile-header-controls > .ant-btn:not(.header-theme-toggle) {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0;
 }
 
 .guides-page-shell {
@@ -373,7 +458,7 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
 }
 
 .guides-header a,
-.guides-header .ant-btn {
+.guides-header .ant-btn:not(.header-theme-toggle) {
   color: var(--text-primary) !important;
 }
 
@@ -393,10 +478,6 @@ body.dark-mode .guides-read-next .ant-card {
 body.dark-mode .guide-tool-cta .ant-typography,
 body.dark-mode .guide-references .ant-typography {
   color: var(--text-primary);
-}
-
-.guides-header .ant-btn {
-  color: var(--text-primary) !important;
 }
 
 .guide-authority-meta {
@@ -454,13 +535,6 @@ body.dark-mode .guide-detail-hero .ant-breadcrumb-link {
     width: 32px !important;
     height: 32px !important;
     margin-right: 0 !important;
-  }
-
-  .guides-language-switcher select {
-    min-width: 78px;
-    width: 78px;
-    padding-left: 8px;
-    padding-right: 20px;
   }
 
   .guide-detail-hero {
@@ -600,6 +674,16 @@ body.dark-mode .guide-detail-hero .ant-breadcrumb-link {
   .home-filter-panel .ant-tag {
     padding: 2px 10px !important;
     font-size: 11px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .tool-brand-label {
+    display: none;
+  }
+
+  header[role="banner"] > a:first-of-type img {
+    margin-right: 0 !important;
   }
 }
 

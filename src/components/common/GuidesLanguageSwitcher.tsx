@@ -1,4 +1,5 @@
 import React from 'react';
+import { GlobalOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguageContext } from '../../hooks/languageContext';
 import { getGuidesPath, getGuidesSlug } from '../../utils/guidesPath';
@@ -17,12 +18,13 @@ const GuidesLanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <label className="guides-language-switcher">
+    <label className="header-language-switcher guides-language-switcher">
       <span className="visually-hidden">Language</span>
       <select value={language === 'zh' ? 'zh' : 'en'} onChange={handleChange} aria-label="Language">
         <option value="en">English</option>
         <option value="zh">中文</option>
       </select>
+      <GlobalOutlined className="header-language-icon" aria-hidden="true" />
     </label>
   );
 };

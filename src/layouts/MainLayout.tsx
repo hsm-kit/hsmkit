@@ -154,7 +154,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               flexShrink: 0
             }}
           />
-          <span style={{ 
+          <span className="tool-brand-label" style={{
             fontSize: isMobile ? '16px' : '18px', 
             fontWeight: 600, 
             color: isDark ? '#e6e6e6' : '#333', 
@@ -218,6 +218,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               )}
               <Tooltip title={isDark ? (t.common?.lightMode || 'Light Mode') : (t.common?.darkMode || 'Dark Mode')}>
                 <Button
+                  className="header-theme-toggle"
                   type="text"
                   icon={isDark ? <SunOutlined /> : <MoonOutlined />}
                   onClick={toggleTheme}
@@ -235,13 +236,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         
         {/* 移动端菜单按钮 */}
         {isMobile && (
-          <Button 
-            type="text" 
-            icon={<MenuOutlined />} 
-            onClick={() => setDrawerVisible(true)}
-            aria-label={t.header?.menu || 'Menu'}
-            style={{ marginLeft: 'auto' }}
-          />
+          <div className="mobile-header-controls">
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              onClick={() => setDrawerVisible(true)}
+              aria-label={t.header?.menu || 'Menu'}
+            />
+            <Button
+              className="header-theme-toggle"
+              type="text"
+              icon={isDark ? <SunOutlined /> : <MoonOutlined />}
+              onClick={toggleTheme}
+              aria-label={isDark ? (t.common?.lightMode || 'Light Mode') : (t.common?.darkMode || 'Dark Mode')}
+            />
+            <LanguageSwitcher />
+          </div>
         )}
       </Header>
 
@@ -263,16 +273,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           subMenuCloseDelay={0.05}
           style={{ borderRight: 'none', marginBottom: 20 }}
         />
-        <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Button
-            type={isDark ? 'primary' : 'default'}
-            icon={isDark ? <SunOutlined /> : <MoonOutlined />}
-            onClick={toggleTheme}
-          >
-            {isDark ? t.common.lightMode || 'Light' : t.common.darkMode || 'Dark'}
-          </Button>
-          <LanguageSwitcher />
-        </div>
       </Drawer>
 
       {/* 内容区域 */}
