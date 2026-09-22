@@ -34,11 +34,13 @@ import {
   AppstoreAddOutlined,
   CreditCardOutlined,
   BankOutlined,
+  HistoryOutlined,
+  StarFilled,
 } from '@ant-design/icons';
 import { PageLayout } from '../../components/common/PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { useRecentTools } from '../../hooks/useRecentTools';
+import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import seoContent from '../../locales/seo';
 
 const { Title, Text, Paragraph } = Typography;
@@ -267,6 +269,7 @@ const HomePage: React.FC = () => {
   const seo = seoContent[language]?.home || seoContent.en.home;
   const home = t.home;
   const { recentTools, addRecentTool, clearRecentTools } = useRecentTools();
+  const { favoriteTools } = useFavoriteTools();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
@@ -300,6 +303,12 @@ const HomePage: React.FC = () => {
     })),
     [home.tools]
   );
+  const resolvedRecentTools = recentTools
+    .map(recent => tools.find(tool => tool.path === recent.path))
+    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
+  const resolvedFavoriteTools = favoriteTools
+    .map(path => tools.find(tool => tool.path === path))
+    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
 
   // 基于搜索词过滤的工具列表（用于计算分类计数）
   const searchFilteredTools = useMemo(() => {
@@ -430,7 +439,7 @@ const HomePage: React.FC = () => {
         return matchTitle || matchKeywords;
       });
       if (match) {
-        addRecentTool({ path: match.path, title: match.title, color: match.color });
+        addRecentTool(match.path);
         navigate(match.path);
       }
     }
@@ -438,10 +447,7 @@ const HomePage: React.FC = () => {
 
   // 点击搜索建议
   const handleSelect = (value: string) => {
-    const tool = tools.find(t => t.path === value);
-    if (tool) {
-      addRecentTool({ path: tool.path, title: tool.title, color: tool.color });
-    }
+    addRecentTool(value);
     navigate(value);
     setSearchTerm('');
   };
@@ -531,27 +537,29 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Recently Used - compact inline */}
-      {recentTools.length > 0 && (
+      {resolvedFavoriteTools.length > 0 && (
+        <div className="home-tool-strip">
+          <Text className="home-tool-strip-label">
+            <StarFilled /> {t.common?.favorites || 'Favorites'}:
+          </Text>
+          {resolvedFavoriteTools.map(tool => (
+            <Link key={tool.path} to={tool.path} className="home-tool-chip">
+              <span style={{ background: tool.color }} />
+              {tool.title}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {resolvedRecentTools.length > 0 && (
         <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <Text style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', flexShrink: 0 }}>
-            🕐 {home.recentlyUsed || 'Recently Used'}:
+            <HistoryOutlined /> {home.recentlyUsed || 'Recently Used'}:
           </Text>
-          {recentTools.map(tool => (
-            <Link key={tool.path} to={tool.path} style={{ textDecoration: 'none' }}>
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: 5,
-                padding: '3px 10px', borderRadius: 12,
-                background: isDark ? '#262626' : '#f5f5f5',
-                fontSize: 12, color: isDark ? '#ccc' : '#555',
-                transition: 'all 0.15s',
-                cursor: 'pointer',
-              }}>
-                <span style={{
-                  width: 8, height: 8, borderRadius: '50%',
-                  background: tool.color, flexShrink: 0,
-                }} />
-                {tool.title}
-              </span>
+          {resolvedRecentTools.map(tool => (
+            <Link key={tool.path} to={tool.path} className="home-tool-chip">
+              <span style={{ background: tool.color }} />
+              {tool.title}
             </Link>
           ))}
           <Button
@@ -721,7 +729,7 @@ const HomePage: React.FC = () => {
                 {...tool}
                 isDark={isDark}
                 viewMode={viewMode}
-                onClick={() => addRecentTool({ path: tool.path, title: tool.title, color: tool.color })}
+                onClick={() => addRecentTool(tool.path)}
               />
             </Col>
           ))}
@@ -734,7 +742,7 @@ const HomePage: React.FC = () => {
                 {...tool}
                 isDark={isDark}
                 viewMode={viewMode}
-                onClick={() => addRecentTool({ path: tool.path, title: tool.title, color: tool.color })}
+                onClick={() => addRecentTool(tool.path)}
               />
             </Col>
           ))}

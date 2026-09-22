@@ -187,7 +187,7 @@ const Base64Tool: React.FC = () => {
             {t.base64?.data || 'Data'}:
           </Text>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <ExampleButton onClick={() => {
+            <ExampleButton label="UTF-8 → Base64" onClick={() => {
               setEncodeInput(examples.base64.input);
               setEncodeInputEncoding('ASCII');
             }} />

@@ -350,7 +350,7 @@ const HashCalculator: React.FC = () => {
                   {t.hash?.inputData || 'Input Data'}:
                 </Text>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ExampleButton onClick={() => {
+                  <ExampleButton label="SHA-256" onClick={() => {
                     setInputType('ASCII');
                     setInputData(examples.hash.input);
                   }} />

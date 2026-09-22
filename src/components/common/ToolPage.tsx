@@ -1,7 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Typography, Result, Card, Button } from 'antd';
-import { ReadOutlined, RightOutlined, ClockCircleOutlined, ShareAltOutlined } from '@ant-design/icons';
-import { useLocation } from 'react-router-dom';
+import { ReadOutlined, RightOutlined, ClockCircleOutlined, ShareAltOutlined, StarFilled, StarOutlined, AppstoreAddOutlined } from '@ant-design/icons';
+import { Link, useLocation } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -9,6 +9,9 @@ import { useToast } from '../../hooks/useToast';
 import seoContent from '../../locales/seo';
 import { getRelatedGuides, type RelatedGuide } from '../../data/toolGuidesMap';
 import { getGuidesPath } from '../../utils/guidesPath';
+import { getRelatedTools } from '../../data/toolRelations';
+import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
+import { trackToolEvent } from '../../utils/analytics';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -24,7 +27,8 @@ const RelatedGuidesSection: React.FC<{
   guides: RelatedGuide[];
   language: string;
   isDark: boolean;
-}> = ({ guides, language, isDark }) => {
+  toolId: string;
+}> = ({ guides, language, isDark, toolId }) => {
   const { t } = useLanguage();
   if (guides.length === 0) return null;
 
@@ -47,6 +51,7 @@ const RelatedGuidesSection: React.FC<{
           <a
             key={guide.slug}
             href={getGuidesPath(language as 'en' | 'zh' | 'ja' | 'ko' | 'de' | 'fr', guide.slug)}
+            onClick={() => trackToolEvent('guide_click', { toolId, targetId: guide.slug })}
             style={{ textDecoration: 'none' }}
           >
             <div
@@ -78,6 +83,12 @@ const RelatedGuidesSection: React.FC<{
   );
 };
 
+const getShortTitle = (title: string): string => title
+  .split(/\s[|–-]\s/)[0]
+  .replace(/\s+Online\b.*$/i, '')
+  .replace(/(.+)在线$/, '$1')
+  .trim();
+
 export const ToolPage: React.FC<ToolPageProps> = ({
   seoKey,
   canonical,
@@ -89,10 +100,27 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   const { isDark } = useTheme();
   const toast = useToast();
   const location = useLocation();
+  const { addRecentTool } = useRecentTools();
+  const { favoriteTools, toggleFavorite } = useFavoriteTools();
   const seo = seoContent[language]?.[seoKey as keyof typeof seoContent.en] 
     || seoContent.en[seoKey as keyof typeof seoContent.en];
 
   const relatedGuides = getRelatedGuides(location.pathname);
+  const relatedTools = getRelatedTools(seoKey);
+  const favorite = favoriteTools.includes(location.pathname);
+
+  useEffect(() => {
+    addRecentTool(location.pathname);
+    let source = 'direct';
+    if (document.referrer) {
+      try {
+        source = new URL(document.referrer).origin === window.location.origin ? 'internal' : 'external';
+      } catch {
+        source = 'external';
+      }
+    }
+    trackToolEvent('tool_view', { toolId: seoKey, source });
+  }, [addRecentTool, location.pathname, seoKey]);
 
   // Inject BreadcrumbList Schema for tools - useLayoutEffect ensures prerender captures it
   useLayoutEffect(() => {
@@ -163,7 +191,34 @@ export const ToolPage: React.FC<ToolPageProps> = ({
         ) : undefined
       }
       relatedContent={(
-        <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} />
+        <>
+          <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} toolId={seoKey} />
+          {relatedTools.length > 0 && (
+            <Card className="tool-page-related-tools" style={{ marginTop: 24 }}>
+              <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+                <AppstoreAddOutlined style={{ marginRight: 8 }} />
+                {t.common?.relatedTools || 'Related Tools'}
+              </Title>
+              <div className="tool-related-grid">
+                {relatedTools.map(tool => {
+                  const targetSeo = (seoContent[language] as Record<string, { title?: string }> | undefined)?.[tool.seoKey]
+                    || (seoContent.en as Record<string, { title?: string }>)[tool.seoKey];
+                  return (
+                    <Link
+                      key={tool.path}
+                      to={tool.path}
+                      className="tool-related-link"
+                      onClick={() => trackToolEvent('next_tool_click', { toolId: seoKey, targetId: tool.seoKey })}
+                    >
+                      <span>{getShortTitle(targetSeo?.title || tool.seoKey)}</span>
+                      <RightOutlined />
+                    </Link>
+                  );
+                })}
+              </div>
+            </Card>
+          )}
+        </>
       )}
       footerContent={(
         <div className="support-panel tool-page-share" style={{
@@ -184,6 +239,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             icon={<ShareAltOutlined />}
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
+              trackToolEvent('tool_share', { toolId: seoKey, source: 'copy_link' });
               toast.copySuccess();
             }}
           >
@@ -195,6 +251,19 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       toolCategory={toolCategory}
     >
       <h1 className="visually-hidden">{toolName}</h1>
+      <div className="tool-page-actions">
+        <Button
+          type="text"
+          icon={favorite ? <StarFilled /> : <StarOutlined />}
+          aria-pressed={favorite}
+          onClick={() => {
+            toggleFavorite(location.pathname);
+            trackToolEvent(favorite ? 'favorite_remove' : 'favorite_add', { toolId: seoKey });
+          }}
+        >
+          {favorite ? (t.common?.removeFavorite || 'Remove favorite') : (t.common?.addFavorite || 'Add favorite')}
+        </Button>
+      </div>
       {children}
     </PageLayout>
   );

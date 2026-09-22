@@ -334,7 +334,7 @@ const CharacterEncodingTool: React.FC = () => {
                 <Text strong>
                   {t.encoding?.data || 'Data'}:
                 </Text>
-                <ExampleButton onClick={() => {
+                <ExampleButton label="ASCII → EBCDIC" onClick={() => {
                   setInputData(examples.characterEncoding.input);
                 }} />
               </div>

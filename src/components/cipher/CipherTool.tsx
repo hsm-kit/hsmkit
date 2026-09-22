@@ -398,9 +398,12 @@ const CipherTool: React.FC = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <Text strong>{t.cipher?.key || 'Key'}:</Text>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ExampleButton onClick={() => {
+                  <ExampleButton label="AES-CBC" onClick={() => {
+                    setMode('CBC');
+                    setInputType('Hex');
                     setKey(examples.aes.key);
                     setData(examples.aes.data);
+                    setIv(examples.aes.iv);
                   }} />
                   <Text style={{ 
                     fontSize: '12px', 

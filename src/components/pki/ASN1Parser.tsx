@@ -478,6 +478,7 @@ const ASN1Parser: React.FC = () => {
                 {t.asn1.inputLabel}
               </Text>
               <ExampleButton
+                label="X.509 DER"
                 onClick={() => {
                   setInput(examples.asn1.input);
                 }}

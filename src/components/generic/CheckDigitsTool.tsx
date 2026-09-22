@@ -237,7 +237,7 @@ const CheckDigitsTool: React.FC = () => {
               <Text strong>
                 {t.checkDigits?.input || 'Input'}:
               </Text>
-                <ExampleButton onClick={() => {
+                <ExampleButton label="Luhn" onClick={() => {
                   setInputData(examples.checkDigits.input);
                 }} />
               </div>
