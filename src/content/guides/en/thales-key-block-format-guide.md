@@ -92,7 +92,7 @@ Keys are encrypted under LMK variants:
 Encrypted Key = E(LMK XOR variant, plaintext_key)
 ```
 
-Different key types use different variants (see our [Thales LMK guide](/guides/thales-lmk-key-encryption)).
+Different key types use different variants (see our [Thales LMK guide](/guides/thales-lmk-key-encryption/)).
 
 ### Key Padding
 

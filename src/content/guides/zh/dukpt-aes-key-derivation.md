@@ -2,7 +2,7 @@ AES-DUKPT 是 DUKPT 密钥管理方案的现代演进，用 AES 加密取代了�
 
 ## 什么是 AES-DUKPT？
 
-AES-DUKPT（高级加密标准 - 每笔交易唯一密钥派生）在 ANSI X9.24-3 中定义，提供与传统 DUKPT 相同的每笔交易密钥唯一性，但使用 [AES](/guides/aes-encryption-explained) 而非 [3DES](/guides/des-3des-legacy-encryption)。
+AES-DUKPT（高级加密标准 - 每笔交易唯一密钥派生）在 ANSI X9.24-3 中定义，提供与传统 DUKPT 相同的每笔交易密钥唯一性，但使用 [AES](/zh/guides/aes-encryption-explained/) 而非 [3DES](/zh/guides/des-3des-legacy-encryption/)。
 
 NIST 于 2023 年弃用 3DES，使得 AES-DUKPT 成为新支付终端部署的推荐方案。
 
@@ -24,10 +24,10 @@ NIST 于 2023 年弃用 3DES，使得 AES-DUKPT 成为新支付终端部署的�
 
 收单方或支付处理商持有的主密钥：
 
-- 以 [LMK](/guides/thales-lmk-key-encryption) 加密形式存储在 [HSM](/guides/hsm-key-management-overview) 中
+- 以 [LMK](/zh/guides/thales-lmk-key-encryption/) 加密形式存储在 [HSM](/zh/guides/hsm-key-management-overview/) 中
 - 用于为设备派生初始密钥
 - 永远不会离开安全密钥管理系统
-- 在 [TR-31 格式](/guides/what-is-tr31-key-block) 中，密钥用途代码为 `B0`
+- 在 [TR-31 格式](/zh/guides/what-is-tr31-key-block/) 中，密钥用途代码为 `B0`
 
 ### 初始密钥（IK）
 
@@ -84,8 +84,8 @@ IK = KDF(BDK, IKSN_data)
 
 从交易密钥派生用于不同目的的特定工作密钥：
 
-- **PIN 加密密钥**：用于加密 [PIN 块（格式 4）](/guides/pin-block-formats-iso9564)
-- **MAC 密钥**：用于计算[消息认证码](/guides/mac-algorithms-payment-security)
+- **PIN 加密密钥**：用于加密 [PIN 块（格式 4）](/zh/guides/pin-block-formats-iso9564/)
+- **MAC 密钥**：用于计算[消息认证码](/zh/guides/mac-algorithms-payment-security/)
 - **数据加密密钥**：用于加密敏感数据
 
 每个工作密钥通过使用不同的上下文/标签应用 KDF 来派生。
@@ -148,7 +148,7 @@ AES-128 比双密钥 3DES 提供更强的安全性：
 
 ## PIN 块格式 4
 
-AES-DUKPT 与 [PIN 块格式 4](/guides/pin-block-formats-iso9564) 配合使用，这是基于 AES 的 PIN 块格式：
+AES-DUKPT 与 [PIN 块格式 4](/zh/guides/pin-block-formats-iso9564/) 配合使用，这是基于 AES 的 PIN 块格式：
 
 - 16 字节而非 8 字节
 - AES-128 加密而非 3DES
@@ -161,11 +161,11 @@ AES-DUKPT 与 [PIN 块格式 4](/guides/pin-block-formats-iso9564) 配合使用�
 
 对于从 TDEA-DUKPT 迁移到 AES-DUKPT 的组织：
 
-1. **HSM 支持**：确保您的 [HSM](/guides/hsm-key-management-overview) 支持 AES-DUKPT（Thales、SafeNet 等）
+1. **HSM 支持**：确保您的 [HSM](/zh/guides/hsm-key-management-overview/) 支持 AES-DUKPT（Thales、SafeNet 等）
 2. **终端更新**：部署支持 AES-DUKPT 的新终端
 3. **密钥注入**：使用 AES BDK 执行新的密钥注入仪式
 4. **双支持**：在过渡期间并行运行两个系统
-5. **TR-31 版本 D**：使用 [TR-31 版本 D](/guides/what-is-tr31-key-block) 密钥块进行 AES 密钥传输
+5. **TR-31 版本 D**：使用 [TR-31 版本 D](/zh/guides/what-is-tr31-key-block/) 密钥块进行 AES 密钥传输
 
 ## 亲自尝试
 

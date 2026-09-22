@@ -121,25 +121,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       inLanguage: ['en', 'zh', 'ja', 'ko', 'de', 'fr'],
     };
 
-    // Generate SoftwareApplication Schema
-    const softwareAppSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name: toolName || seoTitle,
-      description: seoDescription,
-      url: canonical,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Web Browser',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    };
-
     if (includeApplicationSchema) {
       addSchema(webAppSchema, `schema-webapp-${schemaId}`);
-      addSchema(softwareAppSchema, `schema-software-${schemaId}`);
     }
 
     // Add FAQPage schema if FAQs exist
@@ -157,21 +140,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         })),
       };
       addSchema(faqPageSchema, `schema-faq-${schemaId}`);
-    }
-
-    // Add HowTo schema if usage content exists
-    if (usageContent) {
-      const howToSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'HowTo',
-        name: `How to use ${toolName || seoTitle}`,
-        description: seoDescription,
-        tool: {
-          '@type': 'HowToTool',
-          name: 'Web Browser',
-        },
-      };
-      addSchema(howToSchema, `schema-howto-${schemaId}`);
     }
 
     // Cleanup on unmount

@@ -24,7 +24,7 @@
 
 ## CVV 计算过程
 
-CVV 计算使用 [3DES 加密](/guides/des-3des-legacy-encryption) 和一对卡验证密钥（CVK）。
+CVV 计算使用 [3DES 加密](/zh/guides/des-3des-legacy-encryption/) 和一对卡验证密钥（CVK）。
 
 ### 输入数据
 
@@ -114,9 +114,9 @@ Mastercard 非接触卡使用 **CVC3**——每笔交易生成的动态值，使
 
 ## CVK 密钥管理
 
-CVK 是存储在 [HSM](/guides/hsm-key-management-overview) 中的敏感密钥：
+CVK 是存储在 [HSM](/zh/guides/hsm-key-management-overview/) 中的敏感密钥：
 - 在 HSM 内部生成
-- 分成组件加载（参见 [密钥分片指南](/guides/understanding-key-splitting-kcv)）
+- 分成组件加载（参见 [密钥分片指南](/zh/guides/understanding-key-splitting-kcv/)）
 - 以 LMK 加密形式存储
 - 仅在 HSM 内部用于 CVV 生成/验证
 
@@ -125,9 +125,9 @@ CVK 是存储在 [HSM](/guides/hsm-key-management-overview) 中的敏感密钥�
 传统 CVV 是静态的——一旦被盗，可以重复使用。动态 CVV（CVC3）每笔交易都会变化，使被盗的值对未来交易毫无用处。
 
 这是更广泛的 EMV 芯片卡安全模型的一部分，还包括：
-- [DUKPT](/guides/dukpt-key-derivation-tutorial) 用于每笔交易的唯一密钥
-- [PIN 块](/guides/pin-block-formats-iso9564) 用于安全 PIN 传输
-- [数字签名](/guides/ecc-digital-signatures-explained) 用于卡片认证
+- [DUKPT](/zh/guides/dukpt-key-derivation-tutorial/) 用于每笔交易的唯一密钥
+- [PIN 块](/zh/guides/pin-block-formats-iso9564/) 用于安全 PIN 传输
+- [数字签名](/zh/guides/ecc-digital-signatures-explained/) 用于卡片认证
 
 ## 亲自尝试
 

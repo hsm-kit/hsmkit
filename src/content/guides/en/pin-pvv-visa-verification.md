@@ -47,7 +47,7 @@ The first 4 digits of the PIN are used. If the PIN is longer than 4 digits, only
 
 **Step 4: Encrypt with PVK**
 
-Encrypt the data block using [3DES](/guides/des-3des-legacy-encryption) with the selected PVK:
+Encrypt the data block using [3DES](/guides/des-3des-legacy-encryption/) with the selected PVK:
 
 ```
 Encrypted = 3DES_Encrypt(PVK, Data_Block)
@@ -101,7 +101,7 @@ When a customer enters their PIN at an ATM:
 
 1. ATM reads PVV and PVKI from the magnetic stripe
 2. ATM sends encrypted PIN block to the host
-3. Host's [HSM](/guides/hsm-key-management-overview) decrypts the PIN block
+3. Host's [HSM](/guides/hsm-key-management-overview/) decrypts the PIN block
 4. HSM selects PVK using PVKI
 5. HSM computes PVV using the submitted PIN, PAN, and PVK
 6. HSM compares computed PVV with the stored PVV
@@ -184,7 +184,7 @@ If the PVKI is missing, a default PVK (usually PVKI=0) is assumed. This is commo
 
 ### How is PVV different from CVV?
 
-[CVV](/guides/cvv-cvc-calculation-methods) protects against card fraud by verifying card data. PVV protects against PIN fraud by verifying the customer's PIN. They use different keys and serve different purposes.
+[CVV](/guides/cvv-cvc-calculation-methods/) protects against card fraud by verifying card data. PVV protects against PIN fraud by verifying the customer's PIN. They use different keys and serve different purposes.
 
 ### Can multiple PVVs exist for one card?
 

@@ -19,7 +19,7 @@ ZKA 的核心概念是**会话密钥**——为每个银行会话或交易派生
 
 会话密钥从以下内容派生：
 
-- **主密钥**：存储在 [HSM](/guides/hsm-key-management-overview) 中的长期密钥
+- **主密钥**：存储在 [HSM](/zh/guides/hsm-key-management-overview/) 中的长期密钥
 - **交易数据**：来自当前交易的唯一数据（例如时间戳、序列号）
 - **随机数据**：随机数或随机值以确保唯一性
 
@@ -31,8 +31,8 @@ ZKA 的核心概念是**会话密钥**——为每个银行会话或交易派生
 
 密钥派生函数（KDF）通常使用：
 
-- CBC 模式下的 [3DES](/guides/des-3des-legacy-encryption) 加密
-- 较新实现使用 [AES](/guides/aes-encryption-explained)
+- CBC 模式下的 [3DES](/zh/guides/des-3des-legacy-encryption/) 加密
+- 较新实现使用 [AES](/zh/guides/aes-encryption-explained/)
 - 基于 CMAC 的派生以获得更强的安全性
 
 ### 密钥层次结构
@@ -82,7 +82,7 @@ ZKA 定义了如何加密 PIN 以进行安全传输：
 
 ### PIN 块格式
 
-ZKA 通常使用 [ISO 9564 格式 0](/guides/pin-block-formats-iso9564) 作为 PIN 块格式：
+ZKA 通常使用 [ISO 9564 格式 0](/zh/guides/pin-block-formats-iso9564/) 作为 PIN 块格式：
 
 ```
 PIN 块 = PIN 字段 XOR PAN 字段
@@ -102,7 +102,7 @@ PAN 字段使用标准 ISO-0 格式，包含 PAN 最右边 12 位数字。
 
 - SK-pac 是会话密钥，仅对当前会话有效
 - 即使被截获，密钥在会话后过期
-- 主密钥永远不会在 [HSM](/guides/hsm-key-management-overview) 外暴露
+- 主密钥永远不会在 [HSM](/zh/guides/hsm-key-management-overview/) 外暴露
 
 ## ZKA 中的 MAC 计算
 
@@ -110,7 +110,7 @@ ZKA 使用消息认证码确保交易完整性：
 
 ### MAC 算法
 
-ZKA 通常使用基于 [3DES](/guides/des-3des-legacy-encryption) 的 CBC-MAC：
+ZKA 通常使用基于 [3DES](/zh/guides/des-3des-legacy-encryption/) 的 CBC-MAC：
 
 1. 将消息分成 8 字节块
 2. 使用 MAC 会话密钥加密第一块
@@ -191,7 +191,7 @@ ZKA 强制执行严格的密钥分离：
 
 - 所有密钥派生在 HSM 内部进行
 - 会话密钥按需派生
-- 主密钥组件分拆加载（参见[密钥分片指南](/guides/understanding-key-splitting-kcv)）
+- 主密钥组件分拆加载（参见[密钥分片指南](/zh/guides/understanding-key-splitting-kcv/)）
 
 ## 常见问题
 
@@ -201,7 +201,7 @@ ZKA 主要是德国银行标准，但可能被国际运营的德国银行使用�
 
 ### ZKA 可以使用 AES 吗？
 
-较新的 ZKA 实现支持 [AES](/guides/aes-encryption-explained) 加密，尽管 3DES 在传统系统中仍然常见。
+较新的 ZKA 实现支持 [AES](/zh/guides/aes-encryption-explained/) 加密，尽管 3DES 在传统系统中仍然常见。
 
 ### ZKA 与 EMV 有什么关系？
 
@@ -209,7 +209,7 @@ ZKA 在网络/主机级别运行，而 EMV 在卡/终端级别运行。它们相
 
 ### ZKA 和 TR-31 有什么区别？
 
-[TR-31](/guides/what-is-tr31-key-block) 是用于传输密钥的密钥块格式。ZKA 是定义密钥如何派生和使用的完整安全框架。TR-31 可以在 ZKA 实现中用于密钥传输。
+[TR-31](/zh/guides/what-is-tr31-key-block/) 是用于传输密钥的密钥块格式。ZKA 是定义密钥如何派生和使用的完整安全框架。TR-31 可以在 ZKA 实现中用于密钥传输。
 
 ## 亲自尝试
 

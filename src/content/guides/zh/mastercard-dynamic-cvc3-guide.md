@@ -4,7 +4,7 @@ Mastercard 动态 CVC3 是一种每笔交易都会变化的卡验证值，比静
 
 动态 CVC3（卡验证码 3）是 Mastercard 的动态卡验证实现。与印刷在卡上的静态 CVV 不同，CVC3 使用存储在卡片芯片中的密钥为每笔交易重新生成。
 
-这使得被盗的 CVC3 值对未来交易毫无用处——相比静态 [CVV/CVC](/guides/cvv-cvc-calculation-methods)，这是显著的安全改进。
+这使得被盗的 CVC3 值对未来交易毫无用处——相比静态 [CVV/CVC](/zh/guides/cvv-cvc-calculation-methods/)，这是显著的安全改进。
 
 ## EMV 动态验证工作原理
 
@@ -40,7 +40,7 @@ EMV 芯片卡使用挑战-响应机制进行动态验证：
 卡片密钥 = DerivedKey(IMK, PAN)
 ```
 
-这使用标准 EMV 密钥派生方法，通常涉及以 PAN 作为多样化数据进行 [3DES](/guides/des-3des-legacy-encryption) 加密。
+这使用标准 EMV 密钥派生方法，通常涉及以 PAN 作为多样化数据进行 [3DES](/zh/guides/des-3des-legacy-encryption/) 加密。
 
 **步骤 2：构造数据块**
 

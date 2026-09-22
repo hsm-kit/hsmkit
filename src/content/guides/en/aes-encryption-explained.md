@@ -107,9 +107,9 @@ Reusing an IV can completely break encryption security.
 ## AES in Payment Systems
 
 In the payment industry, AES is used for:
-- **PIN Block encryption** (AES Format 4, ISO 9564) — see our [PIN Block guide](/guides/pin-block-formats-iso9564)
-- **DUKPT AES** — per-transaction key derivation — see our [DUKPT guide](/guides/dukpt-key-derivation-tutorial)
-- **TR-31 key blocks** (Version D uses AES-256) — see our [TR-31 guide](/guides/what-is-tr31-key-block)
+- **PIN Block encryption** (AES Format 4, ISO 9564) — see our [PIN Block guide](/guides/pin-block-formats-iso9564/)
+- **DUKPT AES** — per-transaction key derivation — see our [DUKPT guide](/guides/dukpt-key-derivation-tutorial/)
+- **TR-31 key blocks** (Version D uses AES-256) — see our [TR-31 guide](/guides/what-is-tr31-key-block/)
 - **MAC calculation** (AES-CMAC)
 
 ## Try It Yourself

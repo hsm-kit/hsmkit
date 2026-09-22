@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import GuidesLanguageSwitcher from '../components/common/GuidesLanguageSwitcher';
 import { useLanguageContext as useLanguage } from '../hooks/languageContext';
 import { useTheme } from '../hooks/useTheme';
+import { getGuidesPath } from '../utils/guidesPath';
 
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
@@ -42,7 +43,7 @@ const GuidesLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         </a>
         <Link
           className="guides-section-link"
-          to={language === 'zh' ? '/zh/guides' : '/guides'}
+          to={getGuidesPath(language)}
           style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'var(--text-secondary)', fontWeight: 500 }}
         >
           <ReadOutlined />

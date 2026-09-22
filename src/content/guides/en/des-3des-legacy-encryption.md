@@ -55,26 +55,26 @@ After XOR operations (like key splitting), parity may be lost and must be restor
 ### PIN Encryption
 - ATM PIN pads encrypt PINs using 3DES (ISO 9564 Format 0/1/3)
 - The PIN Encryption Key (PEK) is a 3DES key
-- See our [PIN Block guide](/guides/pin-block-formats-iso9564) and [PIN Block tool](/payments-pin-blocks-general)
+- See our [PIN Block guide](/guides/pin-block-formats-iso9564/) and [PIN Block tool](/payments-pin-blocks-general)
 
 ### DUKPT (ISO 9797)
 - Original DUKPT uses 3DES for key derivation
 - BDK and IPEK are 3DES keys
-- See our [DUKPT guide](/guides/dukpt-key-derivation-tutorial) and [DUKPT tool](/payments-dukpt-iso9797)
+- See our [DUKPT guide](/guides/dukpt-key-derivation-tutorial/) and [DUKPT tool](/payments-dukpt-iso9797)
 
 ### MAC Algorithms
 - ISO 9797-1 algorithms use DES/3DES
 - Retail MAC (ANSI X9.19) uses 3DES
-- See our [MAC guide](/guides/mac-algorithms-payment-security)
+- See our [MAC guide](/guides/mac-algorithms-payment-security/)
 
 ### HSM Key Storage
 - Thales, Futurex, and Atalla HSMs store keys encrypted under 3DES LMK
 - TR-31 Versions A, B, C use 3DES key wrapping
-- See our [HSM overview](/guides/hsm-key-management-overview)
+- See our [HSM overview](/guides/hsm-key-management-overview/)
 
 ### CVV/CVC Calculation
 - CVV uses 3DES encryption
-- See our [CVV guide](/guides/cvv-cvc-calculation-methods)
+- See our [CVV guide](/guides/cvv-cvc-calculation-methods/)
 
 ## 3DES Modes of Operation
 

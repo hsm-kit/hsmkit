@@ -8,7 +8,7 @@ A PIN block is a formatted data block that contains a PIN in a specific format, 
 - A "fill" pattern (random or fixed data)
 - Often the Primary Account Number (PAN)
 
-PIN blocks are encrypted using a PIN Encryption Key (PEK), which is a working key in the [HSM key hierarchy](/guides/hsm-key-management-overview). For high-volume deployments, the PEK is typically a [DUKPT](/guides/dukpt-key-derivation-tutorial)-derived key, unique per transaction.
+PIN blocks are encrypted using a PIN Encryption Key (PEK), which is a working key in the [HSM key hierarchy](/guides/hsm-key-management-overview/). For high-volume deployments, the PEK is typically a [DUKPT](/guides/dukpt-key-derivation-tutorial/)-derived key, unique per transaction.
 
 ## ISO 9564 PIN Block Formats
 
@@ -28,7 +28,7 @@ PIN Block = PIN Field XOR PAN Field
 - First 4 nibbles: `0x0000`
 - Next 12 nibbles: Rightmost 12 digits of PAN (excluding check digit)
 
-**Encryption**: Typically [3DES](/guides/des-3des-legacy-encryption) in ECB mode
+**Encryption**: Typically [3DES](/guides/des-3des-legacy-encryption/) in ECB mode
 
 ### Format 1 (ISO-1)
 
@@ -60,7 +60,7 @@ More secure than Format 0 due to randomness.
 
 ### Format 4 (ISO-4)
 
-The newest and most secure format, designed for [AES encryption](/guides/aes-encryption-explained):
+The newest and most secure format, designed for [AES encryption](/guides/aes-encryption-explained/):
 
 - 16 bytes (128 bits) instead of 8 bytes
 - Uses AES-128 encryption
@@ -73,7 +73,7 @@ Structure:
 - Random fill
 - PAN hash
 
-Format 4 is part of the migration from 3DES to AES in payment systems, alongside [DUKPT AES](/payments-dukpt-aes) and [TR-31 Version D](/guides/what-is-tr31-key-block).
+Format 4 is part of the migration from 3DES to AES in payment systems, alongside [DUKPT AES](/payments-dukpt-aes) and [TR-31 Version D](/guides/what-is-tr31-key-block/).
 
 ## Security Comparison
 
@@ -97,12 +97,12 @@ Format 4 is part of the migration from 3DES to AES in payment systems, alongside
 1. Customer enters PIN at ATM/POS
 2. Terminal formats PIN as PIN block (Format 0 or 3)
 3. PIN block encrypted with PEK (or DUKPT-derived key)
-4. Encrypted PIN block placed in [ISO 8583](/guides/iso8583-payment-messages) Field 52
+4. Encrypted PIN block placed in [ISO 8583](/guides/iso8583-payment-messages/) Field 52
 5. Message with MAC sent to acquirer
 6. Acquirer re-encrypts PIN block under interchange key
 7. Issuer decrypts and verifies PIN
 
-The [MAC](/guides/mac-algorithms-payment-security) in the ISO 8583 message protects the entire transaction from tampering.
+The [MAC](/guides/mac-algorithms-payment-security/) in the ISO 8583 message protects the entire transaction from tampering.
 
 ## PIN Verification Methods
 

@@ -492,5 +492,57 @@
     "readTime": 9,
     "relatedTool": "/payments-visa-certificates",
     "relatedToolName": "VISA 证书验证器"
+  },
+  {
+    "slug": "aes-gcm-vs-cbc",
+    "title": "AES-GCM 与 AES-CBC 对比：应该选择哪种模式？",
+    "excerpt": "从安全性、认证能力、IV 要求、性能和兼容性对比 AES-GCM 与 AES-CBC，帮助新旧系统选择正确的加密模式。",
+    "category": "Cipher",
+    "tags": ["AES", "GCM", "CBC", "认证加密", "AEAD"],
+    "isFeatured": true,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 9,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES 加密工具"
+  },
+  {
+    "slug": "aes-iv-nonce-reuse",
+    "title": "AES IV 与 Nonce 重用：风险与防范",
+    "excerpt": "理解 IV 或 Nonce 重用为何会破坏 AES-CBC、CTR 和 GCM 的安全性，并学习安全生成、存储及并发分配方案。",
+    "category": "Cipher",
+    "tags": ["AES", "IV", "Nonce", "GCM", "加密错误"],
+    "isFeatured": false,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 9,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES 加密工具"
+  },
+  {
+    "slug": "pkcs7-padding-aes",
+    "title": "AES 的 PKCS#7 填充：原理、示例与安全解填充",
+    "excerpt": "逐字节理解 PKCS#7 填充，掌握完整分组填充、验证规则、常见错误，以及 AES-CBC 中的安全解填充方法。",
+    "category": "Cipher",
+    "tags": ["AES", "PKCS#7", "填充", "CBC", "填充预言机"],
+    "isFeatured": false,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 8,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES 加密工具"
+  },
+  {
+    "slug": "web-crypto-aes-gcm",
+    "title": "Web Crypto AES-GCM：浏览器加密实现指南",
+    "excerpt": "使用 Web Crypto API 正确实现 AES-GCM，包括安全密钥生成、唯一 Nonce、附加认证数据和可移植密文封装。",
+    "category": "Cipher",
+    "tags": ["AES-GCM", "Web Crypto API", "JavaScript", "浏览器", "AEAD"],
+    "isFeatured": true,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 10,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES 加密工具"
   }
 ]

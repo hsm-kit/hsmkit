@@ -27,7 +27,7 @@ import remarkGfm from 'remark-gfm';
 import { SEO } from '../../components/common/SEO';
 import { triggerPrerenderReady } from '../../utils/prerender';
 import { calculateReadTime } from '../../utils/readTime';
-import { getGuidesPath } from '../../utils/guidesPath';
+import { getGuidesPath, getGuidesUrl } from '../../utils/guidesPath';
 import { useLanguageContext as useLanguage } from '../../hooks/languageContext';
 import { useTheme } from '../../hooks/useTheme';
 import type { Language } from '../../locales';
@@ -159,15 +159,15 @@ const GuideDetailPage: React.FC = () => {
   }, [slug, language]);
 
   const canonical = language === 'zh' && articlesMap.zh.some(article => article.slug === slug)
-    ? `https://hsmkit.com/zh/guides/${slug}`
-    : `https://hsmkit.com/guides/${slug}`;
+    ? getGuidesUrl('zh', slug)
+    : getGuidesUrl('en', slug);
 
   const hreflangLinks = useMemo(() => {
-    const links = [{ lang: 'en', href: `https://hsmkit.com/guides/${slug}` }];
+    const links = [{ lang: 'en', href: getGuidesUrl('en', slug) }];
     if (articlesMap.zh.some(article => article.slug === slug)) {
-      links.push({ lang: 'zh', href: `https://hsmkit.com/zh/guides/${slug}` });
+      links.push({ lang: 'zh', href: getGuidesUrl('zh', slug) });
     }
-    links.push({ lang: 'x-default', href: `https://hsmkit.com/guides/${slug}` });
+    links.push({ lang: 'x-default', href: getGuidesUrl('en', slug) });
     return links;
   }, [slug]);
 
@@ -340,7 +340,7 @@ const GuideDetailPage: React.FC = () => {
         <Title level={2}>{guides.articleNotFound || 'Article Not Found'}</Title>
         <Text type="secondary">{guides.articleNotFoundDesc || 'The requested article could not be found.'}</Text>
         <div style={{ marginTop: 24 }}>
-          <Link to="/guides">
+          <Link to={getGuidesPath('en')}>
             <Button type="primary">
               {guides.backToGuides || 'Back to Guides'}
             </Button>

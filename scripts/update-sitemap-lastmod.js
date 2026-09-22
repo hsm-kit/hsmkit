@@ -23,6 +23,10 @@ async function main() {
 
   const sitemapPath = path.resolve(process.cwd(), fileArg ?? 'public/sitemap.xml');
   const xml = await fs.readFile(sitemapPath, 'utf8');
+  const normalizedXml = xml.replace(
+    /https:\/\/hsmkit\.com\/(?:zh\/)?guides(?:\/[a-z0-9-]+)?(?=[<"])/g,
+    (url) => `${url}/`
+  );
   const guideMetadata = await Promise.all(
     ['en', 'zh'].map(async (language) => ({
       language,
@@ -34,50 +38,54 @@ async function main() {
   );
 
   const guideLastModified = new Map();
-  const categoryEntries = [];
+  const guideEntries = [];
   for (const { language, articles } of guideMetadata) {
-    const baseUrl = language === 'en' ? 'https://hsmkit.com/guides' : `https://hsmkit.com/${language}/guides`;
+    const baseUrl = language === 'en' ? 'https://hsmkit.com/guides/' : `https://hsmkit.com/${language}/guides/`;
     const latest = articles.reduce((max, article) => article.lastModified > max ? article.lastModified : max, '');
     guideLastModified.set(baseUrl, latest);
-    articles.forEach((article) => guideLastModified.set(`${baseUrl}/${article.slug}`, article.lastModified));
+    articles.forEach((article) => {
+      const articleUrl = `${baseUrl}${article.slug}/`;
+      guideLastModified.set(articleUrl, article.lastModified);
+      guideEntries.push({ language, url: articleUrl, slug: article.slug, lastModified: article.lastModified, priority: '0.8' });
+    });
     categories.forEach((category) => {
-      const categoryUrl = `${baseUrl}/${category.slug}`;
+      const categoryUrl = `${baseUrl}${category.slug}/`;
       const categoryLastModified = articles
         .filter((article) => article.category === category.category)
         .reduce((max, article) => article.lastModified > max ? article.lastModified : max, '');
       guideLastModified.set(categoryUrl, categoryLastModified);
-      categoryEntries.push({ language, url: categoryUrl, slug: category.slug, lastModified: categoryLastModified });
+      guideEntries.push({ language, url: categoryUrl, slug: category.slug, lastModified: categoryLastModified, priority: '0.7' });
     });
   }
 
-  const existingUrls = new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]));
-  const missingCategoryBlocks = categoryEntries
+  const existingUrls = new Set([...normalizedXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]));
+  const missingGuideBlocks = guideEntries
     .filter(entry => !existingUrls.has(entry.url))
     .map(entry => {
-      const enUrl = `https://hsmkit.com/guides/${entry.slug}`;
-      const zhUrl = `https://hsmkit.com/zh/guides/${entry.slug}`;
+      const enUrl = `https://hsmkit.com/guides/${entry.slug}/`;
+      const zhUrl = `https://hsmkit.com/zh/guides/${entry.slug}/`;
       return `  <url>
     <loc>${entry.url}</loc>
     <lastmod>${entry.lastModified}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>${entry.priority}</priority>
     <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
     <xhtml:link rel="alternate" hreflang="zh" href="${zhUrl}" />
     <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
   </url>`;
     })
     .join('\n');
-  const sitemapWithCategories = missingCategoryBlocks
-    ? xml.replace('</urlset>', `\n${missingCategoryBlocks}\n</urlset>`)
-    : xml;
+  const sitemapWithGuides = missingGuideBlocks
+    ? normalizedXml.replace('</urlset>', `\n${missingGuideBlocks}\n</urlset>`)
+    : normalizedXml;
 
-  const matches = [...sitemapWithCategories.matchAll(/<lastmod>[^<]*<\/lastmod>/g)];
+  const matches = [...sitemapWithGuides.matchAll(/<lastmod>[^<]*<\/lastmod>/g)];
   if (matches.length === 0) {
     throw new Error(`No <lastmod>...</lastmod> found in ${sitemapPath}`);
   }
 
   let updatedCount = 0;
-  const updated = sitemapWithCategories.replace(/<url>[\s\S]*?<\/url>/g, (urlBlock) => {
+  const updated = sitemapWithGuides.replace(/<url>[\s\S]*?<\/url>/g, (urlBlock) => {
     const url = urlBlock.match(/<loc>([^<]+)<\/loc>/)?.[1];
     const lastmodDate = dateArg ?? guideLastModified.get(url);
     if (!lastmodDate) return urlBlock;

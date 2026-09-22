@@ -9,7 +9,7 @@ TR-31 is a key block specification that provides:
 - **Integrity protection**: Detects tampering
 - **Key usage control**: Defines how the key can be used
 
-TR-31 was designed to replace the insecure practice of transporting keys as plain ciphertext (encrypted under a KEK without any attribute binding). It's now required by PCI PIN and widely adopted across [HSM vendors](/guides/hsm-key-management-overview) including Thales, Futurex, and Atalla.
+TR-31 was designed to replace the insecure practice of transporting keys as plain ciphertext (encrypted under a KEK without any attribute binding). It's now required by PCI PIN and widely adopted across [HSM vendors](/guides/hsm-key-management-overview/) including Thales, Futurex, and Atalla.
 
 ## Key Block Structure
 
@@ -38,11 +38,11 @@ Common key usage codes:
 
 | Code | Description |
 |------|-------------|
-| P0 | PIN Encryption Key — used to encrypt [PIN blocks](/guides/pin-block-formats-iso9564) |
-| B0 | BDK Base Derivation Key — used in [DUKPT](/guides/dukpt-key-derivation-tutorial) |
+| P0 | PIN Encryption Key — used to encrypt [PIN blocks](/guides/pin-block-formats-iso9564/) |
+| B0 | BDK Base Derivation Key — used in [DUKPT](/guides/dukpt-key-derivation-tutorial/) |
 | K0 | Key Encryption/Wrapping Key |
 | M0 | ISO 9797-1 MAC (Algorithm 1) |
-| M3 | ISO 9797-1 MAC (Algorithm 3) — see [MAC guide](/guides/mac-algorithms-payment-security) |
+| M3 | ISO 9797-1 MAC (Algorithm 3) — see [MAC guide](/guides/mac-algorithms-payment-security/) |
 | D0 | Symmetric Key for Data Encryption |
 | V0 | PIN Verification Key (VISA PVV) |
 
@@ -90,7 +90,7 @@ Common key usage codes:
 - Strongest security
 - **Recommended for new implementations**
 
-For background on AES vs TDES security, see our [AES guide](/guides/aes-encryption-explained) and [DES/3DES guide](/guides/des-3des-legacy-encryption).
+For background on AES vs TDES security, see our [AES guide](/guides/aes-encryption-explained/) and [DES/3DES guide](/guides/des-3des-legacy-encryption/).
 
 ## Encoding Example
 
@@ -130,7 +130,7 @@ Thales HSMs also have a proprietary "Thales Key Block" format. While TR-31 is th
 4. **Honor restrictions**: Respect exportability and mode flags
 5. **Key rotation**: Regularly rotate KBPKs
 
-For key splitting and loading KBPKs into HSMs, see our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv).
+For key splitting and loading KBPKs into HSMs, see our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv/).
 
 ## Common Issues
 

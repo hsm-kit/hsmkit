@@ -24,7 +24,7 @@ While Visa and Mastercard use a single CVK pair (CVK-A and CVK-B) for all card v
 
 ## CSC Algorithm Overview
 
-The AMEX CSC calculation shares some similarities with standard [CVV calculation](/guides/cvv-cvc-calculation-methods) but uses different key management and processing steps.
+The AMEX CSC calculation shares some similarities with standard [CVV calculation](/guides/cvv-cvc-calculation-methods/) but uses different key management and processing steps.
 
 ### Input Data
 
@@ -38,7 +38,7 @@ The AMEX CSC calculation shares some similarities with standard [CVV calculation
 CSC3 uses a 3-digit output and follows this process:
 
 1. Construct data block from PAN, expiry, and service code
-2. Encrypt with CSC Key A using [3DES](/guides/des-3des-legacy-encryption)
+2. Encrypt with CSC Key A using [3DES](/guides/des-3des-legacy-encryption/)
 3. XOR with remaining PAN data
 4. Encrypt again
 5. Extract 3 decimal digits through the decimalization process
@@ -89,9 +89,9 @@ Multiple CSC values allow AMEX to implement layered security:
 
 AMEX CSC keys follow the same security principles as other card verification keys:
 
-- Generated inside the [HSM](/guides/hsm-key-management-overview)
-- Stored encrypted under the [LMK](/guides/thales-lmk-key-encryption)
-- Split into components for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv))
+- Generated inside the [HSM](/guides/hsm-key-management-overview/)
+- Stored encrypted under the [LMK](/guides/thales-lmk-key-encryption/)
+- Split into components for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv/))
 - Never exposed in plaintext outside the HSM
 - Rotated periodically per AMEX security policy
 

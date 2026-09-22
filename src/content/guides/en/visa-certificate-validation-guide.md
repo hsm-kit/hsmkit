@@ -54,7 +54,7 @@ The VSDC (VISA Smart Debit/Credit) CA Public Key is the root key for VISA's EMV 
 CA public keys are distributed to terminals through:
 
 - Terminal loading/key injection ceremonies
-- [TR-31 key blocks](/guides/what-is-tr31-key-block) for secure transport
+- [TR-31 key blocks](/guides/what-is-tr31-key-block/) for secure transport
 - Direct loading from payment scheme
 
 ### Key Index (Index)
@@ -172,7 +172,7 @@ Signed Data provides integrity protection for:
 
 ## RSA Operations in Certificate Validation
 
-Certificate validation involves several [RSA](/guides/rsa-encryption-guide) operations:
+Certificate validation involves several [RSA](/guides/rsa-encryption-guide/) operations:
 
 ### RSA Verification
 
@@ -193,7 +193,7 @@ For EMV certificates, the process involves:
 3. Recover the signed data
 4. Verify the hash
 
-This is implemented in the [HSM](/guides/hsm-key-management-overview) using specialized RSA commands.
+This is implemented in the [HSM](/guides/hsm-key-management-overview/) using specialized RSA commands.
 
 ## Practical Considerations
 
@@ -207,7 +207,7 @@ Terminals must:
 
 ### HSM Support
 
-[HSMs](/guides/hsm-key-management-overview) perform the heavy cryptographic operations:
+[HSMs](/guides/hsm-key-management-overview/) perform the heavy cryptographic operations:
 - RSA decryption for certificate recovery
 - Hash verification
 - Key storage and management

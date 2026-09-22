@@ -8,7 +8,7 @@ PIN 块是一种格式化的数据块，以特定格式包含 PIN，设计用于
 - "填充"模式（随机或固定数据）
 - 通常还包括主账号（PAN）
 
-PIN 块使用 PIN 加密密钥（PEK）加密，PEK 是 [HSM 密钥层次结构](/guides/hsm-key-management-overview) 中的工作密钥。在高交易量部署中，PEK 通常是 [DUKPT](/guides/dukpt-key-derivation-tutorial) 派生密钥，每笔交易唯一。
+PIN 块使用 PIN 加密密钥（PEK）加密，PEK 是 [HSM 密钥层次结构](/zh/guides/hsm-key-management-overview/) 中的工作密钥。在高交易量部署中，PEK 通常是 [DUKPT](/zh/guides/dukpt-key-derivation-tutorial/) 派生密钥，每笔交易唯一。
 
 ## ISO 9564 PIN 块格式
 
@@ -28,7 +28,7 @@ PIN 块 = PIN 字段 XOR PAN 字段
 - 前 4 个半字节：`0x0000`
 - 接下来 12 个半字节：PAN 最右侧 12 位数字（不含校验位）
 
-**加密方式**：通常使用 [3DES](/guides/des-3des-legacy-encryption) ECB 模式
+**加密方式**：通常使用 [3DES](/zh/guides/des-3des-legacy-encryption/) ECB 模式
 
 ### 格式 1（ISO-1）
 
@@ -60,7 +60,7 @@ ICC（芯片卡）格式，从不传输：
 
 ### 格式 4（ISO-4）
 
-最新、最安全的格式，专为 [AES 加密](/guides/aes-encryption-explained) 设计：
+最新、最安全的格式，专为 [AES 加密](/zh/guides/aes-encryption-explained/) 设计：
 
 - 16 字节（128 位）而非 8 字节
 - 使用 AES-128 加密
@@ -73,7 +73,7 @@ ICC（芯片卡）格式，从不传输：
 - 随机填充
 - PAN 哈希
 
-格式 4 是支付系统从 3DES 迁移到 AES 的一部分，与 [DUKPT AES](/payments-dukpt-aes) 和 [TR-31 Version D](/guides/what-is-tr31-key-block) 一起使用。
+格式 4 是支付系统从 3DES 迁移到 AES 的一部分，与 [DUKPT AES](/payments-dukpt-aes) 和 [TR-31 Version D](/zh/guides/what-is-tr31-key-block/) 一起使用。
 
 ## 安全对比
 
@@ -97,12 +97,12 @@ ICC（芯片卡）格式，从不传输：
 1. 客户在 ATM/POS 输入 PIN
 2. 终端将 PIN 格式化为 PIN 块（格式 0 或 3）
 3. 使用 PEK（或 DUKPT 派生密钥）加密 PIN 块
-4. 加密的 PIN 块放入 [ISO 8583](/guides/iso8583-payment-messages) 字段 52
+4. 加密的 PIN 块放入 [ISO 8583](/zh/guides/iso8583-payment-messages/) 字段 52
 5. 带 MAC 的消息发送到收单方
 6. 收单方在交换密钥下重新加密 PIN 块
 7. 发卡方解密并验证 PIN
 
-ISO 8583 消息中的 [MAC](/guides/mac-algorithms-payment-security) 保护整个交易免受篡改。
+ISO 8583 消息中的 [MAC](/zh/guides/mac-algorithms-payment-security/) 保护整个交易免受篡改。
 
 ## PIN 验证方法
 

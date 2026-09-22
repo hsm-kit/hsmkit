@@ -1,24 +1,24 @@
 import { describe, it, expect } from 'vitest'
-import { getGuideCategoryPath, getGuidesPath, parseGuidesLanguage, isGuidesPage, getGuidesSlug } from './guidesPath'
+import { getGuideCategoryPath, getGuidesPath, getGuidesUrl, parseGuidesLanguage, isGuidesPage, getGuidesSlug } from './guidesPath'
 
 describe('guidesPath utilities', () => {
   describe('getGuidesPath', () => {
     it('returns English path for en language', () => {
-      expect(getGuidesPath('en')).toBe('/guides')
-      expect(getGuidesPath('en', 'aes-encryption')).toBe('/guides/aes-encryption')
+      expect(getGuidesPath('en')).toBe('/guides/')
+      expect(getGuidesPath('en', 'aes-encryption')).toBe('/guides/aes-encryption/')
     })
 
     it('returns localized path for non-English languages', () => {
-      expect(getGuidesPath('zh')).toBe('/zh/guides')
-      expect(getGuidesPath('ja')).toBe('/ja/guides')
-      expect(getGuidesPath('ko')).toBe('/ko/guides')
-      expect(getGuidesPath('de')).toBe('/de/guides')
-      expect(getGuidesPath('fr')).toBe('/fr/guides')
+      expect(getGuidesPath('zh')).toBe('/zh/guides/')
+      expect(getGuidesPath('ja')).toBe('/ja/guides/')
+      expect(getGuidesPath('ko')).toBe('/ko/guides/')
+      expect(getGuidesPath('de')).toBe('/de/guides/')
+      expect(getGuidesPath('fr')).toBe('/fr/guides/')
     })
 
     it('includes slug when provided', () => {
-      expect(getGuidesPath('zh', 'aes-encryption')).toBe('/zh/guides/aes-encryption')
-      expect(getGuidesPath('ja', 'rsa-encryption')).toBe('/ja/guides/rsa-encryption')
+      expect(getGuidesPath('zh', 'aes-encryption')).toBe('/zh/guides/aes-encryption/')
+      expect(getGuidesPath('ja', 'rsa-encryption')).toBe('/ja/guides/rsa-encryption/')
     })
   })
 
@@ -45,8 +45,15 @@ describe('guidesPath utilities', () => {
 
   describe('getGuideCategoryPath', () => {
     it('returns localized category paths', () => {
-      expect(getGuideCategoryPath('en', 'payment')).toBe('/guides/payment')
-      expect(getGuideCategoryPath('zh', 'pki')).toBe('/zh/guides/pki')
+      expect(getGuideCategoryPath('en', 'payment')).toBe('/guides/payment/')
+      expect(getGuideCategoryPath('zh', 'pki')).toBe('/zh/guides/pki/')
+    })
+  })
+
+  describe('getGuidesUrl', () => {
+    it('returns final absolute URLs', () => {
+      expect(getGuidesUrl('en')).toBe('https://hsmkit.com/guides/')
+      expect(getGuidesUrl('zh', 'aes-encryption')).toBe('https://hsmkit.com/zh/guides/aes-encryption/')
     })
   })
 

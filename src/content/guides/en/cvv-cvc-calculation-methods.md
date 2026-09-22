@@ -24,7 +24,7 @@ Card Verification Values (CVV) and Card Verification Codes (CVC) are security fe
 
 ## CVV Calculation Process
 
-CVV calculation uses [3DES encryption](/guides/des-3des-legacy-encryption) with a pair of Card Verification Keys (CVK).
+CVV calculation uses [3DES encryption](/guides/des-3des-legacy-encryption/) with a pair of Card Verification Keys (CVK).
 
 ### Input Data
 
@@ -114,9 +114,9 @@ This makes stolen values useless for future transactions. Use our [Mastercard CV
 
 ## CVK Key Management
 
-CVKs are sensitive keys stored in [HSMs](/guides/hsm-key-management-overview). They are:
+CVKs are sensitive keys stored in [HSMs](/guides/hsm-key-management-overview/). They are:
 - Generated inside the HSM
-- Split into components for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv))
+- Split into components for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv/))
 - Stored encrypted under the LMK
 - Used only within the HSM for CVV generation/verification
 
@@ -125,9 +125,9 @@ CVKs are sensitive keys stored in [HSMs](/guides/hsm-key-management-overview). T
 Traditional CVV is static — once stolen, it can be reused. Dynamic CVV (CVC3) changes with each transaction, making stolen values useless for future transactions.
 
 This is part of the broader EMV chip card security model, which also includes:
-- [DUKPT](/guides/dukpt-key-derivation-tutorial) for unique per-transaction keys
-- [PIN blocks](/guides/pin-block-formats-iso9564) for secure PIN transmission
-- [Digital signatures](/guides/ecc-digital-signatures-explained) for card authentication
+- [DUKPT](/guides/dukpt-key-derivation-tutorial/) for unique per-transaction keys
+- [PIN blocks](/guides/pin-block-formats-iso9564/) for secure PIN transmission
+- [Digital signatures](/guides/ecc-digital-signatures-explained/) for card authentication
 
 ## Try It Yourself
 

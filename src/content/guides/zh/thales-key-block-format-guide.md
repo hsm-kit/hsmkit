@@ -92,7 +92,7 @@ Thales 密钥块有特定的布局：
 加密密钥 = E(LMK XOR 变体, 明文密钥)
 ```
 
-不同密钥类型使用不同变体（参见 [Thales LMK 指南](/guides/thales-lmk-key-encryption)）。
+不同密钥类型使用不同变体（参见 [Thales LMK 指南](/zh/guides/thales-lmk-key-encryption/)）。
 
 ### 密钥填充
 

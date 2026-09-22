@@ -67,7 +67,7 @@ Raw RSA (textbook RSA) is **not secure**. You must use a padding scheme:
 | Signature size | Large | Small |
 | Support | Universal | Widely supported |
 
-For new systems, **ECC is generally preferred** — smaller keys, faster operations, same or better security. See our [ECC guide](/guides/ecc-digital-signatures-explained) for details.
+For new systems, **ECC is generally preferred** — smaller keys, faster operations, same or better security. See our [ECC guide](/guides/ecc-digital-signatures-explained/) for details.
 
 ## RSA in Practice
 

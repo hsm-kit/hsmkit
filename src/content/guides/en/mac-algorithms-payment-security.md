@@ -123,7 +123,7 @@ Here's how MAC protects a typical ATM transaction:
 8. If match: message authentic. If mismatch: reject transaction.
 ```
 
-The MAC key itself is typically a DUKPT-derived key (unique per transaction) — see our [DUKPT guide](/guides/dukpt-key-derivation-tutorial).
+The MAC key itself is typically a DUKPT-derived key (unique per transaction) — see our [DUKPT guide](/guides/dukpt-key-derivation-tutorial/).
 
 ## MAC Key Management
 
@@ -132,7 +132,7 @@ MAC keys are working keys in the HSM key hierarchy:
 - Rotated regularly (daily, per-session, or per-transaction with DUKPT)
 - Stored encrypted under LMK in HSM
 
-For HSM key management overview, see our [HSM Key Management guide](/guides/hsm-key-management-overview).
+For HSM key management overview, see our [HSM Key Management guide](/guides/hsm-key-management-overview/).
 
 ## Choosing the Right MAC Algorithm
 

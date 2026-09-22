@@ -9,7 +9,7 @@ AS2805 是澳大利亚标准协会发布的多部分标准，定义了电子金�
 - 消息认证码（MAC）
 - 密码算法及其使用
 
-该标准广泛应用于澳大利亚的银行、支付处理商和 ATM 网络。它与 [ISO 9564](/guides/pin-block-formats-iso9564) 和 ISO 16609 等国际标准保持一致，但包含澳大利亚特有的要求和适配。
+该标准广泛应用于澳大利亚的银行、支付处理商和 ATM 网络。它与 [ISO 9564](/zh/guides/pin-block-formats-iso9564/) 和 ISO 16609 等国际标准保持一致，但包含澳大利亚特有的要求和适配。
 
 ## 终端密钥集
 
@@ -20,8 +20,8 @@ AS2805 的核心概念是**终端密钥集**——加载到终端（ATM 或 POS�
 终端密钥集通常包含：
 
 - **终端主密钥（TMK）**：用于加密其他密钥以便注入终端，有时称为密钥加密密钥（KEK）。
-- **PIN 加密密钥（PEK）**：加密 [PIN 块](/guides/pin-block-formats-iso9564)，用于从终端到主机的传输。
-- **MAC 密钥**：用于计算[消息认证码](/guides/mac-algorithms-payment-security)，确保交易完整性。
+- **PIN 加密密钥（PEK）**：加密 [PIN 块](/zh/guides/pin-block-formats-iso9564/)，用于从终端到主机的传输。
+- **MAC 密钥**：用于计算[消息认证码](/zh/guides/mac-algorithms-payment-security/)，确保交易完整性。
 - **数据加密密钥**：加密消息中的敏感数据字段。
 
 ### 密钥层次结构
@@ -34,7 +34,7 @@ LMK（在 HSM 中）
       └── 数据密钥
 ```
 
-TMK 在密钥加载仪式期间注入终端，以 HSM 内部的 [LMK](/guides/thales-lmk-key-encryption) 加密形式存储。然后从 TMK 派生或传输工作密钥。
+TMK 在密钥加载仪式期间注入终端，以 HSM 内部的 [LMK](/zh/guides/thales-lmk-key-encryption/) 加密形式存储。然后从 TMK 派生或传输工作密钥。
 
 ## PIN 块翻译
 
@@ -48,11 +48,11 @@ AS2805 定义了在不同区域之间移动时（例如从终端到发卡行网�
 4. HSM 使用交换密钥（区域密钥）重新加密
 5. 翻译后的 PIN 块发送到目的地
 
-这在 [HSM](/guides/hsm-key-management-overview) 内部执行，PIN 明文永远不会在安全边界外暴露。
+这在 [HSM](/zh/guides/hsm-key-management-overview/) 内部执行，PIN 明文永远不会在安全边界外暴露。
 
 ### AS2805 PIN 块格式
 
-AS2805 主要使用 [ISO 9564 格式 0](/guides/pin-block-formats-iso9564)（ISO-0）作为 PIN 块格式：
+AS2805 主要使用 [ISO 9564 格式 0](/zh/guides/pin-block-formats-iso9564/)（ISO-0）作为 PIN 块格式：
 
 ```
 PIN 块 = PIN 字段 XOR PAN 字段
@@ -70,7 +70,7 @@ AS2805 指定了消息认证码（MAC）来确保交易消息的完整性和真�
 
 ### MAC 算法
 
-AS2805 通常使用基于 [3DES](/guides/des-3des-legacy-encryption) 的 CBC-MAC：
+AS2805 通常使用基于 [3DES](/zh/guides/des-3des-legacy-encryption/) 的 CBC-MAC：
 
 1. 将消息分成 8 字节块
 2. 使用 MAC 密钥加密第一块
@@ -79,7 +79,7 @@ AS2805 通常使用基于 [3DES](/guides/des-3des-legacy-encryption) 的 CBC-MAC
 5. 对所有块重复此过程
 6. 最终结果（或其一部分）就是 MAC
 
-MAC 在放入消息之前通常被截断为 4 或 8 字节。这与 [ISO 8583](/guides/iso8583-payment-messages) 消息中使用的 MAC 算法类似。
+MAC 在放入消息之前通常被截断为 4 或 8 字节。这与 [ISO 8583](/zh/guides/iso8583-payment-messages/) 消息中使用的 MAC 算法类似。
 
 ## OWF（单向函数）
 
@@ -102,7 +102,7 @@ AS2805 使用单向函数进行密钥派生和 PIN 验证。OWF 是正向计算�
 ### ATM 交易流程
 
 1. 客户插入卡片并在 ATM 输入 PIN
-2. 终端将 PIN 格式化为 [PIN 块（格式 0）](/guides/pin-block-formats-iso9564)
+2. 终端将 PIN 格式化为 [PIN 块（格式 0）](/zh/guides/pin-block-formats-iso9564/)
 3. PIN 块使用 PEK 加密
 4. 对交易消息计算 MAC
 5. 消息发送到收单方/处理方
@@ -114,7 +114,7 @@ AS2805 使用单向函数进行密钥派生和 PIN 验证。OWF 是正向计算�
 
 1. 在 HSM 内部生成 TMK 组件
 2. 导出以 LMK 加密的 TMK
-3. 将 TMK 注入终端（通常通过 [TR-31 密钥块](/guides/what-is-tr31-key-block)）
+3. 将 TMK 注入终端（通常通过 [TR-31 密钥块](/zh/guides/what-is-tr31-key-block/)）
 4. 派生或注入工作密钥（PEK、MAC 密钥、数据密钥）
 5. 通过测试交易验证密钥加载
 
@@ -129,11 +129,11 @@ AS2805 使用单向函数进行密钥派生和 PIN 验证。OWF 是正向计算�
 
 ## 安全注意事项
 
-1. **密钥保管**：所有密钥必须以 HSM 中 [LMK](/guides/thales-lmk-key-encryption) 加密形式存储
+1. **密钥保管**：所有密钥必须以 HSM 中 [LMK](/zh/guides/thales-lmk-key-encryption/) 加密形式存储
 2. **双控**：密钥加载需要分拆知识和双控
 3. **密钥轮换**：工作密钥应按照 AS2805 指南定期轮换
 4. **审计跟踪**：所有密钥管理操作必须记录日志
-5. **算法迁移**：较新的实现应考虑使用 [AES](/guides/aes-encryption-explained) 和 [DUKPT AES](/payments-dukpt-aes)，因为 3DES 已被弃用
+5. **算法迁移**：较新的实现应考虑使用 [AES](/zh/guides/aes-encryption-explained/) 和 [DUKPT AES](/payments-dukpt-aes)，因为 3DES 已被弃用
 
 ## 亲自尝试
 

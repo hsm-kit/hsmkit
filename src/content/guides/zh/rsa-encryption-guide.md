@@ -67,7 +67,7 @@ NIST 建议 2030 年前**最低使用 2048 位**，之后使用 **3072 位**。
 | 签名大小 | 大 | 小 |
 | 兼容性 | 通用 | 广泛支持 |
 
-对于新系统，**通常优先选择 ECC**——更小的密钥、更快的操作、相同甚至更好的安全性。详见 [ECC 指南](/guides/ecc-digital-signatures-explained)。
+对于新系统，**通常优先选择 ECC**——更小的密钥、更快的操作、相同甚至更好的安全性。详见 [ECC 指南](/zh/guides/ecc-digital-signatures-explained/)。
 
 ## RSA 实践应用
 

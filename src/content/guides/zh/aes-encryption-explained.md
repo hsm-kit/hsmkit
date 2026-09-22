@@ -103,9 +103,9 @@ GCM 模式不需要填充（流密码模式）。
 ## AES 在支付系统中的应用
 
 在支付行业，AES 用于：
-- **PIN 块加密**（AES Format 4，ISO 9564）—— 参见 [PIN 块指南](/guides/pin-block-formats-iso9564)
-- **DUKPT AES**——每笔交易的密钥派生 —— 参见 [DUKPT 指南](/guides/dukpt-key-derivation-tutorial)
-- **TR-31 密钥块**（Version D 使用 AES-256）—— 参见 [TR-31 指南](/guides/what-is-tr31-key-block)
+- **PIN 块加密**（AES Format 4，ISO 9564）—— 参见 [PIN 块指南](/zh/guides/pin-block-formats-iso9564/)
+- **DUKPT AES**——每笔交易的密钥派生 —— 参见 [DUKPT 指南](/zh/guides/dukpt-key-derivation-tutorial/)
+- **TR-31 密钥块**（Version D 使用 AES-256）—— 参见 [TR-31 指南](/zh/guides/what-is-tr31-key-block/)
 - **MAC 计算**（AES-CMAC）
 
 ## 在线工具

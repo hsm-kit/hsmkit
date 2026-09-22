@@ -91,10 +91,10 @@ MAC（消息认证码）算法使用哈希函数验证消息完整性：
 - **AES-CMAC**：现代 AES 基础 MAC —— 参见 [CMAC 工具](/payments-mac-cmac)
 
 ### KCV（密钥校验值）
-KCV 本质上是密钥的哈希——用密钥加密全零并取前 3 字节。参见 [密钥分片与 KCV 指南](/guides/understanding-key-splitting-kcv)。
+KCV 本质上是密钥的哈希——用密钥加密全零并取前 3 字节。参见 [密钥分片与 KCV 指南](/zh/guides/understanding-key-splitting-kcv/)。
 
 ### CVV 计算
-CVV 使用类似哈希的基于 DES 的过程。参见 [CVV 指南](/guides/cvv-cvc-calculation-methods)。
+CVV 使用类似哈希的基于 DES 的过程。参见 [CVV 指南](/zh/guides/cvv-cvc-calculation-methods/)。
 
 ## 密码哈希——特殊情况
 

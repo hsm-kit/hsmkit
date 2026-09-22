@@ -9,7 +9,7 @@ AS2805 is a multi-part standard published by Standards Australia that defines th
 - Message authentication (MAC)
 - Cryptographic algorithms and their usage
 
-The standard is widely used across Australian banks, payment processors, and ATM networks. It aligns with international standards like [ISO 9564](/guides/pin-block-formats-iso9564) and ISO 16609 but includes Australia-specific requirements and adaptations.
+The standard is widely used across Australian banks, payment processors, and ATM networks. It aligns with international standards like [ISO 9564](/guides/pin-block-formats-iso9564/) and ISO 16609 but includes Australia-specific requirements and adaptations.
 
 ## Terminal Key Set
 
@@ -20,8 +20,8 @@ A central concept in AS2805 is the **Terminal Key Set** — a group of keys load
 A Terminal Key Set typically contains:
 
 - **Terminal Master Key (TMK)**: Encrypts other keys for injection into the terminal. Sometimes called the Key Encryption Key (KEK).
-- **PIN Encryption Key (PEK)**: Encrypts [PIN blocks](/guides/pin-block-formats-iso9564) for transmission from terminal to host.
-- **MAC Key**: Used to compute [message authentication codes](/guides/mac-algorithms-payment-security) for transaction integrity.
+- **PIN Encryption Key (PEK)**: Encrypts [PIN blocks](/guides/pin-block-formats-iso9564/) for transmission from terminal to host.
+- **MAC Key**: Used to compute [message authentication codes](/guides/mac-algorithms-payment-security/) for transaction integrity.
 - **Data Encryption Key**: Encrypts sensitive data fields in messages.
 
 ### Key Hierarchy
@@ -34,7 +34,7 @@ LMK (in HSM)
       └── Data Key
 ```
 
-The TMK is injected into the terminal during a key loading ceremony, encrypted under the [LMK](/guides/thales-lmk-key-encryption) inside the HSM. The working keys are then derived or transported under the TMK.
+The TMK is injected into the terminal during a key loading ceremony, encrypted under the [LMK](/guides/thales-lmk-key-encryption/) inside the HSM. The working keys are then derived or transported under the TMK.
 
 ## PIN Block Translation
 
@@ -48,11 +48,11 @@ AS2805 defines how PIN blocks are translated when moving between different zones
 4. HSM re-encrypts under the interchange key (zone key)
 5. Translated PIN block is sent to the destination
 
-This is performed inside the [HSM](/guides/hsm-key-management-overview) and never exposes the PIN in plaintext outside the secure boundary.
+This is performed inside the [HSM](/guides/hsm-key-management-overview/) and never exposes the PIN in plaintext outside the secure boundary.
 
 ### AS2805 PIN Block Format
 
-AS2805 primarily uses [ISO 9564 Format 0](/guides/pin-block-formats-iso9564) (ISO-0) for PIN blocks:
+AS2805 primarily uses [ISO 9564 Format 0](/guides/pin-block-formats-iso9564/) (ISO-0) for PIN blocks:
 
 ```
 PIN Block = PIN Field XOR PAN Field
@@ -70,7 +70,7 @@ AS2805 specifies message authentication codes (MAC) to ensure the integrity and 
 
 ### MAC Algorithm
 
-AS2805 typically uses a CBC-MAC based on [3DES](/guides/des-3des-legacy-encryption):
+AS2805 typically uses a CBC-MAC based on [3DES](/guides/des-3des-legacy-encryption/):
 
 1. Divide the message into 8-byte blocks
 2. Encrypt the first block with the MAC key
@@ -79,7 +79,7 @@ AS2805 typically uses a CBC-MAC based on [3DES](/guides/des-3des-legacy-encrypti
 5. Repeat for all blocks
 6. The final result (or a portion of it) is the MAC
 
-The MAC is usually truncated to 4 or 8 bytes before being placed in the message. This is similar to the MAC algorithms used in [ISO 8583](/guides/iso8583-payment-messages) messages.
+The MAC is usually truncated to 4 or 8 bytes before being placed in the message. This is similar to the MAC algorithms used in [ISO 8583](/guides/iso8583-payment-messages/) messages.
 
 ## OWF (One-Way Function)
 
@@ -102,7 +102,7 @@ AS2805 uses One-Way Functions for key derivation and PIN verification. OWFs are 
 ### ATM Transaction Flow
 
 1. Customer inserts card and enters PIN at ATM
-2. Terminal formats PIN as [PIN block (Format 0)](/guides/pin-block-formats-iso9564)
+2. Terminal formats PIN as [PIN block (Format 0)](/guides/pin-block-formats-iso9564/)
 3. PIN block encrypted under PEK
 4. MAC computed over the transaction message
 5. Message sent to acquirer/processor
@@ -114,7 +114,7 @@ AS2805 uses One-Way Functions for key derivation and PIN verification. OWFs are 
 
 1. Generate TMK components inside the HSM
 2. Export TMK encrypted under LMK
-3. Inject TMK into terminal (often via [TR-31 key block](/guides/what-is-tr31-key-block))
+3. Inject TMK into terminal (often via [TR-31 key block](/guides/what-is-tr31-key-block/))
 4. Derive or inject working keys (PEK, MAC key, Data key)
 5. Verify key loading with test transactions
 
@@ -129,11 +129,11 @@ AS2805 uses One-Way Functions for key derivation and PIN verification. OWFs are 
 
 ## Security Considerations
 
-1. **Key Custody**: All keys must be stored encrypted under the [LMK](/guides/thales-lmk-key-encryption) in the HSM
+1. **Key Custody**: All keys must be stored encrypted under the [LMK](/guides/thales-lmk-key-encryption/) in the HSM
 2. **Dual Control**: Key loading requires split knowledge and dual control
 3. **Key Rotation**: Working keys should be rotated regularly per AS2805 guidelines
 4. **Audit Trail**: All key management operations must be logged
-5. **Algorithm Migration**: Newer implementations should consider [AES](/guides/aes-encryption-explained) and [DUKPT AES](/payments-dukpt-aes) as 3DES is deprecated
+5. **Algorithm Migration**: Newer implementations should consider [AES](/guides/aes-encryption-explained/) and [DUKPT AES](/payments-dukpt-aes) as 3DES is deprecated
 
 ## Try It Yourself
 

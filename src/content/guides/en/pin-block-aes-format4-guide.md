@@ -1,10 +1,10 @@
-PIN Block Format 4 is the newest ISO 9564 PIN block format, designed specifically for [AES encryption](/guides/aes-encryption-explained). This guide explains how Format 4 works and why it represents the future of PIN security in payment systems.
+PIN Block Format 4 is the newest ISO 9564 PIN block format, designed specifically for [AES encryption](/guides/aes-encryption-explained/). This guide explains how Format 4 works and why it represents the future of PIN security in payment systems.
 
 ## What is PIN Block Format 4?
 
-PIN Block Format 4 (also called ISO-4) is defined in ISO 9564-1 and provides a modern, AES-based method for encrypting PINs. It replaces the legacy [Format 0](/guides/pin-block-formats-iso9564) which was designed for [3DES](/guides/des-3des-legacy-encryption) encryption.
+PIN Block Format 4 (also called ISO-4) is defined in ISO 9564-1 and provides a modern, AES-based method for encrypting PINs. It replaces the legacy [Format 0](/guides/pin-block-formats-iso9564/) which was designed for [3DES](/guides/des-3des-legacy-encryption/) encryption.
 
-Format 4 is part of the broader payment industry migration from 3DES to AES, alongside [AES-DUKPT](/payments-dukpt-aes) and [TR-31 Version D](/guides/what-is-tr31-key-block) key blocks.
+Format 4 is part of the broader payment industry migration from 3DES to AES, alongside [AES-DUKPT](/payments-dukpt-aes) and [TR-31 Version D](/guides/what-is-tr31-key-block/) key blocks.
 
 ## Format 4 Structure
 
@@ -80,11 +80,11 @@ Encrypted_Block = AES-128-ECB(PEK, PIN_Block)
 The PIN Encryption Key (PEK) is a 128-bit AES key, which may be:
 - A static key (legacy)
 - A [DUKPT AES](/payments-dukpt-aes)-derived key (recommended)
-- Transported in a [TR-31 Version D](/guides/what-is-tr31-key-block) key block
+- Transported in a [TR-31 Version D](/guides/what-is-tr31-key-block/) key block
 
 ### Step 3: Transmit
 
-The 16-byte encrypted PIN block is placed in the transaction message. For [ISO 8583](/guides/iso8583-payment-messages) messages, this typically goes in Field 52 (PIN Data).
+The 16-byte encrypted PIN block is placed in the transaction message. For [ISO 8583](/guides/iso8583-payment-messages/) messages, this typically goes in Field 52 (PIN Data).
 
 ## PAN Hash Calculation
 
@@ -134,12 +134,12 @@ AES-128 provides stronger security than 3DES:
 2. Terminal constructs Format 4 PIN block with random fill
 3. Terminal encrypts PIN block with PEK (or [AES-DUKPT](/payments-dukpt-aes) key)
 4. Encrypted PIN block placed in transaction message
-5. Message sent to acquirer with [MAC](/guides/mac-algorithms-payment-security)
+5. Message sent to acquirer with [MAC](/guides/mac-algorithms-payment-security/)
 
 ### Acquirer to Issuer
 
 1. Acquirer receives message with encrypted PIN block
-2. Acquirer's [HSM](/guides/hsm-key-management-overview) decrypts using terminal's PEK
+2. Acquirer's [HSM](/guides/hsm-key-management-overview/) decrypts using terminal's PEK
 3. HSM verifies PAN hash integrity
 4. HSM re-encrypts under interchange key
 5. Translated PIN block sent to issuer
@@ -167,7 +167,7 @@ New terminals should support Format 4 natively. Older terminals may need firmwar
 ### Key Management
 
 Format 4 requires AES keys:
-- Use [TR-31 Version D](/guides/what-is-tr31-key-block) for key transport
+- Use [TR-31 Version D](/guides/what-is-tr31-key-block/) for key transport
 - Generate AES keys in the HSM
 - Consider [AES-DUKPT](/payments-dukpt-aes) for per-transaction keys
 

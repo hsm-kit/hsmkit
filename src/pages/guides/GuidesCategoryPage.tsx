@@ -1,11 +1,11 @@
-import React, { useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Breadcrumb, Card, Col, Row, Typography } from 'antd';
 import { ClockCircleOutlined, HomeOutlined, RightOutlined } from '@ant-design/icons';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { SEO } from '../../components/common/SEO';
 import { useLanguageContext as useLanguage } from '../../hooks/languageContext';
 import type { Language } from '../../locales';
-import { getGuidesPath } from '../../utils/guidesPath';
+import { getGuidesPath, getGuidesUrl } from '../../utils/guidesPath';
 import categoriesData from '../../data/guides/categories.json';
 import articlesEn from '../../data/guides/en.json';
 import articlesZh from '../../data/guides/zh.json';
@@ -33,22 +33,22 @@ const GuidesCategoryPage: React.FC = () => {
     if (contextLanguage !== language) setLanguage(language);
   }, [contextLanguage, language, setLanguage]);
 
-  const articles = useMemo(() => (
-    category ? (articlesMap[language] || articlesMap.en).filter(article => article.category === category.category) : []
-  ), [category, language]);
+  const articles = category
+    ? (articlesMap[language] || articlesMap.en).filter(article => article.category === category.category)
+    : [];
 
   const localized = category?.[language === 'zh' ? 'zh' : 'en'];
-  const canonical = language === 'zh'
-    ? `https://hsmkit.com/zh/guides/${categorySlug}`
-    : `https://hsmkit.com/guides/${categorySlug}`;
+  const canonical = getGuidesUrl(language, categorySlug);
   const alternates = [
-    { lang: 'en', href: `https://hsmkit.com/guides/${categorySlug}` },
-    { lang: 'zh', href: `https://hsmkit.com/zh/guides/${categorySlug}` },
-    { lang: 'x-default', href: `https://hsmkit.com/guides/${categorySlug}` },
+    { lang: 'en', href: getGuidesUrl('en', categorySlug) },
+    { lang: 'zh', href: getGuidesUrl('zh', categorySlug) },
+    { lang: 'x-default', href: getGuidesUrl('en', categorySlug) },
   ];
 
   useLayoutEffect(() => {
     if (!category || !localized) return;
+    const schemaArticles = (articlesMap[language] || articlesMap.en)
+      .filter(article => article.category === category.category);
     const schema = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -59,8 +59,8 @@ const GuidesCategoryPage: React.FC = () => {
       isPartOf: { '@type': 'WebSite', name: 'HSM Kit', url: 'https://hsmkit.com' },
       mainEntity: {
         '@type': 'ItemList',
-        numberOfItems: articles.length,
-        itemListElement: articles.map((article, index) => ({
+        numberOfItems: schemaArticles.length,
+        itemListElement: schemaArticles.map((article, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           item: {
@@ -92,7 +92,7 @@ const GuidesCategoryPage: React.FC = () => {
       return script;
     });
     return () => scripts.forEach(script => script.remove());
-  }, [articles, canonical, category, language, localized]);
+  }, [canonical, category, language, localized]);
 
   if (!category || !localized) return null;
 

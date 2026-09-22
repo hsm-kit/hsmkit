@@ -1,10 +1,10 @@
-PIN 块格式 4 是最新的 ISO 9564 PIN 块格式，专为 [AES 加密](/guides/aes-encryption-explained) 设计。本指南解释格式 4 的工作原理以及为什么它代表了支付系统中 PIN 安全的未来。
+PIN 块格式 4 是最新的 ISO 9564 PIN 块格式，专为 [AES 加密](/zh/guides/aes-encryption-explained/) 设计。本指南解释格式 4 的工作原理以及为什么它代表了支付系统中 PIN 安全的未来。
 
 ## 什么是 PIN 块格式 4？
 
-PIN 块格式 4（也称为 ISO-4）在 ISO 9564-1 中定义，提供了基于 AES 的现代 PIN 加密方法。它取代了为 [3DES](/guides/des-3des-legacy-encryption) 加密设计的传统[格式 0](/guides/pin-block-formats-iso9564)。
+PIN 块格式 4（也称为 ISO-4）在 ISO 9564-1 中定义，提供了基于 AES 的现代 PIN 加密方法。它取代了为 [3DES](/zh/guides/des-3des-legacy-encryption/) 加密设计的传统[格式 0](/zh/guides/pin-block-formats-iso9564/)。
 
-格式 4 是支付行业从 3DES 迁移到 AES 的更广泛计划的一部分，与 [AES-DUKPT](/payments-dukpt-aes) 和 [TR-31 版本 D](/guides/what-is-tr31-key-block) 密钥块一起。
+格式 4 是支付行业从 3DES 迁移到 AES 的更广泛计划的一部分，与 [AES-DUKPT](/payments-dukpt-aes) 和 [TR-31 版本 D](/zh/guides/what-is-tr31-key-block/) 密钥块一起。
 
 ## 格式 4 结构
 
@@ -80,11 +80,11 @@ PAN_哈希 = AES-ECB(PAN_填充, PAN_哈希密钥)
 PIN 加密密钥（PEK）是 128 位 AES 密钥，可以是：
 - 静态密钥（传统）
 - [AES-DUKPT](/payments-dukpt-aes) 派生密钥（推荐）
-- 通过 [TR-31 版本 D](/guides/what-is-tr31-key-block) 密钥块传输
+- 通过 [TR-31 版本 D](/zh/guides/what-is-tr31-key-block/) 密钥块传输
 
 ### 步骤 3：传输
 
-16 字节的加密 PIN 块放入交易消息中。对于 [ISO 8583](/guides/iso8583-payment-messages) 消息，通常放在字段 52（PIN 数据）中。
+16 字节的加密 PIN 块放入交易消息中。对于 [ISO 8583](/zh/guides/iso8583-payment-messages/) 消息，通常放在字段 52（PIN 数据）中。
 
 ## PAN 哈希计算
 
@@ -134,12 +134,12 @@ AES-128 比 3DES 提供更强的安全性：
 2. 终端使用随机填充构造格式 4 PIN 块
 3. 终端使用 PEK（或 [AES-DUKPT](/payments-dukpt-aes) 密钥）加密 PIN 块
 4. 加密的 PIN 块放入交易消息
-5. 消息连同 [MAC](/guides/mac-algorithms-payment-security) 一起发送到收单方
+5. 消息连同 [MAC](/zh/guides/mac-algorithms-payment-security/) 一起发送到收单方
 
 ### 收单方到发卡行
 
 1. 收单方接收包含加密 PIN 块的消息
-2. 收单方的 [HSM](/guides/hsm-key-management-overview) 使用终端的 PEK 解密
+2. 收单方的 [HSM](/zh/guides/hsm-key-management-overview/) 使用终端的 PEK 解密
 3. HSM 验证 PAN 哈希完整性
 4. HSM 使用交换密钥重新加密
 5. 翻译后的 PIN 块发送到发卡行
@@ -167,7 +167,7 @@ AES-128 比 3DES 提供更强的安全性：
 ### 密钥管理
 
 格式 4 需要 AES 密钥：
-- 使用 [TR-31 版本 D](/guides/what-is-tr31-key-block) 进行密钥传输
+- 使用 [TR-31 版本 D](/zh/guides/what-is-tr31-key-block/) 进行密钥传输
 - 在 HSM 中生成 AES 密钥
 - 考虑使用 [AES-DUKPT](/payments-dukpt-aes) 获取每笔交易的密钥
 

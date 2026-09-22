@@ -34,7 +34,7 @@ PAN_格式化 = PAN 最右边 12 位数字（不含校验位）
 
 **步骤 2：使用 PDK 加密**
 
-使用 PIN 派生密钥进行 [3DES](/guides/des-3des-legacy-encryption) 加密：
+使用 PIN 派生密钥进行 [3DES](/zh/guides/des-3des-legacy-encryption/) 加密：
 
 ```
 加密结果 = 3DES_Encrypt(PDK, PAN_格式化)
@@ -111,7 +111,7 @@ PAN（不含校验位）：401234567890123
 当客户在 ATM 输入 PIN 时：
 
 1. ATM 将加密的 PIN 块发送到主机
-2. 主机的 [HSM](/guides/hsm-key-management-overview) 解密 PIN 块
+2. 主机的 [HSM](/zh/guides/hsm-key-management-overview/) 解密 PIN 块
 3. HSM 检索该卡的存储 PIN 偏移量
 4. HSM 使用 PDK 和 PAN 计算自然 PIN
 5. HSM 将偏移量加到自然 PIN 上
@@ -160,7 +160,7 @@ PIN 偏移量可以存储在多个位置：
 
 ### 缓解措施
 
-- 将 PDK 安全保存在 [HSM](/guides/hsm-key-management-overview) 内部
+- 将 PDK 安全保存在 [HSM](/zh/guides/hsm-key-management-overview/) 内部
 - 使用非默认十进制化表
 - 保护 PIN 偏移量数据库
 - 考虑迁移到 [PVV](/payments-pin-pvv) 以获得更强的安全性

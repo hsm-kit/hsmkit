@@ -2,16 +2,19 @@ import type { Language } from '../locales';
 
 /**
  * Generate the correct path for guides pages based on language
- * - English: /guides or /guides/:slug
- * - Other languages: /:lang/guides or /:lang/guides/:slug
+ * - English: /guides/ or /guides/:slug/
+ * - Other languages: /:lang/guides/ or /:lang/guides/:slug/
  */
 export const getGuidesPath = (language: Language, slug?: string): string => {
   const basePath = language === 'en' ? '/guides' : `/${language}/guides`;
-  return slug ? `${basePath}/${slug}` : basePath;
+  return slug ? `${basePath}/${slug}/` : `${basePath}/`;
 };
 
 export const getGuideCategoryPath = (language: Language, categorySlug: string): string =>
   getGuidesPath(language, categorySlug);
+
+export const getGuidesUrl = (language: Language, slug?: string): string =>
+  `https://hsmkit.com${getGuidesPath(language, slug)}`;
 
 /**
  * Parse language from URL path for guides pages

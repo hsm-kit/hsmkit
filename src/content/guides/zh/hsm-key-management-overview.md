@@ -39,7 +39,7 @@ HSM 内部生成的密钥**永远不会以明文形式存在于设备之外**—
 - 根密钥，永不离开 HSM
 - 用于加密所有其他密钥以便存储
 - 在 HSM 初始化期间通过密钥仪式加载
-- 分成多个组件（参见 [密钥分片指南](/guides/understanding-key-splitting-kcv)）
+- 分成多个组件（参见 [密钥分片指南](/zh/guides/understanding-key-splitting-kcv/)）
 
 ### 区域主密钥（ZMK）
 - 在两个 HSM 之间交换以建立安全通道
@@ -70,7 +70,7 @@ Futurex HSM 在美国银行和支付处理领域广泛使用。
 
 **主要特点**：
 - 使用"Futurex 密钥格式"存储密钥
-- 支持 TR-31 密钥块（参见 [TR-31 指南](/guides/what-is-tr31-key-block)）
+- 支持 TR-31 密钥块（参见 [TR-31 指南](/zh/guides/what-is-tr31-key-block/)）
 - 在 ATM 和 POS 网络中占有重要地位
 
 使用 [Futurex 密钥工具](/futurex-keys) 处理 Futurex 格式的密钥。
@@ -99,18 +99,18 @@ SafeNet HSM（现为 Thales 旗下）用于通用 PKI 和加密。
 ### TR-31（ANSI X9.143）
 现代密钥传输标准。将密钥属性（用途、算法、可导出性）与密钥材料密码学绑定。
 
-→ 参见完整的 [TR-31 密钥块指南](/guides/what-is-tr31-key-block) 和 [TR-31 工具](/tr31-key-block)
+→ 参见完整的 [TR-31 密钥块指南](/zh/guides/what-is-tr31-key-block/) 和 [TR-31 工具](/tr31-key-block)
 
 ### 密钥组件（手动交换）
 初始密钥加载时，密钥被分成组件，由多个保管人手动输入。
 
-→ 参见 [密钥分片与 KCV 指南](/guides/understanding-key-splitting-kcv) 和 [密钥分片生成器](/keyshare-generator)
+→ 参见 [密钥分片与 KCV 指南](/zh/guides/understanding-key-splitting-kcv/) 和 [密钥分片生成器](/keyshare-generator)
 
 ## DUKPT——基于 HSM 的每笔交易密钥
 
 对于高交易量环境（ATM、POS 终端），DUKPT 为每笔交易提供唯一密钥，而无需每次都调用 HSM。
 
-→ 参见 [DUKPT 指南](/guides/dukpt-key-derivation-tutorial) 和 [DUKPT 工具](/payments-dukpt-iso9797)
+→ 参见 [DUKPT 指南](/zh/guides/dukpt-key-derivation-tutorial/) 和 [DUKPT 工具](/payments-dukpt-iso9797)
 
 ## 密钥仪式
 

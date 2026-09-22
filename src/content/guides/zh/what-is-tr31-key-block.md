@@ -9,7 +9,7 @@ TR-31 是一种密钥块规范，提供：
 - **完整性保护**：检测篡改
 - **密钥用途控制**：定义密钥的使用方式
 
-TR-31 旨在替代不安全的做法——将密钥作为纯密文传输（在 KEK 下加密，但不绑定任何属性）。它现在是 PCI PIN 的要求，并被 Thales、Futurex 和 Atalla 等 [HSM 厂商](/guides/hsm-key-management-overview) 广泛采用。
+TR-31 旨在替代不安全的做法——将密钥作为纯密文传输（在 KEK 下加密，但不绑定任何属性）。它现在是 PCI PIN 的要求，并被 Thales、Futurex 和 Atalla 等 [HSM 厂商](/zh/guides/hsm-key-management-overview/) 广泛采用。
 
 ## 密钥块结构
 
@@ -38,11 +38,11 @@ TR-31 密钥块由以下几部分组成：
 
 | 代码 | 描述 |
 |------|------|
-| P0 | PIN 加密密钥——用于加密 [PIN 块](/guides/pin-block-formats-iso9564) |
-| B0 | BDK 基础派生密钥——用于 [DUKPT](/guides/dukpt-key-derivation-tutorial) |
+| P0 | PIN 加密密钥——用于加密 [PIN 块](/zh/guides/pin-block-formats-iso9564/) |
+| B0 | BDK 基础派生密钥——用于 [DUKPT](/zh/guides/dukpt-key-derivation-tutorial/) |
 | K0 | 密钥加密/封装密钥 |
 | M0 | ISO 9797-1 MAC（算法 1） |
-| M3 | ISO 9797-1 MAC（算法 3）——参见 [MAC 指南](/guides/mac-algorithms-payment-security) |
+| M3 | ISO 9797-1 MAC（算法 3）——参见 [MAC 指南](/zh/guides/mac-algorithms-payment-security/) |
 | D0 | 数据加密对称密钥 |
 | V0 | PIN 验证密钥（VISA PVV） |
 
@@ -90,7 +90,7 @@ TR-31 密钥块由以下几部分组成：
 - 最强安全性
 - **新实现推荐使用**
 
-关于 AES 与 TDES 安全性的背景，参见 [AES 指南](/guides/aes-encryption-explained) 和 [DES/3DES 指南](/guides/des-3des-legacy-encryption)。
+关于 AES 与 TDES 安全性的背景，参见 [AES 指南](/zh/guides/aes-encryption-explained/) 和 [DES/3DES 指南](/zh/guides/des-3des-legacy-encryption/)。
 
 ## TR-31 与 Thales 密钥块
 
@@ -104,7 +104,7 @@ Thales HSM 也有专有的"Thales 密钥块"格式。TR-31 是开放标准，而
 4. **遵守限制**：尊重可导出性和模式标志
 5. **密钥轮换**：定期轮换 KBPK
 
-关于将 KBPK 加载到 HSM 的密钥分片，参见 [密钥分片与 KCV 指南](/guides/understanding-key-splitting-kcv)。
+关于将 KBPK 加载到 HSM 的密钥分片，参见 [密钥分片与 KCV 指南](/zh/guides/understanding-key-splitting-kcv/)。
 
 ## 常见问题
 

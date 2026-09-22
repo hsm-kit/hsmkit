@@ -100,13 +100,13 @@ ISO 8583 定义了多达 192 个数据元素（字段）。常用字段：
 
 字段 52 包含加密的 PIN 块（通常为 8 字节 / 16 个十六进制字符）。PIN 在放入此字段前使用 PIN 加密密钥（PEK）加密。
 
-PIN 块格式（通常为 ISO 9564 格式 0）将 PIN 与 PAN 结合。详见 [PIN 块指南](/guides/pin-block-formats-iso9564)。
+PIN 块格式（通常为 ISO 9564 格式 0）将 PIN 与 PAN 结合。详见 [PIN 块指南](/zh/guides/pin-block-formats-iso9564/)。
 
 ## ISO 8583 中的 MAC
 
 字段 64 和 128 包含消息认证码，用于验证消息完整性。MAC 使用 MAC 密钥对特定字段计算。
 
-详见 [MAC 算法指南](/guides/mac-algorithms-payment-security)。
+详见 [MAC 算法指南](/zh/guides/mac-algorithms-payment-security/)。
 
 ## AS2805——澳大利亚 EFTPOS
 

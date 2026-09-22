@@ -55,26 +55,26 @@ XOR 运算（如密钥分片）后，奇偶校验可能丢失，必须恢复。[
 ### PIN 加密
 - ATM PIN 键盘使用 3DES 加密 PIN（ISO 9564 格式 0/1/3）
 - PIN 加密密钥（PEK）是 3DES 密钥
-- 参见 [PIN 块指南](/guides/pin-block-formats-iso9564) 和 [PIN 块工具](/payments-pin-blocks-general)
+- 参见 [PIN 块指南](/zh/guides/pin-block-formats-iso9564/) 和 [PIN 块工具](/payments-pin-blocks-general)
 
 ### DUKPT（ISO 9797）
 - 原始 DUKPT 使用 3DES 进行密钥派生
 - BDK 和 IPEK 是 3DES 密钥
-- 参见 [DUKPT 指南](/guides/dukpt-key-derivation-tutorial) 和 [DUKPT 工具](/payments-dukpt-iso9797)
+- 参见 [DUKPT 指南](/zh/guides/dukpt-key-derivation-tutorial/) 和 [DUKPT 工具](/payments-dukpt-iso9797)
 
 ### MAC 算法
 - ISO 9797-1 算法使用 DES/3DES
 - 零售 MAC（ANSI X9.19）使用 3DES
-- 参见 [MAC 指南](/guides/mac-algorithms-payment-security)
+- 参见 [MAC 指南](/zh/guides/mac-algorithms-payment-security/)
 
 ### HSM 密钥存储
 - Thales、Futurex 和 Atalla HSM 将密钥存储为 3DES LMK 加密形式
 - TR-31 版本 A、B、C 使用 3DES 密钥封装
-- 参见 [HSM 概述](/guides/hsm-key-management-overview)
+- 参见 [HSM 概述](/zh/guides/hsm-key-management-overview/)
 
 ### CVV/CVC 计算
 - CVV 使用 3DES 加密
-- 参见 [CVV 指南](/guides/cvv-cvc-calculation-methods)
+- 参见 [CVV 指南](/zh/guides/cvv-cvc-calculation-methods/)
 
 ## 3DES 与 AES 对比
 

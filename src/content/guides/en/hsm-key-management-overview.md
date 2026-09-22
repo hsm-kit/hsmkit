@@ -39,7 +39,7 @@ Local Master Key (LMK) — stored in HSM hardware
 - The root key, never leaves the HSM
 - Used to encrypt all other keys for storage
 - Loaded during HSM initialization via key ceremony
-- Split into components (see our [Key Splitting guide](/guides/understanding-key-splitting-kcv))
+- Split into components (see our [Key Splitting guide](/guides/understanding-key-splitting-kcv/))
 
 ### Zone Master Key (ZMK)
 - Exchanged between two HSMs to establish a secure channel
@@ -72,7 +72,7 @@ Futurex HSMs are widely used in US banking and payment processing.
 
 **Key characteristics**:
 - Uses "Futurex key format" for key storage
-- Supports TR-31 key blocks (see our [TR-31 guide](/guides/what-is-tr31-key-block))
+- Supports TR-31 key blocks (see our [TR-31 guide](/guides/what-is-tr31-key-block/))
 - Strong presence in ATM and POS networks
 
 Use our [Futurex Keys tool](/futurex-keys) to work with Futurex-formatted keys.
@@ -101,18 +101,18 @@ When moving keys between HSMs or systems, standardized formats are used:
 ### TR-31 (ANSI X9.143)
 The modern standard for key transport. Binds key attributes (usage, algorithm, exportability) cryptographically to the key material.
 
-→ See our complete [TR-31 Key Block guide](/guides/what-is-tr31-key-block) and [TR-31 Tool](/tr31-key-block)
+→ See our complete [TR-31 Key Block guide](/guides/what-is-tr31-key-block/) and [TR-31 Tool](/tr31-key-block)
 
 ### Key Components (Manual Exchange)
 For initial key loading, keys are split into components and entered manually by multiple custodians.
 
-→ See our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv) and [Keyshare Generator](/keyshare-generator)
+→ See our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv/) and [Keyshare Generator](/keyshare-generator)
 
 ## DUKPT — HSM-Based Per-Transaction Keys
 
 For high-volume transaction environments (ATMs, POS terminals), DUKPT provides unique keys per transaction without requiring the HSM to be involved in every transaction.
 
-→ See our [DUKPT guide](/guides/dukpt-key-derivation-tutorial) and [DUKPT Tool](/payments-dukpt-iso9797)
+→ See our [DUKPT guide](/guides/dukpt-key-derivation-tutorial/) and [DUKPT Tool](/payments-dukpt-iso9797)
 
 ## Key Ceremony
 

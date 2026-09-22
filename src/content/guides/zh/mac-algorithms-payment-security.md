@@ -115,7 +115,7 @@ CMAC = 带子密钥派生的 AES-CBC-MAC
 8. 如果匹配：消息真实。如果不匹配：拒绝交易。
 ```
 
-MAC 密钥本身通常是 DUKPT 派生密钥（每笔交易唯一）——参见 [DUKPT 指南](/guides/dukpt-key-derivation-tutorial)。
+MAC 密钥本身通常是 DUKPT 派生密钥（每笔交易唯一）——参见 [DUKPT 指南](/zh/guides/dukpt-key-derivation-tutorial/)。
 
 ## MAC 密钥管理
 
@@ -124,7 +124,7 @@ MAC 密钥是 HSM 密钥层次结构中的工作密钥：
 - 定期轮换（每日、每会话或通过 DUKPT 每笔交易）
 - 在 HSM 中以 LMK 加密形式存储
 
-HSM 密钥管理概述，参见 [HSM 密钥管理指南](/guides/hsm-key-management-overview)。
+HSM 密钥管理概述，参见 [HSM 密钥管理指南](/zh/guides/hsm-key-management-overview/)。
 
 ## 选择正确的 MAC 算法
 

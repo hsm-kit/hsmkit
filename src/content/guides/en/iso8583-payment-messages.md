@@ -112,13 +112,13 @@ Field 39 contains the response code:
 
 Field 52 contains the encrypted PIN block (typically 8 bytes / 16 hex characters). The PIN is encrypted using the PIN Encryption Key (PEK) before being placed in this field.
 
-The PIN block format (usually ISO 9564 Format 0) combines the PIN with the PAN. See our [PIN Block guide](/guides/pin-block-formats-iso9564) for details.
+The PIN block format (usually ISO 9564 Format 0) combines the PIN with the PAN. See our [PIN Block guide](/guides/pin-block-formats-iso9564/) for details.
 
 ## MAC in ISO 8583
 
 Fields 64 and 128 contain Message Authentication Codes to verify message integrity. The MAC is calculated over specific fields using the MAC key.
 
-See our [MAC guide](/guides/mac-algorithms-payment-security) for MAC algorithm details.
+See our [MAC guide](/guides/mac-algorithms-payment-security/) for MAC algorithm details.
 
 ## AS2805 — Australian EFTPOS
 

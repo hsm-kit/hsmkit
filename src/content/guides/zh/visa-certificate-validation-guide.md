@@ -54,7 +54,7 @@ VSDC（VISA 智能借记/贷记卡）CA 公钥是 VISA EMV 证书系统的根密
 CA 公钥通过以下方式分发到终端：
 
 - 终端加载/密钥注入仪式
-- 用于安全传输的 [TR-31 密钥块](/guides/what-is-tr31-key-block)
+- 用于安全传输的 [TR-31 密钥块](/zh/guides/what-is-tr31-key-block/)
 - 从支付网络直接加载
 
 ### 密钥索引（Index）
@@ -172,7 +172,7 @@ CA 公钥通过以下方式分发到终端：
 
 ## 证书验证中的 RSA 操作
 
-证书验证涉及多个 [RSA](/guides/rsa-encryption-guide) 操作：
+证书验证涉及多个 [RSA](/zh/guides/rsa-encryption-guide/) 操作：
 
 ### RSA 验证
 
@@ -193,7 +193,7 @@ CA 公钥通过以下方式分发到终端：
 3. 恢复签名数据
 4. 验证哈希
 
-这在 [HSM](/guides/hsm-key-management-overview) 中使用专门的 RSA 命令实现。
+这在 [HSM](/zh/guides/hsm-key-management-overview/) 中使用专门的 RSA 命令实现。
 
 ## 实际注意事项
 
@@ -207,7 +207,7 @@ CA 公钥通过以下方式分发到终端：
 
 ### HSM 支持
 
-[HSM](/guides/hsm-key-management-overview) 执行繁重的密码学操作：
+[HSM](/zh/guides/hsm-key-management-overview/) 执行繁重的密码学操作：
 - 用于证书恢复的 RSA 解密
 - 哈希验证
 - 密钥存储和管理

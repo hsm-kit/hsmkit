@@ -8,12 +8,12 @@ DUKPT 提供了一种方法：
 2. 确保一个交易密钥的泄露不会暴露其他密钥
 3. 支持数百万笔交易而不耗尽密钥
 
-DUKPT 用于 ATM、POS 终端以及任何需要加密 PIN 或数据而无需每次交易都连接 [HSM](/guides/hsm-key-management-overview) 的设备。
+DUKPT 用于 ATM、POS 终端以及任何需要加密 PIN 或数据而无需每次交易都连接 [HSM](/zh/guides/hsm-key-management-overview/) 的设备。
 
 ## 关键组件
 
 ### 基础派生密钥（BDK）
-收单方/处理方持有的主密钥。永不离开安全密钥管理系统，在 HSM 中以 LMK 加密形式存储。在 [TR-31 格式](/guides/what-is-tr31-key-block) 中，BDK 的密钥用途代码为 `B0`。
+收单方/处理方持有的主密钥。永不离开安全密钥管理系统，在 HSM 中以 LMK 加密形式存储。在 [TR-31 格式](/zh/guides/what-is-tr31-key-block/) 中，BDK 的密钥用途代码为 `B0`。
 
 ### 初始 PIN 加密密钥（IPEK）
 从 BDK 和初始 KSN 派生。注入到 PIN 键盘设备中。注入后，设备不再需要 BDK。
@@ -58,7 +58,7 @@ IPEK = TDES_Encrypt(BDK, 计数器清零的 KSN)
 - **MAC 密钥**：与掩码 `0x000000000000FF00000000000000FF00` XOR
 - **数据加密密钥**：与掩码 `0x0000000000FF00000000000000FF0000` XOR
 
-PEK 用于加密 [PIN 块](/guides/pin-block-formats-iso9564)，MAC 密钥用于计算 [交易 MAC](/guides/mac-algorithms-payment-security)。
+PEK 用于加密 [PIN 块](/zh/guides/pin-block-formats-iso9564/)，MAC 密钥用于计算 [交易 MAC](/zh/guides/mac-algorithms-payment-security/)。
 
 ## 实际示例
 
@@ -90,25 +90,25 @@ PEK: 042666B49184CF5C68DE962BD0397B36
 
 1. **计数器耗尽**：约 2²¹（约 200 万）笔交易后，设备需要重新注入密钥
 2. **未来密钥保密性**：即使当前密钥被泄露，也无法推导出未来密钥
-3. **BDK 保护**：BDK 绝不能暴露；所有安全性都依赖于它——将其存储在 [HSM](/guides/hsm-key-management-overview) 中
+3. **BDK 保护**：BDK 绝不能暴露；所有安全性都依赖于它——将其存储在 [HSM](/zh/guides/hsm-key-management-overview/) 中
 
 ## AES DUKPT
 
-现代实现使用 [AES](/guides/aes-encryption-explained) 替代 [3DES](/guides/des-3des-legacy-encryption)：
+现代实现使用 [AES](/zh/guides/aes-encryption-explained/) 替代 [3DES](/zh/guides/des-3des-legacy-encryption/)：
 
 - 128/192/256 位密钥大小
 - 增强的安全性
 - 更大的计数器空间
 - 不同的派生算法（NIST SP 800-108）
-- 与 [PIN 块格式 4](/guides/pin-block-formats-iso9564)（AES 加密的 PIN 块）配合使用
+- 与 [PIN 块格式 4](/zh/guides/pin-block-formats-iso9564/)（AES 加密的 PIN 块）配合使用
 
 NIST 于 2023 年弃用 3DES，新部署应使用 AES DUKPT。
 
 ## DUKPT 在支付生态系统中的位置
 
-DUKPT 密钥使用 [TR-31 密钥块](/guides/what-is-tr31-key-block) 传输到设备（BDK 的用途代码为 `B0`）。BDK 存储在 HSM 中，IPEK 在密钥注入仪式期间派生并注入设备。
+DUKPT 密钥使用 [TR-31 密钥块](/zh/guides/what-is-tr31-key-block/) 传输到设备（BDK 的用途代码为 `B0`）。BDK 存储在 HSM 中，IPEK 在密钥注入仪式期间派生并注入设备。
 
-关于密钥如何在支付系统中流转的完整图景，参见 [HSM 密钥管理概述](/guides/hsm-key-management-overview)。
+关于密钥如何在支付系统中流转的完整图景，参见 [HSM 密钥管理概述](/zh/guides/hsm-key-management-overview/)。
 
 ## 亲自尝试
 

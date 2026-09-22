@@ -34,7 +34,7 @@ PAN_formatted = Rightmost 12 digits of PAN (excluding check digit)
 
 **Step 2: Encrypt with PDK**
 
-Use [3DES](/guides/des-3des-legacy-encryption) encryption with the PIN Derivation Key:
+Use [3DES](/guides/des-3des-legacy-encryption/) encryption with the PIN Derivation Key:
 
 ```
 Encrypted = 3DES_Encrypt(PDK, PAN_formatted)
@@ -111,7 +111,7 @@ Offset = (1234 - 0123) mod 10 = 1111
 When a customer enters their PIN at an ATM:
 
 1. ATM sends encrypted PIN block to the host
-2. Host's [HSM](/guides/hsm-key-management-overview) decrypts the PIN block
+2. Host's [HSM](/guides/hsm-key-management-overview/) decrypts the PIN block
 3. HSM retrieves the stored PIN offset for the card
 4. HSM computes the natural PIN using PDK and PAN
 5. HSM adds the offset to the natural PIN
@@ -160,7 +160,7 @@ Track 2: PAN | Expiry | Service Code | Discretionary Data (includes PIN Offset)
 
 ### Mitigations
 
-- Keep the PDK secure inside the [HSM](/guides/hsm-key-management-overview)
+- Keep the PDK secure inside the [HSM](/guides/hsm-key-management-overview/)
 - Use non-default Decimalization Tables
 - Protect the PIN offset database
 - Consider migrating to [PVV](/payments-pin-pvv) for stronger security

@@ -48,7 +48,7 @@
       const parts = location.pathname.split('/').filter(Boolean);
       const slug = parts[0] === 'zh' ? parts[2] : parts[1];
       localStorage.setItem('language', language);
-      location.assign(`${language === 'zh' ? '/zh' : ''}/guides${slug ? `/${slug}` : ''}`);
+      location.assign(`${language === 'zh' ? '/zh' : ''}/guides/${slug ? `${slug}/` : ''}`);
     }
   });
   document.addEventListener('keydown', event => {

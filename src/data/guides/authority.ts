@@ -13,13 +13,13 @@ export interface GuideReference {
 export const GUIDE_AUTHOR: GuideContributor = {
   name: 'HSM Kit Editorial Team',
   role: 'Technical writing and examples',
-  url: 'https://hsmkit.com/guides',
+  url: 'https://hsmkit.com/guides/',
 };
 
 export const GUIDE_REVIEWER: GuideContributor = {
   name: 'HSM Kit Security Review Team',
   role: 'Standards and security review',
-  url: 'https://hsmkit.com/guides',
+  url: 'https://hsmkit.com/guides/',
 };
 
 const references = {
@@ -30,10 +30,13 @@ const references = {
   fips197: { title: 'FIPS 197 — Advanced Encryption Standard (AES)', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/fips/197/final' },
   sp80038a: { title: 'NIST SP 800-38A — Block Cipher Modes of Operation', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/38/a/final' },
   sp80038b: { title: 'NIST SP 800-38B — CMAC Mode for Authentication', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/38/b/upd1/final' },
+  sp80038d: { title: 'NIST SP 800-38D — Galois/Counter Mode (GCM)', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/38/d/final' },
   sp80038g: { title: 'NIST SP 800-38G Rev. 1 — Format-Preserving Encryption', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/38/g/r1/final' },
   sp80067: { title: 'NIST SP 800-67 Rev. 2 — Triple Data Encryption Algorithm', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/67/r2/final' },
   sp800131: { title: 'NIST SP 800-131A Rev. 2 — Transitioning Cryptographic Algorithms', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/131/a/r2/final' },
   rfc8017: { title: 'RFC 8017 — PKCS #1: RSA Cryptography Specifications', publisher: 'IETF', url: 'https://www.rfc-editor.org/rfc/rfc8017' },
+  rfc5652: { title: 'RFC 5652 — Cryptographic Message Syntax', publisher: 'IETF', url: 'https://www.rfc-editor.org/rfc/rfc5652' },
+  webCrypto: { title: 'Web Cryptography Level 2', publisher: 'W3C', url: 'https://www.w3.org/TR/webcrypto-2/' },
   fips186: { title: 'FIPS 186-5 — Digital Signature Standard', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/fips/186-5/final' },
   sp800186: { title: 'NIST SP 800-186 — Recommendations for Discrete Logarithm Cryptography', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/186/final' },
   fips180: { title: 'FIPS 180-4 — Secure Hash Standard', publisher: 'NIST', url: 'https://csrc.nist.gov/pubs/fips/180-4/upd1/final' },
@@ -99,6 +102,10 @@ const referenceMap: Record<string, ReferenceKey[]> = {
   'pin-pvv-visa-verification': ['pciPin', 'visaChip'],
   'zka-german-banking-standard': ['germanBanking', 'iso9797'],
   'visa-certificate-validation-guide': ['visaChip', 'emv'],
+  'aes-gcm-vs-cbc': ['sp80038d', 'sp80038a'],
+  'aes-iv-nonce-reuse': ['sp80038d', 'sp80038a'],
+  'pkcs7-padding-aes': ['rfc5652', 'sp80038a'],
+  'web-crypto-aes-gcm': ['webCrypto', 'sp80038d'],
 };
 
 export const GUIDE_REFERENCE_SLUGS = Object.keys(referenceMap);

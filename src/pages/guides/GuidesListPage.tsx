@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { Card, Typography, Row, Col, Input, Empty, Button } from 'antd';
 import { Link, useParams } from 'react-router-dom';
-import { getGuideCategoryPath, getGuidesPath } from '../../utils/guidesPath';
+import { getGuideCategoryPath, getGuidesPath, getGuidesUrl } from '../../utils/guidesPath';
 import type { Language } from '../../locales';
 import {
   SearchOutlined,
@@ -212,7 +212,7 @@ const GuidesListPage: React.FC = () => {
     );
   }, [articles]);
 
-  const canonical = language === 'zh' ? 'https://hsmkit.com/zh/guides' : 'https://hsmkit.com/guides';
+  const canonical = getGuidesUrl(language);
 
   useLayoutEffect(() => {
     const schema = {
@@ -305,9 +305,9 @@ const GuidesListPage: React.FC = () => {
         ogImageHeight={630}
         ogImageAlt={guides.seoTitle || 'HSM Kit Security Knowledge Base'}
         alternates={[
-          { lang: 'en', href: 'https://hsmkit.com/guides' },
-          { lang: 'zh', href: 'https://hsmkit.com/zh/guides' },
-          { lang: 'x-default', href: 'https://hsmkit.com/guides' },
+          { lang: 'en', href: getGuidesUrl('en') },
+          { lang: 'zh', href: getGuidesUrl('zh') },
+          { lang: 'x-default', href: getGuidesUrl('en') },
         ]}
       />
       <div className="guides-page-shell">

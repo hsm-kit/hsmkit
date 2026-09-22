@@ -4,7 +4,7 @@ Mastercard Dynamic CVC3 is a card verification value that changes with every tra
 
 Dynamic CVC3 (Card Verification Code 3) is Mastercard's implementation of dynamic card verification. Unlike the static CVV printed on a card, CVC3 is generated fresh for each transaction using cryptographic keys stored in the card's chip.
 
-This makes stolen CVC3 values useless for future transactions — a significant security improvement over static [CVV/CVC](/guides/cvv-cvc-calculation-methods).
+This makes stolen CVC3 values useless for future transactions — a significant security improvement over static [CVV/CVC](/guides/cvv-cvc-calculation-methods/).
 
 ## How EMV Dynamic Verification Works
 
@@ -40,7 +40,7 @@ The card-specific key is derived from the Issuer Master Key:
 Card Key = DerivedKey(IMK, PAN)
 ```
 
-This uses the standard EMV key derivation method, which typically involves [3DES](/guides/des-3des-legacy-encryption) encryption with the PAN as diversification data.
+This uses the standard EMV key derivation method, which typically involves [3DES](/guides/des-3des-legacy-encryption/) encryption with the PAN as diversification data.
 
 **Step 2: Construct the Data Block**
 

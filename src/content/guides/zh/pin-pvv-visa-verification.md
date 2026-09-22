@@ -47,7 +47,7 @@ PAN_格式化 = PAN[4:16]（第 4 到第 15 位，从 0 开始索引）
 
 **步骤 4：使用 PVK 加密**
 
-使用选定的 PVK 通过 [3DES](/guides/des-3des-legacy-encryption) 加密数据块：
+使用选定的 PVK 通过 [3DES](/zh/guides/des-3des-legacy-encryption/) 加密数据块：
 
 ```
 加密结果 = 3DES_Encrypt(PVK, 数据块)
@@ -101,7 +101,7 @@ A→0, 1→1, B→1, 2→2, C→2, 3→3, D→3, 4→4, E→4, 5→5, F→5, 6�
 
 1. ATM 从磁条读取 PVV 和 PVKI
 2. ATM 将加密的 PIN 块发送到主机
-3. 主机的 [HSM](/guides/hsm-key-management-overview) 解密 PIN 块
+3. 主机的 [HSM](/zh/guides/hsm-key-management-overview/) 解密 PIN 块
 4. HSM 使用 PVKI 选择 PVK
 5. HSM 使用提交的 PIN、PAN 和 PVK 计算 PVV
 6. HSM 将计算的 PVV 与存储的 PVV 进行比较
@@ -184,7 +184,7 @@ PVKI 和 PVV 共同占用自由数据字段中的 5 位数字。
 
 ### PVV 与 CVV 有什么不同？
 
-[CVV](/guides/cvv-cvc-calculation-methods) 通过验证卡数据来防止卡片欺诈。PVV 通过验证客户的 PIN 来防止 PIN 欺诈。它们使用不同的密钥，服务于不同的目的。
+[CVV](/zh/guides/cvv-cvc-calculation-methods/) 通过验证卡数据来防止卡片欺诈。PVV 通过验证客户的 PIN 来防止 PIN 欺诈。它们使用不同的密钥，服务于不同的目的。
 
 ### 一张卡可以有多个 PVV 吗？
 

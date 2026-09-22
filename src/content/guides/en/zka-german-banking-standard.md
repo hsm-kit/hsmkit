@@ -19,7 +19,7 @@ A core concept in ZKA is the **Session Key** — a temporary key derived for eac
 
 Session keys are derived from:
 
-- **Master Key**: A long-term key stored in the [HSM](/guides/hsm-key-management-overview)
+- **Master Key**: A long-term key stored in the [HSM](/guides/hsm-key-management-overview/)
 - **Transaction Data**: Unique data from the current transaction (e.g., timestamp, sequence number)
 - **Random Data**: Nonces or random values to ensure uniqueness
 
@@ -31,8 +31,8 @@ Session_Key = KDF(Master_Key, Transaction_Data || Random_Data)
 
 The Key Derivation Function (KDF) typically uses:
 
-- [3DES](/guides/des-3des-legacy-encryption) encryption in CBC mode
-- [AES](/guides/aes-encryption-explained) for newer implementations
+- [3DES](/guides/des-3des-legacy-encryption/) encryption in CBC mode
+- [AES](/guides/aes-encryption-explained/) for newer implementations
 - CMAC-based derivation for stronger security
 
 ### Key Hierarchy
@@ -82,7 +82,7 @@ ZKA defines how PINs are encrypted for secure transmission:
 
 ### PIN Block Format
 
-ZKA typically uses [ISO 9564 Format 0](/guides/pin-block-formats-iso9564) for PIN blocks:
+ZKA typically uses [ISO 9564 Format 0](/guides/pin-block-formats-iso9564/) for PIN blocks:
 
 ```
 PIN Block = PIN Field XOR PAN Field
@@ -102,7 +102,7 @@ The PAN field uses the standard ISO-0 format with the rightmost 12 digits of the
 
 - SK-pac is a session key, valid only for the current session
 - Even if intercepted, the key expires after the session
-- The master key is never exposed outside the [HSM](/guides/hsm-key-management-overview)
+- The master key is never exposed outside the [HSM](/guides/hsm-key-management-overview/)
 
 ## MAC Calculation in ZKA
 
@@ -110,7 +110,7 @@ ZKA uses Message Authentication Codes to ensure transaction integrity:
 
 ### MAC Algorithm
 
-ZKA typically uses CBC-MAC based on [3DES](/guides/des-3des-legacy-encryption):
+ZKA typically uses CBC-MAC based on [3DES](/guides/des-3des-legacy-encryption/):
 
 1. Divide the message into 8-byte blocks
 2. Encrypt the first block with the MAC session key
@@ -191,7 +191,7 @@ The master key never leaves the HSM:
 
 - All key derivation happens inside the HSM
 - Session keys are derived on demand
-- Master key components are split for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv))
+- Master key components are split for loading (see [Key Splitting guide](/guides/understanding-key-splitting-kcv/))
 
 ## Common Questions
 
@@ -201,7 +201,7 @@ ZKA is primarily a German banking standard, but it may be used by German banks o
 
 ### Can ZKA use AES?
 
-Newer ZKA implementations support [AES](/guides/aes-encryption-explained) encryption, though 3DES remains common in legacy systems.
+Newer ZKA implementations support [AES](/guides/aes-encryption-explained/) encryption, though 3DES remains common in legacy systems.
 
 ### How does ZKA relate to EMV?
 
@@ -209,7 +209,7 @@ ZKA operates at the network/host level, while EMV operates at the card/terminal 
 
 ### What is the difference between ZKA and TR-31?
 
-[TR-31](/guides/what-is-tr31-key-block) is a key block format for transporting keys. ZKA is a complete security framework that defines how keys are derived and used. TR-31 can be used within a ZKA implementation for key transport.
+[TR-31](/guides/what-is-tr31-key-block/) is a key block format for transporting keys. ZKA is a complete security framework that defines how keys are derived and used. TR-31 can be used within a ZKA implementation for key transport.
 
 ## Try It Yourself
 

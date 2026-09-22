@@ -492,5 +492,57 @@
     "readTime": 9,
     "relatedTool": "/payments-visa-certificates",
     "relatedToolName": "VISA Certificate Validator"
+  },
+  {
+    "slug": "aes-gcm-vs-cbc",
+    "title": "AES-GCM vs AES-CBC: Which Mode Should You Use?",
+    "excerpt": "Compare AES-GCM and AES-CBC security, authentication, IV requirements, performance, and compatibility to choose the right encryption mode.",
+    "category": "Cipher",
+    "tags": ["AES", "GCM", "CBC", "Authenticated Encryption", "AEAD"],
+    "isFeatured": true,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 9,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES Encryption Tool"
+  },
+  {
+    "slug": "aes-iv-nonce-reuse",
+    "title": "AES IV and Nonce Reuse: Risks & Prevention",
+    "excerpt": "Learn why IV and nonce reuse breaks AES-CBC, CTR, and GCM security, how to generate safe values, and how to design reliable nonce storage.",
+    "category": "Cipher",
+    "tags": ["AES", "IV", "Nonce", "GCM", "Cryptography Errors"],
+    "isFeatured": false,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 9,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES Encryption Tool"
+  },
+  {
+    "slug": "pkcs7-padding-aes",
+    "title": "PKCS#7 Padding for AES: How It Works",
+    "excerpt": "Understand PKCS#7 padding byte by byte, including full-block padding, validation, common errors, and safe unpadding for AES-CBC.",
+    "category": "Cipher",
+    "tags": ["AES", "PKCS#7", "Padding", "CBC", "Padding Oracle"],
+    "isFeatured": false,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 8,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES Encryption Tool"
+  },
+  {
+    "slug": "web-crypto-aes-gcm",
+    "title": "Web Crypto AES-GCM: Browser Encryption Guide",
+    "excerpt": "Implement AES-GCM with the Web Crypto API using secure key generation, unique nonces, authenticated data, and portable ciphertext packaging.",
+    "category": "Cipher",
+    "tags": ["AES-GCM", "Web Crypto API", "JavaScript", "Browser", "AEAD"],
+    "isFeatured": true,
+    "publishDate": "2026-09-22",
+    "lastModified": "2026-09-22",
+    "readTime": 10,
+    "relatedTool": "/aes-encryption",
+    "relatedToolName": "AES Encryption Tool"
   }
 ]

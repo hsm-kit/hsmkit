@@ -2,7 +2,7 @@ AES-DUKPT is the modern evolution of the DUKPT key management scheme, replacing 
 
 ## What is AES-DUKPT?
 
-AES-DUKPT (Advanced Encryption Standard - Derived Unique Key Per Transaction) is defined in ANSI X9.24-3 and provides the same per-transaction key uniqueness as traditional DUKPT, but using [AES](/guides/aes-encryption-explained) instead of [3DES](/guides/des-3des-legacy-encryption).
+AES-DUKPT (Advanced Encryption Standard - Derived Unique Key Per Transaction) is defined in ANSI X9.24-3 and provides the same per-transaction key uniqueness as traditional DUKPT, but using [AES](/guides/aes-encryption-explained/) instead of [3DES](/guides/des-3des-legacy-encryption/).
 
 NIST deprecated 3DES in 2023, making AES-DUKPT the recommended approach for new payment terminal deployments.
 
@@ -24,10 +24,10 @@ NIST deprecated 3DES in 2023, making AES-DUKPT the recommended approach for new 
 
 The master key held by the acquirer or payment processor:
 
-- Stored in the [HSM](/guides/hsm-key-management-overview) encrypted under the [LMK](/guides/thales-lmk-key-encryption)
+- Stored in the [HSM](/guides/hsm-key-management-overview/) encrypted under the [LMK](/guides/thales-lmk-key-encryption/)
 - Used to derive Initial Keys for devices
 - Never leaves the secure key management system
-- In [TR-31 format](/guides/what-is-tr31-key-block), key usage code is `B0`
+- In [TR-31 format](/guides/what-is-tr31-key-block/), key usage code is `B0`
 
 ### Initial Key (IK)
 
@@ -84,8 +84,8 @@ The derivation uses a tree-based approach where:
 
 From the transaction key, derive specific working keys for different purposes:
 
-- **PIN Encryption Key**: For encrypting [PIN blocks (Format 4)](/guides/pin-block-formats-iso9564)
-- **MAC Key**: For computing [message authentication codes](/guides/mac-algorithms-payment-security)
+- **PIN Encryption Key**: For encrypting [PIN blocks (Format 4)](/guides/pin-block-formats-iso9564/)
+- **MAC Key**: For computing [message authentication codes](/guides/mac-algorithms-payment-security/)
 - **Data Encryption Key**: For encrypting sensitive data
 
 Each working key is derived by applying the KDF with a different context/label.
@@ -148,7 +148,7 @@ AES-128 provides stronger security than 2-key 3DES:
 
 ## PIN Block Format 4
 
-AES-DUKPT works with [PIN Block Format 4](/guides/pin-block-formats-iso9564), which is the AES-based PIN block format:
+AES-DUKPT works with [PIN Block Format 4](/guides/pin-block-formats-iso9564/), which is the AES-based PIN block format:
 
 - 16 bytes instead of 8 bytes
 - AES-128 encryption instead of 3DES
@@ -161,11 +161,11 @@ Format 4 is part of the broader migration from 3DES to AES in payment systems.
 
 For organizations migrating from TDEA-DUKPT to AES-DUKPT:
 
-1. **HSM Support**: Ensure your [HSM](/guides/hsm-key-management-overview) supports AES-DUKPT (Thales, SafeNet, etc.)
+1. **HSM Support**: Ensure your [HSM](/guides/hsm-key-management-overview/) supports AES-DUKPT (Thales, SafeNet, etc.)
 2. **Terminal Updates**: Deploy new terminals with AES-DUKPT support
 3. **Key Injection**: Perform new key injection ceremonies with AES BDKs
 4. **Dual Support**: Run both systems in parallel during transition
-5. **TR-31 Version D**: Use [TR-31 Version D](/guides/what-is-tr31-key-block) key blocks for AES key transport
+5. **TR-31 Version D**: Use [TR-31 Version D](/guides/what-is-tr31-key-block/) key blocks for AES key transport
 
 ## Try It Yourself
 

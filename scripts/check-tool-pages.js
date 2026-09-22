@@ -67,17 +67,30 @@ const mainHtml = await fs.readFile(path.join(root, 'dist/index.html'), 'utf8');
 const mainEntry = mainHtml.match(/<script\b[^>]*\bsrc="([^"]*\/assets\/main-[^"]+\.js)"/)?.[1];
 const usesStaticGuideDelivery = html => /<script\b[^>]*\bsrc="\/guides-static\.js\?v=[a-f0-9]{12}"[^>]*>/i.test(html)
   && !/<script\b[^>]*\btype="module"/i.test(html);
+const hasFinalGuideUrls = html => /<link\b[^>]*\brel="canonical"[^>]*\bhref="https:\/\/hsmkit\.com\/(?:zh\/)?guides(?:\/[a-z0-9-]+)?\/"/i.test(html)
+  && !/<link\b[^>]*\b(?:rel="canonical"|hreflang="[^"]+")[^>]*\bhref="https:\/\/hsmkit\.com\/(?:zh\/)?guides(?:\/[a-z0-9-]+)?"(?=[ >])/i.test(html);
 let checkedOgImages = 0;
+let checkedArticles = 0;
+let checkedCategories = 0;
+let checkedIndexes = 0;
+
+const findRedirectingGuideLinks = (html, language) => {
+  const hrefs = [...html.matchAll(/href="(\/(?:zh\/)?guides(?:\/[a-z0-9-]+)?)"/gi)].map(match => match[1]);
+  return hrefs.filter(href => !href.endsWith('/') || (language === 'zh' && href.startsWith('/guides/')));
+};
 
 for (const { language, metadata, routePrefix } of guideLanguages) {
   const articles = JSON.parse(await fs.readFile(path.join(root, 'src/data/guides', metadata), 'utf8'));
   const listHtml = await fs.readFile(path.join(root, 'dist', routePrefix.slice(1), 'index.html'), 'utf8');
+  checkedIndexes += 1;
   if (!listHtml.includes('"@type":"CollectionPage"') || !listHtml.includes('"@type":"ItemList"')) {
     guideFailures.push(`${routePrefix}: missing CollectionPage or ItemList schema`);
   }
   if (!usesStaticGuideDelivery(listHtml)) {
     guideFailures.push(`${routePrefix}: static guide delivery is not configured`);
   }
+  if (!hasFinalGuideUrls(listHtml)) guideFailures.push(`${routePrefix}: canonical or hreflang URL redirects`);
+  if (findRedirectingGuideLinks(listHtml, language).length > 0) guideFailures.push(`${routePrefix}: internal guide link redirects or changes language`);
   const listOgPath = path.join(root, 'dist/og/guides', language, 'index.png');
   const listOgMetadata = await sharp(listOgPath).metadata();
   checkedOgImages += 1;
@@ -86,6 +99,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
   }
 
   for (const category of categories) {
+    checkedCategories += 1;
     const routePath = `${routePrefix}/${category.slug}`;
     let html;
     try {
@@ -100,6 +114,8 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     if (!usesStaticGuideDelivery(html)) {
       guideFailures.push(`${routePath}: category does not use static delivery`);
     }
+    if (!hasFinalGuideUrls(html)) guideFailures.push(`${routePath}: canonical or hreflang URL redirects`);
+    if (findRedirectingGuideLinks(html, language).length > 0) guideFailures.push(`${routePath}: internal guide link redirects or changes language`);
     const ogFile = `category-${category.slug}.png`;
     if (!html.includes(`/og/guides/${language}/${ogFile}`)) {
       guideFailures.push(`${routePath}: incorrect category OG image`);
@@ -112,6 +128,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
   }
 
   for (const article of articles) {
+    checkedArticles += 1;
     const routePath = `${routePrefix}/${article.slug}`;
     const htmlPath = path.join(root, 'dist', routePath.slice(1), 'index.html');
     let html;
@@ -146,6 +163,8 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     if (!usesStaticGuideDelivery(html)) {
       guideFailures.push(`${routePath}: article does not use static delivery`);
     }
+    if (!hasFinalGuideUrls(html)) guideFailures.push(`${routePath}: canonical or hreflang URL redirects`);
+    if (findRedirectingGuideLinks(html, language).length > 0) guideFailures.push(`${routePath}: internal guide link redirects or changes language`);
   }
 }
 
@@ -158,5 +177,5 @@ if (guideFailures.length > 0) {
   guideFailures.forEach((failure) => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log(`Guide page smoke check passed: 76/76 articles, 10/10 categories, 2/2 indexes, and ${checkedOgImages}/88 OG images.`);
+  console.log(`Guide page smoke check passed: ${checkedArticles}/${checkedArticles} articles, ${checkedCategories}/${checkedCategories} categories, ${checkedIndexes}/${checkedIndexes} indexes, and ${checkedOgImages}/${checkedOgImages} OG images.`);
 }

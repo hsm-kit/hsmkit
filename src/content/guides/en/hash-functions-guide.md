@@ -103,10 +103,10 @@ MAC (Message Authentication Code) algorithms use hash functions to verify messag
 - **AES-CMAC**: Modern AES-based MAC — see our [CMAC tool](/payments-mac-cmac)
 
 ### KCV (Key Check Value)
-The KCV is essentially a hash of the key — encrypt zeros with the key and take the first 3 bytes. See our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv).
+The KCV is essentially a hash of the key — encrypt zeros with the key and take the first 3 bytes. See our [Key Splitting & KCV guide](/guides/understanding-key-splitting-kcv/).
 
 ### CVV Calculation
-CVV uses a DES-based hash-like process. See our [CVV guide](/guides/cvv-cvc-calculation-methods).
+CVV uses a DES-based hash-like process. See our [CVV guide](/guides/cvv-cvc-calculation-methods/).
 
 ## Password Hashing — Special Case
 
