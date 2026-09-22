@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import http from 'node:http';
 import path from 'node:path';
 import puppeteer from 'puppeteer';
@@ -11,6 +12,8 @@ const categorySlugs = new Set(categories.map(category => category.slug));
 const concurrency = Number.parseInt(process.env.GUIDE_PRERENDER_CONCURRENCY || '1', 10);
 const maxAttempts = Number.parseInt(process.env.GUIDE_PRERENDER_ATTEMPTS || '3', 10);
 const navigationTimeout = Number.parseInt(process.env.GUIDE_PRERENDER_TIMEOUT || '30000', 10);
+const guideScript = await fs.readFile(path.join(dist, 'guides-static.js'));
+const guideScriptVersion = createHash('sha256').update(guideScript).digest('hex').slice(0, 12);
 
 for (const language of ['en', 'zh']) {
   const prefix = language === 'en' ? '/guides' : '/zh/guides';
@@ -155,7 +158,7 @@ try {
           .replace(/<script\b(?=[^>]*\btype=["']module["'])[^>]*>[\s\S]*?<\/script>/gi, '')
           .replace(/<script[^>]*>window\.__PRERENDER_INJECTED[^<]*<\/script>/g, '')
           .replace(/<meta name="guide-prerender-template" content="guides">/g, '')
-          .replace('</body>', '<script src="/guides-static.js" defer></script></body>');
+          .replace('</body>', `<script src="/guides-static.js?v=${guideScriptVersion}" defer></script></body>`);
 
         const outputPath = path.join(dist, route.replace(/^\//, ''), 'index.html');
         await fs.mkdir(path.dirname(outputPath), { recursive: true });

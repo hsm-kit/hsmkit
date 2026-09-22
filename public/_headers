@@ -20,7 +20,7 @@
   Content-Type: text/plain
 
 /guides-static.js
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=0, must-revalidate
   Content-Type: application/javascript
 
 # 安全头 - 全局

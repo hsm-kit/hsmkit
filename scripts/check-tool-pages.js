@@ -65,6 +65,8 @@ const guideLanguages = [
 const categories = JSON.parse(await fs.readFile(path.join(root, 'src/data/guides/categories.json'), 'utf8'));
 const mainHtml = await fs.readFile(path.join(root, 'dist/index.html'), 'utf8');
 const mainEntry = mainHtml.match(/<script\b[^>]*\bsrc="([^"]*\/assets\/main-[^"]+\.js)"/)?.[1];
+const usesStaticGuideDelivery = html => /<script\b[^>]*\bsrc="\/guides-static\.js\?v=[a-f0-9]{12}"[^>]*>/i.test(html)
+  && !/<script\b[^>]*\btype="module"/i.test(html);
 let checkedOgImages = 0;
 
 for (const { language, metadata, routePrefix } of guideLanguages) {
@@ -73,7 +75,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
   if (!listHtml.includes('"@type":"CollectionPage"') || !listHtml.includes('"@type":"ItemList"')) {
     guideFailures.push(`${routePrefix}: missing CollectionPage or ItemList schema`);
   }
-  if (!listHtml.includes('src="/guides-static.js"') || /<script\b[^>]*\btype="module"/i.test(listHtml)) {
+  if (!usesStaticGuideDelivery(listHtml)) {
     guideFailures.push(`${routePrefix}: static guide delivery is not configured`);
   }
   const listOgPath = path.join(root, 'dist/og/guides', language, 'index.png');
@@ -95,7 +97,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     if (!html.includes('"@type":"CollectionPage"') || !html.includes('"@type":"ItemList"')) {
       guideFailures.push(`${routePath}: missing category CollectionPage schema`);
     }
-    if (!html.includes('src="/guides-static.js"') || /<script\b[^>]*\btype="module"/i.test(html)) {
+    if (!usesStaticGuideDelivery(html)) {
       guideFailures.push(`${routePath}: category does not use static delivery`);
     }
     const ogFile = `category-${category.slug}.png`;
@@ -141,7 +143,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     if (!html.includes(`<html lang="${expectedLang}"`)) {
       guideFailures.push(`${routePath}: incorrect html lang`);
     }
-    if (!html.includes('src="/guides-static.js"') || /<script\b[^>]*\btype="module"/i.test(html)) {
+    if (!usesStaticGuideDelivery(html)) {
       guideFailures.push(`${routePath}: article does not use static delivery`);
     }
   }

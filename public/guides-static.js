@@ -25,41 +25,48 @@
     applyTheme(body.classList.contains('dark-mode') ? 'dark' : 'light');
   }
 
-  const languageMenu = document.querySelector('[data-language-menu]');
-  const languageTrigger = languageMenu?.querySelector('.header-language-trigger');
-  const languagePopup = languageMenu?.querySelector('.header-language-popup');
-  const languageOptions = [...(languageMenu?.querySelectorAll('.header-language-option') || [])];
   const setLanguageMenuOpen = (open) => {
+    const languageMenu = document.querySelector('[data-language-menu]');
+    const languageTrigger = languageMenu?.querySelector('.header-language-trigger');
+    const languagePopup = languageMenu?.querySelector('.header-language-popup');
     if (!languageTrigger || !languagePopup) return;
     languageTrigger.setAttribute('aria-expanded', String(open));
     languagePopup.hidden = !open;
   };
 
-  languageTrigger?.addEventListener('click', () => {
-    setLanguageMenuOpen(languageTrigger.getAttribute('aria-expanded') !== 'true');
-  });
-  languageTrigger?.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      setLanguageMenuOpen(true);
-      languageOptions[0]?.focus();
+  document.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    const languageTrigger = event.target.closest('[data-language-menu] .header-language-trigger');
+    if (languageTrigger) {
+      setLanguageMenuOpen(languageTrigger.getAttribute('aria-expanded') !== 'true');
+      return;
     }
-  });
-  languageOptions.forEach(option => option.addEventListener('click', () => {
-    const language = option.dataset.language === 'zh' ? 'zh' : 'en';
-    const parts = location.pathname.split('/').filter(Boolean);
-    const slug = parts[0] === 'zh' ? parts[2] : parts[1];
-    localStorage.setItem('language', language);
-    location.assign(`${language === 'zh' ? '/zh' : ''}/guides${slug ? `/${slug}` : ''}`);
-  }));
-  document.addEventListener('pointerdown', event => {
-    if (languageMenu && !languageMenu.contains(event.target)) setLanguageMenuOpen(false);
+
+    const option = event.target.closest('[data-language-menu] .header-language-option');
+    if (option) {
+      const language = option.dataset.language === 'zh' ? 'zh' : 'en';
+      const parts = location.pathname.split('/').filter(Boolean);
+      const slug = parts[0] === 'zh' ? parts[2] : parts[1];
+      localStorage.setItem('language', language);
+      location.assign(`${language === 'zh' ? '/zh' : ''}/guides${slug ? `/${slug}` : ''}`);
+    }
   });
   document.addEventListener('keydown', event => {
+    if (!(event.target instanceof Element)) return;
+    const languageTrigger = event.target.closest('[data-language-menu] .header-language-trigger');
+    if (languageTrigger && event.key === 'ArrowDown') {
+      event.preventDefault();
+      setLanguageMenuOpen(true);
+      document.querySelector('[data-language-menu] .header-language-option')?.focus();
+    }
     if (event.key === 'Escape') {
       setLanguageMenuOpen(false);
-      languageTrigger?.focus();
+      document.querySelector('[data-language-menu] .header-language-trigger')?.focus();
     }
+  });
+  document.addEventListener('pointerdown', event => {
+    const languageMenu = document.querySelector('[data-language-menu]');
+    if (languageMenu && !languageMenu.contains(event.target)) setLanguageMenuOpen(false);
   });
 
   const searchInput = document.querySelector('.guides-search-input input');
