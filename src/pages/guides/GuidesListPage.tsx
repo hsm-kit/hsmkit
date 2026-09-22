@@ -310,6 +310,7 @@ const GuidesListPage: React.FC = () => {
           { lang: 'x-default', href: 'https://hsmkit.com/guides' },
         ]}
       />
+      <div className="guides-page-shell">
       {/* Hero Section */}
       <div style={{ 
         textAlign: 'center', 
@@ -537,6 +538,7 @@ const GuidesListPage: React.FC = () => {
           ))}
         </>
       )}
+      </div>
     </>
   );
 };

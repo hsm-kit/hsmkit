@@ -111,7 +111,7 @@ const GuidesCategoryPage: React.FC = () => {
         ogLocale={language === 'zh' ? 'zh_CN' : 'en_US'}
       />
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '16px 24px 48px' }}>
+      <div className="guides-page-shell guides-category-page">
         <Breadcrumb
           items={[
             { title: <Link to="/"><HomeOutlined /> {guides.home || 'Home'}</Link> },

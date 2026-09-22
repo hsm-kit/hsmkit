@@ -360,6 +360,13 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
   cursor: pointer;
 }
 
+.guides-page-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 48px;
+}
+
 .guides-header {
   line-height: normal !important;
   color: var(--text-primary);
