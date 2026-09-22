@@ -36,7 +36,9 @@ const applyThemeToDOM = (isDark: boolean) => {
   } else {
     document.body.classList.remove('dark-mode');
   }
-  document.body.style.backgroundColor = isDark ? '#141414' : '#f5f7fa';
+  const backgroundColor = isDark ? '#141414' : '#f5f7fa';
+  document.body.style.backgroundColor = backgroundColor;
+  document.documentElement.style.setProperty('--bg-color', backgroundColor);
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 };
 
@@ -64,7 +66,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }, [themeMode, isReady]);
 
   const toggleTheme = useCallback(() => {
-    setThemeMode(prev => prev === 'light' ? 'dark' : 'light');
+    setThemeMode(prev => {
+      const nextTheme = prev === 'light' ? 'dark' : 'light';
+      applyThemeToDOM(nextTheme === 'dark');
+      try {
+        localStorage.setItem('hsmkit-theme', nextTheme);
+      } catch { /* localStorage unavailable */ }
+      return nextTheme;
+    });
   }, []);
 
   const isDark = themeMode === 'dark';
