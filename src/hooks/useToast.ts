@@ -1,6 +1,13 @@
 import { useCallback } from 'react';
 import { message } from 'antd';
 import { useLanguage } from './useLanguage';
+import { getToolByPath } from '../data/toolRelations';
+import { trackToolEvent } from '../utils/analytics';
+
+const trackCurrentTool = (eventName: 'calculation_success' | 'calculation_error' | 'result_copy') => {
+  const tool = getToolByPath(window.location.pathname);
+  if (tool) trackToolEvent(eventName, { toolId: tool.seoKey });
+};
 
 export function useToast() {
   const { t } = useLanguage();
@@ -22,6 +29,7 @@ export function useToast() {
   }, []);
 
   const copySuccess = useCallback(() => {
+    trackCurrentTool('result_copy');
     message.success(t.common.copied || 'Copied to clipboard!');
   }, [t.common.copied]);
 
@@ -30,10 +38,12 @@ export function useToast() {
   }, [t.common.copyFailed]);
 
   const operationSuccess = useCallback((msg?: string) => {
+    trackCurrentTool('calculation_success');
     message.success(msg || t.common.operationSuccess || 'Operation completed successfully');
   }, [t.common.operationSuccess]);
 
   const operationError = useCallback((msg?: string) => {
+    trackCurrentTool('calculation_error');
     message.error(msg || t.common.operationFailed || 'Operation failed');
   }, [t.common.operationFailed]);
 
