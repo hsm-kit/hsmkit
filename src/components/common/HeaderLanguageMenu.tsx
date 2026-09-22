@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { CheckOutlined, DownOutlined, GlobalOutlined } from '@ant-design/icons';
+import { CheckOutlined, GlobalOutlined } from '@ant-design/icons';
 import type { Language } from '../../locales';
 
 export interface HeaderLanguageOption {
@@ -69,7 +69,6 @@ const HeaderLanguageMenu: React.FC<HeaderLanguageMenuProps> = ({
       >
         <span className="header-language-value">{selected.label}</span>
         <GlobalOutlined className="header-language-icon" aria-hidden="true" />
-        <DownOutlined className="header-language-arrow" aria-hidden="true" />
       </button>
       <div id={menuId} className="header-language-popup" role="menu" hidden={!open}>
         {options.map(option => (
