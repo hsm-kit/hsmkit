@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Tabs } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel, LengthIndicator } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -240,14 +240,11 @@ const Base94Tool: React.FC = () => {
 
       {/* Input Data */}
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>
-            {t.base94?.data || 'Data'}:
-          </Text>
+        <FieldLabel label={`${t.base94?.data || 'Data'}:`} current={encodeInput.length} extra={
           <ExampleButton onClick={() => {
             setEncodeInput(examples.base94.input);
           }} />
-        </div>
+        } />
         <TextArea
           value={encodeInput}
           onChange={e => setEncodeInput(e.target.value)}
@@ -374,13 +371,7 @@ const Base94Tool: React.FC = () => {
           <Text strong>
             {t.base94?.data || 'Data'}:
           </Text>
-          <Text style={{ 
-            fontSize: '12px',
-            color: decodeInput.length > 0 ? '#52c41a' : '#999',
-            fontWeight: decodeInput.length > 0 ? 600 : 400
-          }}>
-            [{decodeInput.replace(/[\s\n\r]/g, '').length}]
-          </Text>
+          <LengthIndicator current={decodeInput.replace(/[\s\n\r]/g, '').length} />
         </div>
         <TextArea
           value={decodeInput}

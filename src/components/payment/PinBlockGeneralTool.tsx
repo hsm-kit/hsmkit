@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Select, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
 import { examples } from '../../data/examples';
@@ -28,18 +28,6 @@ const PinBlockGeneralTool: React.FC = () => {
   const [paddingChar, setPaddingChar] = useState('F');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
-
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
 
   // PIN Block 编码（Encode）
   const encodePinBlock = (
@@ -404,16 +392,13 @@ const PinBlockGeneralTool: React.FC = () => {
             {/* PAN Input */}
             {(mode === 'encode' || format !== 'ISO-1') && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.pinBlockGeneral?.panLabel || 'PAN:'}
-                </Text>
+                <FieldLabel label={t.pinBlockGeneral?.panLabel || 'PAN:'} current={pan.replace(/\D/g, '').length} min={13} max={19} />
                 <Input
                   value={pan}
                   onChange={(e) => setPan(sanitizeDigits(e.target.value))}
                   placeholder={t.pinBlockGeneral?.panPlaceholder || '456789012345cccc'}
                   maxLength={19}
                   prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-                  suffix={mode === 'decode' ? lengthIndicator(pan.replace(/\D/g, '').length, 16) : undefined}
                   style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
@@ -423,15 +408,14 @@ const PinBlockGeneralTool: React.FC = () => {
             {/* Encode Mode: PIN Input */}
             {mode === 'encode' && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.pinBlockGeneral?.pinLabel || 'PIN:'}
-                </Text>
+                <FieldLabel label={t.pinBlockGeneral?.pinLabel || 'PIN:'} current={pin.length} min={4} max={12} />
                 <Input
                   value={pin}
                   onChange={(e) => setPin(sanitizeDigits(e.target.value))}
                   placeholder={t.pinBlockGeneral?.pinPlaceholder || '123456'}
                   maxLength={12}
-                  prefix={<NumberOutlined style={{ color: '#bfbfbf' }} />}                  suffix={lengthIndicator(pin.length, 4)}                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                  prefix={<NumberOutlined style={{ color: '#bfbfbf' }} />}
+                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                   size="large"
                 />
               </div>
@@ -440,9 +424,7 @@ const PinBlockGeneralTool: React.FC = () => {
             {/* Decode Mode: PIN Block Input */}
             {mode === 'decode' && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.pinBlockGeneral?.pinBlockLabel || 'PIN Block:'}
-                </Text>
+                <FieldLabel label={t.pinBlockGeneral?.pinBlockLabel || 'PIN Block:'} current={sanitizeHex(pinBlock).length} expected={format === 'ISO-4' ? 32 : 16} />
                 <TextArea
                   value={pinBlock}
                   onChange={(e) => setPinBlock(sanitizeHex(e.target.value))}

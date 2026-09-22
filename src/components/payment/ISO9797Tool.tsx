@@ -3,7 +3,7 @@ import { Card, Button, Select, Input, message, Typography, Divider } from 'antd'
 import { CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -148,18 +148,6 @@ const ISO9797Tool: React.FC = () => {
     return value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -256,17 +244,16 @@ const ISO9797Tool: React.FC = () => {
           ].map((label, idx) => (
             <div key={idx}>
               {idx === 0 ? (
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <Text strong>{label}</Text>
+                <FieldLabel label={label} current={sanitizeHex(keys[idx]).length} expected={[16, 32]} extra={
                   <ExampleButton onClick={() => {
                     const newKeys = [...keys];
                     newKeys[0] = examples.iso9797.key;
                     setKeys(newKeys);
                     setData(examples.iso9797.data);
                   }} />
-                </div>
+                } />
               ) : (
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>{label}</Text>
+                <FieldLabel label={label} current={sanitizeHex(keys[idx]).length} expected={[0, 16, 32]} />
               )}
               <Input
                 value={keys[idx]}
@@ -304,7 +291,7 @@ const ISO9797Tool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.iso9797?.data || 'Data'}:</Text>
+            <FieldLabel label={`${t.mac?.iso9797?.data || 'Data'}:`} current={sanitizeHex(data).length} />
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
@@ -318,10 +305,7 @@ const ISO9797Tool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.mac?.iso9797?.truncation || 'Truncation'}:</Text>
-              {lengthIndicator(truncation.length, 1)}
-            </div>
+            <FieldLabel label={`${t.mac?.iso9797?.truncation || 'Truncation'}:`} current={truncation.length} expected={1} />
             <Input
               value={truncation}
               onChange={e => setTruncation(e.target.value.replace(/[^0-9]/g, ''))}

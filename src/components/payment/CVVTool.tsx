@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -227,23 +227,10 @@ const CVVTool: React.FC = () => {
     }
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   const generateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>CVK A:</Text>
+        <FieldLabel label="CVK A:" current={sanitizeHex(genCvkA).length} expected={32} extra={
           <ExampleButton onClick={() => {
             setGenCvkA(examples.cvv.cvkA);
             setGenCvkB(examples.cvv.cvkB);
@@ -251,13 +238,12 @@ const CVVTool: React.FC = () => {
             setGenExpDate(examples.cvv.expDate);
             setGenServiceCode(examples.cvv.serviceCode);
           }} />
-        </div>
+        } />
         <Input
           value={genCvkA}
           onChange={e => setGenCvkA(sanitizeHex(e.target.value))}
           placeholder="0123456789ABCDEFFEDCBA9876543210"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(genCvkA).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -267,13 +253,12 @@ const CVVTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CVK B:</Text>
+        <FieldLabel label="CVK B:" current={sanitizeHex(genCvkB).length} expected={32} />
         <Input
           value={genCvkB}
           onChange={e => setGenCvkB(sanitizeHex(e.target.value))}
           placeholder="FEDCBA98765432100123456789ABCDEF"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(genCvkB).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -283,14 +268,13 @@ const CVVTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(genPan).length} min={13} max={19} />
         <Input
           value={genPan}
           onChange={e => setGenPan(sanitizeDigits(e.target.value))}
           placeholder="4999988887777000"
           maxLength={19}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(genPan).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -301,13 +285,12 @@ const CVVTool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Exp. date:</Text>
+          <FieldLabel label="Exp. date:" current={genExpDate.length} expected={4} />
           <Input
             value={genExpDate}
             onChange={e => setGenExpDate(sanitizeDigits(e.target.value))}
             placeholder="9105"
             maxLength={4}
-            suffix={lengthIndicator(genExpDate.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -317,13 +300,12 @@ const CVVTool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Service Code:</Text>
+          <FieldLabel label="Service Code:" current={genServiceCode.length} expected={3} />
           <Input
             value={genServiceCode}
             onChange={e => setGenServiceCode(sanitizeDigits(e.target.value))}
             placeholder="101"
             maxLength={3}
-            suffix={lengthIndicator(genServiceCode.length, 3)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -335,13 +317,12 @@ const CVVTool: React.FC = () => {
 
       {(genType === 'iCVV' || genType === 'dCVV') && (
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>ATC:</Text>
+          <FieldLabel label="ATC:" current={genAtc.length} expected={4} />
           <Input
             value={genAtc}
             onChange={e => setGenAtc(sanitizeDigits(e.target.value))}
             placeholder="1234"
             maxLength={4}
-            suffix={lengthIndicator(genAtc.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -409,13 +390,12 @@ const CVVTool: React.FC = () => {
   const validateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CVK A:</Text>
+        <FieldLabel label="CVK A:" current={sanitizeHex(valCvkA).length} expected={32} />
         <Input
           value={valCvkA}
           onChange={e => setValCvkA(sanitizeHex(e.target.value))}
           placeholder="0123456789ABCDEFFEDCBA9876543210"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(valCvkA).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -425,13 +405,12 @@ const CVVTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CVK B:</Text>
+        <FieldLabel label="CVK B:" current={sanitizeHex(valCvkB).length} expected={32} />
         <Input
           value={valCvkB}
           onChange={e => setValCvkB(sanitizeHex(e.target.value))}
           placeholder="FEDCBA98765432100123456789ABCDEF"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(valCvkB).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -441,14 +420,13 @@ const CVVTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(valPan).length} min={13} max={19} />
         <Input
           value={valPan}
           onChange={e => setValPan(sanitizeDigits(e.target.value))}
           placeholder="4999988887777000"
           maxLength={19}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(valPan).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -459,13 +437,12 @@ const CVVTool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Exp. date:</Text>
+          <FieldLabel label="Exp. date:" current={valExpDate.length} expected={4} />
           <Input
             value={valExpDate}
             onChange={e => setValExpDate(sanitizeDigits(e.target.value))}
             placeholder="9105"
             maxLength={4}
-            suffix={lengthIndicator(valExpDate.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -475,13 +452,12 @@ const CVVTool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Service Code:</Text>
+          <FieldLabel label="Service Code:" current={valServiceCode.length} expected={3} />
           <Input
             value={valServiceCode}
             onChange={e => setValServiceCode(sanitizeDigits(e.target.value))}
             placeholder="101"
             maxLength={3}
-            suffix={lengthIndicator(valServiceCode.length, 3)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -493,13 +469,12 @@ const CVVTool: React.FC = () => {
 
       {(valType === 'iCVV' || valType === 'dCVV') && (
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>ATC:</Text>
+          <FieldLabel label="ATC:" current={valAtc.length} expected={4} />
           <Input
             value={valAtc}
             onChange={e => setValAtc(sanitizeDigits(e.target.value))}
             placeholder="1234"
             maxLength={4}
-            suffix={lengthIndicator(valAtc.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -510,13 +485,12 @@ const CVVTool: React.FC = () => {
       )}
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Ver.Val.:</Text>
+        <FieldLabel label="Ver.Val.:" current={valCvv.length} expected={3} />
         <Input
           value={valCvv}
           onChange={e => setValCvv(sanitizeDigits(e.target.value))}
           placeholder="539"
           maxLength={3}
-          suffix={lengthIndicator(valCvv.length, 3)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'

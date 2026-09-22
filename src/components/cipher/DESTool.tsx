@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { workerDesEncrypt, isWorkerAvailable } from '../../utils/cryptoWorker';
-import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode, getLengthColor } from '../../utils/hex';
+import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode } from '../../utils/hex';
 import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
@@ -17,9 +17,6 @@ type DESMode = 'ECB' | 'CBC' | 'CFB' | 'OFB';
 type InputType = 'ASCII' | 'Hex';
 type PaddingType = 'None' | 'Zeros' | 'Spaces' | 'PKCS5' | 'PKCS7' | 'ISO10126' | 'ANSIX923' | 'ISO7816' | 'Rijndael' | 'ISO9797M1' | 'ISO9797M2';
 
-// 默认 IV（8字节全0，DES 块大小为 8 字节）
-const DEFAULT_IV = '0000000000000000';
-
 const DESTool: React.FC = () => {
   const { t } = useLanguage();
   const { isDark } = useTheme();
@@ -29,7 +26,7 @@ const DESTool: React.FC = () => {
   const [padding, setPadding] = useState<PaddingType>('ISO9797M1');
   const [key, setKey] = useState('');
   const [data, setData] = useState('');
-  const [iv, setIv] = useState(DEFAULT_IV);
+  const [iv, setIv] = useState('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
   const [lastOperation, setLastOperation] = useState<'encrypt' | 'decrypt' | null>(null);
@@ -39,12 +36,6 @@ const DESTool: React.FC = () => {
   // 是否需要 IV（ECB 模式不需要）
   const needsIv = mode !== 'ECB';
 
-  // 获取期望的密钥长度（字节数）
-  const getExpectedKeyLength = (): number => {
-    if (algorithm === 'DES') return 8;
-    return 16; // 3DES 使用 16 或 24 字节，这里默认 16
-  };
-
   // 获取有效的密钥长度列表
   const getValidKeyLengths = (): number[] => {
     if (algorithm === 'DES') return [8];
@@ -53,25 +44,6 @@ const DESTool: React.FC = () => {
 
   // 获取 IV 长度（DES 块大小固定为 8 字节）
   const getExpectedIvLength = (): number => 8;
-
-  // 获取当前 Key 的实际字节数
-  const getActualKeyLength = (): number => {
-    const clean = cleanHex(key);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取当前 Data 的实际字节数（仅 Hex 模式）
-  const getActualDataLength = (): number => {
-    if (inputType !== 'Hex') return 0;
-    const clean = cleanHex(data);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取当前 IV 的实际字节数
-  const getActualIvLength = (): number => {
-    const clean = cleanHex(iv);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
 
   // 自定义 Spaces padding（用空格 0x20 填充）
   const SpacesPadding = {
@@ -457,22 +429,17 @@ const DESTool: React.FC = () => {
 
             {/* Key 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.des?.key || 'Key'}:</Text>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ExampleButton onClick={() => {
+              <FieldLabel
+                label={`${t.des?.key || 'Key'}:`}
+                current={cleanHex(key).length / 2}
+                expected={getValidKeyLengths()}
+                valid={isValidHex(cleanHex(key))}
+                extra={<ExampleButton onClick={() => {
                     setKey(examples.des.key);
                     setData(examples.des.data);
-                  }} />
-                  <Text style={{ 
-                    fontSize: '12px', 
-                    color: getLengthColor(getActualKeyLength(), getValidKeyLengths()),
-                    fontWeight: getActualKeyLength() > 0 ? 600 : 400
-                  }}>
-                    [{getActualKeyLength() || getExpectedKeyLength()}]
-                  </Text>
-                </div>
-              </div>
+                    setIv(examples.des.iv);
+                  }} />}
+              />
               <Input
                 value={key}
                 onChange={e => setKey(e.target.value)}
@@ -486,19 +453,11 @@ const DESTool: React.FC = () => {
 
             {/* Data 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.des?.data || 'Data'}:</Text>
-                {inputType === 'Hex' && (
-                  <Text style={{ 
-                    fontSize: '12px',
-                    color: getActualDataLength() === 0 ? '#999' : 
-                           (padding === 'None' ? (getActualDataLength() % 8 === 0 ? '#52c41a' : '#ff4d4f') : '#52c41a'),
-                    fontWeight: getActualDataLength() > 0 ? 600 : 400
-                  }}>
-                    [{getActualDataLength()}]
-                  </Text>
-                )}
-              </div>
+              <FieldLabel
+                label={`${t.des?.data || 'Data'}:`}
+                current={inputType === 'Hex' ? cleanHex(data).length / 2 : data.length}
+                valid={inputType === 'Hex' ? isValidHex(cleanHex(data)) && (padding !== 'None' || cleanHex(data).length / 2 % 8 === 0) : undefined}
+              />
               <TextArea
                 value={data}
                 onChange={e => setData(e.target.value)}
@@ -512,16 +471,7 @@ const DESTool: React.FC = () => {
 
             {/* IV 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: needsIv ? undefined : '#999' }}>IV:</Text>
-                <Text style={{ 
-                  fontSize: '12px',
-                  color: getLengthColor(getActualIvLength(), getExpectedIvLength(), !needsIv),
-                  fontWeight: needsIv && getActualIvLength() > 0 ? 600 : 400
-                }}>
-                  [{needsIv ? (getActualIvLength() || getExpectedIvLength()) : getExpectedIvLength()}]
-                </Text>
-              </div>
+              <FieldLabel label="IV:" current={cleanHex(iv).length / 2} expected={getExpectedIvLength()} valid={isValidHex(cleanHex(iv))} disabled={!needsIv} />
               <Input
                 value={iv}
                 onChange={e => setIv(e.target.value)}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, Select, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ErrorCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { isValidHex } from '../../utils/hex';
@@ -167,13 +167,15 @@ const HMACTool: React.FC = () => {
 
             {/* Key Input Type */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac?.hmac?.inputTypeLabel}:</Text>
-                <ExampleButton onClick={() => {
+              <FieldLabel
+                label={`${t.mac?.hmac?.inputTypeLabel}:`}
+                current={keyInput.length}
+                valid={keyType === 'Hexadecimal' ? isValidHex(keyInput) : undefined}
+                extra={<ExampleButton onClick={() => {
                   setKeyInput(examples.hmac.key);
                   setDataInput(examples.hmac.data);
-                }} />
-              </div>
+                }} />}
+              />
               <Segmented
                 value={keyType}
                 onChange={(value) => setKeyType(value as InputType)}
@@ -213,9 +215,7 @@ const HMACTool: React.FC = () => {
                 style={{ marginBottom: 8 }}
               />
 
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac?.hmac?.data}:
-              </Text>
+              <FieldLabel label={`${t.mac?.hmac?.data}:`} current={dataInput.length} valid={dataType === 'Hexadecimal' ? isValidHex(dataInput) : undefined} />
               <TextArea
                 value={dataInput}
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}

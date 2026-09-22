@@ -1237,6 +1237,46 @@ code, pre, .mono {
   margin: -4px 0 8px;
 }
 
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 24px;
+  margin-bottom: 8px;
+}
+
+.field-label-text {
+  min-width: 0;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.field-label-meta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.field-label-kcv.ant-input {
+  width: 76px;
+  height: 24px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+}
+
+/* Legacy suffix indicators share the same three-state colors. Keep them compact
+   until each field is migrated to FieldLabel. */
+.ant-input-suffix > .length-indicator {
+  min-width: 26px;
+  margin-left: 4px !important;
+  text-align: right;
+}
+
 .tool-page-actions .ant-btn[aria-pressed="true"] {
   color: #b7791f;
   background: #fff8e6;

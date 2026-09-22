@@ -3,7 +3,7 @@ import { Card, Button, Select, Input, message, Typography, Divider } from 'antd'
 import { CalculatorOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -100,18 +100,6 @@ const ANSIMACTool: React.FC = () => {
     return value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -193,14 +181,13 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.mac?.ansimac?.keyK || 'Key (K):'}</Text>
+            <FieldLabel label={t.mac?.ansimac?.keyK || 'Key (K):'} current={sanitizeHex(keyK).length} expected={[16, 32]} extra={
               <ExampleButton onClick={() => {
                 setKeyK(examples.ansiMac.keyK);
                 setKeyKPrime(examples.ansiMac.keyKR);
                 setData(examples.ansiMac.data);
               }} />
-            </div>
+            } />
             <Input
               value={keyK}
               onChange={e => setKeyK(sanitizeHex(e.target.value))}
@@ -215,7 +202,7 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.keyKPrime || 'Key (K\'):'}</Text>
+            <FieldLabel label={t.mac?.ansimac?.keyKPrime || 'Key (K\'):'} current={sanitizeHex(keyKPrime).length} expected={[0, 16, 32]} />
             <Input
               value={keyKPrime}
               onChange={e => setKeyKPrime(sanitizeHex(e.target.value))}
@@ -230,7 +217,7 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.ansimac?.dataLabel || 'Data:'}</Text>
+            <FieldLabel label={t.mac?.ansimac?.dataLabel || 'Data:'} current={sanitizeHex(data).length} />
             <TextArea
               value={data}
               onChange={e => setData(sanitizeHex(e.target.value))}
@@ -244,10 +231,7 @@ const ANSIMACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.mac?.ansimac?.truncation || 'Truncation:'}</Text>
-              {lengthIndicator(truncation.length, 1)}
-            </div>
+            <FieldLabel label={t.mac?.ansimac?.truncation || 'Truncation:'} current={truncation.length} expected={1} />
             <Input
               value={truncation}
               onChange={e => setTruncation(e.target.value.replace(/[^0-9]/g, ''))}

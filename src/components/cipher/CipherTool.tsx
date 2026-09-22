@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { webCryptoAesEncrypt, isWebCryptoAvailable } from '../../utils/webCrypto';
 import { cmacAES } from '../../utils/crypto';
-import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode, getLengthColor } from '../../utils/hex';
+import { cleanHex, isValidHex, hexToWordArray, asciiToWordArray, getCryptoMode } from '../../utils/hex';
 import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
@@ -16,9 +16,6 @@ const { TextArea } = Input;
 type AESAlgorithm = 'AES-128' | 'AES-192' | 'AES-256';
 type AESMode = 'ECB' | 'CBC' | 'CFB' | 'OFB' | 'KCV';
 type InputType = 'ASCII' | 'Hex';
-
-// 默认 IV（16字节全0）
-const DEFAULT_IV = '00000000000000000000000000000000';
 
 // KCV 结果类型
 interface KCVResult {
@@ -35,7 +32,7 @@ const CipherTool: React.FC = () => {
   const [inputType, setInputType] = useState<InputType>('Hex');
   const [key, setKey] = useState('');
   const [data, setData] = useState('');
-  const [iv, setIv] = useState(DEFAULT_IV);
+  const [iv, setIv] = useState('');
   const [result, setResult] = useState('');
   const [kcvResult, setKcvResult] = useState<KCVResult | null>(null);
   const [error, setError] = useState('');
@@ -62,25 +59,6 @@ const CipherTool: React.FC = () => {
 
   // 获取 IV 长度（AES 块大小固定为 16 字节）
   const getExpectedIvLength = (): number => 16;
-
-  // 获取当前 Key 的实际字节数
-  const getActualKeyLength = (): number => {
-    const clean = cleanHex(key);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取当前 Data 的实际字节数（仅 Hex 模式）
-  const getActualDataLength = (): number => {
-    if (inputType !== 'Hex') return 0;
-    const clean = cleanHex(data);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取当前 IV 的实际字节数
-  const getActualIvLength = (): number => {
-    const clean = cleanHex(iv);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
 
   // 验证输入
   const validateInputs = (forKcv: boolean = false): boolean => {
@@ -395,25 +373,19 @@ const CipherTool: React.FC = () => {
 
             {/* Key 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.cipher?.key || 'Key'}:</Text>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ExampleButton label="AES-CBC" onClick={() => {
+              <FieldLabel
+                label={`${t.cipher?.key || 'Key'}:`}
+                current={cleanHex(key).length / 2}
+                expected={getExpectedKeyLength()}
+                valid={isValidHex(cleanHex(key))}
+                extra={<ExampleButton label="AES-CBC" onClick={() => {
                     setMode('CBC');
                     setInputType('Hex');
                     setKey(examples.aes.key);
                     setData(examples.aes.data);
                     setIv(examples.aes.iv);
-                  }} />
-                  <Text style={{ 
-                    fontSize: '12px', 
-                    color: getLengthColor(getActualKeyLength(), getExpectedKeyLength()),
-                    fontWeight: getActualKeyLength() > 0 ? 600 : 400
-                  }}>
-                    [{getActualKeyLength() || getExpectedKeyLength()}]
-                  </Text>
-                </div>
-              </div>
+                  }} />}
+              />
               <Input
                 value={key}
                 onChange={e => setKey(e.target.value)}
@@ -424,19 +396,12 @@ const CipherTool: React.FC = () => {
 
             {/* Data 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: isKcvMode ? '#999' : undefined }}>{t.cipher?.data || 'Data'}:</Text>
-                {inputType === 'Hex' && !isKcvMode && (
-                  <Text style={{ 
-                    fontSize: '12px',
-                    color: getActualDataLength() === 0 ? '#999' : 
-                           (getActualDataLength() % 16 === 0 ? '#52c41a' : '#ff4d4f'),
-                    fontWeight: getActualDataLength() > 0 ? 600 : 400
-                  }}>
-                    [{getActualDataLength()}]
-                  </Text>
-                )}
-              </div>
+              <FieldLabel
+                label={`${t.cipher?.data || 'Data'}:`}
+                current={inputType === 'Hex' ? cleanHex(data).length / 2 : data.length}
+                valid={inputType === 'Hex' ? isValidHex(cleanHex(data)) && cleanHex(data).length / 2 % 16 === 0 : undefined}
+                disabled={isKcvMode}
+              />
               <TextArea
                 value={isKcvMode ? '' : data}
                 onChange={e => setData(e.target.value)}
@@ -461,16 +426,7 @@ const CipherTool: React.FC = () => {
 
             {/* IV 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: needsIv ? undefined : '#999' }}>IV:</Text>
-                <Text style={{ 
-                  fontSize: '12px',
-                  color: getLengthColor(getActualIvLength(), getExpectedIvLength(), !needsIv),
-                  fontWeight: needsIv && getActualIvLength() > 0 ? 600 : 400
-                }}>
-                  [{needsIv ? (getActualIvLength() || getExpectedIvLength()) : getExpectedIvLength()}]
-                </Text>
-              </div>
+              <FieldLabel label="IV:" current={cleanHex(iv).length / 2} expected={getExpectedIvLength()} valid={isValidHex(cleanHex(iv))} disabled={!needsIv} />
               <Input
                 value={iv}
                 onChange={e => setIv(e.target.value)}

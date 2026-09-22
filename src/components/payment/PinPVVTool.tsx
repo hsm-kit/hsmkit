@@ -5,7 +5,7 @@ import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CollapsibleInfo from '../common/CollapsibleInfo';
-import { ExampleButton } from '../common';
+import { ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
@@ -176,16 +176,16 @@ const PinPVVTool: React.FC = () => {
   const [activeTab, setActiveTab] = useState('pvv');
 
   // PVV Calculation State
-  const [pdkPVV, setPdkPVV] = useState('0123456789ABCDEFFEDCBA9876543210');
-  const [panPVV, setPanPVV] = useState('1234567899876543');
-  const [pinPVV, setPinPVV] = useState('1234');
+  const [pdkPVV, setPdkPVV] = useState('');
+  const [panPVV, setPanPVV] = useState('');
+  const [pinPVV, setPinPVV] = useState('');
   const [pvkiPVV, setPvkiPVV] = useState(1);
   const [pvvResult, setPvvResult] = useState<{ pvv: string; encryptedPan: string; tsp: string } | null>(null);
 
   // PIN Verification State
-  const [pdkPIN, setPdkPIN] = useState('0123456789ABCDEFFEDCBA9876543210');
-  const [panPIN, setPanPIN] = useState('123456789123456');
-  const [pvvPIN, setPvvPIN] = useState('9365');
+  const [pdkPIN, setPdkPIN] = useState('');
+  const [panPIN, setPanPIN] = useState('');
+  const [pvvPIN, setPvvPIN] = useState('');
   const [pvkiPIN, setPvkiPIN] = useState(1);
   const [pinResult, setPinResult] = useState<{ pin: string; encryptedPan: string; tsp: string } | null>(null);
 
@@ -258,20 +258,21 @@ const PinPVVTool: React.FC = () => {
         <div>
           {/* PDK Input */}
           <div style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong style={{ color: isDark ? '#e6e6e6' : '#333' }}>{t.pinPvv?.pdkLabel || 'PDK:'}</Text>
-              <ExampleButton onClick={() => {
+            <FieldLabel
+              label={t.pinPvv?.pdkLabel || 'PDK:'}
+              current={sanitizeHex(pdkPVV).length}
+              expected={32}
+              extra={<ExampleButton onClick={() => {
                 setPdkPVV(examples.pinPvv.pdk);
                 setPanPVV(examples.pinPvv.pan);
                 setPinPVV(examples.pinPvv.pin);
-              }} />
-            </div>
+              }} />}
+            />
             <Input
               value={pdkPVV}
               onChange={(e) => setPdkPVV(sanitizeHex(e.target.value))}
               placeholder="0123456789ABCDEFFEDCBA9876543210"
               maxLength={32}
-              suffix={<Text type="success">[{sanitizeHex(pdkPVV).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
@@ -281,15 +282,12 @@ const PinPVVTool: React.FC = () => {
 
           {/* PAN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.panLabel || 'PAN:'}
-            </Text>
+            <FieldLabel label={t.pinPvv?.panLabel || 'PAN:'} current={sanitizeDigits(panPVV).length} min={12} max={19} />
             <Input
               value={panPVV}
               onChange={(e) => setPanPVV(sanitizeDigits(e.target.value))}
               placeholder="1234567899876543"
               maxLength={19}
-              suffix={<Text type="success">[{sanitizeDigits(panPVV).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
@@ -299,15 +297,12 @@ const PinPVVTool: React.FC = () => {
 
           {/* PIN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pinLabel || 'PIN:'}
-            </Text>
+            <FieldLabel label={t.pinPvv?.pinLabel || 'PIN:'} current={sanitizeDigits(pinPVV).length} min={4} max={12} />
             <Input
               value={pinPVV}
               onChange={(e) => setPinPVV(sanitizeDigits(e.target.value))}
               placeholder="1234"
               maxLength={12}
-              suffix={<Text type="success">[{sanitizeDigits(pinPVV).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
@@ -427,15 +422,12 @@ const PinPVVTool: React.FC = () => {
         <div>
           {/* PDK Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pdkLabel || 'PDK:'}
-            </Text>
+            <FieldLabel label={t.pinPvv?.pdkLabel || 'PDK:'} current={sanitizeHex(pdkPIN).length} expected={32} />
             <Input
               value={pdkPIN}
               onChange={(e) => setPdkPIN(sanitizeHex(e.target.value))}
               placeholder="0123456789ABCDEFFEDCBA9876543210"
               maxLength={32}
-              suffix={<Text type="success">[{sanitizeHex(pdkPIN).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
@@ -445,15 +437,12 @@ const PinPVVTool: React.FC = () => {
 
           {/* PAN Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.panLabel || 'PAN:'}
-            </Text>
+            <FieldLabel label={t.pinPvv?.panLabel || 'PAN:'} current={sanitizeDigits(panPIN).length} min={12} max={19} />
             <Input
               value={panPIN}
               onChange={(e) => setPanPIN(sanitizeDigits(e.target.value))}
               placeholder="123456789123456"
               maxLength={19}
-              suffix={<Text type="success">[{sanitizeDigits(panPIN).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
@@ -463,15 +452,12 @@ const PinPVVTool: React.FC = () => {
 
           {/* PVV Input */}
           <div style={{ marginBottom: 16 }}>
-            <Text strong style={{ display: 'block', marginBottom: 8, color: isDark ? '#e6e6e6' : '#333' }}>
-              {t.pinPvv?.pvvLabel || 'PVV:'}
-            </Text>
+            <FieldLabel label={t.pinPvv?.pvvLabel || 'PVV:'} current={sanitizeDigits(pvvPIN).length} expected={4} />
             <Input
               value={pvvPIN}
               onChange={(e) => setPvvPIN(sanitizeDigits(e.target.value))}
               placeholder="9365"
               maxLength={4}
-              suffix={<Text type="success">[{sanitizeDigits(pvvPIN).length}]</Text>}
               style={{ fontFamily: 'Monaco, Consolas, monospace' }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>

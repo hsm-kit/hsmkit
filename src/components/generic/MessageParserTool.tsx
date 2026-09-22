@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Table, Alert } from 'antd';
 import { SearchOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, LengthIndicator } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import logger from '../../utils/logger';
@@ -506,13 +506,7 @@ const MessageParserTool: React.FC = () => {
               <Text strong>
                 {t.messageParser?.hexData || 'Hex Data'}:
               </Text>
-              <Text style={{ 
-                fontSize: '12px',
-                color: getInputLength() > 0 ? '#52c41a' : '#999',
-                fontWeight: getInputLength() > 0 ? 600 : 400
-              }}>
-                [{getInputLength()} bytes]
-              </Text>
+              <LengthIndicator current={getInputLength()} valid={/^[0-9A-Fa-f\s]*$/.test(hexData) && hexData.replace(/\s/g, '').length % 2 === 0} />
             </div>
             <TextArea
               value={hexData}

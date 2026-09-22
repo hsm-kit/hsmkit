@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio, Alert } from 'antd';
 import { KeyOutlined, LockOutlined, UnlockOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, FieldLabel, LengthIndicator } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import * as forge from 'node-forge';
@@ -970,9 +970,7 @@ const RSATool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>Modulus (n):</Text>
-              <Text style={{ fontSize: '12px', color: getByteLength(modulus) > 0 ? '#52c41a' : '#999' }}>
-                [{getByteLength(modulus)}]
-              </Text>
+              <LengthIndicator current={cleanHex(modulus).length / 2} valid={isValidHex(cleanHex(modulus))} />
             </div>
             <TextArea
               value={modulus}
@@ -987,9 +985,7 @@ const RSATool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>Public Exp. (e):</Text>
-              <Text style={{ fontSize: '12px', color: getByteLength(publicExponent) > 0 ? '#52c41a' : '#999' }}>
-                [{getByteLength(publicExponent)}]
-              </Text>
+              <LengthIndicator current={getByteLength(publicExponent)} />
             </div>
             <Input
               value={publicExponent}
@@ -1003,9 +999,7 @@ const RSATool: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <Text strong>Private Exp. (d):</Text>
-              <Text style={{ fontSize: '12px', color: getByteLength(privateExponent) > 0 ? '#52c41a' : '#999' }}>
-                [{getByteLength(privateExponent)}]
-              </Text>
+              <LengthIndicator current={cleanHex(privateExponent).length / 2} valid={isValidHex(cleanHex(privateExponent))} />
             </div>
             <TextArea
               value={privateExponent}
@@ -1073,12 +1067,11 @@ const RSATool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.rsa?.data || 'Data'}:</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{inputFormat === 'Hex' ? getByteLength(encryptData) : encryptData.length}]
-              </Text>
-            </div>
+            <FieldLabel
+              label={`${t.rsa?.data || 'Data'}:`}
+              current={inputFormat === 'Hex' ? cleanHex(encryptData).length / 2 : encryptData.length}
+              valid={inputFormat === 'Hex' ? isValidHex(cleanHex(encryptData)) : undefined}
+            />
             <TextArea
               value={encryptData}
               onChange={e => setEncryptData(e.target.value)}
@@ -1269,12 +1262,7 @@ const RSATool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.rsa?.data || 'Data'}:</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{getByteLength(decryptData)}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.rsa?.data || 'Data'}:`} current={cleanHex(decryptData).length / 2} valid={isValidHex(cleanHex(decryptData))} />
             <TextArea
               value={decryptData}
               onChange={e => setDecryptData(e.target.value)}
@@ -1445,12 +1433,11 @@ const RSATool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.rsa?.data || 'Data'}:</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{signInputFormat === 'Hex' ? getByteLength(signData) : signData.length}]
-              </Text>
-            </div>
+            <FieldLabel
+              label={`${t.rsa?.data || 'Data'}:`}
+              current={signInputFormat === 'Hex' ? cleanHex(signData).length / 2 : signData.length}
+              valid={signInputFormat === 'Hex' ? isValidHex(cleanHex(signData)) : undefined}
+            />
             <TextArea
               value={signData}
               onChange={e => setSignData(e.target.value)}
@@ -1645,18 +1632,11 @@ const RSATool: React.FC = () => {
 
           {/* Data/Hash 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>
-                {verifyInputType === 'Hash' 
-                  ? (t.rsa?.hashToVerify || 'Hash to Verify')
-                  : (t.rsa?.dataToVerify || 'Data to Verify')}:
-              </Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{verifyInputType === 'Hash' 
-                  ? getByteLength(verifyData)
-                  : (verifyInputFormat === 'Hex' ? getByteLength(verifyData) : verifyData.length)}]
-              </Text>
-            </div>
+            <FieldLabel
+              label={`${verifyInputType === 'Hash' ? (t.rsa?.hashToVerify || 'Hash to Verify') : (t.rsa?.dataToVerify || 'Data to Verify')}:`}
+              current={verifyInputType === 'Hash' || verifyInputFormat === 'Hex' ? cleanHex(verifyData).length / 2 : verifyData.length}
+              valid={verifyInputType === 'Hash' || verifyInputFormat === 'Hex' ? isValidHex(cleanHex(verifyData)) : undefined}
+            />
             <TextArea
               value={verifyData}
               onChange={e => setVerifyData(e.target.value)}
@@ -1755,12 +1735,7 @@ const RSATool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.rsa?.data || 'Data'}:</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{getByteLength(oaepData)}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.rsa?.data || 'Data'}:`} current={cleanHex(oaepData).length / 2} valid={isValidHex(cleanHex(oaepData))} />
             <TextArea
               value={oaepData}
               onChange={e => setOaepData(e.target.value)}

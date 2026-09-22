@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented, Radio } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -528,13 +528,16 @@ const ThalesKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.thalesKeys?.key || 'Key'}:</Text>
-              <ExampleButton onClick={() => {
+            <FieldLabel
+              label={`${t.thalesKeys?.key || 'Key'}:`}
+              current={cleanHexInput(encKey.replace(/^[UTXYZ0]/i, '')).length}
+              expected={getValidKeyLengths(keyScheme).map(length => length * 2)}
+              valid={isValidHex(cleanHexInput(encKey.replace(/^[UTXYZ0]/i, '')))}
+              extra={<ExampleButton onClick={() => {
                 setEncKey(examples.thalesKeys.key);
                 setLookupKey(examples.thalesKeys.key);
-              }} />
-            </div>
+              }} />}
+            />
             <Input
               value={encKey}
               onChange={e => setEncKey(e.target.value)}
@@ -748,16 +751,11 @@ const ThalesKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.thalesKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: lookupKeyLength > 0 ? '#52c41a' : '#999',
-                fontWeight: lookupKeyLength > 0 ? 600 : 400
-              }}>
-                {lookupKeyLength}
-              </Text>
-            </div>
+            <FieldLabel
+              label={`${t.thalesKeys?.key || 'Key'}:`}
+              current={lookupKeyLength}
+              min={/^[UTXYZ]/i.test(lookupKey) ? 17 : 16}
+            />
             <Input
               value={lookupKey}
               onChange={e => setLookupKey(e.target.value)}
@@ -779,16 +777,7 @@ const ThalesKeysTool: React.FC = () => {
           {/* KCV Input - only show when Check KCV is checked */}
           {checkKcv && (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.thalesKeys?.kcv || 'KCV'}:</Text>
-                <Text style={{ 
-                  fontSize: '12px', 
-                  color: kcvLength >= 4 ? '#52c41a' : '#999',
-                  fontWeight: kcvLength > 0 ? 600 : 400
-                }}>
-                  {kcvLength}
-                </Text>
-              </div>
+              <FieldLabel label={`${t.thalesKeys?.kcv || 'KCV'}:`} current={kcvLength} min={4} max={6} />
               <Input
                 value={expectedKcv}
                 onChange={e => setExpectedKcv(e.target.value)}

@@ -6,7 +6,7 @@ import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
 import { formatHexDisplay } from '../../utils/format';
 import { calculateKCV, cleanHexInput, isValidHex } from '../../utils/crypto';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
@@ -38,12 +38,6 @@ const hmacSha256Hex = (keyHex: string, dataHex: string): string => {
   const mac = CryptoJS.HmacSHA256(data, key);
   return mac.toString(CryptoJS.enc.Hex).toUpperCase();
 };
-
-const lengthText = (len: number, ok: boolean) => (
-  <Text style={{ fontSize: '12px', color: ok ? '#52c41a' : '#ff4d4f', fontWeight: len > 0 ? 600 : 400 }}>
-    [{len || 0}]
-  </Text>
-);
 
 const AS2805Tool: React.FC = () => {
   const { t } = useLanguage();
@@ -291,8 +285,7 @@ const AS2805Tool: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.kekrKey || 'KEKr Key'}:</Text>
+                    <FieldLabel label={`${t.as2805?.kekrKey || 'KEKr Key'}:`} current={cleanHexInput(kekr).length} valid={isValidHex(cleanHexInput(kekr))} extra={
                       <ExampleButton onClick={() => {
                         setKekr(examples.as2805.kek);
                         setMacKey(examples.as2805.macKey);
@@ -302,7 +295,7 @@ const AS2805Tool: React.FC = () => {
                         setInPinBlock(examples.as2805.pinBlock);
                         setAcct(examples.as2805.account);
                       }} />
-                    </div>
+                    } />
                     <Input value={kekr} onChange={e => setKekr(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
@@ -333,25 +326,19 @@ const AS2805Tool: React.FC = () => {
               children: (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.sysZpk || 'System ZPK'}:</Text>
-                      {lengthText(cleanHexInput(sysZpk).length, isValidHex(cleanHexInput(sysZpk)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.sysZpk || 'System ZPK'}:`} current={cleanHexInput(sysZpk).length} valid={isValidHex(cleanHexInput(sysZpk))} />
                     <Input value={sysZpk} onChange={e => setSysZpk(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.termTpk || 'Terminal TPK'}:</Text>
-                      {lengthText(cleanHexInput(termTpk).length, isValidHex(cleanHexInput(termTpk)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.termTpk || 'Terminal TPK'}:`} current={cleanHexInput(termTpk).length} valid={isValidHex(cleanHexInput(termTpk))} />
                     <Input value={termTpk} onChange={e => setTermTpk(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
-                    <Text strong>{t.as2805?.stan || 'STAN'}:</Text>
+                    <FieldLabel label={`${t.as2805?.stan || 'STAN'}:`} current={stan.length} />
                     <Input value={stan} onChange={e => setStan(e.target.value)} />
                   </div>
                   <div>
-                    <Text strong>{t.as2805?.amount || 'Transaction Amount'}:</Text>
+                    <FieldLabel label={`${t.as2805?.amount || 'Transaction Amount'}:`} current={amount.length} />
                     <Input value={amount} onChange={e => setAmount(e.target.value)} />
                   </div>
                   <div>
@@ -363,15 +350,12 @@ const AS2805Tool: React.FC = () => {
                     <Select value={outFmt} onChange={v => setOutFmt(v)} options={[{ value: '01', label: '01' }, { value: '46', label: '46' }]} style={{ width: '100%' }} />
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.inPinBlock || 'Incoming PIN Block'}:</Text>
-                      {lengthText(cleanHexInput(inPinBlock).length, isValidHex(cleanHexInput(inPinBlock)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.inPinBlock || 'Incoming PIN Block'}:`} current={cleanHexInput(inPinBlock).length} expected={16} valid={isValidHex(cleanHexInput(inPinBlock))} />
                     <Input value={inPinBlock} onChange={e => setInPinBlock(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
-                    <Text strong>{t.as2805?.account || 'Account Number'}:</Text>
-                    <Input value={acct} onChange={e => setAcct(e.target.value)} />
+                    <FieldLabel label={`${t.as2805?.account || 'Account Number'}:`} current={acct.replace(/\s/g, '').length} min={12} max={19} />
+                    <Input value={acct} onChange={e => setAcct(e.target.value.replace(/\D/g, ''))} maxLength={19} />
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
                     <Button type="primary" icon={<LockOutlined />} onClick={runTranslate} size="large">
@@ -389,17 +373,11 @@ const AS2805Tool: React.FC = () => {
               children: (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.key || 'Key'}:</Text>
-                      {lengthText(cleanHexInput(macKey).length, isValidHex(cleanHexInput(macKey)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.key || 'Key'}:`} current={cleanHexInput(macKey).length} expected={[16, 32, 48]} valid={isValidHex(cleanHexInput(macKey))} />
                     <Input value={macKey} onChange={e => setMacKey(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.data || 'Data'}:</Text>
-                      {lengthText(cleanHexInput(macData).length, isValidHex(cleanHexInput(macData)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.data || 'Data'}:`} current={cleanHexInput(macData).length} valid={isValidHex(cleanHexInput(macData))} />
                     <TextArea value={macData} onChange={e => setMacData(e.target.value)} autoSize={{ minRows: 6, maxRows: 16 }} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>
@@ -418,17 +396,11 @@ const AS2805Tool: React.FC = () => {
               children: (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.key || 'Key'}:</Text>
-                      {lengthText(cleanHexInput(owfKey).length, isValidHex(cleanHexInput(owfKey)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.key || 'Key'}:`} current={cleanHexInput(owfKey).length} expected={[16, 32, 48, 64]} valid={isValidHex(cleanHexInput(owfKey))} />
                     <Input value={owfKey} onChange={e => setOwfKey(e.target.value)} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                      <Text strong>{t.as2805?.data || 'Data'}:</Text>
-                      {lengthText(cleanHexInput(owfData).length, isValidHex(cleanHexInput(owfData)))}
-                    </div>
+                    <FieldLabel label={`${t.as2805?.data || 'Data'}:`} current={cleanHexInput(owfData).length} valid={isValidHex(cleanHexInput(owfData))} />
                     <TextArea value={owfData} onChange={e => setOwfData(e.target.value)} autoSize={{ minRows: 6, maxRows: 16 }} style={{ fontFamily: 'JetBrains Mono, monospace' }} />
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4 }}>

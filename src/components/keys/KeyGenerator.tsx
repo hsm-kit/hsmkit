@@ -4,7 +4,7 @@ import { KeyOutlined, CopyOutlined, ReloadOutlined, PlusOutlined, DeleteOutlined
 import CryptoJS from 'crypto-js';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { 
   calculateKCV, 
@@ -384,11 +384,11 @@ const KeyGenerator: React.FC = () => {
               const lengthInfo = getComponentLengthInfo(comp);
               return (
                 <div key={index}>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
-                    <Text strong style={{ minWidth: 80 }}>
-                      {t.keyGenerator.component} {index + 1}:
-                    </Text>
-                    {components.length > 2 && (
+                  <FieldLabel
+                    label={`${t.keyGenerator.component} ${index + 1}:`}
+                    current={lengthInfo.length}
+                    expected={[16, 32, 48, 64]}
+                    extra={components.length > 2 ? (
                       <Button 
                         type="text" 
                         danger
@@ -396,32 +396,16 @@ const KeyGenerator: React.FC = () => {
                         icon={<DeleteOutlined />}
                         onClick={() => removeComponent(index)}
                       />
-                    )}
-                  </div>
-                  <div style={{ position: 'relative' }}>
+                    ) : undefined}
+                  />
+                  <div>
                     <Input
                       value={comp}
                       onChange={e => updateComponent(index, e.target.value)}
                       placeholder="0123456789ABCDEF..."
                       status={comp.trim() && !lengthInfo.valid ? 'error' : ''}
-                      style={{ 
-                        fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                        paddingRight: lengthInfo.show ? 50 : undefined
-                      }}
+                      style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
                     />
-                    {lengthInfo.show && (
-                      <div style={{ 
-                        position: 'absolute', 
-                        right: 12, 
-                        top: '50%', 
-                        transform: 'translateY(-50%)',
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        color: lengthInfo.valid ? '#52c41a' : '#ff4d4f'
-                      }}>
-                        {lengthInfo.length}
-                      </div>
-                    )}
                   </div>
                   {comp.trim() && !lengthInfo.valid && (
                     <Text type="danger" style={{ fontSize: '11px', marginTop: 2, display: 'block' }}>
@@ -587,9 +571,12 @@ const KeyGenerator: React.FC = () => {
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.keyGenerator.keyInput}:
-            </Text>
+            <FieldLabel
+              label={`${t.keyGenerator.keyInput}:`}
+              current={cleanHexInput(validationInput).length}
+              expected={[16, 32, 48, 64]}
+              valid={/^[0-9A-F]*$/i.test(cleanHexInput(validationInput))}
+            />
             <TextArea
               value={validationInput}
               onChange={e => setValidationInput(e.target.value)}

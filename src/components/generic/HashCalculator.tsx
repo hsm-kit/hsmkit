@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { CopyOutlined, CalculatorOutlined, ClearOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ErrorCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ErrorCard, ExampleButton, LengthIndicator } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import CryptoJS from 'crypto-js';
@@ -267,17 +267,6 @@ const HashCalculator: React.FC = () => {
     return new TextEncoder().encode(inputData).length;
   };
 
-  // Get length indicator color
-  const getLengthColor = (): string => {
-    const len = getByteLength();
-    if (len === 0) return '#999';
-    if (inputType === 'Hex') {
-      const cleaned = cleanHex(inputData);
-      return isValidHex(cleaned) ? '#52c41a' : '#ff4d4f';
-    }
-    return '#52c41a';
-  };
-
   // Get selected hash info
   const getHashInfo = () => {
     return HASH_TYPES.find(h => h.value === hashType);
@@ -354,13 +343,10 @@ const HashCalculator: React.FC = () => {
                     setInputType('ASCII');
                     setInputData(examples.hash.input);
                   }} />
-                  <Text style={{ 
-                    fontSize: '12px',
-                    color: getLengthColor(),
-                    fontWeight: getByteLength() > 0 ? 600 : 400
-                  }}>
-                    [{getByteLength()}]
-                  </Text>
+                  <LengthIndicator
+                    current={inputType === 'Hex' ? cleanHex(inputData).length / 2 : getByteLength()}
+                    valid={inputType === 'Hex' ? isValidHex(cleanHex(inputData)) : undefined}
+                  />
                 </div>
               </div>
               <TextArea

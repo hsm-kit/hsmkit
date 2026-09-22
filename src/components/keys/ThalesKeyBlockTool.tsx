@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -139,8 +139,8 @@ const ThalesKeyBlockTool: React.FC = () => {
   const { isDark } = useTheme();
   
   // KBPK (Key Block Protection Key) state
-  const [desKbpk, setDesKbpk] = useState('0123456789ABCDEF808080808080FEDC');
-  const [aesKbpk, setAesKbpk] = useState('9B71333A13F9FAE72F9D0E2DAB4AD678471801');
+  const [desKbpk, setDesKbpk] = useState('');
+  const [aesKbpk, setAesKbpk] = useState('');
 
   // Encode state
   const [plainKey, setPlainKey] = useState('');
@@ -206,19 +206,6 @@ const ThalesKeyBlockTool: React.FC = () => {
   // KCV values are now calculated inline using useMemo
   const desKbpkKcv = useMemo(() => calculateKCV(desKbpk), [desKbpk]);
   const aesKbpkKcv = useMemo(() => calculateKCV(aesKbpk), [aesKbpk]);
-
-  // Get key length in bytes
-  const getKeyLength = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (actual: number, expected: number[]): string => {
-    if (actual === 0) return '#999';
-    if (expected.includes(actual)) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // Copy to clipboard
   const copyToClipboard = (text: string) => {
@@ -407,13 +394,12 @@ const ThalesKeyBlockTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Plain Key */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.thalesKeyBlock?.plainKey || 'Plain Key'}:</Text>
+            <FieldLabel label={`${t.thalesKeyBlock?.plainKey || 'Plain Key'}:`} current={cleanHexInput(plainKey).length} expected={[16, 32, 48, 64]} valid={isValidHex(cleanHexInput(plainKey))} extra={
               <ExampleButton onClick={() => {
                 setPlainKey(examples.thalesKeyBlock.key);
                 setKeyBlock(examples.thalesKeyBlock.key);
               }} />
-            </div>
+            } />
             <Input
               value={plainKey}
               onChange={e => setPlainKey(e.target.value)}
@@ -535,9 +521,7 @@ const ThalesKeyBlockTool: React.FC = () => {
 
           {/* Optional Headers */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.thalesKeyBlock?.optionalHeaders || 'Optional Headers'}:
-            </Text>
+            <FieldLabel label={`${t.thalesKeyBlock?.optionalHeaders || 'Optional Headers'}:`} current={optionalHeaders.length} />
             <Input.TextArea
               value={optionalHeaders}
               onChange={e => setOptionalHeaders(e.target.value)}
@@ -621,16 +605,7 @@ const ThalesKeyBlockTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Block Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.thalesKeyBlock?.keyBlock || 'Key block'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: keyBlock.length > 0 ? '#52c41a' : '#999',
-                fontWeight: keyBlock.length > 0 ? 600 : 400
-              }}>
-                [{keyBlock.replace(/\s/g, '').length}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.thalesKeyBlock?.keyBlock || 'Key block'}:`} current={keyBlock.replace(/\s/g, '').length} min={16} />
             <Input.TextArea
               value={keyBlock}
               onChange={e => setKeyBlock(e.target.value)}
@@ -762,52 +737,42 @@ const ThalesKeyBlockTool: React.FC = () => {
 
           {/* KBPK Inputs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: 24 }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <ExampleButton onClick={() => {
+                setDesKbpk(examples.thalesKeyBlock.desKbpk);
+                setAesKbpk(examples.thalesKeyBlock.aesKbpk);
+              }} />
+            </div>
             {/* 3DES KBPK */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-              <Text strong style={{ minWidth: 90 }}>3DES KBPK:</Text>
+            <div>
+              <FieldLabel
+                label="3DES KBPK:"
+                current={cleanHexInput(desKbpk).length}
+                expected={48}
+                extra={<Input value={desKbpkKcv} readOnly className="field-label-kcv" placeholder="KCV" />}
+              />
               <Input
                 value={desKbpk}
                 onChange={e => setDesKbpk(e.target.value)}
-                style={{ flex: 1, minWidth: 300, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                placeholder="48 hex characters"
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
-              <Input
-                value={desKbpkKcv}
-                readOnly
-                style={{ width: 80, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
-                placeholder="KCV"
-              />
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(getKeyLength(desKbpk), [24]),
-                fontWeight: 600,
-                minWidth: 40,
-              }}>
-                [{cleanHexInput(desKbpk).length}]
-              </Text>
             </div>
 
             {/* AES KBPK */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-              <Text strong style={{ minWidth: 90 }}>AES KBPK:</Text>
+            <div>
+              <FieldLabel
+                label="AES KBPK:"
+                current={cleanHexInput(aesKbpk).length}
+                expected={64}
+                extra={<Input value={aesKbpkKcv} readOnly className="field-label-kcv" placeholder="KCV" />}
+              />
               <Input
                 value={aesKbpk}
                 onChange={e => setAesKbpk(e.target.value)}
-                style={{ flex: 1, minWidth: 300, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                placeholder="64 hex characters"
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
               />
-              <Input
-                value={aesKbpkKcv}
-                readOnly
-                style={{ width: 80, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
-                placeholder="KCV"
-              />
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(getKeyLength(aesKbpk), [32]),
-                fontWeight: 600,
-                minWidth: 40,
-              }}>
-                [{cleanHexInput(aesKbpk).length}]
-              </Text>
             </div>
           </div>
 

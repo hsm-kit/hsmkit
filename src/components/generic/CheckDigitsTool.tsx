@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select } from 'antd';
 import { CheckCircleOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -233,14 +233,11 @@ const CheckDigitsTool: React.FC = () => {
 
             {/* Input Data */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>
-                {t.checkDigits?.input || 'Input'}:
-              </Text>
+              <FieldLabel label={`${t.checkDigits?.input || 'Input'}:`} current={inputData.length} extra={
                 <ExampleButton label="Luhn" onClick={() => {
                   setInputData(examples.checkDigits.input);
                 }} />
-              </div>
+              } />
               <Input
                 value={inputData}
                 onChange={e => setInputData(e.target.value)}

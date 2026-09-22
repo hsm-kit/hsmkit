@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, message, Typography, Divider } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -115,18 +115,6 @@ const MastercardCVC3Tool: React.FC = () => {
     return value.replace(/[^0-9]/g, '');
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   // Generate CVC3
   const handleGenerate = () => {
     setGenError('');
@@ -236,8 +224,7 @@ const MastercardCVC3Tool: React.FC = () => {
   const generateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>IMK:</Text>
+        <FieldLabel label="IMK:" current={sanitizeHex(genImk).length} expected={32} extra={
           <ExampleButton onClick={() => {
             setGenImk(examples.mastercardCvc3.imk);
             setGenPan(examples.mastercardCvc3.pan);
@@ -245,13 +232,12 @@ const MastercardCVC3Tool: React.FC = () => {
             setGenAtc(examples.mastercardCvc3.atc);
             setGenUN(examples.mastercardCvc3.unpredictableNum);
           }} />
-        </div>
+        } />
         <Input
           value={genImk}
           onChange={e => setGenImk(sanitizeHex(e.target.value))}
           placeholder="0123456789ABCDEFFEDCBA9876543210"
           maxLength={32}
-          suffix={lengthIndicator(sanitizeHex(genImk).length, 32)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -261,14 +247,13 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(genPan).length} min={13} max={19} />
         <Input
           value={genPan}
           onChange={e => setGenPan(sanitizeDigits(e.target.value))}
           placeholder="5413123456784808"
           maxLength={19}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(genPan).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -279,13 +264,12 @@ const MastercardCVC3Tool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN Seq. Num.:</Text>
+          <FieldLabel label="PAN Seq. Num.:" current={genPanSeq.length} expected={2} />
           <Input
             value={genPanSeq}
             onChange={e => setGenPanSeq(sanitizeDigits(e.target.value))}
             placeholder="00"
             maxLength={2}
-            suffix={lengthIndicator(genPanSeq.length, 2)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -295,13 +279,12 @@ const MastercardCVC3Tool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>ATC:</Text>
+          <FieldLabel label="ATC:" current={genAtc.length} expected={4} />
           <Input
             value={genAtc}
             onChange={e => setGenAtc(sanitizeHex(e.target.value))}
             placeholder="005E"
             maxLength={4}
-            suffix={lengthIndicator(genAtc.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -312,13 +295,12 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Track 1/2 Data:</Text>
+        <FieldLabel label="Track 1/2 Data:" current={sanitizeHex(genTrack).length} min={1} max={128} />
         <Input
           value={genTrack}
           onChange={e => setGenTrack(sanitizeHex(e.target.value))}
           placeholder="00"
           maxLength={128}
-          suffix={lengthIndicator(sanitizeHex(genTrack).length, 128)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -328,13 +310,12 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Unpredictable Num.:</Text>
+        <FieldLabel label="Unpredictable Num.:" current={sanitizeHex(genUN).length} expected={8} />
         <Input
           value={genUN}
           onChange={e => setGenUN(sanitizeHex(e.target.value))}
           placeholder="00000899"
           maxLength={8}
-          suffix={lengthIndicator(sanitizeHex(genUN).length, 8)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -394,10 +375,7 @@ const MastercardCVC3Tool: React.FC = () => {
   const validateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>IMK:</Text>
-          {lengthIndicator(sanitizeHex(valImk).length, 32)}
-        </div>
+        <FieldLabel label="IMK:" current={sanitizeHex(valImk).length} expected={32} />
         <Input
           value={valImk}
           onChange={e => setValImk(sanitizeHex(e.target.value))}
@@ -412,14 +390,13 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(valPan).length} min={13} max={19} />
         <Input
           value={valPan}
           onChange={e => setValPan(sanitizeDigits(e.target.value))}
           placeholder="5413123456784808"
           maxLength={19}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(valPan).length, 16)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -430,13 +407,12 @@ const MastercardCVC3Tool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN Seq. Num.:</Text>
+          <FieldLabel label="PAN Seq. Num.:" current={valPanSeq.length} expected={2} />
           <Input
             value={valPanSeq}
             onChange={e => setValPanSeq(sanitizeDigits(e.target.value))}
             placeholder="00"
             maxLength={2}
-            suffix={lengthIndicator(valPanSeq.length, 2)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -446,13 +422,12 @@ const MastercardCVC3Tool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>ATC:</Text>
+          <FieldLabel label="ATC:" current={valAtc.length} expected={4} />
           <Input
             value={valAtc}
             onChange={e => setValAtc(sanitizeHex(e.target.value))}
             placeholder="005E"
             maxLength={4}
-            suffix={lengthIndicator(valAtc.length, 4)}
             style={{ 
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px'
@@ -463,13 +438,12 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Track 1/2 Data:</Text>
+        <FieldLabel label="Track 1/2 Data:" current={sanitizeHex(valTrack).length} min={1} max={128} />
         <Input
           value={valTrack}
           onChange={e => setValTrack(sanitizeHex(e.target.value))}
           placeholder="00"
           maxLength={128}
-          suffix={lengthIndicator(sanitizeHex(valTrack).length, 128)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -479,13 +453,12 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Unpredictable Num.:</Text>
+        <FieldLabel label="Unpredictable Num.:" current={sanitizeHex(valUN).length} expected={8} />
         <Input
           value={valUN}
           onChange={e => setValUN(sanitizeHex(e.target.value))}
           placeholder="00000899"
           maxLength={8}
-          suffix={lengthIndicator(sanitizeHex(valUN).length, 8)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'
@@ -495,13 +468,12 @@ const MastercardCVC3Tool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CVC3:</Text>
+        <FieldLabel label="CVC3:" current={valCvc3.length} expected={3} />
         <Input
           value={valCvc3}
           onChange={e => setValCvc3(sanitizeDigits(e.target.value))}
           placeholder="587"
           maxLength={3}
-          suffix={lengthIndicator(valCvc3.length, 3)}
           style={{ 
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px'

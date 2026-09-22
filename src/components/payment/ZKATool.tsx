@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, message, Divider, Typography } from 'antd';
 import { LockOutlined, UnlockOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useTheme } from '../../hooks/useTheme';
 import { useLanguage } from '../../hooks/useLanguage';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
 import { examples } from '../../data/examples';
@@ -301,70 +301,56 @@ const ZKATool: React.FC = () => {
             children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Text strong>{t.mac?.zka?.mk || 'MK:'}</Text>
+              <FieldLabel
+                label={t.mac?.zka?.mk || 'MK:'}
+                current={cleanHexInput(mk).length}
+                expected={32}
+                valid={isValidHex(cleanHexInput(mk))}
+                extra={<>
                   <CollapsibleInfo title={t.mac?.zka?.mkInfo || 'Master Key'}>
                     <div>{t.mac?.zka?.mkInfoDesc || 'The master key used for session key derivation. Must be 16 bytes (32 hex characters).'}</div>
                   </CollapsibleInfo>
-                </div>
-                <ExampleButton onClick={() => {
+                  <ExampleButton onClick={() => {
                   setMk(examples.zka.mk);
                   setCm(examples.zka.cm);
                   setRnd(examples.zka.rnd);
                   setMacData(examples.zka.macData);
                 }} />
-              </div>
+                </>}
+              />
               <Input
                 value={mk}
                 onChange={(e) => setMk(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.mkPlaceholder || 'Enter master key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{mk.length}]
-                  </Text>
-                }
               />
             </div>
 
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.cm || 'CM:'}</Text>
+              <FieldLabel label={t.mac?.zka?.cm || 'CM:'} current={cleanHexInput(cm).length} expected={32} valid={isValidHex(cleanHexInput(cm))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.cmInfo || 'Command Data'}>
                   <div>{t.mac?.zka?.cmInfoDesc || 'Command data used in the derivation process. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <Input
                 value={cm}
                 onChange={(e) => setCm(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.cmPlaceholder || 'Enter command data (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{cm.length}]
-                  </Text>
-                }
               />
             </div>
 
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.rnd || 'Rnd:'}</Text>
+              <FieldLabel label={t.mac?.zka?.rnd || 'Rnd:'} current={cleanHexInput(rnd).length} expected={32} valid={isValidHex(cleanHexInput(rnd))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.rndInfo || 'Random Number'}>
                   <div>{t.mac?.zka?.rndInfoDesc || 'Random number used in the derivation process. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <Input
                 value={rnd}
                 onChange={(e) => setRnd(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.rndPlaceholder || 'Enter random number (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{rnd.length}]
-                  </Text>
-                }
               />
             </div>
 
@@ -397,42 +383,30 @@ const ZKATool: React.FC = () => {
             children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.skPac || 'SK-pac:'}</Text>
+              <FieldLabel label={t.mac?.zka?.skPac || 'SK-pac:'} current={cleanHexInput(skPac).length} expected={32} valid={isValidHex(cleanHexInput(skPac))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.skPacInfo || 'Session Key for PIN/PAC'}>
                   <div>{t.mac?.zka?.skPacInfoDesc || 'The session key used for PIN encryption/decryption. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <Input
                 value={skPac}
                 onChange={(e) => setSkPac(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.skPacPlaceholder || 'Enter session key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{skPac.length}]
-                  </Text>
-                }
               />
             </div>
 
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.pinBlock || 'PIN block:'}</Text>
+              <FieldLabel label={t.mac?.zka?.pinBlock || 'PIN block:'} current={cleanHexInput(pinBlock).length} expected={16} valid={isValidHex(cleanHexInput(pinBlock))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.pinBlockInfo || 'PIN Block'}>
                   <div>{t.mac?.zka?.pinBlockInfoDesc || 'The PIN block to encrypt or decrypt. Must be 8 bytes (16 hex characters).'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <Input
                 value={pinBlock}
                 onChange={(e) => setPinBlock(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.pinBlockPlaceholder || 'Enter PIN block (16 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{pinBlock.length}]
-                  </Text>
-                }
               />
             </div>
 
@@ -473,32 +447,25 @@ const ZKATool: React.FC = () => {
             children: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.macKey || 'MAC Key:'}</Text>
+              <FieldLabel label={t.mac?.zka?.macKey || 'MAC Key:'} current={cleanHexInput(macKey).length} expected={32} valid={isValidHex(cleanHexInput(macKey))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.macKeyInfo || 'MAC Key'}>
                   <div>{t.mac?.zka?.macKeyInfoDesc || 'The key used for MAC calculation. Must be 16 bytes (32 hex characters).'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <Input
                 value={macKey}
                 onChange={(e) => setMacKey(e.target.value.toUpperCase())}
                 placeholder={t.mac?.zka?.macKeyPlaceholder || 'Enter MAC key (32 hex characters)'}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
-                suffix={
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    [{macKey.length}]
-                  </Text>
-                }
               />
             </div>
 
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                <Text strong>{t.mac?.zka?.data || 'Data:'}</Text>
+              <FieldLabel label={t.mac?.zka?.data || 'Data:'} current={cleanHexInput(macData).length} valid={isValidHex(cleanHexInput(macData))} extra={
                 <CollapsibleInfo title={t.mac?.zka?.dataInfo || 'Data for MAC'}>
                   <div>{t.mac?.zka?.dataInfoDesc || 'The data for which to calculate the MAC. Can be any length in hex format.'}</div>
                 </CollapsibleInfo>
-              </div>
+              } />
               <TextArea
                 value={macData}
                 onChange={(e) => setMacData(e.target.value.toUpperCase())}
@@ -506,9 +473,6 @@ const ZKATool: React.FC = () => {
                 rows={6}
                 style={{ fontFamily: 'Consolas, Monaco, monospace' }}
               />
-              <Text type="secondary" style={{ fontSize: 12, marginTop: 4, display: 'block' }}>
-                [{macData.length}]
-              </Text>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 12, paddingLeft: 4, marginBottom: 24 }}>

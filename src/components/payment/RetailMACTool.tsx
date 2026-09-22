@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { examples } from '../../data/examples';
@@ -243,14 +243,13 @@ const RetailMACTool: React.FC = () => {
 
             {/* Key K Input */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac?.retail?.keyK}:</Text>
+              <FieldLabel label={`${t.mac?.retail?.keyK}:`} current={keyK.length} expected={16} valid={isValidHex(keyK, 16)} extra={
                 <ExampleButton onClick={() => {
                   setKeyK(examples.retailMac.keyK);
                   setKeyKPrime(examples.retailMac.keyKR);
                   setData(examples.retailMac.data);
                 }} />
-              </div>
+              } />
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
@@ -263,7 +262,7 @@ const RetailMACTool: React.FC = () => {
             {/* Key K' Input (optional) */}
             {(finalizeMethod === '3DES' || algorithm === '3DES') && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.retail?.keyKPrime}:</Text>
+                <FieldLabel label={`${t.mac?.retail?.keyKPrime}:`} current={keyKPrime.length} expected={16} valid={isValidHex(keyKPrime, 16)} />
                 <Input
                   value={keyKPrime}
                   onChange={(e) => setKeyKPrime(e.target.value.toUpperCase())}
@@ -276,9 +275,7 @@ const RetailMACTool: React.FC = () => {
 
             {/* Data Input */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac?.retail?.data}:
-              </Text>
+              <FieldLabel label={`${t.mac?.retail?.data}:`} current={data.length} />
               <TextArea
                 value={data}
                 onChange={(e) => setData(e.target.value.toUpperCase())}

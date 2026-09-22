@@ -3,7 +3,7 @@ import { Card, Button, Checkbox, Input, message, Divider, Typography, Row, Col }
 import { CopyOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 
 const { Title, Text } = Typography;
@@ -210,12 +210,15 @@ const BitmapTool: React.FC = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.bitmap?.bitmapLabel || 'Bitmap'}:</Text>
-                <ExampleButton onClick={() => {
+              <FieldLabel
+                label={`${t.bitmap?.bitmapLabel || 'Bitmap'}:`}
+                current={bitmapHex.replace(/\s/g, '').length}
+                expected={[16, 32]}
+                valid={/^[0-9A-F]*$/i.test(bitmapHex.replace(/\s/g, ''))}
+                extra={<ExampleButton onClick={() => {
                   setBitmapHex(examples.bitmap.hex);
-                }} />
-              </div>
+                }} />}
+              />
               <Input
                 value={bitmapHex}
                 onChange={(e) => handleBitmapHexChange(e.target.value)}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Checkbox } from 'antd';
 import { SafetyCertificateOutlined, CopyOutlined, CalculatorOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -114,15 +114,18 @@ const KCVCalculator: React.FC = () => {
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>
+              <FieldLabel
+                label={<>
                   <NumberOutlined style={{ marginRight: 8, color: '#1677ff' }} />
                   {t.kcvCalculator.keyInput}:
-                </Text>
-                <ExampleButton onClick={() => {
+                </>}
+                current={cleanHexInput(keyInput).length}
+                expected={algorithm === 'AES' ? [32, 48, 64] : [16, 32, 48]}
+                valid={isValidHex(cleanHexInput(keyInput))}
+                extra={<ExampleButton onClick={() => {
                   setKeyInput(examples.kcv.key);
-                }} />
-              </div>
+                }} />}
+              />
               <Input.TextArea
                 value={keyInput}
                 onChange={e => setKeyInput(e.target.value)}

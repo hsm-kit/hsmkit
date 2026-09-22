@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, message, Divider, Typography, Input, Select } from 'antd';
 import { SwapOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -330,14 +330,11 @@ const CharacterEncodingTool: React.FC = () => {
 
             {/* Input Data */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>
-                  {t.encoding?.data || 'Data'}:
-                </Text>
+              <FieldLabel label={`${t.encoding?.data || 'Data'}:`} current={inputData.length} extra={
                 <ExampleButton label="ASCII → EBCDIC" onClick={() => {
                   setInputData(examples.characterEncoding.input);
                 }} />
-              </div>
+              } />
               <TextArea
                 value={inputData}
                 onChange={e => setInputData(e.target.value)}

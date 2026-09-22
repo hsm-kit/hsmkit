@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -102,19 +102,6 @@ const SafeNetKeysTool: React.FC = () => {
   const [lookupKmKey, setLookupKmKey] = useState('');
   const [lookupResults, setLookupResults] = useState<DecodeResultDetails[]>([]);
   const [lookupError, setLookupError] = useState('');
-
-  // Get key length in bytes
-  const getKeyLength = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (actual: number, expected: number[]): string => {
-    if (actual === 0) return '#999';
-    if (expected.includes(actual)) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // XOR two hex strings
   const xorHex = (hex1: string, hex2: string): string => {
@@ -598,10 +585,7 @@ const SafeNetKeysTool: React.FC = () => {
   };
 
   // Key lengths for display
-  const lookupKeyLength = getKeyLength(lookupKey);
   const kcvLength = expectedKcv.length;
-  const kmKeyLength = getKeyLength(encKmKey);
-  const lookupKmKeyLength = getKeyLength(lookupKmKey);
 
   // Tab items
   const tabItems = [
@@ -612,13 +596,12 @@ const SafeNetKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.safenetKeys?.key || 'Key'}:</Text>
+            <FieldLabel label={`${t.safenetKeys?.key || 'Key'}:`} current={cleanHexInput(encKey).length} expected={getExpectedKeyLength(keyFormat) * 2} valid={isValidHex(cleanHexInput(encKey))} extra={
               <ExampleButton onClick={() => {
                 setEncKey(examples.safenetKeys.key);
                 setLookupKey(examples.safenetKeys.key);
               }} />
-            </div>
+            } />
             <Input
               value={encKey}
               onChange={e => setEncKey(e.target.value)}
@@ -655,16 +638,7 @@ const SafeNetKeysTool: React.FC = () => {
 
           {/* KM Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.safenetKeys?.kmKey || 'KM Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(kmKeyLength, [16, 24]),
-                fontWeight: kmKeyLength > 0 ? 600 : 400
-              }}>
-                [{kmKeyLength * 2 || 32}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.safenetKeys?.kmKey || 'KM Key'}:`} current={cleanHexInput(encKmKey).length} min={32} valid={isValidHex(cleanHexInput(encKmKey))} />
             <Input
               value={encKmKey}
               onChange={e => setEncKmKey(e.target.value)}
@@ -818,16 +792,12 @@ const SafeNetKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.safenetKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: lookupKeyLength > 0 ? '#52c41a' : '#999',
-                fontWeight: lookupKeyLength > 0 ? 600 : 400
-              }}>
-                {lookupKeyLength * 2}
-              </Text>
-            </div>
+            <FieldLabel
+              label={`${t.safenetKeys?.key || 'Key'}:`}
+              current={cleanHexInput(lookupKey).length}
+              min={cleanHexInput(lookupKey).length > 32 ? 36 : 32}
+              valid={isValidHex(cleanHexInput(lookupKey))}
+            />
             <Input
               value={lookupKey}
               onChange={e => setLookupKey(e.target.value)}
@@ -849,16 +819,7 @@ const SafeNetKeysTool: React.FC = () => {
           {/* KCV Input - only show when Check KCV is checked */}
           {checkKcv && (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.safenetKeys?.kcv || 'KCV'}:</Text>
-                <Text style={{ 
-                  fontSize: '12px', 
-                  color: kcvLength >= 4 ? '#52c41a' : '#999',
-                  fontWeight: kcvLength > 0 ? 600 : 400
-                }}>
-                  {kcvLength}
-                </Text>
-              </div>
+              <FieldLabel label={`${t.safenetKeys?.kcv || 'KCV'}:`} current={kcvLength} min={4} max={6} />
               <Input
                 value={expectedKcv}
                 onChange={e => setExpectedKcv(e.target.value)}
@@ -888,16 +849,7 @@ const SafeNetKeysTool: React.FC = () => {
 
           {/* KM Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.safenetKeys?.kmKey || 'KM Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(lookupKmKeyLength, [16, 24]),
-                fontWeight: lookupKmKeyLength > 0 ? 600 : 400
-              }}>
-                [{lookupKmKeyLength * 2 || 32}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.safenetKeys?.kmKey || 'KM Key'}:`} current={cleanHexInput(lookupKmKey).length} min={32} valid={isValidHex(cleanHexInput(lookupKmKey))} />
             <Input
               value={lookupKmKey}
               onChange={e => setLookupKmKey(e.target.value)}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, message, Typography, Upload, Divider, Input, Select, Space, Alert, Checkbox } from 'antd';
 import { FileSearchOutlined, UploadOutlined, ClearOutlined, CopyOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import logger from '../../utils/logger';
 
@@ -473,17 +473,14 @@ const ASN1Parser: React.FC = () => {
 
         <Space vertical style={{ width: '100%' }} size="middle">
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-              <Text strong>
-                {t.asn1.inputLabel}
-              </Text>
+            <FieldLabel label={t.asn1.inputLabel} current={input.replace(/\s/g, '').length} extra={
               <ExampleButton
                 label="X.509 DER"
                 onClick={() => {
                   setInput(examples.asn1.input);
                 }}
               />
-            </div>
+            } />
             <TextArea
               value={input}
               onChange={e => setInput(e.target.value)}

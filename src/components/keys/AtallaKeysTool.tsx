@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -50,19 +50,6 @@ const AtallaKeysTool: React.FC = () => {
   const [decodeMfk, setDecodeMfk] = useState('');
   const [decodeResults, setDecodeResults] = useState<DecodeResultDetails[]>([]);
   const [decodeError, setDecodeError] = useState('');
-
-  // Get key length in bytes
-  const getKeyLength = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (actual: number, expected: number[]): string => {
-    if (actual === 0) return '#999';
-    if (expected.includes(actual)) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // XOR two hex strings
   const xorHex = (hex1: string, hex2: string): string => {
@@ -383,8 +370,6 @@ const AtallaKeysTool: React.FC = () => {
   // Key lengths for display
   const akbLength = akbInput.trim().length;
   const kcvLength = expectedKcv.length;
-  const mfkLength = getKeyLength(decodeMfk);
-  const encMfkLength = getKeyLength(encMfk);
 
   // Tab items
   const tabItems = [
@@ -395,14 +380,13 @@ const AtallaKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.atallaKeys?.key || 'Key'}:</Text>
+            <FieldLabel label={`${t.atallaKeys?.key || 'Key'}:`} current={cleanHexInput(encKey).length} expected={[32, 48, 64]} valid={isValidHex(cleanHexInput(encKey))} extra={
               <ExampleButton onClick={() => {
                 setEncKey(examples.atallaKeys.key);
                 setEncMfk(examples.atallaKeys.mfk);
                 setDecodeMfk(examples.atallaKeys.mfk);
               }} />
-            </div>
+            } />
             <Input
               value={encKey}
               onChange={e => setEncKey(e.target.value)}
@@ -413,16 +397,7 @@ const AtallaKeysTool: React.FC = () => {
 
           {/* AKB Header */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.atallaKeys?.akbHeader || 'AKB header'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: akbHeader.length === 8 ? '#52c41a' : '#ff4d4f',
-                fontWeight: akbHeader.length > 0 ? 600 : 400
-              }}>
-                [{akbHeader.length}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.atallaKeys?.akbHeader || 'AKB header'}:`} current={akbHeader.length} expected={8} />
             <Input
               value={akbHeader}
               onChange={e => setAkbHeader(e.target.value.substring(0, 8))}
@@ -437,16 +412,7 @@ const AtallaKeysTool: React.FC = () => {
 
           {/* MFK Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.atallaKeys?.mfkKey || 'MFK Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(encMfkLength, [24]),
-                fontWeight: encMfkLength > 0 ? 600 : 400
-              }}>
-                [{encMfkLength || 48}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.atallaKeys?.mfkKey || 'MFK Key'}:`} current={cleanHexInput(encMfk).length} min={48} valid={isValidHex(cleanHexInput(encMfk))} />
             <Input
               value={encMfk}
               onChange={e => setEncMfk(e.target.value)}
@@ -596,16 +562,7 @@ const AtallaKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* AKB Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.atallaKeys?.akb || 'AKB'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: akbLength > 8 ? '#52c41a' : '#999',
-                fontWeight: akbLength > 0 ? 600 : 400
-              }}>
-                {akbLength}
-              </Text>
-            </div>
+            <FieldLabel label={`${t.atallaKeys?.akb || 'AKB'}:`} current={akbLength} min={9} />
             <Input
               value={akbInput}
               onChange={e => setAkbInput(e.target.value)}
@@ -627,16 +584,7 @@ const AtallaKeysTool: React.FC = () => {
           {/* KCV Input - only show when Check KCV is checked */}
           {checkKcv && (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.atallaKeys?.kcvS || 'KCV (S)'}:</Text>
-                <Text style={{ 
-                  fontSize: '12px', 
-                  color: kcvLength >= 4 ? '#52c41a' : '#999',
-                  fontWeight: kcvLength > 0 ? 600 : 400
-                }}>
-                  {kcvLength}
-                </Text>
-              </div>
+              <FieldLabel label={`${t.atallaKeys?.kcvS || 'KCV (S)'}:`} current={kcvLength} min={4} max={6} />
               <Input
                 value={expectedKcv}
                 onChange={e => setExpectedKcv(e.target.value)}
@@ -666,16 +614,7 @@ const AtallaKeysTool: React.FC = () => {
 
           {/* MFK Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.atallaKeys?.mfkKey || 'MFK Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(mfkLength, [24]),
-                fontWeight: mfkLength > 0 ? 600 : 400
-              }}>
-                [{mfkLength || 48}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.atallaKeys?.mfkKey || 'MFK Key'}:`} current={cleanHexInput(decodeMfk).length} min={48} valid={isValidHex(cleanHexInput(decodeMfk))} />
             <Input
               value={decodeMfk}
               onChange={e => setDecodeMfk(e.target.value)}

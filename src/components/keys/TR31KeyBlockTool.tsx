@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Radio, Tag } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -189,19 +189,6 @@ const TR31KeyBlockTool: React.FC = () => {
     }
   };
 
-
-  // Get key length in hex characters
-  const getKeyLengthHex = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (len: number): string => {
-    if (len === 0) return '#999';
-    if (len === 32 || len === 48 || len === 64) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // Copy to clipboard
   const copyToClipboard = (text: string) => {
@@ -453,13 +440,12 @@ const TR31KeyBlockTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Plain Key */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.tr31KeyBlock?.plainKey || 'Plain Key'}:</Text>
+            <FieldLabel label={`${t.tr31KeyBlock?.plainKey || 'Plain Key'}:`} current={cleanHexInput(plainKey).length} min={16} valid={isValidHex(cleanHexInput(plainKey))} extra={
               <ExampleButton onClick={() => {
                 setPlainKey(examples.tr31.key);
                 setKeyBlock(examples.tr31.key);
               }} />
-            </div>
+            } />
             <Input
               value={plainKey}
               onChange={e => setPlainKey(e.target.value)}
@@ -681,23 +667,15 @@ const TR31KeyBlockTool: React.FC = () => {
               gap: 12,
               paddingLeft: 0
             }}>
-              <Text style={{ 
-                minWidth: isMobile ? 'auto' : 120,
-                marginBottom: isMobile ? 4 : 0,
-                fontSize: isMobile ? '13px' : '14px'
-              }}>
-                {t.tr31KeyBlock?.optionalHeaders || 'Optional Headers'}:
-              </Text>
-              <Input
-                value={optionalHeaders}
-                onChange={e => setOptionalHeaders(e.target.value)}
-                placeholder="11111111C14017E00000"
-                style={{ 
-                  flex: 1, 
-                  width: isMobile ? '100%' : 'auto',
-                  fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
-                }}
-              />
+              <div style={{ flex: 1, width: '100%' }}>
+                <FieldLabel label={`${t.tr31KeyBlock?.optionalHeaders || 'Optional Headers'}:`} current={optionalHeaders.length} />
+                <Input
+                  value={optionalHeaders}
+                  onChange={e => setOptionalHeaders(e.target.value)}
+                  placeholder="11111111C14017E00000"
+                  style={{ width: '100%', fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                />
+              </div>
             </div>
           </div>
 
@@ -774,16 +752,7 @@ const TR31KeyBlockTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Block Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.tr31KeyBlock?.keyBlock || 'Key block'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: keyBlock.replace(/\s/g, '').length > 0 ? '#52c41a' : '#999',
-                fontWeight: keyBlock.replace(/\s/g, '').length > 0 ? 600 : 400
-              }}>
-                [{keyBlock.replace(/\s/g, '').length}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.tr31KeyBlock?.keyBlock || 'Key block'}:`} current={keyBlock.replace(/\s/g, '').length} min={32} />
             <Input.TextArea
               value={keyBlock}
               onChange={e => setKeyBlock(e.target.value)}
@@ -979,39 +948,17 @@ const TR31KeyBlockTool: React.FC = () => {
 
           {/* KBPK Input */}
           <div style={{ marginBottom: 16 }}>
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: isMobile ? 'column' : 'row',
-              alignItems: isMobile ? 'flex-start' : 'center', 
-              gap: 12, 
-              marginBottom: 12 
-            }}>
-              <Text strong style={{ 
-                minWidth: isMobile ? 'auto' : 60,
-                marginBottom: isMobile ? 4 : 0,
-                fontSize: isMobile ? '13px' : '14px'
-              }}>
-                KBPK:
-              </Text>
+            <FieldLabel label="KBPK:" current={cleanHexInput(kbpk).length} expected={[32, 48, 64]} valid={isValidHex(cleanHexInput(kbpk))} />
+            <div>
               <Input
                 value={kbpk}
                 onChange={e => setKbpk(e.target.value)}
                 placeholder={t.tr31KeyBlock?.kbpkPlaceholder || 'Enter KBPK (Key Block Protection Key)'}
                 style={{ 
-                  flex: 1, 
-                  width: isMobile ? '100%' : 'auto',
+                  width: '100%',
                   fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' 
                 }}
               />
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(getKeyLengthHex(kbpk)),
-                fontWeight: getKeyLengthHex(kbpk) > 0 ? 600 : 400,
-                minWidth: isMobile ? 'auto' : 40,
-                alignSelf: isMobile ? 'flex-start' : 'center',
-              }}>
-                [{getKeyLengthHex(kbpk) || 32}]
-              </Text>
             </div>
           </div>
 

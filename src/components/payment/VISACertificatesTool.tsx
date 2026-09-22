@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Typography, Checkbox, Upload, Select, Alert, Input, Divider } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, FieldLabel } from '../common';
 import { useTheme } from '../../hooks/useTheme';
 import { useLanguage } from '../../hooks/useLanguage';
 import { cleanHexInput, isValidHex } from '../../utils/crypto';
@@ -244,22 +244,19 @@ const VISACertificatesTool: React.FC = () => {
             </div>
 
             <div style={{ marginBottom: 16 }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                marginBottom: 8, 
-                gap: 8 
-              }}>
-                <Text strong>{t.visaCertificates?.requestDataLabel || 'Issuer Certificate Request Data:'}</Text>
-                <CollapsibleInfo title={t.visaCertificates?.aboutRequestTitle || 'About Certificate Request'}>
+              <FieldLabel
+                label={t.visaCertificates?.requestDataLabel || 'Issuer Certificate Request Data:'}
+                current={cleanHexInput(issuerRequest).length / 2}
+                valid={isValidHex(cleanHexInput(issuerRequest))}
+                extra={<CollapsibleInfo title={t.visaCertificates?.aboutRequestTitle || 'About Certificate Request'}>
                   <Paragraph style={{ marginBottom: 8 }}>
                     {t.visaCertificates?.aboutRequestText1 || 'The Issuer Certificate Request contains the public key and other certificate information that needs to be signed by the CA.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
                     {t.visaCertificates?.aboutRequestText2 || 'This tool validates the structure and format of the certificate request before it is sent to the CA for signing.'}
                   </Paragraph>
-                </CollapsibleInfo>
-              </div>
+                </CollapsibleInfo>}
+              />
               <Input.TextArea
                 value={issuerRequest}
                 onChange={(e) => setIssuerRequest(e.target.value.toUpperCase())}
@@ -270,9 +267,6 @@ const VISACertificatesTool: React.FC = () => {
                   fontSize: 13,
                 }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                Length: {issuerRequest.length / 2} bytes
-              </Text>
             </div>
 
             <Button 
@@ -340,22 +334,19 @@ const VISACertificatesTool: React.FC = () => {
             </div>
 
             <div style={{ marginBottom: 16 }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                marginBottom: 8, 
-                gap: 8 
-              }}>
-                <Text strong>{t.visaCertificates?.signedDataLabel || 'Signed Issuer Public Key Data:'}</Text>
-                <CollapsibleInfo title={t.visaCertificates?.aboutSignedTitle || 'About Signed Public Key Data'}>
+              <FieldLabel
+                label={t.visaCertificates?.signedDataLabel || 'Signed Issuer Public Key Data:'}
+                current={cleanHexInput(signedData).length / 2}
+                valid={isValidHex(cleanHexInput(signedData))}
+                extra={<CollapsibleInfo title={t.visaCertificates?.aboutSignedTitle || 'About Signed Public Key Data'}>
                   <Paragraph style={{ marginBottom: 8 }}>
                     {t.visaCertificates?.aboutSignedText1 || 'The signed issuer public key data contains the certificate signed by the VISA CA.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
                     {t.visaCertificates?.aboutSignedText2 || 'This tool validates the signature using the corresponding CA public key.'}
                   </Paragraph>
-                </CollapsibleInfo>
-              </div>
+                </CollapsibleInfo>}
+              />
               <Input.TextArea
                 value={signedData}
                 onChange={(e) => setSignedData(e.target.value.toUpperCase())}
@@ -366,28 +357,22 @@ const VISACertificatesTool: React.FC = () => {
                   fontSize: 13,
                 }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                Length: {signedData.length / 2} bytes
-              </Text>
             </div>
 
             <div style={{ marginBottom: 16 }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                marginBottom: 8, 
-                gap: 8 
-              }}>
-                <Text strong>{t.visaCertificates?.caKeyLabel || 'CA Public Key:'}</Text>
-                <CollapsibleInfo title={t.visaCertificates?.aboutCaTitle || 'About CA Public Key'}>
+              <FieldLabel
+                label={t.visaCertificates?.caKeyLabel || 'CA Public Key:'}
+                current={cleanHexInput(caPublicKey).length / 2}
+                valid={isValidHex(cleanHexInput(caPublicKey))}
+                extra={<CollapsibleInfo title={t.visaCertificates?.aboutCaTitle || 'About CA Public Key'}>
                   <Paragraph style={{ marginBottom: 8 }}>
                     {t.visaCertificates?.aboutCaText1 || 'Select a predefined VISA CA public key or load a custom one.'}
                   </Paragraph>
                   <Paragraph style={{ marginBottom: 0 }}>
                     {t.visaCertificates?.aboutCaText2 || 'The CA public key is used to verify the signature on the issuer certificate.'}
                   </Paragraph>
-                </CollapsibleInfo>
-              </div>
+                </CollapsibleInfo>}
+              />
               
               <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
                 <Upload
@@ -421,9 +406,6 @@ const VISACertificatesTool: React.FC = () => {
                   fontSize: 13,
                 }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                Length: {caPublicKey.length / 2} bytes
-              </Text>
             </div>
 
             <Button 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Segmented } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -49,9 +49,9 @@ const FuturexKeysTool: React.FC = () => {
   // Key Encryption/Decryption state
   const [key, setKey] = useState('');
   const [modifier, setModifier] = useState('0');
-  const [mfk, setMfk] = useState(DEFAULT_MFK_OPTIONS[0].value);
+  const [mfk, setMfk] = useState('');
   const [customMfk, setCustomMfk] = useState('');
-  const [useCustomMfk, setUseCustomMfk] = useState(false);
+  const [useCustomMfk, setUseCustomMfk] = useState(true);
   const [resultDetails, setResultDetails] = useState<ResultDetails | null>(null);
   const [lastOperation, setLastOperation] = useState<'encrypt' | 'decrypt'>('encrypt');
   const [error, setError] = useState('');
@@ -69,19 +69,6 @@ const FuturexKeysTool: React.FC = () => {
     parity: string;
   }>>([]);
   const [lookupError, setLookupError] = useState('');
-
-  // Get key length in bytes
-  const getKeyLength = (hexKey: string): number => {
-    const cleaned = cleanHexInput(hexKey);
-    return isValidHex(cleaned) ? cleaned.length / 2 : 0;
-  };
-
-  // Get length indicator color
-  const getLengthColor = (actual: number, expected: number[]): string => {
-    if (actual === 0) return '#999';
-    if (expected.includes(actual)) return '#52c41a';
-    return '#ff4d4f';
-  };
 
   // XOR two hex strings
   const xorHex = (hex1: string, hex2: string): string => {
@@ -437,9 +424,6 @@ const FuturexKeysTool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // Key length for display
-  const lookupKeyLength = getKeyLength(lookupKey);
-
   // Tab items
   const tabItems = [
     {
@@ -453,13 +437,14 @@ const FuturexKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.futurexKeys?.key || 'Key'}:</Text>
+            <FieldLabel label={`${t.futurexKeys?.key || 'Key'}:`} current={cleanHexInput(key).length} expected={[32, 48, 64]} valid={isValidHex(cleanHexInput(key))} extra={
               <ExampleButton onClick={() => {
                 setKey(examples.futurexKeys.key);
                 setLookupKey(examples.futurexKeys.lookupKey);
+                setMfk(DEFAULT_MFK_OPTIONS[0].value);
+                setUseCustomMfk(false);
               }} />
-            </div>
+            } />
             <Input
               value={key}
               onChange={e => setKey(e.target.value)}
@@ -506,12 +491,15 @@ const FuturexKeysTool: React.FC = () => {
               style={{ width: '100%' }}
             />
             {useCustomMfk && (
-              <Input
-                value={customMfk}
-                onChange={e => setCustomMfk(e.target.value)}
-                placeholder="Enter custom MFK (48 hex characters)"
-                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', marginTop: 8 }}
-              />
+              <div style={{ marginTop: 12 }}>
+                <FieldLabel label={t.futurexKeys?.customMfk || 'Custom MFK'} current={cleanHexInput(customMfk).length} min={32} valid={isValidHex(cleanHexInput(customMfk))} />
+                <Input
+                  value={customMfk}
+                  onChange={e => setCustomMfk(e.target.value)}
+                  placeholder="Enter custom MFK (minimum 32 hex characters)"
+                  style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
+                />
+              </div>
             )}
           </div>
 
@@ -660,16 +648,7 @@ const FuturexKeysTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Lookup Key Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.futurexKeys?.key || 'Key'}:</Text>
-              <Text style={{ 
-                fontSize: '12px', 
-                color: getLengthColor(lookupKeyLength, [16, 24, 32]),
-                fontWeight: lookupKeyLength > 0 ? 600 : 400
-              }}>
-                [{lookupKeyLength || 16}]
-              </Text>
-            </div>
+            <FieldLabel label={`${t.futurexKeys?.key || 'Key'}:`} current={cleanHexInput(lookupKey).length} expected={[32, 48, 64]} valid={isValidHex(cleanHexInput(lookupKey))} />
             <Input
               value={lookupKey}
               onChange={e => setLookupKey(e.target.value)}
@@ -710,16 +689,7 @@ const FuturexKeysTool: React.FC = () => {
           {/* KCV Input - only show when Check KCV is checked */}
           {checkKcv && (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.futurexKeys?.kcvLabel || 'KCV'}:</Text>
-                <Text style={{ 
-                  fontSize: '12px', 
-                  color: lookupKcv.length >= 6 ? '#52c41a' : '#999',
-                  fontWeight: lookupKcv.length >= 6 ? 600 : 400
-                }}>
-                  [{lookupKcv.length || 6}]
-                </Text>
-              </div>
+              <FieldLabel label={`${t.futurexKeys?.kcvLabel || 'KCV'}:`} current={cleanHexInput(lookupKcv).length} expected={6} valid={isValidHex(cleanHexInput(lookupKcv))} />
               <Input
                 value={lookupKcv}
                 onChange={e => setLookupKcv(e.target.value)}

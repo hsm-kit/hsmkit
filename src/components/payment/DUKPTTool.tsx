@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, Checkbox, message, Typography, Di
 import { LockOutlined, UnlockOutlined, KeyOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, LengthIndicator, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -421,8 +421,7 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>{keyType}:</Text>
+        <FieldLabel label={`${keyType}:`} current={sanitizeHex(bdk).length} expected={32} extra={
           <ExampleButton onClick={() => {
             setBdk(examples.dukpt.bdk);
             setKsn(examples.dukpt.ksn);
@@ -433,7 +432,7 @@ const DUKPTTool: React.FC = () => {
             setMacData(examples.dukpt.macData);
             setDataInput(examples.dukpt.data);
           }} />
-        </div>
+        } />
         <Input
           value={bdk}
           onChange={e => setBdk(sanitizeHex(e.target.value))}
@@ -448,7 +447,7 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.dukpt?.ksn || 'KSN'}:</Text>
+        <FieldLabel label={`${t.dukpt?.ksn || 'KSN'}:`} current={sanitizeHex(ksn).length} expected={20} />
         <Input
           value={ksn}
           onChange={e => setKsn(sanitizeHex(e.target.value))}
@@ -498,7 +497,7 @@ const DUKPTTool: React.FC = () => {
   const pinTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PEK:</Text>
+        <FieldLabel label="PEK:" current={sanitizeHex(pinPek).length} expected={32} />
         <Input
           value={pinPek}
           onChange={e => setPinPek(sanitizeHex(e.target.value))}
@@ -513,7 +512,7 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PIN block:</Text>
+        <FieldLabel label="PIN block:" current={sanitizeHex(pinBlock).length} expected={16} />
         <Input
           value={pinBlock}
           onChange={e => setPinBlock(sanitizeHex(e.target.value))}
@@ -571,10 +570,7 @@ const DUKPTTool: React.FC = () => {
   const macTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PEK:</Text>
-          <LengthIndicator current={sanitizeHex(macPek).length} expected={32} />
-        </div>
+        <FieldLabel label="PEK:" current={sanitizeHex(macPek).length} expected={[32, 48]} />
         <Input
           value={macPek}
           onChange={e => setMacPek(sanitizeHex(e.target.value))}
@@ -604,7 +600,7 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
+        <FieldLabel label="Data:" current={sanitizeHex(macData).length} />
         <TextArea
           value={macData}
           onChange={e => setMacData(sanitizeHex(e.target.value))}
@@ -653,10 +649,7 @@ const DUKPTTool: React.FC = () => {
   const dataTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>PEK:</Text>
-          <LengthIndicator current={sanitizeHex(dataPek).length} expected={32} />
-        </div>
+        <FieldLabel label="PEK:" current={sanitizeHex(dataPek).length} expected={32} />
         <Input
           value={dataPek}
           onChange={e => setDataPek(sanitizeHex(e.target.value))}
@@ -695,7 +688,10 @@ const DUKPTTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>Data:</Text>
+        <FieldLabel
+          label="Data:"
+          current={dataInputType === 'Hex' ? sanitizeHex(dataInput).length : dataInput.length}
+        />
         <TextArea
           value={dataInput}
           onChange={e => setDataInput(dataInputType === 'Hex' ? sanitizeHex(e.target.value) : e.target.value)}

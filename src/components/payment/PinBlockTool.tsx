@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Tag, Typography, Input } from 'antd';
 import { KeyOutlined, CopyOutlined, AppstoreOutlined, NumberOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { ExampleButton } from '../common';
+import { ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -73,17 +73,18 @@ const PinBlockTool: React.FC = () => {
             </div>
 
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text strong>
-                  {t.pinBlock.pinLabel}:
-                </Text>
-                <ExampleButton
+              <FieldLabel
+                label={`${t.pinBlock.pinLabel}:`}
+                current={sanitizeDigits(pin).length}
+                min={4}
+                max={12}
+                extra={<ExampleButton
                   onClick={() => {
                     setPin(examples.pinBlock.pin);
                     setPan(examples.pinBlock.pan);
                   }}
-                />
-              </div>
+                />}
+              />
               <Input
                 value={pin}
                 onChange={e => setPin(sanitizeDigits(e.target.value))}
@@ -99,9 +100,7 @@ const PinBlockTool: React.FC = () => {
             </div>
 
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.pinBlock.panLabel}:
-              </Text>
+              <FieldLabel label={`${t.pinBlock.panLabel}:`} current={sanitizeDigits(pan).length} min={13} max={19} />
               <Input
                 value={pan}
                 onChange={e => setPan(sanitizeDigits(e.target.value))}

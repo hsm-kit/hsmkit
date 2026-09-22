@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, message, Divider, Typography, Input, InputNumber, Select, Checkbox, Alert } from 'antd';
 import { ThunderboltOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import logger from '../../utils/logger';
@@ -144,11 +144,11 @@ const UUIDTool: React.FC = () => {
           {(variant === 'VERSION_3_MD5' || variant === 'VERSION_5_SHA1') && (
             <>
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>Namespace UUID:</Text>
+                <FieldLabel label="Namespace UUID:" current={namespace.length} expected={36} />
                 <Input value={namespace} onChange={event => setNamespace(event.target.value.trim())} size="large" />
               </div>
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>Name:</Text>
+                <FieldLabel label="Name:" current={name.length} />
                 <Input value={name} onChange={event => setName(event.target.value)} size="large" />
               </div>
             </>

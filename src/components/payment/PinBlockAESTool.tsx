@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input } from 'antd';
 import { LockOutlined, KeyOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits, formatHexDisplay } from '../../utils/format';
@@ -31,18 +31,6 @@ const PinBlockAESTool: React.FC = () => {
   const [, setPinBlock] = useState('');
   const [, setPanBlock] = useState('');
   const [error, setError] = useState('');
-
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text 
-      style={{ 
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
 
   // Generate AES PIN Block Format 4 (clear text, before encryption)
   const generatePinBlockFormat4 = (pinValue: string, panValue: string): { pinBlock: string; panBlock: string } => {
@@ -235,14 +223,13 @@ const PinBlockAESTool: React.FC = () => {
 
             {/* AES Key Input */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.pinBlockAes?.keyLabel || 'Key:'}</Text>
+              <FieldLabel label={t.pinBlockAes?.keyLabel || 'Key:'} current={sanitizeHex(aesKey).length} expected={32} extra={
                 <ExampleButton onClick={() => {
                   setAesKey(examples.pinBlockAes.key);
                   setPin(examples.pinBlockAes.pin);
                   setPan(examples.pinBlockAes.pan);
                 }} />
-              </div>
+              } />
               <TextArea
                 value={aesKey}
                 onChange={(e) => setAesKey(sanitizeHex(e.target.value))}
@@ -257,15 +244,14 @@ const PinBlockAESTool: React.FC = () => {
 
             {/* PAN Input */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.pinBlockAes?.panLabel || 'PAN/PAN Block:'}
-              </Text>
+              <FieldLabel label={t.pinBlockAes?.panLabel || 'PAN/PAN Block:'} current={pan.replace(/\D/g, '').length} min={13} max={19} />
               <Input
                 value={pan}
                 onChange={(e) => setPan(sanitizeDigits(e.target.value))}
                 placeholder={t.pinBlockAes?.panPlaceholder || '6432198765432109870'}
                 maxLength={19}
-                prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}                suffix={lengthIndicator(pan.replace(/\D/g, '').length, 16)}                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
+                prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
+                style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '16px' }}
                 size="large"
               />
             </div>
@@ -273,9 +259,7 @@ const PinBlockAESTool: React.FC = () => {
             {/* Encrypt Mode: PIN Input */}
             {mode === 'encrypt' && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.pinBlockAes?.pinLabel || 'PIN/PIN Block:'}
-                </Text>
+                <FieldLabel label={t.pinBlockAes?.pinLabel || 'PIN/PIN Block:'} current={pin.length} min={4} max={12} />
                 <Input
                   value={pin}
                   onChange={(e) => setPin(sanitizeDigits(e.target.value))}
@@ -291,9 +275,7 @@ const PinBlockAESTool: React.FC = () => {
             {/* Decrypt Mode: Encrypted Block Input */}
             {mode === 'decrypt' && (
               <div>
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.pinBlockAes?.encryptedBlockLabel || 'Encrypted PIN Block:'}
-                </Text>
+                <FieldLabel label={t.pinBlockAes?.encryptedBlockLabel || 'Encrypted PIN Block:'} current={sanitizeHex(encryptedBlock).length} expected={32} />
                 <TextArea
                   value={encryptedBlock}
                   onChange={(e) => setEncryptedBlock(sanitizeHex(e.target.value))}

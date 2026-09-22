@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, Checkbox, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { examples } from '../../data/examples';
@@ -292,13 +292,16 @@ const CMACTool: React.FC = () => {
 
             {/* CMAC Key */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac?.cmac?.inputTypeLabel || 'Key Input'}:</Text>
-                <ExampleButton onClick={() => {
+              <FieldLabel
+                label={`${t.mac?.cmac?.inputTypeLabel || 'Key Input'}:`}
+                current={keyInput.length}
+                expected={keyType === 'Hexadecimal' ? (encryptionType === 'AES' ? [32, 48, 64] : [32, 48]) : undefined}
+                valid={keyType === 'Hexadecimal' ? isValidHex(keyInput) : undefined}
+                extra={<ExampleButton onClick={() => {
                   setKeyInput(examples.cmac.key);
                   setDataInput(examples.cmac.data);
-                }} />
-              </div>
+                }} />}
+              />
               <Segmented
                 value={keyType}
                 onChange={(value) => setKeyType(value as InputType)}
@@ -341,9 +344,7 @@ const CMACTool: React.FC = () => {
                 block
                 style={{ marginBottom: 8 }}
               />
-                <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                  {t.mac?.cmac?.data}:
-                </Text>
+                <FieldLabel label={`${t.mac?.cmac?.data}:`} current={dataInput.length} />
               <TextArea
                 value={dataInput}
                 onChange={(e) => setDataInput(dataType === 'Hexadecimal' ? e.target.value.toUpperCase() : e.target.value)}

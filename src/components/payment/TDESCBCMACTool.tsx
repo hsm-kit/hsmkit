@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Segmented, message, Typography, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { examples } from '../../data/examples';
@@ -183,13 +183,12 @@ const TDESCBCMACTool: React.FC = () => {
 
             {/* Key Input */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.mac?.tdescbc?.keyK}:</Text>
+              <FieldLabel label={`${t.mac?.tdescbc?.keyK}:`} current={keyK.length} expected={[32, 48]} valid={isValidHex(keyK)} extra={
                 <ExampleButton onClick={() => {
                   setKeyK(examples.tdescbcMac.key);
                   setData(examples.tdescbcMac.data);
                 }} />
-              </div>
+              } />
               <Input
                 value={keyK}
                 onChange={(e) => setKeyK(e.target.value.toUpperCase())}
@@ -217,9 +216,7 @@ const TDESCBCMACTool: React.FC = () => {
 
             {/* Data Input */}
             <div>
-              <Text strong style={{ display: 'block', marginBottom: 8 }}>
-                {t.mac?.tdescbc?.data}:
-              </Text>
+              <FieldLabel label={`${t.mac?.tdescbc?.data}:`} current={data.length} />
               <TextArea
                 value={data}
                 onChange={(e) => setData(e.target.value.toUpperCase())}

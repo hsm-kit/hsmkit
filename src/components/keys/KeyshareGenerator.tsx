@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Card, Divider, Typography, Input, Segmented, Button, message, Modal, Tabs } from 'antd';
 import { UnlockOutlined, LockOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel, LengthIndicator } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -294,14 +294,6 @@ const KeyshareGenerator: React.FC = () => {
     return { hexLength, isValid };
   };
 
-  // Get length indicator color
-  const getLengthColor = (value: string): string => {
-    if (!value.trim()) return '#999';
-    const info = getKeyLengthInfo(value);
-    if (!info) return '#999';
-    return info.isValid ? '#52c41a' : '#ff4d4f';
-  };
-
   // Generate masked display
   const getMaskedValue = (value: string): string => {
     if (!value) return '';
@@ -387,20 +379,23 @@ const KeyshareGenerator: React.FC = () => {
             fontWeight: 600
           }}
         />
-        <Input
-          value={part.pin}
-          onChange={(e) => onPinChange(e.target.value)}
-          placeholder="●●●●"
-          type="password"
-          maxLength={4}
-          style={{ 
-            width: 80,
-            fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-            textAlign: 'center',
-            borderColor: pinComplete ? '#52c41a' : undefined,
-            boxShadow: pinComplete ? '0 0 0 2px rgba(82, 196, 26, 0.2)' : undefined
-          }}
-        />
+        <div style={{ width: 80 }}>
+          <div style={{ textAlign: 'right', marginBottom: 4 }}>
+            <LengthIndicator current={part.pin.length} expected={4} />
+          </div>
+          <Input
+            value={part.pin}
+            onChange={(e) => onPinChange(e.target.value.replace(/\D/g, ''))}
+            placeholder="●●●●"
+            type="password"
+            maxLength={4}
+            style={{
+              fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+              textAlign: 'center',
+              borderColor: pinComplete ? '#52c41a' : undefined,
+            }}
+          />
+        </div>
         <Button
           icon={<UnlockOutlined />}
           onClick={() => openUnlockModal(type, index)}
@@ -482,50 +477,32 @@ const KeyshareGenerator: React.FC = () => {
 
             {/* Combined Key Input */}
             <div>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 12
-              }}>
-                <div style={{ display: 'flex', gap: 24 }}>
-                  <Text strong>{t.keyshareGenerator?.combinedKey || 'Combined Key'}</Text>
-                  <Text strong>{t.keyshareGenerator?.kcvLabel || 'KCV'}</Text>
-                </div>
-                <ExampleButton onClick={() => {
+              <FieldLabel
+                label={t.keyshareGenerator?.combinedKey || 'Combined Key'}
+                current={cleanHexInput(combinedKeyInput).length}
+                expected={[16, 32, 48, 64]}
+                valid={isValidHex(cleanHexInput(combinedKeyInput))}
+                extra={<>
+                  <span>{t.keyshareGenerator?.kcvLabel || 'KCV'}</span>
+                  <ExampleButton onClick={() => {
                   setCombinedKeyInput(examples.keyshare.key);
-                }} />
-              </div>
+                  }} />
+                </>}
+              />
               <div style={{ 
                 display: 'grid', 
                 gridTemplateColumns: '1fr auto', 
                 gap: 12,
                 alignItems: 'center'
               }}>
-                <div style={{ position: 'relative' }}>
+                <div>
                   <Input
                     value={combinedKeyInput}
                     onChange={(e) => handleCombinedKeyChange(e.target.value)}
                     placeholder="0123456789ABCDEF..."
                     status={combinedLengthInfo && !combinedLengthInfo.isValid ? 'error' : ''}
-                    style={{ 
-                      fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
-                      paddingRight: combinedLengthInfo ? 50 : undefined
-                    }}
+                    style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
                   />
-                  {combinedLengthInfo && (
-                    <div style={{ 
-                      position: 'absolute', 
-                      right: 12, 
-                      top: '50%', 
-                      transform: 'translateY(-50%)',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      color: getLengthColor(combinedKeyInput)
-                    }}>
-                      {combinedLengthInfo.hexLength}
-                    </div>
-                  )}
                 </div>
                 <Input
                   value={combinedKcv}
@@ -657,6 +634,9 @@ const KeyshareGenerator: React.FC = () => {
           <Text style={{ display: 'block', marginBottom: 16 }}>
             {t.keyshareGenerator?.enterPinToReveal || 'Enter 4-digit PIN to reveal key share'}
           </Text>
+          <div style={{ width: 120, margin: '0 auto' }}>
+            <FieldLabel label="PIN" current={unlockModal.inputPin.length} expected={4} />
+          </div>
           <Input
             value={unlockModal.inputPin}
             onChange={(e) => setUnlockModal({ 

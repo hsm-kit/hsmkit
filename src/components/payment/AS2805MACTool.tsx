@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Select, Input, message, Typography, Divider } from 'antd';
+import { Card, Button, Select, Input, InputNumber, message, Typography, Divider } from 'antd';
 import { CalculatorOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -68,12 +68,6 @@ const AS2805MACTool: React.FC = () => {
   const [error, setError] = useState('');
 
   const sanitizeHex = (value: string) => value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
-
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text style={{ fontSize: '12px', color: current === expected ? '#52c41a' : '#999', fontWeight: current > 0 ? 600 : 400 }}>
-      [{current}]
-    </Text>
-  );
 
   const handleCopy = async (text: string) => {
     try {
@@ -148,22 +142,21 @@ const AS2805MACTool: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.mac?.as2805?.keyKL}</Text>
+            <FieldLabel label={t.mac?.as2805?.keyKL} current={sanitizeHex(keyKL).length} expected={16} extra={
               <ExampleButton onClick={() => {
                 setKeyKL(examples.as2805Mac.keyKL);
                 setKeyKR(examples.as2805Mac.keyKR);
                 setData(examples.as2805Mac.data);
               }} />
-            </div>
+            } />
             <Input value={keyKL} onChange={e => setKeyKL(sanitizeHex(e.target.value))} placeholder={t.mac?.as2805?.keyKLPlaceholder}
-              maxLength={16} suffix={lengthIndicator(sanitizeHex(keyKL).length, 16)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
+              maxLength={16} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>
 
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.as2805?.keyKR}</Text>
+            <FieldLabel label={t.mac?.as2805?.keyKR} current={sanitizeHex(keyKR).length} expected={16} />
             <Input value={keyKR} onChange={e => setKeyKR(sanitizeHex(e.target.value))} placeholder={t.mac?.as2805?.keyKRPlaceholder}
-              maxLength={16} suffix={lengthIndicator(sanitizeHex(keyKR).length, 16)} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
+              maxLength={16} style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} size="large" />
           </div>
 
           <div>
@@ -179,13 +172,13 @@ const AS2805MACTool: React.FC = () => {
 
           <div>
             <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.mac?.as2805?.truncation}</Text>
-            <Input 
-              value={truncation} 
-              onChange={e => setTruncation(e.target.value.replace(/[^0-9]/g, ''))} 
-              placeholder={t.mac?.as2805?.truncationPlaceholder}
-              maxLength={1} 
-              style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', fontSize: '14px' }} 
-              size="large" 
+            <InputNumber
+              value={Number(truncation)}
+              onChange={value => setTruncation(String(value || 1))}
+              min={1}
+              max={8}
+              style={{ width: '100%' }}
+              size="large"
             />
           </div>
 

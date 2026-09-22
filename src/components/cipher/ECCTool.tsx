@@ -3,7 +3,7 @@ import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Alert,
 import { KeyOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOutlined, ClearOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, FieldLabel } from '../common';
 import { createEcdsaDerSignature, parseEcdsaDerSignature } from '../../utils/ecdsaDer';
 
 const { Title, Text } = Typography;
@@ -401,12 +401,6 @@ const ECCTool: React.FC = () => {
     message.success(t.common.copied);
   };
 
-  // 获取字节长度
-  const getByteLength = (hex: string): number => {
-    const clean = cleanHex(hex);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
   // Tab 内容
   const tabItems = [
     {
@@ -429,12 +423,7 @@ const ECCTool: React.FC = () => {
 
           {/* Private Key */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.ecc?.privateKey || 'Private Key:'}</Text>
-              <Text style={{ fontSize: '12px', color: privateKey ? '#52c41a' : '#999' }}>
-                [{getByteLength(privateKey)}]
-              </Text>
-            </div>
+            <FieldLabel label={t.ecc?.privateKey || 'Private Key:'} current={cleanHex(privateKey).length / 2} expected={getCurveKeySize()} valid={isValidHex(cleanHex(privateKey))} />
             <TextArea
               value={privateKey}
               onChange={e => setPrivateKey(e.target.value)}
@@ -446,12 +435,7 @@ const ECCTool: React.FC = () => {
 
           {/* Public Key */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.ecc?.publicKey || 'Public Key:'}</Text>
-              <Text style={{ fontSize: '12px', color: publicKey ? '#52c41a' : '#999' }}>
-                [{getByteLength(publicKey)}]
-              </Text>
-            </div>
+            <FieldLabel label={t.ecc?.publicKey || 'Public Key:'} current={cleanHex(publicKey).length / 2} expected={1 + getCurveKeySize() * 2} valid={isValidHex(cleanHex(publicKey))} />
             <TextArea
               value={publicKey}
               onChange={e => setPublicKey(e.target.value)}
@@ -462,16 +446,13 @@ const ECCTool: React.FC = () => {
           </div>
 
           {/* Public key form */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Text strong>{t.ecc?.publicKeyForm || 'Public key form:'}</Text>
+          <div>
+            <FieldLabel label={t.ecc?.publicKeyForm || 'Public key form:'} current={publicKeyForm.length} expected={2} />
             <Input
               value={publicKeyForm}
               onChange={e => setPublicKeyForm(e.target.value)}
               style={{ width: 80, fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}
             />
-            <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-              [{publicKeyForm.length}]
-            </Text>
           </div>
 
           {/* 操作按钮 */}
@@ -513,12 +494,11 @@ const ECCTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.ecc?.data || 'Data:'}</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{signInputFormat === 'Hex' ? getByteLength(signData) : signData.length}]
-              </Text>
-            </div>
+            <FieldLabel
+              label={t.ecc?.data || 'Data:'}
+              current={signInputFormat === 'Hex' ? cleanHex(signData).length / 2 : signData.length}
+              valid={signInputFormat === 'Hex' ? isValidHex(cleanHex(signData)) : undefined}
+            />
             <TextArea
               value={signData}
               onChange={e => setSignData(e.target.value)}
@@ -685,12 +665,11 @@ const ECCTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Data 输入 */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.ecc?.dataToVerify || 'Data to Verify:'}</Text>
-              <Text style={{ fontSize: '12px', color: '#52c41a' }}>
-                [{verifyInputFormat === 'Hex' ? getByteLength(verifyData) : verifyData.length}]
-              </Text>
-            </div>
+            <FieldLabel
+              label={t.ecc?.dataToVerify || 'Data to Verify:'}
+              current={verifyInputFormat === 'Hex' ? cleanHex(verifyData).length / 2 : verifyData.length}
+              valid={verifyInputFormat === 'Hex' ? isValidHex(cleanHex(verifyData)) : undefined}
+            />
             <TextArea
               value={verifyData}
               onChange={e => setVerifyData(e.target.value)}

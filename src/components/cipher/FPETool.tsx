@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Segmented, message, Divider, Typography, Input, Select, Radio, Checkbox } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined } from '@ant-design/icons';
-import { CollapsibleInfo, ExampleButton } from '../common';
+import { CollapsibleInfo, ExampleButton, FieldLabel } from '../common';
 import { examples } from '../../data/examples';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -477,16 +477,7 @@ const FPETool: React.FC = () => {
   // 获取当前 Tweak 的实际字节数
   const getActualTweakLength = (): number => {
     const clean = cleanHex(tweak);
-    return isValidHex(clean) ? clean.length / 2 : 0;
-  };
-
-  // 获取长度指示器的颜色
-  const getLengthColor = (actual: number, expected: number, disabled: boolean = false): string => {
-    if (disabled) return '#999';
-    if (actual === 0) return '#999';
-    if (expected === 0) return '#52c41a'; // 任意长度都可以
-    if (actual === expected) return '#52c41a';
-    return '#ff4d4f';
+    return Math.ceil(clean.length / 2);
   };
 
   // Hex 字符串转 Uint8Array
@@ -735,15 +726,18 @@ const FPETool: React.FC = () => {
 
             {/* Key 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.cipher?.key || 'Key'}:</Text>
-                <ExampleButton onClick={() => {
+              <FieldLabel
+                label={`${t.cipher?.key || 'Key'}:`}
+                current={cleanHex(key).length}
+                expected={getExpectedKeyLength() * 2}
+                valid={isValidHex(cleanHex(key))}
+                extra={<ExampleButton onClick={() => {
                   setKey(examples.fpe.key);
                   setData(examples.fpe.data);
                   setTweak(examples.fpe.tweak);
                   setUseTweak(true);
-                }} />
-              </div>
+                }} />}
+              />
               <Input
                 value={key}
                 onChange={e => setKey(e.target.value)}
@@ -754,16 +748,12 @@ const FPETool: React.FC = () => {
 
             {/* Data 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong>{t.cipher?.data || 'Data'}:</Text>
-                <Text style={{
-                  fontSize: '12px',
-                  color: data.length >= 2 ? '#52c41a' : (data.length > 0 ? '#ff4d4f' : '#999'),
-                  fontWeight: data.length > 0 ? 600 : 400
-                }}>
-                  [{data.length}]
-                </Text>
-              </div>
+              <FieldLabel
+                label={`${t.cipher?.data || 'Data'}:`}
+                current={data.length}
+                min={2}
+                valid={validateDataForRadix(data, radix)}
+              />
               <TextArea
                 value={data}
                 onChange={e => setData(e.target.value)}
@@ -775,16 +765,13 @@ const FPETool: React.FC = () => {
 
             {/* Tweak 输入 */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Text strong style={{ color: useTweak ? undefined : '#999' }}>Tweak:</Text>
-                <Text style={{
-                  fontSize: '12px',
-                  color: getLengthColor(getActualTweakLength(), getExpectedTweakLength(), !useTweak),
-                  fontWeight: useTweak && getActualTweakLength() > 0 ? 600 : 400
-                }}>
-                  [{useTweak ? (getActualTweakLength() || getExpectedTweakLength()) : getExpectedTweakLength()}]
-                </Text>
-              </div>
+              <FieldLabel
+                label="Tweak:"
+                current={getActualTweakLength()}
+                expected={getExpectedTweakLength() || undefined}
+                valid={isValidHex(cleanHex(tweak))}
+                disabled={!useTweak}
+              />
               <TextArea
                 value={tweak}
                 onChange={e => setTweak(e.target.value)}

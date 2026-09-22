@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Card, Button, Tabs, message, Divider, Typography, Input, Select, Checkbox, Alert } from 'antd';
 import { LockOutlined, UnlockOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
-import { CollapsibleInfo } from '../common';
+import { CollapsibleInfo, FieldLabel, LengthIndicator } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import logger from '../../utils/logger';
@@ -440,9 +440,7 @@ const RSADerPublicKeyTool: React.FC = () => {
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
           <Text strong>{t.rsaDer?.modulus || 'Modulus'}:</Text>
-          <Text style={{ fontSize: '12px', color: getModulusLength() > 0 ? '#52c41a' : '#999', fontWeight: getModulusLength() > 0 ? 600 : 400 }}>
-            [{getModulusLength()} bytes]
-          </Text>
+          <LengthIndicator current={getModulusLength()} />
         </div>
         <TextArea
           value={modulus}
@@ -478,7 +476,7 @@ const RSADerPublicKeyTool: React.FC = () => {
 
       {/* Exponent */}
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsaDer?.exponent || 'Exponent'}:</Text>
+        <FieldLabel label={`${t.rsaDer?.exponent || 'Exponent'}:`} current={exponent.replace(/\s/g, '').length} />
         <TextArea
           value={exponent}
           onChange={e => setExponent(e.target.value)}
@@ -605,7 +603,7 @@ const RSADerPublicKeyTool: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
       {/* DER Input */}
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>{t.rsaDer?.derInput || 'DER/PEM Input'}:</Text>
+        <FieldLabel label={`${t.rsaDer?.derInput || 'DER/PEM Input'}:`} current={derInput.replace(/\s/g, '').length} />
         <TextArea
           value={derInput}
           onChange={e => setDerInput(e.target.value)}

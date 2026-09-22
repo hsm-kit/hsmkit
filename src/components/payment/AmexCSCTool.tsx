@@ -3,7 +3,7 @@ import { Card, Button, Tabs, Input, Segmented, message, Divider, Typography } fr
 import { LockOutlined, CreditCardOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import CryptoJS from 'crypto-js';
 import { examples } from '../../data/examples';
 
@@ -219,18 +219,6 @@ const AmexCSCTool: React.FC = () => {
     }
   };
 
-  const lengthIndicator = (current: number, expected: number) => (
-    <Text
-      style={{
-        fontSize: '12px', 
-        color: current === expected ? '#52c41a' : '#999',
-        fontWeight: current > 0 ? 600 : 400
-      }}
-    >
-      [{current}]
-    </Text>
-  );
-
   const generateTab = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
@@ -249,21 +237,19 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <Text strong>CSC Key:</Text>
+        <FieldLabel label="CSC Key:" current={sanitizeHex(genCscKey).length} expected={32} extra={
           <ExampleButton onClick={() => {
             setGenCscKey(examples.amexCsc.key);
             setGenPan(examples.amexCsc.pan);
             setGenExpDate(examples.amexCsc.expDate);
             setGenServiceCode(examples.amexCsc.serviceCode);
           }} />
-        </div>
+        } />
         <Input
           value={genCscKey}
           onChange={e => setGenCscKey(sanitizeHex(e.target.value))}
           placeholder="0123456789ABCDEFFEDCBA9876543210"
           maxLength={48}
-          suffix={lengthIndicator(sanitizeHex(genCscKey).length, 32)}
           style={{
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
@@ -273,14 +259,13 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(genPan).length} expected={15} />
         <Input
           value={genPan}
           onChange={e => setGenPan(sanitizeDigits(e.target.value))}
           placeholder="371234567890123"
           maxLength={15}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(genPan).length, 15)}
           style={{
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
@@ -291,13 +276,12 @@ const AmexCSCTool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Exp. date:</Text>
+          <FieldLabel label="Exp. date:" current={genExpDate.length} expected={4} />
           <Input
             value={genExpDate}
             onChange={e => setGenExpDate(sanitizeDigits(e.target.value))}
             placeholder="9912"
             maxLength={4}
-            suffix={lengthIndicator(genExpDate.length, 4)}
             style={{
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
@@ -307,13 +291,12 @@ const AmexCSCTool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Service Code:</Text>
+          <FieldLabel label="Service Code:" current={genServiceCode.length} expected={3} />
           <Input
             value={genServiceCode}
             onChange={e => setGenServiceCode(sanitizeDigits(e.target.value))}
             placeholder="702"
             maxLength={3}
-            suffix={lengthIndicator(genServiceCode.length, 3)}
             style={{
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
@@ -397,13 +380,12 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CSC Key:</Text>
+        <FieldLabel label="CSC Key:" current={sanitizeHex(valCscKey).length} expected={32} />
         <Input
           value={valCscKey}
           onChange={e => setValCscKey(sanitizeHex(e.target.value))}
           placeholder="0123456789ABCDEFFEDCBA9876543210"
           maxLength={48}
-          suffix={lengthIndicator(sanitizeHex(valCscKey).length, 32)}
           style={{
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
@@ -413,14 +395,13 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>PAN:</Text>
+        <FieldLabel label="PAN:" current={sanitizeDigits(valPan).length} expected={15} />
         <Input
           value={valPan}
           onChange={e => setValPan(sanitizeDigits(e.target.value))}
           placeholder="371234567890123"
           maxLength={15}
           prefix={<CreditCardOutlined style={{ color: '#bfbfbf' }} />}
-          suffix={lengthIndicator(sanitizeDigits(valPan).length, 15)}
           style={{
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',
@@ -431,13 +412,12 @@ const AmexCSCTool: React.FC = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Exp. date:</Text>
+          <FieldLabel label="Exp. date:" current={valExpDate.length} expected={4} />
           <Input
             value={valExpDate}
             onChange={e => setValExpDate(sanitizeDigits(e.target.value))}
             placeholder="9912"
             maxLength={4}
-            suffix={lengthIndicator(valExpDate.length, 4)}
             style={{
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
@@ -447,13 +427,12 @@ const AmexCSCTool: React.FC = () => {
         </div>
 
         <div>
-          <Text strong style={{ display: 'block', marginBottom: 8 }}>Service Code:</Text>
+          <FieldLabel label="Service Code:" current={valServiceCode.length} expected={3} />
           <Input
             value={valServiceCode}
             onChange={e => setValServiceCode(sanitizeDigits(e.target.value))}
             placeholder="101"
             maxLength={3}
-            suffix={lengthIndicator(valServiceCode.length, 3)}
             style={{
               fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
               fontSize: '14px',
@@ -464,16 +443,16 @@ const AmexCSCTool: React.FC = () => {
       </div>
 
       <div>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>CSC:</Text>
+        <FieldLabel
+          label="CSC:"
+          current={valCsc.length}
+          expected={valType === 'csc5' ? 5 : valType === 'csc4' || valType === 'csc' ? 4 : 3}
+        />
         <Input
           value={valCsc}
           onChange={e => setValCsc(sanitizeDigits(e.target.value))}
           placeholder={valType === 'csc5' ? '70954' : valType === 'csc3' ? '283' : '4117'}
           maxLength={valType === 'csc5' ? 5 : valType === 'csc4' || valType === 'csc' ? 4 : 3}
-          suffix={lengthIndicator(
-            valCsc.length,
-            valType === 'csc5' ? 5 : valType === 'csc4' || valType === 'csc' ? 4 : 3
-          )}
           style={{
             fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
             fontSize: '14px',

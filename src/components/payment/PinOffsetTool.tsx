@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Tabs, Radio, message, Divider, Typography, Input, InputNumber } from 'antd';
 import { KeyOutlined, LockOutlined, CreditCardOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
-import { CollapsibleInfo, ResultCard, ExampleButton } from '../common';
+import { CollapsibleInfo, ResultCard, ExampleButton, FieldLabel } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { sanitizeDigits } from '../../utils/format';
@@ -285,15 +285,14 @@ const PinOffsetTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* PDK Input */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text strong>{t.pinOffset?.pdkLabel || 'PDK:'}</Text>
+            <FieldLabel label={t.pinOffset?.pdkLabel || 'PDK:'} current={sanitizeHex(pdk).length} expected={32} extra={
               <ExampleButton onClick={() => {
                 setPdk(examples.pinOffset.pdk);
                 setPan(examples.pinOffset.pan);
                 setPin(examples.pinOffset.pin);
                 setDecTab(examples.pinOffset.decTab);
               }} />
-            </div>
+            } />
             <TextArea
               value={pdk}
               onChange={(e) => setPdk(sanitizeHex(e.target.value))}
@@ -305,9 +304,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* PAN Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.panLabel || 'PAN:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.panLabel || 'PAN:'} current={sanitizeDigits(pan).length} min={12} max={19} />
             <Input
               value={pan}
               onChange={(e) => setPan(sanitizeDigits(e.target.value))}
@@ -321,9 +318,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* PIN Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.pinLabel || 'PIN:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.pinLabel || 'PIN:'} current={sanitizeDigits(pin).length} min={4} max={12} />
             <Input
               value={pin}
               onChange={(e) => setPin(sanitizeDigits(e.target.value))}
@@ -337,9 +332,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* DecTab Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.decTabLabel || 'DecTab:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.decTabLabel || 'DecTab:'} current={sanitizeDigits(decTab).length} expected={16} />
             <Input
               value={decTab}
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
@@ -489,9 +482,7 @@ const PinOffsetTool: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* PDK Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.pdkLabel || 'PDK:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.pdkLabel || 'PDK:'} current={sanitizeHex(pdk).length} expected={32} />
             <TextArea
               value={pdk}
               onChange={(e) => setPdk(sanitizeHex(e.target.value))}
@@ -503,9 +494,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* PAN Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.panLabel || 'PAN:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.panLabel || 'PAN:'} current={sanitizeDigits(pan).length} min={12} max={19} />
             <Input
               value={pan}
               onChange={(e) => setPan(sanitizeDigits(e.target.value))}
@@ -519,9 +508,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* PIN Offset Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.offsetLabel || 'PIN offset:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.offsetLabel || 'PIN offset:'} current={sanitizeDigits(pinOffset).length} min={4} max={12} />
             <Input
               value={pinOffset}
               onChange={(e) => setPinOffset(sanitizeDigits(e.target.value))}
@@ -535,9 +522,7 @@ const PinOffsetTool: React.FC = () => {
 
           {/* DecTab Input */}
           <div>
-            <Text strong style={{ display: 'block', marginBottom: 8 }}>
-              {t.pinOffset?.decTabLabel || 'DecTab:'}
-            </Text>
+            <FieldLabel label={t.pinOffset?.decTabLabel || 'DecTab:'} current={sanitizeDigits(decTab).length} expected={16} />
             <Input
               value={decTab}
               onChange={(e) => setDecTab(sanitizeDigits(e.target.value))}
