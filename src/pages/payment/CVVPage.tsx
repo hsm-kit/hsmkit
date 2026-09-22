@@ -1,16 +1,9 @@
-import React from 'react';
-import { ToolPage } from '../../components/common';
+import { createToolPage } from '../../components/common';
 import { CVVTool } from '../../components/payment';
 
-const CVVPage: React.FC = () => (
-  <ToolPage
-    seoKey="cvv"
-    canonical="https://hsmkit.com/cvv-calculator"
-    toolName="CVV/CVC Calculator and Validator"
-    toolCategory="FinanceApplication"
-  >
-    <CVVTool />
-  </ToolPage>
-);
-
-export default CVVPage;
+export default createToolPage(CVVTool, {
+  seoKey: 'cvv',
+  canonical: 'https://hsmkit.com/payments-card-validation-cvvs',
+  toolName: 'CVV/CVC Calculator and Validator',
+  toolCategory: 'FinanceApplication',
+});

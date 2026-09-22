@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Card, Typography, Row, Col, Tag, Input, Empty, Button } from 'antd';
+import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
+import { Card, Typography, Row, Col, Input, Empty, Button } from 'antd';
 import { Link, useParams } from 'react-router-dom';
-import { getGuidesPath } from '../../utils/guidesPath';
+import { getGuideCategoryPath, getGuidesPath } from '../../utils/guidesPath';
 import type { Language } from '../../locales';
 import {
   SearchOutlined,
@@ -14,10 +14,12 @@ import {
   SafetyCertificateOutlined,
   ToolOutlined,
 } from '@ant-design/icons';
-import { PageLayout } from '../../components/common/PageLayout';
-import { useLanguage } from '../../hooks/useLanguage';
+import { SEO } from '../../components/common/SEO';
+import { useLanguageContext as useLanguage } from '../../hooks/languageContext';
 import { useTheme } from '../../hooks/useTheme';
 import { type ArticleMeta, type CategoryKey, getCategoryIcon, getCategoryColor } from './shared';
+import categoriesData from '../../data/guides/categories.json';
+import { GuideTag } from './GuideTag';
 
 // Import article metadata
 import articlesEn from '../../data/guides/en.json';
@@ -47,8 +49,14 @@ const ArticleCard: React.FC<{
   };
 
   return (
-    <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <Link
+      to={getGuidesPath(language, article.slug)}
+      data-guide-card
+      data-guide-search={`${article.title} ${article.excerpt} ${article.tags.join(' ')}`}
+      style={{ textDecoration: 'none', display: 'block', height: '100%' }}
+    >
       <Card
+        className="guide-article-card"
         hoverable
         style={{
           height: '100%',
@@ -74,12 +82,12 @@ const ArticleCard: React.FC<{
           </div>
           {/* Content */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <Tag 
+            <GuideTag
               color={getCategoryColor(article.category)} 
               style={{ marginBottom: 6, fontSize: 11 }}
             >
               {(guides as { articleCategories?: Record<string, string> }).articleCategories?.[article.category] || article.category}
-            </Tag>
+            </GuideTag>
             <Title 
               level={5} 
               style={{ 
@@ -120,30 +128,39 @@ const CategorySection: React.FC<{
   articles: ArticleMeta[];
   isDark: boolean;
   guides: Record<string, unknown>;
-  onViewAll?: () => void;
+  viewAllPath?: string;
   language: Language;
-}> = ({ title, icon, articles, isDark, guides, onViewAll, language }) => {
+}> = ({ title, icon, articles, isDark, guides, viewAllPath, language }) => {
   if (articles.length === 0) return null;
 
   return (
-    <div style={{ marginBottom: 48 }}>
+    <div data-guide-section style={{ marginBottom: 48 }}>
       <div style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
         marginBottom: 20 
       }}>
-        <Title level={4} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>
-          {icon} {title}
+        <Title
+          level={4}
+          className="guides-category-title"
+          style={{
+            margin: 0,
+            color: isDark ? '#e6e6e6' : '#1e293b',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+          }}
+        >
+          <span aria-hidden="true" style={{ display: 'inline-flex' }}>{icon}</span>
+          <span>{title}</span>
         </Title>
-        {articles.length > 4 && onViewAll && (
-          <Button 
-            type="link" 
-            onClick={onViewAll}
-            style={{ padding: 0, height: 'auto' }}
-          >
-            View all <RightOutlined />
-          </Button>
+        {articles.length > 4 && viewAllPath && (
+          <Link to={viewAllPath}>
+            <Button type="link" style={{ padding: 0, height: 'auto' }}>
+              View all <RightOutlined />
+            </Button>
+          </Link>
         )}
       </div>
       <Row gutter={[16, 16]}>
@@ -182,7 +199,6 @@ const GuidesListPage: React.FC = () => {
   const guides = t.guides;
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<CategoryKey | null>(null);
 
   // Get articles for current language, fallback to English
   const articles = useMemo(() => {
@@ -195,6 +211,38 @@ const GuidesListPage: React.FC = () => {
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     );
   }, [articles]);
+
+  const canonical = language === 'zh' ? 'https://hsmkit.com/zh/guides' : 'https://hsmkit.com/guides';
+
+  useLayoutEffect(() => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: guides.seoTitle || 'Security Knowledge Base - HSM Kit Guides',
+      description: guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.',
+      url: canonical,
+      inLanguage: language === 'zh' ? 'zh-CN' : 'en',
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: sortedArticles.length,
+        itemListElement: sortedArticles.map((article, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'Article',
+            name: article.title,
+            url: `https://hsmkit.com${getGuidesPath(language, article.slug)}`,
+          },
+        })),
+      },
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'guides-collection-schema';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+    return () => script.remove();
+  }, [canonical, guides.seoDescription, guides.seoTitle, language, sortedArticles]);
 
   // Featured articles
   const featuredArticles = useMemo(() => {
@@ -233,12 +281,6 @@ const GuidesListPage: React.FC = () => {
     });
   }, [sortedArticles, searchTerm]);
 
-  // Category filter results
-  const categoryResults = useMemo(() => {
-    if (!selectedCategory) return null;
-    return articlesByCategory[selectedCategory];
-  }, [selectedCategory, articlesByCategory]);
-
   const categories: { key: CategoryKey; label: string; color: string; icon: React.ReactNode }[] = [
     { key: 'Keys', label: guides.articleCategories?.Keys || 'Key Management', color: '#faad14', icon: <KeyOutlined /> },
     { key: 'Payment', label: guides.articleCategories?.Payment || 'Payment Security', color: '#1677ff', icon: <CreditCardOutlined /> },
@@ -248,18 +290,26 @@ const GuidesListPage: React.FC = () => {
   ];
 
   // Show search results or category filter results
-  const showFilteredView = searchResults !== null || selectedCategory !== null;
-  const filteredArticles = searchResults || categoryResults || [];
+  const showFilteredView = searchResults !== null;
+  const filteredArticles = searchResults || [];
 
   return (
-    <PageLayout
-      seoTitle={guides.seoTitle || 'Security Knowledge Base - HSM Kit Guides'}
-      seoDescription={guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.'}
-      seoKeywords={guides.seoKeywords}
-      canonical="https://hsmkit.com/guides"
-      toolName={t.guides?.title || 'Security Knowledge Base'}
-      toolCategory="Documentation"
-    >
+    <>
+      <SEO
+        title={guides.seoTitle || 'Security Knowledge Base - HSM Kit Guides'}
+        description={guides.seoDescription || 'In-depth guides on cryptography, payment security, and HSM management.'}
+        keywords={guides.seoKeywords}
+        canonical={canonical}
+        ogImage={`https://hsmkit.com/og/guides/${language === 'zh' ? 'zh' : 'en'}/index.png`}
+        ogImageWidth={1200}
+        ogImageHeight={630}
+        ogImageAlt={guides.seoTitle || 'HSM Kit Security Knowledge Base'}
+        alternates={[
+          { lang: 'en', href: 'https://hsmkit.com/guides' },
+          { lang: 'zh', href: 'https://hsmkit.com/zh/guides' },
+          { lang: 'x-default', href: 'https://hsmkit.com/guides' },
+        ]}
+      />
       {/* Hero Section */}
       <div style={{ 
         textAlign: 'center', 
@@ -288,15 +338,13 @@ const GuidesListPage: React.FC = () => {
         {/* Search Bar */}
         <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 16px' }}>
           <Input.Search
+            className="guides-search-input"
             placeholder={guides.searchPlaceholder || 'Search guides, algorithms, or concepts...'}
             size="large"
             enterButton={<SearchOutlined style={{ fontSize: 18 }} />}
             allowClear
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              if (e.target.value) setSelectedCategory(null);
-            }}
+            onChange={(e) => setSearchTerm(e.target.value)}
             style={{ width: '100%' }}
           />
         </div>
@@ -316,61 +364,35 @@ const GuidesListPage: React.FC = () => {
           WebkitOverflowScrolling: 'touch',
         }}
       >
-        <Tag
-          role="button"
-          tabIndex={0}
-          aria-pressed={!selectedCategory}
-          onClick={() => {
-            setSelectedCategory(null);
-            setSearchTerm('');
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              setSelectedCategory(null);
-              setSearchTerm('');
-            }
-          }}
+        <GuideTag
           style={{
             cursor: 'pointer',
             padding: '8px 20px',
             fontSize: 14,
             borderRadius: 20,
-            border: !selectedCategory ? 'none' : '1px solid #d9d9d9',
-            background: !selectedCategory ? '#722ed1' : (isDark ? '#2a2a2a' : '#fff'),
-            color: !selectedCategory ? '#fff' : (isDark ? '#e6e6e6' : '#595959'),
+            border: 'none',
+            background: '#722ed1',
+            color: '#fff',
             transition: 'all 0.2s',
             whiteSpace: 'nowrap',
             flexShrink: 0,
           }}
         >
           {guides.categories?.all || 'All'} ({articles.length})
-        </Tag>
-        {categories.filter(cat => articlesByCategory[cat.key].length > 0).map(cat => (
-          <Tag
-            key={cat.key}
-            role="button"
-            tabIndex={0}
-            aria-pressed={selectedCategory === cat.key}
-            onClick={() => {
-              setSelectedCategory(selectedCategory === cat.key ? null : cat.key);
-              setSearchTerm('');
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setSelectedCategory(selectedCategory === cat.key ? null : cat.key);
-                setSearchTerm('');
-              }
-            }}
+        </GuideTag>
+        {categories.filter(cat => articlesByCategory[cat.key].length > 0).map(cat => {
+          const categorySlug = categoriesData.find(item => item.category === cat.key)?.slug || cat.key.toLowerCase();
+          return (
+          <Link key={cat.key} to={getGuideCategoryPath(language, categorySlug)} style={{ flexShrink: 0 }}>
+          <GuideTag
             style={{
               cursor: 'pointer',
               padding: '8px 20px',
               fontSize: 14,
               borderRadius: 20,
-              border: selectedCategory === cat.key ? 'none' : '1px solid #d9d9d9',
-              background: selectedCategory === cat.key ? cat.color : (isDark ? '#2a2a2a' : '#fff'),
-              color: selectedCategory === cat.key ? '#fff' : (isDark ? '#e6e6e6' : '#595959'),
+              border: '1px solid #d9d9d9',
+              background: isDark ? '#2a2a2a' : '#fff',
+              color: isDark ? '#e6e6e6' : '#595959',
               transition: 'all 0.2s',
               whiteSpace: 'nowrap',
               flexShrink: 0,
@@ -381,8 +403,9 @@ const GuidesListPage: React.FC = () => {
           >
             <span style={{ display: 'inline-flex', alignItems: 'center' }}>{cat.icon}</span>
             <span>{cat.label} ({articlesByCategory[cat.key].length})</span>
-          </Tag>
-        ))}
+          </GuideTag>
+          </Link>
+        )})}
       </div>
 
       {/* Filtered View (Search or Category) */}
@@ -395,9 +418,7 @@ const GuidesListPage: React.FC = () => {
             marginBottom: 24 
           }}>
             <Title level={3} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>
-              {searchTerm 
-                ? `🔍 ${guides.searchResults || 'Search Results'}: "${searchTerm}"` 
-                : `📂 ${categories.find(c => c.key === selectedCategory)?.label}`}
+              {`🔍 ${guides.searchResults || 'Search Results'}: "${searchTerm}"`}
             </Title>
             <Text type="secondary">{filteredArticles.length} {guides.articlesCount || 'articles'}</Text>
           </div>
@@ -407,10 +428,7 @@ const GuidesListPage: React.FC = () => {
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
                 <span style={{ color: isDark ? '#8c8c8c' : '#595959' }}>
-                  {searchTerm 
-                    ? (guides.noSearchResults || `No guides found. Try searching for 'AES' or 'Key'.`)
-                    : (guides.noArticles || 'No articles found.')
-                  }
+                  {guides.noSearchResults || `No guides found. Try searching for 'AES' or 'Key'.`}
                 </span>
               }
               style={{ 
@@ -434,7 +452,7 @@ const GuidesListPage: React.FC = () => {
         <>
           {/* Featured Section */}
           {featuredArticles.length > 0 && (
-            <div style={{ marginBottom: 48 }}>
+            <div data-guide-section style={{ marginBottom: 48 }}>
               <Title level={4} style={{ marginBottom: 20, color: isDark ? '#e6e6e6' : '#1e293b' }}>
                 <StarFilled style={{ color: '#faad14', marginRight: 8 }} />
                 {guides.featuredGuides || 'Featured Guides'}
@@ -442,8 +460,14 @@ const GuidesListPage: React.FC = () => {
               <Row gutter={[24, 24]}>
                 {featuredArticles.map(article => (
                   <Col xs={24} md={12} key={article.slug}>
-                    <Link to={getGuidesPath(language, article.slug)} style={{ textDecoration: 'none', display: 'block' }}>
+                    <Link
+                      to={getGuidesPath(language, article.slug)}
+                      data-guide-card
+                      data-guide-search={`${article.title} ${article.excerpt} ${article.tags.join(' ')}`}
+                      style={{ textDecoration: 'none', display: 'block' }}
+                    >
                       <Card
+                        className="guide-article-card guide-featured-card"
                         hoverable
                         style={{
                           borderRadius: 16,
@@ -469,9 +493,9 @@ const GuidesListPage: React.FC = () => {
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ marginBottom: 8 }}>
-                              <Tag color={getCategoryColor(article.category)}>
+                              <GuideTag color={getCategoryColor(article.category)}>
                                 {guides.articleCategories?.[article.category as keyof typeof guides.articleCategories] || article.category}
-                              </Tag>
+                              </GuideTag>
                               <StarFilled style={{ color: '#faad14', marginLeft: 8 }} />
                             </div>
                             <Title level={4} style={{ marginBottom: 8, color: isDark ? '#e6e6e6' : '#1e293b' }}>
@@ -507,13 +531,13 @@ const GuidesListPage: React.FC = () => {
               articles={articlesByCategory[cat.key]}
               isDark={isDark}
               guides={guides}
-              onViewAll={() => setSelectedCategory(cat.key)}
+              viewAllPath={getGuideCategoryPath(language, categoriesData.find(item => item.category === cat.key)?.slug || cat.key.toLowerCase())}
               language={language}
             />
           ))}
         </>
       )}
-    </PageLayout>
+    </>
   );
 };
 

@@ -48,8 +48,6 @@ import {
   PrivacyPolicyPage,
   TermsOfServicePage,
   DisclaimerPage,
-  GuidesListPage,
-  GuideDetailPage,
 } from './routes';
 
 // 路由配置 - 单一数据源
@@ -152,10 +150,6 @@ export const routeComponentMap: Record<string, ComponentType> = {
   '/privacy-policy': PrivacyPolicyPage,
   '/terms-of-service': TermsOfServicePage,
   '/disclaimer': DisclaimerPage,
-  '/guides': GuidesListPage,
-  '/guides/:slug': GuideDetailPage,
-  '/:lang/guides': GuidesListPage,
-  '/:lang/guides/:slug': GuideDetailPage,
 };
 
 // 生成双向映射

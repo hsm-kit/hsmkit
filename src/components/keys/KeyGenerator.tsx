@@ -118,8 +118,15 @@ const KeyGenerator: React.FC = () => {
         const keyBytes = cleaned.length / 2;
         const kcvResult: {des?: string; aes?: string} = {};
         
+        if (keyBytes === 8) {
+          try {
+            kcvResult.des = calculateKCV(cleaned, { algorithm: 'DES' });
+          } catch {
+            kcvResult.des = 'ERROR';
+          }
+        }
         // 16或24字节：同时计算DES和AES
-        if (keyBytes === 16 || keyBytes === 24) {
+        else if (keyBytes === 16 || keyBytes === 24) {
           try {
             kcvResult.des = calculateKCV(cleaned, { algorithm: 'DES' });
           } catch {
@@ -152,7 +159,13 @@ const KeyGenerator: React.FC = () => {
       const resultBytes = result.length / 2;
       const combinedKcvResult: {des?: string; aes?: string} = {};
       
-      if (resultBytes === 16 || resultBytes === 24) {
+      if (resultBytes === 8) {
+        try {
+          combinedKcvResult.des = calculateKCV(result, { algorithm: 'DES' });
+        } catch {
+          combinedKcvResult.des = 'ERROR';
+        }
+      } else if (resultBytes === 16 || resultBytes === 24) {
         try {
           combinedKcvResult.des = calculateKCV(result, { algorithm: 'DES' });
         } catch {
@@ -598,7 +611,7 @@ const KeyGenerator: React.FC = () => {
           </div>
 
           {validationResult && (
-            <div style={{ background: '#f5f7fa', padding: '16px', borderRadius: '8px', border: '1px solid #e1e4e8' }}>
+            <div style={{ background: 'var(--surface-muted)', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
               <div>
                 <div style={{ marginBottom: 12 }}>
                   <Text type="secondary" style={{ fontSize: '12px' }}>
@@ -608,7 +621,7 @@ const KeyGenerator: React.FC = () => {
                     fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace', 
                     fontSize: 'clamp(16px, 4vw, 22px)',
                     letterSpacing: '1px', 
-                    color: '#1677ff',
+                    color: 'var(--primary-color)',
                     wordBreak: 'break-all',
                     marginTop: '4px',
                     lineHeight: '1.6'

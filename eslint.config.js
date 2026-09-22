@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'src/lib', 'node_modules', '*.config.js', 'scripts/', 'public/']),
+  globalIgnores(['dist', 'coverage', 'src/lib', 'node_modules', '*.config.js', 'scripts/', 'public/']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -23,6 +23,11 @@ export default defineConfig([
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-unused-expressions': 'error',
+      // createToolPage 是页面工厂 HOC，其返回值视为组件（兼容 Fast Refresh）
+      'react-refresh/only-export-components': [
+        'error',
+        { allowConstantExport: true, customHOCs: ['createToolPage'] },
+      ],
     },
   },
 ])

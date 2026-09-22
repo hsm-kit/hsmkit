@@ -2,8 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import { routeComponentMap } from './routeConfig';
-
-const NotFoundPage = routeComponentMap['/'];
+import NotFoundPage from './pages/NotFoundPage';
 
 const App: React.FC = () => {
   return (

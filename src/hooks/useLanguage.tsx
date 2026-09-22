@@ -1,16 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import i18n, { loadLanguage } from '../i18n';
 import type { Language, Translations } from '../locales';
-
-interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: Translations;
-}
-
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+import { LanguageContext, useLanguageContext, type LanguageContextType } from './languageContext';
 
 const langMap: Record<Language, string> = {
   en: 'en',
@@ -82,10 +75,4 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
 
-export const useLanguage = (): LanguageContextType => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within LanguageProvider');
-  }
-  return context;
-};
+export const useLanguage = useLanguageContext;

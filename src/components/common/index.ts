@@ -8,4 +8,5 @@ export { ResultCard } from './ResultCard';
 export { ErrorCard } from './ErrorCard';
 export { LengthIndicator } from './LengthIndicator';
 export { ToolPage } from './ToolPage';
+export { createToolPage } from './createToolPage';
 export { ExampleButton } from './ExampleButton';

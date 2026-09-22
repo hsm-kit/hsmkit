@@ -69,6 +69,11 @@ export const routes = [
   
   // Guides / Knowledge Base - English (default)
   '/guides',
+  '/guides/keys',
+  '/guides/payment',
+  '/guides/cipher',
+  '/guides/pki',
+  '/guides/generic',
   '/guides/understanding-key-splitting-kcv',
   '/guides/what-is-tr31-key-block',
   '/guides/hsm-key-management-overview',
@@ -110,6 +115,11 @@ export const routes = [
   
   // Guides / Knowledge Base - Chinese (has translated content)
   '/zh/guides',
+  '/zh/guides/keys',
+  '/zh/guides/payment',
+  '/zh/guides/cipher',
+  '/zh/guides/pki',
+  '/zh/guides/generic',
   '/zh/guides/understanding-key-splitting-kcv',
   '/zh/guides/what-is-tr31-key-block',
   '/zh/guides/hsm-key-management-overview',
@@ -149,3 +159,6 @@ export const routes = [
   '/zh/guides/zka-german-banking-standard',
   '/zh/guides/visa-certificate-validation-guide',
 ];
+
+export const guideRoutes = routes.filter(route => route === '/guides' || route.startsWith('/guides/') || route.startsWith('/zh/guides'));
+export const appRoutes = routes.filter(route => !guideRoutes.includes(route));

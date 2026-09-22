@@ -10,6 +10,9 @@ export const getGuidesPath = (language: Language, slug?: string): string => {
   return slug ? `${basePath}/${slug}` : basePath;
 };
 
+export const getGuideCategoryPath = (language: Language, categorySlug: string): string =>
+  getGuidesPath(language, categorySlug);
+
 /**
  * Parse language from URL path for guides pages
  * Returns the language code if present, otherwise 'en'

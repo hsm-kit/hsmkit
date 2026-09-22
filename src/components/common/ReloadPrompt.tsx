@@ -3,11 +3,9 @@ import { Button, Space, message } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useLanguage } from '../../hooks/useLanguage';
-import { useTheme } from '../../hooks/useTheme';
 
 export function ReloadPrompt() {
   const { t } = useLanguage();
-  const { isDark } = useTheme();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const {
@@ -46,20 +44,22 @@ export function ReloadPrompt() {
   return (
     <div style={{
       position: 'fixed',
-      bottom: 24,
-      right: 24,
+      bottom: 16,
+      right: 16,
+      left: 16,
+      width: 'min(360px, calc(100vw - 32px))',
+      marginLeft: 'auto',
       zIndex: 9999,
-      background: isDark ? '#1f1f1f' : '#fff',
-      borderRadius: 12,
+      background: 'var(--card-bg)',
+      borderRadius: 8,
       padding: '16px 20px',
-      boxShadow: isDark ? '0 6px 24px rgba(0,0,0,0.4)' : '0 6px 24px rgba(0,0,0,0.15)',
-      border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
+      boxShadow: 'var(--shadow-md)',
+      border: '1px solid var(--border-color)',
       display: 'flex',
       alignItems: 'center',
       gap: 16,
-      maxWidth: 360,
     }}>
-      <div style={{ flex: 1, fontSize: 14, color: isDark ? '#d9d9d9' : '#1f1f1f' }}>
+      <div style={{ flex: 1, fontSize: 14, color: 'var(--text-primary)' }}>
         {t.common?.newVersionAvailable || 'New version available. Reload to update?'}
       </div>
       <Space>

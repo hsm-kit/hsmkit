@@ -50,7 +50,7 @@ const KCVCalculator: React.FC = () => {
       // 🚀 尝试使用 Web Worker 后台计算
       if (useWorker && isWorkerAvailable()) {
         try {
-          kcv = await workerKcv(cleanKey, algorithm);
+          kcv = await workerKcv(cleanKey, algorithm, algorithm === 'DES' && adjustParity);
         } catch {
           // Worker 失败，回退到主线程
           kcv = calculateKCV(cleanKey, { 

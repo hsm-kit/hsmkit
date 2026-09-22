@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" suppressHydrationWarning>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <style>
+      :root { --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif; --bg-color: #f5f7fa; --card-bg: #fff; --text-primary: #1f2937; --text-secondary: #6b7280; --border-color: #e5e7eb; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body, #root { width: 100%; min-height: 100%; overflow-x: hidden; }
+      body { font-family: var(--font-sans); background: var(--bg-color); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+      body.dark-mode { --bg-color: #141414; --card-bg: #1f1f1f; --text-primary: #e6e6e6; --text-secondary: #a6a6a6; --border-color: #303030; }
+    </style>
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="description" content="In-depth guides on cryptography, payment security, PKI, and HSM key management." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HSM Kit Security Knowledge Base" />
+    <meta property="og:description" content="Technical guides to cryptography, payment security, PKI, and HSM key management." />
+    <meta property="og:image" content="https://hsmkit.com/og/guides/en/index.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://hsmkit.com/og/guides/en/index.png" />
+    <meta name="theme-color" content="#1677ff" />
+    <link rel="canonical" href="https://hsmkit.com/guides" />
+    <title>HSM Kit Security Knowledge Base</title>
+  </head>
+  <body suppressHydrationWarning>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('hsmkit-theme');
+        if (!theme) theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        if (theme === 'dark') {
+          document.body.classList.add('dark-mode');
+          document.documentElement.style.setProperty('--bg-color', '#141414');
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <noscript><p><strong>HSM Kit Security Knowledge Base requires JavaScript for navigation.</strong></p></noscript>
+    <div id="root"></div>
+    <script type="module" data-cfasync="false" src="/src/guides-main.tsx"></script>
+  </body>
+</html>

@@ -39,13 +39,10 @@ export const ResultCard: React.FC<ResultCardProps> = React.memo(({
       }
       size="small"
       style={{
-        background: isDark 
-          ? 'linear-gradient(135deg, #162312 0%, #1a2e1a 100%)'
-          : 'linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%)',
-        border: isDark ? '1px solid #274916' : '2px solid #95de64',
-        boxShadow: isDark 
-          ? '0 4px 16px rgba(82, 196, 26, 0.15)' 
-          : '0 4px 16px rgba(82, 196, 26, 0.2)',
+        background: 'var(--card-bg)',
+        border: `1px solid ${isDark ? '#274916' : '#b7eb8f'}`,
+        borderLeft: '3px solid #52c41a',
+        boxShadow: 'var(--shadow-sm)',
         ...style,
       }}
       extra={
@@ -68,12 +65,12 @@ export const ResultCard: React.FC<ResultCardProps> = React.memo(({
       }
     >
       <div style={{ 
-        background: isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+        background: 'var(--surface-muted)',
         padding: '16px', 
-        borderRadius: '8px', 
-        border: isDark ? '1px solid #3c5a24' : '1px solid #b7eb8f',
+        borderRadius: '6px',
+        border: `1px solid ${isDark ? '#3c5a24' : '#d9f7be'}`,
         wordBreak: 'break-all',
-        fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace',
+        fontFamily: 'var(--font-mono)',
         fontSize: '14px',
         lineHeight: '1.8',
         color: isDark ? '#95de64' : '#237804',

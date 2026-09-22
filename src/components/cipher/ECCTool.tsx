@@ -4,6 +4,7 @@ import { KeyOutlined, EditOutlined, CheckCircleOutlined, CopyOutlined, ReloadOut
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { CollapsibleInfo } from '../common';
+import { createEcdsaDerSignature, parseEcdsaDerSignature } from '../../utils/ecdsaDer';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -244,30 +245,6 @@ const ECCTool: React.FC = () => {
     message.success(t.ecc?.keysCleared || 'Keys cleared');
   };
 
-  // 将整数转为 DER 格式
-  const integerToDER = (hex: string): string => {
-    // 去掉前导零
-    let h = hex.replace(/^0+/, '') || '0';
-    if (h.length % 2 !== 0) h = '0' + h;
-    
-    // 如果最高位是 1（负数），添加 00 前缀
-    if (parseInt(h.substring(0, 2), 16) >= 0x80) {
-      h = '00' + h;
-    }
-    
-    const len = h.length / 2;
-    return '02' + len.toString(16).padStart(2, '0') + h;
-  };
-
-  // 创建 DER 格式签名
-  const createDERSignature = (r: string, s: string): string => {
-    const rDER = integerToDER(r);
-    const sDER = integerToDER(s);
-    const content = rDER + sDER;
-    const totalLen = content.length / 2;
-    return '30' + totalLen.toString(16).padStart(2, '0') + content;
-  };
-
   // 签名
   const handleSign = async () => {
     setError('');
@@ -335,7 +312,7 @@ const ECCTool: React.FC = () => {
       setSignatureS(s);
       
       // 创建 DER 格式签名
-      const derSig = createDERSignature(r, s);
+      const derSig = createEcdsaDerSignature(r, s);
       setSignatureDER(derSig.toUpperCase());
       
       // 保存签名详情
@@ -345,63 +322,6 @@ const ECCTool: React.FC = () => {
       });
     } catch (err) {
       setError((t.ecc?.errorSign || 'Signing failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
-    }
-  };
-
-  // 解析 DER 格式签名，提取 r 和 s
-  const parseDERSignature = (derHex: string): { r: string; s: string } | null => {
-    try {
-      // DER 格式: 30 <len> 02 <r_len> <r> 02 <s_len> <s>
-      if (!derHex.startsWith('30')) {
-        return null;
-      }
-      
-      let pos = 2;
-      const totalLen = parseInt(derHex.substring(pos, pos + 2), 16);
-      pos += 2;
-      
-      // 检查是否是有效的 DER 格式
-      if (derHex.length < (totalLen + 2) * 2) {
-        return null;
-      }
-      
-      // 解析 r
-      if (derHex.substring(pos, pos + 2) !== '02') {
-        return null;
-      }
-      pos += 2;
-      
-      const rLen = parseInt(derHex.substring(pos, pos + 2), 16);
-      pos += 2;
-      
-      let r = derHex.substring(pos, pos + rLen * 2);
-      pos += rLen * 2;
-      
-      // DER 编码中，如果整数的最高位是 1，会在前面添加 00 字节
-      // 只移除这种情况下的前导 00
-      if (r.length > 2 && r.startsWith('00') && parseInt(r.substring(2, 4), 16) >= 0x80) {
-        r = r.substring(2);
-      }
-      
-      // 解析 s
-      if (derHex.substring(pos, pos + 2) !== '02') {
-        return null;
-      }
-      pos += 2;
-      
-      const sLen = parseInt(derHex.substring(pos, pos + 2), 16);
-      pos += 2;
-      
-      let s = derHex.substring(pos, pos + sLen * 2);
-      
-      // 同样处理 s 的前导 00
-      if (s.length > 2 && s.startsWith('00') && parseInt(s.substring(2, 4), 16) >= 0x80) {
-        s = s.substring(2);
-      }
-      
-      return { r, s };
-    } catch {
-      return null;
     }
   };
 
@@ -453,7 +373,7 @@ const ECCTool: React.FC = () => {
       
       // 检测是否是 DER 格式签名，如果是则转换为 P1363 格式
       if (cleanSig.startsWith('30')) {
-        const parsed = parseDERSignature(cleanSig);
+        const parsed = parseEcdsaDerSignature(cleanSig);
         if (parsed) {
           sigHex = toP1363Format(parsed.r, parsed.s, keySize);
         }

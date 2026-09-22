@@ -54,16 +54,32 @@ export function useToolForm<TInput extends Record<string, string>>({
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // 自动保存输入历史（跳过首次渲染）
+  const inputsRef = useRef(inputs);
+  inputsRef.current = inputs;
+
+  // 自动保存输入历史（跳过首次渲染，防抖 500ms 避免高频输入时反复写 localStorage）
   useEffect(() => {
     if (!toolKey || skipSaveRef.current) {
       skipSaveRef.current = false;
       return;
     }
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(inputs));
-    } catch { /* localStorage unavailable */ }
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(inputs));
+      } catch { /* localStorage unavailable */ }
+    }, 500);
+    return () => clearTimeout(timer);
   }, [inputs, toolKey, storageKey]);
+
+  // 卸载时立即保存，避免防抖期间离开页面丢失最后的输入
+  useEffect(() => {
+    if (!toolKey) return;
+    return () => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(inputsRef.current));
+      } catch { /* ignore */ }
+    };
+  }, [toolKey, storageKey]);
 
   const updateInput = useCallback((key: keyof TInput, value: string) => {
     setInputs(prev => ({ ...prev, [key]: value }));

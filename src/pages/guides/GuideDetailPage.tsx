@@ -8,7 +8,6 @@ import {
   Card, 
   Button, 
   Anchor, 
-  Tag, 
   Skeleton,
   Alert,
 } from 'antd';
@@ -17,6 +16,11 @@ import {
   ToolOutlined,
   ClockCircleOutlined,
   RightOutlined,
+  ReadOutlined,
+  TeamOutlined,
+  SafetyCertificateOutlined,
+  CalendarOutlined,
+  LinkOutlined,
 } from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -24,10 +28,17 @@ import { SEO } from '../../components/common/SEO';
 import { triggerPrerenderReady } from '../../utils/prerender';
 import { calculateReadTime } from '../../utils/readTime';
 import { getGuidesPath } from '../../utils/guidesPath';
-import { useLanguage } from '../../hooks/useLanguage';
+import { useLanguageContext as useLanguage } from '../../hooks/languageContext';
 import { useTheme } from '../../hooks/useTheme';
 import type { Language } from '../../locales';
 import { type ArticleMeta, getCategoryIcon, getCategoryColor } from './shared';
+import { GuideTag } from './GuideTag';
+import {
+  GUIDE_AUTHOR,
+  GUIDE_REVIEWER,
+  getGuideLastReviewed,
+  getGuideReferences,
+} from '../../data/guides/authority';
 
 // Import article metadata
 import articlesEn from '../../data/guides/en.json';
@@ -44,6 +55,23 @@ interface AnchorItem {
 const articlesMap: Record<string, ArticleMeta[]> = {
   en: articlesEn as ArticleMeta[],
   zh: articlesZh as ArticleMeta[],
+};
+
+const authorityLabels = {
+  en: {
+    author: 'Written by',
+    reviewer: 'Technically reviewed by',
+    lastReviewed: 'Last reviewed',
+    references: 'Standards & references',
+    referenceNote: 'Technical content is reviewed against the cited public standards and official documentation. Confirm licensed standards and vendor documentation before production use.',
+  },
+  zh: {
+    author: '作者',
+    reviewer: '技术审阅',
+    lastReviewed: '最后审阅',
+    references: '标准与参考资料',
+    referenceNote: '技术内容依据所列公开标准与官方文档进行审阅。用于生产前，请同时核对已授权的标准文本和厂商文档。',
+  },
 };
 
 // Dynamic import for markdown files
@@ -130,6 +158,22 @@ const GuideDetailPage: React.FC = () => {
     return article || null;
   }, [slug, language]);
 
+  const canonical = language === 'zh' && articlesMap.zh.some(article => article.slug === slug)
+    ? `https://hsmkit.com/zh/guides/${slug}`
+    : `https://hsmkit.com/guides/${slug}`;
+
+  const hreflangLinks = useMemo(() => {
+    const links = [{ lang: 'en', href: `https://hsmkit.com/guides/${slug}` }];
+    if (articlesMap.zh.some(article => article.slug === slug)) {
+      links.push({ lang: 'zh', href: `https://hsmkit.com/zh/guides/${slug}` });
+    }
+    links.push({ lang: 'x-default', href: `https://hsmkit.com/guides/${slug}` });
+    return links;
+  }, [slug]);
+
+  const references = useMemo(() => getGuideReferences(slug || ''), [slug]);
+  const labels = language === 'zh' ? authorityLabels.zh : authorityLabels.en;
+
   // Get related articles for "Read Next" section (at least 3)
   const relatedArticles = useMemo(() => {
     if (!meta) return [];
@@ -151,13 +195,13 @@ const GuideDetailPage: React.FC = () => {
   // Calculate prev/next articles
   useEffect(() => {
     if (!meta) return;
-    const articles = articlesEn as ArticleMeta[];
+    const articles = articlesMap[language] || articlesMap.en;
     const currentIndex = articles.findIndex(a => a.slug === slug);
     if (currentIndex > 0) setPrevArticle(articles[currentIndex - 1]);
     else setPrevArticle(null);
     if (currentIndex < articles.length - 1) setNextArticle(articles[currentIndex + 1]);
     else setNextArticle(null);
-  }, [meta, slug]);
+  }, [meta, slug, language]);
 
   // Extract headings for TOC
   const headings = useMemo(() => extractHeadings(content), [content]);
@@ -210,11 +254,38 @@ const GuideDetailPage: React.FC = () => {
       '@type': 'Article',
       headline: meta.title,
       description: meta.excerpt,
-      author: { '@type': 'Organization', name: 'HSM Kit' },
-      publisher: { '@type': 'Organization', name: 'HSM Kit', url: 'https://hsmkit.com' },
+      url: canonical,
+      author: { '@type': 'Organization', name: GUIDE_AUTHOR.name, url: GUIDE_AUTHOR.url },
+      reviewedBy: {
+        '@type': 'Organization',
+        name: GUIDE_REVIEWER.name,
+        url: GUIDE_REVIEWER.url,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'HSM Kit',
+        url: 'https://hsmkit.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://hsmkit.com/favicon-512.png',
+          width: 512,
+          height: 512,
+        },
+      },
       datePublished: meta.publishDate,
       dateModified: meta.lastModified,
-      mainEntityOfPage: `https://hsmkit.com${location.pathname}`,
+      citation: references.map(reference => ({
+        '@type': 'CreativeWork',
+        name: reference.title,
+        publisher: reference.publisher,
+        url: reference.url,
+      })),
+      mainEntityOfPage: canonical,
+      isPartOf: {
+        '@type': 'CollectionPage',
+        name: 'HSM Kit Guides',
+        url: `https://hsmkit.com${getGuidesPath(language)}`,
+      },
       articleSection: meta.category,
       wordCount: content?.split(/\s+/).length || 0,
       inLanguage: language === 'en' ? 'en' : language,
@@ -248,7 +319,7 @@ const GuideDetailPage: React.FC = () => {
       const breadcrumbEl = document.getElementById('breadcrumb-schema');
       if (breadcrumbEl) breadcrumbEl.remove();
     };
-  }, [meta, loading, content, language, location.pathname]);
+  }, [meta, loading, content, language, location.pathname, canonical, references]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -258,17 +329,6 @@ const GuideDetailPage: React.FC = () => {
       day: 'numeric',
     });
   };
-
-  // Generate hreflang links
-  const hreflangLinks = useMemo(() => {
-    const languages = ['en', 'zh', 'ja', 'ko', 'de', 'fr'];
-    return languages.map(lang => ({
-      lang,
-      href: lang === 'en' 
-        ? `https://hsmkit.com/guides/${slug}`
-        : `https://hsmkit.com/${lang}/guides/${slug}`,
-    }));
-  }, [slug]);
 
   if (!slug) {
     return <div>{guides.invalidArticle || 'Invalid article'}</div>;
@@ -296,20 +356,25 @@ const GuideDetailPage: React.FC = () => {
         title={meta ? `${meta.title} - HSM Kit Guides` : 'HSM Kit Guides'}
         description={meta?.excerpt || guides.seoDescription || ''}
         keywords={meta?.tags.join(', ')}
-        canonical={`https://hsmkit.com/guides/${slug}`}
+        canonical={canonical}
+        alternates={hreflangLinks}
+        ogType="article"
+        ogLocale={language === 'zh' ? 'zh_CN' : 'en_US'}
+        ogImage={`https://hsmkit.com/og/guides/${language === 'zh' ? 'zh' : 'en'}/${slug}.png`}
+        ogImageWidth={1200}
+        ogImageHeight={630}
+        ogImageAlt={meta?.title}
+        articlePublishedTime={meta?.publishDate}
+        articleModifiedTime={meta?.lastModified}
+        articleSection={meta?.category}
+        noindex={isFallback}
         prerenderReady={false}
       />
-      
-      {/* Inject hreflang links */}
-      {hreflangLinks.map(({ lang, href }) => (
-        <link key={lang} rel="alternate" hrefLang={lang} href={href} />
-      ))}
-      <link rel="alternate" hrefLang="x-default" href={`https://hsmkit.com/guides/${slug}`} />
 
       {/* T-Layout: Full-width Header Section */}
-      <div style={{ 
-        background: isDark ? '#1f1f1f' : '#fff', 
-        borderBottom: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+      <div className="guide-detail-hero" style={{
+        background: 'var(--card-bg)',
+        borderBottom: '1px solid var(--border-color)',
         padding: '48px 0 40px',
         marginBottom: 40,
         marginLeft: -24,
@@ -351,7 +416,7 @@ const GuideDetailPage: React.FC = () => {
                   marginBottom: 20, 
                   fontSize: 'clamp(28px, 4vw, 40px)',
                   lineHeight: 1.3,
-                  color: isDark ? '#e6e6e6' : '#1f1f1f',
+                  color: 'var(--text-primary)',
                 }}
               >
                 {meta.title}
@@ -360,44 +425,33 @@ const GuideDetailPage: React.FC = () => {
               {/* Tags - below title, above meta */}
               <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
                 {/* Category Tag - colored, prominent */}
-                <Tag 
-                  color={getCategoryColor(meta.category)} 
+                <GuideTag
+                  color={getCategoryColor(meta.category)}
                   style={{ 
-                    padding: '4px 12px', 
                     fontSize: 14,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    lineHeight: 1,
                   }}
                 >
                   {getCategoryIcon(meta.category, 14)}
                   <span>{guides.articleCategories?.[meta.category as keyof typeof guides.articleCategories] || meta.category}</span>
-                </Tag>
+                </GuideTag>
                 
                 {/* Topic Tags - subtle */}
                 {meta.tags.slice(0, 4).map(tag => (
-                  <Tag 
+                  <GuideTag
                     key={tag} 
-                    bordered={false}
-                    style={{ 
-                      background: isDark ? '#2a2a2a' : '#f5f5f5',
-                      color: isDark ? '#a6a6a6' : '#595959',
-                    }}
+                    subtle
                   >
                     # {guides.tags?.[tag as keyof typeof guides.tags] || tag}
-                  </Tag>
+                  </GuideTag>
                 ))}
               </div>
 
-              {/* Meta info */}
-              <div style={{ color: isDark ? '#a6a6a6' : '#666666', fontSize: 14 }}>
-                <ClockCircleOutlined style={{ marginRight: 6 }} />
-                <span>{t.guides?.lastUpdated || 'Last Updated'}: {formatDate(meta.lastModified)}</span>
-                <span style={{ margin: '0 12px' }}>•</span>
-                <span>{readTime} {t.guides?.minRead || 'min read'}</span>
-                <span style={{ margin: '0 12px' }}>•</span>
-                <span>{t.guides?.byTeam || 'By HSM Kit Team'}</span>
+              {/* Authorship and review metadata */}
+              <div className="guide-authority-meta" style={{ fontSize: 14, display: 'flex', flexWrap: 'wrap', gap: '8px 18px' }}>
+                <span><TeamOutlined style={{ marginRight: 6 }} />{labels.author} {GUIDE_AUTHOR.name}</span>
+                <span><SafetyCertificateOutlined style={{ marginRight: 6 }} />{labels.reviewer} {GUIDE_REVIEWER.name}</span>
+                <span><CalendarOutlined style={{ marginRight: 6 }} />{labels.lastReviewed}: {formatDate(getGuideLastReviewed(meta.lastModified))}</span>
+                <span><ClockCircleOutlined style={{ marginRight: 6 }} />{readTime} {t.guides?.minRead || 'min read'}</span>
               </div>
             </>
           )}
@@ -425,7 +479,8 @@ const GuideDetailPage: React.FC = () => {
 
                 {/* Tool CTA Banner */}
                 {meta?.relatedTool && (
-                  <Card 
+                  <Card
+                    className="guide-tool-cta"
                     style={{ 
                       background: isDark ? '#1a2a4a' : 'linear-gradient(135deg, #e6f4ff 0%, #f0f5ff 100%)', 
                       borderColor: isDark ? '#2a3a5a' : '#adc6ff', 
@@ -444,17 +499,17 @@ const GuideDetailPage: React.FC = () => {
                     }}
                   >
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 16, color: isDark ? '#69b1ff' : '#1d39c4' }}>
+                      <div className="guide-tool-cta-title" style={{ fontWeight: 600, fontSize: 16 }}>
                         <ToolOutlined style={{ marginRight: 8 }} />
                         {guides.needToCalculate || 'Need to calculate this now?'}
                       </div>
-                      <div style={{ color: isDark ? '#a6adb4' : '#595959', marginTop: 4 }}>
+                      <div className="guide-tool-cta-description" style={{ marginTop: 4 }}>
                         {(guides.useOurTool || 'Use our free online {toolName} tool.').replace('{toolName}', meta.relatedToolName || '')}
                       </div>
                     </div>
-                    <Link to={meta.relatedTool}>
+                    <a href={meta.relatedTool}>
                       <Button type="primary" size="large">{guides.openTool || 'Open Tool'} <RightOutlined /></Button>
-                    </Link>
+                    </a>
                   </Card>
                 )}
 
@@ -523,9 +578,31 @@ const GuideDetailPage: React.FC = () => {
                   </ReactMarkdown>
                 </div>
 
+                <Card className="guide-references" style={{ marginTop: 40, borderRadius: 8 }}>
+                  <Title level={3} style={{ marginTop: 0, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <SafetyCertificateOutlined style={{ color: 'var(--primary-color)' }} />
+                    <span>{labels.references}</span>
+                  </Title>
+                  <Text type="secondary" style={{ display: 'block', marginBottom: 16, lineHeight: 1.7 }}>
+                    {labels.referenceNote}
+                  </Text>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
+                    {references.map(reference => (
+                      <li key={reference.url} style={{ marginBottom: 8 }}>
+                        <a href={reference.url} target="_blank" rel="noreferrer">
+                          {reference.title}
+                          <LinkOutlined style={{ marginLeft: 6, fontSize: 12 }} />
+                        </a>
+                        <Text type="secondary"> — {reference.publisher}</Text>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+
                 {/* Bottom CTA */}
                 {meta?.relatedTool && (
-                  <Card 
+                  <Card
+                    className="guide-tool-cta"
                     style={{ 
                       background: isDark ? '#1a2a4a' : 'linear-gradient(135deg, #e6f4ff 0%, #f0f5ff 100%)', 
                       borderColor: isDark ? '#2a3a5a' : '#adc6ff', 
@@ -544,86 +621,97 @@ const GuideDetailPage: React.FC = () => {
                     }}
                   >
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 16, color: isDark ? '#69b1ff' : '#1d39c4' }}>
+                      <div className="guide-tool-cta-title" style={{ fontWeight: 600, fontSize: 16 }}>
                         <ToolOutlined style={{ marginRight: 8 }} />
                         {guides.relatedTool || 'Related Tool'}
                       </div>
-                      <div style={{ color: isDark ? '#a6adb4' : '#595959', marginTop: 4 }}>
+                      <div className="guide-tool-cta-description" style={{ marginTop: 4 }}>
                         {meta.relatedToolName}
                       </div>
                     </div>
-                    <Link to={meta.relatedTool}>
+                    <a href={meta.relatedTool}>
                       <Button type="primary" size="large">{guides.openTool || 'Open Tool'} <RightOutlined /></Button>
-                    </Link>
+                    </a>
                   </Card>
                 )}
 
                 {/* Prev/Next Navigation */}
                 {(prevArticle || nextArticle) && (
-                  <div style={{ 
+                  <div className="article-pagination" style={{
                     marginTop: 64, 
                     paddingTop: 40, 
                     borderTop: `1px solid ${isDark ? '#303030' : '#e5e7eb'}`,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    gap: 16,
                   }}>
                     {prevArticle ? (
                       <Link 
                         to={getGuidesPath(language, prevArticle.slug)} 
-                        style={{ textDecoration: 'none', flex: 1 }}
+                        style={{ textDecoration: 'none' }}
                       >
-                        <div style={{
+                        <div className="article-pagination-card" style={{
                           padding: '16px 20px',
-                          borderRadius: 12,
-                          background: isDark ? '#1f1f1f' : '#f8f9fb',
-                          border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+                          borderRadius: 8,
+                          background: 'var(--surface-muted)',
+                          border: '1px solid var(--border-color)',
                           transition: 'all 0.2s',
                         }}>
                           <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
                             {t.guides?.previousArticle || '← Previous'}
                           </div>
-                          <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
+                          <div style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500, overflowWrap: 'anywhere' }}>
                             {prevArticle.title}
                           </div>
                         </div>
                       </Link>
-                    ) : <div style={{ flex: 1 }} />}
+                    ) : <div className="article-pagination__spacer" />}
                     
                     {nextArticle ? (
                       <Link 
                         to={getGuidesPath(language, nextArticle.slug)} 
-                        style={{ textDecoration: 'none', flex: 1, textAlign: 'right' }}
+                        style={{ textDecoration: 'none', textAlign: 'right' }}
                       >
-                        <div style={{
+                        <div className="article-pagination-card" style={{
                           padding: '16px 20px',
-                          borderRadius: 12,
-                          background: isDark ? '#1f1f1f' : '#f8f9fb',
-                          border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
+                          borderRadius: 8,
+                          background: 'var(--surface-muted)',
+                          border: '1px solid var(--border-color)',
                           transition: 'all 0.2s',
                         }}>
                           <div style={{ fontSize: 12, color: isDark ? '#8c8c8c' : '#999', marginBottom: 4 }}>
                             {t.guides?.nextArticle || 'Next →'}
                           </div>
-                          <div style={{ fontSize: 14, color: isDark ? '#e6e6e6' : '#1f1f1f', fontWeight: 500 }}>
+                          <div style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500, overflowWrap: 'anywhere' }}>
                             {nextArticle.title}
                           </div>
                         </div>
                       </Link>
-                    ) : <div style={{ flex: 1 }} />}
+                    ) : <div className="article-pagination__spacer" />}
                   </div>
                 )}
 
                 {/* Read Next Section */}
                 {relatedArticles.length > 0 && (
-                  <div style={{ 
-                    marginTop: 64, 
-                    paddingTop: 40, 
+                  <div className="guide-related-section" style={{
                     borderTop: `1px solid ${isDark ? '#303030' : '#e5e7eb'}` 
                   }}>
-                    <Title level={3} style={{ marginBottom: 24, color: isDark ? '#e6e6e6' : '#1f1f1f' }}>
-                      📖 {guides.readNext || 'Read Next'}
+                    <Title
+                      level={3}
+                      className="guides-read-next-title"
+                      style={{
+                        marginBottom: 6,
+                        color: isDark ? '#e6e6e6' : '#1f1f1f',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                      }}
+                    >
+                      <ReadOutlined aria-hidden="true" />
+                      <span>{language === 'zh' ? '相关指南' : 'Related Guides'}</span>
                     </Title>
+                    <Text type="secondary" className="guide-related-description">
+                      {language === 'zh'
+                        ? '根据当前主题与相关标准推荐的延伸阅读。'
+                        : 'Further reading selected by shared topics and standards.'}
+                    </Text>
                     <Row gutter={[16, 16]} className="guides-read-next">
                       {relatedArticles.map(article => (
                         <Col xs={24} sm={12} md={8} key={article.slug}>
@@ -631,7 +719,7 @@ const GuideDetailPage: React.FC = () => {
                             <Card
                               hoverable
                               style={{
-                                borderRadius: 12,
+                                borderRadius: 8,
                                 height: '100%',
                                 border: isDark ? '1px solid #303030' : '1px solid #e5e7eb',
                                 background: isDark ? '#1f1f1f' : '#fff',

@@ -1,16 +1,9 @@
-import React from 'react';
-import { ToolPage } from '../../components/common';
+import { createToolPage } from '../../components/common';
 import { KeyshareGenerator } from '../../components/keys';
 
-const KeysharePage: React.FC = () => (
-  <ToolPage
-    seoKey="keyshare"
-    canonical="https://hsmkit.com/keyshare-generator"
-    toolName="Keyshare Generator"
-    toolCategory="SecurityApplication"
-  >
-    <KeyshareGenerator />
-  </ToolPage>
-);
-
-export default KeysharePage;
+export default createToolPage(KeyshareGenerator, {
+  seoKey: 'keyshare',
+  canonical: 'https://hsmkit.com/keyshare-generator',
+  toolName: 'Keyshare Generator',
+  toolCategory: 'SecurityApplication',
+});

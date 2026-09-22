@@ -2,7 +2,10 @@
 
 /* 1. 基础重置和全局设置 */
 :root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   --primary-color: #1677ff;
+  --link-color: #0958d9;
   --success-color: #52c41a;
   --warning-color: #faad14;
   --error-color: #ff4d4f;
@@ -11,17 +14,44 @@
   --text-primary: #1f2937;
   --text-secondary: #6b7280;
   --border-color: #e5e7eb;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.05);
+  --surface-muted: #f8fafc;
+  --surface-accent: #f4f7ff;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 2px 10px rgba(15, 23, 42, 0.06);
   --radius-sm: 6px;
   --radius-md: 8px;
-  --mono-font: 'SF Mono', 'Cascadia Code', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+  --mono-font: var(--font-mono);
+}
+
+body.dark-mode {
+  --bg-color: #141414;
+  --card-bg: #1f1f1f;
+  --text-primary: #e6e6e6;
+  --text-secondary: #a6a6a6;
+  --border-color: #303030;
+  --surface-muted: #202020;
+  --surface-accent: #1a2030;
+  --link-color: #69b1ff;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.32);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 html {
@@ -35,8 +65,7 @@ html, body, #root {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 
-               'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.6;
@@ -75,7 +104,13 @@ button {
 
 /* 5. 代码和等宽字体 */
 code, pre, .mono {
-  font-family: var(--mono-font);
+  font-family: var(--font-mono);
+}
+
+/* Normalize legacy inline monospace declarations across tool results. */
+[style*="JetBrains Mono" i],
+[style*="Monaco, Consolas" i] {
+  font-family: var(--font-mono) !important;
 }
 
 /* 6. Ant Design 组件优化 */
@@ -174,21 +209,9 @@ textarea.ant-input,
   letter-spacing: 0.5px;
 }
 
-/* Select 选择器也使用等宽字体 */
-.ant-select-selector,
-.ant-select-selection-item,
-.ant-select-item-option-content {
-  font-family: var(--mono-font) !important;
-}
-
 /* Radio 和 Checkbox 标签保持正常字体，但值显示用等宽 */
 .ant-radio-wrapper .value,
 .ant-checkbox-wrapper .value {
-  font-family: var(--mono-font) !important;
-}
-
-/* Segmented 选项卡内容 */
-.ant-segmented-item-label {
   font-family: var(--mono-font) !important;
 }
 
@@ -196,22 +219,8 @@ textarea.ant-input,
 .ant-input::placeholder,
 .ant-input-textarea textarea::placeholder {
   font-family: var(--mono-font) !important;
-  opacity: 0.6;
-}
-
-/* Tag 标签中的值 */
-.ant-tag {
-  font-family: var(--mono-font) !important;
-}
-
-/* Table 表格内容 */
-.ant-table-cell {
-  font-family: var(--mono-font) !important;
-}
-
-/* Tooltip 提示框 */
-.ant-tooltip-inner {
-  font-family: var(--mono-font) !important;
+  color: #8a94a3 !important;
+  opacity: 1;
 }
 
 /* InputNumber 数字输入框 */
@@ -223,9 +232,111 @@ textarea.ant-input,
   border-radius: var(--radius-sm) !important;
 }
 
+.ant-select-selector,
+.ant-select-selection-item,
+.ant-select-item-option-content,
+.ant-segmented-item-label,
+.ant-tag,
+.ant-tooltip-inner {
+  font-family: var(--font-sans) !important;
+  letter-spacing: 0;
+}
+
 .ant-btn {
   border-radius: var(--radius-sm) !important;
   font-weight: 500;
+}
+
+.ant-typography-secondary {
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .ant-input::placeholder,
+body.dark-mode .ant-input-textarea textarea::placeholder {
+  color: #7f8793 !important;
+}
+
+.support-panel {
+  margin-top: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.support-panel:not(.ant-card) {
+  padding: 14px 20px;
+}
+
+.support-panel--accent {
+  border-left: 3px solid var(--primary-color);
+  background: var(--surface-accent);
+}
+
+.support-panel .ant-typography {
+  color: var(--text-primary);
+}
+
+.related-guide-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s;
+}
+
+.related-guide-row:hover {
+  background: var(--surface-muted);
+}
+
+.article-pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.article-pagination > a,
+.article-pagination__spacer {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.article-pagination > a {
+  display: flex;
+}
+
+.article-pagination-card {
+  display: flex;
+  flex: 1;
+  min-height: 104px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.guide-related-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  padding-bottom: 56px;
+}
+
+.guide-related-description {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.guides-read-next .ant-col {
+  display: flex;
+}
+
+.guides-read-next .ant-col > a,
+.guides-read-next .ant-card {
+  display: flex;
+  width: 100%;
+}
+
+.guides-read-next .ant-card-body {
+  width: 100%;
 }
 
 /* 7. 语言选择器 */
@@ -237,10 +348,137 @@ textarea.ant-input,
   right: 4px;
 }
 
+.guides-language-switcher select {
+  min-width: 88px;
+  height: 36px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.guides-header {
+  line-height: normal !important;
+  color: var(--text-primary);
+}
+
+.guides-header a,
+.guides-header .ant-btn {
+  color: var(--text-primary) !important;
+}
+
+.guide-detail-hero {
+  background: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .guide-tool-cta,
+body.dark-mode .guide-article-card,
+body.dark-mode .guide-references,
+body.dark-mode .guides-read-next .ant-card {
+  background: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .guide-tool-cta .ant-typography,
+body.dark-mode .guide-references .ant-typography {
+  color: var(--text-primary);
+}
+
+.guides-header .ant-btn {
+  color: var(--text-primary) !important;
+}
+
+.guide-authority-meta {
+  color: var(--text-secondary) !important;
+}
+
+.guide-tool-cta-title {
+  color: var(--link-color) !important;
+}
+
+.guide-tool-cta-description {
+  color: var(--text-secondary) !important;
+}
+
+.guide-references a {
+  color: var(--link-color) !important;
+}
+
+body.dark-mode .guide-detail-hero .ant-breadcrumb,
+body.dark-mode .guide-detail-hero .ant-breadcrumb a,
+body.dark-mode .guide-detail-hero .ant-breadcrumb-separator,
+body.dark-mode .guide-detail-hero .ant-breadcrumb-link {
+  color: var(--text-secondary) !important;
+}
+
 /* 8. 移动端优化 */
 @media (max-width: 768px) {
   body {
     font-size: 14px;
+  }
+
+  .guides-desktop-label {
+    display: none;
+  }
+
+  .guides-header {
+    height: 60px !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+  }
+
+  .guides-header > a:first-of-type strong {
+    display: none;
+  }
+
+  .guides-section-link {
+    display: none !important;
+  }
+
+  .guides-header > a:first-of-type {
+    margin-right: auto;
+  }
+
+  .guides-header > a:first-of-type img {
+    width: 32px !important;
+    height: 32px !important;
+    margin-right: 0 !important;
+  }
+
+  .guides-language-switcher select {
+    min-width: 78px;
+    width: 78px;
+    padding-left: 8px;
+    padding-right: 20px;
+  }
+
+  .guide-detail-hero {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    padding: 32px 0 28px !important;
+  }
+
+  .guide-detail-hero > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .guide-authority-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px !important;
+  }
+
+  .guide-authority-meta > span {
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.55;
   }
   
   .ant-menu-horizontal {
@@ -317,6 +555,28 @@ textarea.ant-input,
   
   .ant-card-head-extra .ant-btn {
     width: 100%;
+  }
+
+  .article-pagination {
+    flex-wrap: wrap;
+  }
+
+  .article-pagination > a {
+    flex-basis: 100%;
+  }
+
+  .article-pagination-card {
+    min-height: 0;
+  }
+
+  .article-pagination__spacer {
+    display: none;
+  }
+
+  .guide-related-section {
+    margin-top: 40px;
+    padding-top: 28px;
+    padding-bottom: 40px;
   }
 
   /* 首页筛选面板移动端 */
@@ -575,6 +835,19 @@ code, pre, .mono {
   line-height: 1.6;
 }
 
+.article-content table {
+  color: var(--text-primary);
+}
+
+.article-content th {
+  color: var(--text-primary);
+  background: var(--surface-muted) !important;
+}
+
+.article-content td {
+  color: var(--text-primary);
+}
+
 .article-content blockquote {
   border-left: 4px solid #667eea;
   padding-left: 16px;
@@ -584,7 +857,7 @@ code, pre, .mono {
 }
 
 .article-content a {
-  color: #1677ff;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -624,12 +897,40 @@ body.dark-mode .article-content li {
 }
 
 body.dark-mode .article-content code {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ff85c0;
+  background: #35222d;
+  color: #ffadd2;
 }
 
 body.dark-mode .article-content pre {
-  background: #2a2a2a;
+  background: #1f1f1f !important;
+  color: #d6e4ff !important;
+  border: 1px solid #434343;
+}
+
+body.dark-mode .article-content pre code {
+  background: transparent !important;
+  color: #d6e4ff !important;
+}
+
+body.dark-mode .article-content table {
+  color: #d9d9d9 !important;
+  border-color: #434343 !important;
+}
+
+body.dark-mode .article-content th {
+  color: #f0f0f0 !important;
+  background: #262626 !important;
+  border-color: #434343 !important;
+}
+
+body.dark-mode .article-content td {
+  color: #cfcfcf !important;
+  background: #181818 !important;
+  border-color: #434343 !important;
+}
+
+body.dark-mode .article-content a {
+  color: #69b1ff;
 }
 
 body.dark-mode .article-content blockquote {

@@ -114,8 +114,17 @@ self.onmessage = function(e: MessageEvent) {
       }
       
       case 'kcv': {
-        const { key, algorithm } = payload;
-        const keyWA = CryptoJS.enc.Hex.parse(key);
+        const { key, algorithm, adjustParity } = payload;
+        const adjustedKey = algorithm === 'DES' && adjustParity
+          ? key.match(/.{2}/g)!.map((byte: string) => {
+              let value = parseInt(byte, 16) & 0xfe;
+              let ones = 0;
+              for (let bit = 1; bit < 8; bit++) ones += (value >> bit) & 1;
+              if (ones % 2 === 0) value |= 1;
+              return value.toString(16).padStart(2, '0');
+            }).join('')
+          : key;
+        const keyWA = CryptoJS.enc.Hex.parse(adjustedKey);
         
         if (algorithm === 'AES') {
           const zero = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');

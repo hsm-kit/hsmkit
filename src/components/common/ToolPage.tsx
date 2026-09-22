@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { Typography, Result, Card, Button } from 'antd';
 import { ReadOutlined, RightOutlined, ClockCircleOutlined, ShareAltOutlined } from '@ant-design/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
@@ -30,6 +30,7 @@ const RelatedGuidesSection: React.FC<{
 
   return (
     <Card
+      className="tool-page-related"
       style={{
         marginTop: 24,
         boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
@@ -43,30 +44,15 @@ const RelatedGuidesSection: React.FC<{
       </Title>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {guides.map(guide => (
-          <Link
+          <a
             key={guide.slug}
-            to={getGuidesPath(language as 'en' | 'zh' | 'ja' | 'ko' | 'de' | 'fr', guide.slug)}
+            href={getGuidesPath(language as 'en' | 'zh' | 'ja' | 'ko' | 'de' | 'fr', guide.slug)}
             style={{ textDecoration: 'none' }}
           >
             <div
+              className="related-guide-row"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '12px 16px',
-                borderRadius: 10,
-                background: isDark ? '#262626' : '#f8f9fb',
-                border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
-                transition: 'all 0.2s',
                 cursor: 'pointer',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = isDark ? '#2a2a2a' : '#f0f4ff';
-                e.currentTarget.style.borderColor = isDark ? '#404040' : '#c7d2fe';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = isDark ? '#262626' : '#f8f9fb';
-                e.currentTarget.style.borderColor = isDark ? '#303030' : '#f0f0f0';
               }}
             >
               <div style={{ flex: 1, minWidth: 0 }}>
@@ -85,7 +71,7 @@ const RelatedGuidesSection: React.FC<{
                 <RightOutlined style={{ color: isDark ? '#8c8c8c' : '#999', fontSize: 12 }} />
               </div>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
     </Card>
@@ -176,49 +162,40 @@ export const ToolPage: React.FC<ToolPageProps> = ({
           </div>
         ) : undefined
       }
+      relatedContent={(
+        <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} />
+      )}
+      footerContent={(
+        <div className="support-panel tool-page-share" style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 16,
+          flexWrap: 'wrap',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <ShareAltOutlined style={{ fontSize: 18, color: 'var(--primary-color)' }} />
+            <Text style={{ fontSize: 14, fontWeight: 500 }}>
+              {t.common?.shareTool || 'Share this tool with others'}
+            </Text>
+          </div>
+          <Button
+            type="primary"
+            icon={<ShareAltOutlined />}
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              toast.copySuccess();
+            }}
+          >
+            {t.common?.copyLink || 'Copy Link'}
+          </Button>
+        </div>
+      )}
       toolName={toolName}
       toolCategory={toolCategory}
     >
+      <h1 className="visually-hidden">{toolName}</h1>
       {children}
-      {/* Share banner */}
-      <div style={{
-        marginTop: 24,
-        padding: '14px 20px',
-        borderRadius: 12,
-        background: isDark
-          ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
-          : 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
-        border: isDark ? '1px solid #2a2e3e' : '1px solid #c7d2fe',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 16,
-        flexWrap: 'wrap',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <ShareAltOutlined style={{ fontSize: 18, color: isDark ? '#818cf8' : '#4f46e5' }} />
-          <Text style={{ fontSize: 14, color: isDark ? '#c7d2fe' : '#3730a3', fontWeight: 500 }}>
-            {t.common?.shareTool || 'Share this tool with others'}
-          </Text>
-        </div>
-        <Button
-          type="primary"
-          icon={<ShareAltOutlined />}
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            toast.copySuccess();
-          }}
-          style={{
-            background: isDark ? '#6366f1' : '#4f46e5',
-            borderColor: isDark ? '#6366f1' : '#4f46e5',
-            fontWeight: 500,
-            borderRadius: 8,
-          }}
-        >
-          {t.common?.copyLink || 'Copy Link'}
-        </Button>
-      </div>
-      <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} />
     </PageLayout>
   );
 };

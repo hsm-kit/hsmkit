@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getGuidesPath, parseGuidesLanguage, isGuidesPage, getGuidesSlug } from './guidesPath'
+import { getGuideCategoryPath, getGuidesPath, parseGuidesLanguage, isGuidesPage, getGuidesSlug } from './guidesPath'
 
 describe('guidesPath utilities', () => {
   describe('getGuidesPath', () => {
@@ -40,6 +40,13 @@ describe('guidesPath utilities', () => {
       expect(parseGuidesLanguage('/')).toBeNull()
       expect(parseGuidesLanguage('/aes-encryption')).toBeNull()
       expect(parseGuidesLanguage('/about')).toBeNull()
+    })
+  })
+
+  describe('getGuideCategoryPath', () => {
+    it('returns localized category paths', () => {
+      expect(getGuideCategoryPath('en', 'payment')).toBe('/guides/payment')
+      expect(getGuideCategoryPath('zh', 'pki')).toBe('/zh/guides/pki')
     })
   })
 

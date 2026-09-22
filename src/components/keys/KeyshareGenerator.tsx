@@ -408,7 +408,7 @@ const KeyshareGenerator: React.FC = () => {
           style={{ 
             borderColor: '#52c41a',
             color: '#52c41a',
-            background: '#fff'
+            background: 'var(--card-bg)'
           }}
         />
       </div>

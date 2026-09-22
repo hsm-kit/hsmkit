@@ -8,7 +8,17 @@ interface SEOProps {
   canonical?: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogType?: 'website' | 'article';
+  ogLocale?: string;
+  ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogImageAlt?: string;
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  articleSection?: string;
   noindex?: boolean;
+  alternates?: Array<{ lang: string; href: string }>;
   /**
    * 控制预渲染就绪时机
    * - true: 立即触发 prerender-ready 事件
@@ -29,7 +39,17 @@ export const SEO: React.FC<SEOProps> = ({
   canonical,
   ogTitle,
   ogDescription,
+  ogType = 'website',
+  ogLocale = 'en_US',
+  ogImage,
+  ogImageWidth,
+  ogImageHeight,
+  ogImageAlt,
+  articlePublishedTime,
+  articleModifiedTime,
+  articleSection,
   noindex,
+  alternates = [],
   prerenderReady = true,
 }) => {
   const updateMetaTags = useCallback(() => {
@@ -56,6 +76,10 @@ export const SEO: React.FC<SEOProps> = ({
       if (meta) meta.remove();
     };
 
+    const removeProperty = (property: string) => {
+      document.querySelector(`meta[property="${property}"]`)?.remove();
+    };
+
     // noindex handling
     if (noindex) {
       updateMeta('robots', 'noindex, nofollow');
@@ -67,11 +91,33 @@ export const SEO: React.FC<SEOProps> = ({
     updateMeta('description', description);
     if (keywords) {
       updateMeta('keywords', keywords);
+    } else {
+      removeMeta('keywords');
     }
     
     // Open Graph tags
     updateMeta('og:title', ogTitle || title, true);
     updateMeta('og:description', ogDescription || description, true);
+    updateMeta('og:url', canonical || window.location.href, true);
+    updateMeta('og:type', ogType, true);
+    updateMeta('og:locale', ogLocale, true);
+    if (ogImage) {
+      updateMeta('og:image', ogImage, true);
+      updateMeta('twitter:image', ogImage);
+      updateMeta('og:image:width', String(ogImageWidth || 1200), true);
+      updateMeta('og:image:height', String(ogImageHeight || 630), true);
+      updateMeta('og:image:alt', ogImageAlt || title, true);
+      updateMeta('twitter:image:alt', ogImageAlt || title);
+    }
+    if (ogType === 'article') {
+      if (articlePublishedTime) updateMeta('article:published_time', articlePublishedTime, true);
+      if (articleModifiedTime) updateMeta('article:modified_time', articleModifiedTime, true);
+      if (articleSection) updateMeta('article:section', articleSection, true);
+    } else {
+      removeProperty('article:published_time');
+      removeProperty('article:modified_time');
+      removeProperty('article:section');
+    }
     
     // Twitter tags
     updateMeta('twitter:title', ogTitle || title);
@@ -86,7 +132,18 @@ export const SEO: React.FC<SEOProps> = ({
         document.head.appendChild(link);
       }
       link.href = canonical;
+    } else {
+      document.querySelector('link[rel="canonical"]')?.remove();
     }
+
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
+    alternates.forEach(({ lang, href }) => {
+      const link = document.createElement('link');
+      link.rel = 'alternate';
+      link.hreflang = lang;
+      link.href = href;
+      document.head.appendChild(link);
+    });
 
     // 触发预渲染就绪事件
     if (prerenderReady) {
@@ -94,7 +151,7 @@ export const SEO: React.FC<SEOProps> = ({
         triggerPrerenderReady();
       }, 100);
     }
-  }, [title, description, keywords, canonical, ogTitle, ogDescription, noindex, prerenderReady]);
+  }, [title, description, keywords, canonical, ogTitle, ogDescription, ogType, ogLocale, ogImage, ogImageWidth, ogImageHeight, ogImageAlt, articlePublishedTime, articleModifiedTime, articleSection, noindex, alternates, prerenderReady]);
 
   useLayoutEffect(() => {
     updateMetaTags();

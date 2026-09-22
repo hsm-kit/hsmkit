@@ -19,6 +19,10 @@
   Cache-Control: public, max-age=86400
   Content-Type: text/plain
 
+/guides-static.js
+  Cache-Control: public, max-age=86400
+  Content-Type: application/javascript
+
 # 安全头 - 全局
 /*
   X-Frame-Options: DENY

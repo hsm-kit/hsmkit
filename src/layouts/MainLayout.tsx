@@ -14,7 +14,7 @@ import { LanguageSwitcher } from '../components/common';
 import { ReloadPrompt } from '../components/common/ReloadPrompt';
 import ErrorBoundary from '../components/common/ErrorBoundary';
 import { getGuidesPath, isGuidesPage } from '../utils/guidesPath';
-import { routeToKey, keyToRoute, prefetchRoute, prefetchSubmenuRoutes } from '../routeConfig';
+import { routeToKey, keyToRoute, prefetchRoute } from '../routeConfig';
 import { createMenuItems, createMobileMenuItems } from '../menuConfig';
 import '../menu-styles.css';
 
@@ -83,13 +83,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     prefetchRoute(key);
     const route = key === 'home' ? '/' : key === 'guides' ? getGuidesPath(language) : keyToRoute[key];
     if (route) {
+      if (key === 'guides') {
+        window.location.assign(route);
+        return;
+      }
       navigate(route);
     }
     setDrawerVisible(false);
   }, [navigate, language]);
 
   return (
-    <Layout style={{ minHeight: '100vh', background: isDark ? '#141414' : '#f8f9fb' }}>
+    <Layout style={{ minHeight: '100vh', background: 'var(--bg-color)' }}>
       {/* Skip to content link for keyboard users */}
       <a
         href="#main-content"
@@ -166,9 +170,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               mode="horizontal" 
               selectedKeys={[currentKey]} 
               onClick={e => handleMenuClick(e.key)}
-              onOpenChange={(openKeys) => {
-                openKeys.forEach(key => prefetchSubmenuRoutes(key as string));
-              }}
               items={items}
               subMenuOpenDelay={0.1}
               subMenuCloseDelay={0.05}
@@ -200,7 +201,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 </Tooltip>
               ) : (
                 <Tooltip title={t.guides?.title || 'Guides'}>
-                  <Link to={getGuidesPath(language)}>
+                  <a href={getGuidesPath(language)}>
                     <Button
                       type="text"
                       icon={<ReadOutlined />}
@@ -212,7 +213,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                     >
                       {t.guides?.title || 'Guides'}
                     </Button>
-                  </Link>
+                  </a>
                 </Tooltip>
               )}
               <Tooltip title={isDark ? (t.common?.lightMode || 'Light Mode') : (t.common?.darkMode || 'Dark Mode')}>
@@ -257,9 +258,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           mode="vertical"
           selectedKeys={[currentKey]}
           onClick={e => handleMenuClick(e.key)}
-          onOpenChange={(openKeys) => {
-            openKeys.forEach(key => prefetchSubmenuRoutes(key as string));
-          }}
           items={mobileItems}
           subMenuOpenDelay={0.1}
           subMenuCloseDelay={0.05}

@@ -1,86 +1,17 @@
 import React, { useState, useCallback } from 'react';
-import { Card, Button, message, Divider, Typography, InputNumber, Select, Checkbox, Alert } from 'antd';
+import { Card, Button, message, Divider, Typography, Input, InputNumber, Select, Checkbox, Alert } from 'antd';
 import { ThunderboltOutlined, CopyOutlined, ClearOutlined } from '@ant-design/icons';
 import { CollapsibleInfo } from '../common';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import logger from '../../utils/logger';
+import { generateUuidV1, generateUuidV3, generateUuidV4, generateUuidV5 } from '../../utils/uuid';
 
 const MAX_UUID_COUNT = 100;
 
 const { Title, Text } = Typography;
 
 type UUIDVariant = 'VERSION_1_TIME' | 'VERSION_4_RANDOM' | 'VERSION_3_MD5' | 'VERSION_5_SHA1';
-
-// Generate UUID v4 (random)
-const generateUUIDv4 = (): string => {
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  
-  // Set version 4
-  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-  // Set variant (RFC 4122)
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  
-  const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
-};
-
-// Generate UUID v1 (time-based)
-const generateUUIDv1 = (): string => {
-  const now = Date.now();
-  const timeHex = now.toString(16).padStart(12, '0');
-  
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  
-  // Time low (4 bytes)
-  const timeLow = timeHex.slice(-8);
-  // Time mid (2 bytes)
-  const timeMid = timeHex.slice(-12, -8).padStart(4, '0');
-  // Time high and version (2 bytes)
-  const timeHigh = ((parseInt(timeHex.slice(0, 4) || '0', 16) & 0x0fff) | 0x1000).toString(16).padStart(4, '0');
-  
-  // Clock seq (2 bytes)
-  const clockSeq = ((bytes[8] & 0x3f) | 0x80).toString(16).padStart(2, '0') + bytes[9].toString(16).padStart(2, '0');
-  
-  // Node (6 bytes) - random
-  const node = Array.from(bytes.slice(10, 16)).map(b => b.toString(16).padStart(2, '0')).join('');
-  
-  return `${timeLow}-${timeMid}-${timeHigh}-${clockSeq}-${node}`;
-};
-
-// Generate UUID v3 (MD5 hash)
-const generateUUIDv3 = async (): Promise<string> => {
-  // Generate random namespace + name for demo
-  const data = new TextEncoder().encode(Date.now().toString() + Math.random().toString());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const bytes = new Uint8Array(hashBuffer).slice(0, 16);
-  
-  // Set version 3
-  bytes[6] = (bytes[6] & 0x0f) | 0x30;
-  // Set variant
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  
-  const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
-};
-
-// Generate UUID v5 (SHA-1 hash)
-const generateUUIDv5 = async (): Promise<string> => {
-  // Generate random namespace + name for demo
-  const data = new TextEncoder().encode(Date.now().toString() + Math.random().toString());
-  const hashBuffer = await crypto.subtle.digest('SHA-1', data);
-  const bytes = new Uint8Array(hashBuffer).slice(0, 16);
-  
-  // Set version 5
-  bytes[6] = (bytes[6] & 0x0f) | 0x50;
-  // Set variant
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  
-  const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
-};
 
 const UUIDTool: React.FC = () => {
   const { t } = useLanguage();
@@ -90,6 +21,8 @@ const UUIDTool: React.FC = () => {
   const [results, setResults] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [withoutHyphen, setWithoutHyphen] = useState<boolean>(false);
+  const [namespace, setNamespace] = useState('6ba7b810-9dad-11d1-80b4-00c04fd430c8');
+  const [name, setName] = useState('');
 
   const handleGenerate = useCallback(async () => {
     setError('');
@@ -107,19 +40,19 @@ const UUIDTool: React.FC = () => {
         let uuid: string;
         switch (variant) {
           case 'VERSION_1_TIME':
-            uuid = generateUUIDv1();
+            uuid = generateUuidV1();
             break;
           case 'VERSION_4_RANDOM':
-            uuid = generateUUIDv4();
+            uuid = generateUuidV4();
             break;
           case 'VERSION_3_MD5':
-            uuid = await generateUUIDv3();
+            uuid = generateUuidV3(namespace, name);
             break;
           case 'VERSION_5_SHA1':
-            uuid = await generateUUIDv5();
+            uuid = generateUuidV5(namespace, name);
             break;
           default:
-            uuid = generateUUIDv4();
+            uuid = generateUuidV4();
         }
         // Remove hyphens if option is checked
         if (withoutHyphen) {
@@ -133,7 +66,7 @@ const UUIDTool: React.FC = () => {
       logger.error('UUID generation error:', err);
       setError((t.uuid?.errorGenerate || 'Generation failed') + ': ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
-  }, [variant, count, t, withoutHyphen]);
+  }, [variant, count, t, withoutHyphen, namespace, name]);
 
   const handleClear = useCallback(() => {
     setResults([]);
@@ -207,6 +140,19 @@ const UUIDTool: React.FC = () => {
               ]}
             />
           </div>
+
+          {(variant === 'VERSION_3_MD5' || variant === 'VERSION_5_SHA1') && (
+            <>
+              <div>
+                <Text strong style={{ display: 'block', marginBottom: 8 }}>Namespace UUID:</Text>
+                <Input value={namespace} onChange={event => setNamespace(event.target.value.trim())} size="large" />
+              </div>
+              <div>
+                <Text strong style={{ display: 'block', marginBottom: 8 }}>Name:</Text>
+                <Input value={name} onChange={event => setName(event.target.value)} size="large" />
+              </div>
+            </>
+          )}
 
           {/* Count Input */}
           <div>

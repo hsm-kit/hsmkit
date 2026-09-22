@@ -8,8 +8,6 @@ import { cleanHexInput, isValidHex } from '../../utils/crypto';
 import type { RcFile } from 'antd/es/upload/interface';
 
 const { Text, Paragraph, Title } = Typography;
-const { TabPane } = Tabs;
-
 // VISA CA Public Keys (预定义的CA公钥)
 const CA_PUBLIC_KEYS = {
   'VSDC CA V92': {
@@ -217,8 +215,15 @@ const VISACertificatesTool: React.FC = () => {
       
       <Divider style={{ margin: '16px 0' }} />
       
-      <Tabs defaultActiveKey="1" size={isMobile ? 'small' : 'middle'}>
-        <TabPane tab={t.visaCertificates?.tabRequest || 'Validate Issuer Signing Request'} key="1">
+      <Tabs
+        defaultActiveKey="1"
+        size={isMobile ? 'small' : 'middle'}
+        items={[
+          {
+            key: '1',
+            label: t.visaCertificates?.tabRequest || 'Validate Issuer Signing Request',
+            children: (
+              <>
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <Upload
@@ -306,9 +311,15 @@ const VISACertificatesTool: React.FC = () => {
               </div>
             )}
           </div>
-        </TabPane>
+              </>
+            ),
+          },
 
-        <TabPane tab={t.visaCertificates?.tabSigned || 'Validate Signed Issuer Public Key Data'} key="2">
+          {
+            key: '2',
+            label: t.visaCertificates?.tabSigned || 'Validate Signed Issuer Public Key Data',
+            children: (
+              <>
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
               <Upload
@@ -451,8 +462,11 @@ const VISACertificatesTool: React.FC = () => {
               </div>
             )}
           </div>
-        </TabPane>
-      </Tabs>
+              </>
+            ),
+          },
+        ]}
+      />
     </Card>
   );
 };

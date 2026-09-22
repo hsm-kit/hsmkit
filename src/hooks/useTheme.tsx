@@ -33,11 +33,10 @@ const getInitialTheme = (): ThemeMode => {
 const applyThemeToDOM = (isDark: boolean) => {
   if (isDark) {
     document.body.classList.add('dark-mode');
-    document.body.style.backgroundColor = '#141414';
   } else {
     document.body.classList.remove('dark-mode');
-    document.body.style.backgroundColor = '#f0f2f5';
   }
+  document.body.style.backgroundColor = isDark ? '#141414' : '#f5f7fa';
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 };
 
@@ -75,7 +74,17 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
     token: {
       colorPrimary: '#1677ff',
+      colorBgLayout: isDark ? '#141414' : '#f5f7fa',
+      colorBgContainer: isDark ? '#1f1f1f' : '#ffffff',
+      colorText: isDark ? '#e6e6e6' : '#1f2937',
+      colorTextSecondary: isDark ? '#a6a6a6' : '#6b7280',
+      colorBorderSecondary: isDark ? '#303030' : '#e5e7eb',
       borderRadius: 8,
+      borderRadiusLG: 8,
+      controlHeight: 36,
+      controlHeightLG: 40,
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
+      fontFamilyCode: "'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, 'Liberation Mono', Menlo, monospace",
     },
   }), [isDark]);
 

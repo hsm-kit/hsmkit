@@ -12,25 +12,13 @@ const { TextArea } = Input;
 const { Title, Text } = Typography;
 
 type HashType =
-  | 'None'
-  | 'MD4'
   | 'MD5'
   | 'SHA-1'
   | 'SHA-224'
   | 'SHA-256'
   | 'SHA-384'
   | 'SHA-512'
-  | 'SHA3-224'
-  | 'SHA3-256'
-  | 'SHA3-384'
-  | 'SHA3-512'
-  | 'RIPEMD-160'
-  | 'TIGER-192'
-  | 'CRC32'
-  | 'CRC32_RFC1510'
-  | 'CRC24_RFC2440'
-  | 'WHIRLPOOL'
-  | 'SM3';
+  ;
 type InputType = 'ASCII' | 'Hexadecimal';
 
 const HMACTool: React.FC = () => {
@@ -77,24 +65,9 @@ const HMACTool: React.FC = () => {
         case 'SHA-512':
           hmac = CryptoJS.HmacSHA512(data, key);
           break;
-        case 'SHA3-224':
-        case 'SHA3-256':
-        case 'SHA3-384':
-        case 'SHA3-512':
-          hmac = CryptoJS.HmacSHA3(data, key);
-          break;
         case 'MD5':
           hmac = CryptoJS.HmacMD5(data, key);
           break;
-        case 'RIPEMD-160':
-          if ((CryptoJS as unknown as { HmacRIPEMD160?: typeof CryptoJS.HmacSHA256 }).HmacRIPEMD160) {
-            hmac = (CryptoJS as unknown as { HmacRIPEMD160: typeof CryptoJS.HmacSHA256 }).HmacRIPEMD160(data, key);
-          } else {
-            throw new Error('RIPEMD-160 HMAC not available in this build');
-          }
-          break;
-        case 'None':
-          throw new Error('Please select a hash algorithm');
         default:
           throw new Error('Selected hash algorithm is not supported in this build');
       }
@@ -182,25 +155,12 @@ const HMACTool: React.FC = () => {
                   optionFilterProp="children"
                   style={{ width: '100%' }}
                   options={[
-                    { label: 'None', value: 'None' },
-                    { label: 'MD4', value: 'MD4' },
                     { label: 'MD5', value: 'MD5' },
                     { label: 'SHA-1', value: 'SHA-1' },
                     { label: 'SHA-224', value: 'SHA-224' },
                     { label: 'SHA-256', value: 'SHA-256' },
                     { label: 'SHA-384', value: 'SHA-384' },
                     { label: 'SHA-512', value: 'SHA-512' },
-                    { label: 'SHA3-224', value: 'SHA3-224' },
-                    { label: 'SHA3-256', value: 'SHA3-256' },
-                    { label: 'SHA3-384', value: 'SHA3-384' },
-                    { label: 'SHA3-512', value: 'SHA3-512' },
-                    { label: 'RIPEMD-160', value: 'RIPEMD-160' },
-                    { label: 'TIGER-192', value: 'TIGER-192' },
-                    { label: 'CRC32', value: 'CRC32' },
-                    { label: 'CRC32_RFC1510', value: 'CRC32_RFC1510' },
-                    { label: 'CRC24_RFC2440', value: 'CRC24_RFC2440' },
-                    { label: 'WHIRLPOOL', value: 'WHIRLPOOL' },
-                    { label: 'SM3', value: 'SM3' }
                   ]}
                 />
             </div>

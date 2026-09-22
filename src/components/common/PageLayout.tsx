@@ -1,8 +1,7 @@
 import React, { useLayoutEffect, useId } from 'react';
 import { Card, Typography, Collapse } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, ReadOutlined } from '@ant-design/icons';
 import { SEO } from './SEO';
-import { useTheme } from '../../hooks/useTheme';
 
 const { Title, Text } = Typography;
 
@@ -17,6 +16,11 @@ interface PageLayoutProps {
   seoDescription: string;
   seoKeywords?: string;
   canonical?: string;
+  alternates?: Array<{ lang: string; href: string }>;
+  ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogImageAlt?: string;
   
   // Page content
   children: React.ReactNode;
@@ -28,10 +32,15 @@ interface PageLayoutProps {
   // Usage guide
   usageTitle?: string;
   usageContent?: React.ReactNode;
+
+  // Supporting content rendered after usage and after FAQ
+  relatedContent?: React.ReactNode;
+  footerContent?: React.ReactNode;
   
   // Schema.org props for rich snippets
   toolName?: string;           // e.g., "AES Encryption Tool"
   toolCategory?: string;       // e.g., "Encryption", "Key Management"
+  includeApplicationSchema?: boolean;
 }
 
 /**
@@ -43,17 +52,23 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   seoDescription,
   seoKeywords,
   canonical,
+  alternates,
+  ogImage,
+  ogImageWidth,
+  ogImageHeight,
+  ogImageAlt,
   children,
   faqTitle = 'Frequently Asked Questions',
   faqs,
   usageTitle = 'How to Use',
   usageContent,
+  relatedContent,
+  footerContent,
   toolName,
   toolCategory = 'SecurityApplication',
+  includeApplicationSchema = true,
 }) => {
   const schemaId = useId();
-  const { isDark } = useTheme();
-
   // Inject schema scripts dynamically - 使用 useLayoutEffect 确保预渲染时能捕获
   useLayoutEffect(() => {
     const schemaScripts: HTMLScriptElement[] = [];
@@ -122,11 +137,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       },
     };
 
-    // Add WebApplication schema
-    addSchema(webAppSchema, `schema-webapp-${schemaId}`);
-    
-    // Add SoftwareApplication schema  
-    addSchema(softwareAppSchema, `schema-software-${schemaId}`);
+    if (includeApplicationSchema) {
+      addSchema(webAppSchema, `schema-webapp-${schemaId}`);
+      addSchema(softwareAppSchema, `schema-software-${schemaId}`);
+    }
 
     // Add FAQPage schema if FAQs exist
     if (faqs && faqs.length > 0) {
@@ -168,7 +182,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         }
       });
     };
-  }, [schemaId, seoTitle, seoDescription, canonical, faqs, toolName, toolCategory, usageContent]);
+  }, [schemaId, seoTitle, seoDescription, canonical, faqs, toolName, toolCategory, usageContent, includeApplicationSchema]);
 
   return (
     <>
@@ -177,6 +191,11 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         description={seoDescription}
         keywords={seoKeywords}
         canonical={canonical}
+        alternates={alternates}
+        ogImage={ogImage}
+        ogImageWidth={ogImageWidth}
+        ogImageHeight={ogImageHeight}
+        ogImageAlt={ogImageAlt}
       />
       
       {/* Main tool content */}
@@ -184,52 +203,39 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       
       {/* Usage Guide Section - adds text content for SEO */}
       {usageContent && (
-        <Card 
-          style={{ 
-            marginTop: 24, 
-            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
-            background: isDark 
-              ? 'linear-gradient(135deg, #1a1e2e 0%, #1e2438 100%)'
-              : 'linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%)',
-            border: isDark ? 'none' : '1px solid #c7d2fe'
-          }}
-        >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#818cf8' : '#374151' }}>
-            📖 {usageTitle}
+        <Card className="support-panel support-panel--accent tool-page-usage">
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+            <ReadOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
+            {usageTitle}
           </Title>
-          <div style={{ color: isDark ? '#a5b4fc' : '#4b5563', lineHeight: 1.8 }}>
+          <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
             {usageContent}
           </div>
         </Card>
       )}
+
+      {relatedContent}
       
       {/* FAQ Section - adds keyword-rich text content for SEO */}
       {faqs && faqs.length > 0 && (
-        <Card 
-          style={{ 
-            marginTop: 24, 
-            boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
-            background: isDark 
-              ? 'linear-gradient(135deg, #2a1a2e 0%, #341e3a 100%)'
-              : 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)',
-            border: isDark ? 'none' : '1px solid #ddd6fe'
-          }}
-        >
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16, color: isDark ? '#c084fc' : '#374151' }}>
-            <QuestionCircleOutlined style={{ marginRight: 8 }} />
+        <Card className="support-panel tool-page-faq">
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+            <QuestionCircleOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
             {faqTitle}
           </Title>
           <Collapse
             ghost
             items={faqs.map((faq, index) => ({
               key: index,
-              label: <Text strong style={{ color: isDark ? '#d8b4fe' : '#1f2937' }}>{faq.question}</Text>,
-              children: <div style={{ color: isDark ? '#c4b5fd' : '#4b5563', marginBottom: 0 }}>{faq.answer}</div>
+              label: <Text strong>{faq.question}</Text>,
+              children: <div style={{ color: 'var(--text-secondary)', marginBottom: 0 }}>{faq.answer}</div>
             }))}
             style={{ background: 'transparent' }}
           />
         </Card>
       )}
+
+      {footerContent}
     </>
   );
 };

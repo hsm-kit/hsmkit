@@ -137,9 +137,9 @@ const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, desc
       hoverable
       style={{
         height: '100%',
-        borderRadius: 12,
-        border: 'none',
-        boxShadow: isDark ? '0 4px 12px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.08)',
+        borderRadius: 8,
+        border: `1px solid ${isDark ? '#303030' : '#e5e7eb'}`,
+        boxShadow: 'var(--shadow-md)',
         transition: 'all 0.3s ease',
         background: isDark ? '#1f1f1f' : '#fff',
       }}
@@ -161,7 +161,9 @@ const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, desc
       }}>
         {icon}
       </div>
-      <Title level={5} style={{ marginBottom: 8, color: isDark ? '#e6e6e6' : '#1e293b' }}>{title}</Title>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 8 }}>
+        <Title level={5} style={{ margin: 0, color: isDark ? '#e6e6e6' : '#1e293b' }}>{title}</Title>
+      </div>
       <Text type="secondary" style={{ fontSize: 13, lineHeight: 1.6 }}>{description}</Text>
       {difficulty && (
         <div style={{ marginTop: 8 }}>
@@ -199,7 +201,7 @@ const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path
           alignItems: 'center',
           gap: 12,
           padding: '12px 16px',
-          borderRadius: 10,
+          borderRadius: 8,
           background: isDark ? '#1f1f1f' : '#fff',
           boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.06)',
           transition: 'all 0.2s ease',

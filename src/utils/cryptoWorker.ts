@@ -56,6 +56,11 @@ export const initCryptoWorker = (): Worker | null => {
     
     worker.onerror = (e) => {
       logger.error('Crypto worker error:', e);
+      const error = new Error(e.message || 'Crypto worker failed');
+      pendingRequests.forEach(({ reject }) => reject(error));
+      pendingRequests.clear();
+      worker?.terminate();
+      worker = null;
     };
     
     return worker;
@@ -158,9 +163,10 @@ export const workerDesDecrypt = (
  */
 export const workerKcv = (
   key: string,
-  algorithm: 'AES' | 'DES'
+  algorithm: 'AES' | 'DES',
+  adjustParity = false
 ): Promise<string> => {
-  return sendToWorker('kcv', { key, algorithm });
+  return sendToWorker('kcv', { key, algorithm, adjustParity });
 };
 
 /**
@@ -177,6 +183,7 @@ export const terminateCryptoWorker = (): void => {
   if (worker) {
     worker.terminate();
     worker = null;
+    pendingRequests.forEach(({ reject }) => reject(new Error('Crypto worker terminated')));
     pendingRequests.clear();
   }
 };

@@ -301,10 +301,10 @@ const ASN1Parser: React.FC = () => {
                   <span
                     key={index}
                     style={{
-                      background: isInRange ? '#e6f7ff' : 'transparent',
+                      background: isInRange ? 'var(--surface-accent)' : 'transparent',
                       padding: '1px 0',
                       borderRadius: 2,
-                      color: isInRange ? '#1677ff' : '#666',
+                      color: isInRange ? 'var(--primary-color)' : 'var(--text-secondary)',
                       cursor: 'pointer'
                     }}
                   >
@@ -345,7 +345,7 @@ const ASN1Parser: React.FC = () => {
           <div 
             style={{ 
               padding: '1px 4px',
-              background: isHovered ? '#e6f7ff' : 'transparent',
+              background: isHovered ? 'var(--surface-accent)' : 'transparent',
               borderRadius: 3,
               whiteSpace: 'nowrap',
               display: 'flex',
@@ -353,18 +353,18 @@ const ASN1Parser: React.FC = () => {
             }}
           >
             {/* 树形前缀 */}
-            <span style={{ color: '#ccc', whiteSpace: 'pre' }}>{prefix}{connector}</span>
+            <span style={{ color: 'var(--border-color)', whiteSpace: 'pre' }}>{prefix}{connector}</span>
             {node.fieldName && (
-              <span style={{ color: '#000', fontWeight: 600, marginRight: 6 }}>
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600, marginRight: 6 }}>
                 {node.fieldName}
               </span>
             )}
             <span style={{ color: '#1677ff', fontWeight: 600 }}>{node.typeName}</span>
             {hasChildren && (
-              <span style={{ color: '#999', marginLeft: 6 }}>({node.children!.length} elem)</span>
+              <span style={{ color: 'var(--text-secondary)', marginLeft: 6 }}>({node.children!.length} elem)</span>
             )}
             {node.content && (
-              <span style={{ color: '#666', marginLeft: 6 }}>
+              <span style={{ color: 'var(--text-secondary)', marginLeft: 6 }}>
                 {node.content}
               </span>
             )}
@@ -378,14 +378,14 @@ const ASN1Parser: React.FC = () => {
                 zIndex: 10,
                 top: '1.4em',
                 left: '30px',
-                background: '#fff',
-                border: '1px solid #d9d9d9',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border-color)',
                 borderRadius: 4,
                 padding: '8px 12px',
                 fontSize: '12px', 
-                color: '#666',
+                color: 'var(--text-secondary)',
                 lineHeight: '1.5',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                boxShadow: 'var(--shadow-md)',
                 minWidth: '200px',
                 maxWidth: '600px'
               }}
@@ -424,10 +424,10 @@ const ASN1Parser: React.FC = () => {
               
               {node.content && (
                 <div style={{ marginTop: 8 }}>
-                  <div style={{ fontWeight: 600, color: '#333', marginBottom: 4 }}>{t.asn1.value}:</div>
+                  <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>{t.asn1.value}:</div>
                   <div style={{ 
                     padding: '6px 8px', 
-                    background: '#f5f5f5', 
+                    background: 'var(--surface-muted)',
                     borderRadius: 4,
                     wordBreak: 'break-all',
                     maxHeight: '300px',

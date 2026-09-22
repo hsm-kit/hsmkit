@@ -2,13 +2,34 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
 import { VitePWA } from 'vite-plugin-pwa'
-import { routes } from './prerender.config'
+import { appRoutes } from './prerender.config'
 import { writeFileSync } from 'fs'
-import { join } from 'path'
+import { join, resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    {
+      name: 'guides-dev-entry',
+      configureServer(server) {
+        server.middlewares.use((request, _response, next) => {
+          const pathname = request.url?.split('?')[0] || '';
+          if (/^\/(?:[a-z]{2}\/)?guides(?:\/|$)/.test(pathname)) {
+            request.url = '/guides.html';
+          }
+          next();
+        });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use((request, _response, next) => {
+          const pathname = request.url?.split('?')[0] || '';
+          if (/^\/(?:zh\/)?guides(?:\/[^.]*)?$/.test(pathname)) {
+            request.url = `${pathname.replace(/\/$/, '')}/index.html`;
+          }
+          next();
+        });
+      },
+    },
     react(),
     // PWA 插件 - 生成 Service Worker 和 Manifest
     VitePWA({
@@ -63,13 +84,47 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globPatterns: [
+          'offline.html',
+          'assets/**/*.css',
+        ],
         skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
-        navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api\//, /^\/assets\//],
         runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'page-cache',
+              networkTimeoutSeconds: 3,
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+              precacheFallback: {
+                fallbackURL: '/offline.html',
+              },
+            },
+          },
+          {
+            urlPattern: ({ request, url }) => url.pathname.startsWith('/assets/')
+              && ['script', 'style', 'worker'].includes(request.destination),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'asset-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
@@ -103,7 +158,7 @@ export default defineConfig({
     }),
     // 预渲染插件 - 仅在构建时运行
     prerender({
-      routes,
+      routes: appRoutes,
       renderer: '@prerenderer/renderer-puppeteer',
       // 指定入口 HTML 文件
       indexPath: 'index.html',
@@ -128,7 +183,7 @@ export default defineConfig({
         // 移除预渲染注入的脚本
         renderedRoute.html = renderedRoute.html
           .replace(/<script[^>]*>window\.__PRERENDER_INJECTED[^<]*<\/script>/g, '');
-        
+
         // 处理根路径 - 直接写入 index.html
         if (renderedRoute.route === '/') {
           const outputPath = join(process.cwd(), 'dist', 'index.html');
@@ -139,95 +194,12 @@ export default defineConfig({
   ],
   
   build: {
-    // 代码分割配置 - 使用函数形式
     rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), 'index.html'),
+        guides: resolve(process.cwd(), 'guides.html'),
+      },
       output: {
-        // 手动分割代码块 - 优化 Ant Design 拆分
-        manualChunks(id) {
-          // React 核心
-          if (id.includes('node_modules/react') || 
-              id.includes('node_modules/react-dom') || 
-              id.includes('node_modules/react-router')) {
-            return 'vendor-react';
-          }
-          
-          // Ant Design 图标库单独拆分（可以延迟加载）
-          if (id.includes('node_modules/@ant-design/icons')) {
-            return 'vendor-antd-icons';
-          }
-          
-          // Ant Design 核心库 - 实用拆分策略
-          // 策略：接受 core 稍大（因为内部依赖），但将其他组件拆分为小 chunk
-          // 这样首屏加载 core，其他页面按需加载小 chunk，不会卡顿
-          if (id.includes('node_modules/antd')) {
-            // 首屏必需的核心组件（包含必要的内部依赖）
-            // Layout, Menu, Typography, Button, Drawer, Tooltip, Spin, ConfigProvider
-            // 这些组件有内部依赖，所以 core 会稍大，但这是必要的
-            if (id.includes('antd/es/layout') || 
-                id.includes('antd/es/menu') ||
-                id.includes('antd/es/typography') || 
-                id.includes('antd/es/button') || 
-                id.includes('antd/es/drawer') ||
-                id.includes('antd/es/tooltip') ||
-                id.includes('antd/es/spin') ||
-                id.includes('antd/es/config-provider') ||
-                id.includes('antd/es/locale') ||
-                id.includes('antd/es/theme') ||
-                id.includes('antd/es/style')) {
-              return 'vendor-antd-core';
-            }
-            
-            // 表单组件（Input, Select, Tabs, Form）- 单独拆分，约 85KB
-            if (id.includes('antd/es/input') || 
-                id.includes('antd/es/select') || 
-                id.includes('antd/es/tabs') ||
-                id.includes('antd/es/form') ||
-                id.includes('antd/es/upload') ||
-                id.includes('antd/es/checkbox') ||
-                id.includes('antd/es/radio') ||
-                id.includes('antd/es/segmented') ||
-                id.includes('antd/es/input-number')) {
-              return 'vendor-antd-form';
-            }
-            
-            // 数据展示组件（Card, Table, Tag, Alert, Divider）- 单独拆分，约 340KB
-            if (id.includes('antd/es/card') || 
-                id.includes('antd/es/table') || 
-                id.includes('antd/es/tag') ||
-                id.includes('antd/es/alert') ||
-                id.includes('antd/es/divider') ||
-                id.includes('antd/es/collapse') ||
-                id.includes('antd/es/popover') ||
-                id.includes('antd/es/space') ||
-                id.includes('antd/es/row') ||
-                id.includes('antd/es/col')) {
-              return 'vendor-antd-display';
-            }
-            
-            // 反馈组件（Message, Modal, Notification）- 单独拆分，约 40KB
-            if (id.includes('antd/es/message') ||
-                id.includes('antd/es/modal') ||
-                id.includes('antd/es/notification')) {
-              return 'vendor-antd-feedback';
-            }
-            
-            // 其他 Ant Design 组件（较少使用）
-            return 'vendor-antd-other';
-          }
-          
-          // 加密库
-          if (id.includes('node_modules/crypto-js') || 
-              id.includes('node_modules/node-forge') || 
-              id.includes('node_modules/hash-wasm')) {
-            return 'vendor-crypto';
-          }
-          // 其他工具库
-          if (id.includes('node_modules/elliptic') || 
-              id.includes('node_modules/base-x') || 
-              id.includes('node_modules/iconv-lite')) {
-            return 'vendor-utils';
-          }
-        },
         // 优化 chunk 文件命名
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
@@ -240,8 +212,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     // 启用压缩 - rolldown 默认使用内置压缩器
     // minify 默认为 true，不需要显式设置
-    // CSS 代码分割 - 对于单页应用，禁用可以减少 HTTP 请求
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     // 优化构建输出
     reportCompressedSize: false, // 禁用压缩大小报告以加快构建速度
   },

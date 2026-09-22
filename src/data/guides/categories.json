@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "keys",
+    "category": "Keys",
+    "en": {
+      "title": "Key Management Guides",
+      "description": "Practical guidance on cryptographic key lifecycle, HSM operations, key blocks, KCVs, and vendor key management formats."
+    },
+    "zh": {
+      "title": "密钥管理指南",
+      "description": "涵盖加密密钥生命周期、HSM 操作、密钥块、KCV 及厂商密钥管理格式的实用指南。"
+    }
+  },
+  {
+    "slug": "payment",
+    "category": "Payment",
+    "en": {
+      "title": "Payment Security Guides",
+      "description": "Technical guides to PIN security, DUKPT, card verification, payment MACs, ISO 8583, EMV, and regional payment standards."
+    },
+    "zh": {
+      "title": "支付安全指南",
+      "description": "PIN 安全、DUKPT、银行卡验证、支付 MAC、ISO 8583、EMV 与区域支付标准的技术指南。"
+    }
+  },
+  {
+    "slug": "cipher",
+    "category": "Cipher",
+    "en": {
+      "title": "Encryption & Cipher Guides",
+      "description": "Understand AES, DES, RSA, ECC, format-preserving encryption, modes of operation, padding, and implementation choices."
+    },
+    "zh": {
+      "title": "加密算法指南",
+      "description": "理解 AES、DES、RSA、ECC、保留格式加密、工作模式、填充与实现选择。"
+    }
+  },
+  {
+    "slug": "pki",
+    "category": "PKI",
+    "en": {
+      "title": "PKI & Certificate Guides",
+      "description": "Learn certificate structures, ASN.1, RSA key encoding, TLS, hashing, trust chains, and public key infrastructure."
+    },
+    "zh": {
+      "title": "PKI 与证书指南",
+      "description": "学习证书结构、ASN.1、RSA 密钥编码、TLS、哈希、信任链与公钥基础设施。"
+    }
+  },
+  {
+    "slug": "generic",
+    "category": "Generic",
+    "en": {
+      "title": "Encoding & Utility Guides",
+      "description": "Reference guides for Base64, Base94, BCD, character encoding, check digits, UUIDs, and message representation."
+    },
+    "zh": {
+      "title": "编码与通用工具指南",
+      "description": "Base64、Base94、BCD、字符编码、校验位、UUID 与消息表示的参考指南。"
+    }
+  }
+]

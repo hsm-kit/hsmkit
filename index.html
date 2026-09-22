@@ -5,10 +5,10 @@
     
     <!-- 首屏关键 CSS 内联 - 防止主题闪烁 -->
     <style>
-      :root { --bg-color: #f8f9fb; --card-bg: #fff; --text-primary: #1f2937; --text-secondary: #6b7280; --border-color: #e5e7eb; }
+      :root { --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif; --bg-color: #f5f7fa; --card-bg: #fff; --text-primary: #1f2937; --text-secondary: #6b7280; --border-color: #e5e7eb; }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body, #root { width: 100%; min-height: 100%; overflow-x: hidden; }
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+      body { font-family: var(--font-sans); background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
       body.dark-mode { --bg-color: #141414; --card-bg: #1f1f1f; --text-primary: #e6e6e6; --text-secondary: #a6a6a6; --border-color: #303030; }
     </style>
 
@@ -64,71 +64,6 @@
     <link rel="alternate" hreflang="zh" href="https://hsmkit.com/" />
     <link rel="alternate" hreflang="x-default" href="https://hsmkit.com/" />
     
-    <!-- Structured Data for Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "HSM Kit",
-      "url": "https://hsmkit.com",
-      "description": "Free online encryption toolkit with 44+ cryptographic tools: AES, DES, RSA, ECC, FPE encryption, HSM key management (Futurex, Atalla, SafeNet, Thales), TR-31 key blocks, KCV calculator, PIN block generation, CVV/CVC validation, DUKPT, MAC algorithms, ASN.1 decoder, SSL certificate parser, hash calculator, and more. 100% client-side, no data leaves your device.",
-      "applicationCategory": "SecurityApplication",
-      "operatingSystem": "Web Browser",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "HSM Kit",
-        "url": "https://hsmkit.com"
-      },
-      "featureList": [
-        "44+ Cryptographic Tools - 100% Client-Side",
-        "AES-128/192/256 Encryption (ECB/CBC/CFB/OFB/KCV)",
-        "DES/3DES Encryption with Multiple Padding Options",
-        "RSA Encryption, Decryption, Signing and Verification",
-        "ECC/ECDSA Digital Signatures (P-256/P-384/P-521)",
-        "Format-Preserving Encryption (FF1/FF3-1)",
-        "TR-31 Key Block Parser (ANSI X9.143)",
-        "Thales Key Block Encoder/Decoder",
-        "HSM Key Management: Futurex, Atalla, SafeNet, Thales",
-        "Keyshare Generator with KCV Calculation",
-        "KCV Calculator (SHA256/CMAC/AES)",
-        "PIN Block Generator (ISO 9564 Formats 0-4)",
-        "PIN Block AES Encryption (Format 4)",
-        "PIN Offset Calculator (IBM 3624)",
-        "PIN PVV Calculator (VISA)",
-        "Card Validation: CVV/CVV2/iCVV/dCVV",
-        "Card Validation: Amex CSC (CSC3/CSC4/CSC5)",
-        "Card Validation: Mastercard CVC3 (Dynamic)",
-        "DUKPT Key Derivation (ISO 9797)",
-        "DUKPT AES Key Derivation",
-        "MAC: ISO 9797-1, ANSI X9.9/X9.19, AS2805, TDES CBC-MAC",
-        "MAC: HMAC (SHA-256/SHA-512), AES-CMAC, Retail MAC",
-        "VISA Certificate Validation",
-        "ZKA Session Key Derivation",
-        "AS2805 Payment Tools (Terminal Keys, PIN Block, MAC, OWF)",
-        "ISO 8583 Bitmap Parser",
-        "ASN.1 DER/BER Parser",
-        "SSL/TLS Certificate Parser (X.509)",
-        "RSA DER Public Key Decoder",
-        "Hash Calculator (MD5, SHA-1/2/3, SHA-3, BLAKE2, SM3, RIPEMD)",
-        "Character Encoding Converter (ASCII/Hex/Binary/EBCDIC)",
-        "BCD Encoder/Decoder (Packed/Unpacked)",
-        "Check Digits Calculator (Luhn, Mod 10/9, Amex SE)",
-        "Base64 Encoder/Decoder",
-        "Base94 Encoder/Decoder",
-        "UUID Generator (v1/v3/v4/v5)",
-        "Secure Key Generator (AES/DES/3DES)",
-        "38 Knowledge Base Articles in English and Chinese"
-      ]
-    }
-    </script>
-    
     <!-- Organization Schema -->
     <script type="application/ld+json">
     {
@@ -150,15 +85,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "HSM Kit",
-      "url": "https://hsmkit.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://hsmkit.com/?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
+      "url": "https://hsmkit.com"
     }
     </script>
     
@@ -179,8 +106,8 @@
           document.body.style.backgroundColor = '#141414';
           document.documentElement.style.setProperty('--bg-color', '#141414');
         } else {
-          document.body.style.backgroundColor = '#f8f9fb';
-          document.documentElement.style.setProperty('--bg-color', '#f8f9fb');
+          document.body.style.backgroundColor = '#f5f7fa';
+          document.documentElement.style.setProperty('--bg-color', '#f5f7fa');
         }
         document.documentElement.setAttribute('data-theme', theme);
       })();
@@ -206,7 +133,7 @@
       })();
     </script>
     <noscript>
-      <h1>HSM Kit - Free Online Cryptographic Toolkit (44+ Tools)</h1>
+      <p><strong>HSM Kit - Free Online Cryptographic Toolkit (44+ Tools)</strong></p>
       <p>HSM Kit requires JavaScript to run. Please enable JavaScript in your browser to use the tools.</p>
       <h2>Available Tools (44+):</h2>
       <p><strong>Encryption:</strong> AES, DES/3DES, RSA, ECC/ECDSA, Format-Preserving Encryption (FPE)</p>
