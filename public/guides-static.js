@@ -25,13 +25,41 @@
     applyTheme(body.classList.contains('dark-mode') ? 'dark' : 'light');
   }
 
-  const languageSelect = document.querySelector('.guides-language-switcher select');
-  languageSelect?.addEventListener('change', (event) => {
-    const language = event.target.value === 'zh' ? 'zh' : 'en';
+  const languageMenu = document.querySelector('[data-language-menu]');
+  const languageTrigger = languageMenu?.querySelector('.header-language-trigger');
+  const languagePopup = languageMenu?.querySelector('.header-language-popup');
+  const languageOptions = [...(languageMenu?.querySelectorAll('.header-language-option') || [])];
+  const setLanguageMenuOpen = (open) => {
+    if (!languageTrigger || !languagePopup) return;
+    languageTrigger.setAttribute('aria-expanded', String(open));
+    languagePopup.hidden = !open;
+  };
+
+  languageTrigger?.addEventListener('click', () => {
+    setLanguageMenuOpen(languageTrigger.getAttribute('aria-expanded') !== 'true');
+  });
+  languageTrigger?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setLanguageMenuOpen(true);
+      languageOptions[0]?.focus();
+    }
+  });
+  languageOptions.forEach(option => option.addEventListener('click', () => {
+    const language = option.dataset.language === 'zh' ? 'zh' : 'en';
     const parts = location.pathname.split('/').filter(Boolean);
     const slug = parts[0] === 'zh' ? parts[2] : parts[1];
     localStorage.setItem('language', language);
     location.assign(`${language === 'zh' ? '/zh' : ''}/guides${slug ? `/${slug}` : ''}`);
+  }));
+  document.addEventListener('pointerdown', event => {
+    if (languageMenu && !languageMenu.contains(event.target)) setLanguageMenuOpen(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      setLanguageMenuOpen(false);
+      languageTrigger?.focus();
+    }
   });
 
   const searchInput = document.querySelector('.guides-search-input input');

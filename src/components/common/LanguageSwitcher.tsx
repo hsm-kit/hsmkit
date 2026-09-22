@@ -1,10 +1,6 @@
-import React from 'react';
-import { Select } from 'antd';
-import { GlobalOutlined } from '@ant-design/icons';
 import { useLanguageContext as useLanguage } from '../../hooks/languageContext';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { isGuidesPage, getGuidesPath, getGuidesSlug } from '../../utils/guidesPath';
 import type { Language } from '../../locales';
+import HeaderLanguageMenu from './HeaderLanguageMenu';
 
 // 语言选项 - 提取到组件外部避免重复创建
 const languageOptions = [
@@ -18,33 +14,14 @@ const languageOptions = [
 
 const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const onGuidesPage = isGuidesPage(location.pathname);
-
-  const handleChange = (lang: string) => {
-    const l = lang as Language;
-    setLanguage(l);
-
-    // If we're on a guides page, navigate to the corresponding localized URL
-    if (onGuidesPage) {
-      const slug = getGuidesSlug(location.pathname) || undefined;
-      const path = getGuidesPath(l, slug);
-      navigate(path);
-    }
-  };
+  const handleChange = (nextLanguage: Language) => setLanguage(nextLanguage);
 
   return (
-    <Select
-      value={language}
-      onChange={handleChange}
-      style={{ width: 95 }}
-      variant="borderless"
-      suffixIcon={<GlobalOutlined />}
-      options={onGuidesPage ? languageOptions.filter(option => option.value === 'en' || option.value === 'zh') : languageOptions}
-      popupMatchSelectWidth={false}
-      styles={{ popup: { root: { minWidth: 110 } } }}
-      className="header-language-switcher language-switcher"
+    <HeaderLanguageMenu
+      language={language}
+      options={languageOptions as Array<{ value: Language; label: string }>}
+      onSelect={handleChange}
+      className="language-switcher"
     />
   );
 };

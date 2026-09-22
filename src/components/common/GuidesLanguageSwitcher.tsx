@@ -1,31 +1,32 @@
-import React from 'react';
-import { GlobalOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguageContext } from '../../hooks/languageContext';
 import { getGuidesPath, getGuidesSlug } from '../../utils/guidesPath';
 import type { Language } from '../../locales';
+import HeaderLanguageMenu from './HeaderLanguageMenu';
+
+const guideLanguageOptions = [
+  { value: 'en' as const, label: 'English' },
+  { value: 'zh' as const, label: '中文' },
+];
 
 const GuidesLanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguageContext();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const nextLanguage = event.target.value as Language;
+  const handleChange = (nextLanguage: Language) => {
     setLanguage(nextLanguage);
     const slug = getGuidesSlug(location.pathname) || undefined;
     navigate(getGuidesPath(nextLanguage, slug));
   };
 
   return (
-    <label className="header-language-switcher guides-language-switcher">
-      <span className="visually-hidden">Language</span>
-      <select value={language === 'zh' ? 'zh' : 'en'} onChange={handleChange} aria-label="Language">
-        <option value="en">English</option>
-        <option value="zh">中文</option>
-      </select>
-      <GlobalOutlined className="header-language-icon" aria-hidden="true" />
-    </label>
+    <HeaderLanguageMenu
+      language={language === 'zh' ? 'zh' : 'en'}
+      options={guideLanguageOptions}
+      onSelect={handleChange}
+      className="guides-language-switcher"
+    />
   );
 };
 

@@ -100,12 +100,12 @@ const renderRoute = async (page, route) => {
       }, { timeout: navigationTimeout }, { type: routeType });
 
       const entryState = await page.evaluate(() => ({
-        correct: Boolean(document.querySelector('.guides-language-switcher select'))
+        correct: Boolean(document.querySelector('.guides-language-switcher .header-language-trigger'))
           && !document.querySelector('.ant-menu-horizontal'),
         title: document.title,
         scripts: [...document.scripts].map(script => script.src).filter(Boolean),
         hasMainMenu: Boolean(document.querySelector('.ant-menu-horizontal')),
-        hasGuidesSwitcher: Boolean(document.querySelector('.guides-language-switcher select')),
+        hasGuidesSwitcher: Boolean(document.querySelector('.guides-language-switcher .header-language-trigger')),
         templateMarker: document.querySelector('meta[name="guide-prerender-template"]')?.getAttribute('content'),
       }));
       if (!entryState.correct) {
@@ -136,7 +136,7 @@ try {
     waitUntil: 'domcontentloaded',
     timeout: navigationTimeout,
   });
-  await warmupPage.waitForSelector('.guides-language-switcher select', { timeout: navigationTimeout });
+  await warmupPage.waitForSelector('.guides-language-switcher .header-language-trigger', { timeout: navigationTimeout });
   await warmupPage.close();
 
   const workers = Array.from({ length: concurrency }, async () => {
