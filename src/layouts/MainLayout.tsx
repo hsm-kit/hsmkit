@@ -177,6 +177,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
               subMenuCloseDelay={0.05}
               style={{ 
                 flex: 1, 
+                background: 'transparent',
                 borderBottom: 'none', 
                 lineHeight: '64px',
                 minWidth: 0
