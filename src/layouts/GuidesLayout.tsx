@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
-import { Button, Layout, Skeleton, Typography } from 'antd';
+import { Button, Layout, Skeleton } from 'antd';
 import { AppstoreOutlined, MoonOutlined, ReadOutlined, SunOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import GuidesLanguageSwitcher from '../components/common/GuidesLanguageSwitcher';
 import { useLanguageContext as useLanguage } from '../hooks/languageContext';
 import { useTheme } from '../hooks/useTheme';
 import { getGuidesPath } from '../utils/guidesPath';
+import { SiteFooter } from '../components/common/SiteFooter';
 
-const { Header, Content, Footer } = Layout;
-const { Text } = Typography;
+const { Header, Content } = Layout;
 
 const GuidesFallback = () => (
   <div style={{ maxWidth: 1000, margin: '0 auto', padding: '48px 24px' }}>
@@ -75,17 +75,7 @@ const GuidesLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         </Suspense>
       </Content>
 
-      <Footer style={{ textAlign: 'center', background: 'var(--card-bg)', borderTop: '1px solid var(--border-color)', padding: '28px 20px' }}>
-        <Text type="secondary" style={{ display: 'block', marginBottom: 10 }}>
-          HSMKit.com © 2025 - {new Date().getFullYear()} | {t.footer?.tagline || 'Browser-based Security Calculation Tools'}
-        </Text>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 18, flexWrap: 'wrap' }}>
-          <a href="/privacy-policy">{t.footer?.privacyPolicy || 'Privacy Policy'}</a>
-          <a href="/terms-of-service">{t.footer?.termsOfService || 'Terms of Service'}</a>
-          <a href="/disclaimer">{t.footer?.disclaimer || 'Disclaimer'}</a>
-          <a href="mailto:contact@hsmkit.com">{t.footer?.contact || 'Contact'}</a>
-        </div>
-      </Footer>
+      <SiteFooter />
     </Layout>
   );
 };

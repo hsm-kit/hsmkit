@@ -311,6 +311,86 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
   min-width: 0;
 }
 
+.site-footer {
+  margin-top: 48px;
+  padding: 32px 24px 40px !important;
+  border-top: 1px solid #f0f0f0;
+  background: #fff !important;
+  text-align: center;
+}
+
+.site-footer-tagline {
+  margin-bottom: 12px;
+  color: #595959;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.site-footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.site-footer-links a {
+  color: #666;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.site-footer-links a:hover,
+.site-footer-links a:focus-visible {
+  color: var(--primary-color);
+}
+
+.site-footer-separator {
+  color: #bfbfbf;
+  font-size: 12px;
+}
+
+body.dark-mode .site-footer {
+  border-top-color: #303030;
+  background: #141414 !important;
+}
+
+body.dark-mode .site-footer-tagline {
+  color: #a6a6a6;
+}
+
+body.dark-mode .site-footer-links a {
+  color: #8c8c8c;
+}
+
+body.dark-mode .site-footer-links a:hover,
+body.dark-mode .site-footer-links a:focus-visible {
+  color: #69b1ff;
+}
+
+body.dark-mode .site-footer-separator {
+  color: #595959;
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 24px 16px 32px !important;
+  }
+
+  .site-footer-tagline {
+    font-size: 13px;
+  }
+
+  .site-footer-links {
+    gap: 12px;
+  }
+
+  .site-footer-links a {
+    font-size: 12px;
+  }
+}
+
 .guide-toc-sidebar {
   padding-left: 16px;
   border-left: 2px solid var(--border-color);

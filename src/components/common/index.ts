@@ -10,3 +10,4 @@ export { FieldLabel, LengthIndicator } from './LengthIndicator';
 export { ToolPage } from './ToolPage';
 export { createToolPage } from './createToolPage';
 export { ExampleButton } from './ExampleButton';
+export { SiteFooter } from './SiteFooter';

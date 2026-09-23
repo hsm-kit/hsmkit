@@ -1,5 +1,5 @@
 import React, { useState, useCallback, Suspense } from 'react';
-import { Layout, Menu, Typography, Button, Drawer, Tooltip, Skeleton, Card } from 'antd';
+import { Layout, Menu, Button, Drawer, Tooltip, Skeleton, Card } from 'antd';
 import { 
   MenuOutlined,
   SunOutlined,
@@ -12,6 +12,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { useTheme } from '../hooks/useTheme';
 import { LanguageSwitcher } from '../components/common';
 import { ReloadPrompt } from '../components/common/ReloadPrompt';
+import { SiteFooter } from '../components/common/SiteFooter';
 import ErrorBoundary from '../components/common/ErrorBoundary';
 import { getGuidesPath, isGuidesPage } from '../utils/guidesPath';
 import { routeToKey, keyToRoute, prefetchRoute } from '../routeConfig';
@@ -19,9 +20,7 @@ import { getLocalizedToolPath } from '../utils/toolPath';
 import { createMenuItems, createMobileMenuItems } from '../menuConfig';
 import '../menu-styles.css';
 
-const { Header, Content, Footer } = Layout;
-const { Text } = Typography;
-
+const { Header, Content } = Layout;
 const contentStyle: React.CSSProperties = {
   maxWidth: '1200px',
   margin: '0 auto',
@@ -302,77 +301,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
         </div>
       </Content>
 
-      {/* 底部 */}
-      <Footer style={{ 
-        textAlign: 'center', 
-        background: isDark ? '#141414' : '#fff', 
-        padding: isMobile ? '24px 16px 32px' : '32px 24px 40px',
-        marginTop: 48,
-        borderTop: isDark ? '1px solid #303030' : '1px solid #f0f0f0',
-      }}>
-        <div style={{ marginBottom: 12 }}>
-          <Text style={{ 
-            fontSize: isMobile ? 13 : 14, 
-            color: isDark ? '#a6a6a6' : '#595959',
-            fontWeight: 500,
-          }}>
-            HSMKit.com © 2025 - {new Date().getFullYear()} | {t.footer.tagline}
-          </Text>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Link to="/about/" style={{
-            fontSize: isMobile ? 12 : 13,
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-          }}>
-            {t.footer.about}
-          </Link>
-          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/editorial-policy/" style={{
-            fontSize: isMobile ? 12 : 13,
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-          }}>
-            {t.footer.editorialPolicy}
-          </Link>
-          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/privacy-policy/" style={{ 
-            fontSize: isMobile ? 12 : 13, 
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}>
-            {t.footer.privacyPolicy}
-          </Link>
-          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/terms-of-service/" style={{ 
-            fontSize: isMobile ? 12 : 13, 
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}>
-            {t.footer.termsOfService}
-          </Link>
-          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/disclaimer/" style={{ 
-            fontSize: isMobile ? 12 : 13, 
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}>
-            {t.footer.disclaimer}
-          </Link>
-          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <a href="mailto:contact@hsmkit.com" style={{ 
-            fontSize: isMobile ? 12 : 13, 
-            color: isDark ? '#8c8c8c' : '#666',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}>
-            {t.footer.contact}
-          </a>
-        </div>
-      </Footer>
+      <SiteFooter />
       <ReloadPrompt />
     </Layout>
   );
