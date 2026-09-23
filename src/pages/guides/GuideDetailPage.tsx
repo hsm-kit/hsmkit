@@ -772,15 +772,11 @@ const GuideDetailPage: React.FC = () => {
               {loading ? (
                 <Skeleton active paragraph={{ rows: 6 }} />
               ) : headings.length > 0 && (
-                <div style={{ 
-                  borderLeft: `2px solid ${isDark ? '#303030' : '#f0f0f0'}`,
-                  paddingLeft: 16,
-                }}>
-                  <div style={{ 
+                <nav className="guide-toc-sidebar" aria-label={t.guides?.onThisPage || 'On this page'}>
+                  <div className="guide-toc-title" style={{
                     fontWeight: 'bold', 
                     marginBottom: 16, 
                     fontSize: 14,
-                    color: isDark ? '#e6e6e6' : '#1f1f1f',
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
                   }}>
@@ -789,9 +785,10 @@ const GuideDetailPage: React.FC = () => {
                   <Anchor
                     targetOffset={100}
                     items={headings}
+                    className="guide-toc-anchor"
                     style={{ background: 'transparent' }}
                   />
-                </div>
+                </nav>
               )}
             </div>
           </Col>
