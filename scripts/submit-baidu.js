@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const site = 'https://hsmkit.com';
+const siteOrigin = 'https://hsmkit.com';
+const baiduSite = 'hsmkit.com';
 const token = process.env.BAIDU_PUSH_TOKEN?.trim();
 const dryRun = process.argv.includes('--dry-run');
 const submitAll = process.argv.includes('--all');
@@ -14,15 +15,15 @@ const urlList = [...new Set(explicitUrls.length > 0 ? explicitUrls : defaultUrls
 
 if (urlList.length === 0) throw new Error('No URLs found for Baidu submission.');
 if (urlList.length > 2_000) throw new Error('Baidu accepts at most 2,000 URLs per request.');
-if (urlList.some(url => new URL(url).origin !== site)) {
-  throw new Error(`All URLs must use ${site}.`);
+if (urlList.some(url => new URL(url).origin !== siteOrigin)) {
+  throw new Error(`All URLs must use ${siteOrigin}.`);
 }
 
 if (dryRun) {
   console.log(`Validated ${urlList.length} URL(s) for Baidu${submitAll ? ' (all canonical URLs)' : ' (Chinese URLs)'}.`);
 } else {
   if (!token) throw new Error('BAIDU_PUSH_TOKEN is required. Add it as a GitHub Actions secret or environment variable.');
-  const endpoint = `http://data.zz.baidu.com/urls?site=${encodeURIComponent(site)}&token=${encodeURIComponent(token)}`;
+  const endpoint = `http://data.zz.baidu.com/urls?site=${encodeURIComponent(baiduSite)}&token=${encodeURIComponent(token)}`;
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
