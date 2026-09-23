@@ -22,7 +22,7 @@ if (dryRun) {
   console.log(`Validated ${urlList.length} URL(s) for Baidu${submitAll ? ' (all canonical URLs)' : ' (Chinese URLs)'}.`);
 } else {
   if (!token) throw new Error('BAIDU_PUSH_TOKEN is required. Add it as a GitHub Actions secret or environment variable.');
-  const endpoint = `https://data.zz.baidu.com/urls?site=${encodeURIComponent(site)}&token=${encodeURIComponent(token)}`;
+  const endpoint = `http://data.zz.baidu.com/urls?site=${encodeURIComponent(site)}&token=${encodeURIComponent(token)}`;
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
