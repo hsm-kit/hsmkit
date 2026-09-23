@@ -1,0 +1,362 @@
+{
+  "schemaVersion": "1.0",
+  "name": "HSM Kit Tool Directory",
+  "description": "Client-side cryptographic, HSM key management, payment security, PKI, and encoding tools.",
+  "homepage": "https://hsmkit.com/",
+  "repository": "https://github.com/hsm-kit/hsmkit",
+  "privacy": "Calculations run in the browser. Do not enter production keys, credentials, personal information, or live payment data.",
+  "tools": [
+    {
+      "id": "aes",
+      "name": "AES Encryption",
+      "category": "Cipher",
+      "path": "/aes-encryption/",
+      "description": "Encrypt and decrypt AES data with common modes, paddings, and encodings.",
+      "url": "https://hsmkit.com/aes-encryption/"
+    },
+    {
+      "id": "des",
+      "name": "DES and 3DES Encryption",
+      "category": "Cipher",
+      "path": "/des-encryption/",
+      "description": "Encrypt and decrypt DES and Triple DES test data.",
+      "url": "https://hsmkit.com/des-encryption/"
+    },
+    {
+      "id": "rsa",
+      "name": "RSA Encryption",
+      "category": "Cipher",
+      "path": "/rsa-encryption/",
+      "description": "Generate RSA keys and test RSA encryption, decryption, signing, and verification.",
+      "url": "https://hsmkit.com/rsa-encryption/"
+    },
+    {
+      "id": "ecc",
+      "name": "ECC and ECDSA",
+      "category": "Cipher",
+      "path": "/ecc-encryption/",
+      "description": "Generate elliptic-curve keys and test ECDSA signatures.",
+      "url": "https://hsmkit.com/ecc-encryption/"
+    },
+    {
+      "id": "fpe",
+      "name": "Format-Preserving Encryption",
+      "category": "Cipher",
+      "path": "/fpe-encryption/",
+      "description": "Test format-preserving encryption for fixed-format values.",
+      "url": "https://hsmkit.com/fpe-encryption/"
+    },
+    {
+      "id": "asn1",
+      "name": "ASN.1 Parser",
+      "category": "PKI",
+      "path": "/asn1-parser/",
+      "description": "Decode and inspect ASN.1 DER and BER structures.",
+      "url": "https://hsmkit.com/asn1-parser/"
+    },
+    {
+      "id": "sslCert",
+      "name": "SSL Certificate Tools",
+      "category": "PKI",
+      "path": "/ssl-certificates/",
+      "description": "Inspect certificates and generate keys, CSRs, and test certificates.",
+      "url": "https://hsmkit.com/ssl-certificates/"
+    },
+    {
+      "id": "hash",
+      "name": "Hash Calculator",
+      "category": "Generic",
+      "path": "/hashes/",
+      "description": "Calculate common cryptographic and non-cryptographic hashes.",
+      "url": "https://hsmkit.com/hashes/"
+    },
+    {
+      "id": "encoding",
+      "name": "Character Encoding Converter",
+      "category": "Generic",
+      "path": "/character-encoding/",
+      "description": "Convert text and bytes between ASCII, EBCDIC, Unicode, and hexadecimal formats.",
+      "url": "https://hsmkit.com/character-encoding/"
+    },
+    {
+      "id": "bcd",
+      "name": "BCD Converter",
+      "category": "Generic",
+      "path": "/bcd/",
+      "description": "Encode and decode packed and unpacked binary-coded decimal values.",
+      "url": "https://hsmkit.com/bcd/"
+    },
+    {
+      "id": "checkDigits",
+      "name": "Check Digit Calculator",
+      "category": "Generic",
+      "path": "/check-digits/",
+      "description": "Calculate and validate Luhn, Mod 10, Mod 9, and related check digits.",
+      "url": "https://hsmkit.com/check-digits/"
+    },
+    {
+      "id": "base64",
+      "name": "Base64 Encoder and Decoder",
+      "category": "Generic",
+      "path": "/base64/",
+      "description": "Encode and decode Base64 text and hexadecimal data.",
+      "url": "https://hsmkit.com/base64/"
+    },
+    {
+      "id": "base94",
+      "name": "Base94 Encoder and Decoder",
+      "category": "Generic",
+      "path": "/base94/",
+      "description": "Encode and decode compact Base94 values.",
+      "url": "https://hsmkit.com/base94/"
+    },
+    {
+      "id": "messageParser",
+      "name": "Message Parser",
+      "category": "Generic",
+      "path": "/message-parser/",
+      "description": "Parse structured payment and ISO 8583 test messages.",
+      "url": "https://hsmkit.com/message-parser/"
+    },
+    {
+      "id": "rsaDer",
+      "name": "RSA DER Public Key Decoder",
+      "category": "Generic",
+      "path": "/rsa-der-public-key/",
+      "description": "Decode RSA public keys in DER and PEM formats.",
+      "url": "https://hsmkit.com/rsa-der-public-key/"
+    },
+    {
+      "id": "uuid",
+      "name": "UUID Generator",
+      "category": "Generic",
+      "path": "/uuid/",
+      "description": "Generate and inspect UUID values.",
+      "url": "https://hsmkit.com/uuid/"
+    },
+    {
+      "id": "keyGenerator",
+      "name": "Key Generator and KCV",
+      "category": "Key Management",
+      "path": "/keys-dea/",
+      "description": "Generate AES and DES keys and calculate key check values.",
+      "url": "https://hsmkit.com/keys-dea/"
+    },
+    {
+      "id": "keyshare",
+      "name": "Keyshare Generator",
+      "category": "Key Management",
+      "path": "/keyshare-generator/",
+      "description": "Split and recombine cryptographic keys using XOR components.",
+      "url": "https://hsmkit.com/keyshare-generator/"
+    },
+    {
+      "id": "futurexKeys",
+      "name": "Futurex Key Tool",
+      "category": "Key Management",
+      "path": "/futurex-keys/",
+      "description": "Work with Futurex HSM encrypted key formats for testing.",
+      "url": "https://hsmkit.com/futurex-keys/"
+    },
+    {
+      "id": "atallaKeys",
+      "name": "Atalla Key Tool",
+      "category": "Key Management",
+      "path": "/atalla-keys/",
+      "description": "Work with Atalla key block formats for testing.",
+      "url": "https://hsmkit.com/atalla-keys/"
+    },
+    {
+      "id": "safenetKeys",
+      "name": "SafeNet Key Tool",
+      "category": "Key Management",
+      "path": "/safenet-keys/",
+      "description": "Work with SafeNet HSM encrypted key formats for testing.",
+      "url": "https://hsmkit.com/safenet-keys/"
+    },
+    {
+      "id": "thalesKeys",
+      "name": "Thales Key Tool",
+      "category": "Key Management",
+      "path": "/thales-keys/",
+      "description": "Work with Thales LMK-encrypted key formats for testing.",
+      "url": "https://hsmkit.com/thales-keys/"
+    },
+    {
+      "id": "thalesKeyBlock",
+      "name": "Thales Key Block",
+      "category": "Key Management",
+      "path": "/thales-key-block/",
+      "description": "Encode, decode, and inspect Thales key blocks.",
+      "url": "https://hsmkit.com/thales-key-block/"
+    },
+    {
+      "id": "tr31",
+      "name": "TR-31 Key Block",
+      "category": "Key Management",
+      "path": "/tr31-key-block/",
+      "description": "Encode, decode, and inspect ANSI X9.143 TR-31 key blocks.",
+      "url": "https://hsmkit.com/tr31-key-block/"
+    },
+    {
+      "id": "as2805",
+      "name": "AS 2805 Message Tool",
+      "category": "Payment",
+      "path": "/payments-as2805/",
+      "description": "Parse and inspect AS 2805 payment messages.",
+      "url": "https://hsmkit.com/payments-as2805/"
+    },
+    {
+      "id": "bitmap",
+      "name": "ISO 8583 Bitmap",
+      "category": "Payment",
+      "path": "/payments-bitmap/",
+      "description": "Create and decode ISO 8583 primary, secondary, and tertiary bitmaps.",
+      "url": "https://hsmkit.com/payments-bitmap/"
+    },
+    {
+      "id": "cvv",
+      "name": "CVV and CVC Calculator",
+      "category": "Payment",
+      "path": "/payments-card-validation-cvvs/",
+      "description": "Calculate CVV, CVV2, iCVV, and related card verification values for tests.",
+      "url": "https://hsmkit.com/payments-card-validation-cvvs/"
+    },
+    {
+      "id": "amexCsc",
+      "name": "American Express CSC",
+      "category": "Payment",
+      "path": "/payments-card-validation-amex-cscs/",
+      "description": "Calculate American Express CSC variants for test data.",
+      "url": "https://hsmkit.com/payments-card-validation-amex-cscs/"
+    },
+    {
+      "id": "mastercardCvc3",
+      "name": "Mastercard Dynamic CVC3",
+      "category": "Payment",
+      "path": "/payments-card-validation-mastercard-cvc3/",
+      "description": "Calculate Mastercard dynamic CVC3 values for test data.",
+      "url": "https://hsmkit.com/payments-card-validation-mastercard-cvc3/"
+    },
+    {
+      "id": "dukpt",
+      "name": "TDES DUKPT",
+      "category": "Payment",
+      "path": "/payments-dukpt-iso9797/",
+      "description": "Derive TDES DUKPT keys and process test transactions.",
+      "url": "https://hsmkit.com/payments-dukpt-iso9797/"
+    },
+    {
+      "id": "dukptAes",
+      "name": "AES DUKPT",
+      "category": "Payment",
+      "path": "/payments-dukpt-aes/",
+      "description": "Derive AES DUKPT keys for test transactions.",
+      "url": "https://hsmkit.com/payments-dukpt-aes/"
+    },
+    {
+      "id": "iso9797Mac",
+      "name": "ISO 9797-1 MAC",
+      "category": "Payment",
+      "path": "/payments-mac-iso9797-1/",
+      "description": "Calculate ISO/IEC 9797-1 message authentication codes.",
+      "url": "https://hsmkit.com/payments-mac-iso9797-1/"
+    },
+    {
+      "id": "ansiMac",
+      "name": "ANSI X9.9 and X9.19 MAC",
+      "category": "Payment",
+      "path": "/payments-mac-ansix9/",
+      "description": "Calculate ANSI X9.9 and retail X9.19 MAC values.",
+      "url": "https://hsmkit.com/payments-mac-ansix9/"
+    },
+    {
+      "id": "as2805Mac",
+      "name": "AS 2805 MAC",
+      "category": "Payment",
+      "path": "/payments-mac-as2805/",
+      "description": "Calculate AS 2805.4.1 message authentication codes.",
+      "url": "https://hsmkit.com/payments-mac-as2805/"
+    },
+    {
+      "id": "tdesCbcMac",
+      "name": "TDES CBC-MAC",
+      "category": "Payment",
+      "path": "/payments-mac-tdes-cbc-mac/",
+      "description": "Calculate Triple DES CBC-MAC values.",
+      "url": "https://hsmkit.com/payments-mac-tdes-cbc-mac/"
+    },
+    {
+      "id": "hmac",
+      "name": "HMAC Calculator",
+      "category": "Payment",
+      "path": "/payments-mac-hmac/",
+      "description": "Calculate keyed-hash message authentication codes.",
+      "url": "https://hsmkit.com/payments-mac-hmac/"
+    },
+    {
+      "id": "cmac",
+      "name": "CMAC Calculator",
+      "category": "Payment",
+      "path": "/payments-mac-cmac/",
+      "description": "Calculate AES and Triple DES CMAC values.",
+      "url": "https://hsmkit.com/payments-mac-cmac/"
+    },
+    {
+      "id": "retailMac",
+      "name": "Retail MAC",
+      "category": "Payment",
+      "path": "/payments-mac-retail/",
+      "description": "Calculate ISO 9797 retail MAC values.",
+      "url": "https://hsmkit.com/payments-mac-retail/"
+    },
+    {
+      "id": "pinBlockGeneral",
+      "name": "ISO 9564 PIN Blocks",
+      "category": "Payment",
+      "path": "/payments-pin-blocks-general/",
+      "description": "Encode and decode ISO 9564 PIN block formats.",
+      "url": "https://hsmkit.com/payments-pin-blocks-general/"
+    },
+    {
+      "id": "pinBlockAes",
+      "name": "AES PIN Block Format 4",
+      "category": "Payment",
+      "path": "/payments-pin-blocks-aes/",
+      "description": "Encode and decode ISO 9564-1 format 4 AES PIN blocks.",
+      "url": "https://hsmkit.com/payments-pin-blocks-aes/"
+    },
+    {
+      "id": "pinOffset",
+      "name": "IBM 3624 PIN Offset",
+      "category": "Payment",
+      "path": "/payments-pin-offset/",
+      "description": "Calculate and verify IBM 3624 PIN offsets for test data.",
+      "url": "https://hsmkit.com/payments-pin-offset/"
+    },
+    {
+      "id": "pinPvv",
+      "name": "Visa PIN Verification Value",
+      "category": "Payment",
+      "path": "/payments-pin-pvv/",
+      "description": "Calculate and verify Visa PVV values for test data.",
+      "url": "https://hsmkit.com/payments-pin-pvv/"
+    },
+    {
+      "id": "visaCertificates",
+      "name": "Visa Certificate Validation",
+      "category": "Payment",
+      "path": "/payments-visa-certificates/",
+      "description": "Inspect and validate Visa payment certificate test data.",
+      "url": "https://hsmkit.com/payments-visa-certificates/"
+    },
+    {
+      "id": "zka",
+      "name": "ZKA Key Derivation",
+      "category": "Payment",
+      "path": "/payments-zka/",
+      "description": "Derive keys used by German ZKA payment systems for testing.",
+      "url": "https://hsmkit.com/payments-zka/"
+    }
+  ]
+}

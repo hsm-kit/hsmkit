@@ -17,6 +17,10 @@ const blockedPatterns = [
 ];
 
 const failures = [];
+const hasExtractedStyles = html => /<link\b[^>]*\bdata-prerender-styles\b[^>]*>/i.test(html);
+const hasNonEmptyAntStyles = html => [...html.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi)]
+  .some(([, attributes, css]) => /\b(?:data-rc-order|data-css-hash|data-icon)(?:=|\s|>)/i.test(attributes) && css.trim());
+
 for (const routePath of toolPaths) {
   const htmlPath = path.join(root, 'dist', routePath.slice(1), 'index.html');
   let html;
@@ -36,6 +40,13 @@ for (const routePath of toolPaths) {
   const robotsTags = html.match(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi) || [];
   if (robotsTags.some((tag) => /\bnoindex\b/i.test(tag))) {
     failures.push(`${routePath}: unexpectedly marked noindex`);
+  }
+  const canonical = `https://hsmkit.com${routePath}/`;
+  if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
+    failures.push(`${routePath}: canonical URL is not the final trailing-slash URL`);
+  }
+  if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html)) {
+    failures.push(`${routePath}: Ant Design prerender styles were not extracted`);
   }
 
   const sectionOrder = [
@@ -163,6 +174,18 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     if (!usesStaticGuideDelivery(html)) {
       guideFailures.push(`${routePath}: article does not use static delivery`);
     }
+    const markdownPath = path.join(path.dirname(htmlPath), 'index.md');
+    try {
+      const markdown = await fs.readFile(markdownPath, 'utf8');
+      if (!markdown.startsWith(`# ${article.title}\n`) || !html.includes(`type="text/markdown" href="${routePath}/index.md"`)) {
+        guideFailures.push(`${routePath}: invalid Markdown representation or alternate link`);
+      }
+    } catch {
+      guideFailures.push(`${routePath}: missing Markdown representation`);
+    }
+    if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html)) {
+      guideFailures.push(`${routePath}: Ant Design prerender styles were not extracted`);
+    }
     if (!hasFinalGuideUrls(html)) guideFailures.push(`${routePath}: canonical or hreflang URL redirects`);
     if (findRedirectingGuideLinks(html, language).length > 0) guideFailures.push(`${routePath}: internal guide link redirects or changes language`);
   }
@@ -170,6 +193,21 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
 
 if (!mainEntry) {
   guideFailures.push('main application entry is missing');
+}
+
+const discoveryFiles = [
+  ['llms.txt', /^# HSM Kit/m],
+  ['ai/tools.json', /"tools"\s*:/],
+  ['404.html', /noindex, nofollow/],
+  ['55bc76b3ce475067e11cca8d69e2edd4.txt', /55bc76b3ce475067e11cca8d69e2edd4/],
+];
+for (const [file, pattern] of discoveryFiles) {
+  try {
+    const content = await fs.readFile(path.join(root, 'dist', file), 'utf8');
+    if (!pattern.test(content)) guideFailures.push(`${file}: invalid discovery artifact`);
+  } catch {
+    guideFailures.push(`${file}: missing discovery artifact`);
+  }
 }
 
 if (guideFailures.length > 0) {

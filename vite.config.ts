@@ -10,6 +10,17 @@ import { join, resolve } from 'path'
 export default defineConfig({
   plugins: [
     {
+      name: 'bing-site-verification',
+      transformIndexHtml(html) {
+        const verificationCode = process.env.BING_SITE_AUTH?.trim();
+        if (!verificationCode) return html;
+        if (!/^[a-z0-9_-]+$/i.test(verificationCode)) {
+          throw new Error('BING_SITE_AUTH contains unsupported characters.');
+        }
+        return html.replace('</head>', `    <meta name="msvalidate.01" content="${verificationCode}" />\n  </head>`);
+      },
+    },
+    {
       name: 'guides-dev-entry',
       configureServer(server) {
         server.middlewares.use((request, _response, next) => {

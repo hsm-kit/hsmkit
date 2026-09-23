@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useId } from 'react';
 import { Card, Typography, Collapse } from 'antd';
 import { QuestionCircleOutlined, ReadOutlined } from '@ant-design/icons';
 import { SEO } from './SEO';
+import { normalizeSiteUrl } from '../../utils/publicUrl';
 
 const { Title, Text } = Typography;
 
@@ -69,6 +70,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   includeApplicationSchema = true,
 }) => {
   const schemaId = useId();
+  const canonicalUrl = canonical ? normalizeSiteUrl(canonical) : undefined;
   // Inject schema scripts dynamically - 使用 useLayoutEffect 确保预渲染时能捕获
   useLayoutEffect(() => {
     const schemaScripts: HTMLScriptElement[] = [];
@@ -86,10 +88,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
     const webAppSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      '@id': canonical || 'https://hsmkit.com',
+      '@id': canonicalUrl || 'https://hsmkit.com/',
       name: toolName || seoTitle,
       description: seoDescription,
-      url: canonical,
+      url: canonicalUrl,
       applicationCategory: toolCategory,
       applicationSubCategory: 'Cryptography Tool',
       operatingSystem: 'Any (Web Browser)',
@@ -150,7 +152,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         }
       });
     };
-  }, [schemaId, seoTitle, seoDescription, canonical, faqs, toolName, toolCategory, usageContent, includeApplicationSchema]);
+  }, [schemaId, seoTitle, seoDescription, canonicalUrl, faqs, toolName, toolCategory, usageContent, includeApplicationSchema]);
 
   return (
     <>
@@ -158,7 +160,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
-        canonical={canonical}
+        canonical={canonicalUrl}
         alternates={alternates}
         ogImage={ogImage}
         ogImageWidth={ogImageWidth}

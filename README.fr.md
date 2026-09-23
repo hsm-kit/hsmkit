@@ -26,6 +26,7 @@ HSM Kit est un kit d'outils de cryptographie en ligne professionnel conçu pour 
 - **Exemples sans changement de contexte** — conservent le mode, le format, l'onglet et les options actifs
 - **Validation cohérente** — longueurs et formats affichés en gris/vert/rouge dans tous les outils
 - **Favoris et outils récents** — enregistrés localement, sans compte
+- **Documentation adaptée à l'IA** — `llms.txt`, catalogue structuré et versions Markdown de tous les guides
 - **Open source** — 90+ tests unitaires et vérification des pages des 44 outils
 
 **[📖 Documentation détaillée (Anglais)](README.md)**

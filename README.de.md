@@ -26,6 +26,7 @@ HSM Kit ist ein professionelles Online-Verschlüsselungs-Toolkit, das für Entwi
 - **Kontextsichere Beispiele** — Modus, Format, Tab und Schalter bleiben unverändert
 - **Einheitliche Eingabeprüfung** — Längen und Formate werden grau/grün/rot dargestellt
 - **Favoriten & zuletzt verwendet** — lokal im Browser, ohne Benutzerkonto
+- **KI-freundliche Dokumentation** — `llms.txt`, strukturierter Tool-Katalog und Markdown-Versionen aller Leitfäden
 - **Open Source** — 90+ Unit-Tests und Seitenprüfungen für alle 44 Tools
 
 **[📖 Ausführliche Dokumentation (Englisch)](README.md)**

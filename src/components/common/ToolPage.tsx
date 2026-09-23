@@ -12,6 +12,7 @@ import { getGuidesPath } from '../../utils/guidesPath';
 import { getRelatedTools } from '../../data/toolRelations';
 import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import { trackToolEvent } from '../../utils/analytics';
+import { normalizePublicPath, normalizeRoutePath, normalizeSiteUrl } from '../../utils/publicUrl';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -100,17 +101,20 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   const { isDark } = useTheme();
   const toast = useToast();
   const location = useLocation();
+  const routePath = normalizeRoutePath(location.pathname);
+  const publicPath = normalizePublicPath(location.pathname);
+  const canonicalUrl = normalizeSiteUrl(canonical);
   const { addRecentTool } = useRecentTools();
   const { favoriteTools, toggleFavorite } = useFavoriteTools();
   const seo = seoContent[language]?.[seoKey as keyof typeof seoContent.en] 
     || seoContent.en[seoKey as keyof typeof seoContent.en];
 
-  const relatedGuides = getRelatedGuides(location.pathname);
+  const relatedGuides = getRelatedGuides(routePath);
   const relatedTools = getRelatedTools(seoKey);
-  const favorite = favoriteTools.includes(location.pathname);
+  const favorite = favoriteTools.includes(publicPath);
 
   useEffect(() => {
-    addRecentTool(location.pathname);
+    addRecentTool(publicPath);
     let source = 'direct';
     if (document.referrer) {
       try {
@@ -120,7 +124,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       }
     }
     trackToolEvent('tool_view', { toolId: seoKey, source });
-  }, [addRecentTool, location.pathname, seoKey]);
+  }, [addRecentTool, publicPath, seoKey]);
 
   // Inject BreadcrumbList Schema for tools - useLayoutEffect ensures prerender captures it
   useLayoutEffect(() => {
@@ -130,8 +134,8 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hsmkit.com' },
-        { '@type': 'ListItem', position: 2, name: seo.title, item: canonical },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hsmkit.com/' },
+        { '@type': 'ListItem', position: 2, name: seo.title, item: canonicalUrl },
       ],
     };
 
@@ -145,7 +149,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       const el = document.getElementById('tool-breadcrumb-schema');
       if (el) el.remove();
     };
-  }, [seo, canonical]);
+  }, [seo, canonicalUrl]);
 
   if (!seo) {
     return (
@@ -172,7 +176,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       seoTitle={seoData.title}
       seoDescription={seoData.description}
       seoKeywords={seoData.keywords}
-      canonical={canonical}
+      canonical={canonicalUrl}
       faqTitle={seoData.faqTitle}
       faqs={seoData.faqs}
       usageTitle={seoData.usageTitle}
@@ -257,7 +261,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
           icon={favorite ? <StarFilled /> : <StarOutlined />}
           aria-pressed={favorite}
           onClick={() => {
-            toggleFavorite(location.pathname);
+            toggleFavorite(publicPath);
             trackToolEvent(favorite ? 'favorite_remove' : 'favorite_add', { toolId: seoKey });
           }}
         >

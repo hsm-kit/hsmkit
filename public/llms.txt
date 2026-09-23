@@ -1,0 +1,119 @@
+# HSM Kit
+
+> HSM Kit is an open-source collection of browser-based cryptographic, HSM key management, payment security, PKI, and encoding tools. All calculations run locally in the browser.
+
+Use HSM Kit for educational work, interoperability testing, and non-production test vectors. Never submit live cryptographic keys, PINs, credentials, personal information, or production payment data.
+
+## Machine-Readable Resources
+
+- [Tool directory](https://hsmkit.com/ai/tools.json): Structured catalog of all 44 tools.
+- [XML sitemap](https://hsmkit.com/sitemap.xml): Canonical public pages and guides.
+- [English guides](https://hsmkit.com/guides/): Technical knowledge base with standards references.
+- [Chinese guides](https://hsmkit.com/zh/guides/): Chinese technical knowledge base.
+- [Source code](https://github.com/hsm-kit/hsmkit): MIT-licensed project repository.
+
+Each guide article also has a Markdown representation at its canonical URL followed by index.md, for example https://hsmkit.com/guides/aes-gcm-vs-cbc/index.md.
+
+## Cipher Tools
+
+- [AES Encryption](https://hsmkit.com/aes-encryption/): Encrypt and decrypt AES data with common modes, paddings, and encodings.
+- [DES and 3DES Encryption](https://hsmkit.com/des-encryption/): Encrypt and decrypt DES and Triple DES test data.
+- [RSA Encryption](https://hsmkit.com/rsa-encryption/): Generate RSA keys and test RSA encryption, decryption, signing, and verification.
+- [ECC and ECDSA](https://hsmkit.com/ecc-encryption/): Generate elliptic-curve keys and test ECDSA signatures.
+- [Format-Preserving Encryption](https://hsmkit.com/fpe-encryption/): Test format-preserving encryption for fixed-format values.
+
+## PKI Tools
+
+- [ASN.1 Parser](https://hsmkit.com/asn1-parser/): Decode and inspect ASN.1 DER and BER structures.
+- [SSL Certificate Tools](https://hsmkit.com/ssl-certificates/): Inspect certificates and generate keys, CSRs, and test certificates.
+
+## Generic Tools
+
+- [Hash Calculator](https://hsmkit.com/hashes/): Calculate common cryptographic and non-cryptographic hashes.
+- [Character Encoding Converter](https://hsmkit.com/character-encoding/): Convert text and bytes between ASCII, EBCDIC, Unicode, and hexadecimal formats.
+- [BCD Converter](https://hsmkit.com/bcd/): Encode and decode packed and unpacked binary-coded decimal values.
+- [Check Digit Calculator](https://hsmkit.com/check-digits/): Calculate and validate Luhn, Mod 10, Mod 9, and related check digits.
+- [Base64 Encoder and Decoder](https://hsmkit.com/base64/): Encode and decode Base64 text and hexadecimal data.
+- [Base94 Encoder and Decoder](https://hsmkit.com/base94/): Encode and decode compact Base94 values.
+- [Message Parser](https://hsmkit.com/message-parser/): Parse structured payment and ISO 8583 test messages.
+- [RSA DER Public Key Decoder](https://hsmkit.com/rsa-der-public-key/): Decode RSA public keys in DER and PEM formats.
+- [UUID Generator](https://hsmkit.com/uuid/): Generate and inspect UUID values.
+
+## Key Management Tools
+
+- [Key Generator and KCV](https://hsmkit.com/keys-dea/): Generate AES and DES keys and calculate key check values.
+- [Keyshare Generator](https://hsmkit.com/keyshare-generator/): Split and recombine cryptographic keys using XOR components.
+- [Futurex Key Tool](https://hsmkit.com/futurex-keys/): Work with Futurex HSM encrypted key formats for testing.
+- [Atalla Key Tool](https://hsmkit.com/atalla-keys/): Work with Atalla key block formats for testing.
+- [SafeNet Key Tool](https://hsmkit.com/safenet-keys/): Work with SafeNet HSM encrypted key formats for testing.
+- [Thales Key Tool](https://hsmkit.com/thales-keys/): Work with Thales LMK-encrypted key formats for testing.
+- [Thales Key Block](https://hsmkit.com/thales-key-block/): Encode, decode, and inspect Thales key blocks.
+- [TR-31 Key Block](https://hsmkit.com/tr31-key-block/): Encode, decode, and inspect ANSI X9.143 TR-31 key blocks.
+
+## Payment Tools
+
+- [AS 2805 Message Tool](https://hsmkit.com/payments-as2805/): Parse and inspect AS 2805 payment messages.
+- [ISO 8583 Bitmap](https://hsmkit.com/payments-bitmap/): Create and decode ISO 8583 primary, secondary, and tertiary bitmaps.
+- [CVV and CVC Calculator](https://hsmkit.com/payments-card-validation-cvvs/): Calculate CVV, CVV2, iCVV, and related card verification values for tests.
+- [American Express CSC](https://hsmkit.com/payments-card-validation-amex-cscs/): Calculate American Express CSC variants for test data.
+- [Mastercard Dynamic CVC3](https://hsmkit.com/payments-card-validation-mastercard-cvc3/): Calculate Mastercard dynamic CVC3 values for test data.
+- [TDES DUKPT](https://hsmkit.com/payments-dukpt-iso9797/): Derive TDES DUKPT keys and process test transactions.
+- [AES DUKPT](https://hsmkit.com/payments-dukpt-aes/): Derive AES DUKPT keys for test transactions.
+- [ISO 9797-1 MAC](https://hsmkit.com/payments-mac-iso9797-1/): Calculate ISO/IEC 9797-1 message authentication codes.
+- [ANSI X9.9 and X9.19 MAC](https://hsmkit.com/payments-mac-ansix9/): Calculate ANSI X9.9 and retail X9.19 MAC values.
+- [AS 2805 MAC](https://hsmkit.com/payments-mac-as2805/): Calculate AS 2805.4.1 message authentication codes.
+- [TDES CBC-MAC](https://hsmkit.com/payments-mac-tdes-cbc-mac/): Calculate Triple DES CBC-MAC values.
+- [HMAC Calculator](https://hsmkit.com/payments-mac-hmac/): Calculate keyed-hash message authentication codes.
+- [CMAC Calculator](https://hsmkit.com/payments-mac-cmac/): Calculate AES and Triple DES CMAC values.
+- [Retail MAC](https://hsmkit.com/payments-mac-retail/): Calculate ISO 9797 retail MAC values.
+- [ISO 9564 PIN Blocks](https://hsmkit.com/payments-pin-blocks-general/): Encode and decode ISO 9564 PIN block formats.
+- [AES PIN Block Format 4](https://hsmkit.com/payments-pin-blocks-aes/): Encode and decode ISO 9564-1 format 4 AES PIN blocks.
+- [IBM 3624 PIN Offset](https://hsmkit.com/payments-pin-offset/): Calculate and verify IBM 3624 PIN offsets for test data.
+- [Visa PIN Verification Value](https://hsmkit.com/payments-pin-pvv/): Calculate and verify Visa PVV values for test data.
+- [Visa Certificate Validation](https://hsmkit.com/payments-visa-certificates/): Inspect and validate Visa payment certificate test data.
+- [ZKA Key Derivation](https://hsmkit.com/payments-zka/): Derive keys used by German ZKA payment systems for testing.
+
+## Technical Guides
+
+- [The Ultimate Guide to Key Splitting & KCV](https://hsmkit.com/guides/understanding-key-splitting-kcv/): Learn the mathematics behind XOR key splitting, understand Key Check Values (KCV), and master PCI DSS compliance for cryptographic key management.
+- [TR-31 Key Block Format Explained](https://hsmkit.com/guides/what-is-tr31-key-block/): A comprehensive guide to ANSI X9.143 / TR-31 key block format, including structure, key usage codes, and practical encoding examples.
+- [HSM Key Management: Thales, Futurex, Atalla & SafeNet](https://hsmkit.com/guides/hsm-key-management-overview/): A complete overview of Hardware Security Modules (HSMs), key hierarchy, major vendors (Thales, Futurex, Atalla, SafeNet), and key transport standards.
+- [DES & 3DES: The Legacy Encryption Standard in Payments](https://hsmkit.com/guides/des-3des-legacy-encryption/): Understand DES and 3DES encryption — how they work, why DES is broken, and why 3DES remains deeply embedded in payment infrastructure.
+- [AES Encryption Explained: Modes, Padding & Best Practices](https://hsmkit.com/guides/aes-encryption-explained/): A complete guide to AES encryption — key sizes, ECB/CBC/CTR/GCM modes, padding, IV best practices, and common mistakes to avoid.
+- [RSA Encryption Guide: Keys, Padding & When to Use It](https://hsmkit.com/guides/rsa-encryption-guide/): Everything you need to know about RSA — key sizes, OAEP vs PKCS#1 padding, hybrid encryption, and when to choose RSA vs ECC.
+- [ECC & ECDSA: Elliptic Curve Cryptography Explained](https://hsmkit.com/guides/ecc-digital-signatures-explained/): Learn how Elliptic Curve Cryptography works — ECDSA signatures, ECDH key agreement, curve selection, and why ECC beats RSA for modern systems.
+- [Hash Functions: MD5, SHA-256, BLAKE2 & When to Use Each](https://hsmkit.com/guides/hash-functions-guide/): A practical guide to cryptographic hash functions — which are broken (MD5, SHA-1), which to use (SHA-256, BLAKE2), and how they're used in payment security.
+- [ASN.1 & X.509 Certificates: A Practical Guide](https://hsmkit.com/guides/asn1-certificates-explained/): Understand ASN.1 DER/PEM encoding, X.509 certificate structure, OIDs, and how to parse certificates and keys using online tools.
+- [MAC Algorithms in Payment Security: ISO 9797, HMAC & CMAC](https://hsmkit.com/guides/mac-algorithms-payment-security/): A complete guide to Message Authentication Codes in banking — ISO 9797-1, Retail MAC, HMAC-SHA256, AES-CMAC, and how they protect transactions.
+- [Understanding PIN Block Formats (ISO 9564)](https://hsmkit.com/guides/pin-block-formats-iso9564/): Deep dive into ISO 9564 PIN block formats (0, 1, 2, 3, 4), their security properties, and when to use each format.
+- [DUKPT Key Derivation: A Complete Tutorial](https://hsmkit.com/guides/dukpt-key-derivation-tutorial/): Master Derived Unique Key Per Transaction (DUKPT) from BDK to working keys, with step-by-step derivation examples.
+- [How CVV/CVC Values are Calculated](https://hsmkit.com/guides/cvv-cvc-calculation-methods/): Understand the cryptographic process behind card verification values, including CVV1, CVV2, iCVV, and dynamic CVV/CVC3.
+- [ISO 8583 Payment Messages: Structure, Bitmap & Fields](https://hsmkit.com/guides/iso8583-payment-messages/): Learn how ISO 8583 financial transaction messages work — MTI, bitmap parsing, data elements, response codes, and how PIN/MAC fit in.
+- [Base64 Encoding Explained: Standard, URL-Safe & Use Cases](https://hsmkit.com/guides/base64-encoding-guide/): Everything about Base64 — how it works, standard vs URL-safe variants, use in JWTs and certificates, and common mistakes to avoid.
+- [Format-Preserving Encryption (FPE): FF1, FF3-1 & Tokenization](https://hsmkit.com/guides/fpe-format-preserving-encryption/): Learn how Format-Preserving Encryption works — FF1 and FF3-1 algorithms, tokenization of credit cards, PCI DSS compliance, and when to use FPE vs traditional encryption.
+- [Character Encoding Explained: ASCII, EBCDIC, Hex & Binary](https://hsmkit.com/guides/character-encoding-ascii-ebcdic/): Understand character encoding fundamentals — ASCII table, EBCDIC in banking systems, hexadecimal and binary representations, and encoding compatibility issues.
+- [BCD (Binary Coded Decimal): Packed, Unpacked & Financial Messages](https://hsmkit.com/guides/bcd-binary-coded-decimal-explained/): A practical guide to BCD encoding — packed vs unpacked formats, usage in ISO 8583 financial messages, and conversion between BCD and hexadecimal.
+- [Check Digits: Luhn Algorithm, Mod 10 & Validation Methods](https://hsmkit.com/guides/check-digits-luhn-mod10/): How check digit algorithms work — Luhn formula step by step, Mod 10 and Mod 9 variants, credit card validation, and IMEI verification.
+- [Base94 Encoding: Compact Data Representation](https://hsmkit.com/guides/base94-encoding-guide/): Understand Base94 encoding — how it differs from Base64, the full printable ASCII character set, compression efficiency, and practical use cases.
+- [RSA DER Public Key: Format, Structure & Decoding](https://hsmkit.com/guides/rsa-der-public-key-decoding/): How RSA public keys are encoded — DER and PEM formats, ASN.1 structure, extracting Modulus and Exponent, PKCS#1 vs PKCS#8 differences.
+- [SSL/TLS Certificates: X.509 Structure, Chain & Validation](https://hsmkit.com/guides/ssl-tls-certificate-guide/): A complete guide to SSL/TLS certificates — X.509 structure, certificate chains, self-signed certificates, CSR generation, and certificate validity.
+- [UUID Generation: v1, v4, v5 & When to Use Each](https://hsmkit.com/guides/uuid-generation-guide/): Everything about UUIDs — version differences, randomness guarantees, collision probability, and choosing the right UUID version for databases and APIs.
+- [Futurex HSM Key Management: MFK Variants & Key Schemes](https://hsmkit.com/guides/futurex-hsm-key-management/): How Futurex HSMs handle key encryption — MFK variants, key scheme formats (B, C, H, F, G), KCV verification, and key lookup operations.
+- [Atalla AKB Key Block Format: Header, Encryption & Validation](https://hsmkit.com/guides/atalla-akh-key-block-format/): Understanding the Atalla Key Block (AKB) format — header structure, MFK encryption, KCV validation, and how Atalla HSMs protect cryptographic keys.
+- [SafeNet Key Management: Luna HSM & KM Key Variants](https://hsmkit.com/guides/safenet-key-management-guide/): How SafeNet (Thales Luna) HSMs manage keys — KM key encryption, variant-based key lookup, and key transport between HSMs.
+- [Thales LMK Key Encryption: Schemes, Variants & Key Types](https://hsmkit.com/guides/thales-lmk-key-encryption/): A deep dive into Thales LMK-based key encryption — key scheme formats (ZMK, TMK, ZPK), variant encryption principles, and key block standards.
+- [Thales Key Block Format: Header, TLV & TR-31 Comparison](https://hsmkit.com/guides/thales-key-block-format-guide/): Understanding Thales proprietary key block format — header fields, TLV structure, differences from TR-31, and practical encoding examples.
+- [ISO 8583 Message Parser: MTI, Bitmap & Data Elements](https://hsmkit.com/guides/message-parser-iso8583-guide/): How to parse ISO 8583 financial transaction messages — Message Type Indicator, bitmap decoding, data element definitions, and ATM NDC/Wincor formats.
+- [AS2805: Australian Payment Standard for Terminal Keys & MAC](https://hsmkit.com/guides/as2805-australian-payment-standard/): Understanding the AS2805 standard — terminal key set generation, PIN block translation, MAC calculation methods, and OWF (HMAC-SHA256).
+- [AMEX CSC: Card Security Code Calculation (CSC3/CSC4/CSC5)](https://hsmkit.com/guides/amex-csc-card-security-code/): How American Express card security codes are calculated — CSC3, CSC4, CSC5 algorithms, differences from CVV, and AMEX-specific card characteristics.
+- [Mastercard Dynamic CVC3: EMV Verification & ATC](https://hsmkit.com/guides/mastercard-dynamic-cvc3-guide/): Understanding Mastercard's dynamic CVC3 — EMV verification process, Application Transaction Counter (ATC), Unpredictable Number, and Track data usage.
+- [DUKPT AES: Next-Generation Key Derivation for Payment Terminals](https://hsmkit.com/guides/dukpt-aes-key-derivation/): How AES-based DUKPT works — differences from TDEA-DUKPT, IK/BDK hierarchy, Working Key derivation, and migration from legacy DUKPT.
+- [PIN Block AES (Format 4): ISO 9564 with AES Encryption](https://hsmkit.com/guides/pin-block-aes-format4-guide/): How ISO 9564 Format 4 PIN blocks work — AES encryption of PINs, comparison with Format 0, and implementation considerations.
+- [PIN Offset (IBM 3624): PIN Verification & Decimalization](https://hsmkit.com/guides/pin-offset-ibm3624-guide/): How IBM 3624 PIN verification works — Decimalization Table, PIN Offset calculation, validation methods, and comparison with PVV.
+- [PIN PVV (VISA): PIN Verification Value Calculation](https://hsmkit.com/guides/pin-pvv-visa-verification/): How VISA's PIN Verification Value (PVV) system works — PDK encryption, PVKI selection, PVV calculation and verification, comparison with PIN Offset.
+- [ZKA: German Banking Standard for Session Keys & PIN](https://hsmkit.com/guides/zka-german-banking-standard/): Understanding the ZKA standard — Session Key (SK-pac) derivation, PIN encryption, MAC calculation, and German payment terminal requirements.
+- [VISA Certificate Validation: CA Keys, Issuer Certificates & EMV](https://hsmkit.com/guides/visa-certificate-validation-guide/): How VISA certificate validation works — VSDC CA public keys, Issuer Certificate verification, Signed Data validation, and EMV certificate chain.
+- [AES-GCM vs AES-CBC: Which Mode Should You Use?](https://hsmkit.com/guides/aes-gcm-vs-cbc/): Compare AES-GCM and AES-CBC security, authentication, IV requirements, performance, and compatibility to choose the right encryption mode.
+- [AES IV and Nonce Reuse: Risks & Prevention](https://hsmkit.com/guides/aes-iv-nonce-reuse/): Learn why IV and nonce reuse breaks AES-CBC, CTR, and GCM security, how to generate safe values, and how to design reliable nonce storage.
+- [PKCS#7 Padding for AES: How It Works](https://hsmkit.com/guides/pkcs7-padding-aes/): Understand PKCS#7 padding byte by byte, including full-block padding, validation, common errors, and safe unpadding for AES-CBC.
+- [Web Crypto AES-GCM: Browser Encryption Guide](https://hsmkit.com/guides/web-crypto-aes-gcm/): Implement AES-GCM with the Web Crypto API using secure key generation, unique nonces, authenticated data, and portable ciphertext packaging.

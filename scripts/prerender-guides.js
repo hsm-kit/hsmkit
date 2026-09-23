@@ -8,6 +8,7 @@ const root = process.cwd();
 const dist = path.join(root, 'dist');
 const categories = JSON.parse(await fs.readFile(path.join(root, 'src/data/guides/categories.json'), 'utf8'));
 const guideRoutes = [];
+const guideMetadataByRoute = new Map();
 const categorySlugs = new Set(categories.map(category => category.slug));
 const concurrency = Number.parseInt(process.env.GUIDE_PRERENDER_CONCURRENCY || '1', 10);
 const maxAttempts = Number.parseInt(process.env.GUIDE_PRERENDER_ATTEMPTS || '3', 10);
@@ -20,7 +21,11 @@ for (const language of ['en', 'zh']) {
   const articles = JSON.parse(await fs.readFile(path.join(root, `src/data/guides/${language}.json`), 'utf8'));
   guideRoutes.push(prefix);
   categories.forEach(category => guideRoutes.push(`${prefix}/${category.slug}`));
-  articles.forEach(article => guideRoutes.push(`${prefix}/${article.slug}`));
+  articles.forEach(article => {
+    const route = `${prefix}/${article.slug}`;
+    guideRoutes.push(route);
+    guideMetadataByRoute.set(route, { ...article, language });
+  });
 }
 
 const contentTypes = {
@@ -153,6 +158,14 @@ try {
         await renderRoute(page, route);
 
         let html = await page.content();
+        const articleMetadata = guideMetadataByRoute.get(route);
+        if (articleMetadata) {
+          const markdownUrl = `${route}/index.md`;
+          html = html.replace(
+            '</head>',
+            `<link rel="alternate" type="text/markdown" href="${markdownUrl}" title="${articleMetadata.title.replaceAll('"', '&quot;')}"></head>`
+          );
+        }
         html = html
           .replace(/<link\b(?=[^>]*\brel=["']modulepreload["'])[^>]*>/gi, '')
           .replace(/<script\b(?=[^>]*\btype=["']module["'])[^>]*>[\s\S]*?<\/script>/gi, '')
@@ -163,6 +176,12 @@ try {
         const outputPath = path.join(dist, route.replace(/^\//, ''), 'index.html');
         await fs.mkdir(path.dirname(outputPath), { recursive: true });
         await fs.writeFile(outputPath, html);
+        if (articleMetadata) {
+          const sourcePath = path.join(root, 'src', 'content', 'guides', articleMetadata.language, `${articleMetadata.slug}.md`);
+          const source = await fs.readFile(sourcePath, 'utf8');
+          const markdown = `# ${articleMetadata.title}\n\n> ${articleMetadata.excerpt}\n\nCanonical: ${siteUrlForRoute(route)}\n\nLast updated: ${articleMetadata.lastModified}\n\n${source.trim()}\n`;
+          await fs.writeFile(path.join(path.dirname(outputPath), 'index.md'), markdown);
+        }
       }
     } finally {
       await page.close();
@@ -177,3 +196,7 @@ try {
 await fs.rm(path.join(dist, 'guides.html'), { force: true });
 
 console.log(`Prerendered ${guideRoutes.length} guide routes from guides.html.`);
+
+function siteUrlForRoute(route) {
+  return `https://hsmkit.com${route}/`;
+}

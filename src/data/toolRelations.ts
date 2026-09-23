@@ -1,9 +1,11 @@
+import { normalizePublicPath } from '../utils/publicUrl';
+
 export interface ToolDirectoryEntry {
   seoKey: string;
   path: string;
 }
 
-export const toolDirectory: ToolDirectoryEntry[] = [
+const toolDirectoryEntries: ToolDirectoryEntry[] = [
   { seoKey: 'aes', path: '/aes-encryption' },
   { seoKey: 'des', path: '/des-encryption' },
   { seoKey: 'rsa', path: '/rsa-encryption' },
@@ -50,6 +52,11 @@ export const toolDirectory: ToolDirectoryEntry[] = [
   { seoKey: 'zka', path: '/payments-zka' },
 ];
 
+export const toolDirectory = toolDirectoryEntries.map(tool => ({
+  ...tool,
+  path: normalizePublicPath(tool.path),
+}));
+
 const workflowGroups = [
   ['aes', 'des', 'rsa', 'ecc', 'fpe'],
   ['base64', 'base94', 'encoding', 'bcd', 'hash', 'uuid', 'checkDigits'],
@@ -80,7 +87,7 @@ const recommendations: Record<string, string[]> = {
 const bySeoKey = new Map(toolDirectory.map(tool => [tool.seoKey, tool]));
 const byPath = new Map(toolDirectory.map(tool => [tool.path, tool]));
 
-export const getToolByPath = (path: string): ToolDirectoryEntry | undefined => byPath.get(path);
+export const getToolByPath = (path: string): ToolDirectoryEntry | undefined => byPath.get(normalizePublicPath(path));
 
 export const getRelatedTools = (seoKey: string, limit = 3): ToolDirectoryEntry[] => {
   const relatedKeys = recommendations[seoKey] || workflowGroups

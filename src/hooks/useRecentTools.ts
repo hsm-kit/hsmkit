@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { normalizePublicPath } from '../utils/publicUrl';
 
 const STORAGE_KEY = 'hsmkit-recent-tools';
 const MAX_RECENT = 6;
@@ -20,16 +21,17 @@ export function useRecentTools() {
       const cutoff = Date.now() - EXPIRE_DAYS * 24 * 60 * 60 * 1000;
       return parsed
         .filter(tool => tool.path && tool.timestamp > cutoff)
-        .map(({ path, timestamp }) => ({ path, timestamp }));
+        .map(({ path, timestamp }) => ({ path: normalizePublicPath(path), timestamp }));
     } catch {
       return [];
     }
   });
 
   const addRecentTool = useCallback((path: string) => {
+    const publicPath = normalizePublicPath(path);
     setRecentTools(prev => {
-      const filtered = prev.filter(tool => tool.path !== path);
-      const updated = [{ path, timestamp: Date.now() }, ...filtered].slice(0, MAX_RECENT);
+      const filtered = prev.filter(tool => tool.path !== publicPath);
+      const updated = [{ path: publicPath, timestamp: Date.now() }, ...filtered].slice(0, MAX_RECENT);
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       } catch { /* localStorage unavailable */ }
@@ -53,17 +55,20 @@ export function useFavoriteTools() {
   const [favoriteTools, setFavoriteTools] = useState<string[]>(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
-      return Array.isArray(saved) ? saved.filter(value => typeof value === 'string') : [];
+      return Array.isArray(saved)
+        ? saved.filter(value => typeof value === 'string').map(normalizePublicPath)
+        : [];
     } catch {
       return [];
     }
   });
 
   const toggleFavorite = useCallback((path: string) => {
+    const publicPath = normalizePublicPath(path);
     setFavoriteTools(previous => {
-      const updated = previous.includes(path)
-        ? previous.filter(item => item !== path)
-        : [...previous, path];
+      const updated = previous.includes(publicPath)
+        ? previous.filter(item => item !== publicPath)
+        : [...previous, publicPath];
       try {
         localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
       } catch { /* localStorage unavailable */ }

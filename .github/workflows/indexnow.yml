@@ -1,0 +1,40 @@
+name: Submit URLs to IndexNow
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Optional single hsmkit.com URL; leave empty to submit the sitemap
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    name: Submit deployed URLs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify deployed IndexNow key
+        run: |
+          curl --fail --silent --show-error https://hsmkit.com/55bc76b3ce475067e11cca8d69e2edd4.txt \
+            | grep --fixed-strings --line-regexp 55bc76b3ce475067e11cca8d69e2edd4
+
+      - name: Submit URLs
+        env:
+          INDEXNOW_URL: ${{ inputs.url }}
+        run: |
+          if [[ -n "$INDEXNOW_URL" ]]; then
+            node scripts/submit-indexnow.js "$INDEXNOW_URL"
+          else
+            node scripts/submit-indexnow.js
+          fi

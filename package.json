@@ -6,7 +6,7 @@
   "description": "Professional online encryption toolkit with 44+ cryptographic tools for HSM key management, payment security, PKI certificates, and more.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anomalyco/hsmkit"
+    "url": "https://github.com/hsm-kit/hsmkit"
   },
   "engines": {
     "node": ">=20"
@@ -22,8 +22,10 @@
     "audit:guides-visual": "node scripts/audit-guide-visuals.js",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prebuild": "node scripts/generate-guide-og.js && node scripts/update-sitemap-lastmod.js && npx puppeteer browsers install chrome",
-    "build": "tsc -b && vite build && node scripts/prerender-guides.js",
+    "prebuild": "node scripts/generate-guide-og.js && node scripts/generate-ai-discovery.js && node scripts/update-sitemap-lastmod.js && npx puppeteer browsers install chrome",
+    "build": "tsc -b && vite build && node scripts/prerender-guides.js && node scripts/extract-prerender-styles.js",
+    "generate:ai": "node scripts/generate-ai-discovery.js",
+    "submit:indexnow": "node scripts/submit-indexnow.js",
     "preview": "vite preview",
     "clean": "rm -rf dist"
   },

@@ -1,4 +1,5 @@
 import { type ComponentType } from 'react';
+import { normalizePublicPath, normalizeRoutePath } from './utils/publicUrl';
 import {
   HomePage,
   ASN1Page,
@@ -154,10 +155,13 @@ export const routeComponentMap: Record<string, ComponentType> = {
 
 // 生成双向映射
 export const routeToKey: Record<string, string> = Object.fromEntries(
-  routes.map(r => [r.path, r.key])
+  routes.flatMap(r => [
+    [normalizeRoutePath(r.path), r.key],
+    [normalizePublicPath(r.path), r.key],
+  ])
 );
 export const keyToRoute: Record<string, string> = Object.fromEntries(
-  routes.map(r => [r.key, r.path])
+  routes.map(r => [r.key, normalizePublicPath(r.path)])
 );
 
 // 路由预加载映射 - 鼠标悬停菜单时提前加载对应 chunk

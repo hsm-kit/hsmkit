@@ -25,10 +25,14 @@ async function main() {
 
   const sitemapPath = path.resolve(process.cwd(), fileArg ?? 'public/sitemap.xml');
   const xml = await fs.readFile(sitemapPath, 'utf8');
-  const normalizedXml = xml.replace(
-    /https:\/\/hsmkit\.com\/(?:zh\/)?guides(?:\/[a-z0-9-]+)?(?=[<"])/g,
-    (url) => `${url}/`
-  );
+  const normalizedXml = xml.replace(/https:\/\/hsmkit\.com\/[^<"\s]*/g, (value) => {
+    const url = new URL(value);
+    const isFile = /\/[^/]+\.[a-z0-9]+$/i.test(url.pathname);
+    if (url.pathname !== '/' && !url.pathname.endsWith('/') && !isFile) {
+      url.pathname = `${url.pathname}/`;
+    }
+    return url.toString();
+  });
   const guideMetadata = await Promise.all(
     ['en', 'zh'].map(async (language) => ({
       language,

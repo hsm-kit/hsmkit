@@ -18,3 +18,22 @@ User-agent: Bingbot
 Allow: /*.js$
 Allow: /*.css$
 
+# AI search and user-requested retrieval. Training crawlers remain covered by the global rule.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+

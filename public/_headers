@@ -19,6 +19,26 @@
   Cache-Control: public, max-age=86400
   Content-Type: text/plain
 
+/llms.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/ai/*.json
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+
+/*/index.md
+  Cache-Control: public, max-age=86400
+  Content-Type: text/markdown; charset=utf-8
+
+/*/*/index.md
+  Cache-Control: public, max-age=86400
+  Content-Type: text/markdown; charset=utf-8
+
+/*/*/*/index.md
+  Cache-Control: public, max-age=86400
+  Content-Type: text/markdown; charset=utf-8
+
 /guides-static.js
   Cache-Control: public, max-age=0, must-revalidate
   Content-Type: application/javascript

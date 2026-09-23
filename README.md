@@ -384,6 +384,12 @@ HSM Kit can be deployed to any static hosting service:
 npm run build
 ```
 
+### Search Discovery
+
+- Set `BING_SITE_AUTH` in the build environment to the verification value supplied by Bing Webmaster Tools.
+- After Cloudflare Pages finishes deploying, open GitHub **Actions → Submit URLs to IndexNow → Run workflow**. Leave the URL empty to submit the sitemap, or enter one changed URL. Local submission remains available through `npm run submit:indexnow`.
+- AI-readable resources are published at [`/llms.txt`](https://hsmkit.com/llms.txt), [`/ai/tools.json`](https://hsmkit.com/ai/tools.json), and each guide's `index.md` URL.
+
 ---
 
 ## 🤝 Contributing

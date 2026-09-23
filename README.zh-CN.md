@@ -494,6 +494,12 @@ HSM Kit 可以部署到任何静态托管服务：
 npm run build
 ```
 
+### 搜索发现
+
+- 在构建环境中设置 `BING_SITE_AUTH`，值为 Bing Webmaster Tools 提供的站点验证码。
+- Cloudflare Pages 部署完成后，在 GitHub 打开 **Actions → Submit URLs to IndexNow → Run workflow**。URL 留空会提交 sitemap，也可填写一个发生变化的 URL；本地仍可运行 `npm run submit:indexnow`。
+- 面向 AI 的资源发布于 [`/llms.txt`](https://hsmkit.com/llms.txt)、[`/ai/tools.json`](https://hsmkit.com/ai/tools.json)，以及每篇指南对应的 `index.md` 地址。
+
 ---
 
 ## 🤝 贡献
