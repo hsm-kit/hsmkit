@@ -734,8 +734,9 @@ const FPETool: React.FC = () => {
                 extra={<ExampleButton onClick={() => {
                   setKey(examples.fpe.key);
                   setData(examples.fpe.data);
-                  setTweak(examples.fpe.tweak);
-                  setUseTweak(true);
+                  if (useTweak) {
+                    setTweak(examples.fpe.tweak);
+                  }
                 }} />}
               />
               <Input

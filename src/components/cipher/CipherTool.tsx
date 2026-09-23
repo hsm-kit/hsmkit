@@ -378,12 +378,14 @@ const CipherTool: React.FC = () => {
                 current={cleanHex(key).length / 2}
                 expected={getExpectedKeyLength()}
                 valid={isValidHex(cleanHex(key))}
-                extra={<ExampleButton label="AES-CBC" onClick={() => {
-                    setMode('CBC');
-                    setInputType('Hex');
+                extra={<ExampleButton onClick={() => {
                     setKey(examples.aes.key);
-                    setData(examples.aes.data);
-                    setIv(examples.aes.iv);
+                    if (!isKcvMode) {
+                      setData(inputType === 'Hex' ? examples.aes.data : 'Hello, World!!!!');
+                    }
+                    if (needsIv) {
+                      setIv(examples.aes.iv);
+                    }
                   }} />}
               />
               <Input

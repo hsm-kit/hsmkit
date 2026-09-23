@@ -339,9 +339,8 @@ const HashCalculator: React.FC = () => {
                   {t.hash?.inputData || 'Input Data'}:
                 </Text>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <ExampleButton label="SHA-256" onClick={() => {
-                    setInputType('ASCII');
-                    setInputData(examples.hash.input);
+                  <ExampleButton onClick={() => {
+                    setInputData(inputType === 'Hex' ? '48656C6C6F2C20576F726C6421' : examples.hash.input);
                   }} />
                   <LengthIndicator
                     current={inputType === 'Hex' ? cleanHex(inputData).length / 2 : getByteLength()}

@@ -441,8 +441,9 @@ const FuturexKeysTool: React.FC = () => {
               <ExampleButton onClick={() => {
                 setKey(examples.futurexKeys.key);
                 setLookupKey(examples.futurexKeys.lookupKey);
-                setMfk(DEFAULT_MFK_OPTIONS[0].value);
-                setUseCustomMfk(false);
+                if (useCustomMfk) {
+                  setCustomMfk(DEFAULT_MFK_OPTIONS[0].value);
+                }
               }} />
             } />
             <Input
