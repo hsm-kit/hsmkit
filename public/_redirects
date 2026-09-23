@@ -1,5 +1,8 @@
 # Cloudflare Pages SPA 路由配置
 # 预渲染后，每个路由都有对应的 HTML 文件
 
+# 百度文件验证要求精确的 .html 地址直接返回 200，不能经过 Pages 的 308 clean URL 跳转
+/baidu_verify_codeva-crZMUFQIb7.html  /baidu_verify_codeva-crZMUFQIb7  200
+
 # 静态资源直接返回（最高优先级）
 /assets/*  /assets/:splat  200
