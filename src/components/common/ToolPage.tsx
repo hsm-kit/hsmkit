@@ -13,6 +13,7 @@ import { getRelatedTools } from '../../data/toolRelations';
 import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import { trackToolEvent } from '../../utils/analytics';
 import { normalizePublicPath, normalizeRoutePath, normalizeSiteUrl } from '../../utils/publicUrl';
+import { prefetchRoutePath } from '../../routeConfig';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -212,6 +213,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       key={tool.path}
                       to={tool.path}
                       className="tool-related-link"
+                      onPointerEnter={() => prefetchRoutePath(tool.path)}
+                      onFocus={() => prefetchRoutePath(tool.path)}
+                      onTouchStart={() => prefetchRoutePath(tool.path)}
                       onClick={() => trackToolEvent('next_tool_click', { toolId: seoKey, targetId: tool.seoKey })}
                     >
                       <span>{getShortTitle(targetSeo?.title || tool.seoKey)}</span>

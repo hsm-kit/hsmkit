@@ -234,6 +234,11 @@ export const prefetchRoute = (key: string): void => {
   if (fn) fn();
 };
 
+export const prefetchRoutePath = (path: string): void => {
+  const key = routeToKey[path];
+  if (key) prefetchRoute(key);
+};
+
 // 预加载子菜单路由
 export const prefetchSubmenuRoutes = (submenuKey: string): void => {
   const keys = submenuRouteKeys[submenuKey];

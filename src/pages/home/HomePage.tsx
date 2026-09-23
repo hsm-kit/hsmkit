@@ -42,6 +42,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import seoContent from '../../locales/seo';
+import { prefetchRoutePath } from '../../routeConfig';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -123,18 +124,26 @@ interface ToolCardProps {
   isDark: boolean;
   viewMode: ViewMode;
   onClick?: () => void;
+  onIntent?: () => void;
   difficulty?: Difficulty;
 }
 
 // 网格视图卡片
-const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, description, path, color, isDark, onClick, difficulty }) => {
+const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, description, path, color, isDark, onClick, onIntent, difficulty }) => {
   const { t } = useLanguage();
   const difficultyLabel = difficulty === 'beginner' ? (t.common?.beginner || 'Beginner')
     : difficulty === 'intermediate' ? (t.common?.intermediate || 'Intermediate')
     : (t.common?.advanced || 'Advanced');
 
   return (
-  <Link to={path} style={{ textDecoration: 'none' }} onClick={onClick}>
+  <Link
+    to={path}
+    style={{ textDecoration: 'none' }}
+    onClick={onClick}
+    onPointerEnter={onIntent}
+    onFocus={onIntent}
+    onTouchStart={onIntent}
+  >
     <Card
       hoverable
       style={{
@@ -194,8 +203,15 @@ const GridCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, desc
 };
 
 // 列表视图卡片 - 更紧凑
-const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark, onClick }) => (
-  <Link to={path} style={{ textDecoration: 'none', display: 'block' }} onClick={onClick}>
+const ListCard: React.FC<Omit<ToolCardProps, 'viewMode'>> = ({ icon, title, path, color, isDark, onClick, onIntent }) => (
+  <Link
+    to={path}
+    style={{ textDecoration: 'none', display: 'block' }}
+    onClick={onClick}
+    onPointerEnter={onIntent}
+    onFocus={onIntent}
+    onTouchStart={onIntent}
+  >
     <Tooltip title={title} placement="top" mouseLeaveDelay={0}>
       <div
         style={{
@@ -543,7 +559,14 @@ const HomePage: React.FC = () => {
             <StarFilled /> {t.common?.favorites || 'Favorites'}:
           </Text>
           {resolvedFavoriteTools.map(tool => (
-            <Link key={tool.path} to={tool.path} className="home-tool-chip">
+            <Link
+              key={tool.path}
+              to={tool.path}
+              className="home-tool-chip"
+              onPointerEnter={() => prefetchRoutePath(tool.path)}
+              onFocus={() => prefetchRoutePath(tool.path)}
+              onTouchStart={() => prefetchRoutePath(tool.path)}
+            >
               <span style={{ background: tool.color }} />
               {tool.title}
             </Link>
@@ -557,7 +580,14 @@ const HomePage: React.FC = () => {
             <HistoryOutlined /> {home.recentlyUsed || 'Recently Used'}:
           </Text>
           {resolvedRecentTools.map(tool => (
-            <Link key={tool.path} to={tool.path} className="home-tool-chip">
+            <Link
+              key={tool.path}
+              to={tool.path}
+              className="home-tool-chip"
+              onPointerEnter={() => prefetchRoutePath(tool.path)}
+              onFocus={() => prefetchRoutePath(tool.path)}
+              onTouchStart={() => prefetchRoutePath(tool.path)}
+            >
               <span style={{ background: tool.color }} />
               {tool.title}
             </Link>
@@ -730,6 +760,7 @@ const HomePage: React.FC = () => {
                 isDark={isDark}
                 viewMode={viewMode}
                 onClick={() => addRecentTool(tool.path)}
+                onIntent={() => prefetchRoutePath(tool.path)}
               />
             </Col>
           ))}
@@ -743,6 +774,7 @@ const HomePage: React.FC = () => {
                 isDark={isDark}
                 viewMode={viewMode}
                 onClick={() => addRecentTool(tool.path)}
+                onIntent={() => prefetchRoutePath(tool.path)}
               />
             </Col>
           ))}
