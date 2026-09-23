@@ -1,6 +1,13 @@
 name: Publish Packages and Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version to publish (without the v prefix)
+        required: true
+        default: '0.1.0'
+        type: string
   push:
     tags:
       - 'v*'
@@ -13,6 +20,9 @@ jobs:
   publish:
     name: Publish npm and MCP packages
     runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', inputs.version) || github.ref_name }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,8 +38,6 @@ jobs:
         run: npm ci
 
       - name: Verify release versions
-        env:
-          RELEASE_VERSION: ${{ github.ref_name }}
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
@@ -87,9 +95,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
+          gh release create "${RELEASE_TAG}" \
             --repo "${GITHUB_REPOSITORY}" \
-            --title "HSM Kit ${GITHUB_REF_NAME}" \
+            --title "HSM Kit ${RELEASE_TAG}" \
             --generate-notes \
             public/test-vectors/aes.json \
             packages/mcp-server/server.json
