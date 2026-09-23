@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.hsm-kit/hsmkit",
+  "title": "HSM Kit",
+  "description": "Local-first Base64, Luhn, key-component XOR, and synthetic ISO-0 PIN block tools.",
+  "websiteUrl": "https://hsmkit.com/",
+  "repository": {
+    "url": "https://github.com/hsm-kit/hsmkit",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@hsmkit/mcp-server",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useLayoutEffect } from 'react';
 import { Button, Layout, Skeleton } from 'antd';
 import { AppstoreOutlined, MoonOutlined, ReadOutlined, SunOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,19 @@ const GuidesFallback = () => (
 const GuidesLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { t, language } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
+
+  useLayoutEffect(() => {
+    let link = document.querySelector<HTMLLinkElement>('link[data-guide-feed]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'alternate';
+      link.type = 'application/rss+xml';
+      link.dataset.guideFeed = 'true';
+      document.head.appendChild(link);
+    }
+    link.title = language === 'zh' ? 'HSM Kit 安全知识库' : 'HSM Kit Security Knowledge Base';
+    link.href = language === 'zh' ? '/zh/guides/feed.xml' : '/guides/feed.xml';
+  }, [language]);
 
   return (
     <Layout style={{ minHeight: '100vh', background: 'var(--bg-color)' }}>

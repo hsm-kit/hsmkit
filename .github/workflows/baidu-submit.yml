@@ -1,0 +1,47 @@
+name: Submit URLs to Baidu
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Optional single hsmkit.com URL; leave empty to submit Chinese URLs
+        required: false
+        type: string
+      submit_all:
+        description: Submit all canonical sitemap URLs instead of Chinese URLs
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    name: Submit deployed URLs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify production sitemap
+        run: curl --fail --silent --show-error https://hsmkit.com/sitemap.xml > /dev/null
+
+      - name: Submit URLs
+        env:
+          BAIDU_PUSH_TOKEN: ${{ secrets.BAIDU_PUSH_TOKEN }}
+          BAIDU_URL: ${{ inputs.url }}
+          BAIDU_SUBMIT_ALL: ${{ inputs.submit_all }}
+        run: |
+          if [[ -n "$BAIDU_URL" ]]; then
+            node scripts/submit-baidu.js "$BAIDU_URL"
+          elif [[ "$BAIDU_SUBMIT_ALL" == "true" ]]; then
+            node scripts/submit-baidu.js --all
+          else
+            node scripts/submit-baidu.js
+          fi

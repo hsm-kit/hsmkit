@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HSM Kit 安全知识库</title>
+    <link>https://hsmkit.com/zh/guides/</link>
+    <description>密码学、HSM 密钥管理、支付安全、PKI 与数据编码技术指南。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 23 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <atom:link href="https://hsmkit.com/zh/guides/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AES 测试向量：浏览器与加密库验证实验室</title>
+      <link>https://hsmkit.com/zh/guides/aes-test-vectors-browser-validation/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/aes-test-vectors-browser-validation/</guid>
+      <description>使用 CryptoJS、Web Crypto 和 HSM Kit 浏览器工具复现 NIST AES-128、AES-192、AES-256、ECB 与 CBC 已知答案向量。</description>
+      <category>Cipher</category>
+      <pubDate>Wed, 23 Sep 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AES-GCM 与 AES-CBC 对比：应该选择哪种模式？</title>
+      <link>https://hsmkit.com/zh/guides/aes-gcm-vs-cbc/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/aes-gcm-vs-cbc/</guid>
+      <description>从安全性、认证能力、IV 要求、性能和兼容性对比 AES-GCM 与 AES-CBC，帮助新旧系统选择正确的加密模式。</description>
+      <category>Cipher</category>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AES IV 与 Nonce 重用：风险与防范</title>
+      <link>https://hsmkit.com/zh/guides/aes-iv-nonce-reuse/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/aes-iv-nonce-reuse/</guid>
+      <description>理解 IV 或 Nonce 重用为何会破坏 AES-CBC、CTR 和 GCM 的安全性，并学习安全生成、存储及并发分配方案。</description>
+      <category>Cipher</category>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AES 的 PKCS#7 填充：原理、示例与安全解填充</title>
+      <link>https://hsmkit.com/zh/guides/pkcs7-padding-aes/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/pkcs7-padding-aes/</guid>
+      <description>逐字节理解 PKCS#7 填充，掌握完整分组填充、验证规则、常见错误，以及 AES-CBC 中的安全解填充方法。</description>
+      <category>Cipher</category>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Web Crypto AES-GCM：浏览器加密实现指南</title>
+      <link>https://hsmkit.com/zh/guides/web-crypto-aes-gcm/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/web-crypto-aes-gcm/</guid>
+      <description>使用 Web Crypto API 正确实现 AES-GCM，包括安全密钥生成、唯一 Nonce、附加认证数据和可移植密文封装。</description>
+      <category>Cipher</category>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>格式保留加密 (FPE)：FF1、FF3-1 与令牌化</title>
+      <link>https://hsmkit.com/zh/guides/fpe-format-preserving-encryption/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/fpe-format-preserving-encryption/</guid>
+      <description>了解格式保留加密的工作原理——FF1 和 FF3-1 算法、信用卡令牌化、PCI DSS 合规，以及何时使用 FPE 而非传统加密。</description>
+      <category>Cipher</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>字符编码详解：ASCII、EBCDIC、十六进制与二进制</title>
+      <link>https://hsmkit.com/zh/guides/character-encoding-ascii-ebcdic/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/character-encoding-ascii-ebcdic/</guid>
+      <description>理解字符编码基础——ASCII 表、银行系统中的 EBCDIC、十六进制和二进制表示，以及编码兼容性问题。</description>
+      <category>Generic</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>BCD（二进制编码十进制）：压缩、非压缩与金融消息</title>
+      <link>https://hsmkit.com/zh/guides/bcd-binary-coded-decimal-explained/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/bcd-binary-coded-decimal-explained/</guid>
+      <description>BCD 编码实用指南——压缩与非压缩格式、ISO 8583 金融消息中的应用，以及 BCD 与十六进制之间的转换。</description>
+      <category>Generic</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>校验位：Luhn 算法、Mod 10 与验证方法</title>
+      <link>https://hsmkit.com/zh/guides/check-digits-luhn-mod10/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/check-digits-luhn-mod10/</guid>
+      <description>校验位算法工作原理——Luhn 公式逐步解析、Mod 10 和 Mod 9 变体、信用卡验证和 IMEI 校验。</description>
+      <category>Generic</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Base94 编码：紧凑数据表示</title>
+      <link>https://hsmkit.com/zh/guides/base94-encoding-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/base94-encoding-guide/</guid>
+      <description>了解 Base94 编码——与 Base64 的区别、完整可打印 ASCII 字符集、压缩效率和实际应用场景。</description>
+      <category>Generic</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>RSA DER 公钥：格式、结构与解码</title>
+      <link>https://hsmkit.com/zh/guides/rsa-der-public-key-decoding/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/rsa-der-public-key-decoding/</guid>
+      <description>RSA 公钥的编码方式——DER 和 PEM 格式、ASN.1 结构、提取模数和指数、PKCS#1 与 PKCS#8 的区别。</description>
+      <category>PKI</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>SSL/TLS 证书：X.509 结构、证书链与验证</title>
+      <link>https://hsmkit.com/zh/guides/ssl-tls-certificate-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/ssl-tls-certificate-guide/</guid>
+      <description>SSL/TLS 证书完整指南——X.509 结构、证书链、自签名证书、CSR 生成和证书有效期。</description>
+      <category>PKI</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>UUID 生成：v1、v4、v5 及使用场景</title>
+      <link>https://hsmkit.com/zh/guides/uuid-generation-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/uuid-generation-guide/</guid>
+      <description>UUID 全面指南——版本差异、随机性保证、碰撞概率，以及为数据库和 API 选择正确的 UUID 版本。</description>
+      <category>Generic</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Futurex HSM 密钥管理：MFK 变体与密钥方案</title>
+      <link>https://hsmkit.com/zh/guides/futurex-hsm-key-management/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/futurex-hsm-key-management/</guid>
+      <description>Futurex HSM 如何处理密钥加密——MFK 变体、密钥方案格式（B、C、H、F、G）、KCV 验证和密钥查找操作。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Atalla AKB 密钥块格式：头部、加密与验证</title>
+      <link>https://hsmkit.com/zh/guides/atalla-akh-key-block-format/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/atalla-akh-key-block-format/</guid>
+      <description>了解 Atalla 密钥块（AKB）格式——头部结构、MFK 加密、KCV 验证，以及 Atalla HSM 如何保护加密密钥。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>SafeNet 密钥管理：Luna HSM 与 KM 密钥变体</title>
+      <link>https://hsmkit.com/zh/guides/safenet-key-management-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/safenet-key-management-guide/</guid>
+      <description>SafeNet（Thales Luna）HSM 如何管理密钥——KM 密钥加密、基于变体的密钥查找，以及 HSM 之间的密钥传输。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Thales LMK 密钥加密：方案、变体与密钥类型</title>
+      <link>https://hsmkit.com/zh/guides/thales-lmk-key-encryption/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/thales-lmk-key-encryption/</guid>
+      <description>深入探讨 Thales 基于 LMK 的密钥加密——密钥方案格式（ZMK、TMK、ZPK）、变体加密原理和密钥块标准。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Thales 密钥块格式：头部、TLV 与 TR-31 对比</title>
+      <link>https://hsmkit.com/zh/guides/thales-key-block-format-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/thales-key-block-format-guide/</guid>
+      <description>了解 Thales 专有密钥块格式——头部字段、TLV 结构、与 TR-31 的区别，以及实际编码示例。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ISO 8583 消息解析器：MTI、位图与数据元素</title>
+      <link>https://hsmkit.com/zh/guides/message-parser-iso8583-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/message-parser-iso8583-guide/</guid>
+      <description>如何解析 ISO 8583 金融交易消息——消息类型标识符、位图解码、数据元素定义，以及 ATM NDC/Wincor 格式。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AS2805：澳大利亚终端密钥与 MAC 支付标准</title>
+      <link>https://hsmkit.com/zh/guides/as2805-australian-payment-standard/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/as2805-australian-payment-standard/</guid>
+      <description>了解 AS2805 标准——终端密钥集生成、PIN 块转换、MAC 计算方法和 OWF（HMAC-SHA256）。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AMEX CSC：卡安全码计算（CSC3/CSC4/CSC5）</title>
+      <link>https://hsmkit.com/zh/guides/amex-csc-card-security-code/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/amex-csc-card-security-code/</guid>
+      <description>美国运通卡安全码的计算方式——CSC3、CSC4、CSC5 算法，与 CVV 的区别，以及 AMEX 特有的卡片特征。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mastercard 动态 CVC3：EMV 验证与 ATC</title>
+      <link>https://hsmkit.com/zh/guides/mastercard-dynamic-cvc3-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/mastercard-dynamic-cvc3-guide/</guid>
+      <description>了解 Mastercard 动态 CVC3——EMV 验证流程、应用交易计数器（ATC）、不可预测数和磁道数据的使用。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>DUKPT AES：下一代支付终端密钥派生</title>
+      <link>https://hsmkit.com/zh/guides/dukpt-aes-key-derivation/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/dukpt-aes-key-derivation/</guid>
+      <description>基于 AES 的 DUKPT 工作原理——与 TDEA-DUKPT 的区别、IK/BDK 层次结构、工作密钥派生，以及从旧版 DUKPT 的迁移。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>PIN 块 AES（格式 4）：基于 AES 的 ISO 9564</title>
+      <link>https://hsmkit.com/zh/guides/pin-block-aes-format4-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/pin-block-aes-format4-guide/</guid>
+      <description>ISO 9564 格式 4 PIN 块的工作原理——PIN 的 AES 加密、与格式 0 的比较，以及实现注意事项。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>PIN 偏移量（IBM 3624）：PIN 验证与十进制化</title>
+      <link>https://hsmkit.com/zh/guides/pin-offset-ibm3624-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/pin-offset-ibm3624-guide/</guid>
+      <description>IBM 3624 PIN 验证的工作原理——十进制化表、PIN 偏移量计算、验证方法，以及与 PVV 的比较。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>PIN PVV（VISA）：PIN 验证值计算</title>
+      <link>https://hsmkit.com/zh/guides/pin-pvv-visa-verification/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/pin-pvv-visa-verification/</guid>
+      <description>VISA 的 PIN 验证值（PVV）系统工作原理——PDK 加密、PVKI 选择、PVV 计算和验证，以及与 PIN 偏移量的比较。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ZKA：德国银行会话密钥与 PIN 标准</title>
+      <link>https://hsmkit.com/zh/guides/zka-german-banking-standard/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/zka-german-banking-standard/</guid>
+      <description>了解 ZKA 标准——会话密钥（SK-pac）派生、PIN 加密、MAC 计算，以及德国支付终端的要求。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>VISA 证书验证：CA 密钥、发卡行证书与 EMV</title>
+      <link>https://hsmkit.com/zh/guides/visa-certificate-validation-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/visa-certificate-validation-guide/</guid>
+      <description>VISA 证书验证的工作原理——VSDC CA 公钥、发卡行证书验证、签名数据验证和 EMV 证书链。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 21 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>HSM 密钥管理：Thales、Futurex、Atalla 与 SafeNet 全解析</title>
+      <link>https://hsmkit.com/zh/guides/hsm-key-management-overview/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/hsm-key-management-overview/</guid>
+      <description>硬件安全模块（HSM）完整概述——密钥层次结构、主要厂商（Thales、Futurex、Atalla、SafeNet）及密钥传输标准。</description>
+      <category>Keys</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>DES 与 3DES：支付领域的遗留加密标准</title>
+      <link>https://hsmkit.com/zh/guides/des-3des-legacy-encryption/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/des-3des-legacy-encryption/</guid>
+      <description>深入理解 DES 和 3DES 加密——工作原理、为什么 DES 已被破解，以及 3DES 为何仍深植于支付基础设施中。</description>
+      <category>Cipher</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AES 加密详解：模式、填充与最佳实践</title>
+      <link>https://hsmkit.com/zh/guides/aes-encryption-explained/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/aes-encryption-explained/</guid>
+      <description>AES 加密完整指南——密钥长度、ECB/CBC/CTR/GCM 模式、填充、IV 最佳实践及常见错误。</description>
+      <category>Cipher</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>RSA 加密指南：密钥、填充方案与使用场景</title>
+      <link>https://hsmkit.com/zh/guides/rsa-encryption-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/rsa-encryption-guide/</guid>
+      <description>RSA 全面指南——密钥长度、OAEP 与 PKCS#1 填充、混合加密，以及何时选择 RSA 而非 ECC。</description>
+      <category>Cipher</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ECC 与 ECDSA：椭圆曲线密码学详解</title>
+      <link>https://hsmkit.com/zh/guides/ecc-digital-signatures-explained/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/ecc-digital-signatures-explained/</guid>
+      <description>了解椭圆曲线密码学——ECDSA 签名、ECDH 密钥协商、曲线选择，以及为什么 ECC 优于 RSA。</description>
+      <category>Cipher</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>哈希函数：MD5、SHA-256、BLAKE2 及使用场景</title>
+      <link>https://hsmkit.com/zh/guides/hash-functions-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/hash-functions-guide/</guid>
+      <description>密码学哈希函数实用指南——哪些已被破解（MD5、SHA-1）、应使用哪些（SHA-256、BLAKE2），以及在支付安全中的应用。</description>
+      <category>PKI</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ASN.1 与 X.509 证书：实用解析指南</title>
+      <link>https://hsmkit.com/zh/guides/asn1-certificates-explained/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/asn1-certificates-explained/</guid>
+      <description>理解 ASN.1 DER/PEM 编码、X.509 证书结构、OID，以及如何使用在线工具解析证书和密钥。</description>
+      <category>PKI</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>支付安全中的 MAC 算法：ISO 9797、HMAC 与 CMAC</title>
+      <link>https://hsmkit.com/zh/guides/mac-algorithms-payment-security/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/mac-algorithms-payment-security/</guid>
+      <description>银行业消息认证码完整指南——ISO 9797-1、零售 MAC、HMAC-SHA256、AES-CMAC 及其如何保护交易。</description>
+      <category>Payment</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ISO 8583 支付消息：结构、位图与数据元素</title>
+      <link>https://hsmkit.com/zh/guides/iso8583-payment-messages/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/iso8583-payment-messages/</guid>
+      <description>了解 ISO 8583 金融交易消息的工作原理——MTI、位图解析、数据元素、响应码，以及 PIN/MAC 的作用。</description>
+      <category>Payment</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Base64 编码详解：标准、URL 安全与使用场景</title>
+      <link>https://hsmkit.com/zh/guides/base64-encoding-guide/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/base64-encoding-guide/</guid>
+      <description>Base64 全面指南——工作原理、标准与 URL 安全变体、在 JWT 和证书中的应用，以及常见错误。</description>
+      <category>PKI</category>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>密钥分片与 KCV 终极指南</title>
+      <link>https://hsmkit.com/zh/guides/understanding-key-splitting-kcv/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/understanding-key-splitting-kcv/</guid>
+      <description>了解 XOR 密钥分片背后的数学原理，理解密钥校验值 (KCV)，掌握 PCI DSS 合规的加密密钥管理。</description>
+      <category>Keys</category>
+      <pubDate>Thu, 15 Jan 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>TR-31 密钥块格式详解</title>
+      <link>https://hsmkit.com/zh/guides/what-is-tr31-key-block/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/what-is-tr31-key-block/</guid>
+      <description>ANSI X9.143 / TR-31 密钥块格式完整指南，包括结构、密钥用途代码和实际编码示例。</description>
+      <category>Keys</category>
+      <pubDate>Wed, 14 Jan 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>PIN 块格式详解 (ISO 9564)</title>
+      <link>https://hsmkit.com/zh/guides/pin-block-formats-iso9564/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/pin-block-formats-iso9564/</guid>
+      <description>深入了解 ISO 9564 PIN 块格式 (0, 1, 2, 3, 4)，它们的安全特性，以及何时使用每种格式。</description>
+      <category>Payment</category>
+      <pubDate>Mon, 12 Jan 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>DUKPT 密钥派生完整教程</title>
+      <link>https://hsmkit.com/zh/guides/dukpt-key-derivation-tutorial/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/dukpt-key-derivation-tutorial/</guid>
+      <description>从 BDK 到工作密钥，掌握每笔交易唯一密钥派生 (DUKPT)，包含逐步派生示例。</description>
+      <category>Payment</category>
+      <pubDate>Sat, 10 Jan 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>CVV/CVC 计算方法详解</title>
+      <link>https://hsmkit.com/zh/guides/cvv-cvc-calculation-methods/</link>
+      <guid isPermaLink="true">https://hsmkit.com/zh/guides/cvv-cvc-calculation-methods/</guid>
+      <description>了解卡验证值背后的加密过程，包括 CVV1、CVV2、iCVV 和动态 CVV/CVC3。</description>
+      <category>Payment</category>
+      <pubDate>Thu, 08 Jan 2026 12:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

@@ -44,6 +44,8 @@ Use HSM Kit for educational work, interoperability testing, and non-production t
 - [XML sitemap](${siteUrl}/sitemap.xml): Canonical public pages and guides.
 - [English guides](${siteUrl}/guides/): Technical knowledge base with standards references.
 - [Chinese guides](${siteUrl}/zh/guides/): Chinese technical knowledge base.
+- [English RSS feed](${siteUrl}/guides/feed.xml): Latest English technical guides.
+- [Chinese RSS feed](${siteUrl}/zh/guides/feed.xml): Latest Chinese technical guides.
 - [Source code](https://github.com/hsm-kit/hsmkit): MIT-licensed project repository.
 - [AES validation vectors](${siteUrl}/test-vectors/aes.json): Machine-readable NIST known-answer vectors with HSM Kit verification metadata.
 

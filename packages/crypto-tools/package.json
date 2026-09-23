@@ -1,0 +1,52 @@
+{
+  "name": "@hsmkit/crypto-tools",
+  "version": "0.1.0",
+  "description": "Auditable client-safe primitives for encoding, check digits, key components, and payment test data.",
+  "type": "module",
+  "license": "MIT",
+  "author": "HSM Kit Editorial Team",
+  "homepage": "https://hsmkit.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hsm-kit/hsmkit.git",
+    "directory": "packages/crypto-tools"
+  },
+  "bugs": {
+    "url": "https://github.com/hsm-kit/hsmkit/issues"
+  },
+  "keywords": [
+    "cryptography",
+    "hsm",
+    "payment-security",
+    "luhn",
+    "pin-block",
+    "base64",
+    "hex"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.7"
+  }
+}
