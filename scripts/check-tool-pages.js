@@ -20,6 +20,16 @@ const failures = [];
 const hasExtractedStyles = html => /<link\b[^>]*\bdata-prerender-styles\b[^>]*>/i.test(html);
 const hasNonEmptyAntStyles = html => [...html.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi)]
   .some(([, attributes, css]) => /\b(?:data-rc-order|data-css-hash|data-icon)(?:=|\s|>)/i.test(attributes) && css.trim());
+const layeredThemeStyles = new Map();
+const hasLayeredThemeStyles = async html => {
+  const href = html.match(/<link\b(?=[^>]*\bdata-prerender-styles\b)[^>]*\bhref="([^"]+)"[^>]*>/i)?.[1];
+  if (!href) return false;
+  if (!layeredThemeStyles.has(href)) {
+    const css = await fs.readFile(path.join(root, 'dist', href.replace(/^\//, '')), 'utf8');
+    layeredThemeStyles.set(href, css.includes('@layer prerender-theme'));
+  }
+  return layeredThemeStyles.get(href);
+};
 
 for (const routePath of toolPaths) {
   const htmlPath = path.join(root, 'dist', routePath.slice(1), 'index.html');
@@ -45,7 +55,7 @@ for (const routePath of toolPaths) {
   if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
     failures.push(`${routePath}: canonical URL is not the final trailing-slash URL`);
   }
-  if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html)) {
+  if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html) || !await hasLayeredThemeStyles(html)) {
     failures.push(`${routePath}: Ant Design prerender styles were not extracted`);
   }
 
@@ -183,7 +193,7 @@ for (const { language, metadata, routePrefix } of guideLanguages) {
     } catch {
       guideFailures.push(`${routePath}: missing Markdown representation`);
     }
-    if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html)) {
+    if (!hasExtractedStyles(html) || hasNonEmptyAntStyles(html) || !await hasLayeredThemeStyles(html)) {
       guideFailures.push(`${routePath}: Ant Design prerender styles were not extracted`);
     }
     if (!hasFinalGuideUrls(html)) guideFailures.push(`${routePath}: canonical or hreflang URL redirects`);

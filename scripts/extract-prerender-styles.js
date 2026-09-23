@@ -28,7 +28,12 @@ for (const htmlPath of htmlFiles) {
   const styles = [];
   const strippedHtml = html.replace(stylePattern, (tag, attributes, css) => {
     if (!antStyleAttributes.test(attributes)) return tag;
-    styles.push(css);
+    const isThemeToken = /\bdata-token-hash(?:=|\s|>)/i.test(attributes);
+    styles.push(isThemeToken ? `@layer prerender-theme {${css}}` : css);
+    if (isThemeToken) {
+      removedBytes += Buffer.byteLength(tag);
+      return '';
+    }
     const marker = `<style${attributes}></style>`;
     removedBytes += Buffer.byteLength(tag) - Buffer.byteLength(marker);
     return marker;

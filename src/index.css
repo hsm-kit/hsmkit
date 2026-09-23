@@ -257,7 +257,6 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
 }
 
 .support-panel {
-  margin-top: 24px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   background: var(--card-bg);
@@ -275,6 +274,16 @@ body.dark-mode .ant-input-textarea textarea::placeholder {
 
 .support-panel .ant-typography {
   color: var(--text-primary);
+}
+
+.page-support-stack {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.page-support-stack > * {
+  margin-top: 0 !important;
 }
 
 .related-guide-row {
@@ -866,7 +875,13 @@ body.dark-mode .ant-typography strong {
 
 /* 暗黑模式 - 结果卡片柔和化 */
 body.dark-mode .ant-card {
-  /* 降低结果卡片的饱和度和对比度 */
+  background: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .ant-layout,
+body.dark-mode .ant-layout-content {
+  background: var(--bg-color) !important;
 }
 
 /* 暗黑模式 - 滚动条 */

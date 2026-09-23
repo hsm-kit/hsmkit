@@ -38,7 +38,6 @@ const RelatedGuidesSection: React.FC<{
     <Card
       className="tool-page-related"
       style={{
-        marginTop: 24,
         boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
         background: isDark ? '#1f1f1f' : '#fff',
         border: isDark ? '1px solid #303030' : '1px solid #e8e8e8',
@@ -199,7 +198,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
         <>
           <RelatedGuidesSection guides={relatedGuides} language={language} isDark={isDark} toolId={seoKey} />
           {relatedTools.length > 0 && (
-            <Card className="tool-page-related-tools" style={{ marginTop: 24 }}>
+            <Card className="tool-page-related-tools">
               <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
                 <AppstoreAddOutlined style={{ marginRight: 8 }} />
                 {t.common?.relatedTools || 'Related Tools'}

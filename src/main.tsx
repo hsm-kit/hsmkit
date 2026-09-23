@@ -10,7 +10,9 @@ import { ThemeProvider } from './hooks/useTheme'
 import { ErrorBoundary } from './components/common'
 
 const rootEl = document.getElementById('root')!;
-const initialContentHtml = rootEl.querySelector<HTMLElement>('#main-content > div')?.innerHTML;
+const initialContentHtml = document.documentElement.dataset.theme === 'dark'
+  ? undefined
+  : rootEl.querySelector<HTMLElement>('#main-content > div')?.innerHTML;
 const initialPathname = window.location.pathname;
 
 const app = (

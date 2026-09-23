@@ -100,3 +100,19 @@
 .ant-menu-submenu-popup .ant-menu {
   border-radius: 8px !important;
 }
+
+body.dark-mode .ant-menu-submenu-popup,
+body.dark-mode .ant-menu-submenu-popup .ant-menu {
+  background: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .ant-menu-submenu-popup .ant-menu-item,
+body.dark-mode .ant-menu-submenu-popup .ant-menu-submenu-title {
+  color: var(--text-primary) !important;
+}
+
+body.dark-mode .ant-menu-submenu-popup .ant-menu-item:hover,
+body.dark-mode .ant-menu-submenu-popup .ant-menu-submenu-title:hover {
+  background: var(--surface-muted) !important;
+}

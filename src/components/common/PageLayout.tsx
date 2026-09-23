@@ -170,42 +170,44 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       
       {/* Main tool content */}
       {children}
-      
-      {/* Usage Guide Section - adds text content for SEO */}
-      {usageContent && (
-        <Card className="support-panel support-panel--accent tool-page-usage">
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
-            <ReadOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
-            {usageTitle}
-          </Title>
-          <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-            {usageContent}
-          </div>
-        </Card>
-      )}
 
-      {relatedContent}
-      
-      {/* FAQ Section - adds keyword-rich text content for SEO */}
-      {faqs && faqs.length > 0 && (
-        <Card className="support-panel tool-page-faq">
-          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
-            <QuestionCircleOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
-            {faqTitle}
-          </Title>
-          <Collapse
-            ghost
-            items={faqs.map((faq, index) => ({
-              key: index,
-              label: <Text strong>{faq.question}</Text>,
-              children: <div style={{ color: 'var(--text-secondary)', marginBottom: 0 }}>{faq.answer}</div>
-            }))}
-            style={{ background: 'transparent' }}
-          />
-        </Card>
-      )}
+      <div className="page-support-stack">
+        {/* Usage Guide Section - adds text content for SEO */}
+        {usageContent && (
+          <Card className="support-panel support-panel--accent tool-page-usage">
+            <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+              <ReadOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
+              {usageTitle}
+            </Title>
+            <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+              {usageContent}
+            </div>
+          </Card>
+        )}
 
-      {footerContent}
+        {relatedContent}
+
+        {/* FAQ Section - adds keyword-rich text content for SEO */}
+        {faqs && faqs.length > 0 && (
+          <Card className="support-panel tool-page-faq">
+            <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+              <QuestionCircleOutlined style={{ marginRight: 8, color: 'var(--primary-color)' }} />
+              {faqTitle}
+            </Title>
+            <Collapse
+              ghost
+              items={faqs.map((faq, index) => ({
+                key: index,
+                label: <Text strong>{faq.question}</Text>,
+                children: <div style={{ color: 'var(--text-secondary)', marginBottom: 0 }}>{faq.answer}</div>
+              }))}
+              style={{ background: 'transparent' }}
+            />
+          </Card>
+        )}
+
+        {footerContent}
+      </div>
     </>
   );
 };
