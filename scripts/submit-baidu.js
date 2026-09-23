@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const siteOrigin = 'https://hsmkit.com';
-const baiduSite = 'hsmkit.com';
+const baiduSite = siteOrigin;
 const token = process.env.BAIDU_PUSH_TOKEN?.trim();
 const dryRun = process.argv.includes('--dry-run');
 const submitAll = process.argv.includes('--all');
