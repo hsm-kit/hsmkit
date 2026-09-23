@@ -41,15 +41,14 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
   children,
   structuredData,
 }) => {
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const { isDark } = useTheme();
   const schemaId = useId();
   const canonicalUrl = normalizeSiteUrl(canonical);
-  const authorityLabels = languageLabels(language);
   const relatedPages = [
-    { href: '/about/', label: authorityLabels.about },
-    { href: '/editorial-policy/', label: authorityLabels.editorialPolicy },
-    { href: '/authors/editorial-team/', label: authorityLabels.editorialTeam },
+    { href: '/about/', label: t.footer.about },
+    { href: '/editorial-policy/', label: t.footer.editorialPolicy },
+    { href: '/authors/editorial-team/', label: t.footer.editorialTeam },
     { href: '/privacy-policy/', label: t.footer.privacyPolicy },
     { href: '/terms-of-service/', label: t.footer.termsOfService },
     { href: '/disclaimer/', label: t.footer.disclaimer },
@@ -122,9 +121,5 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
     </>
   );
 };
-
-const languageLabels = (language: string) => language === 'zh'
-  ? { about: '关于 HSM Kit', editorialPolicy: '编辑政策', editorialTeam: '编辑与安全审核团队' }
-  : { about: 'About HSM Kit', editorialPolicy: 'Editorial Policy', editorialTeam: 'Editorial Team' };
 
 export default LegalPageLayout;

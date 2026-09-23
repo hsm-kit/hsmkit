@@ -2,6 +2,9 @@
 export default {
   footer: {
     tagline: '基于浏览器的安全计算工具',
+    about: '关于',
+    editorialPolicy: '编辑政策',
+    editorialTeam: '编辑团队',
     privacyPolicy: '隐私政策',
     termsOfService: '服务条款',
     disclaimer: '免责声明',

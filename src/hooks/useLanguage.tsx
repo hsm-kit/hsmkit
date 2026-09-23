@@ -32,11 +32,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 
   const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
     try {
       localStorage.setItem('language', lang);
     } catch { /* localStorage unavailable */ }
-    document.documentElement.lang = langMap[lang];
 
     loadLanguage(lang).then(() => {
       void i18n.changeLanguage(lang);
@@ -50,6 +48,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const onLangChanged = (lng: string) => {
       const bundle = i18n.getResourceBundle(lng, 'translation');
       if (bundle) {
+        document.documentElement.lang = langMap[lng as Language] || lng;
         setTranslations(bundle as Translations);
         setLanguageState(lng as Language);
       }

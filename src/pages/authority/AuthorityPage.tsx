@@ -4,12 +4,13 @@ import { InfoCircleOutlined, AuditOutlined, TeamOutlined } from '@ant-design/ico
 import { LegalPageLayout } from '../../components/common/LegalPageLayout';
 import { useLanguage } from '../../hooks/useLanguage';
 import type { AuthorityContent } from './authorityContent';
+import type { Language } from '../../locales';
 
 const { Paragraph } = Typography;
 
 interface AuthorityPageProps {
   canonical: string;
-  content: Record<'en' | 'zh', AuthorityContent>;
+  content: Record<Language, AuthorityContent>;
   type: 'about' | 'policy' | 'team';
 }
 
@@ -21,7 +22,7 @@ const icons = {
 
 export const AuthorityPage: React.FC<AuthorityPageProps> = ({ canonical, content, type }) => {
   const { language } = useLanguage();
-  const page = content[language === 'zh' ? 'zh' : 'en'];
+  const page = content[language];
   const canonicalUrl = `https://hsmkit.com${canonical}`;
   const structuredData = type === 'team'
     ? {

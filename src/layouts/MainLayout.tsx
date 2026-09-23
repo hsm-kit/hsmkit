@@ -325,7 +325,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
             color: isDark ? '#8c8c8c' : '#666',
             textDecoration: 'none',
           }}>
-            {language === 'zh' ? '关于' : 'About'}
+            {t.footer.about}
           </Link>
           <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
           <Link to="/editorial-policy/" style={{
@@ -333,7 +333,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
             color: isDark ? '#8c8c8c' : '#666',
             textDecoration: 'none',
           }}>
-            {language === 'zh' ? '编辑政策' : 'Editorial Policy'}
+            {t.footer.editorialPolicy}
           </Link>
           <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
           <Link to="/privacy-policy/" style={{ 
