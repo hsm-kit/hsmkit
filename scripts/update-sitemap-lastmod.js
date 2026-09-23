@@ -5,6 +5,7 @@
  * 用法：
  * - node scripts/update-sitemap-lastmod.js
  * - node scripts/update-sitemap-lastmod.js --date 2026-01-15
+ * - node scripts/update-sitemap-lastmod.js --tools-date 2026-09-23
  * - node scripts/update-sitemap-lastmod.js --file public/sitemap.xml
  */
 
@@ -20,6 +21,7 @@ function getArgValue(flag) {
 async function main() {
   const fileArg = getArgValue('--file');
   const dateArg = getArgValue('--date');
+  const toolsDateArg = getArgValue('--tools-date');
 
   const sitemapPath = path.resolve(process.cwd(), fileArg ?? 'public/sitemap.xml');
   const xml = await fs.readFile(sitemapPath, 'utf8');
@@ -87,7 +89,13 @@ async function main() {
   let updatedCount = 0;
   const updated = sitemapWithGuides.replace(/<url>[\s\S]*?<\/url>/g, (urlBlock) => {
     const url = urlBlock.match(/<loc>([^<]+)<\/loc>/)?.[1];
-    const lastmodDate = dateArg ?? guideLastModified.get(url);
+    const isToolUrl = Boolean(url
+      && url.startsWith('https://hsmkit.com/')
+      && url !== 'https://hsmkit.com/'
+      && !url.includes('/guides/')
+      && !url.includes('/zh/guides/')
+      && !/(?:privacy-policy|terms-of-service|disclaimer)$/.test(url));
+    const lastmodDate = dateArg ?? guideLastModified.get(url) ?? (isToolUrl ? toolsDateArg : undefined);
     if (!lastmodDate) return urlBlock;
     updatedCount += 1;
     return urlBlock.replace(/<lastmod>[^<]*<\/lastmod>/, `<lastmod>${lastmodDate}</lastmod>`);
@@ -95,7 +103,9 @@ async function main() {
   await fs.writeFile(sitemapPath, updated, 'utf8');
 
   const relative = path.relative(process.cwd(), sitemapPath) || sitemapPath;
-  const mode = dateArg ? `to ${dateArg}` : 'from guide metadata';
+  const mode = dateArg
+    ? `to ${dateArg}`
+    : toolsDateArg ? `from guide metadata and tool date ${toolsDateArg}` : 'from guide metadata';
   console.log(`✓ Updated ${updatedCount} <lastmod> entries in ${relative} ${mode}`);
 }
 

@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org)
-[![Tests](https://img.shields.io/badge/Tests-56%20passed-brightgreen?style=flat-square)](#testing)
+[![Tests](https://img.shields.io/badge/Tests-90%2B%20passed-brightgreen?style=flat-square)](#testing)
 
 [English](README.md) | **简体中文** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
@@ -43,10 +43,13 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 | ♿ **无障碍** | ARIA 标签、键盘导航、skip-to-content、aria-live 区域，符合 WCAG 2.1 AA 标准 |
 | ⚡ **懒加载** | 路由级代码分割，首屏只加载当前页面 |
 | 🔍 **SEO 优化** | 预渲染静态 HTML、Schema 标记、多语言 hreflang |
-| 📚 **知识库** | 38 篇深度技术文章，覆盖加密、支付、HSM 等核心主题 |
-| 📝 **Example 按钮** | 所有工具页提供示例数据一键填充 |
-| 🕐 **最近使用** | 记录常用工具，快速访问 |
-| 🧪 **测试覆盖** | Vitest 单元测试，核心工具函数 100% 覆盖 |
+| 📚 **知识库** | 英文 42 篇 + 中文 42 篇技术文章，静态可索引交付 |
+| 📝 **上下文安全 Example** | 示例填充保留当前模式、格式、Tab 与启用开关，不会隐式切换 |
+| ✅ **统一输入校验** | 所有工具输入统一采用灰/绿/红长度与格式状态 |
+| ⭐ **收藏与最近使用** | 本地收藏 + 90 天最近工具记录，无需账号 |
+| 🔗 **工作流发现** | 每个工具关联下一步相关工具与配套指南 |
+| 📊 **隐私安全事件** | 可选 GA/Zaraz 事件仅包含动作与工具 ID，不采集输入和结果 |
+| 🧪 **测试覆盖** | 90+ 项 Vitest 测试，并对 44 个工具生产页面执行冒烟检查 |
 
 ---
 
@@ -125,9 +128,9 @@ HSM Kit 是一款专业的在线加密工具套件，专为金融、支付和安
 
 ## 📚 知识库
 
-HSM Kit 内置安全知识库 (`/guides`)，提供 38 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
+HSM Kit 内置安全知识库 (`/guides/`)，英语与中文各提供 42 篇深度技术文章，覆盖加密算法、支付安全、HSM 密钥管理等核心主题，文章之间通过内链互相引用，并直接关联对应工具。
 
-### 加密工具 (5 篇)
+### 加密工具 (9 篇)
 
 | 文章 | 路由 |
 |------|------|
@@ -136,6 +139,10 @@ HSM Kit 内置安全知识库 (`/guides`)，提供 38 篇深度技术文章，�
 | RSA 加密指南 | `/guides/rsa-encryption-guide` |
 | ECC 与 ECDSA | `/guides/ecc-digital-signatures-explained` |
 | FPE 格式保留加密 | `/guides/fpe-format-preserving-encryption` |
+| AES-GCM 与 AES-CBC 对比 | `/guides/aes-gcm-vs-cbc/` |
+| AES IV 与 Nonce 重用 | `/guides/aes-iv-nonce-reuse/` |
+| AES PKCS#7 填充 | `/guides/pkcs7-padding-aes/` |
+| Web Crypto AES-GCM | `/guides/web-crypto-aes-gcm/` |
 
 ### 密钥管理 (8 篇)
 
@@ -199,7 +206,7 @@ HSM Kit 内置安全知识库 (`/guides`)，提供 38 篇深度技术文章，�
 
 - 📝 **Markdown 渲染** - 支持代码块、表格、内部链接
 - 🔗 **工具内链** - 文章正文中直接链接相关工具和关联文章
-- 🌍 **中英双语** - 英语和中文各 38 篇完整翻译
+- 🌍 **中英双语** - 英语和中文各 42 篇完整翻译
 - 📖 **目录导航** - 右侧 TOC 快速定位，滚动高亮
 - 🔍 **搜索功能** - 全文搜索文章内容
 
@@ -213,14 +220,17 @@ hsmkit/
 │   ├── favicon.svg             # 网站 Logo
 │   ├── favicon-*.png           # PWA 图标 (48/192/512)
 │   ├── apple-touch-icon.png    # iOS 图标
-│   ├── sitemap.xml             # 网站地图 (80+ URLs, 含 hreflang)
+│   ├── sitemap.xml             # 网站地图 (144 URLs, 含 hreflang)
 │   ├── robots.txt              # 爬虫指令
 │   ├── _headers                # HTTP 头配置 (Cloudflare)
 │   └── _redirects              # SPA 路由重定向
 │
 ├── scripts/                    # 构建脚本
 │   ├── generate-favicon-png.js # Favicon 生成
-│   └── update-sitemap-lastmod.js # Sitemap 日期更新
+│   ├── generate-guide-og.js    # 知识库社交分享图生成
+│   ├── prerender-guides.js     # 知识库静态页面生成
+│   ├── check-tool-pages.js     # 生产页面冒烟检查
+│   └── update-sitemap-lastmod.js # 指南/工具 Sitemap 日期维护
 │
 ├── src/
 │   ├── components/             # 可复用组件
@@ -244,11 +254,12 @@ hsmkit/
 │   │
 │   ├── content/                # 知识库内容
 │   │   └── guides/
-│   │       ├── en/             # 英文文章 (38 篇 Markdown)
-│   │       └── zh/             # 中文文章 (38 篇 Markdown)
+│   │       ├── en/             # 英文文章 (42 篇 Markdown)
+│   │       └── zh/             # 中文文章 (42 篇 Markdown)
 │   │
 │   ├── data/                   # 数据文件
 │   │   ├── examples.ts         # 工具示例数据
+│   │   ├── toolRelations.ts    # 相关工具工作流关系
 │   │   ├── toolGuidesMap.ts    # 工具与指南映射
 │   │   └── guides/
 │   │       ├── en.json         # 英文文章元数据
@@ -259,7 +270,7 @@ hsmkit/
 │   │   ├── useTheme.tsx        # 主题切换 (暗黑/明亮)
 │   │   ├── useToolForm.ts      # 工具表单通用 Hook
 │   │   ├── useToast.ts         # Toast 通知
-│   │   ├── useRecentTools.ts   # 最近使用工具
+│   │   ├── useRecentTools.ts   # 最近使用与本地收藏
 │   │   └── useInputHistory.ts  # 输入历史记录
 │   │
 │   ├── lib/                    # 第三方库 (vendored)
@@ -284,6 +295,7 @@ hsmkit/
 │   │   └── pki/                # PKI 工具页面
 │   │
 │   ├── utils/                  # 工具函数
+│   │   ├── analytics.ts        # 隐私安全的工具行为事件（不含输入/结果）
 │   │   ├── crypto.ts           # 核心加密工具 (KCV, PIN Block, 密钥校验)
 │   │   ├── crypto.test.ts      # 加密工具单元测试
 │   │   ├── hex.ts              # 十六进制工具 (cleanHex, isValidHex, getCryptoMode)
@@ -351,6 +363,12 @@ npm run build
 npm run preview
 ```
 
+当版本修改了工具页功能时，只更新 44 个工具页的日期，不覆盖首页、法律页或指南的真实日期：
+
+```bash
+node scripts/update-sitemap-lastmod.js --tools-date YYYY-MM-DD
+```
+
 > **注意**：构建时需要 Chrome。`prebuild` 脚本会自动通过 `npx puppeteer browsers install chrome` 安装，在 Cloudflare Pages 等 CI 环境中会自动执行。
 
 ### 类型检查
@@ -371,6 +389,9 @@ npm run lint:fix
 ```bash
 # 运行所有测试
 npm test
+
+# 检查所有生成后的工具页与知识库页面
+npm run test:pages
 
 # 监听模式
 npm run test:watch

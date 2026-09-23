@@ -19,4 +19,13 @@
 
 HSM Kit est un kit d'outils de cryptographie en ligne professionnel conçu pour les développeurs, testeurs et ingénieurs en sécurité dans les domaines de la finance, du paiement et de la sécurité. Il propose 44+ outils couvrant la gestion des clés HSM, la sécurité des paiements, les certificats PKI et les algorithmes cryptographiques.
 
+## ✨ Fonctionnalités principales
+
+- **44+ outils dans le navigateur** — clés, PIN, entrées et résultats ne quittent jamais l'appareil
+- **Base de connaissances sécurité** — 42 articles anglais et 42 articles chinois en pages statiques
+- **Exemples sans changement de contexte** — conservent le mode, le format, l'onglet et les options actifs
+- **Validation cohérente** — longueurs et formats affichés en gris/vert/rouge dans tous les outils
+- **Favoris et outils récents** — enregistrés localement, sans compte
+- **Open source** — 90+ tests unitaires et vérification des pages des 44 outils
+
 **[📖 Documentation détaillée (Anglais)](README.md)**

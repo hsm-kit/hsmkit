@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org)
-[![Tests](https://img.shields.io/badge/Tests-56%20passed-brightgreen?style=flat-square)](#testing)
+[![Tests](https://img.shields.io/badge/Tests-90%2B%20passed-brightgreen?style=flat-square)](#testing)
 
 **English** | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
@@ -43,10 +43,13 @@ HSM Kit is a professional online encryption toolkit designed for developers, tes
 | ♿ **Accessible** | ARIA labels, keyboard navigation, skip-to-content, aria-live regions, WCAG 2.1 AA compliant |
 | ⚡ **Lazy Loading** | Route-level code splitting, only loads current page |
 | 🔍 **SEO Optimized** | Pre-rendered static HTML, Schema markup, multi-language hreflang |
-| 📚 **Knowledge Base** | 38 in-depth technical articles on encryption, payment, HSM topics |
-| 📝 **Example Button** | One-click example data fill for all tools |
-| 🕐 **Recent Tools** | Track frequently used tools for quick access |
-| 🧪 **Test Coverage** | Vitest unit tests, 100% coverage for core utility functions |
+| 📚 **Knowledge Base** | 42 English + 42 Chinese technical articles with static, indexable delivery |
+| 📝 **Context-safe Examples** | One-click examples preserve the selected mode, format, tab, and enabling toggles |
+| ✅ **Consistent Input Validation** | Shared gray/green/red length and format states across all tool inputs |
+| ⭐ **Favorites & Recent Tools** | Local favorites plus 90-day recent-tool history, with no account required |
+| 🔗 **Workflow Discovery** | Each tool links to the next relevant tools and its supporting guides |
+| 📊 **Privacy-safe Events** | Optional GA/Zaraz events contain action/tool IDs only, never form values or results |
+| 🧪 **Test Coverage** | 90+ Vitest tests plus production page smoke checks for all 44 tools |
 
 ---
 
@@ -125,13 +128,13 @@ HSM Kit is a professional online encryption toolkit designed for developers, tes
 
 ## 📚 Knowledge Base
 
-HSM Kit includes a built-in knowledge base (`/guides`) with 38 in-depth technical articles covering encryption algorithms, payment security, HSM key management, and more. Articles are cross-linked and directly connected to corresponding tools.
+HSM Kit includes a built-in knowledge base (`/guides/`) with 42 in-depth technical articles in each of English and Chinese, covering encryption algorithms, payment security, HSM key management, and more. Articles are cross-linked and directly connected to corresponding tools.
 
 ### Knowledge Base Features
 
 - 📝 **Markdown Rendering** - Code blocks, tables, internal links
 - 🔗 **Tool Integration** - Direct links to related tools and articles
-- 🌍 **Bilingual** - English and Chinese, 38 articles each, fully translated
+- 🌍 **Bilingual** - English and Chinese, 42 articles each, fully translated
 - 📖 **Table of Contents** - Right-side TOC navigation with scroll highlighting
 - 🔍 **Search** - Full-text search across articles
 
@@ -145,14 +148,17 @@ hsmkit/
 │   ├── favicon.svg             # Website logo
 │   ├── favicon-*.png           # PWA icons (48/192/512)
 │   ├── apple-touch-icon.png    # iOS icon
-│   ├── sitemap.xml             # Sitemap (80+ URLs with hreflang)
+│   ├── sitemap.xml             # Sitemap (144 URLs with hreflang)
 │   ├── robots.txt              # Crawler instructions
 │   ├── _headers                # HTTP headers (Cloudflare)
 │   └── _redirects              # SPA route redirects
 │
 ├── scripts/                    # Build scripts
 │   ├── generate-favicon-png.js # Favicon generation
-│   └── update-sitemap-lastmod.js # Sitemap date update
+│   ├── generate-guide-og.js    # Per-guide social image generation
+│   ├── prerender-guides.js     # Static guide-page generation
+│   ├── check-tool-pages.js     # Production page smoke checks
+│   └── update-sitemap-lastmod.js # Guide/tool sitemap maintenance
 │
 ├── src/
 │   ├── components/             # Reusable components
@@ -163,6 +169,8 @@ hsmkit/
 │   │   │   ├── SEO.tsx         # SEO meta tags + prerender
 │   │   │   ├── ResultCard.tsx  # Result display (aria-live)
 │   │   │   ├── ErrorCard.tsx   # Error display (role="alert")
+│   │   │   ├── LengthIndicator.tsx # Shared input length/format states
+│   │   │   ├── ExampleButton.tsx # Context-preserving example loading
 │   │   │   ├── ErrorBoundary.tsx # Error boundary
 │   │   │   ├── ReloadPrompt.tsx # PWA update prompt (dark mode)
 │   │   │   └── ...
@@ -175,7 +183,13 @@ hsmkit/
 │   │   ├── useLanguage.tsx     # Multi-language switching
 │   │   ├── useTheme.tsx        # Theme switching
 │   │   ├── useToolForm.ts      # Tool form hook
+│   │   ├── useRecentTools.ts   # Recent tools and local favorites
 │   │   └── ...
+│   │
+│   ├── data/                   # Tool metadata and examples
+│   │   ├── examples.ts         # Non-production example values
+│   │   ├── toolRelations.ts    # Related-tool workflow graph
+│   │   └── toolGuidesMap.ts    # Tool-to-guide links
 │   │
 │   ├── locales/                # Translations (6 languages)
 │   │   ├── en/                 # English
@@ -186,6 +200,7 @@ hsmkit/
 │   │   └── fr/                 # French
 │   │
 │   ├── utils/                  # Utility functions
+│   │   ├── analytics.ts        # Privacy-safe tool action events
 │   │   ├── crypto.ts           # Core crypto utilities
 │   │   ├── crypto.test.ts      # Crypto unit tests
 │   │   ├── hex.ts              # Hex utilities
@@ -241,6 +256,12 @@ npm run build
 npm run preview
 ```
 
+When a release changes tool-page functionality, refresh only the 44 tool-page dates without rewriting homepage, legal, or guide dates:
+
+```bash
+node scripts/update-sitemap-lastmod.js --tools-date YYYY-MM-DD
+```
+
 > **Note**: Chrome is required for building. The `prebuild` script automatically installs it via `npx puppeteer browsers install chrome`.
 
 ### Type Checking
@@ -261,6 +282,9 @@ npm run lint:fix
 ```bash
 # Run all tests
 npm test
+
+# Smoke-test every generated tool and guide page
+npm run test:pages
 
 # Watch mode
 npm run test:watch
