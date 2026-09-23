@@ -17,6 +17,7 @@ const blockedPatterns = [
 ];
 
 const failures = [];
+const localizedTools = JSON.parse(await fs.readFile(path.join(root, 'src/data/localized-tools.json'), 'utf8'));
 const hasExtractedStyles = html => /<link\b[^>]*\bdata-prerender-styles\b[^>]*>/i.test(html);
 const hasNonEmptyAntStyles = html => [...html.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi)]
   .some(([, attributes, css]) => /\b(?:data-rc-order|data-css-hash|data-icon)(?:=|\s|>)/i.test(attributes) && css.trim());
@@ -47,6 +48,10 @@ for (const routePath of toolPaths) {
   if (!/<(?:input|textarea|button)\b|role="(?:textbox|button|combobox|radio|checkbox)"/i.test(html)) {
     failures.push(`${routePath}: no interactive tool controls rendered`);
   }
+  const h1Tags = html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi) || [];
+  if (h1Tags.length !== 1 || /visually-hidden/.test(h1Tags[0])) {
+    failures.push(`${routePath}: expected one visible H1`);
+  }
   const robotsTags = html.match(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi) || [];
   if (robotsTags.some((tag) => /\bnoindex\b/i.test(tag))) {
     failures.push(`${routePath}: unexpectedly marked noindex`);
@@ -70,12 +75,56 @@ for (const routePath of toolPaths) {
   }
 }
 
+let checkedLocalizedTools = 0;
+for (const tool of localizedTools) {
+  const alternates = [
+    ['en', `https://hsmkit.com${tool.englishPath}/`],
+    ['zh', `https://hsmkit.com${tool.chinesePath}/`],
+    ['x-default', `https://hsmkit.com${tool.englishPath}/`],
+  ];
+  for (const [language, routePath] of [['en', tool.englishPath], ['zh', tool.chinesePath]]) {
+    checkedLocalizedTools += 1;
+    const htmlPath = path.join(root, 'dist', routePath.slice(1), 'index.html');
+    let html;
+    try {
+      html = await fs.readFile(htmlPath, 'utf8');
+    } catch {
+      failures.push(`${routePath}: missing localized tool HTML`);
+      continue;
+    }
+    const canonical = `https://hsmkit.com${routePath}/`;
+    if (!html.includes(`<html lang="${language === 'zh' ? 'zh-CN' : 'en'}"`)) {
+      failures.push(`${routePath}: incorrect localized html lang`);
+    }
+    if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
+      failures.push(`${routePath}: incorrect localized canonical`);
+    }
+    if (alternates.some(([lang, href]) => !html.includes(`hreflang="${lang}" href="${href}"`))) {
+      failures.push(`${routePath}: missing reciprocal localized hreflang`);
+    }
+  }
+}
+
+for (const routePath of ['/about', '/editorial-policy', '/authors/editorial-team']) {
+  const html = await fs.readFile(path.join(root, 'dist', routePath.slice(1), 'index.html'), 'utf8');
+  if (!html.includes(`<link rel="canonical" href="https://hsmkit.com${routePath}/">`)
+      || (html.match(/<h1\b/g) || []).length !== 1
+      || !html.includes('application/ld+json')) {
+    failures.push(`${routePath}: invalid authority page metadata`);
+  }
+}
+
+const aesVectors = JSON.parse(await fs.readFile(path.join(root, 'dist/test-vectors/aes.json'), 'utf8'));
+if (aesVectors.vectors?.length !== 4) {
+  failures.push('/test-vectors/aes.json: expected four published AES vectors');
+}
+
 if (failures.length > 0) {
   console.error(`Tool page smoke check failed (${failures.length}/${toolPaths.length}):`);
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log(`Tool page smoke check passed: ${toolPaths.length}/${toolPaths.length} pages rendered.`);
+  console.log(`Tool page smoke check passed: ${toolPaths.length}/${toolPaths.length} shared routes and ${checkedLocalizedTools}/${checkedLocalizedTools} localized variants rendered.`);
 }
 
 const guideFailures = [];

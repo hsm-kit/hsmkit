@@ -11,6 +11,7 @@ Use HSM Kit for educational work, interoperability testing, and non-production t
 - [English guides](https://hsmkit.com/guides/): Technical knowledge base with standards references.
 - [Chinese guides](https://hsmkit.com/zh/guides/): Chinese technical knowledge base.
 - [Source code](https://github.com/hsm-kit/hsmkit): MIT-licensed project repository.
+- [AES validation vectors](https://hsmkit.com/test-vectors/aes.json): Machine-readable NIST known-answer vectors with HSM Kit verification metadata.
 
 Each guide article also has a Markdown representation at its canonical URL followed by index.md, for example https://hsmkit.com/guides/aes-gcm-vs-cbc/index.md.
 
@@ -117,3 +118,4 @@ Each guide article also has a Markdown representation at its canonical URL follo
 - [AES IV and Nonce Reuse: Risks & Prevention](https://hsmkit.com/guides/aes-iv-nonce-reuse/): Learn why IV and nonce reuse breaks AES-CBC, CTR, and GCM security, how to generate safe values, and how to design reliable nonce storage.
 - [PKCS#7 Padding for AES: How It Works](https://hsmkit.com/guides/pkcs7-padding-aes/): Understand PKCS#7 padding byte by byte, including full-block padding, validation, common errors, and safe unpadding for AES-CBC.
 - [Web Crypto AES-GCM: Browser Encryption Guide](https://hsmkit.com/guides/web-crypto-aes-gcm/): Implement AES-GCM with the Web Crypto API using secure key generation, unique nonces, authenticated data, and portable ciphertext packaging.
+- [AES Test Vectors: Browser and Library Validation Lab](https://hsmkit.com/guides/aes-test-vectors-browser-validation/): Reproduce NIST AES-128, AES-192, AES-256, ECB, and CBC known-answer vectors in CryptoJS, Web Crypto, and the HSM Kit browser tool.

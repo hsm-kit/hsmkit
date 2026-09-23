@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "title": "HSM Kit AES Known-Answer Validation Set",
+  "description": "A normalized, machine-readable set of published NIST AES known-answer vectors used by HSM Kit regression tests and browser interoperability checks.",
+  "license": "Public standards data; HSM Kit normalization and test harness are provided under the project MIT license.",
+  "methodology": {
+    "hexEncoding": "Uppercase or lowercase hexadecimal values represent raw bytes without prefixes or separators.",
+    "padding": "NONE",
+    "verification": [
+      "CryptoJS AES with NoPadding for every vector",
+      "Web Crypto AES-CBC ciphertext prefix for the CBC vector; Web Crypto appends one mandatory PKCS#7 block",
+      "HSM Kit AES browser tool using Hexadecimal input"
+    ],
+    "lastVerified": "2026-09-23"
+  },
+  "vectors": [
+    {
+      "id": "fips-197-aes-128-ecb",
+      "source": "NIST FIPS 197 Appendix C.1",
+      "sourceUrl": "https://csrc.nist.gov/pubs/fips/197/final",
+      "algorithm": "AES-128",
+      "mode": "ECB",
+      "padding": "NONE",
+      "keyHex": "000102030405060708090A0B0C0D0E0F",
+      "plaintextHex": "00112233445566778899AABBCCDDEEFF",
+      "ciphertextHex": "69C4E0D86A7B0430D8CDB78070B4C55A"
+    },
+    {
+      "id": "fips-197-aes-192-ecb",
+      "source": "NIST FIPS 197 Appendix C.2",
+      "sourceUrl": "https://csrc.nist.gov/pubs/fips/197/final",
+      "algorithm": "AES-192",
+      "mode": "ECB",
+      "padding": "NONE",
+      "keyHex": "000102030405060708090A0B0C0D0E0F1011121314151617",
+      "plaintextHex": "00112233445566778899AABBCCDDEEFF",
+      "ciphertextHex": "DDA97CA4864CDFE06EAF70A0EC0D7191"
+    },
+    {
+      "id": "fips-197-aes-256-ecb",
+      "source": "NIST FIPS 197 Appendix C.3",
+      "sourceUrl": "https://csrc.nist.gov/pubs/fips/197/final",
+      "algorithm": "AES-256",
+      "mode": "ECB",
+      "padding": "NONE",
+      "keyHex": "000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F",
+      "plaintextHex": "00112233445566778899AABBCCDDEEFF",
+      "ciphertextHex": "8EA2B7CA516745BFEAFC49904B496089"
+    },
+    {
+      "id": "sp800-38a-aes-128-cbc",
+      "source": "NIST SP 800-38A F.2.1",
+      "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/38/a/final",
+      "algorithm": "AES-128",
+      "mode": "CBC",
+      "padding": "NONE",
+      "keyHex": "2B7E151628AED2A6ABF7158809CF4F3C",
+      "ivHex": "000102030405060708090A0B0C0D0E0F",
+      "plaintextHex": "6BC1BEE22E409F96E93D7E117393172AAE2D8A571E03AC9C9EB76FAC45AF8E5130C81C46A35CE411E5FBC1191A0A52EFF69F2445DF4F9B17AD2B417BE66C3710",
+      "ciphertextHex": "7649ABAC8119B246CEE98E9B12E9197D5086CB9B507219EE95DB113A917678B273BED6B8E3C1743B7116E69E222295163FF1CAA1681FAC09120ECA307586E1A7"
+    }
+  ]
+}

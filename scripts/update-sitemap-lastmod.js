@@ -42,6 +42,9 @@ async function main() {
   const categories = JSON.parse(
     await fs.readFile(path.resolve(process.cwd(), 'src/data/guides/categories.json'), 'utf8')
   );
+  const localizedTools = JSON.parse(
+    await fs.readFile(path.resolve(process.cwd(), 'src/data/localized-tools.json'), 'utf8')
+  );
 
   const guideLastModified = new Map();
   const guideEntries = [];
@@ -81,9 +84,57 @@ async function main() {
   </url>`;
     })
     .join('\n');
-  const sitemapWithGuides = missingGuideBlocks
+  let sitemapWithGuides = missingGuideBlocks
     ? normalizedXml.replace('</urlset>', `\n${missingGuideBlocks}\n</urlset>`)
     : normalizedXml;
+
+  const authorityEntries = [
+    { url: 'https://hsmkit.com/about/', priority: '0.6' },
+    { url: 'https://hsmkit.com/editorial-policy/', priority: '0.6' },
+    { url: 'https://hsmkit.com/authors/editorial-team/', priority: '0.6' },
+  ];
+  const currentUrls = new Set([...sitemapWithGuides.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]));
+  const additionalBlocks = [
+    ...authorityEntries
+      .filter(entry => !currentUrls.has(entry.url))
+      .map(entry => `  <url>
+    <loc>${entry.url}</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${entry.priority}</priority>
+  </url>`),
+    ...localizedTools
+      .map(tool => ({
+        ...tool,
+        englishUrl: `https://hsmkit.com${tool.englishPath}/`,
+        chineseUrl: `https://hsmkit.com${tool.chinesePath}/`,
+      }))
+      .filter(tool => !currentUrls.has(tool.chineseUrl))
+      .map(tool => `  <url>
+    <loc>${tool.chineseUrl}</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${tool.englishUrl}" />
+    <xhtml:link rel="alternate" hreflang="zh" href="${tool.chineseUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${tool.englishUrl}" />
+  </url>`),
+  ];
+  if (additionalBlocks.length > 0) {
+    sitemapWithGuides = sitemapWithGuides.replace('</urlset>', `\n${additionalBlocks.join('\n')}\n</urlset>`);
+  }
+
+  for (const tool of localizedTools) {
+    const englishUrl = `https://hsmkit.com${tool.englishPath}/`;
+    const chineseUrl = `https://hsmkit.com${tool.chinesePath}/`;
+    sitemapWithGuides = sitemapWithGuides.replace(/<url>[\s\S]*?<\/url>/g, block => {
+      if (!block.includes(`<loc>${englishUrl}</loc>`) || block.includes('hreflang="zh"')) return block;
+      return block.replace('</url>', `    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />
+    <xhtml:link rel="alternate" hreflang="zh" href="${chineseUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${englishUrl}" />
+  </url>`);
+    });
+  }
 
   const matches = [...sitemapWithGuides.matchAll(/<lastmod>[^<]*<\/lastmod>/g)];
   if (matches.length === 0) {

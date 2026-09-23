@@ -43,13 +43,15 @@ HSM Kit is a professional online encryption toolkit designed for developers, tes
 | ♿ **Accessible** | ARIA labels, keyboard navigation, skip-to-content, aria-live regions, WCAG 2.1 AA compliant |
 | ⚡ **Lazy Loading** | Route-level code splitting, only loads current page |
 | 🔍 **SEO Optimized** | Pre-rendered static HTML, Schema markup, multi-language hreflang |
-| 📚 **Knowledge Base** | 42 English + 42 Chinese technical articles with static, indexable delivery |
+| 📚 **Knowledge Base** | 43 English + 43 Chinese technical articles with static, indexable delivery |
+| 🇨🇳 **Localized Tool URLs** | 8 high-demand tools have canonical Chinese URLs with reciprocal hreflang |
+| 🧪 **Published Test Vectors** | Downloadable AES JSON vectors verified by CryptoJS and Web Crypto regression tests |
 | 📝 **Context-safe Examples** | One-click examples preserve the selected mode, format, tab, and enabling toggles |
 | ✅ **Consistent Input Validation** | Shared gray/green/red length and format states across all tool inputs |
 | ⭐ **Favorites & Recent Tools** | Local favorites plus 90-day recent-tool history, with no account required |
 | 🔗 **Workflow Discovery** | Each tool links to the next relevant tools and its supporting guides |
 | 📊 **Privacy-safe Events** | Optional GA/Zaraz events contain action/tool IDs only, never form values or results |
-| 🧪 **Test Coverage** | 90+ Vitest tests plus production page smoke checks for all 44 tools |
+| 🧪 **Test Coverage** | 100+ Vitest tests plus production page smoke checks for all 44 tools |
 
 ---
 
@@ -134,7 +136,7 @@ HSM Kit includes a built-in knowledge base (`/guides/`) with 42 in-depth technic
 
 - 📝 **Markdown Rendering** - Code blocks, tables, internal links
 - 🔗 **Tool Integration** - Direct links to related tools and articles
-- 🌍 **Bilingual** - English and Chinese, 42 articles each, fully translated
+- 🌍 **Bilingual** - English and Chinese, 43 articles each, fully translated
 - 📖 **Table of Contents** - Right-side TOC navigation with scroll highlighting
 - 🔍 **Search** - Full-text search across articles
 

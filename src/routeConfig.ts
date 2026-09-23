@@ -1,5 +1,6 @@
 import { type ComponentType } from 'react';
 import { normalizePublicPath, normalizeRoutePath } from './utils/publicUrl';
+import { localizedToolPaths } from './utils/toolPath';
 import {
   HomePage,
   ASN1Page,
@@ -49,6 +50,9 @@ import {
   PrivacyPolicyPage,
   TermsOfServicePage,
   DisclaimerPage,
+  AboutPage,
+  EditorialPolicyPage,
+  EditorialTeamPage,
 } from './routes';
 
 // 路由配置 - 单一数据源
@@ -151,14 +155,31 @@ export const routeComponentMap: Record<string, ComponentType> = {
   '/privacy-policy': PrivacyPolicyPage,
   '/terms-of-service': TermsOfServicePage,
   '/disclaimer': DisclaimerPage,
+  '/about': AboutPage,
+  '/editorial-policy': EditorialPolicyPage,
+  '/authors/editorial-team': EditorialTeamPage,
+  '/zh/aes-encryption': AESPage,
+  '/zh/base64': Base64Page,
+  '/zh/hashes': HashPage,
+  '/zh/rsa-encryption': RSAPage,
+  '/zh/tr31-key-block': TR31Page,
+  '/zh/payments-pin-blocks-general': PinBlockGeneralPage,
+  '/zh/payments-bitmap': BitmapPage,
+  '/zh/keys-dea': KeyGeneratorPage,
 };
 
 // 生成双向映射
 export const routeToKey: Record<string, string> = Object.fromEntries(
-  routes.flatMap(r => [
+  [
+    ...routes.flatMap(r => [
     [normalizeRoutePath(r.path), r.key],
     [normalizePublicPath(r.path), r.key],
-  ])
+    ]),
+    ...Object.entries(localizedToolPaths).flatMap(([englishPath, chinesePath]) => {
+      const key = routes.find(route => route.path === englishPath)?.key;
+      return key ? [[chinesePath, key], [normalizePublicPath(chinesePath), key]] : [];
+    }),
+  ]
 );
 export const keyToRoute: Record<string, string> = Object.fromEntries(
   routes.map(r => [r.key, normalizePublicPath(r.path)])

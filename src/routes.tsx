@@ -109,3 +109,10 @@ export const TermsOfServicePage = lazy(
 export const DisclaimerPage = lazy(
   () => import("./pages/legal/DisclaimerPage"),
 );
+export const AboutPage = lazy(() => import("./pages/authority/AboutPage"));
+export const EditorialPolicyPage = lazy(
+  () => import("./pages/authority/EditorialPolicyPage"),
+);
+export const EditorialTeamPage = lazy(
+  () => import("./pages/authority/EditorialTeamPage"),
+);

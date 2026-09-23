@@ -14,6 +14,7 @@ import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import { trackToolEvent } from '../../utils/analytics';
 import { normalizePublicPath, normalizeRoutePath, normalizeSiteUrl } from '../../utils/publicUrl';
 import { prefetchRoutePath } from '../../routeConfig';
+import { getEnglishToolPath, getLocalizedToolPath, getToolAlternates, getToolRouteLanguage } from '../../utils/toolPath';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -103,13 +104,17 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   const location = useLocation();
   const routePath = normalizeRoutePath(location.pathname);
   const publicPath = normalizePublicPath(location.pathname);
-  const canonicalUrl = normalizeSiteUrl(canonical);
+  const routeLanguage = getToolRouteLanguage(routePath);
+  const canonicalUrl = routeLanguage
+    ? `https://hsmkit.com${publicPath}`
+    : normalizeSiteUrl(canonical);
+  const alternates = getToolAlternates(routePath);
   const { addRecentTool } = useRecentTools();
   const { favoriteTools, toggleFavorite } = useFavoriteTools();
   const seo = seoContent[language]?.[seoKey as keyof typeof seoContent.en] 
     || seoContent.en[seoKey as keyof typeof seoContent.en];
 
-  const relatedGuides = getRelatedGuides(routePath);
+  const relatedGuides = getRelatedGuides(getEnglishToolPath(routePath));
   const relatedTools = getRelatedTools(seoKey);
   const favorite = favoriteTools.includes(publicPath);
 
@@ -177,6 +182,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       seoDescription={seoData.description}
       seoKeywords={seoData.keywords}
       canonical={canonicalUrl}
+      alternates={alternates}
       faqTitle={seoData.faqTitle}
       faqs={seoData.faqs}
       usageTitle={seoData.usageTitle}
@@ -207,14 +213,15 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 {relatedTools.map(tool => {
                   const targetSeo = (seoContent[language] as Record<string, { title?: string }> | undefined)?.[tool.seoKey]
                     || (seoContent.en as Record<string, { title?: string }>)[tool.seoKey];
+                  const targetPath = getLocalizedToolPath(tool.path, language);
                   return (
                     <Link
                       key={tool.path}
-                      to={tool.path}
+                      to={targetPath}
                       className="tool-related-link"
-                      onPointerEnter={() => prefetchRoutePath(tool.path)}
-                      onFocus={() => prefetchRoutePath(tool.path)}
-                      onTouchStart={() => prefetchRoutePath(tool.path)}
+                      onPointerEnter={() => prefetchRoutePath(targetPath)}
+                      onFocus={() => prefetchRoutePath(targetPath)}
+                      onTouchStart={() => prefetchRoutePath(targetPath)}
                       onClick={() => trackToolEvent('next_tool_click', { toolId: seoKey, targetId: tool.seoKey })}
                     >
                       <span>{getShortTitle(targetSeo?.title || tool.seoKey)}</span>
@@ -257,9 +264,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       toolName={toolName}
       toolCategory={toolCategory}
     >
-      <h1 className="visually-hidden">{toolName}</h1>
-      <div className="tool-page-actions">
+      <div className="tool-page-heading">
+        <h1>{getShortTitle(seoData.title)}</h1>
         <Button
+          className="tool-page-favorite"
           type="text"
           icon={favorite ? <StarFilled /> : <StarOutlined />}
           aria-pressed={favorite}

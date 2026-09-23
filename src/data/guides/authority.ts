@@ -13,13 +13,13 @@ export interface GuideReference {
 export const GUIDE_AUTHOR: GuideContributor = {
   name: 'HSM Kit Editorial Team',
   role: 'Technical writing and examples',
-  url: 'https://hsmkit.com/guides/',
+  url: 'https://hsmkit.com/authors/editorial-team/',
 };
 
 export const GUIDE_REVIEWER: GuideContributor = {
   name: 'HSM Kit Security Review Team',
   role: 'Standards and security review',
-  url: 'https://hsmkit.com/guides/',
+  url: 'https://hsmkit.com/authors/editorial-team/#security-review',
 };
 
 const references = {
@@ -106,6 +106,7 @@ const referenceMap: Record<string, ReferenceKey[]> = {
   'aes-iv-nonce-reuse': ['sp80038d', 'sp80038a'],
   'pkcs7-padding-aes': ['rfc5652', 'sp80038a'],
   'web-crypto-aes-gcm': ['webCrypto', 'sp80038d'],
+  'aes-test-vectors-browser-validation': ['fips197', 'sp80038a', 'webCrypto'],
 };
 
 export const GUIDE_REFERENCE_SLUGS = Object.keys(referenceMap);

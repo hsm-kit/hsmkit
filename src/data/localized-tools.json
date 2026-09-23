@@ -1,0 +1,10 @@
+[
+  { "seoKey": "aes", "englishPath": "/aes-encryption", "chinesePath": "/zh/aes-encryption" },
+  { "seoKey": "base64", "englishPath": "/base64", "chinesePath": "/zh/base64" },
+  { "seoKey": "hash", "englishPath": "/hashes", "chinesePath": "/zh/hashes" },
+  { "seoKey": "rsa", "englishPath": "/rsa-encryption", "chinesePath": "/zh/rsa-encryption" },
+  { "seoKey": "tr31", "englishPath": "/tr31-key-block", "chinesePath": "/zh/tr31-key-block" },
+  { "seoKey": "pinBlockGeneral", "englishPath": "/payments-pin-blocks-general", "chinesePath": "/zh/payments-pin-blocks-general" },
+  { "seoKey": "bitmap", "englishPath": "/payments-bitmap", "chinesePath": "/zh/payments-bitmap" },
+  { "seoKey": "keyGenerator", "englishPath": "/keys-dea", "chinesePath": "/zh/keys-dea" }
+]

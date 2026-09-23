@@ -43,6 +43,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { useFavoriteTools, useRecentTools } from '../../hooks/useRecentTools';
 import seoContent from '../../locales/seo';
 import { prefetchRoutePath } from '../../routeConfig';
+import { getEnglishToolPath, getLocalizedToolPath } from '../../utils/toolPath';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -311,19 +312,19 @@ const HomePage: React.FC = () => {
       icon: config.icon,
       title: (home.tools as Record<string, { title: string; description: string }>)[config.titleKey]?.title || config.titleKey,
       description: (home.tools as Record<string, { title: string; description: string }>)[config.descKey]?.description || '',
-      path: config.path,
+      path: getLocalizedToolPath(config.path, language),
       color: config.color,
       category: config.category,
       keywords: config.keywords,
       difficulty: config.difficulty,
     })),
-    [home.tools]
+    [home.tools, language]
   );
   const resolvedRecentTools = recentTools
-    .map(recent => tools.find(tool => tool.path === recent.path))
+    .map(recent => tools.find(tool => getEnglishToolPath(tool.path) === getEnglishToolPath(recent.path)))
     .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
   const resolvedFavoriteTools = favoriteTools
-    .map(path => tools.find(tool => tool.path === path))
+    .map(path => tools.find(tool => getEnglishToolPath(tool.path) === getEnglishToolPath(path)))
     .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
 
   // 基于搜索词过滤的工具列表（用于计算分类计数）

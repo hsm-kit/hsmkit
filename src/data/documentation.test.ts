@@ -5,6 +5,7 @@ import articlesEn from './guides/en.json';
 import articlesZh from './guides/zh.json';
 import categories from './guides/categories.json';
 import { toolDirectory } from './toolRelations';
+import localizedTools from './localized-tools.json';
 
 const root = process.cwd();
 const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -38,6 +39,12 @@ describe('open-source documentation', () => {
     toolDirectory.forEach(tool => {
       expect(sitemapUrls).toContain(`https://hsmkit.com${tool.path}`);
     });
+    localizedTools.forEach(tool => {
+      expect(sitemapUrls).toContain(`https://hsmkit.com${tool.chinesePath}/`);
+    });
+    ['/about/', '/editorial-policy/', '/authors/editorial-team/'].forEach(route => {
+      expect(sitemapUrls).toContain(`https://hsmkit.com${route}`);
+    });
 
     for (const language of ['en', 'zh'] as const) {
       const prefix = language === 'en' ? '/guides/' : '/zh/guides/';
@@ -51,6 +58,8 @@ describe('open-source documentation', () => {
       });
     }
 
-    expect(sitemapUrls).toHaveLength(144);
+    const expectedUrlCount = 1 + toolDirectory.length + 3 + 3 + localizedTools.length
+      + 2 + categories.length * 2 + articlesEn.length + articlesZh.length;
+    expect(sitemapUrls).toHaveLength(expectedUrlCount);
   });
 });

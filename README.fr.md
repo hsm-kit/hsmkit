@@ -22,11 +22,12 @@ HSM Kit est un kit d'outils de cryptographie en ligne professionnel conçu pour 
 ## ✨ Fonctionnalités principales
 
 - **44+ outils dans le navigateur** — clés, PIN, entrées et résultats ne quittent jamais l'appareil
-- **Base de connaissances sécurité** — 42 articles anglais et 42 articles chinois en pages statiques
+- **Base de connaissances sécurité** — 43 articles anglais et 43 articles chinois en pages statiques
 - **Exemples sans changement de contexte** — conservent le mode, le format, l'onglet et les options actifs
 - **Validation cohérente** — longueurs et formats affichés en gris/vert/rouge dans tous les outils
 - **Favoris et outils récents** — enregistrés localement, sans compte
 - **Documentation adaptée à l'IA** — `llms.txt`, catalogue structuré et versions Markdown de tous les guides
-- **Open source** — 90+ tests unitaires et vérification des pages des 44 outils
+- **Outils localisés et vecteurs de test** — 8 URL chinoises canoniques et vecteurs AES JSON exécutables
+- **Open source** — 100+ tests unitaires et vérification des pages des 44 outils
 
 **[📖 Documentation détaillée (Anglais)](README.md)**

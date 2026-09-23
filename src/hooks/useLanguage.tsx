@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import i18n, { loadLanguage } from '../i18n';
 import type { Language, Translations } from '../locales';
 import { LanguageContext, useLanguageContext, type LanguageContextType } from './languageContext';
+import { getToolRouteLanguage } from '../utils/toolPath';
 
 const langMap: Record<Language, string> = {
   en: 'en',
@@ -16,6 +17,8 @@ const langMap: Record<Language, string> = {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
+    const routeLanguage = getToolRouteLanguage(window.location.pathname);
+    if (routeLanguage) return routeLanguage;
     try {
       const saved = localStorage.getItem('language') as Language;
       return saved || 'en';
@@ -25,7 +28,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   });
 
   const [translations, setTranslations] = useState<Translations>(
-    () => i18n.getResourceBundle('en', 'translation') as Translations
+    () => (i18n.getResourceBundle(language, 'translation') || i18n.getResourceBundle('en', 'translation')) as Translations
   );
 
   const setLanguage = useCallback((lang: Language) => {

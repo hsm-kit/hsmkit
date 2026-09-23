@@ -263,6 +263,7 @@ const GuideDetailPage: React.FC = () => {
       },
       publisher: {
         '@type': 'Organization',
+        '@id': 'https://hsmkit.com/#organization',
         name: 'HSM Kit',
         url: 'https://hsmkit.com',
         logo: {
@@ -448,8 +449,8 @@ const GuideDetailPage: React.FC = () => {
 
               {/* Authorship and review metadata */}
               <div className="guide-authority-meta" style={{ fontSize: 14, display: 'flex', flexWrap: 'wrap', gap: '8px 18px' }}>
-                <span><TeamOutlined style={{ marginRight: 6 }} />{labels.author} {GUIDE_AUTHOR.name}</span>
-                <span><SafetyCertificateOutlined style={{ marginRight: 6 }} />{labels.reviewer} {GUIDE_REVIEWER.name}</span>
+                <span><TeamOutlined style={{ marginRight: 6 }} />{labels.author} <a href={GUIDE_AUTHOR.url}>{GUIDE_AUTHOR.name}</a></span>
+                <span><SafetyCertificateOutlined style={{ marginRight: 6 }} />{labels.reviewer} <a href={GUIDE_REVIEWER.url}>{GUIDE_REVIEWER.name}</a></span>
                 <span><CalendarOutlined style={{ marginRight: 6 }} />{labels.lastReviewed}: {formatDate(getGuideLastReviewed(meta.lastModified))}</span>
                 <span><ClockCircleOutlined style={{ marginRight: 6 }} />{readTime} {t.guides?.minRead || 'min read'}</span>
               </div>

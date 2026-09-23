@@ -61,11 +61,24 @@ export const routes = [
   '/payments-pin-pvv',
   '/payments-visa-certificates',
   '/payments-zka',
+
+  // Chinese localized tools
+  '/zh/aes-encryption',
+  '/zh/base64',
+  '/zh/hashes',
+  '/zh/rsa-encryption',
+  '/zh/tr31-key-block',
+  '/zh/payments-pin-blocks-general',
+  '/zh/payments-bitmap',
+  '/zh/keys-dea',
   
   // Legal Pages
   '/privacy-policy',
   '/terms-of-service',
   '/disclaimer',
+  '/about',
+  '/editorial-policy',
+  '/authors/editorial-team',
   
   // Guides / Knowledge Base - English (default)
   '/guides',

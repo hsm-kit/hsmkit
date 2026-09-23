@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useId, useLayoutEffect } from 'react';
 import { Typography } from 'antd';
 import { SEO } from './SEO';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
+import { normalizeSiteUrl } from '../../utils/publicUrl';
 
 const { Title, Text } = Typography;
 
@@ -23,6 +24,7 @@ interface LegalPageLayoutProps {
   lastUpdatedDateTime: string;
   sections: LegalSectionLink[];
   children: React.ReactNode;
+  structuredData?: object;
 }
 
 export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
@@ -37,14 +39,21 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
   lastUpdatedDateTime,
   sections,
   children,
+  structuredData,
 }) => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const { isDark } = useTheme();
+  const schemaId = useId();
+  const canonicalUrl = normalizeSiteUrl(canonical);
+  const authorityLabels = languageLabels(language);
   const relatedPages = [
-    { href: '/privacy-policy', label: t.footer.privacyPolicy },
-    { href: '/terms-of-service', label: t.footer.termsOfService },
-    { href: '/disclaimer', label: t.footer.disclaimer },
-  ].filter(({ href }) => !canonical.endsWith(href));
+    { href: '/about/', label: authorityLabels.about },
+    { href: '/editorial-policy/', label: authorityLabels.editorialPolicy },
+    { href: '/authors/editorial-team/', label: authorityLabels.editorialTeam },
+    { href: '/privacy-policy/', label: t.footer.privacyPolicy },
+    { href: '/terms-of-service/', label: t.footer.termsOfService },
+    { href: '/disclaimer/', label: t.footer.disclaimer },
+  ].filter(({ href }) => canonicalUrl !== `https://hsmkit.com${href}`);
 
   const tableOfContents = (
     <nav className="legal-toc" aria-label={t.guides.onThisPage}>
@@ -62,13 +71,23 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
     </nav>
   );
 
+  useLayoutEffect(() => {
+    if (!structuredData) return;
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = `authority-schema-${schemaId}`;
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+    return () => script.remove();
+  }, [schemaId, structuredData]);
+
   return (
     <>
       <SEO
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
-        canonical={canonical}
+        canonical={canonicalUrl}
       />
 
       <article className={`legal-page${isDark ? ' legal-page-dark' : ''}`}>
@@ -103,5 +122,9 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
     </>
   );
 };
+
+const languageLabels = (language: string) => language === 'zh'
+  ? { about: '关于 HSM Kit', editorialPolicy: '编辑政策', editorialTeam: '编辑与安全审核团队' }
+  : { about: 'About HSM Kit', editorialPolicy: 'Editorial Policy', editorialTeam: 'Editorial Team' };
 
 export default LegalPageLayout;

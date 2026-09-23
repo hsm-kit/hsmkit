@@ -32,6 +32,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/aes-encryption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/aes-encryption/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/aes-encryption/" />
   </url>
   <url>
     <loc>https://hsmkit.com/des-encryption/</loc>
@@ -44,6 +47,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/rsa-encryption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/rsa-encryption/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/rsa-encryption/" />
   </url>
   <url>
     <loc>https://hsmkit.com/ecc-encryption/</loc>
@@ -64,6 +70,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/keys-dea/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/keys-dea/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/keys-dea/" />
   </url>
   <url>
     <loc>https://hsmkit.com/keyshare-generator/</loc>
@@ -110,6 +119,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/tr31-key-block/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/tr31-key-block/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/tr31-key-block/" />
   </url>
   
   <!-- Payment Tools - AS2805 & Message -->
@@ -124,6 +136,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/payments-bitmap/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/payments-bitmap/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/payments-bitmap/" />
   </url>
   
   <!-- Payment Tools - Card Validation -->
@@ -210,6 +225,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/payments-pin-blocks-general/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/payments-pin-blocks-general/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/payments-pin-blocks-general/" />
   </url>
   <url>
     <loc>https://hsmkit.com/payments-pin-blocks-aes/</loc>
@@ -250,6 +268,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/hashes/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/hashes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/hashes/" />
   </url>
   <url>
     <loc>https://hsmkit.com/character-encoding/</loc>
@@ -274,6 +295,9 @@
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/base64/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/base64/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/base64/" />
   </url>
   <url>
     <loc>https://hsmkit.com/base94/</loc>
@@ -323,7 +347,7 @@
   <!-- Guides / Knowledge Base - English -->
   <url>
     <loc>https://hsmkit.com/guides/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/" />
@@ -469,7 +493,7 @@
   <!-- Guides / Knowledge Base - Chinese -->
   <url>
     <loc>https://hsmkit.com/zh/guides/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/" />
@@ -1049,7 +1073,7 @@
   </url>
   <url>
     <loc>https://hsmkit.com/guides/cipher/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/cipher/" />
@@ -1094,7 +1118,7 @@
   </url>
   <url>
     <loc>https://hsmkit.com/zh/guides/cipher/</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/cipher/" />
@@ -1191,5 +1215,115 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/web-crypto-aes-gcm/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/web-crypto-aes-gcm/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/web-crypto-aes-gcm/" />
+  </url>
+
+  <url>
+    <loc>https://hsmkit.com/about/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/editorial-policy/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/authors/editorial-team/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/aes-encryption/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/aes-encryption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/aes-encryption/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/aes-encryption/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/base64/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/base64/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/base64/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/base64/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/hashes/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/hashes/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/hashes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/hashes/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/rsa-encryption/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/rsa-encryption/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/rsa-encryption/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/rsa-encryption/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/tr31-key-block/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/tr31-key-block/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/tr31-key-block/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/tr31-key-block/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/payments-pin-blocks-general/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/payments-pin-blocks-general/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/payments-pin-blocks-general/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/payments-pin-blocks-general/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/payments-bitmap/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/payments-bitmap/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/payments-bitmap/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/payments-bitmap/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/keys-dea/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/keys-dea/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/keys-dea/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/keys-dea/" />
+  </url>
+
+  <url>
+    <loc>https://hsmkit.com/guides/aes-test-vectors-browser-validation/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/aes-test-vectors-browser-validation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/aes-test-vectors-browser-validation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/aes-test-vectors-browser-validation/" />
+  </url>
+  <url>
+    <loc>https://hsmkit.com/zh/guides/aes-test-vectors-browser-validation/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hsmkit.com/guides/aes-test-vectors-browser-validation/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://hsmkit.com/zh/guides/aes-test-vectors-browser-validation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsmkit.com/guides/aes-test-vectors-browser-validation/" />
   </url>
 </urlset>

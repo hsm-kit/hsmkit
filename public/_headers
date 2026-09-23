@@ -27,6 +27,10 @@
   Cache-Control: public, max-age=86400
   Content-Type: application/json; charset=utf-8
 
+/test-vectors/*.json
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+
 /*/index.md
   Cache-Control: public, max-age=86400
   Content-Type: text/markdown; charset=utf-8

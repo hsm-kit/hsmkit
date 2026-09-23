@@ -105,11 +105,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       },
       author: {
         '@type': 'Organization',
+        '@id': 'https://hsmkit.com/#organization',
         name: 'HSM Kit',
         url: 'https://hsmkit.com',
       },
       publisher: {
         '@type': 'Organization',
+        '@id': 'https://hsmkit.com/#organization',
         name: 'HSM Kit',
         url: 'https://hsmkit.com',
       },

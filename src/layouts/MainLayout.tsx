@@ -15,6 +15,7 @@ import { ReloadPrompt } from '../components/common/ReloadPrompt';
 import ErrorBoundary from '../components/common/ErrorBoundary';
 import { getGuidesPath, isGuidesPage } from '../utils/guidesPath';
 import { routeToKey, keyToRoute, prefetchRoute } from '../routeConfig';
+import { getLocalizedToolPath } from '../utils/toolPath';
 import { createMenuItems, createMobileMenuItems } from '../menuConfig';
 import '../menu-styles.css';
 
@@ -83,7 +84,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
 
   const handleMenuClick = useCallback((key: string) => {
     prefetchRoute(key);
-    const route = key === 'home' ? '/' : key === 'guides' ? getGuidesPath(language) : keyToRoute[key];
+    const baseRoute = key === 'home' ? '/' : key === 'guides' ? getGuidesPath(language) : keyToRoute[key];
+    const route = baseRoute ? getLocalizedToolPath(baseRoute, language) : undefined;
     if (route) {
       if (key === 'guides') {
         window.location.assign(route);
@@ -318,7 +320,23 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
           </Text>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Link to="/privacy-policy" style={{ 
+          <Link to="/about/" style={{
+            fontSize: isMobile ? 12 : 13,
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+          }}>
+            {language === 'zh' ? '关于' : 'About'}
+          </Link>
+          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
+          <Link to="/editorial-policy/" style={{
+            fontSize: isMobile ? 12 : 13,
+            color: isDark ? '#8c8c8c' : '#666',
+            textDecoration: 'none',
+          }}>
+            {language === 'zh' ? '编辑政策' : 'Editorial Policy'}
+          </Link>
+          <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
+          <Link to="/privacy-policy/" style={{ 
             fontSize: isMobile ? 12 : 13, 
             color: isDark ? '#8c8c8c' : '#666',
             textDecoration: 'none',
@@ -327,7 +345,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
             {t.footer.privacyPolicy}
           </Link>
           <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/terms-of-service" style={{ 
+          <Link to="/terms-of-service/" style={{ 
             fontSize: isMobile ? 12 : 13, 
             color: isDark ? '#8c8c8c' : '#666',
             textDecoration: 'none',
@@ -336,7 +354,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, i
             {t.footer.termsOfService}
           </Link>
           <Text style={{ fontSize: 12, color: isDark ? '#595959' : '#bfbfbf' }}>•</Text>
-          <Link to="/disclaimer" style={{ 
+          <Link to="/disclaimer/" style={{ 
             fontSize: isMobile ? 12 : 13, 
             color: isDark ? '#8c8c8c' : '#666',
             textDecoration: 'none',
