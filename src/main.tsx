@@ -10,6 +10,8 @@ import { ThemeProvider } from './hooks/useTheme'
 import { ErrorBoundary } from './components/common'
 
 const rootEl = document.getElementById('root')!;
+const initialContentHtml = rootEl.querySelector<HTMLElement>('#main-content > div')?.innerHTML;
+const initialPathname = window.location.pathname;
 
 const app = (
   <StrictMode>
@@ -17,7 +19,7 @@ const app = (
       <BrowserRouter>
         <LanguageProvider>
           <ThemeProvider>
-            <App />
+            <App initialContentHtml={initialContentHtml} initialPathname={initialPathname} />
           </ThemeProvider>
         </LanguageProvider>
       </BrowserRouter>
@@ -25,12 +27,6 @@ const app = (
   </StrictMode>
 );
 
-// Puppeteer prerender output is a browser DOM snapshot, not React SSR markup.
-// Replace it while hidden instead of attempting hydration and forcing React to
-// discard the visible tree after a mismatch.
 rootEl.replaceChildren();
 const root = createRoot(rootEl);
 flushSync(() => root.render(app));
-rootEl.style.visibility = '';
-document.getElementById('client-render-guard')?.remove();
-delete document.documentElement.dataset.clientRender;

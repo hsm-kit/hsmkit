@@ -77,19 +77,19 @@ export default defineConfig({
           {
             name: 'AES Encryption',
             short_name: 'AES',
-            url: '/aes-encryption',
+            url: '/aes-encryption/',
             icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
           },
           {
             name: 'Key Generator',
             short_name: 'Keys',
-            url: '/keys-dea',
+            url: '/keys-dea/',
             icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
           },
           {
             name: 'Guides',
             short_name: 'Guides',
-            url: '/guides',
+            url: '/guides/',
             icons: [{ src: 'favicon-192.png', sizes: '192x192' }],
           },
         ],
@@ -108,7 +108,7 @@ export default defineConfig({
             handler: 'NetworkFirst',
             options: {
               cacheName: 'page-cache',
-              networkTimeoutSeconds: 3,
+              networkTimeoutSeconds: 1,
               expiration: {
                 maxEntries: 20,
                 maxAgeSeconds: 60 * 60 * 24 * 7,

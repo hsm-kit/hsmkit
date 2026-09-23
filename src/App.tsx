@@ -4,9 +4,14 @@ import MainLayout from './layouts/MainLayout';
 import { routeComponentMap } from './routeConfig';
 import NotFoundPage from './pages/NotFoundPage';
 
-const App: React.FC = () => {
+interface AppProps {
+  initialContentHtml?: string;
+  initialPathname: string;
+}
+
+const App: React.FC<AppProps> = ({ initialContentHtml, initialPathname }) => {
   return (
-    <MainLayout>
+    <MainLayout initialContentHtml={initialContentHtml} initialPathname={initialPathname}>
       {Object.entries(routeComponentMap).map(([path, Component]) => (
         <Route key={path} path={path} element={<Component />} />
       ))}

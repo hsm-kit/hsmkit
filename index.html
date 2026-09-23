@@ -111,11 +111,6 @@
         }
         document.documentElement.setAttribute('data-theme', theme);
 
-        document.documentElement.setAttribute('data-client-render', 'true');
-        var style = document.createElement('style');
-        style.id = 'client-render-guard';
-        style.textContent = '#root{visibility:hidden}';
-        document.head.appendChild(style);
       })();
     </script>
 

@@ -44,9 +44,11 @@ const PageSkeleton: React.FC = () => (
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  initialContentHtml?: string;
+  initialPathname: string;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, initialContentHtml, initialPathname }) => {
   const { language, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -285,7 +287,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       >
         <div style={{ marginTop: isMobile ? 16 : 24, minHeight: 380 }}>
           <ErrorBoundary>
-            <Suspense fallback={<PageSkeleton />}>
+            <Suspense fallback={initialContentHtml && location.pathname === initialPathname
+              ? <div dangerouslySetInnerHTML={{ __html: initialContentHtml }} />
+              : <PageSkeleton />}
+            >
               <Routes>
                 {children}
               </Routes>
